@@ -1,0 +1,145 @@
+{
+  "title": "Business Flashcards",
+  "cards": [
+    {
+      "front": "Was ist die wirtschaftliche Definition eines 'Bedürfnisses'?",
+      "back": "Es ist der Ausdruck eines Mangelgefühls, wie zum Beispiel Hunger oder das Verlangen nach Unterhaltung."
+    },
+    {
+      "front": "Unter welcher Bedingung wird ein menschliches 'Bedürfnis' zu einem wirtschaftlichen 'Bedarf'?",
+      "back": "Wenn die nötige Kaufkraft vorhanden ist, um dieses Bedürfnis zu befriedigen."
+    },
+    {
+      "front": "Wie entsteht die 'Nachfrage' auf dem Markt?",
+      "back": "Sie entsteht, wenn ein wirtschaftlicher Bedarf tatsächlich durch eine Bestellung oder einen Kauf am Markt wirksam wird."
+    },
+    {
+      "front": "Wie wird eine kostenpflichtige Beratung durch einen Anwalt für eine private Angelegenheit gütertechnisch klassifiziert?",
+      "back": "Sie wird als Dienstleistung klassifiziert, die als Konsumgut fungiert."
+    },
+    {
+      "front": "Was ist der primäre Fokus von 'sozialen Zielen' in einem Unternehmen?",
+      "back": "Sie definieren die Erwartungen an Mitarbeiterzufriedenheit, Motivation und humane Arbeitsbedingungen."
+    },
+    {
+      "front": "Was legen 'Sachziele' in einem unternehmerischen Kontext fest?",
+      "back": "Sie bestimmen das spezifische Angebot an Produkten und Dienstleistungen, das auf dem Markt angeboten werden soll."
+    },
+    {
+      "front": "Was sind 'Werkstoffe' im Kontext betrieblicher Produktionsfaktoren?",
+      "back": "Das sind Rohstoffe und Bauteile, die verarbeitet, modifiziert oder umverpackt werden, um ein Produkt herzustellen."
+    },
+    {
+      "front": "Wie werden 'Betriebsmittel' als Produktionsfaktoren definiert?",
+      "back": "Es sind langlebige Vermögenswerte wie Maschinen oder Fahrzeuge, die den Produktionsprozess technisch ermöglichen."
+    },
+    {
+      "front": "Welches Auswahlkriterium bewertet die Fähigkeit einer Agentur, eine Marke und eine Zielgruppe zu verstehen?",
+      "back": "Kreativität und Konzept."
+    },
+    {
+      "front": "Was ist der Zweck der Überprüfung von 'Referenzen' einer Agentur während des Auswahlprozesses?",
+      "back": "Um die Qualität ihrer bisherigen Arbeit zu beurteilen und zu sehen, ob sie ähnliche Projekte durchgeführt haben."
+    },
+    {
+      "front": "Was sollte bei den 'Kosten' untersucht werden, wenn man das Angebot einer Agentur prüft?",
+      "back": "Ob der Preis alles inklusive ist oder ob versteckte Gebühren und zusätzliche Kosten anfallen."
+    },
+    {
+      "front": "Welches Kriterium bewertet die Reaktionsfähigkeit und Vertrauenswürdigkeit einer Agentur während der Angebotsphase?",
+      "back": "Kommunikation und Professionalität."
+    },
+    {
+      "front": "Worauf konzentriert sich das Kriterium 'Technische Fähigkeiten und Ausstattung' in der Videoproduktion?",
+      "back": "Ob die Agentur modernste Technologie verwendet und spezielle Effekte oder Animationen produzieren kann."
+    },
+    {
+      "front": "Was wird unter dem Kriterium 'Zeitplan und Flexibilität' für ein Projekt bewertet?",
+      "back": "Die geschätzte Produktionszeit und die Fähigkeit der Agentur, auf unvorhergesehene Probleme zu reagieren."
+    },
+    {
+      "front": "Was ist der allererste empfohlene Schritt beim Einrichten eines neuen Online-Shops?",
+      "back": "Den Shop in den Offline-Modus versetzen."
+    },
+    {
+      "front": "Welche rechtlichen Voraussetzungen müssen bei der Einrichtung eines Online-Shops geschaffen werden?",
+      "back": "Das Impressum und die Datenschutzerklärung."
+    },
+    {
+      "front": "Was ist der Zweck der Einrichtung von 'Nutzergruppen' und 'Berechtigungen' im Backend eines Online-Shops?",
+      "back": "Um verschiedene Zugriffsrechte und administrative Berechtigungen für Mitarbeiter und Kunden festzulegen."
+    },
+    {
+      "front": "In welcher Phase der Online-Shop-Einrichtung sollten Produktkategorien und einzelne Artikel erstellt werden?",
+      "back": "Nachdem der Shop offline geschaltet und die Nutzerberechtigungen festgelegt wurden, aber bevor das Layout konfiguriert wird."
+    },
+    {
+      "front": "Welche Aufgabe bei der Shop-Einrichtung umfasst die Konfiguration, wie Kunden bezahlen und wie Produkte geliefert werden?",
+      "back": "Die Festlegung der Zahlungsarten und Versandbedingungen."
+    },
+    {
+      "front": "Was ist der letzte technische Schritt, der empfohlen wird, bevor ein Online-Shop in den 'Online'-Modus geschaltet wird?",
+      "back": "Die Durchführung eines vollständigen Daten-Backups."
+    },
+    {
+      "front": "Welchen Vorteil bietet ein 'kostenloser Versand' ab einem bestimmten Preis in der Regel für einen Online-Shop?",
+      "back": "Er dient als Maßnahme zur Steigerung der allgemeinen Conversion Rate (Konversionsrate)."
+    },
+    {
+      "front": "Was ist das Hauptziel von beliebten und vielfältigen Zahlungsmethoden im E-Commerce?",
+      "back": "Die Absprungrate (Bounce Rate) beim Bezahlvorgang zu reduzieren."
+    },
+    {
+      "front": "Wie wirken sich Keyword-Analysen und KI-gesteuerte Inhalte auf die Leistung eines Online-Shops aus?",
+      "back": "Sie verbessern die Suchmaschinenoptimierung (SEO) und erhöhen die Sichtbarkeit in den Suchergebnissen."
+    },
+    {
+      "front": "Was ist der direkte Nutzen eines leicht zugänglichen und effizienten Kundensupports?",
+      "back": "Er erhöht die Kundenzufriedenheit und fördert positive Empfehlungen."
+    },
+    {
+      "front": "Was ist ein großer finanzieller Vorteil des 'Dropshipping'-Geschäftsmodells?",
+      "back": "Es erfordert eine sehr geringe Anfangsinvestition, da der Händler vorher keinen Lagerbestand einkaufen muss."
+    },
+    {
+      "front": "Inwiefern bietet Dropshipping dem Händler Standortunabhängigkeit?",
+      "back": "Das Geschäft kann von überall betrieben werden, solange eine Internetverbindung besteht, da kein physisches Lager benötigt wird."
+    },
+    {
+      "front": "Was ist ein strategischer Vorteil von Dropshipping hinsichtlich der Produktpalette?",
+      "back": "Es ermöglicht es einem Händler, mit minimalem Risiko eine breite Produktpalette anzubieten und Markttrends zu testen."
+    },
+    {
+      "front": "Warum sind die Gewinnmargen bei einem Dropshipping-Geschäftsmodell oft geringer?",
+      "back": "Der Markt ist hart umkämpft und viele Verkäufer nutzen die gleichen Drittanbieter."
+    },
+    {
+      "front": "Was ist ein wesentlicher logistischer Nachteil von Dropshipping für den Händler?",
+      "back": "Der Händler hat wenig bis gar keine Kontrolle über Lagerbestände, Lieferzeiten oder die Verpackungsqualität."
+    },
+    {
+      "front": "Wie wirkt sich 'Abhängigkeit' als Risikofaktor im Dropshipping-Modell aus?",
+      "back": "Der Händler ist anfällig für Probleme, die außerhalb seiner Kontrolle liegen, wie zum Beispiel Produktmängel beim Lieferanten oder Lieferverzögerungen."
+    },
+    {
+      "front": "Was sind die vier Hauptziele, die die Outdoor-Fun GmbH für ihren Online-Shop definiert hat?",
+      "back": "Steigerung der Conversion Rate, Senkung der Absprungrate, Verbesserung der SEO und Erhöhung der Kundenzufriedenheit."
+    },
+    {
+      "front": "In welchem Jahr startete die Outdoor-Fun GmbH ihren Online-Shop?",
+      "back": "2001."
+    },
+    {
+      "front": "Welche Rechtsform hat die Outdoor-Fun GmbH laut Unternehmensprofil?",
+      "back": "GmbH (Gesellschaft mit beschränkter Haftung)."
+    },
+    {
+      "front": "Welche Aufgabe im Shop-Einrichtungsprozess beinhaltet die Gestaltung optischer Elemente wie Header, Footer und Logo?",
+      "back": "Die Konfiguration des Layouts."
+    },
+    {
+      "front": "Warum ist die Konfiguration der 'Widerrufsbelehrung' bei der Einrichtung eines Online-Shops so wichtig?",
+      "back": "Sie stellt sicher, dass das Unternehmen die gesetzlichen Anforderungen bezüglich des Rückgaberechts der Kunden erfüllt."
+    }
+  ]
+}

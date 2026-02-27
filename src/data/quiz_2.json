@@ -1,0 +1,265 @@
+{
+  "title": "02",
+  "questions": [
+    {
+      "question": "Seit welchem Jahr ist die Outdoor-Fun GmbH mit einem eigenen Online-Shop am Markt pr\u00e4sent?",
+      "answerOptions": [
+        {
+          "text": "2001",
+          "isCorrect": true,
+          "rationale": "Das Unternehmen betreibt laut den Zusatzinformationen seit 2001 einen eigenen Online-Shop, w\u00e4hrend der station\u00e4re Handel bereits fr\u00fcher begann."
+        },
+        {
+          "text": "1995",
+          "isCorrect": false,
+          "rationale": "Dies ist das Jahr, in dem das Unternehmen den erfolgreichen station\u00e4ren Handel aufnahm, nicht den Online-Shop."
+        },
+        {
+          "text": "2026",
+          "isCorrect": false,
+          "rationale": "Dieses Datum liegt in der Zukunft und entspricht nicht der langj\u00e4hrigen Historie des Unternehmens."
+        },
+        {
+          "text": "2010",
+          "isCorrect": false,
+          "rationale": "Obwohl dies ein plausibler Zeitpunkt f\u00fcr E-Commerce-Wachstum w\u00e4re, startete die Outdoor-Fun GmbH bereits neun Jahre zuvor."
+        }
+      ],
+      "hint": "Unterscheide zwischen dem Beginn des station\u00e4ren Handels und der digitalen Expansion."
+    },
+    {
+      "question": "Welches der folgenden Ziele wurde von der Gesch\u00e4ftsleitung der Outdoor-Fun GmbH explizit f\u00fcr den Online-Shop definiert?",
+      "answerOptions": [
+        {
+          "text": "Verbesserung der Suchmaschinenoptimierung (SEO)",
+          "isCorrect": true,
+          "rationale": "SEO ist eines der vier Kernziele, um die Sichtbarkeit und Reichweite des bestehenden Shops zu erh\u00f6hen."
+        },
+        {
+          "text": "Reduzierung der Mitarbeiteranzahl",
+          "isCorrect": false,
+          "rationale": "Die Senkung der Personalkosten wird in den definierten Zielen der Gesch\u00e4ftsleitung nicht erw\u00e4hnt."
+        },
+        {
+          "text": "Einstellung des station\u00e4ren Handels",
+          "isCorrect": false,
+          "rationale": "Es gibt keinen Hinweis darauf, dass das erfolgreiche station\u00e4re Gesch\u00e4ft aufgegeben werden soll."
+        },
+        {
+          "text": "Umwandlung in eine Aktiengesellschaft",
+          "isCorrect": false,
+          "rationale": "Die \u00c4nderung der Rechtsform ist kein Teil der genannten operativen Ziele f\u00fcr den Online-Shop."
+        }
+      ],
+      "hint": "Konzentriere dich auf die Marketing- und Performance-Kennzahlen, die f\u00fcr Webshops typisch sind."
+    },
+    {
+      "question": "Warum gilt ein geringes Startkapital als Vorteil des Dropshipping-Modells?",
+      "answerOptions": [
+        {
+          "text": "Produkte werden erst nach dem Zahlungseingang des Kunden beim Lieferanten gekauft.",
+          "isCorrect": true,
+          "rationale": "Da kein eigenes Inventar vorfinanziert werden muss, sinkt die notwendige Anfangsinvestition erheblich."
+        },
+        {
+          "text": "Die Marketingkosten werden vollst\u00e4ndig vom Drittanbieter \u00fcbernommen.",
+          "isCorrect": false,
+          "rationale": "Der H\u00e4ndler ist in der Regel weiterhin selbst f\u00fcr die Vermarktung seines Shops verantwortlich."
+        },
+        {
+          "text": "Es fallen keine Geb\u00fchren f\u00fcr die Nutzung von Online-Marktpl\u00e4tzen an.",
+          "isCorrect": false,
+          "rationale": "Marktplatzgeb\u00fchren sind unabh\u00e4ngig vom Versandmodell und h\u00e4ngen von der gew\u00e4hlten Plattform ab."
+        },
+        {
+          "text": "Die Gewinnmargen sind so hoch, dass sich das Modell sofort selbst tr\u00e4gt.",
+          "isCorrect": false,
+          "rationale": "Tats\u00e4chlich sind die Gewinnmargen beim Dropshipping oft eher geringer als im traditionellen Handel."
+        }
+      ],
+      "hint": "\u00dcberlege, wann im Prozess der Warenfluss und der Geldfluss zwischen H\u00e4ndler und Lieferant stattfinden."
+    },
+    {
+      "question": "Welches logistische Risiko tr\u00e4gt ein H\u00e4ndler beim Dropshipping prim\u00e4r?",
+      "answerOptions": [
+        {
+          "text": "Mangelnde Kontrolle \u00fcber Lieferzeiten und Verpackungsqualit\u00e4t.",
+          "isCorrect": true,
+          "rationale": "Da der Versand direkt durch den Drittanbieter erfolgt, hat der H\u00e4ndler keinen direkten Einfluss auf die Ausf\u00fchrung."
+        },
+        {
+          "text": "Hohe Fixkosten f\u00fcr die Instandhaltung gro\u00dfer Lagerhallen.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein Nachteil des klassischen Eigenlagers, den Dropshipping gerade vermeidet."
+        },
+        {
+          "text": "Die Notwendigkeit, jedes Paket pers\u00f6nlich zur Post zu bringen.",
+          "isCorrect": false,
+          "rationale": "Beim Dropshipping \u00fcbernimmt der Lieferant den Versandweg, nicht der H\u00e4ndler selbst."
+        },
+        {
+          "text": "Ein Verbot des Versands an Packstationen.",
+          "isCorrect": false,
+          "rationale": "Dies ist eine spezifische Versandbedingung und kein grunds\u00e4tzliches strukturelles Risiko des Gesch\u00e4ftsmodells."
+        }
+      ],
+      "hint": "Denke daran, dass beim Dropshipping eine dritte Partei die physische Handhabung der Ware \u00fcbernimmt."
+    },
+    {
+      "question": "Wie tr\u00e4gt die Ma\u00dfnahme 'Gratisversand ab 39\u20ac' laut der Bewertung zur Zielerreichung bei?",
+      "answerOptions": [
+        {
+          "text": "Sie steigert die Conversion Rate.",
+          "isCorrect": true,
+          "rationale": "Kostenfreier Versand ist ein starker Kaufanreiz, der Besucher dazu bewegt, den Kaufvorgang tats\u00e4chlich abzuschlie\u00dfen."
+        },
+        {
+          "text": "Sie verbessert das technische SEO-Ranking.",
+          "isCorrect": false,
+          "rationale": "Versandkonditionen haben keinen direkten Einfluss auf die technische Struktur oder die Suchmaschinen-Algorithmen."
+        },
+        {
+          "text": "Sie senkt die Abh\u00e4ngigkeit von Drittanbietern.",
+          "isCorrect": false,
+          "rationale": "Versandkostenaktionen \u00e4ndern nichts an der grundlegenden Gesch\u00e4ftsbeziehung zu Lieferanten."
+        },
+        {
+          "text": "Sie erh\u00f6ht die Anzahl der Auszubildenden.",
+          "isCorrect": false,
+          "rationale": "Die Personalplanung ist unabh\u00e4ngig von den Versandkostenregelungen im Online-Shop."
+        }
+      ],
+      "hint": "\u00dcberlege, welche psychologische Wirkung wegfallende Zusatzkosten am Ende eines Bestellvorgangs haben."
+    },
+    {
+      "question": "Welche Flexibilit\u00e4t bietet Dropshipping hinsichtlich des Arbeitsortes?",
+      "answerOptions": [
+        {
+          "text": "Das Gesch\u00e4ft kann von \u00fcberall betrieben werden, solange Internetzugang besteht.",
+          "isCorrect": true,
+          "rationale": "Da kein physisches Lager verwaltet werden muss, ist der H\u00e4ndler nicht an einen festen Standort gebunden."
+        },
+        {
+          "text": "Der H\u00e4ndler muss zwingend am Standort des Lieferanten ans\u00e4ssig sein.",
+          "isCorrect": false,
+          "rationale": "Die r\u00e4umliche N\u00e4he zum Lieferanten ist beim Dropshipping gerade nicht erforderlich."
+        },
+        {
+          "text": "Es ist nur in Regionen mit hoher Dichte an station\u00e4ren L\u00e4den m\u00f6glich.",
+          "isCorrect": false,
+          "rationale": "Das Modell ist rein digital gesteuert und funktioniert unabh\u00e4ngig von lokaler Ladeninfrastruktur."
+        },
+        {
+          "text": "Man ist an die Gesch\u00e4ftszeiten des Amtsgerichts Kauffingen gebunden.",
+          "isCorrect": false,
+          "rationale": "Die Handelsregistereintragung definiert den rechtlichen Sitz, schr\u00e4nkt aber den operativen Arbeitsort nicht ein."
+        }
+      ],
+      "hint": "Betrachte die physischen Anforderungen an die Verwaltung von Warenbest\u00e4nden."
+    },
+    {
+      "question": "Was ist ein potenzieller Nachteil der Abh\u00e4ngigkeit von Drittanbietern im Dropshipping?",
+      "answerOptions": [
+        {
+          "text": "Anf\u00e4lligkeit f\u00fcr Probleme wie Produktm\u00e4ngel oder fehlerhafte Sendungen au\u00dferhalb der eigenen Kontrolle.",
+          "isCorrect": true,
+          "rationale": "Fehler des Lieferanten fallen direkt auf den H\u00e4ndler zur\u00fcck, der gegen\u00fcber dem Kunden verantwortlich bleibt."
+        },
+        {
+          "text": "Die Pflicht zur Abnahme von Mindestmengen pro Monat.",
+          "isCorrect": false,
+          "rationale": "Dropshipping zeichnet sich meist dadurch aus, dass eben keine Lagerbest\u00e4nde vorab gekauft werden m\u00fcssen."
+        },
+        {
+          "text": "Ein Zwang zur Nutzung der Firmenfarben des Lieferanten im eigenen Webshop.",
+          "isCorrect": false,
+          "rationale": "Das Branding des Shops bleibt in der Regel die Entscheidung des H\u00e4ndlers."
+        },
+        {
+          "text": "Die automatische Erh\u00f6hung der Gewerbesteuer.",
+          "isCorrect": false,
+          "rationale": "Die Steuerlast h\u00e4ngt vom Gewinn ab, nicht direkt von der Wahl des Logistikmodells."
+        }
+      ],
+      "hint": "\u00dcberlege, wer f\u00fcr die Qualit\u00e4t der Ware und den Versandprozess verantwortlich ist, wenn der H\u00e4ndler sie nicht selbst sieht."
+    },
+    {
+      "question": "Welche Ma\u00dfnahme dient prim\u00e4r der Senkung der Absprungrate (Bounce Rate)?",
+      "answerOptions": [
+        {
+          "text": "Bereitstellung beliebter Zahlungsarten.",
+          "isCorrect": true,
+          "rationale": "Wenn Kunden im Checkout ihre bevorzugte Zahlungsmethode vermissen, verlassen sie den Shop h\u00e4ufig vorzeitig."
+        },
+        {
+          "text": "Erh\u00f6hung der Preise zur Qualit\u00e4tssicherung.",
+          "isCorrect": false,
+          "rationale": "H\u00f6here Preise f\u00fchren tendenziell eher zu einer h\u00f6heren Absprungrate bei preisbewussten Kunden."
+        },
+        {
+          "text": "Reduzierung des Kundensupports auf E-Mail-Kontakt.",
+          "isCorrect": false,
+          "rationale": "Ein eingeschr\u00e4nkter Support mindert das Vertrauen und k\u00f6nnte die Absprungrate sogar erh\u00f6hen."
+        },
+        {
+          "text": "Umstellung des Sortiments auf reine Dienstleistungen.",
+          "isCorrect": false,
+          "rationale": "Eine radikale Sortiments\u00e4nderung ist keine gezielte Ma\u00dfnahme zur Optimierung der Absprungrate des bestehenden Angebots."
+        }
+      ],
+      "hint": "Denke an den Moment im Kaufprozess, in dem ein Kunde sich gegen den Abschluss entscheidet."
+    },
+    {
+      "question": "Wodurch zeichnet sich eine 'SEO-Optimierung' im Kontext der Ma\u00dfnahmenliste aus?",
+      "answerOptions": [
+        {
+          "text": "Durch Keyword-Analyse und Optimierung von Inhalten und Meta-Tags.",
+          "isCorrect": true,
+          "rationale": "Diese Ma\u00dfnahmen erh\u00f6hen die Sichtbarkeit in Suchmaschinenergebnissen, was eines der definierten Ziele ist."
+        },
+        {
+          "text": "Durch die Er\u00f6ffnung weiterer station\u00e4rer Filialen in anderen St\u00e4dten.",
+          "isCorrect": false,
+          "rationale": "Lokale Expansion ist eine Strategie f\u00fcr den station\u00e4ren Handel, nicht f\u00fcr das Online-Suchmaschinenranking."
+        },
+        {
+          "text": "Durch die ausschlie\u00dfliche Nutzung von KI zur Kundenberatung.",
+          "isCorrect": false,
+          "rationale": "KI kann zwar unterst\u00fctzen, aber SEO umfasst wesentlich mehr als nur die Kommunikation (Inhalte, Tags, Technik)."
+        },
+        {
+          "text": "Durch die Senkung der Versandkosten f\u00fcr alle Produkte.",
+          "isCorrect": false,
+          "rationale": "Versandkosten beeinflussen die Conversion, aber nicht prim\u00e4r die Auffindbarkeit in Suchmaschinen."
+        }
+      ],
+      "hint": "Konzentriere dich auf Faktoren, die bestimmen, wie gut eine Webseite von Google oder Bing gefunden wird."
+    },
+    {
+      "question": "Was ist der Hauptzweck der Outdoor-Fun GmbH gem\u00e4\u00df dem Firmenprofil?",
+      "answerOptions": [
+        {
+          "text": "Herstellung und Vermittlung von Waren und Dienstleistungen rund um Outdoor-Freizeitartikel.",
+          "isCorrect": true,
+          "rationale": "Dies ist der offiziell angegebene Betriebszweck im Stammdatenblatt des Unternehmens."
+        },
+        {
+          "text": "Reiner Betrieb einer Software-Plattform f\u00fcr Drittanbieter.",
+          "isCorrect": false,
+          "rationale": "Das Unternehmen stellt auch selbst Waren her und betreibt eigenen Handel, statt nur eine Plattform zu sein."
+        },
+        {
+          "text": "Betrieb eines Reiseb\u00fcros f\u00fcr Outdoor-Aktivit\u00e4ten.",
+          "isCorrect": false,
+          "rationale": "Obwohl Dienstleistungen angeboten werden, liegt der Fokus laut Sortiment auf Freizeitartikeln."
+        },
+        {
+          "text": "Exklusiver Gro\u00dfhandel f\u00fcr Campingwagen.",
+          "isCorrect": false,
+          "rationale": "Der Fokus liegt allgemein auf Outdoor-Freizeitartikeln und umfasst sowohl Einzelhandel als auch Online-Vertrieb."
+        }
+      ],
+      "hint": "Schau dir die Felder 'Betriebszweck' und 'Sortiment' in der Unternehmens\u00fcbersicht genau an."
+    }
+  ]
+}

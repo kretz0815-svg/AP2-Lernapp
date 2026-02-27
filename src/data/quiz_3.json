@@ -1,0 +1,255 @@
+{
+  "title": "01",
+  "questions": [
+    {
+      "question": "Welcher Schritt sollte laut dem Prozessablauf unmittelbar vor dem finalen 'Shop online schalten' durchgef\u00fchrt werden?",
+      "answerOptions": [
+        {
+          "text": "Datensicherung ausf\u00fchren",
+          "isCorrect": true,
+          "rationale": "Bevor ein System live geht, stellt eine abschlie\u00dfende Sicherung sicher, dass der aktuelle Konfigurationsstand bei Fehlern wiederhergestellt werden kann."
+        },
+        {
+          "text": "Layout einstellen",
+          "isCorrect": false,
+          "rationale": "Das visuelle Design wird in der Regel bereits in einer fr\u00fcheren Phase der Einrichtung festgelegt, nicht erst unmittelbar vor dem Go-Live."
+        },
+        {
+          "text": "E-Mail Versand einrichten",
+          "isCorrect": false,
+          "rationale": "Die technische Einrichtung der Kommunikation erfolgt im Mittelfeld des Prozesses, um Benachrichtigungen w\u00e4hrend der Testphase zu pr\u00fcfen."
+        },
+        {
+          "text": "Impressum und Datenschutzerkl\u00e4rung einrichten",
+          "isCorrect": false,
+          "rationale": "Rechtliche Inhalte werden zwar sp\u00e4t, aber noch vor der abschlie\u00dfenden technischen Sicherung im System hinterlegt."
+        }
+      ],
+      "hint": "Denken Sie an die pr\u00e4ventive Ma\u00dfnahme zum Schutz der vorgenommenen Einstellungen."
+    },
+    {
+      "question": "Die Outdoor-Fun GmbH m\u00f6chte ein Produktvideo erstellen lassen. Welches Kriterium pr\u00fcft, ob die Agentur die Marke und die Zielgruppe versteht?",
+      "answerOptions": [
+        {
+          "text": "Kreativit\u00e4t und Konzept",
+          "isCorrect": true,
+          "rationale": "Dieses Kriterium bewertet, wie gut die Ideen der Agentur zum Markenimage und den Erwartungen der Kunden passen."
+        },
+        {
+          "text": "Technische F\u00e4higkeiten",
+          "isCorrect": false,
+          "rationale": "Hierbei geht es prim\u00e4r um die Ausr\u00fcstung und Spezialeffekte, nicht um das strategische Markenverst\u00e4ndnis."
+        },
+        {
+          "text": "Referenzen",
+          "isCorrect": false,
+          "rationale": "Referenzen belegen die Qualit\u00e4t vergangener Arbeiten, sagen aber nichts direkt \u00fcber das spezifische Konzept f\u00fcr die neue Kampagne aus."
+        },
+        {
+          "text": "Zeitplan und Flexibilit\u00e4t",
+          "isCorrect": false,
+          "rationale": "Diese Kategorie befasst sich mit der organisatorischen Abwicklung und der Dauer der Produktion."
+        }
+      ],
+      "hint": "Es geht um die inhaltliche Gestaltung und die strategische Ausrichtung des Video-Vorschlags."
+    },
+    {
+      "question": "Wie viele Auszubildende sind derzeit bei der Outdoor-Fun GmbH besch\u00e4ftigt?",
+      "answerOptions": [
+        {
+          "text": "$6$",
+          "isCorrect": true,
+          "rationale": "Gem\u00e4\u00df dem Unternehmensprofil sind neben den $60$ Angestellten genau $6$ Auszubildende im Betrieb t\u00e4tig."
+        },
+        {
+          "text": "$60$",
+          "isCorrect": false,
+          "rationale": "Dies entspricht der Gesamtzahl der regul\u00e4ren Angestellten, nicht der Anzahl der Auszubildenden."
+        },
+        {
+          "text": "$1995$",
+          "isCorrect": false,
+          "rationale": "Dies ist das Gr\u00fcndungsjahr des Unternehmens und steht in keinem Zusammenhang mit der Mitarbeiterstruktur."
+        },
+        {
+          "text": "$2001$",
+          "isCorrect": false,
+          "rationale": "Dies markiert den Start des Online-Handels, nicht die Anzahl der Personalstellen."
+        }
+      ],
+      "hint": "Die gesuchte Zahl ist im Verh\u00e4ltnis zur Gesamtbelegschaft einstellig."
+    },
+    {
+      "question": "Bei der Einrichtung des Online-Shops m\u00fcssen 'Nummernkreise f\u00fcr Belege' festgelegt werden. Was ist damit prim\u00e4r gemeint?",
+      "answerOptions": [
+        {
+          "text": "Die systematische Vergabe von Rechnungs- und Lieferscheinnummern",
+          "isCorrect": true,
+          "rationale": "Nummernkreise definieren die fortlaufende und eindeutige Kennzeichnung von Buchungsbelegen f\u00fcr die Buchhaltung."
+        },
+        {
+          "text": "Die Festlegung der Telefon-Durchwahlnummern f\u00fcr den Kundensupport",
+          "isCorrect": false,
+          "rationale": "Support-Rufnummern sind Teil der Kommunikation, fallen aber nicht unter die technische Belegverwaltung des Shop-Systems."
+        },
+        {
+          "text": "Die Anzahl der maximal verf\u00fcgbaren Artikel pro Produktkategorie",
+          "isCorrect": false,
+          "rationale": "Bestandsobergrenzen regeln das Inventar, haben aber keinen Bezug zur formalen Belegnummerierung."
+        },
+        {
+          "text": "Die Postleitzahlengebiete, in die der Shop E-Bikes liefert",
+          "isCorrect": false,
+          "rationale": "Dies betrifft die Logistik und Versandzonen, nicht die interne Nummerierung von Dokumenten."
+        }
+      ],
+      "hint": "Denken Sie an die organisatorische Strukturierung von Verkaufsdokumenten."
+    },
+    {
+      "question": "In welchem Jahr startete die Outdoor-Fun GmbH ihren ersten eigenen Online-Shop?",
+      "answerOptions": [
+        {
+          "text": "$2001$",
+          "isCorrect": true,
+          "rationale": "Nach der Gr\u00fcndung als station\u00e4rer Handel im Jahr $1995$ wurde der digitale Vertriebskanal im Jahr $2001$ er\u00f6ffnet."
+        },
+        {
+          "text": "$1995$",
+          "isCorrect": false,
+          "rationale": "In diesem Jahr wurde das Unternehmen gegr\u00fcndet, der Online-Handel kam jedoch erst sp\u00e4ter hinzu."
+        },
+        {
+          "text": "$2015$",
+          "isCorrect": false,
+          "rationale": "Dies war das Jahr, in dem der bestehende Shop zuletzt von einem externen Dienstleister eingerichtet wurde."
+        },
+        {
+          "text": "$2026$",
+          "isCorrect": false,
+          "rationale": "Dies ist ein Datum in der Zukunft bzw. das aktuelle Systemdatum und entspricht nicht der historischen Unternehmensentwicklung."
+        }
+      ],
+      "hint": "Es war einige Jahre nach der Unternehmensgr\u00fcndung, aber noch vor der Neuausrichtung im Jahr $2015$."
+    },
+    {
+      "question": "Was geh\u00f6rt beim Online-Shop-Setup zu den zwingend zu beachtenden rechtlichen Aspekten?",
+      "answerOptions": [
+        {
+          "text": "Impressum und Datenschutzerkl\u00e4rung",
+          "isCorrect": true,
+          "rationale": "Diese Angaben sind gesetzlich vorgeschrieben, um die Anbieterkennzeichnung und den Schutz personenbezogener Daten zu gew\u00e4hrleisten."
+        },
+        {
+          "text": "Logo und Teaser-Bilder",
+          "isCorrect": false,
+          "rationale": "Diese Elemente dienen dem Marketing und Design, unterliegen aber nicht den spezifischen Informationspflichten des Telemediengesetzes."
+        },
+        {
+          "text": "Layout und Header-Inhalte",
+          "isCorrect": false,
+          "rationale": "Die Gestaltung ist eine \u00e4sthetische Entscheidung und keine rechtliche Pflichtangabe f\u00fcr den Shopbetrieb."
+        },
+        {
+          "text": "Produkt-Kategorien und Artikelcontent",
+          "isCorrect": false,
+          "rationale": "Diese Inhalte sind f\u00fcr den Verkauf notwendig, stellen aber nicht die rechtlichen Rahmenbedingungen des Shop-Betreibers dar."
+        }
+      ],
+      "hint": "\u00dcberlegen Sie, welche Informationen jeder gewerbliche Webseitenbetreiber in Deutschland zur Verf\u00fcgung stellen muss."
+    },
+    {
+      "question": "Warum ist das Kriterium 'Referenzen' bei der Auswahl einer Video-Agentur von Bedeutung?",
+      "answerOptions": [
+        {
+          "text": "Um die Qualit\u00e4t und Erfahrung anhand \u00e4hnlicher fr\u00fcherer Projekte zu bewerten",
+          "isCorrect": true,
+          "rationale": "Fr\u00fchere Arbeiten geben Aufschluss dar\u00fcber, ob die Agentur bereits erfolgreich vergleichbare Formate umgesetzt hat."
+        },
+        {
+          "text": "Um sicherzustellen, dass die Agentur die g\u00fcnstigsten Preise am Markt bietet",
+          "isCorrect": false,
+          "rationale": "Die Preisgestaltung wird \u00fcber das Kriterium 'Kosten' gepr\u00fcft, nicht \u00fcber die Liste der Referenzkunden."
+        },
+        {
+          "text": "Um die Erreichbarkeit der Agentur w\u00e4hrend der B\u00fcrozeiten zu testen",
+          "isCorrect": false,
+          "rationale": "Die Erreichbarkeit ist Teil des Kriteriums 'Kommunikation und Professionalit\u00e4t'."
+        },
+        {
+          "text": "Um herauszufinden, ob die Agentur die neueste Drohnentechnologie besitzt",
+          "isCorrect": false,
+          "rationale": "Der Einsatz spezifischer Hardware f\u00e4llt unter das Kriterium der 'Technischen F\u00e4higkeiten'."
+        }
+      ],
+      "hint": "Es geht um den Nachweis von Expertise durch bereits abgeschlossene Auftr\u00e4ge."
+    },
+    {
+      "question": "Welcher Schritt sollte laut der empfohlenen Reihenfolge ganz zu Beginn der Online-Shop-Einrichtung stehen?",
+      "answerOptions": [
+        {
+          "text": "Shop zun\u00e4chst offline stellen",
+          "isCorrect": true,
+          "rationale": "Durch das Offline-Stellen wird verhindert, dass Kunden eine unfertige oder fehlerhafte Seite sehen, w\u00e4hrend \u00c4nderungen vorgenommen werden."
+        },
+        {
+          "text": "Versandarten festlegen",
+          "isCorrect": false,
+          "rationale": "Logistik-Einstellungen erfolgen meist erst, wenn die grundlegende Struktur und die Produkte bereits definiert sind."
+        },
+        {
+          "text": "Bewertungen aktiv schalten",
+          "isCorrect": false,
+          "rationale": "Kundenbewertungen sind ein optionales Feature, das erst nach der vollst\u00e4ndigen Einrichtung und dem Go-Live relevant wird."
+        },
+        {
+          "text": "Zahlungsarten festlegen",
+          "isCorrect": false,
+          "rationale": "Die Konfiguration der Zahlungswege erfolgt im sp\u00e4teren Verlauf der technischen Einrichtung, nicht als erster Schritt."
+        }
+      ],
+      "hint": "Vermeiden Sie es, dass Kunden w\u00e4hrend der Bauphase Zugriff auf das System haben."
+    },
+    {
+      "question": "Was wird unter dem Auswahlkriterium 'Kommunikation und Professionalit\u00e4t' bei einer Agentur gepr\u00fcft?",
+      "answerOptions": [
+        {
+          "text": "Reaktionsschnelligkeit und Zug\u00e4nglichkeit w\u00e4hrend des Angebotsprozesses",
+          "isCorrect": true,
+          "rationale": "Dieses Kriterium bewertet, wie zuverl\u00e4ssig und professionell der Austausch zwischen Auftraggeber und Dienstleister funktioniert."
+        },
+        {
+          "text": "Die Anzahl der verf\u00fcgbaren Kameras und Schnittpl\u00e4tze",
+          "isCorrect": false,
+          "rationale": "Die Ausstattung geh\u00f6rt zu den technischen F\u00e4higkeiten, nicht zur kommunikativen Ebene."
+        },
+        {
+          "text": "Ob die Agentur bereit ist, Rabatte auf den Listenpreis zu gew\u00e4hren",
+          "isCorrect": false,
+          "rationale": "Verhandlungen \u00fcber den Preis geh\u00f6ren zum Kostenmanagement und nicht zur allgemeinen Professionalit\u00e4t der Kommunikation."
+        },
+        {
+          "text": "Die Gesamtzahl der Follower auf dem Youtube-Kanal der Agentur",
+          "isCorrect": false,
+          "rationale": "Die eigene Social-Media-Reichweite der Agentur ist kein direktes Ma\u00df f\u00fcr die Professionalit\u00e4t in der Kundenbetreuung."
+        }
+      ],
+      "hint": "Achten Sie auf die Qualit\u00e4t der Interaktion zwischen den Gesch\u00e4ftspartnern."
+    },
+    {
+      "question": "Wahr oder Falsch: Die Outdoor-Fun GmbH ist laut den Unterlagen eine Aktiengesellschaft (AG).",
+      "answerOptions": [
+        {
+          "text": "Falsch",
+          "isCorrect": true,
+          "rationale": "Die Rechtsform des Unternehmens ist explizit als GmbH (Gesellschaft mit beschr\u00e4nkter Haftung) angegeben."
+        },
+        {
+          "text": "Wahr",
+          "isCorrect": false,
+          "rationale": "Die Unterlagen weisen eindeutig eine GmbH und keine Aktiengesellschaft aus."
+        }
+      ],
+      "hint": "Werfen Sie einen Blick auf den Namenszusatz im Unternehmensprofil."
+    }
+  ]
+}

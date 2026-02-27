@@ -1,0 +1,194 @@
+{
+    "questions": [
+        {
+            "id": "1.01",
+            "question": "1.01 Bedürfnis – Bedarf – Nachfrage\n\nDer Auszubildende Lukas Schlitt verlässt in der Mittagspause mit knurrendem Magen den Betrieb und steuert zielstrebig den nächsten Schnellimbiss an, um seinen Hunger durch einen Döner-Teller mit Kalbfleisch zu stillen. Das nötige Kleingeld dafür hat er morgens extra eingesteckt. Angekommen gibt er die Bestellung, inklusive einer Cola, zum Preis von 8 € auf.\n\nOrdnen Sie die Begriffe\n\n1. Nachfrage     2. Bedarf     3. Bedürfnis\n\nden folgenden Auszügen aus der Situationsbeschreibung zu. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern von links nach rechts in den Lösungsbogen.\n\na) ... mit knurrendem Magen ...\nb) ... seinen Hunger durch einen Döner-Teller zu stillen.\nc) ... gibt er die Bestellung auf.",
+            "expectedAnswers": [
+                "321"
+            ],
+            "inputType": "number",
+            "rationale": "a) 3 (Bedürfnis): Ein knurrender Magen drückt ein allgemeines Mangelempfinden aus.\nb) 2 (Bedarf): Das konkrete Verlangen nach einem Döner-Teller, gepaart mit der Kaufkraft (ihm steht Kleingeld zur Verfügung), ist der Bedarf.\nc) 1 (Nachfrage): Durch die tatsächliche Bestellung wird der Bedarf zur Nachfrage am Markt.",
+            "videoUrl": "https://www.youtube.com/embed/OZglFWJ_QAs"
+        },
+        {
+            "id": "1.02",
+            "question": "1.02 Güterbeziehungen\n\nGüter besitzen die Eigenschaft, sich gegenseitig ersetzen oder im Güterverbund sinnvoll ergänzen zu können. Man spricht dann von Substitutions- bzw. Komplementärgütern.\n\nOrdnen Sie zu, indem Sie die Kennziffern der 2 Güterbeziehungen in die Kästchen neben den Güterarten eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nGüterbeziehungen\n1. Substitutionsgüter      2. Komplementärgüter\n\nGüterarten\n\na) Füllfederhalter/Tintenkiller\nb) Glasflasche/Plastikflasche\nc) Butter/Margarine\nd) Auto/Benzin\ne) Elektrogeräte/Strom\nf) Holzrahmen/Kunststoffrahmen\ng) Zugmaschine/Anhänger\nh) Pfeife/Tabak\ni) Ölheizung/Gasheizung\n\n(Bitte geben Sie die 9 Lösungsziffern von a) bis i) direkt hintereinander ein, z.B. 121212...)",
+            "expectedAnswers": [
+                "211221221"
+            ],
+            "inputType": "number",
+            "rationale": "a) 2: Tintenkiller werden für Füllfederhalter benutzt, sie ergänzen sich.\nb) 1: Glas- und Plastikflaschen erfüllen den gleichen Zweck und ersetzen sich.\nc) 1: Butter und Margarine sind Ersatzprodukte füreinander.\nd) 2: Ein Auto braucht Benzin.\ne) 2: Elektrogeräte brauchen Strom.\nf) 1: Man wählt entweder Holz oder Kunststoff.\ng) 2: Eine Zugmaschine zieht einen Anhänger.\nh) 2: Eine Pfeife wird mit Tabak geraucht.\ni) 1: Öl- und Gasheizung sind alternative Heizsysteme.",
+            "videoUrl": "https://www.youtube.com/embed/ZtPgplQxxWk"
+        },
+        {
+            "id": "1.03",
+            "question": "1.03 Güterarten\n\nOrdnen Sie zu, indem Sie die Kennziffern der nachfolgend genannten Gütereinteilungsmerkmale in die Kästchen hinter den unten stehenden Beispielen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern von links nach rechts in den Lösungsbogen.\n\nGütereinteilungsmerkmale\n1. Konsum- und Verbrauchsgut\n2. Konsum- und Gebrauchsgut\n3. Produktions- und Verbrauchsgut\n4. Produktions- und Gebrauchsgut\n\nBeispiele\na) Die Tonerkartuschen des Laserdruckers im Vertrieb werden erneuert.\nb) Jasmin Hauser, Geschäftsführerin der Office Experten, kauft einen Schreibtisch für das Zimmer ihres Sohnes.\nc) Prokurist Alexandrakis Mostakis erwirbt für sein Ferienhäuschen in Griechenland eine Einbauküche.\nd) Nadja Lopez aus der Abteilung Rechnungswesen bucht für ihren Jahresurlaub eine 7-tägige Kreuzfahrt durch das Mittelmeer.\ne) Die Office Experten ordern 30 Kartons Druckerpapier zu je 2.500 Blatt.\nf) Benjamin Klein, Gesellschafter der Office Experten, lässt sich wegen eines Rechtsstreits mit seinem Nachbarn von einem Fachanwalt kostenpflichtig beraten.\ng) Alexandrakis Mostakis kauft für die Office Experten einen neuen Gabelstapler für das Auslieferungslager.\nh) Die Office Experten schließen mit einem Regionalstromanbieter einen Vertrag über die Mindestabnahme eines Stromkontingents.\ni) Geschäftsführerin Jasmin Hauser tankt Benzin für eine Geschäftsreise mit dem Firmen-PKW.\nj) Nadine Esser, Mitarbeiterin der IT-Abteilung, kauft Tintenpatronen für ihren Drucker im häuslichen Arbeitszimmer, den sie auch für private Ausdrucke nutzt.\n\n(Bitte geben Sie die 10 Lösungsziffern von a) bis j) direkt hintereinander ein, z.B. 123412...)",
+            "expectedAnswers": [
+                "3221314331"
+            ],
+            "inputType": "number",
+            "rationale": "a) 3 (Toner = Verbrauchsgut, Einsatz im Betrieb = Produktion)\nb) 2 (Schreibtisch = Gebrauchsgut, privat = Konsum)\nc) 2 (Einbauküche = Gebrauchsgut, privat = Konsum)\nd) 1 (Urlaub/Dienstleistung = Verbrauchsgut logisch betrachtet, privat = Konsum)\ne) 3 (Papier = Verbrauchsgut, Betrieb = Produktion)\nf) 1 (Beratung/Dienstleistung = Verbrauchsgut, privat wegen Nachbarschaftsstreit = Konsum)\ng) 4 (Gabelstapler = Gebrauchsgut, Betrieb = Produktion)\nh) 3 (Strom = Verbrauchsgut, Betrieb = Produktion)\ni) 3 (Benzin = Verbrauchsgut, Geschäftsreise/Betrieb = Produktion)\nj) 1 (Tintenpatrone = Verbrauchsgut, da \"auch privat\" = dominanter Privatnutzen im Modellfall = Konsum)",
+            "videoUrl": "https://www.youtube.com/embed/uGvMP0tnneA"
+        },
+        {
+            "id": "1.04",
+            "question": "1.04 Ziele des Betriebes\n\nDie Office Experten verfolgen\n\n1. sachliche Ziele\n2. ökonomische Ziele\n3. ökologische Ziele\n4. soziale Ziele\n\nOrdnen Sie zu, indem Sie die Kennziffern der Ziele in die Kästchen hinter den Beispielen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nBeispiele\na) Zukünftig soll verstärkt auf die Verwendung von recycelten Stoffen geachtet werden. Deren Anteil soll in den nächsten fünf Jahren auf 30 % ansteigen.\n\nb) Durch gezielte innerbetriebliche Fortbildung sollen den Mitarbeitern Aufstiegschancen eröffnet und die Zufriedenheit gesteigert werden.\n\nc) Durch flexible Arbeitszeitmodelle sollen den Mitarbeitern mehr eigene Gestaltungsmöglichkeiten gegeben werden.\n\nd) Durch die Beschränkung auf wenige Zulieferer bei den Materialien sollen die Konditionen verbessert werden.\n\ne) In den kommenden Jahren soll ein besonderer Fokus auf die Ausweitung der Auslandsmärkte gelegt werden.\n\nf) Die Eigenkapitalrentabilität soll durch die neuen Auslandskunden langfristig verdoppelt werden.\n\n(Bitte geben Sie die 6 Lösungsziffern von a) bis f) direkt hintereinander ein, z.B. 123412)",
+            "expectedAnswers": [
+                "344212"
+            ],
+            "inputType": "number",
+            "rationale": "a) 3 (Ökologisches Ziel: Umweltschutz/Recycling)\nb) 4 (Soziales Ziel: Mitarbeiterförderung und Zufriedenheit)\nc) 4 (Soziales Ziel: Gute Arbeitsbedingungen / Flexibilität)\nd) 2 (Ökonomisches Ziel: Kosten-/Konditionenverbesserung)\ne) 1 (Sachliches Ziel: Ausweitung der Auslandsmärkte beschreibt eine konkrete Handlung/Marktpräsenz)\nf) 2 (Ökonomisches Ziel: Gewinn/Rentabilität)",
+            "videoUrl": "https://www.youtube.com/embed/EkUfudhTusI"
+        },
+        {
+            "id": "1.05",
+            "question": "1.05 Zielbeziehungen\n\nBei den Zielen des Betriebes kann es sich um\n\n1. komplementäre Ziele\n2. konkurrierende Ziele\n3. indifferente Ziele\n\nhandeln.\n\nOrdnen Sie zu, indem Sie die Kennziffern der Zielbeziehungen in die Kästchen hinter den Beispielen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nBeispiele\n\na) Ziel 1: Die Kosten sollen im folgenden Jahr um 7 % gesenkt werden.\nZiel 2: Die Gesamtkapitalrentabilität soll um 2 % erhöht werden.\n\nb) Ziel 1: Die Ausschussquote soll auf 3 % abgesenkt werden.\nZiel 2: Der Jahresabschluss soll zukünftig bereits Ende Januar fertiggestellt sein.\n\nc) Ziel 1: Der durchschnittliche Lagerbestand bei den Waren soll um 20 % gesenkt werden.\nZiel 2: Die Lieferfähigkeit soll um 10 % erhöht werden.\n\nd) Ziel 1: Erhöhung der Kundenzufriedenheit auf 90 %.\nZiel 2: Absenkung der Rückläuferquote auf 5 %.\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1231)",
+            "expectedAnswers": [
+                "1321"
+            ],
+            "inputType": "number",
+            "rationale": "a) 1 (Komplementär: Niedrigere Kosten führen automatisch zu höherem Gewinn/Rentabilität)\nb) 3 (Indifferent: Produktionsausschuss und Buchhaltungstermine beeinflussen sich nicht gegenseitig)\nc) 2 (Konkurrierend: Geringerer Lagerbestand bedeutet weniger Ware auf Abruf bereit, was der Lieferfähigkeit schaden kann)\nd) 1 (Komplementär: Weniger fehlerhafte Rückläuferprodukte = glücklichere Kunden)",
+            "videoUrl": "https://www.youtube.com/embed/Igv8l6UW4LE"
+        },
+        {
+            "id": "1.06",
+            "question": "1.06 Betriebswirtschaftliche Funktionen\n\nBei den Office Experten werden die folgenden betriebswirtschaftlichen Funktionen wahrgenommen:\n1. Absatz      2. Beschaffung      3. Leitung      4. Finanzierung      5. Produktion\n\nOrdnen Sie zu, indem Sie die Kennziffern der Funktionen in die Kästchen hinter den Einzelaufgaben eintragen. Übertragen Sie anschließend die senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nEinzelaufgaben\na) Der Lieferant von Aluminiumprofilen für die Regalsysteme wird in Lieferungsverzug gesetzt.\nb) Die Schreibtischstühle werden vor dem Versand auf ihre Funktionsfähigkeit überprüft.\nc) Der Bedarf an Buchenholz für die nächsten drei Monate wird disponiert.\nd) Aktualisierung der Verkaufspreise im Internetshop.\ne) Bezahlung der fälligen Lieferantenverbindlichkeiten.\nf) Testen einer neuen Hydraulik für Schreibtischstühle.\ng) Entscheidung über die Schaffung einer Stabsstelle für Rechtsfragen wird getroffen.\n\n(Bitte geben Sie die 7 Lösungsziffern von a) bis g) direkt hintereinander ein, z.B. 1234512)",
+            "expectedAnswers": [
+                "2521453"
+            ],
+            "inputType": "number",
+            "rationale": "a) 2 (Beschaffung regelt die Lieferantenbeziehungen)\nb) 5 (Produktion: Endkontrolle/Warenausgangsprüfung gehört zum Fertigungs- und Qualitätsprozess)\nc) 2 (Beschaffung umfasst die Materialdisposition)\nd) 1 (Absatz regelt das Marketing und den Vertrieb, zu dem auch die Preispolitik gehört)\ne) 4 (Finanzierung kümmert sich um den Zahlungsverkehr)\nf) 5 (Produktion: Forschung & Entwicklung bzw. Qualitätsmanagement fällt in den operativen Leistungserstellungsprozess)\ng) 3 (Leitung: Strategische Organisationsentscheidungen obliegen der Führungsebene)",
+            "videoUrl": "https://www.youtube.com/embed/TqoaeL7blOk"
+        },
+        {
+            "id": "1.07",
+            "question": "1.07 Betriebswirtschaftliche Produktionsfaktoren\n\nDie Office Experten verfügen u.a. über folgende Vermögensgegenstände:\n1. Betriebs- und Geschäftsausstattung\n2. Warenvorräte\n\nund haben folgende Beschäftigte:\n3. Geschäftsführerin u. leitende Angestellte\n4. weisungsgebundene Angestellte u. Auszubildende\n\nOrdnen Sie die zutreffenden Kennziffern der vorstehenden Angaben den unten aufgeführten Produktionsfaktoren zu. Übertragen Sie anschließend die senkrecht angeordneten Lösungsziffern von links nach rechts in den Lösungsbogen.\n\nProduktionsfaktoren (aus betrieblicher Sicht)\na) Dispositiver Faktor\nb) Werkstoffe\nc) Betriebsmittel\nd) (ausführende) Arbeit\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1234)",
+            "expectedAnswers": [
+                "3214"
+            ],
+            "inputType": "number",
+            "rationale": "a) 3 (Der dispositive Faktor ist die menschliche Planungs- und Organisationsarbeit, also die Führung/Leitung)\nb) 2 (Werkstoffe sind Materialien, die ins Produkt eingehen, was hier den im Lager liegenden Warenvorräten entspricht)\nc) 1 (Betriebsmittel sind Gegenstände, die nicht ins Produkt eingehen, sondern der Erstellung dienen, wie die BGA)\nd) 4 (Ausführende Arbeit ist die menschliche körperliche oder geistige Arbeit nach Anweisung)",
+            "videoUrl": "https://www.youtube.com/embed/v0-xBUm6gio"
+        },
+        {
+            "id": "1.08",
+            "question": "1.08 Betriebswirtschaftliche Produktionsfaktoren\n\nZur Herstellung eines Holzschrankes benötigen die Office Experten folgende Produktionsfaktoren:\n\n1. Rohstoffe\n2. Hilfsstoffe\n3. Betriebsstoffe\n4. Betriebsmittel\n\nOrdnen Sie zu, indem Sie die Kennziffer des jeweiligen Produktionsfaktors in die Kästchen neben den Beispielen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nBeispiele\n\na) Tischkreissäge\nb) Nägel\nc) Gummipuffer\nd) Holz\ne) Bohrmaschine\nf) Öl zum Versiegeln der Holzporen\ng) Leim\nh) Schmierfett der Tischkreissäge\n\n(Bitte geben Sie die 8 Lösungsziffern von a) bis h) direkt hintereinander ein, z.B. 12341234)",
+            "expectedAnswers": [
+                "42214223"
+            ],
+            "inputType": "number",
+            "rationale": "a) 4 (Tischkreissäge: Anlage/Maschine = Betriebsmittel)\nb) 2 (Nägel: Gehen als Nebenbestandteil direkt in das Produkt ein = Hilfsstoffe)\nc) 2 (Gummipuffer: Gehen als Nebenbestandteil in das Produkt ein = Hilfsstoffe)\nd) 1 (Holz: Hauptbestandteil des Produkts = Rohstoff)\ne) 4 (Bohrmaschine: Werkzeug/Maschine = Betriebsmittel)\nf) 2 (Öl zum Versiegeln: Geht als Nebenbestandteil direkt in die Poren des Möbelstücks ein = Hilfsstoffe)\ng) 2 (Leim: Geht als Nebenbestandteil in das Produkt ein = Hilfsstoffe)\nh) 3 (Schmierfett: Wird bei der Produktion verbraucht, geht aber nicht in das Endprodukt (Holzschrank) ein = Betriebsstoffe)",
+            "videoUrl": "https://www.youtube.com/embed/QYQUJR10x_Q"
+        },
+        {
+            "id": "1.09",
+            "question": "1.09 Austausch von Produktionsfaktoren\n\nIn welchen der unten beschriebenen Fällen handelt es sich um eine\n\na) Ersatzinvestition innerhalb desselben Produktionsfaktors?\nb) Investition, bei der ein Produktionsfaktor durch einen anderen ersetzt wird?\n\nFälle\n\n1. Heinz Knecht, Mitarbeiter der Personalabteilung bei den Office Experten, scheidet zum Quartalsende aus Altersgründen aus; als Nachfolgerin wird die 22-jährige Ann-Kathrin Weber eingestellt.\n2. Der Auszubildende Lukas Schlitt soll nach Ende der Ausbildung eine Stelle im Einkauf übernehmen.\n3. Die frei werdende Teilzeitstelle für Registraturtätigkeiten soll nicht neu besetzt werden.\n4. Die Office Experten wollen ihre Hard- und Software stärker ausbauen, um den Verkauf über ihren Online-Shop weiter voranzutreiben. Eine zu einem Mitbewerber gewechselte Vertriebsmitarbeiterin soll deswegen nicht ersetzt werden.\n\n(Bitte geben Sie die 2 Lösungsziffern für a) und b) direkt hintereinander ein, z.B. 12)",
+            "expectedAnswers": [
+                "14"
+            ],
+            "inputType": "number",
+            "rationale": "a) 1 (Mensch durch Mensch: Ein ausscheidender Mitarbeiter wird durch eine neue Mitarbeiterin ersetzt. Der Produktionsfaktor Arbeit wird durch den gleichen Faktor Arbeit substituiert = Ersatzinvestition).\nb) 4 (Mensch durch Maschine: Eine Vertriebsmitarbeiterin wird nicht ersetzt, stattdessen wird auf Hard-/Software gesetzt. Der Produktionsfaktor Arbeit wird durch Kapital/Betriebsmittel ersetzt = Substitutionsinvestition / Rationalisierung).",
+            "videoUrl": "https://www.youtube.com/embed/gxgvGed73r4"
+        },
+        {
+            "id": "1.10",
+            "question": "1.10 Arbeitsteilung\n\nBei welchem der folgenden Sachverhalte bei den Office Experten handelt es sich um eine betriebliche Arbeitsteilung?\n\n1. Einige tropische Holzsorten werden aus Wiederaufforstungen aus Indonesien bezogen.\n2. Bürostühle durchlaufen die Abteilungen Metallbearbeitung, Polsterei und Montage.\n3. Die Hydraulik für höhenverstellbare Schreibtische wird bei einem Hersteller im Hunsrück gekauft.\n4. Der Verkauf ins Ausland erfolgt über selbstständige Importgesellschaften des jeweiligen Landes.\n5. Die Implementierung einer neuen Software in ein vorhandenes Netzwerk wird durch ein spezialisiertes Softwarehaus vorgenommen.\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+            "expectedAnswers": [
+                "2"
+            ],
+            "inputType": "number",
+            "rationale": "Lösung: 2. Die betriebliche (bzw. innerbetriebliche) Arbeitsteilung beschreibt die Zerlegung eines Arbeitsablaufs in Teilverrichtungen innerhalb eines (!) Unternehmens. In diesem Fall wird die Herstellung der Bürostühle in die Abteilungen Metallbearbeitung, Polsterei und Montage unterteilt. \n\nDie anderen Antworten stellen (inter)nationale oder überbetriebliche Arbeitsteilung dar.",
+            "videoUrl": "https://www.youtube.com/embed/VR_aw_lhnnw"
+        },
+        {
+            "id": "1.11",
+            "question": "1.11 Arbeitsteilung\n\nDurch Arbeitsteilung lässt sich die Effizienz des Produktionsfaktors Arbeit wesentlich verbessern. Je nach Arbeitsbereich unterscheidet man folgende\n\nArten der Arbeitsteilung\n\n1. Berufsbildung\n2. Berufsspaltung\n3. Produktionsteilung\n4. Arbeitszerlegung\n\nOrdnen Sie zu, indem Sie die Kennziffern der Arbeitsteilungsarten in die Kästchen neben den nachstehenden Aussagen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nAussagen\n\na) Die Arbeit eines Tischlers zur Herstellung eines Büromöbels (z. B. Schreibtisch) kann zum Zwecke der industriellen Fertigung in folgende Teilleistungen aufgeteilt werden: Holzzuschnitt, Holzfeinschnitt, Hobeln, Schleifen, Leimen, Furnieren, Lackieren, Beschlagen etc.\n\nb) Aufgrund individueller Fähigkeiten und Neigungen entstanden Grundberufe wie Bäcker, Mechaniker, Kaufmann oder akademische Berufe wie Lehrer, Ärzte, Juristen.\n\nc) Mit zunehmender Technisierung und Spezialisierung sind dann später kaufmännische Ausbildungsberufe wie Informatikkaufleute oder Kaufleute für Büromanagement bzw. gewerbliche wie Mechatroniker und Industriemechaniker oder freie Berufe wie Augenärzte und Zahnärzte oder Rechtsanwälte und Notare entstanden.\n\nd) Ein Montagebetrieb der Automobilindustrie bezieht Reifen, Elektronikteile und Schrauben von verschiedenen Zulieferbetrieben; ein Schraubenproduzent beliefert Automobilbauer, Baumärkte und Küchenhersteller.\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1234)",
+            "expectedAnswers": [
+                "4123"
+            ],
+            "inputType": "number",
+            "rationale": "a) 4 (Arbeitszerlegung: Aufteilung des gesamten Arbeitsablaufs in elementare Teilarbeitsschritte innerhalb eines Betriebs).\nb) 1 (Berufsbildung: Es entwickeln sich aufgrund von Neigungen allgemeine Hauptberufe wie Bäcker, Kaufmann).\nc) 2 (Berufsspaltung: Die Grundberufe spalten sich in spezialisierte Teilberufe auf, wie Informatikkaufmann, Zahnarzt).\nd) 3 (Produktionsteilung: Ein Produkt wird über mehrere, voneinander getrennte Spezial-Betriebe bzw. Wertschöpfungsstufen hinweg hergestellt = überbetriebliche Arbeitsteilung).",
+            "videoUrl": "https://www.youtube.com/embed/IBAASGjCRyw"
+        },
+        {
+            "id": "1.12",
+            "question": "1.12 Volkswirtschaftliche Produktionsfaktoren\n\nBoden – Arbeit – Kapital heißen die drei volkswirtschaftlichen Produktionsfaktoren.\n\nWelches der folgenden Beispiele bezeichnet eine Vorstufe zu einem dieser Faktoren?\n\nBeispiele\n\n1. Bebaute Grundstücke\n2. Unbebaute Grundstücke\n3. Werkzeuge\n4. Maschinen\n5. Verkaufspersonal\n6. Personalchef\n7. Bankguthaben\n8. Warenvorräte\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+            "expectedAnswers": [
+                "7"
+            ],
+            "inputType": "number",
+            "rationale": "Lösung: 7 (Bankguthaben). Bankguthaben stellt *Geldkapital* dar. Das Geldkapital ist volkswirtschaftlich gesehen noch kein unmittelbarer Produktionsfaktor. Es bildet lediglich die Vorstufe, weil mit ihm erst *Realkapital* (Werkzeuge, Maschinen) erworben werden muss, um tatsächlich produzieren zu können. Die Faktoren Boden (1, 2), Arbeit (5, 6) und Realkapital (3, 4, 8) sind hingegen originäre bzw. direkte Faktoren.",
+            "videoUrl": "https://www.youtube.com/embed/kD6KE0hrJgc"
+        },
+        {
+            "id": "1.14",
+            "question": "1.14 Finanzierungsarten\n\nOrdnen Sie die Kennziffern für die fehlenden Begriffe den nachfolgenden Finanzierungsarten zu. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nZur Veranschaulichung der Matrix im Heft:\n• Feld 1 bezeichnet die Eigenfinanzierung\n• Feld 2 bezeichnet die Fremdfinanzierung\n• Feld 3 bezeichnet die Innenfinanzierung\n• Feld 4 bezeichnet die Außenfinanzierung\n\na) Außenfinanzierung\nb) Fremdfinanzierung\nc) Eigenfinanzierung\nd) Innenfinanzierung\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1234)",
+            "expectedAnswers": [
+                "4213"
+            ],
+            "inputType": "number",
+            "rationale": "a) 4 (Außenfinanzierung: Das Kapital fließt durch Einlagen oder Kredite von außen zu).\nb) 2 (Fremdfinanzierung: Das Kapital wird von Gläubigern als Fremdkapital überlassen).\nc) 1 (Eigenfinanzierung: Das Kapital gehört den Eigentümern, z.B. nicht entnommene Gewinne oder Einlagen).\nd) 3 (Innenfinanzierung: Das Kapital wird aus dem Umsatzprozess erwirtschaftet, z.B. durch Abschreibungen und einbehaltene Gewinne).",
+            "videoUrl": "https://www.youtube.com/embed/A5H83qyqBcY"
+        },
+        {
+            "id": "1.15",
+            "question": "1.15 Einlagenfinanzierung\n\nDie Office Experten überprüfen verschiedene Möglichkeiten der Teilfinanzierung einer vollautomatischen Fertigungsstraße für Regalteile.\n\nBei welchen 2 Alternativen handelt es sich um eine Einlagenfinanzierung?\n\n1. Bei der Commerzbank Langenfeld soll ein Darlehen über 150.000 € aufgenommen werden.\n2. Ein neuer Gesellschafter würde 180.000 € ins Unternehmen einbringen.\n3. Jasmin Hauser und Benjamin Klein könnten ihre Beteiligungen um 45.000 € und 120.000 € erhöhen.\n4. Auf die Gewinnausschüttung soll verzichtet werden und stattdessen 145.000 € den Gewinnrücklagen zugeführt werden.\n5. Die über die Umsätze zurückgeflossenen Abschreibungen in Höhe von 196.000 € sollen in die Fertigungsstraße investiert werden.\n\n(Bitte geben Sie die 2 zutreffenden Lösungsziffern aufsteigend direkt hintereinander ein, z.B. 12)",
+            "expectedAnswers": [
+                "23"
+            ],
+            "inputType": "number",
+            "rationale": "Lösung: 2 und 3. Bei der Einlagen- bzw. Beteiligungsfinanzierung wird dem Unternehmen von den Eigentümern/Gesellschaftern von außen Eigenkapital zugeführt (Alternativen 2 und 3). Ein Darlehen (1) ist Fremdfinanzierung von außen. Gewinnrücklagen (4) und Abschreibungen (5) stammen von innen (Innenfinanzierung).",
+            "videoUrl": "https://www.youtube.com/embed/EEGrP1O7tiw"
+        },
+        {
+            "id": "1.16",
+            "question": "1.16 Finanzierungsarten\n\nFür ihre Kapitalbeschaffung haben die Unternehmen verschiedene Möglichkeiten der Finanzierung.\nWelche der folgenden Maßnahmen stellt eine der vorgenannten Finanzierungsarten dar?\n\nOrdnen Sie zu, indem Sie die Kennziffer der jeweils zutreffenden Finanzierungsart in das Kästchen neben der Maßnahme eintragen. Übertragen Sie anschließend Ihre Lösungsziffern von links nach rechts in den Lösungsbogen.\n\nMögliche Finanzierungsarten\n\n1. Außenfinanzierung\n2. Innenfinanzierung\n\nFinanzierungsmaßnahmen\n\na) Die Gesellschafter einer GmbH nehmen gegen Leistung einer Kapitaleinlage von 100.000,00 € den Diplom-Ingenieur Jörg Haetzold als Teilhaber auf.\nb) Mit einer qualifizierten Mehrheit von 75 % beschließt die Hauptversammlung der Bruckner AG die Erhöhung des Grundkapitals durch Ausgabe neuer Aktien.\nc) Der von einer OHG erwirtschaftete Gewinn wird gemäß Gesellschafterbeschluss nur zu 40 % an die Gesellschafter ausgezahlt. Der nicht entnommene Gewinn wird den Kapitalkonten der Gesellschafter zugeschlagen.\nd) Der Einzelhändler Julius Liebig bezieht für insgesamt 80.000,00 € Ware. Das Zahlungsziel von 60 Tagen nutzt er dabei voll aus.\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1221)",
+            "expectedAnswers": [
+                "1121"
+            ],
+            "inputType": "number",
+            "rationale": "a) 1 (Außenfinanzierung: Durch Aufnahme eines Teilhabers fließt Eigenkapital von außen in die GmbH = Beteiligungsfinanzierung).\nb) 1 (Außenfinanzierung: Durch Aktienausgabe fließt Eigenkapital von außen in die AG = Beteiligungsfinanzierung).\nc) 2 (Innenfinanzierung: Erwirtschafteter Gewinn wird im Unternehmen einbehalten = Selbstfinanzierung als Form der Innenfinanzierung).\nd) 1 (Außenfinanzierung: Nutzung eines Lieferantenkredits = Das Unternehmen nimmt Fremdkapital von außen in Anspruch).",
+            "videoUrl": "https://www.youtube.com/embed/tSYSzWVvdEA"
+        },
+        {
+            "id": "1.17",
+            "question": "1.17 Insolvenzvoraussetzungen\n\nEin Lieferant der Office-Experten, die Helmich GmbH, muss Insolvenz anmelden.\n\nWelcher der folgenden Gründe stellt eine allgemeine Voraussetzung für die Eröffnung eines Insolvenzverfahrens dar?\n\nGründe\n\n1. Zahlungsunwilligkeit\n2. Kreditunwürdigkeit\n3. Geschäftsunfähigkeit\n4. Zahlungsunfähigkeit\n5. Kreditunfähigkeit\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+            "expectedAnswers": [
+                "4"
+            ],
+            "inputType": "number",
+            "rationale": "Lösung: 4 (Zahlungsunfähigkeit). Gemäß Insolvenzordnung (InsO) ist die tatsächliche *Zahlungsunfähigkeit* (der Schuldner kann fälligen Zahlungspflichten nicht nachkommen) der allgemeine Eröffnungsgrund für ein Insolvenzverfahren. Daneben gibt es für juristische Personen noch die \"Überschuldung\" sowie allgemein die \"drohende Zahlungsunfähigkeit\". Alle anderen genannten Gründe (wie Geschäftsunfähigkeit oder Zahlungsunwilligkeit) sind keine insolvenzrechtlichen Eröffnungsgründe.",
+            "videoUrl": "https://www.youtube.com/embed/jmED9ptgHNE"
+        },
+        {
+            "id": "1.18",
+            "question": "1.18 Insolvenzantrag\n\nBei welchem der folgenden Gerichte muss die Helmich GmbH Antrag auf Eröffnung eines Insolvenzverfahrens stellen?\n\nGericht\n\n1. Finanzgericht\n2. Arbeitsgericht\n3. Sozialgericht\n4. Amtsgericht\n5. Verwaltungsgericht\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+            "expectedAnswers": [
+                "4"
+            ],
+            "inputType": "number",
+            "rationale": "Lösung: 4 (Amtsgericht). Der Antrag auf Eröffnung eines Insolvenzverfahrens ist beim zuständigen Insolvenzgericht zu stellen. Gemäß § 2 InsO (Insolvenzordnung) sind ausschließlich die Amtsgerichte als Insolvenzgerichte zuständig.",
+            "videoUrl": "https://www.youtube.com/embed/cSe1-F09pc4"
+        },
+        {
+            "id": "1.19",
+            "question": "1.19 Insolvenz\n\nDie Folgen falscher Finanzierungsentscheidungen können eine freiwillige Auflösung, zwangsweise Auflösung oder Sanierung eines Unternehmens zur Folge haben. Ordnen Sie zu, indem Sie die nachstehenden Maßnahmen in die Kästchen neben den unten stehenden Aussagen eintragen. Übertragen Sie anschließend Ihre Lösungsziffern von links nach rechts in den Lösungsbogen.\n\nMaßnahmen\n\n1. freiwillige Auflösung\n2. zwangsweise Auflösung\n3. Sanierung\n\nAussagen\n\na) Die Firmenbezeichnung trägt den Zusatz \"i. L.\"\nb) Durch Kapitalherabsetzung wird das Grundkapital einer AG vermindert (Herabstempelung von Aktiennennwerten).\nc) Ein vom Insolvenzgericht bestellter Insolvenzverwalter übernimmt die Verwaltung des Schuldnervermögens.\nd) Um eine Insolvenzquote zu ermitteln, müssen vorher bestimmte Vermögensgegenstände aus- und abgesondert werden.\ne) Gemäß § 146 HGB muss ein sog. Liquidator bestellt werden.\n\n(Bitte geben Sie die 5 Lösungsziffern von a) bis e) direkt hintereinander ein, z.B. 12312)",
+            "expectedAnswers": [
+                "13221"
+            ],
+            "inputType": "number",
+            "rationale": "a) 1 (freiwillige Auflösung: \"i. L.\" steht für \"in Liquidation\", was die Abwicklung des Unternehmens bezeichnet).\nb) 3 (Sanierung: Die nominelle Herabsetzung des Kapitals (z.B. Kapitalschnitt) dient der Verlustabdeckung und Rettung der Gesellschaft).\nc) 2 (zwangsweise Auflösung: Ein Insolvenzverwalter wird im Rahmen eines Insolvenzverfahrens vom Gericht bestellt).\nd) 2 (zwangsweise Auflösung: Aussonderung (z.B. Eigentumsvorbehalt) und Absonderung (z.B. Pfandrechte) sind Kernbegriffe aus dem Insolvenzverfahren bei der Verteilung der Masse).\ne) 1 (freiwillige Auflösung: Liquidatoren wickeln die Gesellschaft außergerichtlich (freiwillig) ab).",
+            "videoUrl": "https://www.youtube.com/embed/iq41XtLXr8U"
+        },
+        {
+            "id": "1.20",
+            "question": "1.20 Finanzierungsarten und Leverage-Effekt\n\nDie Wagenknecht & Weyer OHG hat ihr Unternehmen ausschließlich aus Eigenkapital finanziert. Mit 1 Mio. € erzielt die OHG eine Rendite von 20 %.\n\nDie Gesellschafter überlegen, wie es sich auf die Rentabilität des Eigenkapitals auswirkt, wenn sie 50 % des Eigenkapitals durch Fremdkapital ersetzen würden. Für Fremdmittel müssten derzeit 10 % Zinsen gezahlt werden.\n\na) Berechnen Sie die Rentabilität des Eigenkapitals unter der Annahme, dass 50 % des Eigenkapitals durch Fremdmittel zu 10 % Schuldzins ersetzt und die gleiche Gewinnsituation gelten würde.\n\nb) Berechnen Sie die Rentabilität des Eigenkapitals auch für den Fall, dass 250.000 € Eigenkapital und 750.000 € Fremdkapital unter den gleichen Bedingungen wie oben im Unternehmen eingesetzt werden.\n\nc) Bei welcher der unten genannten Aussagen erhöht sich beim Ersatz von Eigen- durch Fremdkapital die Rentabilität des Eigenkapitals?\n\nAussagen\n1. Gesamtkapitalrendite ist niedriger als der Fremdkapitalzins\n2. Fremdkapitalzins ist niedriger als die Gesamtkapitalrendite\n3. Fremdkapitalzins entspricht der Gesamtkapitalrendite\n\n(Bitte geben Sie die berechneten Prozentsätze für a) und b) (ohne Kommastellen) sowie die Lösungsziffer für c) direkt hintereinander ein, z.B. 30502)",
+            "expectedAnswers": [
+                "30502"
+            ],
+            "inputType": "number",
+            "rationale": "Ausgangslage: EK = 1.000.000 €, Gewinn-Rendite 20 % = 200.000 € (Dies ist auch der Gewinn vor Zinsen).\n\na) 500.000 € EK, 500.000 € FK. Zinsen = 10 % von 500.000 = 50.000 €. Reingewinn = 200.000 (Vor-Zins-Gewinn) - 50.000 = 150.000 €. \nEK-Rentabilität = (150.000 / 500.000) * 100 = 30 %.\n\nb) 250.000 € EK, 750.000 € FK. Zinsen = 10 % von 750.000 = 75.000 €. Reingewinn = 200.000 - 75.000 = 125.000 €.\nEK-Rentabilität = (125.000 / 250.000) * 100 = 50 %.\n\nc) 2: Die EK-Rentabilität steigt durch FK nur dann an, wenn die Kosten für das Fremdkapital (Fremdkapitalzins) niedriger sind als die mit dem Gesamtkapital erwirtschaftete Rendite (Gesamtkapitalrendite). Das nennt man den positiven Leverage-Effekt.",
+            "videoUrl": "https://www.youtube.com/embed/PdgGuOGXMTI"
+        }
+    ]
+}
