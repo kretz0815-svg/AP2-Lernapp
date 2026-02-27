@@ -51,6 +51,9 @@ function App() {
   const [wisorIsCorrect, setWisorIsCorrect] = useState(false);
   const [wisorScore, setWisorScore] = useState({ correct: 0, total: 0 });
   const [wisorVideoOpen, setWisorVideoOpen] = useState(false);
+  const [completedWisors, setCompletedWisors] = useState({});
+  const [resetModalVisible, setResetModalVisible] = useState(false);
+  const [resetMath, setResetMath] = useState({ a: 0, b: 0, input: '' });
 
   useEffect(() => {
     const initApp = async () => {
@@ -74,6 +77,10 @@ function App() {
         if (data && data.progress_data) {
           progressData = { ...progressData, ...data.progress_data };
           localStorage.setItem('ap2_srs_progress', JSON.stringify(progressData));
+
+          if (data.progress_data.wisor_progress) {
+            localStorage.setItem('ap2_wisor_progress', JSON.stringify(data.progress_data.wisor_progress));
+          }
         } else if (!data) {
           // Init empty row
           await supabase.from('user_data').insert([{ device_id: deviceId, progress_data: progressData }]);
@@ -81,6 +88,9 @@ function App() {
       } catch (err) {
         console.error("Supabase load error: ", err);
       }
+
+      let wisorProg = JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {};
+      setCompletedWisors(wisorProg);
 
       // 3. Setup Flashcards with loaded progress
       const rawCards = [
@@ -109,7 +119,7 @@ function App() {
       // 5. Setup Wisor
       const rawWisors = [
         ...(wisor1.questions || [])
-      ];
+      ].filter(q => !(JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {})[q.id]);
       const shuffledWisors = rawWisors.sort(() => Math.random() - 0.5);
       setAllWisors(shuffledWisors);
     };
@@ -215,8 +225,12 @@ function App() {
     setSelectedAnswer(null);
   };
 
-  const resetWisor = () => {
-    const shuffled = [...allWisors].sort(() => Math.random() - 0.5);
+  const startWisor = () => {
+    const rawWisors = [...wisor1.questions];
+    const wisorProg = JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {};
+    const uncompleted = rawWisors.filter(q => !wisorProg[q.id]);
+    const shuffled = [...uncompleted].sort(() => Math.random() - 0.5);
+
     setAllWisors(shuffled);
     setCurrentWisorIndex(0);
     setWisorScore({ correct: 0, total: 0 });
@@ -224,6 +238,43 @@ function App() {
     setWisorEvaluated(false);
     setWisorIsCorrect(false);
     setWisorVideoOpen(false);
+
+    setAppMode('wisor');
+  };
+
+  const openResetModal = (e) => {
+    e.stopPropagation();
+    setResetMath({ a: Math.floor(Math.random() * 10) + 1, b: Math.floor(Math.random() * 20) + 1, input: '' });
+    setResetModalVisible(true);
+  };
+
+  const handleResetConfirm = (e) => {
+    e.preventDefault();
+    if (parseInt(resetMath.input) === resetMath.a + resetMath.b) {
+      setCompletedWisors({});
+      localStorage.removeItem('ap2_wisor_progress');
+
+      const deviceId = localStorage.getItem('masterpat_device_id');
+      if (deviceId) {
+        const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
+        supabase.from('user_data').update({ progress_data: { ...srsData, wisor_progress: {} } }).eq('device_id', deviceId).then();
+      }
+
+      setResetModalVisible(false);
+
+      const rawWisors = [...wisor1.questions];
+      setAllWisors(rawWisors.sort(() => Math.random() - 0.5));
+      setCurrentWisorIndex(0);
+      setWisorScore({ correct: 0, total: 0 });
+      setWisorInput('');
+      setWisorEvaluated(false);
+      setWisorIsCorrect(false);
+      setWisorVideoOpen(false);
+      setAppMode('wisor');
+    } else {
+      alert("Falsches Ergebnis! Reset abgebrochen.");
+      setResetModalVisible(false);
+    }
   };
 
   const handleWisorSubmit = (e) => {
@@ -245,6 +296,17 @@ function App() {
     setWisorEvaluated(true);
     if (correct) {
       setWisorScore(s => ({ ...s, correct: s.correct + 1 }));
+      setCompletedWisors(prev => {
+        const next = { ...prev, [q.id]: true };
+        localStorage.setItem('ap2_wisor_progress', JSON.stringify(next));
+
+        const deviceId = localStorage.getItem('masterpat_device_id');
+        if (deviceId) {
+          const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
+          supabase.from('user_data').update({ progress_data: { ...srsData, wisor_progress: next } }).eq('device_id', deviceId).then();
+        }
+        return next;
+      });
     }
   };
 
@@ -322,13 +384,49 @@ function App() {
             <p>Multiple-Choice Fragen zum Überprüfen deines Wissensstands.</p>
             <div className="chip">{allQuizzes.length} Fragen verfügbar</div>
           </div>
-          <div className="dash-card" onClick={() => { resetWisor(); setAppMode('wisor'); }}>
-            <div className="dash-icon">⌨️</div>
-            <h2>Wisor (Eingabe)</h2>
-            <p>Freitext Eingabe für Zahlen und Fakten (mit Erklärung bei Fehler).</p>
-            <div className="chip">{allWisors.length} Fragen verfügbar</div>
+          <div className="dash-card">
+            <div onClick={startWisor} style={{ cursor: 'pointer' }}>
+              <div className="dash-icon">⌨️</div>
+              <h2>Wisor (Eingabe)</h2>
+              <p>Freitext Eingabe für Zahlen und Fakten. Gekonntes verschwindet!</p>
+              <div className="chip">{Object.keys(completedWisors).length === wisor1.questions.length ? 'Alles gemeistert! 🎉' : `${wisor1.questions.length - Object.keys(completedWisors).length} Fragen verfügbar`}</div>
+            </div>
+            {Object.keys(completedWisors).length > 0 && (
+              <button
+                className="btn-secondary"
+                style={{ marginTop: '1rem', width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
+                onClick={openResetModal}
+              >
+                🔄 Lernfortschritt zurücksetzen
+              </button>
+            )}
           </div>
         </div>
+
+        {resetModalVisible && (
+          <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="card-face fade-in" style={{ padding: '2rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center', maxWidth: '350px' }}>
+              <h3 style={{ color: 'white', marginBottom: '1rem' }}>Fortschritt zurücksetzen?</h3>
+              <p style={{ color: '#cbd5e1', marginBottom: '1.5rem', fontSize: '0.9rem' }}>Bitte löse folgende Aufgabe, um ein versehentliches Löschen zu verhindern:</p>
+              <form onSubmit={handleResetConfirm}>
+                <p style={{ fontSize: '1.5rem', color: 'white', marginBottom: '1rem' }}>{resetMath.a} + {resetMath.b} = ?</p>
+                <input
+                  type="number"
+                  className="wisor-input"
+                  style={{ textAlign: 'center', marginBottom: '1rem' }}
+                  value={resetMath.input}
+                  onChange={(e) => setResetMath(s => ({ ...s, input: e.target.value }))}
+                  required
+                  autoFocus
+                />
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <button type="button" className="btn-secondary" onClick={() => setResetModalVisible(false)} style={{ flex: 1 }}>Abbrechen</button>
+                  <button type="submit" className="btn-primary" style={{ flex: 1, background: 'var(--color-error)' }}>Löschen</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -403,7 +501,35 @@ function App() {
   }
 
   if (appMode === 'wisor') {
-    if (allWisors.length === 0) return <div style={{ color: 'white', zIndex: 10 }}>Lade Wisor...</div>;
+    if (allWisors.length === 0) {
+      return (
+        <div className="app-container" style={{ zIndex: 10 }}>
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
+            <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Alles geschafft! 🎉</h2>
+            <p style={{ color: '#cbd5e1', marginBottom: '2rem' }}>Du hast alle Wisor-Fragen erfolgreich gemeistert.</p>
+            <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
+            <button className="btn-primary" onClick={openResetModal} style={{ marginLeft: '1rem' }}>Fortschritt zurücksetzen</button>
+          </div>
+          {resetModalVisible && (
+            <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <div className="card-face fade-in" style={{ padding: '2rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center', maxWidth: '350px' }}>
+                <h3 style={{ color: 'white', marginBottom: '1rem' }}>Fortschritt zurücksetzen?</h3>
+                <form onSubmit={handleResetConfirm}>
+                  <p style={{ fontSize: '1.5rem', color: 'white', marginBottom: '1rem' }}>{resetMath.a} + {resetMath.b} = ?</p>
+                  <input type="number" className="wisor-input" style={{ textAlign: 'center', marginBottom: '1rem' }} value={resetMath.input} onChange={(e) => setResetMath(s => ({ ...s, input: e.target.value }))} required autoFocus />
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button type="button" className="btn-secondary" onClick={() => setResetModalVisible(false)} style={{ flex: 1 }}>Abbrechen</button>
+                    <button type="submit" className="btn-primary" style={{ flex: 1, background: 'var(--color-error)' }}>Löschen</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
 
     if (currentWisorIndex >= allWisors.length) {
       return (
@@ -411,11 +537,11 @@ function App() {
           <div className="blob blob-1"></div>
           <div className="blob blob-2"></div>
           <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-            <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Wisor Beendet!</h2>
+            <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Durchgang Beendet!</h2>
             <p style={{ fontSize: '1.5rem', color: '#cbd5e1', marginBottom: '2rem' }}>Ergebnis: {wisorScore.correct} / {wisorScore.total}</p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
               <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
-              <button className="btn-primary" onClick={resetWisor}>Nochmal spielen</button>
+              <button className="btn-primary" onClick={startWisor}>Nächsten offene Fragen</button>
             </div>
           </div>
         </div>
