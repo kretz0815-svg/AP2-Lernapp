@@ -241,9 +241,9 @@ export default function FloatingCalculator() {
                         className="floating-notes-toggle"
                         onClick={() => setIsOpen(true)}
                         title="Taschenrechner öffnen"
-                        style={{ background: 'linear-gradient(135deg, #10b981, #3b82f6)' }}
+                        style={{ background: '#66295c', color: '#2c3170', fontSize: '1.8rem', fontWeight: 'bold' }}
                     >
-                        🧮
+                        €
                     </button>
                 </div>
             ) : (
