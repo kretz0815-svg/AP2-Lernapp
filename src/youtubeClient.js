@@ -15,7 +15,7 @@ export async function fetchYouTubeVideos(query, apiKey, maxResults = 4) {
         }
 
         const data = await response.json();
-        return data.items.map(item => ({
+        return data.items.slice(0, maxResults).map(item => ({
             id: item.id.videoId,
             title: item.snippet.title,
             thumbnail: item.snippet.thumbnails.medium.url,
