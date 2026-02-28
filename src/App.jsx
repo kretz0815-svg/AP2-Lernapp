@@ -83,6 +83,7 @@ function App() {
   const [wisorVideoOpen, setWisorVideoOpen] = useState(false);
   const [completedWisors, setCompletedWisors] = useState({});
   const [resetModalVisible, setResetModalVisible] = useState(false);
+  const [resetTarget, setResetTarget] = useState('wisor');
   const [resetMath, setResetMath] = useState({ a: 0, b: 0, input: '' });
   const wisorInputRef = useRef(null);
 
@@ -430,8 +431,9 @@ function App() {
     setAppMode('wisor');
   };
 
-  const openResetModal = (e) => {
+  const openResetModal = (e, target = 'wisor') => {
     e.stopPropagation();
+    setResetTarget(target);
     setResetMath({ a: Math.floor(Math.random() * 10) + 1, b: Math.floor(Math.random() * 20) + 1, input: '' });
     setResetModalVisible(true);
   };
@@ -439,26 +441,50 @@ function App() {
   const handleResetConfirm = (e) => {
     e.preventDefault();
     if (parseInt(resetMath.input) === resetMath.a + resetMath.b) {
-      setCompletedWisors({});
-      localStorage.removeItem('ap2_wisor_progress');
+      if (resetTarget === 'wisor') {
+        setCompletedWisors({});
+        localStorage.removeItem('ap2_wisor_progress');
 
-      const deviceId = localStorage.getItem('masterpat_device_id');
-      if (deviceId) {
-        const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
-        supabase.from('user_data').update({ progress_data: { ...srsData, wisor_progress: {} } }).eq('device_id', deviceId).then();
+        const deviceId = localStorage.getItem('masterpat_device_id');
+        if (deviceId) {
+          const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
+          supabase.from('user_data').update({ progress_data: { ...srsData, wisor_progress: {} } }).eq('device_id', deviceId).then();
+        }
+
+        setResetModalVisible(false);
+
+        const rawWisors = [...wisor1.questions];
+        setAllWisors(rawWisors.sort(() => Math.random() - 0.5));
+        setCurrentWisorIndex(0);
+        setWisorScore({ correct: 0, total: 0 });
+        setWisorInput('');
+        setWisorEvaluated(false);
+        setWisorIsCorrect(false);
+        setWisorVideoOpen(false);
+        if (appMode === 'wisor') setAppMode('wisor');
+      } else if (resetTarget === 'quiz') {
+        localStorage.removeItem('ap2_quiz_progress');
+
+        const deviceId = localStorage.getItem('masterpat_device_id');
+        if (deviceId) {
+          const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
+          supabase.from('user_data').update({ progress_data: { ...srsData, quiz_progress: {} } }).eq('device_id', deviceId).then();
+        }
+
+        setResetModalVisible(false);
+        const rawQuizzes = [
+          ...(quiz1.questions || []),
+          ...(quiz2.questions || []),
+          ...(quiz3.questions || []),
+          ...(quizUForm2.questions || [])
+        ];
+        const mergedQuizzesInit = rawQuizzes.map(q => {
+          const id = q.id || generateId(q.question);
+          return { ...q, id, progress: { nextReview: 0 } };
+        });
+        setAllQuizzes(mergedQuizzesInit);
+        if (appMode === 'quiz' || appMode === 'quiz_setup') setAppMode('dashboard');
       }
-
-      setResetModalVisible(false);
-
-      const rawWisors = [...wisor1.questions];
-      setAllWisors(rawWisors.sort(() => Math.random() - 0.5));
-      setCurrentWisorIndex(0);
-      setWisorScore({ correct: 0, total: 0 });
-      setWisorInput('');
-      setWisorEvaluated(false);
-      setWisorIsCorrect(false);
-      setWisorVideoOpen(false);
-      setAppMode('wisor');
     } else {
       alert("Falsches Ergebnis! Reset abgebrochen.");
       setResetModalVisible(false);
@@ -581,11 +607,22 @@ function App() {
           <p className="subtitle">Wähle deinen Lernmodus</p>
         </header>
         <div className="dashboard-grid">
-          <div className="dash-card" onClick={() => { setAppMode('quiz_setup'); }}>
-            <div className="dash-icon">🎯</div>
-            <h2>Wissen testen (Quiz)</h2>
-            <p>Multiple-Choice Fragen zum Überprüfen deines Wissensstands.</p>
-            <div className="chip">{allQuizzes.length === 0 ? 'Alles gemeistert! 🎉' : `${allQuizzes.length} Fragen fällig`}</div>
+          <div className="dash-card">
+            <div onClick={() => { setAppMode('quiz_setup'); }} style={{ cursor: 'pointer' }}>
+              <div className="dash-icon">🎯</div>
+              <h2>Wissen testen (Quiz)</h2>
+              <p>Multiple-Choice Fragen zum Überprüfen deines Wissensstands.</p>
+              <div className="chip">{allQuizzes.length === 0 ? 'Alles gemeistert! 🎉' : `${allQuizzes.length} Fragen fällig`}</div>
+            </div>
+            {Object.keys(JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {}).length > 0 && (
+              <button
+                className="btn-secondary"
+                style={{ marginTop: '1rem', width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
+                onClick={(e) => openResetModal(e, 'quiz')}
+              >
+                🔄 Lernfortschritt zurücksetzen
+              </button>
+            )}
           </div>
           <div className="dash-card">
             <div onClick={startWisor} style={{ cursor: 'pointer' }}>
@@ -598,7 +635,7 @@ function App() {
               <button
                 className="btn-secondary"
                 style={{ marginTop: '1rem', width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
-                onClick={openResetModal}
+                onClick={(e) => openResetModal(e, 'wisor')}
               >
                 🔄 Lernfortschritt zurücksetzen
               </button>
