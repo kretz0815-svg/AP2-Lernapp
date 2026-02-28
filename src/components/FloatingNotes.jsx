@@ -77,8 +77,8 @@ export default function FloatingNotes({ questionId }) {
                 const dx = clientX - startMouseRef.current.x;
                 const dy = clientY - startMouseRef.current.y;
 
-                let newWidth = startSizeRef.current.w;
-                let newHeight = startSizeRef.current.h;
+                let newWidth = startSizeRef.current.width;
+                let newHeight = startSizeRef.current.height;
                 let newX = startPosRef.current.x;
                 let newY = startPosRef.current.y;
 
