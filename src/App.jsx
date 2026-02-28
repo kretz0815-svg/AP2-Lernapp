@@ -500,12 +500,12 @@ function App() {
       <div className="app-container" style={{ zIndex: 10 }}>
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
-        <header className="hide-on-print">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+        <header className="hide-on-print" style={{ flexDirection: 'column', alignItems: 'center', marginBottom: '2rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '1.5rem' }}>
             <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
-            <h1 className="subtitle" style={{ margin: 0, color: 'white' }}>Gespeicherte Notizen</h1>
-            <button className="btn-primary" onClick={() => window.print()}>Als PDF drucken</button>
+            <button className="btn-primary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', borderRadius: '8px' }} onClick={() => window.print()}>Als PDF drucken</button>
           </div>
+          <h1 style={{ margin: 0, color: 'white', fontSize: '2.5rem', textAlign: 'center' }}>Gespeicherte Notizen</h1>
         </header>
 
         <div className="notes-list-container" style={{ width: '100%', maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
