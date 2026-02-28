@@ -900,7 +900,7 @@ Die JSON muss exakt diese Struktur haben:
             <button
               className={`btn-secondary fade-in ${wisorVideoLoading ? 'loading' : ''}`}
               onClick={() => handleToggleVideos(q)}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: wisorVideoOpen ? 'rgba(255, 255, 255, 0.1)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: wisorVideoOpen ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
             >
               <span>{wisorVideoOpen ? '🙈' : '📺'}</span>
               {wisorVideoOpen ? 'Videos ausblenden' : 'Lernvideos ansehen'}
@@ -909,7 +909,7 @@ Die JSON muss exakt diese Struktur haben:
             <button
               className="btn-secondary fade-in"
               onClick={() => setGeminiVisible(!geminiVisible)}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: geminiVisible ? 'rgba(255, 255, 255, 0.1)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: geminiVisible ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
             >
               <span>✨</span>
               {geminiVisible ? 'Gemini schließen' : 'KI um Hilfe bitten'}
