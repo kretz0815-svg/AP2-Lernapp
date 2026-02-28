@@ -234,7 +234,10 @@ export default function FloatingNotes({ questionId, questionText }) {
                         borderRadius: '24px 24px 0 0',
                         border: '1px solid var(--glass-border)',
                         borderBottom: 'none',
-                        boxShadow: '0 -5px 25px rgba(0,0,0,0.5)'
+                        boxShadow: '0 -5px 25px rgba(0,0,0,0.5)',
+                        background: 'rgba(15, 23, 42, 0.45)',
+                        backdropFilter: 'blur(20px)',
+                        WebkitBackdropFilter: 'blur(20px)'
                     } : {
                         position: 'fixed',
                         left: `${position.x}px`,
@@ -295,10 +298,12 @@ export default function FloatingNotes({ questionId, questionText }) {
                             flex: 1,
                             resize: 'none',
                             marginTop: isMobile ? '5px' : '10px',
-                            background: 'rgba(255,255,255,0.05)',
+                            background: 'rgba(255, 255, 255, 0.02)',
+                            backdropFilter: 'blur(10px)',
+                            WebkitBackdropFilter: 'blur(10px)',
                             color: 'white',
                             border: '1px solid var(--glass-border)',
-                            borderRadius: '8px',
+                            borderRadius: '12px',
                             padding: '10px',
                             outline: 'none',
                             fontSize: isMobile ? '16px' : 'inherit' // Prevent iOS zoom on focus

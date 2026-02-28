@@ -639,7 +639,9 @@ button {
   max-height: 80vh;
   resize: both;
   overflow: hidden;
-  background: var(--bg-dark);
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   padding: 15px;
