@@ -24,8 +24,8 @@ Hier ist die konkrete Rückfrage / das Problem des Auszubildenden dazu:
 Bitte antworte ermutigend, kurz, prägnant und fachlich korrekt in einem leicht verständlichen Deutsch. Fasse dich kurz, es soll direkt helfen, ohne abzulenken.`;
 
         // Wir nutzen zur Sicherheit das stabilere Generative-AI SDK von Google
-        // gemini-2.5-pro ist das smarte Top-Modell
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' });
+        // Zurück auf gemini-2.5-flash gesetzt, da das Pro Modell ein Tarif / Quota Limit auf deinem Account verursacht
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
         const result = await model.generateContent(prompt);
         return result.response.text();
