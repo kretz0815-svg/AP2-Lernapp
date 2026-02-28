@@ -9,6 +9,8 @@ export async function fetchYouTubeVideos(query, apiKey, maxResults = 4) {
         const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${safeQuery}&maxResults=${maxResults}&key=${apiKey}&relevanceLanguage=de`);
 
         if (!response.ok) {
+            const errorData = await response.json();
+            alert("YouTube API Fehler:\n" + (errorData.error?.message || response.status));
             throw new Error(`YouTube API returned ${response.status}`);
         }
 
