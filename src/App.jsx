@@ -964,6 +964,10 @@ Die JSON muss exakt diese Struktur haben:
             </div>
           )}
 
+          {q.svgCode && (
+            <div className="quiz-svg-container fade-in" style={{ marginBottom: '1.5rem', textAlign: 'center', width: '100%' }} dangerouslySetInnerHTML={{ __html: q.svgCode }} />
+          )}
+
           <div className="quiz-question">
             {q.question}
           </div>
