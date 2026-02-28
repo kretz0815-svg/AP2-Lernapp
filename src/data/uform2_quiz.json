@@ -1,0 +1,2154 @@
+{
+  "questions": [
+    {
+      "question": "Outdoor-Fun GmbH is evaluating three agencies for a YouTube product video. Which combination of criteria would most effectively address both long-term brand alignment and immediate technical feasibility?",
+      "answerOptions": [
+        {
+          "text": "Creativity & Concept and Technical Skills & Equipment",
+          "isCorrect": true,
+          "rationale": "Brand alignment is ensured through the creative concept's fit with the target group, while technical skills guarantee the agency can handle the specific production requirements."
+        },
+        {
+          "text": "References and Communication & Professionalism",
+          "isCorrect": false,
+          "rationale": "While important for trust, these criteria focus more on past performance and soft skills rather than the specific vision for the new product or technical capabilities."
+        },
+        {
+          "text": "Cost and Contractual Terms",
+          "isCorrect": false,
+          "rationale": "These are administrative and financial constraints that do not directly measure brand alignment or the technical quality of the output."
+        },
+        {
+          "text": "Timeline & Flexibility and Technical Skills & Equipment",
+          "isCorrect": false,
+          "rationale": "This pair focuses on the 'how' and 'when' of production but neglects the 'what' regarding the brand-specific message and creative vision."
+        }
+      ],
+      "hint": "Consider which factors balance the 'artistic' message of the brand with the 'physical' requirements of high-quality video production.",
+      "id": "q_75d65be6-cb70-4019-9db8-d97d73fbd148"
+    },
+    {
+      "question": "When setting up the new 'E-Bikes' online shop for Outdoor-Fun GmbH, why is it procedurally critical to set the shop status to 'offline' as the first step?",
+      "answerOptions": [
+        {
+          "text": "To prevent customers from accessing an incomplete site and to ensure legal compliance before launch",
+          "isCorrect": true,
+          "rationale": "Setting the shop offline allows for the configuration of legal elements (like Imprint and GDPR) and testing without risking user errors or legal liability."
+        },
+        {
+          "text": "To allow the SEO optimization algorithms to index the categories correctly without traffic interference",
+          "isCorrect": false,
+          "rationale": "SEO indexing usually happens after a site is live; indexing an empty or incomplete site is generally detrimental to search rankings."
+        },
+        {
+          "text": "To save hosting bandwidth costs during the resource-intensive process of uploading product images",
+          "isCorrect": false,
+          "rationale": "Bandwidth costs are rarely the primary driver for offline status compared to the risks of reputational damage or legal non-compliance."
+        },
+        {
+          "text": "To ensure that the number ranges for documents (Nummernkreise) start exactly at zero",
+          "isCorrect": false,
+          "rationale": "Number ranges are configured in the backend settings and are independent of whether the frontend is visible to users."
+        }
+      ],
+      "hint": "Think about the risks of a customer placing an order before the legal terms (AGB) or payment systems are fully configured.",
+      "id": "q_9f14c0e2-ac58-4abe-8706-669fb93c2fd9"
+    },
+    {
+      "question": "Outdoor-Fun GmbH hires an influencer for a campaign. The contract specifies: $500\\text{ \u20ac}$ per post, $0.05\\text{ \u20ac}$ per like, and a $100\\text{ \u20ac}$ bonus for any post exceeding $10,000$ likes. The influencer publishes three posts with $8,500$, $12,300$, and $9,750$ likes respectively. What is the total compensation?",
+      "answerOptions": [
+        {
+          "text": "$3,127.50\\text{ \u20ac}$",
+          "isCorrect": true,
+          "rationale": "Total = ($3 \\times 500$) + ($30,550 \\times 0.05$) + ($1 \\times 100$), which equals $1,500 + 1,527.50 + 100$."
+        },
+        {
+          "text": "$3,227.50\\text{ \u20ac}$",
+          "isCorrect": false,
+          "rationale": "This calculation incorrectly applies the $100\\text{ \u20ac}$ bonus to two posts instead of only the one that actually exceeded $10,000$ likes."
+        },
+        {
+          "text": "$3,027.50\\text{ \u20ac}$",
+          "isCorrect": false,
+          "rationale": "This result fails to include the $100\\text{ \u20ac}$ bonus for the second post ($12,300$ likes) in the final total."
+        },
+        {
+          "text": "$2,950.00\\text{ \u20ac}$",
+          "isCorrect": false,
+          "rationale": "This represents a calculation error in the variable component (likes) or an omission of the fixed post fees."
+        }
+      ],
+      "hint": "Sum the fixed fees for all posts, the total likes multiplied by the rate, and apply the bonus only to the qualifying post.",
+      "id": "q_9bbe0317-f97a-4e73-981b-c952d221e85a"
+    },
+    {
+      "question": "Outdoor-Fun GmbH uses Amazon FBA for their 'Dome Tents' line. Which strategic disadvantage would most likely occur if the company decided to switch $100\\%$ of their sales to this model?",
+      "answerOptions": [
+        {
+          "text": "Loss of brand identity and direct customer relationship",
+          "isCorrect": true,
+          "rationale": "Relying solely on Amazon limits the ability to cultivate a unique brand experience and prevents the company from owning the customer data."
+        },
+        {
+          "text": "Increased storage complexity for the Outdoor-Fun GmbH warehouse",
+          "isCorrect": false,
+          "rationale": "FBA actually reduces storage complexity for the seller because Amazon handles the logistics and warehouse management."
+        },
+        {
+          "text": "Inability to offer Prime shipping benefits to international customers",
+          "isCorrect": false,
+          "rationale": "Amazon FBA is one of the primary ways to ensure Prime eligibility and facilitate international shipping through Amazon's network."
+        },
+        {
+          "text": "Complete elimination of all marketing and advertising costs",
+          "isCorrect": false,
+          "rationale": "FBA sellers still face high competition on the platform and typically need to invest in Amazon Advertising to remain visible."
+        }
+      ],
+      "hint": "Think about the difference between selling on your own domain versus selling through a third-party marketplace.",
+      "id": "q_0ff53b1e-dee2-493e-b7dd-3bb7821311f9"
+    },
+    {
+      "question": "A competitor challenges the Outdoor-Fun GmbH slogan: 'Lowest Price in all of Germany!'. Under the Act Against Unfair Competition (UWG), why is this claim legally risky?",
+      "answerOptions": [
+        {
+          "text": "It is a peak position claim (Spitzenstellungswerbung) that is misleading if not continuously verifiable for every product",
+          "isCorrect": true,
+          "rationale": "Absolute claims like 'lowest price' must be factually true for the entire assortment; if even one item is cheaper elsewhere, the claim is misleading."
+        },
+        {
+          "text": "It violates the principle of price clarity by not including the specific VAT percentage in the slogan",
+          "isCorrect": false,
+          "rationale": "Price clarity relates to the price display on the product page, not necessarily the phrasing of a general marketing slogan."
+        },
+        {
+          "text": "It is considered aggressive commercial practice by pressuring customers to buy before prices rise",
+          "isCorrect": false,
+          "rationale": "While it is a strong claim, 'lowest price' is categorized as potentially misleading rather than an aggressive practice that limits freedom of choice."
+        },
+        {
+          "text": "Such slogans are only permitted if they are accompanied by a low-price guarantee of at least two weeks",
+          "isCorrect": false,
+          "rationale": "There is no legal requirement for a time-based guarantee; the risk lies in the truthfulness of the statement at the time it is made."
+        }
+      ],
+      "hint": "Consider the burden of proof required when a company claims to be 'the best' or 'the cheapest' in a whole country.",
+      "id": "q_ef1e7f4a-3cf5-46fc-b326-30fc48993fc2"
+    },
+    {
+      "question": "When implementing an AI-supported analysis system for marketing budget distribution, which 'limit' of AI should the management of Outdoor-Fun GmbH remain most aware of?",
+      "answerOptions": [
+        {
+          "text": "Strategic decisions and ethical judgments remain a human management task",
+          "isCorrect": true,
+          "rationale": "AI can optimize data-driven performance, but it lacks the qualitative intuition and strategic vision required for long-term company direction."
+        },
+        {
+          "text": "AI systems cannot process real-time click and conversion data simultaneously",
+          "isCorrect": false,
+          "rationale": "One of the primary strengths of modern AI systems is the ability to process vast amounts of real-time performance data."
+        },
+        {
+          "text": "The system is unable to analyze demographic data due to data privacy laws",
+          "isCorrect": false,
+          "rationale": "While privacy must be respected, AI can process anonymized demographic data to identify target group preferences effectively."
+        },
+        {
+          "text": "AI models are generally more expensive than the total annual marketing budget of $240,000\\text{ \u20ac}$",
+          "isCorrect": false,
+          "rationale": "SaaS (Software as a Service) AI solutions are often scalable and can be implemented for a fraction of a mid-sized company's marketing budget."
+        }
+      ],
+      "hint": "Identify which part of business leadership requires 'vision' rather than just 'data optimization'.",
+      "id": "q_00a6f1c7-a541-4ee0-a5de-57f9b1a13764"
+    },
+    {
+      "question": "Outdoor-Fun GmbH observes a decline in the average basket value for 'Survival Accessories.' Which measure targets a 'procedural' increase in value by suggesting complementary items during the checkout process?",
+      "answerOptions": [
+        {
+          "text": "Cross-Selling",
+          "isCorrect": true,
+          "rationale": "Cross-selling involves recommending related products (e.g., a fire starter to go with a survival knife) to increase the total number of items purchased."
+        },
+        {
+          "text": "Quantity Discounts",
+          "isCorrect": false,
+          "rationale": "This rewards buying more of the same item (e.g., 'Buy 3, get $10\\%$ off'), which doesn't necessarily leverage complementary product relationships."
+        },
+        {
+          "text": "Loyalty Programs",
+          "isCorrect": false,
+          "rationale": "These focus on long-term customer retention and repeat purchases rather than immediate basket value optimization during a single session."
+        },
+        {
+          "text": "Price Adjustments",
+          "isCorrect": false,
+          "rationale": "Lowering prices to increase volume often results in a lower average basket value even if more units are sold."
+        }
+      ],
+      "hint": "Look for the term that describes selling 'add-ons' or 'related' products.",
+      "id": "q_da881c7e-7d9e-46f2-89ec-d62e6989ae34"
+    },
+    {
+      "question": "Which of the following scenarios describes a financial movement from the company (U) to the State/Public Institutions (S)?",
+      "answerOptions": [
+        {
+          "text": "Outdoor-Fun GmbH pays its annual membership fee to the Chamber of Industry and Commerce (IHK)",
+          "isCorrect": true,
+          "rationale": "The IHK is a public-law institution (K\u00f6rperschaft des \u00f6ffentlichen Rechts), and the fee constitutes a financial flow to the state sector."
+        },
+        {
+          "text": "A new shareholder contributes $180,000\\text{ \u20ac}$ in equity to the company",
+          "isCorrect": false,
+          "rationale": "This is a financial movement from the Capital Markets (K) or private individuals to the Company (U), not to the State."
+        },
+        {
+          "text": "The company pays a $150,000\\text{ \u20ac}$ loan installment back to Commerzbank",
+          "isCorrect": false,
+          "rationale": "This represents a financial flow from the Company (U) to the Money/Capital Markets (K)."
+        },
+        {
+          "text": "The company receives a delivery of $35$ desks from a wholesaler for office use",
+          "isCorrect": false,
+          "rationale": "This is a movement of goods (Leistungsg\u00fcter) from the Procurement Market (B) to the Company (U)."
+        }
+      ],
+      "hint": "Identify the transaction where the recipient is a government-affiliated or public-law body.",
+      "id": "q_43a9616d-9b4f-489c-b4cd-9a11423eb51c"
+    },
+    {
+      "question": "What is the fundamental difference between 'Werkstoffe' (Materials) and 'Betriebsmittel' (Equipment) in the production process of Outdoor-Fun GmbH?",
+      "answerOptions": [
+        {
+          "text": "Materials are consumed or transformed into the product, while equipment enables production without being part of the final product",
+          "isCorrect": true,
+          "rationale": "Materials (like tent fabric) become part of the output, whereas equipment (like sewing machines) are long-term assets used to perform the work."
+        },
+        {
+          "text": "Equipment is always a current asset, while materials are categorized as long-term fixed assets",
+          "isCorrect": false,
+          "rationale": "In reality, it is the opposite; equipment is usually a long-term fixed asset (Anlagegut) and materials are current assets (Umlaufverm\u00f6gen)."
+        },
+        {
+          "text": "Materials are only used in production, whereas equipment is only used in the administration and sales departments",
+          "isCorrect": false,
+          "rationale": "Equipment (Betriebsmittel) like machinery is central to the production process itself, and materials can also exist in the form of office supplies."
+        },
+        {
+          "text": "The distinction is purely based on the purchase price of the item",
+          "isCorrect": false,
+          "rationale": "The distinction is based on the role the item plays in the creation of value (consumption vs. utilization), not its monetary value."
+        }
+      ],
+      "hint": "Consider which one 'disappears' into the finished goods and which one 'stays' in the factory.",
+      "id": "q_32581a3c-8f35-4164-b891-b39e1f9eaea8"
+    },
+    {
+      "question": "A supplier for Outdoor-Fun GmbH is forced to file for insolvency. According to legal standards, which of the following is a general requirement for the opening of insolvency proceedings?",
+      "answerOptions": [
+        {
+          "text": "Zahlungsunf\u00e4higkeit (Inability to pay)",
+          "isCorrect": true,
+          "rationale": "Inability to pay is the standard reason for opening proceedings, indicating the debtor cannot meet matured payment obligations."
+        },
+        {
+          "text": "Zahlungsunwilligkeit (Unwillingness to pay)",
+          "isCorrect": false,
+          "rationale": "Simply refusing to pay despite having the funds is a matter for civil litigation and bailiffs, not a ground for insolvency."
+        },
+        {
+          "text": "Kreditunw\u00fcrdigkeit (Lack of creditworthiness)",
+          "isCorrect": false,
+          "rationale": "A company may be uncreditworthy in the eyes of a bank but still have enough cash flow to avoid insolvency."
+        },
+        {
+          "text": "The appointment of a liquidator by the Chamber of Commerce",
+          "isCorrect": false,
+          "rationale": "The appointment of a liquidator is a result of certain types of company dissolution, not the legal trigger for insolvency proceedings."
+        }
+      ],
+      "hint": "Think about the objective financial state where a company's 'cash flow' has completely stopped meeting its 'debts'.",
+      "id": "q_96dd53c1-f0b0-4dba-ac5d-59bcb5e140a4"
+    },
+    {
+      "question": "Was ist der Kern des Amazon-Konzepts \u201eFulfillment by Amazon\u201c (FBA)?",
+      "answerOptions": [
+        {
+          "text": "Die Auslagerung der Lager-, Verpackungs- und Versandprozesse an Amazon.",
+          "isCorrect": true,
+          "rationale": "Das Konzept erm\u00f6glicht es Verk\u00e4ufern, sich auf ihr Kerngesch\u00e4ft zu konzentrieren, w\u00e4hrend Amazon die gesamte physische Logistik \u00fcbernimmt."
+        },
+        {
+          "text": "Ein exklusives Werbeprogramm zur Steigerung der Markenbekanntheit.",
+          "isCorrect": false,
+          "rationale": "Obwohl FBA die Sichtbarkeit erh\u00f6hen kann, liegt der Fokus prim\u00e4r auf der logistischen Abwicklung und nicht auf reinem Marketing."
+        },
+        {
+          "text": "Die \u00dcbernahme der gesamten Produktion der Waren durch Amazon.",
+          "isCorrect": false,
+          "rationale": "Amazon \u00fcbernimmt bei FBA lediglich die Logistik nach der Produktion; die Herstellung bleibt in der Verantwortung des Verk\u00e4ufers."
+        },
+        {
+          "text": "Ein Rabattsystem f\u00fcr Kunden, die direkt bei Amazon-Lagern einkaufen.",
+          "isCorrect": false,
+          "rationale": "FBA ist ein Dienstleistungsmodell f\u00fcr Verk\u00e4ufer und kein direktes Preisrabattsystem f\u00fcr Endverbraucher."
+        }
+      ],
+      "hint": "\u00dcberlegen Sie, welche operativen Aufgaben vom Verk\u00e4ufer auf den Plattformbetreiber \u00fcbertragen werden.",
+      "id": "q_35466763-929e-4f53-a062-732e8ea34910"
+    },
+    {
+      "question": "Welcher Schritt erfolgt im FBA-Ablauf unmittelbar nachdem die Produkte im Fulfillment-Zentrum eingetroffen sind?",
+      "answerOptions": [
+        {
+          "text": "Lagerung der Produkte in entsprechenden Lagern f\u00fcr den sp\u00e4teren Versand.",
+          "isCorrect": true,
+          "rationale": "Nach dem Eintreffen h\u00e4lt Amazon die Produkte versandbereit, bis eine Bestellung durch einen Kunden erfolgt."
+        },
+        {
+          "text": "Sofortiger automatischer Versand an registrierte Prime-Kunden.",
+          "isCorrect": false,
+          "rationale": "Ein Versand erfolgt erst dann, wenn eine konkrete Bestellung f\u00fcr das Produkt aufgegeben wurde."
+        },
+        {
+          "text": "Durchf\u00fchrung einer umfassenden Qualit\u00e4tskontrolle der Produktinhalte.",
+          "isCorrect": false,
+          "rationale": "Der Standard-FBA-Ablauf sieht nach dem Eintreffen prim\u00e4r die Bereitstellung und Einlagerung vor, nicht die inhaltliche Pr\u00fcfung jedes Produkts."
+        },
+        {
+          "text": "Erstellung von Werbeanzeigen f\u00fcr die eingegangenen Waren.",
+          "isCorrect": false,
+          "rationale": "Die Erstellung von Angeboten und Marketing erfolgt in der Regel bereits vor oder w\u00e4hrend der Einsendung, nicht als logistischer Folgeschritt der Warenannahme."
+        }
+      ],
+      "hint": "Denken Sie an den logistischen Zwischenschritt zwischen dem Empfang der Ware und dem Kauf durch einen Kunden.",
+      "id": "q_babfb8dc-4586-4f52-87b7-061e437bf0e1"
+    },
+    {
+      "question": "Welche Faktoren bestimmen prim\u00e4r die H\u00f6he der Geb\u00fchren, die ein Verk\u00e4ufer f\u00fcr die Nutzung von FBA an Amazon zahlt?",
+      "answerOptions": [
+        {
+          "text": "Gr\u00f6\u00dfe und Gewicht des Produkts sowie die Dauer der Lagerung.",
+          "isCorrect": true,
+          "rationale": "Diese Parameter beeinflussen direkt den Platzbedarf und den Aufwand f\u00fcr das Handling im Logistikzentrum."
+        },
+        {
+          "text": "Die Anzahl der Mitarbeiter, die der Verk\u00e4ufer in seinem eigenen Unternehmen besch\u00e4ftigt.",
+          "isCorrect": false,
+          "rationale": "Die interne Struktur des Verk\u00e4ufers hat keinen Einfluss auf die von Amazon berechneten Logistikdienstleistungen."
+        },
+        {
+          "text": "Der urspr\u00fcngliche Einkaufspreis, den der Verk\u00e4ufer an seinen Lieferanten gezahlt hat.",
+          "isCorrect": false,
+          "rationale": "Die Geb\u00fchren basieren auf logistischen Kennzahlen und nicht auf den Einkaufskosten der Ware."
+        },
+        {
+          "text": "Die Anzahl der verschiedenen Farben, in denen das Produkt verf\u00fcgbar ist.",
+          "isCorrect": false,
+          "rationale": "Variantenreichtum allein bestimmt nicht die Geb\u00fchrenh\u00f6he; entscheidend sind die physischen Dimensionen und die Zeit im Lager."
+        }
+      ],
+      "hint": "Ber\u00fccksichtigen Sie die physischen Eigenschaften der Ware, die den Platzverbrauch im Lager beeinflussen.",
+      "id": "q_a8d49e7b-218f-4955-ae23-be2b13049643"
+    },
+    {
+      "question": "Warum ist die \u201ePrime-Eligibility\u201c (Prime-Berechtigung) ein wesentlicher Vorteil von Amazon FBA?",
+      "answerOptions": [
+        {
+          "text": "Sie erm\u00f6glicht den Zugang zu Millionen Kunden, die schnellen und kostenlosen Versand bevorzugen.",
+          "isCorrect": true,
+          "rationale": "Die Prime-Berechtigung erh\u00f6ht oft die Verkaufschancen, da Prime-Mitglieder gezielt nach Produkten mit schnellen Lieferoptionen suchen."
+        },
+        {
+          "text": "Sie befreit den Verk\u00e4ufer dauerhaft von jeglichen Retourenkosten.",
+          "isCorrect": false,
+          "rationale": "Auch bei Prime-Produkten fallen Kosten f\u00fcr die Abwicklung an, und Retouren sind weiterhin Bestandteil des Gesch\u00e4ftsmodells."
+        },
+        {
+          "text": "Sie garantiert, dass das Produkt immer auf dem ersten Platz der Suchergebnisse erscheint.",
+          "isCorrect": false,
+          "rationale": "Prime verbessert die Sichtbarkeit, ist aber kein alleiniger Garant f\u00fcr das Ranking an oberster Stelle."
+        },
+        {
+          "text": "Sie erlaubt es dem Verk\u00e4ufer, Produkte ohne Mehrwertsteuer zu verkaufen.",
+          "isCorrect": false,
+          "rationale": "Steuerliche Pflichten bleiben unabh\u00e4ngig vom Prime-Status des Produkts bestehen."
+        }
+      ],
+      "hint": "Denken Sie an die Erwartungen und das Kaufverhalten von Amazon-Stammkunden.",
+      "id": "q_abe02241-f8bc-4df8-b65c-190155896227"
+    },
+    {
+      "question": "Was wird im Kontext von FBA als Nachteil bez\u00fcglich der \u201eMarkenpr\u00e4senz\u201c genannt?",
+      "answerOptions": [
+        {
+          "text": "Der Verkauf \u00fcber Amazon bietet weniger M\u00f6glichkeiten zur individuellen Markenbildung als ein eigener Webshop.",
+          "isCorrect": true,
+          "rationale": "Auf Plattformen wie Amazon stehen oft das Produkt und der Preis im Vordergrund, w\u00e4hrend das eigene Branding hinter dem Design von Amazon zur\u00fccktritt."
+        },
+        {
+          "text": "Amazon verbietet es Verk\u00e4ufern, ihr Logo auf der Produktverpackung zu platzieren.",
+          "isCorrect": false,
+          "rationale": "Logos auf Produkten sind erlaubt; der Nachteil bezieht sich auf das Einkaufserlebnis und das Plattformdesign."
+        },
+        {
+          "text": "Markennamen d\u00fcrfen in den Produkttiteln auf Amazon grunds\u00e4tzlich nicht genannt werden.",
+          "isCorrect": false,
+          "rationale": "Die Nennung von Markennamen ist \u00fcblich und notwendig, allerdings ist die visuelle Pr\u00e4sentation der Marke eingeschr\u00e4nkt."
+        },
+        {
+          "text": "Kunden k\u00f6nnen Produkte nur \u00fcber Kategorien und nicht \u00fcber Markennamen finden.",
+          "isCorrect": false,
+          "rationale": "Die Suche nach Marken ist auf Amazon m\u00f6glich, aber der Aufbau einer emotionalen Markenbindung ist schwieriger als auf einer eigenen Seite."
+        }
+      ],
+      "hint": "Vergleichen Sie die Gestaltungsfreiheit einer eigenen Webseite mit der standardisierten Darstellung auf einem Marktplatz.",
+      "id": "q_c0666909-2642-4027-97fa-ec73196afac4"
+    },
+    {
+      "question": "Welches Risiko ergibt sich aus einer zu starken Abh\u00e4ngigkeit von Amazon FBA?",
+      "answerOptions": [
+        {
+          "text": "Amazon kann Richtlinien und Geb\u00fchren einseitig \u00e4ndern oder Verk\u00e4uferkonten sperren.",
+          "isCorrect": true,
+          "rationale": "Da der Verk\u00e4ufer die Kontrolle \u00fcber wesentliche Teile seiner Logistik und den Kundenzugang abgibt, ist er den Entscheidungen der Plattform ausgeliefert."
+        },
+        {
+          "text": "Der Verk\u00e4ufer verliert nach sechs Monaten automatisch die Eigentumsrechte an seinen Waren.",
+          "isCorrect": false,
+          "rationale": "Das Eigentum bleibt beim Verk\u00e4ufer, Amazon fungiert lediglich als Dienstleister f\u00fcr Lagerung und Versand."
+        },
+        {
+          "text": "Amazon \u00fcbernimmt bei Erfolg das gesamte Unternehmen des Verk\u00e4ufers ohne Entsch\u00e4digung.",
+          "isCorrect": false,
+          "rationale": "Es handelt sich um eine Gesch\u00e4ftsbeziehung zwischen unabh\u00e4ngigen Unternehmen; eine Enteignung findet nicht statt."
+        },
+        {
+          "text": "Verk\u00e4ufer sind verpflichtet, ihre Produkte ausschlie\u00dflich an Amazon-Mitarbeiter zu verkaufen.",
+          "isCorrect": false,
+          "rationale": "FBA ist ein Dienst f\u00fcr den Verkauf an Endkunden weltweit, nicht f\u00fcr den internen Bedarf von Amazon."
+        }
+      ],
+      "hint": "\u00dcberlegen Sie, welche Konsequenzen es haben k\u00f6nnte, wenn ein externer Partner die Regeln f\u00fcr den Marktzugang bestimmt.",
+      "id": "q_6163cba7-7e52-4a34-be0b-78635fbb950a"
+    },
+    {
+      "question": "Warum wird Unternehmen wie der Outdoor-Fun GmbH empfohlen, trotz der Vorteile von FBA eine Diversifizierung der Vertriebskan\u00e4le zu pr\u00fcfen?",
+      "answerOptions": [
+        {
+          "text": "Um das Risiko einer zu starken Plattformabh\u00e4ngigkeit zu reduzieren.",
+          "isCorrect": true,
+          "rationale": "Mehrere Vertriebskan\u00e4le sorgen daf\u00fcr, dass das Unternehmen bei Problemen auf einer Plattform (z. B. Kontensperrung) weiterhin handlungsf\u00e4hig bleibt."
+        },
+        {
+          "text": "Weil Amazon den Verkauf von Outdoor-Artikeln wie Zelten in Zukunft verbieten will.",
+          "isCorrect": false,
+          "rationale": "Es gibt keinen Hinweis darauf, dass Amazon bestimmte Produktgruppen wie Zelte grunds\u00e4tzlich vom FBA-Programm ausschlie\u00dfen m\u00f6chte."
+        },
+        {
+          "text": "Damit das Unternehmen gezwungen ist, mehr Personal f\u00fcr die Logistik einzustellen.",
+          "isCorrect": false,
+          "rationale": "Diversifizierung dient der strategischen Sicherheit und nicht dem Selbstzweck, die Mitarbeiterzahl k\u00fcnstlich zu erh\u00f6hen."
+        },
+        {
+          "text": "Da FBA-Produkte grunds\u00e4tzlich nicht ins Ausland versendet werden k\u00f6nnen.",
+          "isCorrect": false,
+          "rationale": "Im Gegenteil: Die Quellen betonen, dass FBA den internationalen Verkauf durch weltweite Fulfillment-Zentren sogar erleichtert."
+        }
+      ],
+      "hint": "Betrachten Sie den Sicherheitsaspekt, nicht alle Eier in einen Korb zu legen.",
+      "id": "q_38bc7714-69c6-4cc1-8996-303e478bb722"
+    },
+    {
+      "question": "Welche Aufgabe \u00fcbernimmt Amazon im Rahmen des FBA-Kundenservice konkret?",
+      "answerOptions": [
+        {
+          "text": "Die Beantwortung von Kundenanfragen sowie die Abwicklung von Retouren und Erstattungen.",
+          "isCorrect": true,
+          "rationale": "Amazon entlastet den Verk\u00e4ufer, indem es die direkte Kommunikation und die R\u00fcckabwicklung von K\u00e4ufen \u00fcbernimmt."
+        },
+        {
+          "text": "Die technische Weiterentwicklung der Produkte des Verk\u00e4ufers.",
+          "isCorrect": false,
+          "rationale": "Amazon bietet logistischen Service und Support, greift aber nicht in das Produktdesign oder die Entwicklung ein."
+        },
+        {
+          "text": "Die \u00dcbernahme der Buchhaltung und Steuererkl\u00e4rung f\u00fcr das gesamte Unternehmen.",
+          "isCorrect": false,
+          "rationale": "Die steuerlichen und buchhalterischen Pflichten verbleiben in der Verantwortung der Gesch\u00e4ftsf\u00fchrung des Verk\u00e4ufers."
+        },
+        {
+          "text": "Den Aufbau von physischen Beratungsstellen in den St\u00e4dten der K\u00e4ufer.",
+          "isCorrect": false,
+          "rationale": "Der Kundenservice erfolgt digital oder telefonisch \u00fcber die Amazon-Infrastruktur, nicht durch lokale Ladengesch\u00e4fte."
+        }
+      ],
+      "hint": "Denken Sie an die typischen Interaktionen, die nach einem Online-Kauf zwischen K\u00e4ufer und Verk\u00e4ufer stattfinden.",
+      "id": "q_3e80b68c-efd6-4169-81a8-b709620a5d52"
+    },
+    {
+      "question": "Welcher Aspekt von FBA ist f\u00fcr die Outdoor-Fun GmbH aufgrund ihrer aktuellen Ausgangssituation besonders relevant?",
+      "answerOptions": [
+        {
+          "text": "Die Einsparung von Kosten f\u00fcr die Anmietung eigener Lagerfl\u00e4chen.",
+          "isCorrect": true,
+          "rationale": "Laut Text fehlt es dem Unternehmen an Lagerkapazit\u00e4t und die Anmietung eigener Fl\u00e4chen w\u00e4re zu kostspielig."
+        },
+        {
+          "text": "Die M\u00f6glichkeit, Zelte ausschlie\u00dflich in regionalen M\u00e4rkten zu verkaufen.",
+          "isCorrect": false,
+          "rationale": "Die Ausgangssituation betont den Marktplatz Amazon, der eher auf \u00fcberregionale und internationale Reichweite ausgelegt ist."
+        },
+        {
+          "text": "Die Reduzierung der Produktqualit\u00e4t zur Kosteneinsparung.",
+          "isCorrect": false,
+          "rationale": "FBA ist eine Logistikl\u00f6sung und zielt nicht auf die Ver\u00e4nderung der Produktqualit\u00e4t ab."
+        },
+        {
+          "text": "Die komplette Aufgabe des Online-Handels zugunsten von Fachgesch\u00e4ften.",
+          "isCorrect": false,
+          "rationale": "Die Gesch\u00e4ftsf\u00fchrung hat bereits den Entschluss gefasst, \u00fcber den Amazon Marketplace zu verkaufen, also den Online-Handel auszubauen."
+        }
+      ],
+      "hint": "Suchen Sie in der Einleitung nach den spezifischen logistischen Engp\u00e4ssen des Unternehmens.",
+      "id": "q_ec05540f-2df9-4ebd-a895-766e12db665d"
+    },
+    {
+      "question": "Warum kann FBA f\u00fcr Produkte, die sehr lange im Lager liegen, zum Nachteil werden?",
+      "answerOptions": [
+        {
+          "text": "Weil die Lagergeb\u00fchren je nach Dauer variieren und hohe Kosten verursachen k\u00f6nnen.",
+          "isCorrect": true,
+          "rationale": "Ladenh\u00fcter blockieren Platz in den Fulfillment-Zentren, was Amazon durch zeitabh\u00e4ngige Geb\u00fchren f\u00fcr den Verk\u00e4ufer teuer macht."
+        },
+        {
+          "text": "Da Amazon Produkte nach drei Monaten automatisch an den Meistbietenden versteigert.",
+          "isCorrect": false,
+          "rationale": "Amazon versteigert die Ware nicht ohne Zustimmung; der Verk\u00e4ufer tr\u00e4gt jedoch die finanziellen Lasten der Lagerung."
+        },
+        {
+          "text": "Weil die Qualit\u00e4t von Outdoor-Produkten in Amazon-Lagern schneller nachl\u00e4sst.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine Hinweise darauf, dass die Lagerbedingungen bei Amazon schlechter sind als in anderen professionellen Lagern."
+        },
+        {
+          "text": "Da Prime-Mitglieder grunds\u00e4tzlich nur Produkte kaufen d\u00fcrfen, die neu im Sortiment sind.",
+          "isCorrect": false,
+          "rationale": "Der Prime-Status ist unabh\u00e4ngig vom Alter des Produkts im Lager, solange es \u00fcber FBA abgewickelt wird."
+        }
+      ],
+      "hint": "Betrachten Sie die Geb\u00fchrenstruktur f\u00fcr Best\u00e4nde, die sich nur langsam verkaufen.",
+      "id": "q_457c53e8-8dc5-43b7-964f-eb72955eff2e"
+    },
+    {
+      "question": "Seit welchem Jahr ist die Outdoor-Fun GmbH mit einem eigenen Online-Shop am Markt pr\u00e4sent?",
+      "answerOptions": [
+        {
+          "text": "2001",
+          "isCorrect": true,
+          "rationale": "Das Unternehmen betreibt laut den Zusatzinformationen seit 2001 einen eigenen Online-Shop, w\u00e4hrend der station\u00e4re Handel bereits fr\u00fcher begann."
+        },
+        {
+          "text": "1995",
+          "isCorrect": false,
+          "rationale": "Dies ist das Jahr, in dem das Unternehmen den erfolgreichen station\u00e4ren Handel aufnahm, nicht den Online-Shop."
+        },
+        {
+          "text": "2026",
+          "isCorrect": false,
+          "rationale": "Dieses Datum liegt in der Zukunft und entspricht nicht der langj\u00e4hrigen Historie des Unternehmens."
+        },
+        {
+          "text": "2010",
+          "isCorrect": false,
+          "rationale": "Obwohl dies ein plausibler Zeitpunkt f\u00fcr E-Commerce-Wachstum w\u00e4re, startete die Outdoor-Fun GmbH bereits neun Jahre zuvor."
+        }
+      ],
+      "hint": "Unterscheide zwischen dem Beginn des station\u00e4ren Handels und der digitalen Expansion.",
+      "id": "q_bed8772a-75f3-4d6c-8fae-e998d52855ac"
+    },
+    {
+      "question": "Welches der folgenden Ziele wurde von der Gesch\u00e4ftsleitung der Outdoor-Fun GmbH explizit f\u00fcr den Online-Shop definiert?",
+      "answerOptions": [
+        {
+          "text": "Verbesserung der Suchmaschinenoptimierung (SEO)",
+          "isCorrect": true,
+          "rationale": "SEO ist eines der vier Kernziele, um die Sichtbarkeit und Reichweite des bestehenden Shops zu erh\u00f6hen."
+        },
+        {
+          "text": "Reduzierung der Mitarbeiteranzahl",
+          "isCorrect": false,
+          "rationale": "Die Senkung der Personalkosten wird in den definierten Zielen der Gesch\u00e4ftsleitung nicht erw\u00e4hnt."
+        },
+        {
+          "text": "Einstellung des station\u00e4ren Handels",
+          "isCorrect": false,
+          "rationale": "Es gibt keinen Hinweis darauf, dass das erfolgreiche station\u00e4re Gesch\u00e4ft aufgegeben werden soll."
+        },
+        {
+          "text": "Umwandlung in eine Aktiengesellschaft",
+          "isCorrect": false,
+          "rationale": "Die \u00c4nderung der Rechtsform ist kein Teil der genannten operativen Ziele f\u00fcr den Online-Shop."
+        }
+      ],
+      "hint": "Konzentriere dich auf die Marketing- und Performance-Kennzahlen, die f\u00fcr Webshops typisch sind.",
+      "id": "q_545ee1d7-31fc-43f9-ad0d-810490989735"
+    },
+    {
+      "question": "Warum gilt ein geringes Startkapital als Vorteil des Dropshipping-Modells?",
+      "answerOptions": [
+        {
+          "text": "Produkte werden erst nach dem Zahlungseingang des Kunden beim Lieferanten gekauft.",
+          "isCorrect": true,
+          "rationale": "Da kein eigenes Inventar vorfinanziert werden muss, sinkt die notwendige Anfangsinvestition erheblich."
+        },
+        {
+          "text": "Die Marketingkosten werden vollst\u00e4ndig vom Drittanbieter \u00fcbernommen.",
+          "isCorrect": false,
+          "rationale": "Der H\u00e4ndler ist in der Regel weiterhin selbst f\u00fcr die Vermarktung seines Shops verantwortlich."
+        },
+        {
+          "text": "Es fallen keine Geb\u00fchren f\u00fcr die Nutzung von Online-Marktpl\u00e4tzen an.",
+          "isCorrect": false,
+          "rationale": "Marktplatzgeb\u00fchren sind unabh\u00e4ngig vom Versandmodell und h\u00e4ngen von der gew\u00e4hlten Plattform ab."
+        },
+        {
+          "text": "Die Gewinnmargen sind so hoch, dass sich das Modell sofort selbst tr\u00e4gt.",
+          "isCorrect": false,
+          "rationale": "Tats\u00e4chlich sind die Gewinnmargen beim Dropshipping oft eher geringer als im traditionellen Handel."
+        }
+      ],
+      "hint": "\u00dcberlege, wann im Prozess der Warenfluss und der Geldfluss zwischen H\u00e4ndler und Lieferant stattfinden.",
+      "id": "q_e7c46a38-6e3d-4336-9e2f-400cf4825a91"
+    },
+    {
+      "question": "Welches logistische Risiko tr\u00e4gt ein H\u00e4ndler beim Dropshipping prim\u00e4r?",
+      "answerOptions": [
+        {
+          "text": "Mangelnde Kontrolle \u00fcber Lieferzeiten und Verpackungsqualit\u00e4t.",
+          "isCorrect": true,
+          "rationale": "Da der Versand direkt durch den Drittanbieter erfolgt, hat der H\u00e4ndler keinen direkten Einfluss auf die Ausf\u00fchrung."
+        },
+        {
+          "text": "Hohe Fixkosten f\u00fcr die Instandhaltung gro\u00dfer Lagerhallen.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein Nachteil des klassischen Eigenlagers, den Dropshipping gerade vermeidet."
+        },
+        {
+          "text": "Die Notwendigkeit, jedes Paket pers\u00f6nlich zur Post zu bringen.",
+          "isCorrect": false,
+          "rationale": "Beim Dropshipping \u00fcbernimmt der Lieferant den Versandweg, nicht der H\u00e4ndler selbst."
+        },
+        {
+          "text": "Ein Verbot des Versands an Packstationen.",
+          "isCorrect": false,
+          "rationale": "Dies ist eine spezifische Versandbedingung und kein grunds\u00e4tzliches strukturelles Risiko des Gesch\u00e4ftsmodells."
+        }
+      ],
+      "hint": "Denke daran, dass beim Dropshipping eine dritte Partei die physische Handhabung der Ware \u00fcbernimmt.",
+      "id": "q_5f2ea92e-af75-43e1-8f17-0c65452fd961"
+    },
+    {
+      "question": "Wie tr\u00e4gt die Ma\u00dfnahme 'Gratisversand ab 39\u20ac' laut der Bewertung zur Zielerreichung bei?",
+      "answerOptions": [
+        {
+          "text": "Sie steigert die Conversion Rate.",
+          "isCorrect": true,
+          "rationale": "Kostenfreier Versand ist ein starker Kaufanreiz, der Besucher dazu bewegt, den Kaufvorgang tats\u00e4chlich abzuschlie\u00dfen."
+        },
+        {
+          "text": "Sie verbessert das technische SEO-Ranking.",
+          "isCorrect": false,
+          "rationale": "Versandkonditionen haben keinen direkten Einfluss auf die technische Struktur oder die Suchmaschinen-Algorithmen."
+        },
+        {
+          "text": "Sie senkt die Abh\u00e4ngigkeit von Drittanbietern.",
+          "isCorrect": false,
+          "rationale": "Versandkostenaktionen \u00e4ndern nichts an der grundlegenden Gesch\u00e4ftsbeziehung zu Lieferanten."
+        },
+        {
+          "text": "Sie erh\u00f6ht die Anzahl der Auszubildenden.",
+          "isCorrect": false,
+          "rationale": "Die Personalplanung ist unabh\u00e4ngig von den Versandkostenregelungen im Online-Shop."
+        }
+      ],
+      "hint": "\u00dcberlege, welche psychologische Wirkung wegfallende Zusatzkosten am Ende eines Bestellvorgangs haben.",
+      "id": "q_08bbc856-0a25-4d8c-a389-41a01548adf5"
+    },
+    {
+      "question": "Welche Flexibilit\u00e4t bietet Dropshipping hinsichtlich des Arbeitsortes?",
+      "answerOptions": [
+        {
+          "text": "Das Gesch\u00e4ft kann von \u00fcberall betrieben werden, solange Internetzugang besteht.",
+          "isCorrect": true,
+          "rationale": "Da kein physisches Lager verwaltet werden muss, ist der H\u00e4ndler nicht an einen festen Standort gebunden."
+        },
+        {
+          "text": "Der H\u00e4ndler muss zwingend am Standort des Lieferanten ans\u00e4ssig sein.",
+          "isCorrect": false,
+          "rationale": "Die r\u00e4umliche N\u00e4he zum Lieferanten ist beim Dropshipping gerade nicht erforderlich."
+        },
+        {
+          "text": "Es ist nur in Regionen mit hoher Dichte an station\u00e4ren L\u00e4den m\u00f6glich.",
+          "isCorrect": false,
+          "rationale": "Das Modell ist rein digital gesteuert und funktioniert unabh\u00e4ngig von lokaler Ladeninfrastruktur."
+        },
+        {
+          "text": "Man ist an die Gesch\u00e4ftszeiten des Amtsgerichts Kauffingen gebunden.",
+          "isCorrect": false,
+          "rationale": "Die Handelsregistereintragung definiert den rechtlichen Sitz, schr\u00e4nkt aber den operativen Arbeitsort nicht ein."
+        }
+      ],
+      "hint": "Betrachte die physischen Anforderungen an die Verwaltung von Warenbest\u00e4nden.",
+      "id": "q_f47a8a83-33da-4e95-9eec-00e850381c5a"
+    },
+    {
+      "question": "Was ist ein potenzieller Nachteil der Abh\u00e4ngigkeit von Drittanbietern im Dropshipping?",
+      "answerOptions": [
+        {
+          "text": "Anf\u00e4lligkeit f\u00fcr Probleme wie Produktm\u00e4ngel oder fehlerhafte Sendungen au\u00dferhalb der eigenen Kontrolle.",
+          "isCorrect": true,
+          "rationale": "Fehler des Lieferanten fallen direkt auf den H\u00e4ndler zur\u00fcck, der gegen\u00fcber dem Kunden verantwortlich bleibt."
+        },
+        {
+          "text": "Die Pflicht zur Abnahme von Mindestmengen pro Monat.",
+          "isCorrect": false,
+          "rationale": "Dropshipping zeichnet sich meist dadurch aus, dass eben keine Lagerbest\u00e4nde vorab gekauft werden m\u00fcssen."
+        },
+        {
+          "text": "Ein Zwang zur Nutzung der Firmenfarben des Lieferanten im eigenen Webshop.",
+          "isCorrect": false,
+          "rationale": "Das Branding des Shops bleibt in der Regel die Entscheidung des H\u00e4ndlers."
+        },
+        {
+          "text": "Die automatische Erh\u00f6hung der Gewerbesteuer.",
+          "isCorrect": false,
+          "rationale": "Die Steuerlast h\u00e4ngt vom Gewinn ab, nicht direkt von der Wahl des Logistikmodells."
+        }
+      ],
+      "hint": "\u00dcberlege, wer f\u00fcr die Qualit\u00e4t der Ware und den Versandprozess verantwortlich ist, wenn der H\u00e4ndler sie nicht selbst sieht.",
+      "id": "q_5ef1fd08-234b-4aa1-8cef-234d584f458a"
+    },
+    {
+      "question": "Welche Ma\u00dfnahme dient prim\u00e4r der Senkung der Absprungrate (Bounce Rate)?",
+      "answerOptions": [
+        {
+          "text": "Bereitstellung beliebter Zahlungsarten.",
+          "isCorrect": true,
+          "rationale": "Wenn Kunden im Checkout ihre bevorzugte Zahlungsmethode vermissen, verlassen sie den Shop h\u00e4ufig vorzeitig."
+        },
+        {
+          "text": "Erh\u00f6hung der Preise zur Qualit\u00e4tssicherung.",
+          "isCorrect": false,
+          "rationale": "H\u00f6here Preise f\u00fchren tendenziell eher zu einer h\u00f6heren Absprungrate bei preisbewussten Kunden."
+        },
+        {
+          "text": "Reduzierung des Kundensupports auf E-Mail-Kontakt.",
+          "isCorrect": false,
+          "rationale": "Ein eingeschr\u00e4nkter Support mindert das Vertrauen und k\u00f6nnte die Absprungrate sogar erh\u00f6hen."
+        },
+        {
+          "text": "Umstellung des Sortiments auf reine Dienstleistungen.",
+          "isCorrect": false,
+          "rationale": "Eine radikale Sortiments\u00e4nderung ist keine gezielte Ma\u00dfnahme zur Optimierung der Absprungrate des bestehenden Angebots."
+        }
+      ],
+      "hint": "Denke an den Moment im Kaufprozess, in dem ein Kunde sich gegen den Abschluss entscheidet.",
+      "id": "q_41c87626-54fc-47ff-ad99-cdce18c772aa"
+    },
+    {
+      "question": "Wodurch zeichnet sich eine 'SEO-Optimierung' im Kontext der Ma\u00dfnahmenliste aus?",
+      "answerOptions": [
+        {
+          "text": "Durch Keyword-Analyse und Optimierung von Inhalten und Meta-Tags.",
+          "isCorrect": true,
+          "rationale": "Diese Ma\u00dfnahmen erh\u00f6hen die Sichtbarkeit in Suchmaschinenergebnissen, was eines der definierten Ziele ist."
+        },
+        {
+          "text": "Durch die Er\u00f6ffnung weiterer station\u00e4rer Filialen in anderen St\u00e4dten.",
+          "isCorrect": false,
+          "rationale": "Lokale Expansion ist eine Strategie f\u00fcr den station\u00e4ren Handel, nicht f\u00fcr das Online-Suchmaschinenranking."
+        },
+        {
+          "text": "Durch die ausschlie\u00dfliche Nutzung von KI zur Kundenberatung.",
+          "isCorrect": false,
+          "rationale": "KI kann zwar unterst\u00fctzen, aber SEO umfasst wesentlich mehr als nur die Kommunikation (Inhalte, Tags, Technik)."
+        },
+        {
+          "text": "Durch die Senkung der Versandkosten f\u00fcr alle Produkte.",
+          "isCorrect": false,
+          "rationale": "Versandkosten beeinflussen die Conversion, aber nicht prim\u00e4r die Auffindbarkeit in Suchmaschinen."
+        }
+      ],
+      "hint": "Konzentriere dich auf Faktoren, die bestimmen, wie gut eine Webseite von Google oder Bing gefunden wird.",
+      "id": "q_80c994cd-dbc9-42d8-96e8-47e8aac4c3cf"
+    },
+    {
+      "question": "Was ist der Hauptzweck der Outdoor-Fun GmbH gem\u00e4\u00df dem Firmenprofil?",
+      "answerOptions": [
+        {
+          "text": "Herstellung und Vermittlung von Waren und Dienstleistungen rund um Outdoor-Freizeitartikel.",
+          "isCorrect": true,
+          "rationale": "Dies ist der offiziell angegebene Betriebszweck im Stammdatenblatt des Unternehmens."
+        },
+        {
+          "text": "Reiner Betrieb einer Software-Plattform f\u00fcr Drittanbieter.",
+          "isCorrect": false,
+          "rationale": "Das Unternehmen stellt auch selbst Waren her und betreibt eigenen Handel, statt nur eine Plattform zu sein."
+        },
+        {
+          "text": "Betrieb eines Reiseb\u00fcros f\u00fcr Outdoor-Aktivit\u00e4ten.",
+          "isCorrect": false,
+          "rationale": "Obwohl Dienstleistungen angeboten werden, liegt der Fokus laut Sortiment auf Freizeitartikeln."
+        },
+        {
+          "text": "Exklusiver Gro\u00dfhandel f\u00fcr Campingwagen.",
+          "isCorrect": false,
+          "rationale": "Der Fokus liegt allgemein auf Outdoor-Freizeitartikeln und umfasst sowohl Einzelhandel als auch Online-Vertrieb."
+        }
+      ],
+      "hint": "Schau dir die Felder 'Betriebszweck' und 'Sortiment' in der Unternehmens\u00fcbersicht genau an.",
+      "id": "q_ac93d151-2e13-4c9e-ac53-c326dd6b7bae"
+    },
+    {
+      "question": "Warum kann eine gezielte Preissenkung (z. B. durch eine Rabattaktion) dazu f\u00fchren, dass der durchschnittliche Warenkorbwert sinkt?",
+      "answerOptions": [
+        {
+          "text": "Weil der Gesamtwert des Warenkorbs bei gleichbleibender Artikelanzahl durch den niedrigeren Einzelpreis sinkt.",
+          "isCorrect": true,
+          "rationale": "Wenn Kunden die gleiche Menge an Artikeln kaufen, diese aber g\u00fcnstiger sind, verringert sich mathematisch der Durchschnittswert pro Einkauf."
+        },
+        {
+          "text": "Weil Rabattaktionen Kunden dazu bringen, grunds\u00e4tzlich weniger Artikel in den Warenkorb zu legen.",
+          "isCorrect": false,
+          "rationale": "Rabatte f\u00fchren in der Regel eher dazu, dass Kunden mehr Artikel kaufen, auch wenn der Wert pro Artikel niedriger ist."
+        },
+        {
+          "text": "Weil die Outdoor-Fun GmbH bei Sales nur noch minderwertige Produkte anbietet.",
+          "isCorrect": false,
+          "rationale": "Die Qualit\u00e4t der Produkte \u00e4ndert sich durch eine Preisaktion nicht zwangsl\u00e4ufig; der Effekt auf den Warenkorbwert ist rein finanziell bedingt."
+        },
+        {
+          "text": "Weil Preisreduzierungen das Interesse an Survival-Zubeh\u00f6r generell verringern.",
+          "isCorrect": false,
+          "rationale": "Niedrigere Preise steigern normalerweise die Nachfrage, anstatt das Interesse der Zielgruppe zu senken."
+        }
+      ],
+      "hint": "\u00dcberlegen Sie, wie sich der Gesamtwert einer Bestellung berechnet, wenn die Menge konstant bleibt, aber der Preis pro Einheit abnimmt.",
+      "id": "q_67ac4fd9-366f-4b3c-a2ac-71c5f2583ee1"
+    },
+    {
+      "question": "Welches Ziel verfolgt die Outdoor-Fun GmbH prim\u00e4r mit der Einf\u00fchrung von Produktbundles im Bereich Survival-Zubeh\u00f6r?",
+      "answerOptions": [
+        {
+          "text": "Kunden dazu zu animieren, mehrere zusammenh\u00e4ngende Artikel gleichzeitig in einem einzigen Kauf zu erwerben.",
+          "isCorrect": true,
+          "rationale": "Bundles b\u00fcndeln komplement\u00e4re Produkte zu einem Paketpreis, was die Anzahl der verkauften Artikel pro Transaktion erh\u00f6ht."
+        },
+        {
+          "text": "Die Lagerkosten f\u00fcr Ladenh\u00fcter durch kostenlose Beigaben zu anderen Produkten zu senken.",
+          "isCorrect": false,
+          "rationale": "Zwar k\u00f6nnen Bundles beim Abverkauf helfen, ihr prim\u00e4res Ziel im Marketing ist jedoch die Steigerung des Umsatzes pro Kunde."
+        },
+        {
+          "text": "Die Komplexit\u00e4t des Sortiments f\u00fcr den Kunden zu erh\u00f6hen, um mehr Auswahl zu bieten.",
+          "isCorrect": false,
+          "rationale": "Bundles dienen der Vereinfachung der Kaufentscheidung und der Steigerung des Warenkorbwerts, nicht der Erh\u00f6hung der Komplexit\u00e4t."
+        },
+        {
+          "text": "Den Einzelpreis jedes im Set enthaltenen Artikels dauerhaft auf der Webseite anzuzeigen.",
+          "isCorrect": false,
+          "rationale": "Ein Bundle fokussiert sich meist auf einen Gesamtpreis f\u00fcr das Paket, um den Kaufanreiz durch eine Ersparnis zu erh\u00f6hen."
+        }
+      ],
+      "hint": "Denken Sie an den Effekt, den ein zusammengestelltes Set auf die Anzahl der Artikel im Warenkorb hat.",
+      "id": "q_71979eb7-e022-4991-b125-2221fe56f679"
+    },
+    {
+      "question": "Was versteht man im Kontext des UWG unter 'unlauterem Wettbewerb'?",
+      "answerOptions": [
+        {
+          "text": "Gesch\u00e4ftspraktiken, die gegen die guten Sitten versto\u00dfen oder den fairen Wettbewerb beeintr\u00e4chtigen.",
+          "isCorrect": true,
+          "rationale": "Das UWG sch\u00fctzt den Wettbewerb vor T\u00e4uschung, Irref\u00fchrung und unfairen Methoden, um Markttransparenz zu gew\u00e4hrleisten."
+        },
+        {
+          "text": "Jede Form von Werbung, die darauf abzielt, dem Konkurrenten Marktanteile wegzunehmen.",
+          "isCorrect": false,
+          "rationale": "Aggressiver Wettbewerb um Marktanteile ist legal, solange er mit fairen Mitteln und ohne Irref\u00fchrung gef\u00fchrt wird."
+        },
+        {
+          "text": "Die ausschlie\u00dfliche Verwendung von Preissenkungen, um Kunden von anderen Anbietern wegzulocken.",
+          "isCorrect": false,
+          "rationale": "Preisk\u00e4mpfe sind ein normaler Teil des Marktwettbewerbs, sofern sie nicht gegen spezifische Verbote (z. B. Preisdumping zur Verdr\u00e4ngung) versto\u00dfen."
+        },
+        {
+          "text": "Das Anbieten von Produkten, die qualitativ schlechter sind als die der Konkurrenz.",
+          "isCorrect": false,
+          "rationale": "Geringere Qualit\u00e4t ist kein Versto\u00df gegen das Wettbewerbsrecht, solange die Eigenschaften des Produkts wahrheitsgem\u00e4\u00df beworben werden."
+        }
+      ],
+      "hint": "Betrachten Sie die ethischen und rechtlichen Grundregeln, die f\u00fcr ein faires Miteinander der Marktteilnehmer gelten.",
+      "id": "q_af3a3616-0134-48e3-994d-4372bfd59f8f"
+    },
+    {
+      "question": "Wann ist der Slogan 'Niedrigster Preis in ganz Deutschland!' rechtlich besonders problematisch?",
+      "answerOptions": [
+        {
+          "text": "Wenn der Shop nicht f\u00fcr alle angebotenen Produkte tats\u00e4chlich den g\u00fcnstigsten Preis nachweisen kann.",
+          "isCorrect": true,
+          "rationale": "Absolute Werbeaussagen m\u00fcssen beweisbar sein, da sie sonst als irref\u00fchrend eingestuft werden und gegen das UWG versto\u00dfen."
+        },
+        {
+          "text": "Wenn der Slogan in einer Schriftart gedruckt wird, die kleiner als der Produktname ist.",
+          "isCorrect": false,
+          "rationale": "Die Gestaltung ist weniger relevant als der Wahrheitsgehalt der getroffenen Tatsachenbehauptung."
+        },
+        {
+          "text": "Sobald ein einzelner Mitbewerber den gleichen Preis f\u00fcr ein Produkt verlangt.",
+          "isCorrect": false,
+          "rationale": "Problematisch ist es vor allem dann, wenn der Preis des Mitbewerbers niedriger ist, da die Aussage 'Niedrigster' dann unwahr ist."
+        },
+        {
+          "text": "Nur dann, wenn Kunden sich explizit \u00fcber die hohen Preise im Online-Shop beschweren.",
+          "isCorrect": false,
+          "rationale": "Die Rechtswidrigkeit h\u00e4ngt von der objektiven Unwahrheit der Aussage ab, nicht von der Anzahl der Kundenbeschwerden."
+        }
+      ],
+      "hint": "\u00dcberlegen Sie, welche Anforderung an die Beweislast gestellt wird, wenn ein Unternehmen eine Alleinstellungsbehauptung aufstellt.",
+      "id": "q_f6b432aa-803b-421e-afab-2afe9ed970aa"
+    },
+    {
+      "question": "Welche Ma\u00dfnahme kann die Outdoor-Fun GmbH ergreifen, um sicherzustellen, dass ihre Marketingmitarbeiter das UWG nicht verletzen?",
+      "answerOptions": [
+        {
+          "text": "Regelm\u00e4\u00dfige Schulungen \u00fcber das UWG und relevante rechtliche \u00c4nderungen durchf\u00fchren.",
+          "isCorrect": true,
+          "rationale": "Wissen \u00fcber die aktuelle Rechtslage ist die Grundlage, um rechtssichere Werbebotschaften zu erstellen und Risiken zu minimieren."
+        },
+        {
+          "text": "Den Marketingmitarbeitern verbieten, Preise mit der Konkurrenz zu vergleichen.",
+          "isCorrect": false,
+          "rationale": "Vergleichende Werbung ist unter bestimmten Bedingungen erlaubt; ein generelles Verbot ist unn\u00f6tig und schr\u00e4nkt die Marketingstrategie ein."
+        },
+        {
+          "text": "Die Werbebudgets k\u00fcrzen, um weniger Angriffsfl\u00e4che f\u00fcr Konkurrenten zu bieten.",
+          "isCorrect": false,
+          "rationale": "Budgetk\u00fcrzungen verhindern keine Rechtsverst\u00f6\u00dfe; die Qualit\u00e4t und Rechtm\u00e4\u00dfigkeit der Inhalte ist entscheidend."
+        },
+        {
+          "text": "Alle Werbema\u00dfnahmen ausschlie\u00dflich durch externe Call-Center durchf\u00fchren lassen.",
+          "isCorrect": false,
+          "rationale": "Die Auslagerung entbindet das Unternehmen nicht von der Verantwortung f\u00fcr rechtswidrige Werbema\u00dfnahmen."
+        }
+      ],
+      "hint": "Konzentrieren Sie sich auf eine pr\u00e4ventive Ma\u00dfnahme, die die Kompetenz des Personals st\u00e4rkt.",
+      "id": "q_e0cb1bf7-6f06-499d-97be-2149bce50801"
+    },
+    {
+      "question": "Was ist eine direkte rechtliche Konsequenz, die ein Mitbewerber bei einem Versto\u00df gegen das UWG einleiten kann?",
+      "answerOptions": [
+        {
+          "text": "Eine Abmahnung oder eine gerichtliche Unterlassungsklage erwirken.",
+          "isCorrect": true,
+          "rationale": "Mitbewerber haben das Recht, unlautere Praktiken durch formale Abmahnungen und gerichtliche Schritte zu unterbinden."
+        },
+        {
+          "text": "Die sofortige Schlie\u00dfung des Online-Shops der Outdoor-Fun GmbH fordern.",
+          "isCorrect": false,
+          "rationale": "Die Schlie\u00dfung eines Gesch\u00e4fts ist eine extreme Ma\u00dfnahme, die meist nicht die direkte Folge einer einzelnen unlauteren Werbeaktion ist."
+        },
+        {
+          "text": "Die Vernichtung aller Lagerbest\u00e4nde des Survival-Zubeh\u00f6rs verlangen.",
+          "isCorrect": false,
+          "rationale": "Das Wettbewerbsrecht zielt auf die Unterlassung der Handlung ab, nicht auf die physische Zerst\u00f6rung rechtm\u00e4\u00dfig erworbener Ware."
+        },
+        {
+          "text": "Eine Erh\u00f6hung der Mehrwertsteuer f\u00fcr das konkurrierende Unternehmen beantragen.",
+          "isCorrect": false,
+          "rationale": "Steuers\u00e4tze sind gesetzlich festgelegt und k\u00f6nnen nicht durch zivilrechtliche Klagen zwischen Wettbewerbern ge\u00e4ndert werden."
+        }
+      ],
+      "hint": "Denken Sie an das Instrument, mit dem Unternehmen versuchen, rechtswidriges Verhalten der Konkurrenz au\u00dfergerichtlich oder gerichtlich zu stoppen.",
+      "id": "q_82d0dea1-cafc-4dec-8fe9-d898bcfb419e"
+    },
+    {
+      "question": "Warum ist die Kombination aus 'Tiefpreisgarantie' und dem Slogan 'Niedrigster Preis in ganz Deutschland!' oft kritisch zu betrachten?",
+      "answerOptions": [
+        {
+          "text": "Weil sie irref\u00fchrend wirken kann, wenn die Bedingungen der Garantie nicht klar und transparent kommuniziert werden.",
+          "isCorrect": true,
+          "rationale": "Transparenz ist im Wettbewerbsrecht entscheidend, damit Kunden genau verstehen, welche Rechte und Pflichten mit einem Versprechen verbunden sind."
+        },
+        {
+          "text": "Weil Garantieversprechen in Deutschland grunds\u00e4tzlich gesetzlich verboten sind.",
+          "isCorrect": false,
+          "rationale": "Garantien sind erlaubt, solange sie den Kunden nicht t\u00e4uschen und die Bedingungen eindeutig dargelegt sind."
+        },
+        {
+          "text": "Weil eine Tiefpreisgarantie automatisch bedeutet, dass das Unternehmen Verluste macht.",
+          "isCorrect": false,
+          "rationale": "Die wirtschaftliche Rentabilit\u00e4t eines Unternehmens ist kein Kriterium f\u00fcr die rechtliche Bewertung nach dem UWG."
+        },
+        {
+          "text": "Weil Kunden dadurch zu viel Zeit mit Preisvergleichen verbringen und nicht mehr einkaufen.",
+          "isCorrect": false,
+          "rationale": "Das Kaufverhalten der Kunden ist eine betriebswirtschaftliche Sorge, aber kein rechtlicher Grund f\u00fcr die Unlauterkeit einer Ma\u00dfnahme."
+        }
+      ],
+      "hint": "Ber\u00fccksichtigen Sie das Informationsbed\u00fcrfnis des Verbrauchers und das Gebot der Wahrheit im Marketing.",
+      "id": "q_0ec9b9ba-e06d-4137-8353-4e85d36c8bf0"
+    },
+    {
+      "question": "Wie kann Cross-Selling effektiv dazu beitragen, den Warenkorbwert zu steigern?",
+      "answerOptions": [
+        {
+          "text": "Indem dem Kunden basierend auf seiner Auswahl erg\u00e4nzende Produkte (z. B. ein Feuerstarter zum Messer) vorgeschlagen werden.",
+          "isCorrect": true,
+          "rationale": "Durch das Vorschlagen passender Zusatzartikel erh\u00f6ht sich die Wahrscheinlichkeit, dass Kunden mehr als nur das urspr\u00fcngliche Zielprodukt kaufen."
+        },
+        {
+          "text": "Indem der Preis des Hauptartikels massiv gesenkt wird, um mehr Kunden anzulocken.",
+          "isCorrect": false,
+          "rationale": "Preissenkungen sind eine Promotion-Ma\u00dfnahme, aber kein Cross-Selling, bei dem es um den Verkauf zus\u00e4tzlicher Artikel geht."
+        },
+        {
+          "text": "Indem Kunden dazu gezwungen werden, nur noch Sets anstatt Einzelartikel zu kaufen.",
+          "isCorrect": false,
+          "rationale": "Kaufzwang ist keine Marketingstrategie f\u00fcr Cross-Selling, sondern w\u00fcrde Kunden eher abschrecken und den Absatz gef\u00e4hrden."
+        },
+        {
+          "text": "Indem die Versandkosten f\u00fcr alle Einzelartikel drastisch erh\u00f6ht werden.",
+          "isCorrect": false,
+          "rationale": "H\u00f6here Versandkosten schrecken Kunden eher ab und tragen nicht direkt dazu bei, dass mehr Produkte in den Warenkorb gelegt werden."
+        }
+      ],
+      "hint": "Betrachten Sie die Beziehung zwischen einem Hauptprodukt und einem passenden Zubeh\u00f6rteil.",
+      "id": "q_49e0f2f3-c3ef-4e79-8131-44de6baea780"
+    },
+    {
+      "question": "Warum k\u00f6nnte ein allgemeiner Trend weg von Outdoor-Hobbys den Warenkorbwert der Outdoor-Fun GmbH beeinflussen?",
+      "answerOptions": [
+        {
+          "text": "Weil eine geringere Nachfrage oft dazu f\u00fchrt, dass Kunden nur noch das N\u00f6tigste kaufen und auf teure Spezialausr\u00fcstung verzichten.",
+          "isCorrect": true,
+          "rationale": "Ver\u00e4nderte Marktbedingungen und sinkendes Interesse f\u00fchren oft dazu, dass Kunden weniger pro Einkauf investieren oder g\u00fcnstigere Alternativen w\u00e4hlen."
+        },
+        {
+          "text": "Weil Trends dazu f\u00fchren, dass die Herstellungskosten f\u00fcr Survival-Zubeh\u00f6r automatisch steigen.",
+          "isCorrect": false,
+          "rationale": "Markttrends beeinflussen prim\u00e4r die Nachfrageseite, w\u00e4hrend Herstellungskosten von Faktoren wie Rohstoffpreisen abh\u00e4ngen."
+        },
+        {
+          "text": "Weil die Outdoor-Fun GmbH bei einem Abw\u00e4rtstrend gesetzlich dazu verpflichtet ist, die Preise zu erh\u00f6hen.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine gesetzliche Verpflichtung zur Preisanpassung aufgrund von Markttrends; dies ist eine rein unternehmerische Entscheidung."
+        },
+        {
+          "text": "Weil Kunden bei sinkendem Interesse an einem Hobby automatisch gr\u00f6\u00dfere Mengen auf Vorrat kaufen.",
+          "isCorrect": false,
+          "rationale": "Sinkendes Interesse f\u00fchrt in der Regel zu einer Reduzierung der Kaufmenge und nicht zu Hamsterk\u00e4ufen."
+        }
+      ],
+      "hint": "\u00dcberlegen Sie, wie sich das Konsumverhalten \u00e4ndert, wenn ein Thema f\u00fcr die Zielgruppe an Relevanz verliert.",
+      "id": "q_7bdc311f-c989-4f94-8df2-c46d7088b665"
+    },
+    {
+      "question": "Ein Online-Shop bietet '$10\\ \\%$' Rabatt an, wenn ein Kunde mindestens drei Artikel aus der Kategorie 'Survival' kauft. Um welche Ma\u00dfnahme handelt es sich?",
+      "answerOptions": [
+        {
+          "text": "Mengenrabatt",
+          "isCorrect": true,
+          "rationale": "Mengenrabatte gew\u00e4hren Preisvorteile bei der Abnahme einer gr\u00f6\u00dferen St\u00fcckzahl, was den Kunden motiviert, mehr Artikel in den Warenkorb zu legen."
+        },
+        {
+          "text": "Loyalit\u00e4tsprogramm",
+          "isCorrect": false,
+          "rationale": "Ein Loyalit\u00e4tsprogramm belohnt wiederkehrende Kunden \u00fcber einen l\u00e4ngeren Zeitraum, nicht unbedingt die Menge in einem einzelnen Kauf."
+        },
+        {
+          "text": "Kostenloser Versand",
+          "isCorrect": false,
+          "rationale": "Hier geht es um einen prozentualen Preisnachlass auf die Ware, nicht um den Erlass der Versandgeb\u00fchren."
+        },
+        {
+          "text": "Produktbundle",
+          "isCorrect": false,
+          "rationale": "Ein Bundle ist ein fest geschn\u00fcrtes Paket, w\u00e4hrend ein Mengenrabatt oft flexibel f\u00fcr verschiedene Artikel ab einer bestimmten Anzahl gilt."
+        }
+      ],
+      "hint": "Achten Sie auf die Bedingung 'mindestens drei Artikel' und den daraus resultierenden Preisvorteil.",
+      "id": "q_4dc88fec-d4e4-4600-88d7-2b5b26322c85"
+    },
+    {
+      "question": "Basierend auf dem Abrechnungsmodell der Outdoor-Fun GmbH: Wie hoch ist die gesamte Verg\u00fctung f\u00fcr den Influencer, wenn er in einem Monat drei Beitr\u00e4ge mit $8.500$, $12.300$ und $9.750$ Likes ver\u00f6ffentlicht?",
+      "answerOptions": [
+        {
+          "text": "$3.127,50$ \u20ac",
+          "isCorrect": true,
+          "rationale": "Die Summe setzt sich aus der Fixverg\u00fctung ($3 \\cdot 500$ \u20ac), der variablen Verg\u00fctung ($1.527,50$ \u20ac f\u00fcr die Likes) und einem einmaligen Bonus von $100$ \u20ac f\u00fcr den Beitrag \u00fcber $10.000$ Likes zusammen."
+        },
+        {
+          "text": "$3.027,50$ \u20ac",
+          "isCorrect": false,
+          "rationale": "Dieser Betrag vernachl\u00e4ssigt den Bonus von $100$ \u20ac, der f\u00e4llig wird, da einer der Beitr\u00e4ge die Marke von $10.000$ Likes \u00fcberschritten hat."
+        },
+        {
+          "text": "$3.227,50$ \u20ac",
+          "isCorrect": false,
+          "rationale": "Hier wurde f\u00e4lschlicherweise ein Bonus f\u00fcr zwei Beitr\u00e4ge berechnet, obwohl nur ein Beitrag mehr als $10.000$ Likes erzielt hat."
+        },
+        {
+          "text": "$2.877,50$ \u20ac",
+          "isCorrect": false,
+          "rationale": "Dieser Wert resultiert wahrscheinlich aus einem Rechenfehler bei der Multiplikation der Likes mit dem Satz von $0,05$ \u20ac oder dem Vergessen einer Fixpauschale."
+        }
+      ],
+      "hint": "Addieren Sie die Fixbetr\u00e4ge f\u00fcr alle drei Posts, die anteilige Verg\u00fctung pro Like und pr\u00fcfen Sie, wie viele Beitr\u00e4ge den Schwellenwert f\u00fcr den Bonus erreichen.",
+      "id": "q_ee9b1ac8-9447-4937-adcc-399ef4139b77"
+    },
+    {
+      "question": "Welches Abrechnungsmodell wird bevorzugt, wenn ein Unternehmen sicherstellen m\u00f6chte, dass es nur f\u00fcr tats\u00e4chliche Verk\u00e4ufe bezahlt, die \u00fcber den Link des Influencers generiert wurden?",
+      "answerOptions": [
+        {
+          "text": "Pay-per-Sale (PPS)",
+          "isCorrect": true,
+          "rationale": "Dieses Modell, oft auch Affiliate-Provision genannt, stellt eine direkte Verbindung zwischen der Verg\u00fctung und dem erzielten Umsatz her."
+        },
+        {
+          "text": "Pay-per-Click (PPC)",
+          "isCorrect": false,
+          "rationale": "Hierbei wird lediglich der Klick auf einen Link verg\u00fctet, was jedoch noch keinen tats\u00e4chlichen Kaufabschluss garantiert."
+        },
+        {
+          "text": "Pay-per-Engagement (PPE)",
+          "isCorrect": false,
+          "rationale": "Dieses Modell konzentriert sich auf Interaktionen wie Likes oder Kommentare und nicht prim\u00e4r auf den direkten Verkauf von Produkten."
+        },
+        {
+          "text": "Flat Fee (Festpreis)",
+          "isCorrect": false,
+          "rationale": "Ein Festpreis wird unabh\u00e4ngig von der Anzahl der Verk\u00e4ufe oder der Performance des Beitrags gezahlt."
+        }
+      ],
+      "hint": "Suchen Sie nach dem Begriff, der eine Provision pro verkauftem Artikel beschreibt.",
+      "id": "q_fa5b1309-7651-453b-b86a-c76483ddf194"
+    },
+    {
+      "question": "Was ist ein entscheidender Nachteil des Pay-per-Post (PPP) Modells aus Sicht des Unternehmens?",
+      "answerOptions": [
+        {
+          "text": "Zahlung erfolgt unabh\u00e4ngig von der Performance",
+          "isCorrect": true,
+          "rationale": "Das Unternehmen tr\u00e4gt das volle Risiko, da die Kosten fix sind, selbst wenn der Beitrag kaum Reichweite oder Engagement erzielt."
+        },
+        {
+          "text": "Die Kosten sind schwer kalkulierbar",
+          "isCorrect": false,
+          "rationale": "Im Gegenteil: Die Kosten pro Post stehen fest, was die Budgetplanung eigentlich vereinfacht."
+        },
+        {
+          "text": "Gefahr von qualitativ minderwertigem Traffic",
+          "isCorrect": false,
+          "rationale": "Dies ist prim\u00e4r ein Risiko beim Pay-per-Click Modell, bei dem viele Klicks ohne Kaufabsicht generiert werden k\u00f6nnten."
+        },
+        {
+          "text": "Hoher administrativer Aufwand bei der Verkaufsverfolgung",
+          "isCorrect": false,
+          "rationale": "Da kein Verkaufstracking f\u00fcr die Bezahlung n\u00f6tig ist, ist der Aufwand bei PPP eher geringer als bei Affiliate-Modellen."
+        }
+      ],
+      "hint": "\u00dcberlegen Sie, was passiert, wenn ein Influencer einen Beitrag ver\u00f6ffentlicht, der fast niemanden erreicht.",
+      "id": "q_a09367c2-eb4b-4c4d-9473-bcabe8469680"
+    },
+    {
+      "question": "Wof\u00fcr steht die Abk\u00fcrzung PPE im Kontext des Influencer-Marketings?",
+      "answerOptions": [
+        {
+          "text": "Pay-per-Engagement",
+          "isCorrect": true,
+          "rationale": "Dieses Modell verg\u00fctet die Gesamtheit der Interaktionen, wozu Likes, Kommentare und Shares z\u00e4hlen."
+        },
+        {
+          "text": "Pay-per-Experience",
+          "isCorrect": false,
+          "rationale": "Dieser Begriff existiert in den g\u00e4ngigen Abrechnungsmodellen f\u00fcr Influencer-Marketing aus den Quellen nicht."
+        },
+        {
+          "text": "Price-per-Entry",
+          "isCorrect": false,
+          "rationale": "Hierbei handelt es sich um einen Begriff aus der Kostenrechnung, der nichts mit der Interaktionsrate zu tun hat."
+        },
+        {
+          "text": "Performance-Price-Evaluation",
+          "isCorrect": false,
+          "rationale": "Obwohl es professionell klingt, ist dies keine g\u00e4ngige Bezeichnung f\u00fcr ein Interaktions-basiertes Abrechnungsmodell."
+        }
+      ],
+      "hint": "Es handelt sich um ein Modell, das Interaktionen wie Klicks, Likes und Kommentare ber\u00fccksichtigt.",
+      "id": "q_374dea7e-8abe-4680-bf6a-7c1d6304c161"
+    },
+    {
+      "question": "Ein Influencer ver\u00f6ffentlicht einen Beitrag und erh\u00e4lt exakt $10.000$ Likes. Wie hoch ist die Verg\u00fctung f\u00fcr diesen einzelnen Beitrag nach dem Modell der Outdoor-Fun GmbH?",
+      "answerOptions": [
+        {
+          "text": "$1.000$ \u20ac",
+          "isCorrect": true,
+          "rationale": "Die Verg\u00fctung berechnet sich aus $500$ \u20ac Fixum plus $10.000 \\cdot 0,05$ \u20ac ($500$ \u20ac). Ein Bonus wird nicht gezahlt, da dieser erst bei mehr als $10.000$ Likes f\u00e4llig wird."
+        },
+        {
+          "text": "$1.100$ \u20ac",
+          "isCorrect": false,
+          "rationale": "Hier wurde der Bonus f\u00e4lschlicherweise bereits ab $10.000$ Likes berechnet, obwohl die Bedingung 'mehr als $10.000$' lautet."
+        },
+        {
+          "text": "$500$ \u20ac",
+          "isCorrect": false,
+          "rationale": "Dieser Betrag ber\u00fccksichtigt nur die Fixverg\u00fctung und ignoriert die zus\u00e4tzliche Verg\u00fctung pro Like."
+        },
+        {
+          "text": "$1.050$ \u20ac",
+          "isCorrect": false,
+          "rationale": "Dieser Wert w\u00fcrde einer Verg\u00fctung von $0,055$ \u20ac pro Like entsprechen, was nicht dem vereinbarten Modell entspricht."
+        }
+      ],
+      "hint": "Achten Sie genau auf die Formulierung der Bonusbedingung in den Vertragsdetails.",
+      "id": "q_3178009f-1992-4dae-81c7-00717fdaabcb"
+    },
+    {
+      "question": "Warum gilt ein Festpreis (Flat Fee) als vorteilhaft f\u00fcr ein Unternehmen, wenn es mit sehr bekannten Influencern zusammenarbeitet?",
+      "answerOptions": [
+        {
+          "text": "Die Kosten sind vorhersehbar",
+          "isCorrect": true,
+          "rationale": "Unternehmen k\u00f6nnen ihr Budget genau planen, unabh\u00e4ngig davon, wie extrem erfolgreich der Post am Ende performt."
+        },
+        {
+          "text": "Das finanzielle Risiko wird minimiert",
+          "isCorrect": false,
+          "rationale": "Eigentlich liegt das Risiko beim Unternehmen, da der Festpreis auch bei schlechter Performance in voller H\u00f6he gezahlt werden muss."
+        },
+        {
+          "text": "Es garantiert eine hohe Anzahl an Konversionen",
+          "isCorrect": false,
+          "rationale": "Ein Festpreis garantiert lediglich die Ver\u00f6ffentlichung, nicht aber den Erfolg in Form von Verk\u00e4ufen."
+        },
+        {
+          "text": "Die Abrechnung erfolgt nur f\u00fcr echte Interaktionen",
+          "isCorrect": false,
+          "rationale": "Dies beschreibt das PPE-Modell, nicht das Flat-Fee-Modell."
+        }
+      ],
+      "hint": "Denken Sie an die finanzielle Planungssicherheit f\u00fcr die Marketingabteilung.",
+      "id": "q_6c7cc9ed-a6bd-4df7-b4fe-8582a93dc058"
+    },
+    {
+      "question": "Welches der folgenden K\u00fcrzel beschreibt ein Abrechnungsmodell, das die Verg\u00fctung pro tausend erreichten Personen oder Impressionen definiert?",
+      "answerOptions": [
+        {
+          "text": "RPM",
+          "isCorrect": true,
+          "rationale": "RPM steht f\u00fcr Revenue-per-Mille und bezieht sich auf den Umsatz oder die Kosten pro tausend Einheiten."
+        },
+        {
+          "text": "CPA",
+          "isCorrect": false,
+          "rationale": "CPA (Cost per Acquisition) bezieht sich auf die Kosten pro neu gewonnenem Kunden oder Abschluss."
+        },
+        {
+          "text": "CPC",
+          "isCorrect": false,
+          "rationale": "CPC steht f\u00fcr Cost per Click und berechnet die Kosten pro einzelnem Klick auf ein Werbemittel."
+        },
+        {
+          "text": "PPP",
+          "isCorrect": false,
+          "rationale": "PPP (Pay-per-Post) ist eine Pauschale pro ver\u00f6ffentlichtem Beitrag ohne direkten Bezug zur erreichten Personenzahl."
+        }
+      ],
+      "hint": "Das lateinische Wort f\u00fcr Tausend ist 'mille'.",
+      "id": "q_ead45abf-efe1-4058-ba52-d5a81a52b7c4"
+    },
+    {
+      "question": "Inwiefern unterscheidet sich das PPE-Modell vom reinen Pay-per-Click (PPC)?",
+      "answerOptions": [
+        {
+          "text": "Es ber\u00fccksichtigt mehr als nur Klicks, wie z. B. Likes und Kommentare",
+          "isCorrect": true,
+          "rationale": "W\u00e4hrend PPC nur den Klick z\u00e4hlt, wertet PPE die gesamte Interaktion des Nutzers mit dem Inhalt aus."
+        },
+        {
+          "text": "Es ist ausschlie\u00dflich f\u00fcr Affiliate-Links gedacht",
+          "isCorrect": false,
+          "rationale": "Affiliate-Links werden typischerweise \u00fcber PPS (Pay-per-Sale) abgerechnet."
+        },
+        {
+          "text": "Es wird erst gezahlt, wenn ein Produkt in den Warenkorb gelegt wird",
+          "isCorrect": false,
+          "rationale": "Handlungen im Shop sind Teil von Konversionsmodellen wie CPA oder PPS, nicht PPE."
+        },
+        {
+          "text": "Es ist ein Modell mit fixen monatlichen Kosten",
+          "isCorrect": false,
+          "rationale": "Modelle mit fixen Kosten werden als Flat Fee oder Pay-per-Month bezeichnet."
+        }
+      ],
+      "hint": "Denken Sie an den Begriff 'Engagement' und was dieser im Social-Media-Kontext alles umfasst.",
+      "id": "q_9e5e9311-659a-4e73-be0e-3e03dcb9ec06"
+    },
+    {
+      "question": "Warum k\u00f6nnte das Pay-per-Click (PPC) Modell f\u00fcr die Outdoor-Fun GmbH nachteilig sein?",
+      "answerOptions": [
+        {
+          "text": "Traffic f\u00fchrt nicht zwingend zu Verk\u00e4ufen",
+          "isCorrect": true,
+          "rationale": "Es besteht die Gefahr, dass zwar viele Klicks generiert werden, die Nutzer aber kein echtes Kaufinteresse haben."
+        },
+        {
+          "text": "Die Reichweite ist bei diesem Modell begrenzt",
+          "isCorrect": false,
+          "rationale": "PPC schr\u00e4nkt die Reichweite nicht ein, es definiert lediglich, wie der Erfolg gemessen und bezahlt wird."
+        },
+        {
+          "text": "Influencer lehnen dieses Modell generell ab",
+          "isCorrect": false,
+          "rationale": "PPC ist ein g\u00e4ngiges System, auch wenn manche Influencer andere Modelle aufgrund der besseren Planbarkeit bevorzugen."
+        },
+        {
+          "text": "Die Kosten pro Klick sind immer h\u00f6her als bei einem Festpreis",
+          "isCorrect": false,
+          "rationale": "Ob die Kosten h\u00f6her oder niedriger sind, h\u00e4ngt von der Performance ab und l\u00e4sst sich nicht pauschal sagen."
+        }
+      ],
+      "hint": "Betrachten Sie die Qualit\u00e4t der Nutzer, die lediglich auf einen Link klicken, ohne etwas zu kaufen.",
+      "id": "q_9a9d030e-962a-4dec-a28f-360a0b922eec"
+    },
+    {
+      "question": "Welches System wird als g\u00e4ngiges Abrechnungsmodell bezeichnet, bei dem der Influencer pro 'Acquisition' bezahlt wird?",
+      "answerOptions": [
+        {
+          "text": "CPA",
+          "isCorrect": true,
+          "rationale": "CPA steht f\u00fcr Cost per Acquisition und verg\u00fctet das erfolgreiche Werben eines Neukunden oder einen Gesch\u00e4ftsabschluss."
+        },
+        {
+          "text": "PPA",
+          "isCorrect": false,
+          "rationale": "PPA (Pay-per-Ad) wird in den Quellen als kein g\u00e4ngiges Modell f\u00fcr die direkte Zusammenarbeit mit Influencern markiert."
+        },
+        {
+          "text": "PPT",
+          "isCorrect": false,
+          "rationale": "PPT (Pay-per-Tweet) ist eine sehr spezifische und veraltete Form, die nicht als allgemeiner Standard gilt."
+        },
+        {
+          "text": "RPM",
+          "isCorrect": false,
+          "rationale": "RPM bezieht sich auf Impressionen (Tausender-Einheiten) und nicht auf die Akquise einzelner Kunden."
+        }
+      ],
+      "hint": "Die Abk\u00fcrzung leitet sich direkt von den englischen Begriffen f\u00fcr 'Kosten pro Akquise' ab.",
+      "id": "q_87f66fea-d76e-47e0-a4a5-1c8429a344ce"
+    },
+    {
+      "question": "Wann wird aus einem blo\u00dfen Bed\u00fcrfnis ein 'Bedarf' im wirtschaftlichen Sinne?",
+      "answerOptions": [
+        {
+          "text": "Sobald die Person sich entscheidet, ein Produkt tats\u00e4chlich im Laden zu kaufen.",
+          "isCorrect": false,
+          "rationale": "Dies beschreibt eher den \u00dcbergang zur Nachfrage, w\u00e4hrend der Bedarf bereits bei vorhandener Kaufkraft vorliegt."
+        },
+        {
+          "text": "Wenn zur Befriedigung des Mangels die notwendige Kaufkraft vorhanden ist.",
+          "isCorrect": true,
+          "rationale": "Bedarf ist definiert als das mit Kaufkraft ausgestattete Bed\u00fcrfnis."
+        },
+        {
+          "text": "Wenn das Mangelempfinden so stark wird, dass es nicht mehr ignoriert werden kann.",
+          "isCorrect": false,
+          "rationale": "Ein starkes Mangelempfinden ohne finanzielle Mittel bleibt rein auf der Ebene des Bed\u00fcrfnisses."
+        },
+        {
+          "text": "Sobald ein Unternehmen ein passendes Produkt am Markt anbietet.",
+          "isCorrect": false,
+          "rationale": "Das Marktangebot allein schafft keinen Bedarf beim Individuum; entscheidend ist die eigene Kaufkraft."
+        }
+      ],
+      "hint": "\u00dcberlegen Sie, welche Rolle das 'Kleingeld in der Tasche' f\u00fcr die Definition spielt.",
+      "id": "q_6a96614b-3138-42b7-9d30-ff05ad36b426"
+    },
+    {
+      "question": "Welcher Schritt folgt unmittelbar, wenn ein Bedarf am Markt durch eine konkrete Bestellung gedeckt wird?",
+      "answerOptions": [
+        {
+          "text": "Es entsteht eine Nachfrage.",
+          "isCorrect": true,
+          "rationale": "Die Wirksamwerdung des Bedarfs am Markt, zum Beispiel durch eine Bestellung, wird als Nachfrage bezeichnet."
+        },
+        {
+          "text": "Es entsteht ein neues Bed\u00fcrfnis.",
+          "isCorrect": false,
+          "rationale": "Die Bestellung dient der Befriedigung eines bestehenden Bed\u00fcrfnisses, nicht der Erzeugung eines neuen."
+        },
+        {
+          "text": "Es bilden sich soziale Ziele.",
+          "isCorrect": false,
+          "rationale": "Soziale Ziele beziehen sich auf die Mitarbeiterf\u00fchrung und nicht auf den individuellen Kaufprozess."
+        },
+        {
+          "text": "Das Produkt wird zum Betriebsmittel.",
+          "isCorrect": false,
+          "rationale": "Betriebsmittel sind langlebige G\u00fcter f\u00fcr die Produktion, keine Konsumg\u00fcter des t\u00e4glichen Bedarfs."
+        }
+      ],
+      "hint": "Denken Sie an den Begriff f\u00fcr die Kaufentscheidung, die direkt an den Markt herangetragen wird.",
+      "id": "q_e78e24df-e33f-41ea-8081-db8558b21d62"
+    },
+    {
+      "question": "Wie wird die kostenpflichtige Beratung eines Anwalts f\u00fcr eine private Angelegenheit eingeordnet?",
+      "answerOptions": [
+        {
+          "text": "Als langlebiges Betriebsmittel.",
+          "isCorrect": false,
+          "rationale": "Dienstleistungen sind immateriell und keine technischen Anlagen zur Leistungserstellung."
+        },
+        {
+          "text": "Als Werkstoff f\u00fcr die Produktion.",
+          "isCorrect": false,
+          "rationale": "Werkstoffe werden verarbeitet oder umverpackt, was auf eine Rechtsberatung nicht zutrifft."
+        },
+        {
+          "text": "Als Konsum- und Verbrauchsgut.",
+          "isCorrect": true,
+          "rationale": "Dienstleistungen f\u00fcr private Zwecke gelten im wirtschaftlichen Sinne als Konsum- und Verbrauchsg\u00fcter."
+        },
+        {
+          "text": "Als sachliches Ziel des Klienten.",
+          "isCorrect": false,
+          "rationale": "Das sachliche Ziel beschreibt das Leistungsangebot eines Unternehmens, nicht den Konsum einer Privatperson."
+        }
+      ],
+      "hint": "Betrachten Sie den Zweck der Dienstleistung im privaten Kontext.",
+      "id": "q_6c9c1c8a-4354-4ca8-9f69-f4a67de8d346"
+    },
+    {
+      "question": "Was ist ein typisches Beispiel f\u00fcr ein 'soziales Ziel' in einem Unternehmen?",
+      "answerOptions": [
+        {
+          "text": "Die Festlegung des Produktportfolios f\u00fcr das n\u00e4chste Gesch\u00e4ftsjahr.",
+          "isCorrect": false,
+          "rationale": "Die Entscheidung \u00fcber Produkte geh\u00f6rt zu den sachlichen Zielen des Unternehmens."
+        },
+        {
+          "text": "Die Einf\u00fchrung einer gerechten Entlohnung und humane Arbeitsbedingungen.",
+          "isCorrect": true,
+          "rationale": "Soziale Ziele richten sich auf die Zufriedenheit und Motivation der Belegschaft."
+        },
+        {
+          "text": "Die Anschaffung neuer Maschinen zur Effizienzsteigerung.",
+          "isCorrect": false,
+          "rationale": "Maschinen sind Betriebsmittel; ihre Anschaffung dient eher technischen oder wirtschaftlichen Zielen."
+        },
+        {
+          "text": "Die Erschlie\u00dfung neuer M\u00e4rkte f\u00fcr den Vertrieb von Fahrr\u00e4dern.",
+          "isCorrect": false,
+          "rationale": "Markterschlie\u00dfung und Vertriebskonzeption sind Bestandteile der sachlichen Zielsetzung."
+        }
+      ],
+      "hint": "Konzentrieren Sie sich auf Aspekte, die direkt das Wohlergehen der Mitarbeiter betreffen.",
+      "id": "q_b2b56baa-bc52-48b7-bada-33e9665554d5"
+    },
+    {
+      "question": "Welche der folgenden Definitionen beschreibt 'Sachliche Ziele' am besten?",
+      "answerOptions": [
+        {
+          "text": "Die Festlegung, welche konkreten Produkte oder Leistungen am Markt angeboten werden.",
+          "isCorrect": true,
+          "rationale": "Sachliche Ziele definieren das Leistungs- und Produktspektrum eines Unternehmens."
+        },
+        {
+          "text": "Die Maximierung des Gewinns durch Einsparungen bei den Werkstoffen.",
+          "isCorrect": false,
+          "rationale": "Gewinnmaximierung ist ein \u00f6konomisches Ziel, kein rein sachliches Ziel bez\u00fcglich des Angebots."
+        },
+        {
+          "text": "Die F\u00f6rderung der Mitarbeiterzufriedenheit durch Gewinnbeteiligung.",
+          "isCorrect": false,
+          "rationale": "Mitarbeiterfokussierte Ma\u00dfnahmen fallen unter die Kategorie der sozialen Ziele."
+        },
+        {
+          "text": "Die langfristige Erhaltung der Betriebsmittel durch Wartung.",
+          "isCorrect": false,
+          "rationale": "Instandhaltung dient der technischen Betriebsbereitschaft, definiert aber nicht das Marktspektrum."
+        }
+      ],
+      "hint": "Denken Sie an die Kernfrage: 'Was genau produziert oder verkauft das Unternehmen?'",
+      "id": "q_3f98e0ae-4016-4976-a7ac-8387099717a9"
+    },
+    {
+      "question": "Zu welcher Kategorie geh\u00f6ren Materialien, die im Betrieb verarbeitet, bearbeitet oder ver\u00e4ndert werden?",
+      "answerOptions": [
+        {
+          "text": "Betriebsmittel",
+          "isCorrect": false,
+          "rationale": "Betriebsmittel erm\u00f6glichen die Produktion technisch, werden aber selbst nicht im Produkt verarbeitet."
+        },
+        {
+          "text": "Werkstoffe",
+          "isCorrect": true,
+          "rationale": "Werkstoffe umfassen alle Materialien und Vorprodukte, die in die betriebliche Leistungserstellung einflie\u00dfen."
+        },
+        {
+          "text": "Soziale Ziele",
+          "isCorrect": false,
+          "rationale": "Ziele sind ideelle Vorstellungen, keine physischen Materialien."
+        },
+        {
+          "text": "Konsumg\u00fcter",
+          "isCorrect": false,
+          "rationale": "W\u00e4hrend Endprodukte Konsumg\u00fcter sein k\u00f6nnen, bezeichnet der Begriff im Produktionsprozess zun\u00e4chst die Werkstoffe."
+        }
+      ],
+      "hint": "Suchen Sie nach dem Begriff f\u00fcr Substanzen, die am Ende Teil des fertigen Produkts werden oder dabei verbraucht werden.",
+      "id": "q_511d046b-ae3d-45da-affb-5b06022217d5"
+    },
+    {
+      "question": "Warum werden Computer in einem B\u00fcro in der Regel als 'Betriebsmittel' eingestuft?",
+      "answerOptions": [
+        {
+          "text": "Weil sie kurzfristig verbraucht werden und st\u00e4ndig ersetzt werden m\u00fcssen.",
+          "isCorrect": false,
+          "rationale": "G\u00fcter, die verbraucht werden, z\u00e4hlen eher zu den Werkstoffen; Betriebsmittel sind langlebig."
+        },
+        {
+          "text": "Weil sie langlebige Anlageg\u00fcter sind, die die Leistungserstellung technisch erm\u00f6glichen.",
+          "isCorrect": true,
+          "rationale": "Betriebsmittel sind G\u00fcter, die \u00fcber einen l\u00e4ngeren Zeitraum zur Produktion oder Verwaltung genutzt werden."
+        },
+        {
+          "text": "Weil sie direkt an den Endkunden weiterverkauft werden.",
+          "isCorrect": false,
+          "rationale": "Gegenst\u00e4nde f\u00fcr den Weiterverkauf werden als Warenvorr\u00e4te den Werkstoffen zugeordnet."
+        },
+        {
+          "text": "Weil sie ein Teil der sozialen Ziele zur Mitarbeiterunterhaltung sind.",
+          "isCorrect": false,
+          "rationale": "Obwohl Computer die Zufriedenheit steigern k\u00f6nnen, ist ihre Prim\u00e4rfunktion die technische Unterst\u00fctzung der Arbeit."
+        }
+      ],
+      "hint": "Ber\u00fccksichtigen Sie die Nutzungsdauer und die Funktion des Gegenstands im Arbeitsprozess.",
+      "id": "q_68a331a7-3dfe-4dcd-af11-c2d7a5778791"
+    },
+    {
+      "question": "Warenvorr\u00e4te, die zum Beispiel nur umverpackt werden, z\u00e4hlen laut Quelle zu den:",
+      "answerOptions": [
+        {
+          "text": "Betriebsmitteln",
+          "isCorrect": false,
+          "rationale": "Betriebsmittel sind Werkzeuge oder Maschinen, keine Vorr\u00e4te, die ver\u00e4ndert oder umgepackt werden."
+        },
+        {
+          "text": "Sachlichen Zielen",
+          "isCorrect": false,
+          "rationale": "Ziele sind Strategien, w\u00e4hrend Warenvorr\u00e4te physische Best\u00e4nde darstellen."
+        },
+        {
+          "text": "Werkstoffen",
+          "isCorrect": true,
+          "rationale": "Die Quelle ordnet Warenvorr\u00e4te explizit den Werkstoffen zu, da sie Teil der Leistungserstellung sind."
+        },
+        {
+          "text": "Dienstleistungen",
+          "isCorrect": false,
+          "rationale": "Warenvorr\u00e4te sind materielle G\u00fcter, keine immateriellen Dienste."
+        }
+      ],
+      "hint": "Erinnern Sie sich an die Definition von Materialien, die bezogen und gegebenenfalls leicht ver\u00e4ndert werden.",
+      "id": "q_26161f4f-a453-4c4f-b808-e041ee7841c1"
+    },
+    {
+      "question": "Ein Unternehmen beschlie\u00dft, ma\u00dfgeschneiderte IT-L\u00f6sungen anzubieten. Dies ist ein Beispiel f\u00fcr ein:",
+      "answerOptions": [
+        {
+          "text": "Soziales Ziel",
+          "isCorrect": false,
+          "rationale": "Ein soziales Ziel w\u00fcrde sich auf die Arbeitsbedingungen der IT-Mitarbeiter beziehen."
+        },
+        {
+          "text": "Werkstoffliches Ziel",
+          "isCorrect": false,
+          "rationale": "Dieser Begriff existiert in der Systematik der Quelle nicht; es handelt sich um eine Leistung."
+        },
+        {
+          "text": "Sachliches Ziel",
+          "isCorrect": true,
+          "rationale": "Die Entscheidung \u00fcber das Leistungsspektrum (hier IT-L\u00f6sungen) ist ein klassisches sachliches Ziel."
+        },
+        {
+          "text": "Bedarfsziel",
+          "isCorrect": false,
+          "rationale": "Der Bedarf liegt auf der Seite der Kunden, w\u00e4hrend das Ziel die Planung des Unternehmens darstellt."
+        }
+      ],
+      "hint": "\u00dcberlegen Sie, ob dies eine Festlegung des Produkt- und Leistungsspektrums darstellt.",
+      "id": "q_95b0c14d-bb08-4ea9-8016-7cbee0d73a21"
+    },
+    {
+      "question": "Welche der folgenden Aussagen \u00fcber Betriebsmittel ist korrekt?",
+      "answerOptions": [
+        {
+          "text": "Betriebsmittel gehen direkt als Bestandteil in das fertige Endprodukt ein.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein Merkmal von Werkstoffen; Betriebsmittel bleiben im Unternehmen."
+        },
+        {
+          "text": "Betriebsmittel umfassen Maschinen, Fahrzeuge und Werkzeuge.",
+          "isCorrect": true,
+          "rationale": "Diese G\u00fcter erm\u00f6glichen die Produktion technisch und z\u00e4hlen zur Betriebs- und Gesch\u00e4ftsausstattung."
+        },
+        {
+          "text": "Betriebsmittel sind kurzlebige G\u00fcter, die sofort nach dem Kauf verbraucht werden.",
+          "isCorrect": false,
+          "rationale": "Betriebsmittel sind in der Regel langlebige Anlageg\u00fcter."
+        },
+        {
+          "text": "Betriebsmittel dienen prim\u00e4r der Deckung privater Bed\u00fcrfnisse.",
+          "isCorrect": false,
+          "rationale": "Betriebsmittel werden f\u00fcr die betriebliche Leistungserstellung genutzt, nicht f\u00fcr den privaten Konsum."
+        }
+      ],
+      "hint": "Denken Sie an die physischen Gegenst\u00e4nde, die ein Unternehmen langfristig zur Arbeit ben\u00f6tigt.",
+      "id": "q_19707eee-dd94-44d8-9209-b9439e10aa7b"
+    },
+    {
+      "question": "Welche spezifische Analysefunktion des geplanten KI-Systems erm\u00f6glicht es der Outdoor-Fun GmbH, zuk\u00fcnftige Verkaufschancen pro Kanal zu prognostizieren?",
+      "answerOptions": [
+        {
+          "text": "Absatzpotenzialanalyse",
+          "isCorrect": true,
+          "rationale": "Diese Funktion nutzt historische Daten und Trends, um zuk\u00fcnftige Absatzzahlen f\u00fcr verschiedene Vertriebswege vorherzusagen."
+        },
+        {
+          "text": "Wettbewerbsdatenanalyse",
+          "isCorrect": false,
+          "rationale": "Dies konzentriert sich prim\u00e4r auf die Beobachtung der Konkurrenz, nicht zwingend auf die eigenen Prognosen pro Kanal."
+        },
+        {
+          "text": "Kundennachfrage-Segmentierung",
+          "isCorrect": false,
+          "rationale": "Hierbei geht es um die Einteilung von Kunden in Gruppen, nicht prim\u00e4r um die quantitative Prognose von Kanalkapazit\u00e4ten."
+        },
+        {
+          "text": "Kosten-Nutzen-Inventur",
+          "isCorrect": false,
+          "rationale": "Dies ist ein rein buchhalterischer Vorgang und keine proaktive Analysefunktion eines KI-Steuerungssystems."
+        }
+      ],
+      "hint": "\u00dcberlegen Sie, welcher Begriff direkt mit der Vorhersage von verkaufbaren Mengen verkn\u00fcpft ist.",
+      "id": "q_d118c792-a3b1-40d4-812f-eb8a90b7ec40"
+    },
+    {
+      "question": "Um das Nutzerverhalten auf der Webseite im KI-System korrekt abzubilden, ist welche Datenbasis zwingend erforderlich?",
+      "answerOptions": [
+        {
+          "text": "Webtracking-Daten",
+          "isCorrect": true,
+          "rationale": "Diese Daten erfassen Klickpfade und Interaktionen, die f\u00fcr die KI zur Analyse des Nutzerverhaltens essenziell sind."
+        },
+        {
+          "text": "Kundenstammdaten",
+          "isCorrect": false,
+          "rationale": "Stammdaten enthalten statische Informationen wie Adressen, bilden aber nicht das dynamische Verhalten auf der Webseite ab."
+        },
+        {
+          "text": "Logistikdaten",
+          "isCorrect": false,
+          "rationale": "Diese Daten betreffen den Versandprozess und liefern keine Erkenntnisse \u00fcber das Verhalten im Onlineshop."
+        },
+        {
+          "text": "Personalstammdaten",
+          "isCorrect": false,
+          "rationale": "Interne Mitarbeiterdaten haben keinen Bezug zur Analyse des Kundenverhaltens im Vertriebskanal."
+        }
+      ],
+      "hint": "Denken Sie an die digitale Spur, die ein Nutzer beim Surfen hinterl\u00e4sst.",
+      "id": "q_081c11b7-70f4-4b17-b067-9ba5ffc539cb"
+    },
+    {
+      "question": "Welcher Aspekt bleibt laut den Unterlagen trotz KI-Einsatz weiterhin eine Kernaufgabe des Managements?",
+      "answerOptions": [
+        {
+          "text": "Strategische Entscheidungen",
+          "isCorrect": true,
+          "rationale": "Die KI liefert zwar die Datengrundlage, die langfristige Ausrichtung und finale Entscheidungsgewalt verbleibt jedoch beim Menschen."
+        },
+        {
+          "text": "Echtzeit-Datenanalyse",
+          "isCorrect": false,
+          "rationale": "Dies ist gerade eine St\u00e4rke der KI, die Aufgaben in diesem Bereich automatisiert und beschleunigt."
+        },
+        {
+          "text": "Budgetallokation pro Klick",
+          "isCorrect": false,
+          "rationale": "Die kleinteilige Optimierung von Geboten und Budgets soll laut Zielsetzung automatisiert durch das System erfolgen."
+        },
+        {
+          "text": "Performance-Monitoring",
+          "isCorrect": false,
+          "rationale": "Die \u00dcberwachung der Leistung in Echtzeit ist eine explizite Funktion des geplanten KI-Steuerungssystems."
+        }
+      ],
+      "hint": "KI unterst\u00fctzt die operative Effizienz, aber wer tr\u00e4gt die Verantwortung f\u00fcr die langfristige Vision?",
+      "id": "q_153b3f48-0d72-4aa9-ba61-b6c3fe5b8f22"
+    },
+    {
+      "question": "Welche betriebswirtschaftliche Chance ergibt sich durch die Reduzierung von Streuverlusten mithilfe von KI?",
+      "answerOptions": [
+        {
+          "text": "H\u00f6here Marketing-Rendite (ROAS)",
+          "isCorrect": true,
+          "rationale": "Wenn Werbebudgets pr\u00e4ziser eingesetzt werden, steigt das Verh\u00e4ltnis von Umsatz zu Werbeausgaben."
+        },
+        {
+          "text": "Senkung der Fixkosten",
+          "isCorrect": false,
+          "rationale": "Marketingausgaben sind in der Regel variable Kosten; die Fixkosten des Unternehmens bleiben davon weitgehend unber\u00fchrt."
+        },
+        {
+          "text": "Erh\u00f6hung des Lagerumschlags",
+          "isCorrect": false,
+          "rationale": "Dies ist ein logistischer Effekt, der zwar indirekt folgen kann, aber nicht die direkte Folge reduzierter Streuverluste im Marketing ist."
+        },
+        {
+          "text": "Automatischer Markenschutz",
+          "isCorrect": false,
+          "rationale": "Die Reduzierung von Streuverlusten optimiert die Zielgruppenansprache, dient aber nicht prim\u00e4r dem rechtlichen Schutz der Marke."
+        }
+      ],
+      "hint": "Betrachten Sie das Verh\u00e4ltnis von eingesetztem Werbekapital zu daraus resultierendem Ertrag.",
+      "id": "q_66ba1f0d-0643-41a0-82ba-fd68ee5eb312"
+    },
+    {
+      "question": "Was beschreibt ein signifikantes strategisches Risiko beim Wechsel von einem reinen Onlineshop hin zu einer Multi-Channel-Strategie auf Marktpl\u00e4tzen?",
+      "answerOptions": [
+        {
+          "text": "Verlust von Markenhoheit",
+          "isCorrect": true,
+          "rationale": "Auf fremden Plattformen hat das Unternehmen weniger Kontrolle \u00fcber die Pr\u00e4sentation der eigenen Marke und das Kundenerlebnis."
+        },
+        {
+          "text": "Steigerung der Conversion Rate auf $2,3 \\%$",
+          "isCorrect": false,
+          "rationale": "Dies ist der aktuelle Ist-Zustand des eigenen Shops und stellt kein neues Risiko der Multi-Channel-Strategie dar."
+        },
+        {
+          "text": "Reduzierung des Marketingbudgets",
+          "isCorrect": false,
+          "rationale": "Ein Kanalwechsel f\u00fchrt eher zu einer Umverteilung oder Erh\u00f6hung des Budgets, nicht zwangsl\u00e4ufig zu dessen Reduzierung."
+        },
+        {
+          "text": "Verbesserte Skalierbarkeit",
+          "isCorrect": false,
+          "rationale": "Skalierbarkeit wird in den Quellen als Chance und nicht als Risiko aufgef\u00fchrt."
+        }
+      ],
+      "hint": "\u00dcberlegen Sie, wie viel Einfluss ein H\u00e4ndler auf die Gestaltung der Verkaufsseite bei Amazon oder eBay hat.",
+      "id": "q_ee2dea03-d391-45df-8cb6-11e6ff2ee17c"
+    },
+    {
+      "question": "Warum kann eine Abh\u00e4ngigkeit von der Datenqualit\u00e4t die Effektivit\u00e4t des KI-Systems gef\u00e4hrden?",
+      "answerOptions": [
+        {
+          "text": "Fehlinterpretationen f\u00fchren zu falschen Steuerungsbefehlen",
+          "isCorrect": true,
+          "rationale": "KI-Modelle basieren auf Mustern in Daten; sind diese fehlerhaft, werden falsche Schlussfolgerungen f\u00fcr die Budgetierung gezogen."
+        },
+        {
+          "text": "Die Implementierungskosten sinken dadurch",
+          "isCorrect": false,
+          "rationale": "Schlechte Datenqualit\u00e4t erh\u00f6ht tendenziell den Aufwand und damit die Kosten f\u00fcr Bereinigung und Korrektur."
+        },
+        {
+          "text": "Es f\u00fchrt zu einer schnelleren Entscheidungsfindung",
+          "isCorrect": false,
+          "rationale": "Qualitativ minderwertige Daten verz\u00f6gern verl\u00e4ssliche Entscheidungen, da Ergebnisse erst validiert werden m\u00fcssen."
+        },
+        {
+          "text": "Die Plattformabh\u00e4ngigkeit wird dadurch minimiert",
+          "isCorrect": false,
+          "rationale": "Datenqualit\u00e4t und die Abh\u00e4ngigkeit von externen Verkaufsplattformen sind zwei unterschiedliche Problemfelder."
+        }
+      ],
+      "hint": "Das Prinzip 'Garbage In, Garbage Out' ist hier das zentrale Thema.",
+      "id": "q_7d611b82-6db4-44e4-b503-a723e874ab54"
+    },
+    {
+      "question": "Welches Ziel verfolgt die kanalspezifische Zielgruppenanalyse der KI?",
+      "answerOptions": [
+        {
+          "text": "Auswertung von Demografie und Kanalpr\u00e4ferenzen",
+          "isCorrect": true,
+          "rationale": "Das System soll verstehen, welche Kundengruppen auf welchen Kan\u00e4len aktiv sind, um die Ansprache zu optimieren."
+        },
+        {
+          "text": "Vollst\u00e4ndige Automatisierung des Kundensupports",
+          "isCorrect": false,
+          "rationale": "Die Zielsetzung liegt auf der Analyse und Steuerung der Vertriebskan\u00e4le, nicht auf dem operativen Support."
+        },
+        {
+          "text": "Erstellung von physischen Werbemitteln",
+          "isCorrect": false,
+          "rationale": "Die Strategie ist auf Online-Vertriebskan\u00e4le ausgerichtet; physische Werbemittel spielen in der Aufgabenstellung keine Rolle."
+        },
+        {
+          "text": "\u00dcberwachung der Mitarbeiterleistung",
+          "isCorrect": false,
+          "rationale": "Das System dient der Markt- und Kanalsteuerung und nicht der internen \u00dcberwachung des Personals."
+        }
+      ],
+      "hint": "Es geht darum, herauszufinden, 'wer' 'wo' einkauft.",
+      "id": "q_63bb737d-5699-4228-8562-dd2a21f966f1"
+    },
+    {
+      "question": "Ein betriebswirtschaftliches Risiko bei der Einf\u00fchrung eines solchen KI-Systems ist der 'Schulungsaufwand'. Warum ist dies kritisch?",
+      "answerOptions": [
+        {
+          "text": "Mitarbeiter m\u00fcssen die Logik des Systems verstehen, um Fehlsteuerungen zu vermeiden",
+          "isCorrect": true,
+          "rationale": "Ohne das n\u00f6tige Know-how k\u00f6nnen die Empfehlungen der KI nicht kritisch hinterfragt oder korrekt bedient werden."
+        },
+        {
+          "text": "Es f\u00fchrt zu einem sofortigen Anstieg der Conversion Rate",
+          "isCorrect": false,
+          "rationale": "Schulungen sind eine Investition in Humankapital und kein direkter Mechanismus zur Steigerung der Conversion Rate."
+        },
+        {
+          "text": "Es ersetzt die Notwendigkeit von Marketingbudget",
+          "isCorrect": false,
+          "rationale": "KI und Schulungen optimieren den Einsatz des Budgets, machen das Budget selbst aber nicht \u00fcberfl\u00fcssig."
+        },
+        {
+          "text": "Dadurch wird die externe Plattformabh\u00e4ngigkeit aufgehoben",
+          "isCorrect": false,
+          "rationale": "Interne Schulungen \u00e4ndern nichts an den vertraglichen oder technischen Abh\u00e4ngigkeiten von Drittplattformen."
+        }
+      ],
+      "hint": "Bedenken Sie die Interaktion zwischen Mensch und Maschine bei der Systembedienung.",
+      "id": "q_208013cd-692c-45d9-a6cb-68785845b9ce"
+    },
+    {
+      "question": "Welche strategische Chance ergibt sich aus der 'Fr\u00fcherkennung von Markttrends' durch KI?",
+      "answerOptions": [
+        {
+          "text": "Wettbewerbsvorteile durch schnellere Reaktion auf Kundenbed\u00fcrfnisse",
+          "isCorrect": true,
+          "rationale": "Wer Trends vor der Konkurrenz erkennt, kann sein Sortiment und Marketing fr\u00fchzeitig anpassen."
+        },
+        {
+          "text": "Automatische Reduzierung der Retourenquote",
+          "isCorrect": false,
+          "rationale": "Trendanalyse befasst sich mit der Nachfrage, nicht prim\u00e4r mit der logistischen Abwicklung von R\u00fccksendungen."
+        },
+        {
+          "text": "Vermeidung von Plattformgeb\u00fchren",
+          "isCorrect": false,
+          "rationale": "Markttrends haben keinen Einfluss auf die Geb\u00fchrenstruktur externer Marktpl\u00e4tze."
+        },
+        {
+          "text": "Fixierung auf den bisherigen Kundenstamm",
+          "isCorrect": false,
+          "rationale": "Trendanalyse zielt oft gerade auf die Erschlie\u00dfung neuer Gruppen ab, statt nur den Bestand zu verwalten."
+        }
+      ],
+      "hint": "Wer schneller wei\u00df, was morgen 'in' ist, hat die Nase vorn.",
+      "id": "q_b1422f21-470f-4900-b42b-3c0ac2b26480"
+    },
+    {
+      "question": "Die Outdoor-Fun GmbH verf\u00fcgt aktuell \u00fcber ein Marketingbudget von $240.000$ Euro pro Jahr. Was ist das Ziel der KI-gest\u00fctzten Budgetoptimierung?",
+      "answerOptions": [
+        {
+          "text": "Performance-basierte Allokation der Mittel",
+          "isCorrect": true,
+          "rationale": "Das Budget soll automatisch dorthin flie\u00dfen, wo die beste Leistung (z. B. Conversions) erzielt wird."
+        },
+        {
+          "text": "Gleichm\u00e4\u00dfige Verteilung auf alle verf\u00fcgbaren Kan\u00e4le",
+          "isCorrect": false,
+          "rationale": "Eine Gleichverteilung ignoriert die unterschiedliche Effizienz der Kan\u00e4le und ist das Gegenteil von Optimierung."
+        },
+        {
+          "text": "Vollst\u00e4ndige Einsparung des Budgets durch organische Reichweite",
+          "isCorrect": false,
+          "rationale": "KI soll den Einsatz optimieren, kann aber bezahlte Kan\u00e4le nicht durch blo\u00dfe Analyse ersetzen."
+        },
+        {
+          "text": "Manuelle Zuweisung nach Bauchgef\u00fchl",
+          "isCorrect": false,
+          "rationale": "Das System soll gerade die subjektive Entscheidung durch eine datengetriebene, automatisierte Steuerung ersetzen."
+        }
+      ],
+      "hint": "Das Ziel ist die Maximierung der Effizienz durch Datensteuerung.",
+      "id": "q_4529a9dd-765c-4845-a4f4-73a8b210dd7a"
+    },
+    {
+      "question": "Welcher Schritt sollte laut dem Prozessablauf unmittelbar vor dem finalen 'Shop online schalten' durchgef\u00fchrt werden?",
+      "answerOptions": [
+        {
+          "text": "Datensicherung ausf\u00fchren",
+          "isCorrect": true,
+          "rationale": "Bevor ein System live geht, stellt eine abschlie\u00dfende Sicherung sicher, dass der aktuelle Konfigurationsstand bei Fehlern wiederhergestellt werden kann."
+        },
+        {
+          "text": "Layout einstellen",
+          "isCorrect": false,
+          "rationale": "Das visuelle Design wird in der Regel bereits in einer fr\u00fcheren Phase der Einrichtung festgelegt, nicht erst unmittelbar vor dem Go-Live."
+        },
+        {
+          "text": "E-Mail Versand einrichten",
+          "isCorrect": false,
+          "rationale": "Die technische Einrichtung der Kommunikation erfolgt im Mittelfeld des Prozesses, um Benachrichtigungen w\u00e4hrend der Testphase zu pr\u00fcfen."
+        },
+        {
+          "text": "Impressum und Datenschutzerkl\u00e4rung einrichten",
+          "isCorrect": false,
+          "rationale": "Rechtliche Inhalte werden zwar sp\u00e4t, aber noch vor der abschlie\u00dfenden technischen Sicherung im System hinterlegt."
+        }
+      ],
+      "hint": "Denken Sie an die pr\u00e4ventive Ma\u00dfnahme zum Schutz der vorgenommenen Einstellungen.",
+      "id": "q_0b4a6be9-7ffd-4c73-ae6a-416fd527e5a6"
+    },
+    {
+      "question": "Die Outdoor-Fun GmbH m\u00f6chte ein Produktvideo erstellen lassen. Welches Kriterium pr\u00fcft, ob die Agentur die Marke und die Zielgruppe versteht?",
+      "answerOptions": [
+        {
+          "text": "Kreativit\u00e4t und Konzept",
+          "isCorrect": true,
+          "rationale": "Dieses Kriterium bewertet, wie gut die Ideen der Agentur zum Markenimage und den Erwartungen der Kunden passen."
+        },
+        {
+          "text": "Technische F\u00e4higkeiten",
+          "isCorrect": false,
+          "rationale": "Hierbei geht es prim\u00e4r um die Ausr\u00fcstung und Spezialeffekte, nicht um das strategische Markenverst\u00e4ndnis."
+        },
+        {
+          "text": "Referenzen",
+          "isCorrect": false,
+          "rationale": "Referenzen belegen die Qualit\u00e4t vergangener Arbeiten, sagen aber nichts direkt \u00fcber das spezifische Konzept f\u00fcr die neue Kampagne aus."
+        },
+        {
+          "text": "Zeitplan und Flexibilit\u00e4t",
+          "isCorrect": false,
+          "rationale": "Diese Kategorie befasst sich mit der organisatorischen Abwicklung und der Dauer der Produktion."
+        }
+      ],
+      "hint": "Es geht um die inhaltliche Gestaltung und die strategische Ausrichtung des Video-Vorschlags.",
+      "id": "q_e20a252f-2538-4fc2-927b-682f858fc5ac"
+    },
+    {
+      "question": "Wie viele Auszubildende sind derzeit bei der Outdoor-Fun GmbH besch\u00e4ftigt?",
+      "answerOptions": [
+        {
+          "text": "$6$",
+          "isCorrect": true,
+          "rationale": "Gem\u00e4\u00df dem Unternehmensprofil sind neben den $60$ Angestellten genau $6$ Auszubildende im Betrieb t\u00e4tig."
+        },
+        {
+          "text": "$60$",
+          "isCorrect": false,
+          "rationale": "Dies entspricht der Gesamtzahl der regul\u00e4ren Angestellten, nicht der Anzahl der Auszubildenden."
+        },
+        {
+          "text": "$1995$",
+          "isCorrect": false,
+          "rationale": "Dies ist das Gr\u00fcndungsjahr des Unternehmens und steht in keinem Zusammenhang mit der Mitarbeiterstruktur."
+        },
+        {
+          "text": "$2001$",
+          "isCorrect": false,
+          "rationale": "Dies markiert den Start des Online-Handels, nicht die Anzahl der Personalstellen."
+        }
+      ],
+      "hint": "Die gesuchte Zahl ist im Verh\u00e4ltnis zur Gesamtbelegschaft einstellig.",
+      "id": "q_e9ea5931-e8af-4645-a6ae-f33a40887096"
+    },
+    {
+      "question": "Bei der Einrichtung des Online-Shops m\u00fcssen 'Nummernkreise f\u00fcr Belege' festgelegt werden. Was ist damit prim\u00e4r gemeint?",
+      "answerOptions": [
+        {
+          "text": "Die systematische Vergabe von Rechnungs- und Lieferscheinnummern",
+          "isCorrect": true,
+          "rationale": "Nummernkreise definieren die fortlaufende und eindeutige Kennzeichnung von Buchungsbelegen f\u00fcr die Buchhaltung."
+        },
+        {
+          "text": "Die Festlegung der Telefon-Durchwahlnummern f\u00fcr den Kundensupport",
+          "isCorrect": false,
+          "rationale": "Support-Rufnummern sind Teil der Kommunikation, fallen aber nicht unter die technische Belegverwaltung des Shop-Systems."
+        },
+        {
+          "text": "Die Anzahl der maximal verf\u00fcgbaren Artikel pro Produktkategorie",
+          "isCorrect": false,
+          "rationale": "Bestandsobergrenzen regeln das Inventar, haben aber keinen Bezug zur formalen Belegnummerierung."
+        },
+        {
+          "text": "Die Postleitzahlengebiete, in die der Shop E-Bikes liefert",
+          "isCorrect": false,
+          "rationale": "Dies betrifft die Logistik und Versandzonen, nicht die interne Nummerierung von Dokumenten."
+        }
+      ],
+      "hint": "Denken Sie an die organisatorische Strukturierung von Verkaufsdokumenten.",
+      "id": "q_3342d766-b055-48d4-bdfe-4afa24e80179"
+    },
+    {
+      "question": "In welchem Jahr startete die Outdoor-Fun GmbH ihren ersten eigenen Online-Shop?",
+      "answerOptions": [
+        {
+          "text": "$2001$",
+          "isCorrect": true,
+          "rationale": "Nach der Gr\u00fcndung als station\u00e4rer Handel im Jahr $1995$ wurde der digitale Vertriebskanal im Jahr $2001$ er\u00f6ffnet."
+        },
+        {
+          "text": "$1995$",
+          "isCorrect": false,
+          "rationale": "In diesem Jahr wurde das Unternehmen gegr\u00fcndet, der Online-Handel kam jedoch erst sp\u00e4ter hinzu."
+        },
+        {
+          "text": "$2015$",
+          "isCorrect": false,
+          "rationale": "Dies war das Jahr, in dem der bestehende Shop zuletzt von einem externen Dienstleister eingerichtet wurde."
+        },
+        {
+          "text": "$2026$",
+          "isCorrect": false,
+          "rationale": "Dies ist ein Datum in der Zukunft bzw. das aktuelle Systemdatum und entspricht nicht der historischen Unternehmensentwicklung."
+        }
+      ],
+      "hint": "Es war einige Jahre nach der Unternehmensgr\u00fcndung, aber noch vor der Neuausrichtung im Jahr $2015$.",
+      "id": "q_45b2db02-aedf-4076-9a58-698bf28e8130"
+    },
+    {
+      "question": "Was geh\u00f6rt beim Online-Shop-Setup zu den zwingend zu beachtenden rechtlichen Aspekten?",
+      "answerOptions": [
+        {
+          "text": "Impressum und Datenschutzerkl\u00e4rung",
+          "isCorrect": true,
+          "rationale": "Diese Angaben sind gesetzlich vorgeschrieben, um die Anbieterkennzeichnung und den Schutz personenbezogener Daten zu gew\u00e4hrleisten."
+        },
+        {
+          "text": "Logo und Teaser-Bilder",
+          "isCorrect": false,
+          "rationale": "Diese Elemente dienen dem Marketing und Design, unterliegen aber nicht den spezifischen Informationspflichten des Telemediengesetzes."
+        },
+        {
+          "text": "Layout und Header-Inhalte",
+          "isCorrect": false,
+          "rationale": "Die Gestaltung ist eine \u00e4sthetische Entscheidung und keine rechtliche Pflichtangabe f\u00fcr den Shopbetrieb."
+        },
+        {
+          "text": "Produkt-Kategorien und Artikelcontent",
+          "isCorrect": false,
+          "rationale": "Diese Inhalte sind f\u00fcr den Verkauf notwendig, stellen aber nicht die rechtlichen Rahmenbedingungen des Shop-Betreibers dar."
+        }
+      ],
+      "hint": "\u00dcberlegen Sie, welche Informationen jeder gewerbliche Webseitenbetreiber in Deutschland zur Verf\u00fcgung stellen muss.",
+      "id": "q_78609d89-0f8b-4ff6-8aaf-570a5c6b863e"
+    },
+    {
+      "question": "Warum ist das Kriterium 'Referenzen' bei der Auswahl einer Video-Agentur von Bedeutung?",
+      "answerOptions": [
+        {
+          "text": "Um die Qualit\u00e4t und Erfahrung anhand \u00e4hnlicher fr\u00fcherer Projekte zu bewerten",
+          "isCorrect": true,
+          "rationale": "Fr\u00fchere Arbeiten geben Aufschluss dar\u00fcber, ob die Agentur bereits erfolgreich vergleichbare Formate umgesetzt hat."
+        },
+        {
+          "text": "Um sicherzustellen, dass die Agentur die g\u00fcnstigsten Preise am Markt bietet",
+          "isCorrect": false,
+          "rationale": "Die Preisgestaltung wird \u00fcber das Kriterium 'Kosten' gepr\u00fcft, nicht \u00fcber die Liste der Referenzkunden."
+        },
+        {
+          "text": "Um die Erreichbarkeit der Agentur w\u00e4hrend der B\u00fcrozeiten zu testen",
+          "isCorrect": false,
+          "rationale": "Die Erreichbarkeit ist Teil des Kriteriums 'Kommunikation und Professionalit\u00e4t'."
+        },
+        {
+          "text": "Um herauszufinden, ob die Agentur die neueste Drohnentechnologie besitzt",
+          "isCorrect": false,
+          "rationale": "Der Einsatz spezifischer Hardware f\u00e4llt unter das Kriterium der 'Technischen F\u00e4higkeiten'."
+        }
+      ],
+      "hint": "Es geht um den Nachweis von Expertise durch bereits abgeschlossene Auftr\u00e4ge.",
+      "id": "q_57d704f1-a4ea-4437-816a-bc230e16360c"
+    },
+    {
+      "question": "Welcher Schritt sollte laut der empfohlenen Reihenfolge ganz zu Beginn der Online-Shop-Einrichtung stehen?",
+      "answerOptions": [
+        {
+          "text": "Shop zun\u00e4chst offline stellen",
+          "isCorrect": true,
+          "rationale": "Durch das Offline-Stellen wird verhindert, dass Kunden eine unfertige oder fehlerhafte Seite sehen, w\u00e4hrend \u00c4nderungen vorgenommen werden."
+        },
+        {
+          "text": "Versandarten festlegen",
+          "isCorrect": false,
+          "rationale": "Logistik-Einstellungen erfolgen meist erst, wenn die grundlegende Struktur und die Produkte bereits definiert sind."
+        },
+        {
+          "text": "Bewertungen aktiv schalten",
+          "isCorrect": false,
+          "rationale": "Kundenbewertungen sind ein optionales Feature, das erst nach der vollst\u00e4ndigen Einrichtung und dem Go-Live relevant wird."
+        },
+        {
+          "text": "Zahlungsarten festlegen",
+          "isCorrect": false,
+          "rationale": "Die Konfiguration der Zahlungswege erfolgt im sp\u00e4teren Verlauf der technischen Einrichtung, nicht als erster Schritt."
+        }
+      ],
+      "hint": "Vermeiden Sie es, dass Kunden w\u00e4hrend der Bauphase Zugriff auf das System haben.",
+      "id": "q_0e3d3a59-724c-47ea-ba91-98165dcab3f0"
+    },
+    {
+      "question": "Was wird unter dem Auswahlkriterium 'Kommunikation und Professionalit\u00e4t' bei einer Agentur gepr\u00fcft?",
+      "answerOptions": [
+        {
+          "text": "Reaktionsschnelligkeit und Zug\u00e4nglichkeit w\u00e4hrend des Angebotsprozesses",
+          "isCorrect": true,
+          "rationale": "Dieses Kriterium bewertet, wie zuverl\u00e4ssig und professionell der Austausch zwischen Auftraggeber und Dienstleister funktioniert."
+        },
+        {
+          "text": "Die Anzahl der verf\u00fcgbaren Kameras und Schnittpl\u00e4tze",
+          "isCorrect": false,
+          "rationale": "Die Ausstattung geh\u00f6rt zu den technischen F\u00e4higkeiten, nicht zur kommunikativen Ebene."
+        },
+        {
+          "text": "Ob die Agentur bereit ist, Rabatte auf den Listenpreis zu gew\u00e4hren",
+          "isCorrect": false,
+          "rationale": "Verhandlungen \u00fcber den Preis geh\u00f6ren zum Kostenmanagement und nicht zur allgemeinen Professionalit\u00e4t der Kommunikation."
+        },
+        {
+          "text": "Die Gesamtzahl der Follower auf dem Youtube-Kanal der Agentur",
+          "isCorrect": false,
+          "rationale": "Die eigene Social-Media-Reichweite der Agentur ist kein direktes Ma\u00df f\u00fcr die Professionalit\u00e4t in der Kundenbetreuung."
+        }
+      ],
+      "hint": "Achten Sie auf die Qualit\u00e4t der Interaktion zwischen den Gesch\u00e4ftspartnern.",
+      "id": "q_cc3c2b97-377d-4855-b007-0859e06c0054"
+    },
+    {
+      "question": "Wahr oder Falsch: Die Outdoor-Fun GmbH ist laut den Unterlagen eine Aktiengesellschaft (AG).",
+      "answerOptions": [
+        {
+          "text": "Falsch",
+          "isCorrect": true,
+          "rationale": "Die Rechtsform des Unternehmens ist explizit als GmbH (Gesellschaft mit beschr\u00e4nkter Haftung) angegeben."
+        },
+        {
+          "text": "Wahr",
+          "isCorrect": false,
+          "rationale": "Die Unterlagen weisen eindeutig eine GmbH und keine Aktiengesellschaft aus."
+        }
+      ],
+      "hint": "Werfen Sie einen Blick auf den Namenszusatz im Unternehmensprofil.",
+      "id": "q_93f457da-d2c7-4e80-8ebd-bc87cf7027f4"
+    }
+  ]
+}

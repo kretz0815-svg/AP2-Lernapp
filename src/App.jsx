@@ -7,6 +7,7 @@ import flashcards3 from './data/flashcards_3.json';
 import quiz1 from './data/quiz_1.json';
 import quiz2 from './data/quiz_2.json';
 import quiz3 from './data/quiz_3.json';
+import quizUForm2 from './data/uform2_quiz.json';
 
 import wisor1 from './data/wisor_1.json';
 
@@ -118,7 +119,7 @@ function App() {
     setGeminiVisible(false);
     setGeminiQuery('');
     setGeminiResponse('');
-  }, [currentWisorIndex]);
+  }, [currentWisorIndex, currentQuizIndex]);
 
   const handleToggleVideos = async (q) => {
     if (wisorVideoOpen) {
@@ -132,21 +133,18 @@ function App() {
       setWisorVideoLoading(true);
 
       const predefinedVideos = [];
-      if (q.videoUrl) {
+      if (q && q.videoUrl) {
         const videoId = q.videoUrl.split('/').pop().split('?')[0];
         predefinedVideos.push({
           id: 'predefined_' + videoId,
           title: 'Empfohlenes Video',
           thumbnail: `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`,
-          channelTitle: 'Autor',
-          url: q.videoUrl
+          channelTitle: 'Wisor Choice'
         });
       }
 
-      // Try to use dedicated YouTube API key, fallback to Gemini key
       const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY || import.meta.env.VITE_GEMINI_API_KEY;
 
-      // Clean up the question string for a more concise YouTube search query
       const queryStr = q.question.split(/[\n]/)[0].replace(/^[\d\.]+\s*/, '').trim().substring(0, 60);
 
       let fetched = [];
@@ -164,14 +162,47 @@ function App() {
     setGeminiLoading(true);
     setGeminiResponse('');
 
-    // Wir übergeben den Frage-Kontext der aktuellen Wisor Frage
-    const q = allWisors[currentWisorIndex];
-    const answerInfo = "Geforderte Antwort(en): " + (q.expectedAnswers?.join(', ') || 'N/A') + " | Erklärung: " + (q.rationale || 'N/A');
+    const q = appMode === 'quiz' ? allQuizzes[currentQuizIndex] : allWisors[currentWisorIndex];
+    let expectedAnswers = '';
+    if (appMode === 'wisor') {
+      expectedAnswers = q.expectedAnswers?.join(', ') || 'N/A';
+    } else {
+      expectedAnswers = q.answerOptions.find(opt => opt.isCorrect)?.text || 'N/A';
+    }
+    const answerInfo = "Geforderte Antwort(en): " + expectedAnswers + " | Erklärung: " + (q.rationale || 'N/A');
 
     const response = await askGemini(geminiQuery, q.question, answerInfo);
     setGeminiResponse(response);
     setGeminiLoading(false);
   };
+
+  const startQuizSession = (limit) => {
+    const rawQuizzes = [
+      ...(quiz1.questions || []),
+      ...(quiz2.questions || []),
+      ...(quiz3.questions || []),
+      ...(quizUForm2.questions || [])
+    ];
+    let quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+    const mergedQuizzes = rawQuizzes.map(q => {
+      const id = q.id || generateId(q.question);
+      return {
+        ...q,
+        id,
+        progress: quizProg[id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 }
+      };
+    });
+    const now = Date.now();
+    const due = mergedQuizzes.filter(q => q.progress.nextReview <= now);
+    let sessionQs = due.sort(() => Math.random() - 0.5);
+    if (limit !== 'all') {
+      sessionQs = sessionQs.slice(0, limit);
+    }
+    setAllQuizzes(sessionQs);
+    resetQuiz();
+    setAppMode('quiz');
+  };
+
 
   useEffect(() => {
     const initApp = async () => {
@@ -229,10 +260,17 @@ function App() {
       const rawQuizzes = [
         ...(quiz1.questions || []),
         ...(quiz2.questions || []),
-        ...(quiz3.questions || [])
+        ...(quiz3.questions || []),
+        ...(quizUForm2.questions || [])
       ];
-      const shuffledQuizzes = rawQuizzes.sort(() => Math.random() - 0.5);
-      setAllQuizzes(shuffledQuizzes);
+      let quizProgStorage = progressData.quiz_progress || JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+      const mergedQuizzesInit = rawQuizzes.map(q => {
+        const id = q.id || generateId(q.question);
+        return { progress: quizProgStorage[id] || { nextReview: 0 } };
+      });
+      // Just keep track of total due count in allQuizzes for Dashboard logic
+      const dueCountQs = mergedQuizzesInit.filter(q => q.progress.nextReview <= Date.now());
+      setAllQuizzes(dueCountQs);
 
       // 5. Setup Wisor
       const rawWisors = [
@@ -322,10 +360,39 @@ function App() {
     if (selectedAnswer !== null) return; // already answered
 
     setSelectedAnswer(optionIndex);
-    const isCorrect = allQuizzes[currentQuizIndex].answerOptions[optionIndex].isCorrect;
+    const q = allQuizzes[currentQuizIndex];
+    const isCorrect = q.answerOptions[optionIndex].isCorrect;
 
     if (isCorrect) {
       setQuizScore(s => ({ ...s, correct: s.correct + 1 }));
+    }
+
+    // Spaced repetition update
+    let quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+    let { rep, ef, interval } = q.progress;
+
+    if (isCorrect) {
+      if (rep === 0) {
+        interval = 1;
+      } else if (rep === 1) {
+        interval = 6;
+      } else {
+        interval = Math.round(interval * ef);
+      }
+      rep += 1;
+    } else {
+      rep = 0;
+      interval = 1 / (24 * 60); // 1 minute
+    }
+    const nextReview = Date.now() + interval * 24 * 60 * 60 * 1000;
+    quizProg[q.id] = { rep, ef, interval, nextReview };
+    localStorage.setItem('ap2_quiz_progress', JSON.stringify(quizProg));
+
+    let deviceId = localStorage.getItem('masterpat_device_id');
+    if (deviceId) {
+      let progressData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
+      progressData.quiz_progress = quizProg;
+      supabase.from('user_data').update({ progress_data: progressData }).eq('device_id', deviceId).catch(e => console.error(e));
     }
   };
 
@@ -520,11 +587,11 @@ function App() {
             <p>Deine gespeicherten Notizen ansehen und als PDF exportieren.</p>
             <div className="chip">Gespeichert</div>
           </div>
-          <div className="dash-card" onClick={() => { resetQuiz(); setAppMode('quiz'); }}>
+          <div className="dash-card" onClick={() => { setAppMode('quiz_setup'); }}>
             <div className="dash-icon">🎯</div>
             <h2>Wissen testen (Quiz)</h2>
             <p>Multiple-Choice Fragen zum Überprüfen deines Wissensstands.</p>
-            <div className="chip">{allQuizzes.length} Fragen verfügbar</div>
+            <div className="chip">{allQuizzes.length === 0 ? 'Alles gemeistert! 🎉' : `${allQuizzes.length} Fragen fällig`}</div>
           </div>
           <div className="dash-card">
             <div onClick={startWisor} style={{ cursor: 'pointer' }}>
@@ -762,6 +829,28 @@ Die JSON muss exakt diese Struktur haben:
     );
   }
 
+  if (appMode === 'quiz_setup') {
+    return (
+      <div className="app-container" style={{ zIndex: 10 }}>
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <header>
+          <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
+        </header>
+        <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
+          <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Wieviele Fragen?</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Wähle aus, wie viele fällige Fragen du jetzt lernen möchtest.</p>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <button className="btn-secondary" onClick={() => startQuizSession(10)}>10 Fragen</button>
+            <button className="btn-secondary" onClick={() => startQuizSession(20)}>20 Fragen</button>
+            <button className="btn-secondary" onClick={() => startQuizSession(50)}>50 Fragen</button>
+            <button className="btn-primary" onClick={() => startQuizSession('all')}>Alle fälligen</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (appMode === 'quiz') {
     if (allQuizzes.length === 0) return <div style={{ color: 'white', zIndex: 10 }}>Lade Quiz...</div>;
 
@@ -797,6 +886,104 @@ Die JSON muss exakt diese Struktur haben:
         </header>
 
         <div className="quiz-container">
+          <div style={{ marginBottom: '1.5rem', textAlign: 'center', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button
+              className={`btn-secondary fade-in ${wisorVideoLoading ? 'loading' : ''}`}
+              onClick={() => handleToggleVideos(q)}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: wisorVideoOpen ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
+            >
+              <span>{wisorVideoOpen ? '🙈' : '📺'}</span>
+              {wisorVideoOpen ? 'Videos ausblenden' : 'Lernvideos ansehen'}
+            </button>
+
+            <button
+              className="btn-secondary fade-in"
+              onClick={() => setGeminiVisible(!geminiVisible)}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: geminiVisible ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
+            >
+              <span>✨</span>
+              {geminiVisible ? 'Gemini schließen' : 'KI um Hilfe bitten'}
+            </button>
+          </div>
+
+          {wisorVideoOpen && (
+            <div className="fade-in" style={{ marginBottom: '1.5rem', width: '100%' }}>
+              {!selectedWisorVideo ? (
+                <>
+                  {wisorVideoLoading ? (
+                    <div style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '2rem', background: 'var(--glass-bg)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>Suche passende Videos... ⏳</div>
+                  ) : (
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                      {wisorVideos.length > 0 ? wisorVideos.map((video) => (
+                        <div
+                          key={video.id}
+                          className="video-thumbnail-card"
+                          onClick={() => setSelectedWisorVideo(video)}
+                          style={{ background: 'var(--glass-bg)', borderRadius: '12px', overflow: 'hidden', cursor: 'pointer', border: '1px solid var(--glass-border)', transition: 'all 0.2s', display: 'flex', flexDirection: 'column' }}
+                        >
+                          <img src={video.thumbnail} alt={video.title} style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
+                          <div style={{ padding: '0.8rem' }}>
+                            <div style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'white', marginBottom: '0.4rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{video.title}</div>
+                            <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>{video.channelTitle}</span>
+                          </div>
+                        </div>
+                      )) : (
+                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'var(--text-muted)', padding: '1rem' }}>Keine Videos gefunden.</div>
+                      )}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div style={{ background: 'black', borderRadius: '16px', overflow: 'hidden', position: 'relative', paddingTop: '56.25%' }}>
+                  <iframe
+                    src={`https://www.youtube.com/embed/${selectedWisorVideo.id.replace('predefined_', '')}?autoplay=1`}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                  ></iframe>
+                  <button
+                    onClick={() => setSelectedWisorVideo(null)}
+                    style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(0,0,0,0.6)', color: 'white', border: 'none', borderRadius: '50%', width: '30px', height: '30px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  >
+                    X
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {geminiVisible && (
+            <div className="fade-in" style={{ marginBottom: '1.5rem', width: '100%', background: 'var(--glass-bg)', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>
+              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                <input
+                  type="text"
+                  className="wisor-input"
+                  style={{ flex: 1, padding: '0.8rem', fontSize: '0.95rem' }}
+                  placeholder="Frag die KI nach einer Erklärung..."
+                  value={geminiQuery}
+                  onChange={e => setGeminiQuery(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleGeminiAsk()}
+                />
+                <button
+                  className="btn-primary"
+                  onClick={handleGeminiAsk}
+                  disabled={geminiLoading || !geminiQuery.trim()}
+                  style={{ padding: '0 1.5rem' }}
+                >
+                  {geminiLoading ? '...' : 'Fragen'}
+                </button>
+              </div>
+
+              {geminiResponse && (
+                <div style={{ textAlign: 'left', lineHeight: '1.6', fontSize: '0.95rem', color: '#f8fafc', background: 'rgba(0,0,0,0.2)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', whiteSpace: 'pre-wrap' }}>
+                  {geminiResponse}
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="quiz-question">
             {q.question}
           </div>
