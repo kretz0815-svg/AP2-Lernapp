@@ -589,3 +589,73 @@ button {
     font-size: 0.9rem;
   }
 }
+
+/* Floating Notes Styles */
+.floating-notes-container {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.floating-notes-toggle {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 1.8rem;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.floating-notes-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+}
+
+.floating-notes-window {
+  width: 250px;
+  height: 250px;
+  min-width: 150px;
+  min-height: 150px;
+  max-width: 80vw;
+  max-height: 80vh;
+  resize: both;
+  overflow: hidden;
+  background: var(--bg-dark);
+  /* Solid background to avoid seeing through entirely but looks glassmorphic thanks to card-face class */
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 15px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.floating-notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.floating-notes-close:hover {
+  color: var(--error) !important;
+}
+
+@media (max-width: 768px) {
+  .floating-notes-window {
+    width: 200px;
+    height: 200px;
+  }
+}

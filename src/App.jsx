@@ -12,6 +12,7 @@ import wisor1 from './data/wisor_1.json';
 
 import { supabase } from './supabaseClient';
 import { askGemini } from './geminiClient';
+import FloatingNotes from './components/FloatingNotes';
 
 const generateId = (text) => {
   let hash = 0;
@@ -526,6 +527,7 @@ function App() {
             </div>
           )}
         </div>
+        <FloatingNotes questionId={`quiz_${currentQuizIndex}`} />
       </div>
     );
   }
@@ -736,6 +738,7 @@ function App() {
             </div>
           )}
         </div>
+        <FloatingNotes questionId={`wisor_${q.id}`} />
       </div>
     );
   }
@@ -828,6 +831,7 @@ function App() {
             </div>
           )}
         </div>
+        <FloatingNotes questionId={`flashcard_${currentCard.id}`} />
       </div>
     </>
   );
