@@ -11,6 +11,7 @@ import quiz3 from './data/quiz_3.json';
 import wisor1 from './data/wisor_1.json';
 
 import { supabase } from './supabaseClient';
+import { askGemini } from './geminiClient';
 
 const generateId = (text) => {
   let hash = 0;
@@ -54,6 +55,26 @@ function App() {
   const [completedWisors, setCompletedWisors] = useState({});
   const [resetModalVisible, setResetModalVisible] = useState(false);
   const [resetMath, setResetMath] = useState({ a: 0, b: 0, input: '' });
+
+  // --- GEMINI STATE ---
+  const [geminiVisible, setGeminiVisible] = useState(false);
+  const [geminiQuery, setGeminiQuery] = useState('');
+  const [geminiResponse, setGeminiResponse] = useState('');
+  const [geminiLoading, setGeminiLoading] = useState(false);
+
+  const handleGeminiAsk = async () => {
+    if (!geminiQuery.trim()) return;
+    setGeminiLoading(true);
+    setGeminiResponse('');
+
+    // Wir übergeben den Frage-Kontext der aktuellen Wisor Frage
+    const q = allWisors[currentWisorIndex];
+    const answerInfo = "Geforderte Antwort(en): " + (q.expectedAnswers?.join(', ') || 'N/A') + " | Erklärung: " + (q.rationale || 'N/A');
+
+    const response = await askGemini(geminiQuery, q.question, answerInfo);
+    setGeminiResponse(response);
+    setGeminiLoading(false);
+  };
 
   useEffect(() => {
     const initApp = async () => {
@@ -238,6 +259,9 @@ function App() {
     setWisorEvaluated(false);
     setWisorIsCorrect(false);
     setWisorVideoOpen(false);
+    setGeminiVisible(false);
+    setGeminiQuery('');
+    setGeminiResponse('');
 
     setAppMode('wisor');
   };
@@ -316,6 +340,9 @@ function App() {
     setWisorEvaluated(false);
     setWisorIsCorrect(false);
     setWisorVideoOpen(false);
+    setGeminiVisible(false);
+    setGeminiQuery('');
+    setGeminiResponse('');
     setCurrentWisorIndex(prev => prev + 1);
   };
 
@@ -327,6 +354,9 @@ function App() {
     setWisorEvaluated(false);
     setWisorIsCorrect(false);
     setWisorVideoOpen(false);
+    setGeminiVisible(false);
+    setGeminiQuery('');
+    setGeminiResponse('');
     setCurrentWisorIndex(newIndex);
   };
 
@@ -563,8 +593,8 @@ function App() {
         </header>
 
         <div className="quiz-container">
-          {q.videoUrl && (
-            <div style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
+          <div style={{ marginBottom: '1.5rem', textAlign: 'center', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            {q.videoUrl && (
               <button
                 className="btn-secondary fade-in"
                 onClick={() => setWisorVideoOpen(!wisorVideoOpen)}
@@ -573,18 +603,63 @@ function App() {
                 <span>{wisorVideoOpen ? '🙈' : '📺'}</span>
                 {wisorVideoOpen ? 'Lernvideo ausblenden' : 'Lernvideo ansehen'}
               </button>
+            )}
 
-              {wisorVideoOpen && (
-                <div className="fade-in" style={{ marginTop: '1rem', width: '100%', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--glass-border)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
-                  <iframe
-                    width="100%"
-                    height="280"
-                    src={q.videoUrl}
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
+            <button
+              className="btn-secondary fade-in"
+              onClick={() => setGeminiVisible(!geminiVisible)}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: geminiVisible ? 'rgba(255, 255, 255, 0.1)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
+            >
+              <span>✨</span>
+              {geminiVisible ? 'Gemini schließen' : 'KI um Hilfe bitten'}
+            </button>
+          </div>
+
+          {q.videoUrl && wisorVideoOpen && (
+            <div className="fade-in" style={{ marginBottom: '1.5rem', width: '100%', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--glass-border)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
+              <iframe
+                width="100%"
+                height="280"
+                src={q.videoUrl}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
+
+          {geminiVisible && (
+            <div className="fade-in" style={{ marginBottom: '1.5rem', width: '100%', borderRadius: '16px', padding: '1.5rem', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
+              <p style={{ color: 'white', marginBottom: '1rem', fontSize: '1.1rem', fontWeight: 'bold' }}>Frage an deinen KI-Tutor</p>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <input
+                  type="text"
+                  className="wisor-input"
+                  placeholder="Was genau verstehst du hier nicht?"
+                  value={geminiQuery}
+                  onChange={(e) => setGeminiQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleGeminiAsk();
+                    }
+                  }}
+                  style={{ flex: 1, padding: '0.8rem', margin: 0 }}
+                />
+                <button
+                  type="button"
+                  className="btn-primary"
+                  onClick={handleGeminiAsk}
+                  disabled={geminiLoading || !geminiQuery.trim()}
+                  style={{ padding: '0 1.5rem' }}
+                >
+                  {geminiLoading ? '⏳ Lädt...' : 'Fragen'}
+                </button>
+              </div>
+              {geminiResponse && (
+                <div className="fade-in" style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', color: '#e2e8f0', textAlign: 'left', lineHeight: '1.6' }}>
+                  <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', margin: 0 }}>{geminiResponse}</pre>
                 </div>
               )}
             </div>
