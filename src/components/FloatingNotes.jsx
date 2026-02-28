@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../index.css';
 
-export default function FloatingNotes({ questionId }) {
+export default function FloatingNotes({ questionId, questionText }) {
     const [isOpen, setIsOpen] = useState(false);
     const [notes, setNotes] = useState('');
 
@@ -27,8 +27,24 @@ export default function FloatingNotes({ questionId }) {
     const startMouseRef = useRef({ x: 0, y: 0 });
 
     useEffect(() => {
-        setNotes('');
+        const saved = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
+        if (saved[questionId]) {
+            setNotes(saved[questionId].text);
+        } else {
+            setNotes('');
+        }
     }, [questionId]);
+
+    const handleSaveNote = () => {
+        const saved = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
+        saved[questionId] = {
+            text: notes,
+            context: questionText || 'Kein Kontext',
+            date: new Date().toISOString()
+        };
+        localStorage.setItem('ap2_saved_notes', JSON.stringify(saved));
+        alert('Notiz erfolgreich gespeichert!');
+    };
 
     // Resize (umbruch Mobile/Desktop + Desktop Constraints)
     useEffect(() => {
@@ -248,14 +264,24 @@ export default function FloatingNotes({ questionId }) {
                         }}
                     >
                         <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'white' }}>Notizen</h3>
-                        <button
-                            className="floating-notes-close"
-                            onClick={() => setIsOpen(false)}
-                            style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', outline: 'none', padding: '0 5px' }}
-                            title="Notizfenster minimieren"
-                        >
-                            &times;
-                        </button>
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                            <button
+                                className="floating-notes-save"
+                                onClick={handleSaveNote}
+                                style={{ background: 'var(--primary)', border: 'none', color: 'white', borderRadius: '4px', padding: '0 8px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}
+                                title="Notiz speichern"
+                            >
+                                Speichern
+                            </button>
+                            <button
+                                className="floating-notes-close"
+                                onClick={() => setIsOpen(false)}
+                                style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', outline: 'none', padding: '0 5px' }}
+                                title="Notizfenster minimieren"
+                            >
+                                &times;
+                            </button>
+                        </div>
                     </div>
 
                     <textarea

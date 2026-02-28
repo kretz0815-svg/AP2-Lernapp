@@ -410,6 +410,18 @@ function App() {
           <p className="subtitle">Wähle deinen Lernmodus</p>
         </header>
         <div className="dashboard-grid">
+          <div className="dash-card" onClick={() => { setAppMode('flashcards'); }}>
+            <div className="dash-icon">🧠</div>
+            <h2>Spaced Repetition</h2>
+            <p>Klassische Lernkarten für den Langzeitspeicher.</p>
+            <div className="chip">{learningQueue.length} fällig</div>
+          </div>
+          <div className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
+            <div className="dash-icon">📓</div>
+            <h2>Meine Notizen</h2>
+            <p>Deine gespeicherten Notizen ansehen und als PDF exportieren.</p>
+            <div className="chip">Gespeichert</div>
+          </div>
           <div className="dash-card" onClick={() => { resetQuiz(); setAppMode('quiz'); }}>
             <div className="dash-icon">🎯</div>
             <h2>Wissen testen (Quiz)</h2>
@@ -459,6 +471,50 @@ function App() {
             </div>
           </div>
         )}
+      </div>
+    );
+  }
+
+  if (appMode === 'notes_manager') {
+    const savedNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
+    const noteKeys = Object.keys(savedNotes).sort((a, b) => new Date(savedNotes[b].date) - new Date(savedNotes[a].date));
+
+    return (
+      <div className="app-container" style={{ zIndex: 10 }}>
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <header className="hide-on-print">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+            <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
+            <h1 className="subtitle" style={{ margin: 0, color: 'white' }}>Gespeicherte Notizen</h1>
+            <button className="btn-primary" onClick={() => window.print()}>Als PDF drucken</button>
+          </div>
+        </header>
+
+        <div className="notes-list-container" style={{ width: '100%', maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
+          {noteKeys.length === 0 ? (
+            <div style={{ color: 'white', textAlign: 'center', marginTop: '2rem' }}>Noch keine Notizen vorhanden.</div>
+          ) : (
+            <div className="printable-notes" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '3rem' }}>
+              {noteKeys.map(key => {
+                const note = savedNotes[key];
+                return (
+                  <div key={key} className="card-face note-card" style={{ padding: '1.5rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>
+                    <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '0.8rem', display: 'flex', justifyContent: 'space-between' }}>
+                      <span>{new Date(note.date).toLocaleString()}</span>
+                    </div>
+                    <div style={{ color: '#cbd5e1', marginBottom: '1rem', fontStyle: 'italic', borderLeft: '3px solid var(--primary)', paddingLeft: '10px' }}>
+                      {note.context}
+                    </div>
+                    <div style={{ color: 'white', whiteSpace: 'pre-wrap', lineHeight: '1.5' }}>
+                      {note.text}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
     );
   }
@@ -528,7 +584,7 @@ function App() {
             </div>
           )}
         </div>
-        <FloatingNotes questionId={`quiz_${currentQuizIndex}`} />
+        <FloatingNotes questionId={`quiz_${currentQuizIndex}`} questionText={q.question || 'Quiz Frage'} />
         <FloatingCalculator />
       </div>
     );
@@ -740,7 +796,7 @@ function App() {
             </div>
           )}
         </div>
-        <FloatingNotes questionId={`wisor_${q.id}`} />
+        <FloatingNotes questionId={`wisor_${q.id}`} questionText={q.question || 'Wisor Frage'} />
         <FloatingCalculator />
       </div>
     );
@@ -834,7 +890,7 @@ function App() {
             </div>
           )}
         </div>
-        <FloatingNotes questionId={`flashcard_${currentCard.id}`} />
+        <FloatingNotes questionId={`flashcard_${currentCard.id}`} questionText={currentCard.front || 'Lernkarte'} />
         <FloatingCalculator />
       </div>
     </>

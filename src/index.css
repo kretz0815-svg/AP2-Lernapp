@@ -733,3 +733,45 @@ button {
   background: white;
   color: #f59223;
 }
+
+/* --- Print / PDF Export Styles for Notes --- */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .app-container {
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    min-height: auto !important;
+  }
+
+  .blob,
+  .hide-on-print,
+  .floating-notes-toggle,
+  .floating-notes-window {
+    display: none !important;
+  }
+
+  .note-card {
+    break-inside: avoid;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    color: black !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .note-card * {
+    color: black !important;
+    text-shadow: none !important;
+  }
+
+  .note-card div[style*="borderLeft"] {
+    border-left: 3px solid #666 !important;
+    color: #444 !important;
+  }
+}
