@@ -278,30 +278,33 @@ h1 {
 /* Nav & Basic Buttons */
 .btn-nav {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #cbd5e1;
+  border: 1px solid var(--glass-border);
+  color: var(--text-light);
   padding: 0.5rem 1rem;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
+  opacity: 0.8;
 }
 
 .btn-nav:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background: var(--glass-bg);
+  opacity: 1;
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-light);
+  font-weight: 600;
   padding: 1rem 2rem;
   border-radius: 999px;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--glass-border);
 }
 
 /* Progress */
