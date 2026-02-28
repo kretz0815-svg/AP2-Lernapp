@@ -126,6 +126,9 @@ export default function FloatingCalculator() {
                 if (newWidth < 220) { if (resizeRef.current.includes('l')) newX += (newWidth - 220); newWidth = 220; }
                 if (newHeight < 320) { if (resizeRef.current.includes('t')) newY += (newHeight - 320); newHeight = 320; }
 
+                if (newWidth > 380) { if (resizeRef.current.includes('l')) newX += (newWidth - 380); newWidth = 380; }
+                if (newHeight > 520) { if (resizeRef.current.includes('t')) newY += (newHeight - 520); newHeight = 520; }
+
                 setSize({ width: newWidth, height: newHeight });
                 setPosition({ x: newX, y: newY });
             }
@@ -263,6 +266,7 @@ export default function FloatingCalculator() {
                         position: 'fixed',
                         left: `${position.x}px`, top: `${position.y}px`,
                         width: `${size.width}px`, height: `${size.height}px`,
+                        maxWidth: '380px', maxHeight: '520px',
                         zIndex: 1000, resize: 'none', margin: 0, transform: 'none',
                         padding: '12px', display: 'flex', flexDirection: 'column', background: 'rgba(15, 23, 42, 0.95)'
                     }}
