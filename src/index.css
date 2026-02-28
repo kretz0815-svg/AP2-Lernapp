@@ -640,6 +640,7 @@ button {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
+  container-type: size;
 }
 
 .floating-notes-header {
@@ -665,26 +666,28 @@ button {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
-  gap: 10px;
+  gap: clamp(5px, 2cqh, 10px);
   flex: 1;
+  min-height: 0;
 }
 
 .calc-display {
-  padding: 0 10px 10px 10px;
+  padding: 5px 10px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
   color: white;
-  min-height: 2.5rem;
-  overflow: hidden;
+  flex: 0 0 max(50px, 18cqh);
+  overflow: visible;
   font-weight: 300;
   letter-spacing: 1px;
+  line-height: 1;
 }
 
 .calc-btn {
   border: none;
-  border-radius: 12px;
-  font-size: 1.5rem;
+  border-radius: max(8px, 4cqw);
+  font-size: clamp(1rem, 6cqh, 1.5rem);
   font-weight: 500;
   cursor: pointer;
   display: flex;

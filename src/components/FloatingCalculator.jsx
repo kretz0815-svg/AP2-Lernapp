@@ -216,9 +216,9 @@ export default function FloatingCalculator() {
 
     // Calculate dynamically resized text size for display
     const displayLength = currentValue.length;
-    let fontSize = '2.5rem';
-    if (displayLength > 8) fontSize = '2rem';
-    if (displayLength > 12) fontSize = '1.5rem';
+    let fontSize = 'clamp(1.5rem, 15cqh, 3rem)';
+    if (displayLength > 8) fontSize = 'clamp(1.2rem, 12cqh, 2rem)';
+    if (displayLength > 12) fontSize = 'clamp(1rem, 9cqh, 1.5rem)';
 
     const isTopHalf = position.y + (size.height / 2) < (typeof window !== 'undefined' ? window.innerHeight / 2 : 400);
     const isLeftHalf = position.x + (size.width / 2) < (typeof window !== 'undefined' ? window.innerWidth / 2 : 400);
