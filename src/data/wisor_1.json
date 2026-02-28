@@ -250,6 +250,16 @@
             "inputType": "number",
             "rationale": "a) 01 (Abschluss des Kaufvertrags zwischen Importeur und Exporteur ist der Ausgangspunkt).\nb) 09 (Die Akkreditivbank des Importeurs belastet dessen Konto und gibt ihm die Dokumente, mit denen er die Ware in Empfang nehmen kann).\nc) 04 (Die Akkreditivstelle = Hausbank des Exporteurs avisiert ihrem Kunden das eröffnete Akkreditiv).\nd) 02 (Der Importeur beantragt bei seiner Bank die Eröffnung).\ne) 05 (Warenübergabe an den Spediteur nach Prüfung der Akkreditivbedingungen durch den Exporteur).\nf) 11 (Der Importeur übergibt die original Dokumente (z.B. Konnossement/Bill of Lading) an den Verfrachter, um die importierte Ware zu erhalten).",
             "videoUrl": ""
+        },
+        {
+            "id": "1.27",
+            "question": "1.27 Akkreditiv\n\nWelche 2 Aussagen zum Dokumenten-Akkreditiv sind falsch?\n\n1. Ein Dokumenten-Akkreditiv ist von dem Kaufvertrag, auf dem es wirtschaftlich beruht, völlig getrennt.\n2. Das sicherste und zugleich teuerste Akkreditiv ist das bestätigte, unwiderrufliche und befristete Akkreditiv.\n3. Rechtliche Grundlage für die Abwicklung eines Dokumentenakkreditivs bilden die sog. ERI, die von der für den Exporteur zuständigen Industrie- und Handelskammer (IHK) verfasst wurden.\n4. Im Gegensatz zum Dokumenteninkasso wird die Eröffnung des Dokumentenakkreditivs vom Verkäufer beantragt.\n5. Die am Akkreditivverfahren teilnehmende Bank des Importeurs heißt Akkreditivbank.\n6. Bei einem bestätigten Akkreditiv gibt die Akkreditivstelle (i. d. R. die Hausbank des Exporteurs) ein zusätzliches abstraktes Schuldversprechen.\n\n(Bitte geben Sie die 2 zutreffenden Lösungsziffern aufsteigend direkt hintereinander ein, z.B. 12)",
+            "expectedAnswers": [
+                "34"
+            ],
+            "inputType": "number",
+            "rationale": "3 (Falsch): Rechtliche Grundlage sind die Einheitlichen Richtlinien und Gebräuche für Dokumenten-Akkreditive (ERA), verfasst von der Internationalen Handelskammer (ICC) in Paris.\n4 (Falsch): Die Eröffnung eines Dokumentenakkreditivs wird stets vom Käufer (=Importeur) bei seiner Hausbank beantragt.\nAlle anderen Aussagen (1, 2, 5, 6) sind richtig.",
+            "videoUrl": ""
         }
     ]
 }
