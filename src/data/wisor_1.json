@@ -276,6 +276,16 @@
             "inputType": "text",
             "rationale": "a) Überweisung am 06.04. (nach 10 Tagen Skontofrist): voller Rechnungsbetrag = 95.200 €.\nb) Überweisung am 19.03. (innerhalb von 10 Tagen): 3% Skonto (2.856 €) abziehen = 92.344 € Überweisungsbetrag.\nc) Es werden 92.344 € finanziert. Der Kreditzeitraum beträgt 20 Tage (30 Tage Zahlungsziel - 10 Tage Skontofrist).\nca) Kreditkosten = (92.344 € * 11 * 20) / (100 * 360) = 564,32 €.\ncb) Finanzierungserfolg = 2.856 € (Skontoersparnis) - 564,32 € (Bankzinsen) = 2.291,68 €.\ncc) Effektivverzinsung als einfacher Jahreszinssatz = (Skontosatz * 360) / Laufzeit = (3 * 360) / 20 = 54 %.",
             "videoUrl": ""
+        },
+        {
+            "id": "1.29",
+            "question": "1.29 Kreditgewährung\n\nWelche 2 der folgenden Aussagen sind falsch?\n\nAussagen\n\n1. Grundvoraussetzung jeder Kreditgewährung ist das Vertrauen in die Kreditwürdigkeit und die Leistungsfähigkeit eines Unternehmens.\n2. Kredite zur Finanzierung des Anlagevermögens müssen kurzfristige Laufzeiten haben.\n3. Die Frage der Rentabilität eines Kredites sollte in jedem Fall bereits vor Kreditaufnahme geprüft werden.\n4. Die Kreditgewährung darf beim Kreditgeber auf keinen Fall dazu führen, dass seine eigene Zahlungsbereitschaft (Liquidität) gefährdet wird.\n5. Nicht jeder Kreditwürdige ist auch kreditfähig. Dies gilt auch umgekehrt.\n6. Der Kreditgeber ist der Kreditor (= Gläubiger), der Kreditnehmer der Debitor (= Schuldner).\n7. Zu den verstärkten Personalkrediten zählen neben den Zessionskrediten auch die Bürgschaftskredite.\n8. Realkredite, also dinglich gesicherte Kredite, sind dadurch gekennzeichnet, dass neben der Person des Kreditnehmers noch mindestens eine weitere Person für die Rückzahlung des Kredites haftet.\n9. Beim Kontokorrentkredit gestattet die Bank ihrem Kunden, sein laufendes Geschäftskonto einmalig für einen bestimmten Zweck oder auch laufend bis auf Widerruf zu überziehen.\n10. Bei Krediten, die in gleichbleibenden Jahresleistungen zurückgezahlt werden, sinkt im Laufe der Rückzahlungsjahre der Zinsanteil zugunsten eines verstärkten Tilgungsanteils.\n\n(Bitte geben Sie die 2 zutreffenden Lösungsziffern aufsteigend direkt hintereinander ein, z.B. 12)",
+            "expectedAnswers": [
+                "28"
+            ],
+            "inputType": "number",
+            "rationale": "2 (Falsch): Anlagevermögen bindet Kapital langfristig. Nach der goldenen Finanzierungsregel (Fristenkongruenz) müssen Kredite zur Finanzierung des Anlagevermögens daher langfristige Laufzeiten haben.\n8 (Falsch): Die genannte Definition beschreibt den verstärkten Personalkredit (insb. die Bürgschaft). Ein Realkredit ist durch Sachen (z.B. Grundstücke) oder Rechte besichert, nicht durch eine weitere Person.\nAlle anderen Aussagen (1, 3, 4, 5, 6, 7, 9, 10) sind richtig.",
+            "videoUrl": ""
         }
     ]
 }
