@@ -285,30 +285,32 @@ export default function FloatingCalculator() {
                         {currentValue}
                     </div>
 
-                    <div className="calc-grid">
-                        <button className="calc-btn calc-top" onClick={handleClear}>{currentValue === '0' ? 'AC' : 'C'}</button>
-                        <button className="calc-btn calc-top" onClick={handleToggleSign}>+/-</button>
-                        <button className="calc-btn calc-top" onClick={handlePercent}>%</button>
-                        <button className={`calc-btn calc-op ${operator === '÷' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('÷')}>÷</button>
+                    <div className="calc-wrapper">
+                        <div className="calc-grid">
+                            <button className="calc-btn calc-top" onClick={handleClear}>{currentValue === '0' ? 'AC' : 'C'}</button>
+                            <button className="calc-btn calc-top" onClick={handleToggleSign}>+/-</button>
+                            <button className="calc-btn calc-top" onClick={handlePercent}>%</button>
+                            <button className={`calc-btn calc-op ${operator === '÷' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('÷')}>÷</button>
 
-                        <button className="calc-btn calc-num" onClick={() => handleDigit('7')}>7</button>
-                        <button className="calc-btn calc-num" onClick={() => handleDigit('8')}>8</button>
-                        <button className="calc-btn calc-num" onClick={() => handleDigit('9')}>9</button>
-                        <button className={`calc-btn calc-op ${operator === '×' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('×')}>×</button>
+                            <button className="calc-btn calc-num" onClick={() => handleDigit('7')}>7</button>
+                            <button className="calc-btn calc-num" onClick={() => handleDigit('8')}>8</button>
+                            <button className="calc-btn calc-num" onClick={() => handleDigit('9')}>9</button>
+                            <button className={`calc-btn calc-op ${operator === '×' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('×')}>×</button>
 
-                        <button className="calc-btn calc-num" onClick={() => handleDigit('4')}>4</button>
-                        <button className="calc-btn calc-num" onClick={() => handleDigit('5')}>5</button>
-                        <button className="calc-btn calc-num" onClick={() => handleDigit('6')}>6</button>
-                        <button className={`calc-btn calc-op ${operator === '-' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('-')}>-</button>
+                            <button className="calc-btn calc-num" onClick={() => handleDigit('4')}>4</button>
+                            <button className="calc-btn calc-num" onClick={() => handleDigit('5')}>5</button>
+                            <button className="calc-btn calc-num" onClick={() => handleDigit('6')}>6</button>
+                            <button className={`calc-btn calc-op ${operator === '-' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('-')}>-</button>
 
-                        <button className="calc-btn calc-num" onClick={() => handleDigit('1')}>1</button>
-                        <button className="calc-btn calc-num" onClick={() => handleDigit('2')}>2</button>
-                        <button className="calc-btn calc-num" onClick={() => handleDigit('3')}>3</button>
-                        <button className={`calc-btn calc-op ${operator === '+' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('+')}>+</button>
+                            <button className="calc-btn calc-num" onClick={() => handleDigit('1')}>1</button>
+                            <button className="calc-btn calc-num" onClick={() => handleDigit('2')}>2</button>
+                            <button className="calc-btn calc-num" onClick={() => handleDigit('3')}>3</button>
+                            <button className={`calc-btn calc-op ${operator === '+' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('+')}>+</button>
 
-                        <button className="calc-btn calc-num calc-zero" onClick={() => handleDigit('0')}>0</button>
-                        <button className="calc-btn calc-num" onClick={handleDot}>,</button>
-                        <button className="calc-btn calc-op" onClick={handleEquals}>=</button>
+                            <button className="calc-btn calc-num calc-zero" onClick={() => handleDigit('0')}>0</button>
+                            <button className="calc-btn calc-num" onClick={handleDot}>,</button>
+                            <button className="calc-btn calc-op" onClick={handleEquals}>=</button>
+                        </div>
                     </div>
 
                     {/* Resizer Desktop */}
