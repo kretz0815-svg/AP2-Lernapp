@@ -581,12 +581,6 @@ function App() {
           <p className="subtitle">Wähle deinen Lernmodus</p>
         </header>
         <div className="dashboard-grid">
-          <div className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
-            <div className="dash-icon">📓</div>
-            <h2>Meine Notizen</h2>
-            <p>Deine gespeicherten Notizen ansehen und als PDF exportieren.</p>
-            <div className="chip">Gespeichert</div>
-          </div>
           <div className="dash-card" onClick={() => { setAppMode('quiz_setup'); }}>
             <div className="dash-icon">🎯</div>
             <h2>Wissen testen (Quiz)</h2>
@@ -609,6 +603,12 @@ function App() {
                 🔄 Lernfortschritt zurücksetzen
               </button>
             )}
+          </div>
+          <div className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
+            <div className="dash-icon">📓</div>
+            <h2>Meine Notizen</h2>
+            <p>Deine gespeicherten Notizen ansehen und als PDF exportieren.</p>
+            <div className="chip">Gespeichert</div>
           </div>
         </div>
 
