@@ -189,6 +189,36 @@
             "inputType": "number",
             "rationale": "Ausgangslage: EK = 1.000.000 €, Gewinn-Rendite 20 % = 200.000 € (Dies ist auch der Gewinn vor Zinsen).\n\na) 500.000 € EK, 500.000 € FK. Zinsen = 10 % von 500.000 = 50.000 €. Reingewinn = 200.000 (Vor-Zins-Gewinn) - 50.000 = 150.000 €. \nEK-Rentabilität = (150.000 / 500.000) * 100 = 30 %.\n\nb) 250.000 € EK, 750.000 € FK. Zinsen = 10 % von 750.000 = 75.000 €. Reingewinn = 200.000 - 75.000 = 125.000 €.\nEK-Rentabilität = (125.000 / 250.000) * 100 = 50 %.\n\nc) 2: Die EK-Rentabilität steigt durch FK nur dann an, wenn die Kosten für das Fremdkapital (Fremdkapitalzins) niedriger sind als die mit dem Gesamtkapital erwirtschaftete Rendite (Gesamtkapitalrendite). Das nennt man den positiven Leverage-Effekt.",
             "videoUrl": "https://www.youtube.com/embed/PdgGuOGXMTI"
+        },
+        {
+            "id": "1.21",
+            "question": "1.21 Finanzierung und Kreditsicherung\n\nOrdnen Sie folgende Begriffe aus der Finanzierung und Kreditsicherung den unten aufgeführten Aussagen zu. Übertragen Sie anschließend Ihre Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\n1. Leasing\n2. Globalzession\n3. Besitzkonstitut\n4. Factoring\n5. Akzessorietät\n6. Einrede der Vorausklage\n7. Annuität\n\nAussagen\n\na) Die Barwerte kurzfristiger Forderungen aus Lieferungen und Leistungen werden vom Kreditgeber angekauft.\nb) Einem Unternehmen werden bewegliche oder unbewegliche Wirtschaftsgüter des Anlagevermögens zur Nutzung gegen Entgelt überlassen.\nc) Der Kreditgeber übernimmt neben der Delkredere- und Finanzierungsfunktion auch eine Dienstleistungsfunktion.\nd) Die jährliche Belastung, bestehend aus Tilgung und Zinsen, ist für die gesamte Laufzeit des Darlehens konstant.\ne) Es besteht ein untrennbarer rechtlicher Zusammenhang zwischen dem persönlichen Anspruch aus einer Darlehensgewährung und dem dinglichen Anspruch aus einer Hypothek.\nf) Die Übergabe des Sicherungsgutes wird durch einen Vertrag ersetzt, der den Kreditnehmer weiterhin zum unmittelbaren Besitz berechtigt.\ng) Hierauf verzichtet der Bürge im Rahmen einer selbstschuldnerischen Bürgschaft.\nh) Die Sicherungsabtretung der Forderung geschieht bereits zum Zeitpunkt der Forderungsentstehung. Die Debitorenliste hat lediglich deklaratorischen Charakter.\n\n(Bitte geben Sie die 8 Lösungsziffern von a) bis h) direkt hintereinander ein, z.B. 12345671)",
+            "expectedAnswers": [
+                "41475362"
+            ],
+            "inputType": "number",
+            "rationale": "a) 4 (Factoring: Ankauf kurzfristiger Forderungen durch eine Factoring-Gesellschaft)\nb) 1 (Leasing: Nutzungsüberlassung gegen Entgelt)\nc) 4 (Factoring: Der Factor übernimmt Finanzierung, Delkredere und Dienstleistung)\nd) 7 (Annuität: Gleichbleibende jährliche Ratenbelastung bestehend aus Zins und Tilgung)\ne) 5 (Akzessorietät: Abhängigkeit eines Sicherungsrechts vom Bestehen der Forderung)\nf) 3 (Besitzkonstitut: ersetzt die physische Übergabe z.B. bei der Sicherungsübereignung, Schuldner bleibt Besitzer)\ng) 6 (Einrede der Vorausklage: Auf diese verzichtet der Bürge bei der selbstschuldnerischen Bürgschaft, wodurch er sofort in Anspruch genommen werden kann)\nh) 2 (Globalzession: Zukünftige und gegenwärtige Forderungen werden pauschal abgetreten, Debitorenliste dient nur der Deklaration)",
+            "videoUrl": ""
+        },
+        {
+            "id": "1.22",
+            "question": "1.22 Leasing\n\nDie Geschäftsleitung überlegt, die Firmenwagen zukünftig nicht mehr zu kaufen, sondern zu leasen.\nWelche 2 Vorteile verspricht sie sich davon?\n\n1. Gleichmäßige monatliche Liquiditätsbelastung.\n2. Leasing ist in jedem Falle kostengünstiger als ein Kauf.\n3. Leasingverträge können jederzeit gekündigt werden, um den Fuhrpark immer mit den neuesten Modellen auszustatten.\n4. Volle steuerliche Absetzbarkeit der Leasingraten.\n5. Am Ende der Grundmietzeit geht das Auto in das Eigentum der Firma über.\n\n(Bitte geben Sie die 2 zutreffenden Lösungsziffern aufsteigend direkt hintereinander ein, z.B. 12)",
+            "expectedAnswers": [
+                "14"
+            ],
+            "inputType": "number",
+            "rationale": "1 (Richtig): Leasingraten sind gleichbleibend und schonen die Liquidität im Vergleich zu einer hohen Einmalzahlung beim Kauf.\n2 (Falsch): Leasing ist in der Summe meist teurer als ein Kauf.\n3 (Falsch): Leasingverträge haben in der Regel feste Grundmietzeiten und können nicht \"jederzeit\" gekündigt werden.\n4 (Richtig): Leasingraten können in voller Höhe als Betriebsausgabe abgesetzt werden.\n5 (Falsch): Am Ende der Grundmietzeit erfolgt die Rückgabe (Eigentumsübergang wäre Mietkauf).",
+            "videoUrl": ""
+        },
+        {
+            "id": "1.23",
+            "question": "1.23 Kreditarten\n\nIm Einkauf verfolgt der Auszubildende Lukas Schlitt eine Diskussion über verschiedene Arten der Kreditfinanzierung. Dabei fallen die Begriffe\n\n1. Darlehen\n2. Lieferantenkredit\n3. Kontokorrentkredit\n\nOrdnen Sie zu, indem Sie die Kennziffern der Kreditarten in die Kästchen hinter den Umschreibungen eintragen. Übertragen Sie anschließend die Kennziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\na) Es handelt sich um einen kurzfristigen Kredit, der den Office Experten von ihrem Holzgroßhändler im Zusammenhang mit dem Einkauf von Material gewährt wird.\nb) Diesen kurzfristigen Kredit gewährt die Postbank Köln den Office Experten für die Überziehung des Geschäftskontos.\nc) Mit diesem langfristigen Kredit der Commerzbank Langenfeld wurde eine neue Drehbank finanziert. Die Rückzahlung erfolgt monatlich in gleichbleibenden Raten.\n\n(Bitte geben Sie die 3 Lösungsziffern von a) bis c) direkt hintereinander ein, z.B. 123)",
+            "expectedAnswers": [
+                "231"
+            ],
+            "inputType": "number",
+            "rationale": "a) 2 (Lieferantenkredit: Kurzkredit des Lieferanten durch Gewährung eines Zahlungsziels nach Wareneingang).\nb) 3 (Kontokorrentkredit: Kreditrahmen zur Überziehung auf dem laufenden Bankkonto).\nc) 1 (Darlehen: Langfristiger Kreditvertrag für Investitionen, typischerweise mit festen Laufzeiten und Raten).",
+            "videoUrl": ""
         }
     ]
 }
