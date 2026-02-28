@@ -5,12 +5,20 @@ export default function FloatingNotes({ questionId }) {
     const [isOpen, setIsOpen] = useState(false);
     const [notes, setNotes] = useState('');
 
-    // Position initial auf der rechten Seite, vertikal mittig
+    const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
+
+    // Desktop: drag & resize state
     const [position, setPosition] = useState({
         x: typeof window !== 'undefined' ? window.innerWidth - 300 : 800,
         y: typeof window !== 'undefined' ? window.innerHeight / 2 - 150 : 300
     });
     const [size, setSize] = useState({ width: 280, height: 300 });
+
+    // Mobile: visual viewport state for keyboard stickiness
+    const [vvState, setVvState] = useState({
+        height: typeof window !== 'undefined' ? window.innerHeight : 800,
+        offsetTop: 0
+    });
 
     const dragRef = useRef(false);
     const resizeRef = useRef(null);
@@ -22,20 +30,54 @@ export default function FloatingNotes({ questionId }) {
         setNotes('');
     }, [questionId]);
 
-    // Fenster-Resize behandeln
+    // Resize (umbruch Mobile/Desktop + Desktop Constraints)
     useEffect(() => {
         const handleResize = () => {
-            setPosition(p => ({
-                x: Math.min(Math.max(0, p.x), window.innerWidth - size.width),
-                y: Math.min(Math.max(0, p.y), window.innerHeight - size.height)
-            }));
+            const mobile = window.innerWidth <= 768;
+            setIsMobile(mobile);
+            if (!mobile) {
+                setPosition(p => ({
+                    x: Math.min(Math.max(0, p.x), window.innerWidth - size.width),
+                    y: Math.min(Math.max(0, p.y), window.innerHeight - size.height)
+                }));
+            }
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [size]);
 
+    // Visual Viewport tracking for mobile keyboard
+    useEffect(() => {
+        if (!isMobile) return;
+        const updateVv = () => {
+            if (window.visualViewport) {
+                setVvState({
+                    height: window.visualViewport.height,
+                    offsetTop: window.visualViewport.offsetTop
+                });
+            } else {
+                setVvState({ height: window.innerHeight, offsetTop: 0 });
+            }
+        };
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', updateVv);
+            window.visualViewport.addEventListener('scroll', updateVv);
+        } else {
+            window.addEventListener('resize', updateVv);
+        }
+        updateVv(); // Initial call
+        return () => {
+            if (window.visualViewport) {
+                window.visualViewport.removeEventListener('resize', updateVv);
+                window.visualViewport.removeEventListener('scroll', updateVv);
+            } else {
+                window.removeEventListener('resize', updateVv);
+            }
+        };
+    }, [isMobile]);
+
     const onDragStart = (e) => {
-        if (e.target.closest('.floating-notes-close') || e.target.closest('textarea')) return;
+        if (isMobile || e.target.closest('.floating-notes-close') || e.target.closest('textarea')) return;
         dragRef.current = true;
         const clientX = e.clientX ?? e.touches?.[0].clientX;
         const clientY = e.clientY ?? e.touches?.[0].clientY;
@@ -44,6 +86,7 @@ export default function FloatingNotes({ questionId }) {
     };
 
     const onResizeStart = (direction, e) => {
+        if (isMobile) return;
         e.stopPropagation();
         e.preventDefault();
         resizeRef.current = direction;
@@ -55,6 +98,8 @@ export default function FloatingNotes({ questionId }) {
     };
 
     useEffect(() => {
+        if (isMobile) return;
+
         const onMove = (e) => {
             if (!dragRef.current && !resizeRef.current) return;
 
@@ -62,7 +107,6 @@ export default function FloatingNotes({ questionId }) {
             const clientY = e.clientY ?? e.touches?.[0].clientY;
 
             if (dragRef.current) {
-                // Prevent default scrolling when dragging on touch
                 if (e.cancelable) e.preventDefault();
 
                 const dx = clientX - startMouseRef.current.x;
@@ -82,7 +126,6 @@ export default function FloatingNotes({ questionId }) {
                 let newX = startPosRef.current.x;
                 let newY = startPosRef.current.y;
 
-                // X-Achse
                 if (resizeRef.current.includes('l')) {
                     newWidth -= dx;
                     newX += dx;
@@ -90,7 +133,6 @@ export default function FloatingNotes({ questionId }) {
                     newWidth += dx;
                 }
 
-                // Y-Achse
                 if (resizeRef.current.includes('t')) {
                     newHeight -= dy;
                     newY += dy;
@@ -98,7 +140,6 @@ export default function FloatingNotes({ questionId }) {
                     newHeight += dy;
                 }
 
-                // Min-Size Limitierung
                 if (newWidth < 200) {
                     if (resizeRef.current.includes('l')) newX += (newWidth - 200);
                     newWidth = 200;
@@ -131,21 +172,19 @@ export default function FloatingNotes({ questionId }) {
             window.removeEventListener('mouseup', onEnd);
             window.removeEventListener('touchend', onEnd);
         };
-    }, [isOpen, size]);
+    }, [isOpen, size, isMobile]);
 
-
-    // Befindet sich das Fenster vertikal hauptsächlich in der oberen Hälfte?
+    // Nur für Desktop relevant
     const isTopHalf = position.y + (size.height / 2) < (typeof window !== 'undefined' ? window.innerHeight / 2 : 400);
-
-    // Der Resizer soll auf der linken Seite sein (tl = top-left, bl = bottom-left)
-    // Wenn es oben ist, ist der Resizer unten links (bl). 
-    // Wenn es in der unteren Hälfte ist, ist der Resizer oben links (tl).
     const activeResizeHandle = isTopHalf ? 'bl' : 'tl';
+
+    // Mobile Styling Konstanten
+    const mobileHeight = Math.min(220, vvState.height * 0.45);
 
     return (
         <>
             {!isOpen ? (
-                <div style={{ position: 'fixed', right: '20px', top: '50%', transform: 'translateY(-50%)', zIndex: 1000 }}>
+                <div style={isMobile ? { position: 'fixed', right: '15px', bottom: '20px', zIndex: 1000 } : { position: 'fixed', right: '20px', top: '50%', transform: 'translateY(-50%)', zIndex: 1000 }}>
                     <button
                         className="floating-notes-toggle"
                         onClick={() => setIsOpen(true)}
@@ -157,14 +196,29 @@ export default function FloatingNotes({ questionId }) {
             ) : (
                 <div
                     className="floating-notes-window fade-in card-face"
-                    style={{
+                    style={isMobile ? {
+                        position: 'fixed',
+                        left: '0px',
+                        top: `${vvState.offsetTop + vvState.height - mobileHeight}px`,
+                        width: '100vw',
+                        height: `${mobileHeight}px`,
+                        zIndex: 1000,
+                        margin: 0,
+                        padding: '10px 15px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        borderRadius: '24px 24px 0 0',
+                        border: '1px solid var(--glass-border)',
+                        borderBottom: 'none',
+                        boxShadow: '0 -5px 25px rgba(0,0,0,0.5)'
+                    } : {
                         position: 'fixed',
                         left: `${position.x}px`,
                         top: `${position.y}px`,
                         width: `${size.width}px`,
                         height: `${size.height}px`,
                         zIndex: 1000,
-                        resize: 'none', // deaktiviert natives CSS resizen!
+                        resize: 'none',
                         margin: 0,
                         transform: 'none',
                         padding: '15px',
@@ -172,13 +226,12 @@ export default function FloatingNotes({ questionId }) {
                         flexDirection: 'column'
                     }}
                 >
-                    {/* Header dient als Drag-Handle */}
                     <div
                         className="floating-notes-header"
-                        onMouseDown={onDragStart}
-                        onTouchStart={onDragStart}
+                        onMouseDown={!isMobile ? onDragStart : undefined}
+                        onTouchStart={!isMobile ? onDragStart : undefined}
                         style={{
-                            cursor: 'move',
+                            cursor: isMobile ? 'default' : 'move',
                             display: 'flex',
                             justifyContent: 'space-between',
                             alignItems: 'center',
@@ -190,7 +243,7 @@ export default function FloatingNotes({ questionId }) {
                         <button
                             className="floating-notes-close"
                             onClick={() => setIsOpen(false)}
-                            style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', outline: 'none' }}
+                            style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', outline: 'none', padding: '0 5px' }}
                             title="Notizfenster minimieren"
                         >
                             &times;
@@ -201,59 +254,59 @@ export default function FloatingNotes({ questionId }) {
                         className="floating-notes-textarea wisor-input"
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
-                        placeholder="Deine Notizen zu dieser Frage..."
+                        placeholder="Deine Notizen hier..."
+                        autoFocus={!isMobile} // Disable autoFocus on mobile to avoid keyboard pop on open
                         style={{
                             width: '100%',
                             flex: 1,
                             resize: 'none',
-                            marginTop: '10px',
+                            marginTop: isMobile ? '5px' : '10px',
                             background: 'rgba(255,255,255,0.05)',
                             color: 'white',
                             border: '1px solid var(--glass-border)',
                             borderRadius: '8px',
                             padding: '10px',
-                            outline: 'none'
+                            outline: 'none',
+                            fontSize: isMobile ? '16px' : 'inherit' // Prevent iOS zoom on focus
                         }}
                     />
 
-                    {/* Der aktive Resize-Gripbereich */}
-                    {activeResizeHandle === 'tl' && (
-                        <div
-                            style={{ position: 'absolute', top: 0, left: 0, width: '30px', height: '30px', cursor: 'nwse-resize', zIndex: 10 }}
-                            onMouseDown={(e) => onResizeStart('tl', e)}
-                            onTouchStart={(e) => onResizeStart('tl', e)}
-                        />
-                    )}
-                    {activeResizeHandle === 'bl' && (
-                        <div
-                            style={{ position: 'absolute', bottom: 0, left: 0, width: '30px', height: '30px', cursor: 'nesw-resize', zIndex: 10 }}
-                            onMouseDown={(e) => onResizeStart('bl', e)}
-                            onTouchStart={(e) => onResizeStart('bl', e)}
-                        />
-                    )}
-
-                    {/* Visuelle Linien im Eck, damit der Nutzer sieht wo er ziehen kann */}
-                    {activeResizeHandle === 'tl' && (
-                        <div style={{
-                            position: 'absolute', top: '8px', left: '8px', width: '12px', height: '12px',
-                            borderTop: '2.5px solid rgba(255,255,255,0.7)',
-                            borderLeft: '2.5px solid rgba(255,255,255,0.7)',
-                            pointerEvents: 'none',
-                            borderRadius: '2px'
-                        }} />
-                    )}
-                    {activeResizeHandle === 'bl' && (
-                        <div style={{
-                            position: 'absolute', bottom: '8px', left: '8px', width: '12px', height: '12px',
-                            borderBottom: '2.5px solid rgba(255,255,255,0.7)',
-                            borderLeft: '2.5px solid rgba(255,255,255,0.7)',
-                            pointerEvents: 'none',
-                            borderRadius: '2px'
-                        }} />
+                    {!isMobile && activeResizeHandle === 'tl' && (
+                        <>
+                            <div
+                                style={{ position: 'absolute', top: 0, left: 0, width: '30px', height: '30px', cursor: 'nwse-resize', zIndex: 10 }}
+                                onMouseDown={(e) => onResizeStart('tl', e)}
+                                onTouchStart={(e) => onResizeStart('tl', e)}
+                            />
+                            <div style={{
+                                position: 'absolute', top: '8px', left: '8px', width: '12px', height: '12px',
+                                borderTop: '2.5px solid rgba(255,255,255,0.7)',
+                                borderLeft: '2.5px solid rgba(255,255,255,0.7)',
+                                pointerEvents: 'none',
+                                borderRadius: '2px'
+                            }} />
+                        </>
                     )}
 
+                    {!isMobile && activeResizeHandle === 'bl' && (
+                        <>
+                            <div
+                                style={{ position: 'absolute', bottom: 0, left: 0, width: '30px', height: '30px', cursor: 'nesw-resize', zIndex: 10 }}
+                                onMouseDown={(e) => onResizeStart('bl', e)}
+                                onTouchStart={(e) => onResizeStart('bl', e)}
+                            />
+                            <div style={{
+                                position: 'absolute', bottom: '8px', left: '8px', width: '12px', height: '12px',
+                                borderBottom: '2.5px solid rgba(255,255,255,0.7)',
+                                borderLeft: '2.5px solid rgba(255,255,255,0.7)',
+                                pointerEvents: 'none',
+                                borderRadius: '2px'
+                            }} />
+                        </>
+                    )}
                 </div>
             )}
         </>
     );
+
 }
