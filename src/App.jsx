@@ -601,7 +601,7 @@ function App() {
             onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.2)'}
             onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
           >
-            {isLightMode ? '🌙' : '☀️'}
+            🌗
           </button>
           <h1 style={{ fontFamily: '"Bungee", sans-serif', fontWeight: 'bold', letterSpacing: '2px', fontSize: '2.5rem', color: 'white', textShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>MasterPat APP</h1>
           <p className="subtitle">Wähle deinen Lernmodus</p>
