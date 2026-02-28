@@ -219,6 +219,26 @@
             "inputType": "number",
             "rationale": "a) 2 (Lieferantenkredit: Kurzkredit des Lieferanten durch Gewährung eines Zahlungsziels nach Wareneingang).\nb) 3 (Kontokorrentkredit: Kreditrahmen zur Überziehung auf dem laufenden Bankkonto).\nc) 1 (Darlehen: Langfristiger Kreditvertrag für Investitionen, typischerweise mit festen Laufzeiten und Raten).",
             "videoUrl": ""
+        },
+        {
+            "id": "1.24",
+            "question": "1.24 Factoring\n\nDie Office Experten überlegen, ob sie einen Vertrag mit einem Factor abschließen sollen.\n\nWelche Funktion wird dieser nicht übernehmen?\n\n1. Liquiditätsplanung\n2. Delkrederefunktion\n3. Finanzierungsfunktion\n4. Dienstleistungsfunktion\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+            "expectedAnswers": [
+                "1"
+            ],
+            "inputType": "number",
+            "rationale": "Lösung: 1 (Liquiditätsplanung). Ein Factor übernimmt drei Hauptfunktionen: Die Delkrederefunktion (Übernahme des Ausfallrisikos), die Finanzierungsfunktion (Wegen Forderungskauf sofortige Begleichung) und die Dienstleistungsfunktion (Übernahme des Forderungsmanagements/Mahnwesen). Die Liquiditätsplanung bleibt weiterhin Aufgabe des Unternehmens selbst.",
+            "videoUrl": ""
+        },
+        {
+            "id": "1.25",
+            "question": "1.25 Kreditsicherungen\n\nZur Absicherung von Krediten stehen folgende Möglichkeiten zur Verfügung:\n\n1. Ausfallbürgschaft\n2. Eigentumsvorbehalt\n3. Sicherungsübereignung\n4. Lombardkredit\n5. Grundpfandrecht\n6. Selbstschuldnerische Bürgschaft\n7. Zessionskredit\n\nOrdnen Sie zu, indem Sie die Kennziffern von 3 der 7 Kreditsicherungen in die Kästchen hinter den Auszügen aus den Vertragsbedingungen eintragen. Übertragen Sie anschließend die Kennziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nAuszüge aus den Vertragsbedingungen\n\na) ... wird auf das Recht zur Einrede der Vorausklage verzichtet ...\nb) ... ist der Kreditnehmer Besitzer, der Kreditgeber Eigentümer der beweglichen Sache ...\nc) ... werden die Wertpapiere zur Sicherheit bei der Bank hinterlegt ...\n\n(Bitte geben Sie die 3 Lösungsziffern von a) bis c) direkt hintereinander ein, z.B. 123)",
+            "expectedAnswers": [
+                "634"
+            ],
+            "inputType": "number",
+            "rationale": "a) 6 (Selbstschuldnerische Bürgschaft: Der Bürge verzichtet auf die Einrede der Vorausklage nach § 771 BGB).\nb) 3 (Sicherungsübereignung: Das rechtliche Eigentum an der Sicherung (z.B. LKW oder Maschine) geht an die Bank über. Der Kreditnehmer behält aber den Besitz, um damit weiter arbeiten zu können).\nc) 4 (Lombardkredit: Darlehen gegen die Verpfändung von Wertpapieren, Bankguthaben oder sonstigen leicht verwertbaren und beweglichen Sachen (Faustpfandkredit)).",
+            "videoUrl": ""
         }
     ]
 }
