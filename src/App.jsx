@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './index.css';
 import flashcards1 from './data/flashcards_1.json';
 import flashcards2 from './data/flashcards_2.json';
@@ -57,6 +57,19 @@ function App() {
   const [completedWisors, setCompletedWisors] = useState({});
   const [resetModalVisible, setResetModalVisible] = useState(false);
   const [resetMath, setResetMath] = useState({ a: 0, b: 0, input: '' });
+  const wisorInputRef = useRef(null);
+
+  useEffect(() => {
+    if (appMode === 'wisor' && !wisorEvaluated && wisorInputRef.current) {
+      // Small timeout to let rendering finish naturally on slower devices or initial mount
+      setTimeout(() => {
+        if (wisorInputRef.current) {
+          wisorInputRef.current.focus({ preventScroll: true });
+          window.scrollTo(0, 0);
+        }
+      }, 0);
+    }
+  }, [appMode, currentWisorIndex, wisorEvaluated]);
 
   // --- GEMINI STATE ---
   const [geminiVisible, setGeminiVisible] = useState(false);
@@ -768,7 +781,7 @@ function App() {
               onChange={(e) => setWisorInput(e.target.value)}
               disabled={wisorEvaluated}
               placeholder="Antwort eingeben..."
-              autoFocus
+              ref={wisorInputRef}
             />
             {!wisorEvaluated && (
               <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem', width: '100%' }}>
