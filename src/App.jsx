@@ -198,8 +198,7 @@ function App() {
     if (limit !== 'all') {
       sessionQs = sessionQs.slice(0, limit);
     }
-    setAllQuizzes(sessionQs);
-    resetQuiz();
+    resetQuiz(sessionQs);
     setAppMode('quiz');
   };
 
@@ -402,8 +401,9 @@ function App() {
     setCurrentQuizIndex(prev => prev + 1);
   };
 
-  const resetQuiz = () => {
-    const shuffled = [...allQuizzes].sort(() => Math.random() - 0.5);
+  const resetQuiz = (qsToUse = null) => {
+    const list = qsToUse || allQuizzes;
+    const shuffled = [...list].sort(() => Math.random() - 0.5);
     setAllQuizzes(shuffled);
     setCurrentQuizIndex(0);
     setQuizScore({ correct: 0, total: 0 });
