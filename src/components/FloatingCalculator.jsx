@@ -123,8 +123,8 @@ export default function FloatingCalculator() {
                 if (resizeRef.current.includes('t')) { newHeight -= dy; newY += dy; }
                 else if (resizeRef.current.includes('b')) { newHeight += dy; }
 
-                if (newWidth < 200) { if (resizeRef.current.includes('l')) newX += (newWidth - 200); newWidth = 200; }
-                if (newHeight < 250) { if (resizeRef.current.includes('t')) newY += (newHeight - 250); newHeight = 250; }
+                if (newWidth < 220) { if (resizeRef.current.includes('l')) newX += (newWidth - 220); newWidth = 220; }
+                if (newHeight < 320) { if (resizeRef.current.includes('t')) newY += (newHeight - 320); newHeight = 320; }
 
                 setSize({ width: newWidth, height: newHeight });
                 setPosition({ x: newX, y: newY });
@@ -216,9 +216,9 @@ export default function FloatingCalculator() {
 
     // Calculate dynamically resized text size for display
     const displayLength = currentValue.length;
-    let fontSize = 'clamp(1.5rem, 15cqh, 3rem)';
-    if (displayLength > 8) fontSize = 'clamp(1.2rem, 12cqh, 2rem)';
-    if (displayLength > 12) fontSize = 'clamp(1rem, 9cqh, 1.5rem)';
+    let fontSize = '2.5rem';
+    if (displayLength > 8) fontSize = '2rem';
+    if (displayLength > 12) fontSize = '1.5rem';
 
     const isTopHalf = position.y + (size.height / 2) < (typeof window !== 'undefined' ? window.innerHeight / 2 : 400);
     const isLeftHalf = position.x + (size.width / 2) < (typeof window !== 'undefined' ? window.innerWidth / 2 : 400);

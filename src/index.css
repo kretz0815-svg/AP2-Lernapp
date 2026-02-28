@@ -633,14 +633,12 @@ button {
   resize: both;
   overflow: hidden;
   background: var(--bg-dark);
-  /* Solid background to avoid seeing through entirely but looks glassmorphic thanks to card-face class */
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   padding: 15px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  container-type: size;
 }
 
 .floating-notes-header {
@@ -664,20 +662,21 @@ button {
 /* Calculator Grid Component */
 .calc-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  gap: clamp(5px, 2cqh, 10px);
-  flex: 1;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  flex: 1 1 0;
   min-height: 0;
 }
 
 .calc-display {
-  padding: 5px 10px;
+  padding: 0px 10px 5px 10px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
   color: white;
-  flex: 0 0 max(50px, 18cqh);
+  flex: 0 0 auto;
+  min-height: 50px;
   overflow: visible;
   font-weight: 300;
   letter-spacing: 1px;
@@ -686,14 +685,16 @@ button {
 
 .calc-btn {
   border: none;
-  border-radius: max(8px, 4cqw);
-  font-size: clamp(1rem, 6cqh, 1.5rem);
+  border-radius: 100px;
+  /* high value to simulate max-rounded depending on width/height */
+  font-size: 1.5rem;
   font-weight: 500;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: filter 0.2s, background-color 0.2s;
+  overflow: hidden;
 }
 
 .calc-btn:hover {
