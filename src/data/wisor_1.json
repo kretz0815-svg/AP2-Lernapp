@@ -286,6 +286,21 @@
             "inputType": "number",
             "rationale": "2 (Falsch): Anlagevermögen bindet Kapital langfristig. Nach der goldenen Finanzierungsregel (Fristenkongruenz) müssen Kredite zur Finanzierung des Anlagevermögens daher langfristige Laufzeiten haben.\n8 (Falsch): Die genannte Definition beschreibt den verstärkten Personalkredit (insb. die Bürgschaft). Ein Realkredit ist durch Sachen (z.B. Grundstücke) oder Rechte besichert, nicht durch eine weitere Person.\nAlle anderen Aussagen (1, 3, 4, 5, 6, 7, 9, 10) sind richtig.",
             "videoUrl": ""
+        },
+        {
+            "id": "1.30",
+            "question": "1.30 Darlehen\n\nDie Office Experten GmbH plant den Bau einer neuen Lagerhalle. Mit der Bauunternehmung wurde ein Bauträgervertrag geschlossen, wonach die Halle mit sämtlichen Innenausbauten und Einrichtungen gemäß Baubeschreibung schlüsselfertig zu übergeben ist. Die Vorkalkulation ergibt ein Finanzierungsvolumen von insgesamt 605.000,00 € (einschließlich aller Anschaffungsnebenkosten). Die Finanzierung soll nach folgendem Plan durchgeführt werden:\n\n- Erhöhung der Stammeinlagen um insgesamt 120.000,00 € Barmittel\n- Veräußerung von Wertpapieren des Umlaufvermögens, Reinerlös 95.000,00 €\n- Auflösung diverser Festgeldkonten bei der Commerzbank Langenfeld, Gesamtbetrag 155.000,00 €\n- Darlehen bei der Commerzbank Langenfeld zu folgenden Konditionen:\n\nKonditionen Darlehen:\nAufnahme am 30. Juni d. J.\nKreditsicherung durch Grundschuld\nZinsfuß: 2,75 % p. a.\nTilgung: 1,5 % p. a.\nZinsen und Tilgung sind halbjährlich zahlbar\n\na) Welche der folgenden Positionen zählt nicht zu den Anschaffungsnebenkosten der Lagerhalle?\n1. Grunderwerbsteuer\n2. Kosten der Grundbucheintragung\n3. Notargebühren\n4. Grundsteuer\n5. Erschließungskosten\n\nb) Ermitteln Sie die Höhe des benötigten Darlehensbetrages!\n\nc) Mit wie viel Euro wird die Office Experten GmbH am 31.12. d. J. für Zinsen und Tilgung von der Commerzbank belastet?\n\nd) Welche der folgenden Aussagen trifft nicht auf die Art der vereinbarten Kreditsicherung zu?\n1. Die Grundschuld zählt zu den Grundpfandrechten.\n2. Die Grundschuld wird in Abteilung II des Grundbuches eingetragen.\n3. Die Grundschuld ist nicht vom Bestand des Darlehens abhängig.\n4. Die Grundschuld wird verzinst.\n5. Die Grundschuld kann als Brief- oder Buchgrundschuld eingetragen werden.\n\n(Bitte geben Sie die 4 Lösungen für a, b, c und d mit Leerzeichen getrennt ein, z.B. 1 150000 1200.50 3)",
+            "expectedAnswers": [
+                "4 235000 4993,75 2",
+                "4 235000 4993.75 2",
+                "42350004993,752",
+                "42350004993752",
+                "4-235000-4993,75-2",
+                "4-235000-4993.75-2"
+            ],
+            "inputType": "text",
+            "rationale": "a) 4 (Die Grundsteuer ist eine laufende Aufwendung/Steuer und gehört nicht zu den aktivierungspflichtigen Anschaffungsnebenkosten).\nb) Finanzierungsbedarf: 605.000 € - 120.000 € - 95.000 € - 155.000 € = 235.000 €.\nc) Belastung am 31.12. (für 6 Monate bzw. 180 Tage):\n- Zinsen (halbjährlich): 235.000 € * 2,75% / 2 = 3.231,25 €\n- Tilgung (halbjährlich): 235.000 € * 1,5% / 2 = 1.762,50 €\n- Gesamte Belastung: 3.231,25 € + 1.762,50 € = 4.993,75 €.\nd) 2 (Falsch: Grundpfandrechte wie Grundschuld oder Hypothek werden in Abteilung III des Grundbuches eingetragen, nicht in Abteilung II).",
+            "videoUrl": ""
         }
     ]
 }
