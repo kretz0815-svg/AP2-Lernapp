@@ -466,7 +466,7 @@ function App() {
         <div className="blob blob-2"></div>
         <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '400px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
           <h2 style={{ color: 'white', marginBottom: '1.5rem', fontSize: '2rem' }}>Geschlossener Bereich</h2>
-          <p style={{ color: '#cbd5e1', marginBottom: '2rem' }}>Bitte gib deine PIN ein, um fortzufahren.</p>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Bitte gib deine PIN ein, um fortzufahren.</p>
           <form onSubmit={(e) => {
             e.preventDefault();
             if (pinInput === SECRET_PIN) {
@@ -549,7 +549,7 @@ function App() {
           <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div className="card-face fade-in" style={{ padding: '2rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center', maxWidth: '350px' }}>
               <h3 style={{ color: 'white', marginBottom: '1rem' }}>Fortschritt zurücksetzen?</h3>
-              <p style={{ color: '#cbd5e1', marginBottom: '1.5rem', fontSize: '0.9rem' }}>Bitte löse folgende Aufgabe, um ein versehentliches Löschen zu verhindern:</p>
+              <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>Bitte löse folgende Aufgabe, um ein versehentliches Löschen zu verhindern:</p>
               <form onSubmit={handleResetConfirm}>
                 <p style={{ fontSize: '1.5rem', color: 'white', marginBottom: '1rem' }}>{resetMath.a} + {resetMath.b} = ?</p>
                 <input
@@ -679,7 +679,7 @@ Die JSON muss exakt diese Struktur haben:
                 const note = savedNotes[key];
                 return (
                   <div key={key} className="note-card" style={{ position: 'relative', padding: '1.5rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '16px', border: '1px solid var(--glass-border)', textAlign: 'left', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}>
-                    <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '0.8rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.8rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span>{new Date(note.date).toLocaleString()}</span>
                       <button
                         className="hide-on-print"
@@ -690,7 +690,7 @@ Die JSON muss exakt diese Struktur haben:
                         🗑️
                       </button>
                     </div>
-                    <div style={{ color: '#cbd5e1', marginBottom: '1rem', fontStyle: 'italic', fontWeight: 'bold' }}>
+                    <div style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontStyle: 'italic', fontWeight: 'bold' }}>
                       {formatNoteContext(key, note.context)}
                     </div>
                     <div style={{ color: 'white', whiteSpace: 'pre-wrap', lineHeight: '1.5' }}>
@@ -772,7 +772,7 @@ Die JSON muss exakt diese Struktur haben:
           <div className="blob blob-2"></div>
           <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
             <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Quiz Beendet!</h2>
-            <p style={{ fontSize: '1.5rem', color: '#cbd5e1', marginBottom: '2rem' }}>Ergebnis: {quizScore.correct} / {quizScore.total}</p>
+            <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {quizScore.correct} / {quizScore.total}</p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
               <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
               <button className="btn-primary" onClick={resetQuiz}>Nochmal spielen</button>
@@ -841,7 +841,7 @@ Die JSON muss exakt diese Struktur haben:
           <div className="blob blob-2"></div>
           <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
             <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Alles geschafft! 🎉</h2>
-            <p style={{ color: '#cbd5e1', marginBottom: '2rem' }}>Du hast alle Wisor-Fragen erfolgreich gemeistert.</p>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Du hast alle Wisor-Fragen erfolgreich gemeistert.</p>
             <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
             <button className="btn-primary" onClick={openResetModal} style={{ marginLeft: '1rem' }}>Fortschritt zurücksetzen</button>
           </div>
@@ -871,7 +871,7 @@ Die JSON muss exakt diese Struktur haben:
           <div className="blob blob-2"></div>
           <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
             <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Durchgang Beendet!</h2>
-            <p style={{ fontSize: '1.5rem', color: '#cbd5e1', marginBottom: '2rem' }}>Ergebnis: {wisorScore.correct} / {wisorScore.total}</p>
+            <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {wisorScore.correct} / {wisorScore.total}</p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
               <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
               <button className="btn-primary" onClick={startWisor}>Nächsten offene Fragen</button>
@@ -921,7 +921,7 @@ Die JSON muss exakt diese Struktur haben:
               {!selectedWisorVideo ? (
                 <>
                   {wisorVideoLoading ? (
-                    <div style={{ textAlign: 'center', color: '#94a3b8', padding: '2rem', background: 'var(--glass-bg)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>Suche passende Videos... ⏳</div>
+                    <div style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '2rem', background: 'var(--glass-bg)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>Suche passende Videos... ⏳</div>
                   ) : (
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                       {wisorVideos.length > 0 ? wisorVideos.map((video) => (
@@ -933,10 +933,10 @@ Die JSON muss exakt diese Struktur haben:
                         >
                           <img src={video.thumbnail} alt={video.title} style={{ width: '100%', borderRadius: '12px', marginBottom: '0.5rem', border: '1px solid rgba(255,255,255,0.1)' }} />
                           <h4 style={{ color: 'white', fontSize: '0.9rem', lineHeight: '1.2', marginBottom: '0.2rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{video.title}</h4>
-                          <span style={{ color: '#94a3b8', fontSize: '0.75rem' }}>{video.channelTitle}</span>
+                          <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>{video.channelTitle}</span>
                         </div>
                       )) : (
-                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: '#94a3b8', padding: '1rem' }}>Keine Videos gefunden oder API-Key fehlt.</div>
+                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'var(--text-muted)', padding: '1rem' }}>Keine Videos gefunden oder API-Key fehlt.</div>
                       )}
                     </div>
                   )}
@@ -1091,8 +1091,8 @@ Die JSON muss exakt diese Struktur haben:
         </header>
         <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)' }}>
           <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>🎉 Glückwunsch! 🎉</h2>
-          <p style={{ margin: '1rem 0', color: '#cbd5e1', fontSize: '1.2rem' }}>Du hast alle fälligen Karten für heute gelernt.</p>
-          <p style={{ color: '#94a3b8', marginBottom: '2rem' }}>Dein Gehirn baut jetzt die neuronalen Verbindungen aus. Komm später wieder!</p>
+          <p style={{ margin: '1rem 0', color: 'var(--text-muted)', fontSize: '1.2rem' }}>Du hast alle fälligen Karten für heute gelernt.</p>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Dein Gehirn baut jetzt die neuronalen Verbindungen aus. Komm später wieder!</p>
           <button className="btn-primary" onClick={forceReloadAll}>
             Trotzdem alle Karten neu laden
           </button>
@@ -1131,7 +1131,7 @@ Die JSON muss exakt diese Struktur haben:
             <div className="card-face card-front">
               <span className="card-label">Frage</span>
               <p className="card-content">{currentCard.front}</p>
-              {!isFlipped && <p style={{ position: 'absolute', bottom: '1.5rem', fontSize: '0.9rem', color: '#94a3b8', animation: 'pulse 2s infinite' }}>Tippe zum Umdrehen</p>}
+              {!isFlipped && <p style={{ position: 'absolute', bottom: '1.5rem', fontSize: '0.9rem', color: 'var(--text-muted)', animation: 'pulse 2s infinite' }}>Tippe zum Umdrehen</p>}
             </div>
 
             <div className="card-face card-back">
