@@ -410,12 +410,6 @@ function App() {
           <p className="subtitle">Wähle deinen Lernmodus</p>
         </header>
         <div className="dashboard-grid">
-          <div className="dash-card" onClick={() => { setAppMode('flashcards'); }}>
-            <div className="dash-icon">🧠</div>
-            <h2>Spaced Repetition</h2>
-            <p>Klassische Lernkarten für den Langzeitspeicher.</p>
-            <div className="chip">{learningQueue.length} fällig</div>
-          </div>
           <div className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
             <div className="dash-icon">📓</div>
             <h2>Meine Notizen</h2>
@@ -479,6 +473,29 @@ function App() {
     const savedNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
     const noteKeys = Object.keys(savedNotes).sort((a, b) => new Date(savedNotes[b].date) - new Date(savedNotes[a].date));
 
+    const handleDeleteNote = (key) => {
+      if (window.confirm('Möchtest du diese Notiz wirklich löschen?')) {
+        const notes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
+        delete notes[key];
+        localStorage.setItem('ap2_saved_notes', JSON.stringify(notes));
+        setAppMode('');
+        setTimeout(() => setAppMode('notes_manager'), 0);
+      }
+    };
+
+    const formatNoteContext = (key, contextText) => {
+      const parts = key.split('_');
+      const typeStr = parts[0] === 'quiz' ? 'Quiz' : parts[0] === 'wisor' ? 'Wisor' : parts[0] === 'flashcard' ? 'Lernkarte' : 'Aufgabe';
+      const idNum = parts.length > 1 ? parts[1] : '';
+      const parsedNum = parseInt(idNum, 10);
+      const numStr = isNaN(parsedNum) ? '' : ` ${parsedNum + 1}`;
+
+      const title = `${typeStr}${numStr}`;
+      const words = (contextText || '').split(' ').slice(0, 3).join(' ');
+      const keywords = words ? ` - ${words}...` : '';
+      return `${title}${keywords}`;
+    };
+
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
         <div className="blob blob-1"></div>
@@ -500,11 +517,19 @@ function App() {
                 const note = savedNotes[key];
                 return (
                   <div key={key} className="card-face note-card" style={{ padding: '1.5rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>
-                    <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '0.8rem', display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '0.8rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span>{new Date(note.date).toLocaleString()}</span>
+                      <button
+                        className="hide-on-print"
+                        onClick={() => handleDeleteNote(key)}
+                        style={{ background: 'transparent', border: 'none', color: 'var(--error)', cursor: 'pointer', fontSize: '1.2rem' }}
+                        title="Notiz löschen"
+                      >
+                        🗑️
+                      </button>
                     </div>
-                    <div style={{ color: '#cbd5e1', marginBottom: '1rem', fontStyle: 'italic', borderLeft: '3px solid var(--primary)', paddingLeft: '10px' }}>
-                      {note.context}
+                    <div style={{ color: '#cbd5e1', marginBottom: '1rem', fontStyle: 'italic', fontWeight: 'bold' }}>
+                      {formatNoteContext(key, note.context)}
                     </div>
                     <div style={{ color: 'white', whiteSpace: 'pre-wrap', lineHeight: '1.5' }}>
                       {note.text}
