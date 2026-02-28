@@ -491,8 +491,14 @@ function App() {
       const numStr = isNaN(parsedNum) ? '' : ` ${parsedNum + 1}`;
 
       const title = `${typeStr}${numStr}`;
-      const words = (contextText || '').split(' ').slice(0, 3).join(' ');
-      const keywords = words ? ` - ${words}...` : '';
+
+      const cleanText = (contextText || '').replace(/[^\wäöüÄÖÜß]/g, ' ');
+      const words = cleanText.split(/\s+/).filter(w => w.length > 3);
+      // Try to find Nouns (Start with capital letter) first to use as keywords
+      const nouns = words.filter(w => /^[A-ZÄÖÜ]/.test(w));
+      const chosenWords = nouns.length >= 2 ? nouns.slice(0, 2) : words.slice(0, 2);
+
+      const keywords = chosenWords.length > 0 ? ` - ${chosenWords.join(', ')}` : '';
       return `${title}${keywords}`;
     };
 

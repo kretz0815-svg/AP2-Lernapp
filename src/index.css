@@ -736,9 +736,19 @@ button {
 
 /* --- Print / PDF Export Styles for Notes --- */
 @media print {
+  @page {
+    margin: 2cm;
+  }
+
+  html,
   body {
     background: white !important;
     color: black !important;
+    display: block !important;
+    height: auto !important;
+    min-height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .app-container {
@@ -746,6 +756,16 @@ button {
     overflow: visible !important;
     padding: 0 !important;
     min-height: auto !important;
+    display: block !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    background: white !important;
+  }
+
+  .app-container::before,
+  .app-container::after {
+    display: none !important;
   }
 
   .blob,
@@ -755,19 +775,35 @@ button {
     display: none !important;
   }
 
+  .notes-list-container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+
+  .printable-notes {
+    display: block !important;
+  }
+
   .note-card {
     break-inside: avoid;
-    background: transparent !important;
+    background: white !important;
     backdrop-filter: none !important;
-    border: 1px solid #ccc !important;
+    border: 1px solid #ddd !important;
     box-shadow: none !important;
     color: black !important;
     margin-bottom: 2rem !important;
+    padding: 1.5rem !important;
+    border-radius: 0 !important;
+    text-align: left !important;
+    display: block !important;
   }
 
   .note-card * {
     color: black !important;
     text-shadow: none !important;
+    text-align: left !important;
   }
 
   .note-card div[style*="borderLeft"] {
