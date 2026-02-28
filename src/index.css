@@ -13,6 +13,16 @@
   --error: #ef4444;
 }
 
+body.light-theme {
+  --primary: #4f46e5;
+  --secondary: #9333ea;
+  --accent: #db2777;
+  --bg-dark: #f8fafc;
+  --text-light: #0f172a;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(0, 0, 0, 0.1);
+}
+
 * {
   margin: 0;
   padding: 0;

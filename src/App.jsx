@@ -29,6 +29,31 @@ const generateId = (text) => {
 function App() {
   const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'dashboard' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor'
 
+  // --- THEME STATE ---
+  const [isLightMode, setIsLightMode] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('masterpat_theme');
+    if (savedTheme === 'light') {
+      setIsLightMode(true);
+      document.body.classList.add('light-theme');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setIsLightMode(prev => {
+      const newVal = !prev;
+      if (newVal) {
+        document.body.classList.add('light-theme');
+        localStorage.setItem('masterpat_theme', 'light');
+      } else {
+        document.body.classList.remove('light-theme');
+        localStorage.setItem('masterpat_theme', 'dark');
+      }
+      return newVal;
+    });
+  };
+
   // --- AUTH STATE ---
   const [pinInput, setPinInput] = useState('');
   const [authError, setAuthError] = useState(false);
@@ -475,7 +500,16 @@ function App() {
       <div className="app-container" style={{ zIndex: 10 }}>
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
-        <header>
+        <header style={{ position: 'relative', width: '100%' }}>
+          <button
+            onClick={toggleTheme}
+            style={{ position: 'absolute', right: 0, top: 0, background: 'transparent', border: 'none', fontSize: '1.8rem', cursor: 'pointer', zIndex: 20, transition: 'transform 0.2s' }}
+            title={isLightMode ? 'Zum Darkmode wechseln' : 'Zum Hellmodus wechseln'}
+            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.2)'}
+            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            {isLightMode ? '🌙' : '☀️'}
+          </button>
           <h1>MasterPat APP</h1>
           <p className="subtitle">Wähle deinen Lernmodus</p>
         </header>
