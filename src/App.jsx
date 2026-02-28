@@ -77,6 +77,7 @@ function App() {
   const [geminiQuery, setGeminiQuery] = useState('');
   const [geminiResponse, setGeminiResponse] = useState('');
   const [geminiLoading, setGeminiLoading] = useState(false);
+  const [deepLearningLoading, setDeepLearningLoading] = useState(null);
 
   // --- YOUTUBE STATE ---
   const [wisorVideos, setWisorVideos] = useState([]);
@@ -571,6 +572,44 @@ function App() {
       return `${title}${keywords}`;
     };
 
+    const handleGenerateDeepLearning = async (key, note) => {
+      setDeepLearningLoading(key);
+      const prompt = `Du bist ein genialer, motivierender KI-Tutor im Audio-Format. Der Schüler hat sich folgende Prüfungsnotiz gemerkt, weil er es schwer fand:
+
+Kontext/Frage: ${note.context}
+Eigene Notiz des Schülers: ${note.text}
+
+Bitte erstelle daraus sofort ein "Deep Learning" Materialset in Markdown Sprache. Du sprichst den Schüler motivierend an.
+
+Struktur zwingend einhalten:
+
+### 🎯 3 Fragen Power-Quiz
+(3 knackige Multiple-Choice Fragen zu dem Thema, direkt danach immer kurz die richtige Lösung)
+
+### 🎙️ NotebookLM Podcast-Dialog
+(Schreibe einen anschaulichen, lockeren ca. einmütigen Dialog zwischen 'Alex' und 'Sarah', die das Problem diskutieren. Mache klare Absätze pro Sprecher.
+
+### ✍️ Schreib-Aufgabe
+(Einer der Moderatoren im Skript ruft am Ende dazu auf: "Stopp! Hol einen Stift. Schreib dir jetzt genau folgenden Satz auf: [1-2 perfekte Kern-Sätze zum Merken]")
+`;
+
+      try {
+        const response = await askGemini(prompt);
+        const notes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
+        if (notes[key]) {
+          notes[key].deepLearningResult = response;
+          localStorage.setItem('ap2_saved_notes', JSON.stringify(notes));
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Ein Fehler ist bei der Erstellung des Deep Learning Materials aufgetreten.');
+      }
+      setDeepLearningLoading(null);
+      // refresh UI
+      setAppMode('');
+      setTimeout(() => setAppMode('notes_manager'), 0);
+    };
+
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
         <div className="blob blob-1"></div>
@@ -609,6 +648,26 @@ function App() {
                     <div style={{ color: 'white', whiteSpace: 'pre-wrap', lineHeight: '1.5' }}>
                       {note.text}
                     </div>
+
+                    {note.deepLearningResult ? (
+                      <div className="fade-in hide-on-print" style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(0,0,0,0.3)', borderRadius: '12px', borderLeft: '4px solid var(--primary)', color: '#e2e8f0' }}>
+                        <h3 style={{ color: '#fff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <span>🎙️</span> Deep Learning Hub
+                        </h3>
+                        <div style={{ lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>{note.deepLearningResult}</div>
+                      </div>
+                    ) : (
+                      <div className="hide-on-print" style={{ marginTop: '1.5rem' }}>
+                        <button
+                          className={`btn-secondary ${deepLearningLoading === key ? 'loading' : ''}`}
+                          onClick={() => handleGenerateDeepLearning(key, note)}
+                          disabled={deepLearningLoading === key}
+                          style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', width: '100%', background: 'linear-gradient(90deg, #66295c, #2c3170)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}
+                        >
+                          {deepLearningLoading === key ? '✨ Generiere Quiz & Podcast...' : '✨ Deep Learning Material generieren'}
+                        </button>
+                      </div>
+                    )}
                   </div>
                 );
               })}
