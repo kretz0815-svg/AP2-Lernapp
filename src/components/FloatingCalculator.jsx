@@ -221,7 +221,16 @@ export default function FloatingCalculator() {
     if (displayLength > 12) fontSize = '1.5rem';
 
     const isTopHalf = position.y + (size.height / 2) < (typeof window !== 'undefined' ? window.innerHeight / 2 : 400);
-    const activeResizeHandle = isTopHalf ? 'bl' : 'tl';
+    const isLeftHalf = position.x + (size.width / 2) < (typeof window !== 'undefined' ? window.innerWidth / 2 : 400);
+    const activeResizeHandle = (isTopHalf ? 'b' : 't') + (isLeftHalf ? 'r' : 'l');
+
+    const resizeProps = {
+        'tl': { cursor: 'nwse-resize', vBorder: 'borderTop', hBorder: 'borderLeft', vPos: 'top', hPos: 'left' },
+        'tr': { cursor: 'nesw-resize', vBorder: 'borderTop', hBorder: 'borderRight', vPos: 'top', hPos: 'right' },
+        'bl': { cursor: 'nesw-resize', vBorder: 'borderBottom', hBorder: 'borderLeft', vPos: 'bottom', hPos: 'left' },
+        'br': { cursor: 'nwse-resize', vBorder: 'borderBottom', hBorder: 'borderRight', vPos: 'bottom', hPos: 'right' }
+    }[activeResizeHandle];
+
     const mobileHeight = Math.min(400, vvState.height * 0.7);
 
     return (
@@ -303,13 +312,21 @@ export default function FloatingCalculator() {
                     </div>
 
                     {/* Resizer Desktop */}
-                    {!isMobile && activeResizeHandle === 'tl' && (
-                        <><div style={{ position: 'absolute', top: 0, left: 0, width: '30px', height: '30px', cursor: 'nwse-resize', zIndex: 10 }} onMouseDown={(e) => onResizeStart('tl', e)} onTouchStart={(e) => onResizeStart('tl', e)} />
-                            <div style={{ position: 'absolute', top: '8px', left: '8px', width: '12px', height: '12px', borderTop: '2.5px solid rgba(255,255,255,0.7)', borderLeft: '2.5px solid rgba(255,255,255,0.7)', pointerEvents: 'none', borderRadius: '2px' }} /></>
-                    )}
-                    {!isMobile && activeResizeHandle === 'bl' && (
-                        <><div style={{ position: 'absolute', bottom: 0, left: 0, width: '30px', height: '30px', cursor: 'nesw-resize', zIndex: 10 }} onMouseDown={(e) => onResizeStart('bl', e)} onTouchStart={(e) => onResizeStart('bl', e)} />
-                            <div style={{ position: 'absolute', bottom: '8px', left: '8px', width: '12px', height: '12px', borderBottom: '2.5px solid rgba(255,255,255,0.7)', borderLeft: '2.5px solid rgba(255,255,255,0.7)', pointerEvents: 'none', borderRadius: '2px' }} /></>
+                    {!isMobile && resizeProps && (
+                        <>
+                            <div
+                                style={{ position: 'absolute', [resizeProps.vPos]: 0, [resizeProps.hPos]: 0, width: '30px', height: '30px', cursor: resizeProps.cursor, zIndex: 10 }}
+                                onMouseDown={(e) => onResizeStart(activeResizeHandle, e)}
+                                onTouchStart={(e) => onResizeStart(activeResizeHandle, e)}
+                            />
+                            <div style={{
+                                position: 'absolute', [resizeProps.vPos]: '8px', [resizeProps.hPos]: '8px', width: '12px', height: '12px',
+                                [resizeProps.vBorder]: '2.5px solid rgba(255,255,255,0.7)',
+                                [resizeProps.hBorder]: '2.5px solid rgba(255,255,255,0.7)',
+                                pointerEvents: 'none',
+                                borderRadius: '2px'
+                            }} />
+                        </>
                     )}
                 </div>
             )}
