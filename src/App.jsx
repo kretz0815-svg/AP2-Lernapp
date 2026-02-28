@@ -12,6 +12,7 @@ import wisor1 from './data/wisor_1.json';
 
 import { supabase } from './supabaseClient';
 import { askGemini } from './geminiClient';
+import { fetchYouTubeVideos } from './youtubeClient';
 import FloatingNotes from './components/FloatingNotes';
 import FloatingCalculator from './components/FloatingCalculator';
 
@@ -76,6 +77,61 @@ function App() {
   const [geminiQuery, setGeminiQuery] = useState('');
   const [geminiResponse, setGeminiResponse] = useState('');
   const [geminiLoading, setGeminiLoading] = useState(false);
+
+  // --- YOUTUBE STATE ---
+  const [wisorVideos, setWisorVideos] = useState([]);
+  const [wisorVideoLoading, setWisorVideoLoading] = useState(false);
+  const [selectedWisorVideo, setSelectedWisorVideo] = useState(null);
+
+  useEffect(() => {
+    setWisorVideos([]);
+    setSelectedWisorVideo(null);
+    setWisorVideoOpen(false);
+    setWisorEvaluated(false);
+    setWisorInput('');
+    setGeminiVisible(false);
+    setGeminiQuery('');
+    setGeminiResponse('');
+  }, [currentWisorIndex]);
+
+  const handleToggleVideos = async (q) => {
+    if (wisorVideoOpen) {
+      setWisorVideoOpen(false);
+      return;
+    }
+
+    setWisorVideoOpen(true);
+
+    if (wisorVideos.length === 0 && !wisorVideoLoading) {
+      setWisorVideoLoading(true);
+
+      const predefinedVideos = [];
+      if (q.videoUrl) {
+        const videoId = q.videoUrl.split('/').pop().split('?')[0];
+        predefinedVideos.push({
+          id: 'predefined_' + videoId,
+          title: 'Empfohlenes Video',
+          thumbnail: `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`,
+          channelTitle: 'Autor',
+          url: q.videoUrl
+        });
+      }
+
+      // Try to use dedicated YouTube API key, fallback to Gemini key
+      const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY || import.meta.env.VITE_GEMINI_API_KEY;
+
+      // Clean up the question string for a more concise YouTube search query
+      const queryStr = q.question.split(/[\n]/)[0].replace(/^[\d\.]+\s*/, '').trim().substring(0, 60);
+
+      let fetched = [];
+      if (apiKey) {
+        fetched = await fetchYouTubeVideos(queryStr, apiKey, 4 - predefinedVideos.length);
+      }
+
+      setWisorVideos([...predefinedVideos, ...fetched]);
+      setWisorVideoLoading(false);
+    }
+  };
 
   const handleGeminiAsk = async () => {
     if (!geminiQuery.trim()) return;
@@ -698,16 +754,14 @@ function App() {
 
         <div className="quiz-container">
           <div style={{ marginBottom: '1.5rem', textAlign: 'center', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            {q.videoUrl && (
-              <button
-                className="btn-secondary fade-in"
-                onClick={() => setWisorVideoOpen(!wisorVideoOpen)}
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: wisorVideoOpen ? 'rgba(255, 255, 255, 0.1)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
-              >
-                <span>{wisorVideoOpen ? '🙈' : '📺'}</span>
-                {wisorVideoOpen ? 'Lernvideo ausblenden' : 'Lernvideo ansehen'}
-              </button>
-            )}
+            <button
+              className={`btn-secondary fade-in ${wisorVideoLoading ? 'loading' : ''}`}
+              onClick={() => handleToggleVideos(q)}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: wisorVideoOpen ? 'rgba(255, 255, 255, 0.1)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
+            >
+              <span>{wisorVideoOpen ? '🙈' : '📺'}</span>
+              {wisorVideoOpen ? 'Videos ausblenden' : 'Lernvideos ansehen'}
+            </button>
 
             <button
               className="btn-secondary fade-in"
@@ -719,17 +773,49 @@ function App() {
             </button>
           </div>
 
-          {q.videoUrl && wisorVideoOpen && (
-            <div className="fade-in" style={{ marginBottom: '1.5rem', width: '100%', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--glass-border)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
-              <iframe
-                width="100%"
-                height="280"
-                src={q.videoUrl}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+          {wisorVideoOpen && (
+            <div className="fade-in" style={{ marginBottom: '1.5rem', width: '100%' }}>
+              {!selectedWisorVideo ? (
+                <>
+                  {wisorVideoLoading ? (
+                    <div style={{ textAlign: 'center', color: '#94a3b8', padding: '2rem', background: 'var(--glass-bg)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>Suche passende Videos... ⏳</div>
+                  ) : (
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                      {wisorVideos.length > 0 ? wisorVideos.map((video) => (
+                        <div
+                          key={video.id}
+                          className="video-thumbnail-card"
+                          onClick={() => setSelectedWisorVideo(video.url)}
+                          style={{ cursor: 'pointer', background: 'var(--glass-bg)', padding: '0.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)', transition: 'transform 0.2s' }}
+                        >
+                          <img src={video.thumbnail} alt={video.title} style={{ width: '100%', borderRadius: '12px', marginBottom: '0.5rem', border: '1px solid rgba(255,255,255,0.1)' }} />
+                          <h4 style={{ color: 'white', fontSize: '0.9rem', lineHeight: '1.2', marginBottom: '0.2rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{video.title}</h4>
+                          <span style={{ color: '#94a3b8', fontSize: '0.75rem' }}>{video.channelTitle}</span>
+                        </div>
+                      )) : (
+                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: '#94a3b8', padding: '1rem' }}>Keine Videos gefunden oder API-Key fehlt.</div>
+                      )}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--glass-border)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 1rem', background: 'black', alignItems: 'center' }}>
+                    <span style={{ color: 'white', fontSize: '0.9rem' }}>Video-Player</span>
+                    <button className="btn-secondary" style={{ padding: '0.2rem 0.6rem', fontSize: '0.8rem', borderRadius: '8px' }} onClick={() => setSelectedWisorVideo(null)}>← Andere Videos</button>
+                  </div>
+                  <iframe
+                    width="100%"
+                    height="280"
+                    src={selectedWisorVideo}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ display: 'block' }}
+                  ></iframe>
+                </div>
+              )}
             </div>
           )}
 
