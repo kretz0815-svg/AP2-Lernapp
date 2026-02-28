@@ -607,45 +607,45 @@ function App() {
           <p className="subtitle">Wähle deinen Lernmodus</p>
         </header>
         <div className="dashboard-grid">
-          <div className="dash-card">
-            <div onClick={() => { setAppMode('quiz_setup'); }} style={{ cursor: 'pointer' }}>
-              <div className="dash-icon">🎯</div>
-              <h2>Wissen testen (Quiz)</h2>
-              <p>Multiple-Choice Fragen zum Überprüfen deines Wissensstands.</p>
-              <div className="chip">{allQuizzes.length === 0 ? 'Alles gemeistert! 🎉' : `${allQuizzes.length} Fragen fällig`}</div>
-            </div>
+          <div className="dash-card" onClick={() => { setAppMode('quiz_setup'); }}>
+            <div className="dash-icon">🎯</div>
+            <h2>Wissen testen<br />(Quiz)</h2>
+            <p>Multiple-Choice Fragen zum Überprüfen deines Wissensstands.</p>
+            <div className="chip">{allQuizzes.length === 0 ? 'Alles gemeistert! 🎉' : `${allQuizzes.length} Fragen fällig`}</div>
+
             {Object.keys(JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {}).length > 0 && (
               <button
                 className="btn-secondary"
-                style={{ marginTop: '1rem', width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
-                onClick={(e) => openResetModal(e, 'quiz')}
+                style={{ marginTop: 'auto', width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
+                onClick={(e) => { e.stopPropagation(); openResetModal(e, 'quiz'); }}
               >
                 🔄 Lernfortschritt zurücksetzen
               </button>
             )}
           </div>
-          <div className="dash-card">
-            <div onClick={startWisor} style={{ cursor: 'pointer' }}>
-              <div className="dash-icon">⌨️</div>
-              <h2>Wisor (Eingabe)</h2>
-              <p>Freitext Eingabe für Zahlen und Fakten. Gekonntes verschwindet!</p>
-              <div className="chip">{Object.keys(completedWisors).length === wisor1.questions.length ? 'Alles gemeistert! 🎉' : `${wisor1.questions.length - Object.keys(completedWisors).length} Fragen verfügbar`}</div>
-            </div>
+
+          <div className="dash-card" onClick={startWisor}>
+            <div className="dash-icon">⌨️</div>
+            <h2>Wisor<br />(Eingabe)</h2>
+            <p>Freitext Eingabe für Zahlen und Fakten. Gekonntes verschwindet!</p>
+            <div className="chip">{Object.keys(completedWisors).length === wisor1.questions.length ? 'Alles gemeistert! 🎉' : `${wisor1.questions.length - Object.keys(completedWisors).length} Fragen verfügbar`}</div>
+
             {Object.keys(completedWisors).length > 0 && (
               <button
                 className="btn-secondary"
-                style={{ marginTop: '1rem', width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
-                onClick={(e) => openResetModal(e, 'wisor')}
+                style={{ marginTop: 'auto', width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
+                onClick={(e) => { e.stopPropagation(); openResetModal(e, 'wisor'); }}
               >
                 🔄 Lernfortschritt zurücksetzen
               </button>
             )}
           </div>
+
           <div className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
             <div className="dash-icon">📓</div>
             <h2>Meine Notizen</h2>
             <p>Deine gespeicherten Notizen ansehen und als PDF exportieren.</p>
-            <div className="chip">Gespeichert</div>
+            <div className="chip" style={{ marginTop: 'auto' }}>Gespeichert</div>
           </div>
         </div>
 
