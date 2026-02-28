@@ -514,7 +514,7 @@ function App() {
           <h1 style={{ margin: 0, color: 'white', fontSize: '2.5rem', textAlign: 'center' }}>Gespeicherte Notizen</h1>
         </header>
 
-        <div className="notes-list-container" style={{ width: '100%', maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
+        <div className="notes-list-container" style={{ width: '100%', maxWidth: '800px', margin: '0 auto', padding: '1rem 0' }}>
           {noteKeys.length === 0 ? (
             <div style={{ color: 'white', textAlign: 'center', marginTop: '2rem' }}>Noch keine Notizen vorhanden.</div>
           ) : (
@@ -522,7 +522,7 @@ function App() {
               {noteKeys.map(key => {
                 const note = savedNotes[key];
                 return (
-                  <div key={key} className="card-face note-card" style={{ padding: '1.5rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>
+                  <div key={key} className="card-face note-card" style={{ padding: '1.5rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '16px', border: '1px solid var(--glass-border)', textAlign: 'left' }}>
                     <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '0.8rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span>{new Date(note.date).toLocaleString()}</span>
                       <button
