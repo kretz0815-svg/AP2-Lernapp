@@ -574,31 +574,45 @@ function App() {
 
     const handleGenerateDeepLearning = async (key, note) => {
       setDeepLearningLoading(key);
-      const prompt = `Du bist ein genialer, motivierender KI-Tutor im Audio-Format. Der Schüler hat sich folgende Prüfungsnotiz gemerkt, weil er es schwer fand:
+      const prompt = `Du bist ein genialer, motivierender KI-Tutor. Der Schüler hat sich folgende Prüfungsnotiz gemerkt, weil er es schwer fand:
 
 Kontext/Frage: ${note.context}
 Eigene Notiz des Schülers: ${note.text}
 
-Bitte erstelle daraus sofort ein "Deep Learning" Materialset in Markdown Sprache. Du sprichst den Schüler motivierend an.
+Bitte erstelle daraus sofort ein "Deep Learning" Materialset. WICHTIG: Antworte AUSSCHLIESSLICH mit einem puren JSON-Objekt, ohne Markdown-Codeblöcke (\`\`\`) außenrum. Keine Begrüßung.
 
-Struktur zwingend einhalten:
-
-### 🎯 3 Fragen Power-Quiz
-(3 knackige Multiple-Choice Fragen zu dem Thema, direkt danach immer kurz die richtige Lösung)
-
-### 🎙️ NotebookLM Podcast-Dialog
-(Schreibe einen anschaulichen, lockeren ca. einmütigen Dialog zwischen 'Alex' und 'Sarah', die das Problem diskutieren. Mache klare Absätze pro Sprecher.
-
-### ✍️ Schreib-Aufgabe
-(Einer der Moderatoren im Skript ruft am Ende dazu auf: "Stopp! Hol einen Stift. Schreib dir jetzt genau folgenden Satz auf: [1-2 perfekte Kern-Sätze zum Merken]")
-`;
+Die JSON muss exakt diese Struktur haben:
+{
+  "quiz": [
+    {
+      "question": "Die präzise Frage hier",
+      "options": ["Falsch", "Richtig", "Falsch", "Falsch"],
+      "correctAnswer": 1
+    },
+    ... (insgesamt 3 Fragen)
+  ],
+  "writeAction": "Hol jetzt einen Stift und schreib dir diesen Kern-Satz auf: [Hier der Kernsatz]"
+}`;
 
       try {
         const response = await askGemini(prompt);
         const notes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
         if (notes[key]) {
-          notes[key].deepLearningResult = response;
-          localStorage.setItem('ap2_saved_notes', JSON.stringify(notes));
+          try {
+            // Clean markdown enclosing if any
+            let cleanResponse = response.trim();
+            if (cleanResponse.startsWith('```json')) {
+              cleanResponse = cleanResponse.substring(7, cleanResponse.length - 3);
+            } else if (cleanResponse.startsWith('```')) {
+              cleanResponse = cleanResponse.substring(3, cleanResponse.length - 3);
+            }
+            const parsedData = JSON.parse(cleanResponse);
+            notes[key].deepLearningResult = parsedData;
+            localStorage.setItem('ap2_saved_notes', JSON.stringify(notes));
+          } catch (e) {
+            console.error('Failed to parse JSON', e);
+            alert('Die KI hat ein ungültiges Format gesendet.');
+          }
         }
       } catch (error) {
         console.error(error);
@@ -649,12 +663,48 @@ Struktur zwingend einhalten:
                       {note.text}
                     </div>
 
-                    {note.deepLearningResult ? (
+                    {note.deepLearningResult && typeof note.deepLearningResult === 'object' ? (
                       <div className="fade-in hide-on-print" style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(0,0,0,0.3)', borderRadius: '12px', borderLeft: '4px solid var(--primary)', color: '#e2e8f0' }}>
-                        <h3 style={{ color: '#fff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <span>🎙️</span> Deep Learning Hub
+                        <h3 style={{ color: '#fff', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <span>🎯</span> Deep Learning Quiz
                         </h3>
-                        <div style={{ lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>{note.deepLearningResult}</div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                          {note.deepLearningResult.quiz?.map((q, qIndex) => (
+                            <div key={qIndex} style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '8px' }}>
+                              <p style={{ fontWeight: 'bold', marginBottom: '1rem', color: '#f8fafc' }}>{q.question}</p>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                {q.options.map((opt, oIndex) => (
+                                  <button
+                                    key={oIndex}
+                                    className="btn-secondary"
+                                    onClick={(e) => {
+                                      if (oIndex === q.correctAnswer) {
+                                        e.target.style.background = '#10b981';
+                                        e.target.style.color = 'white';
+                                        e.target.innerText = '✅ ' + opt;
+                                      } else {
+                                        e.target.style.background = '#ef4444';
+                                        e.target.style.color = 'white';
+                                        e.target.innerText = '❌ ' + opt;
+                                      }
+                                    }}
+                                    style={{ textAlign: 'left', padding: '0.8rem', fontSize: '0.9rem', width: '100%', background: 'rgba(255,255,255,0.1)', border: 'none', transition: 'all 0.2s' }}
+                                  >
+                                    {opt}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {note.deepLearningResult.writeAction && (
+                          <div style={{ marginTop: '2rem', padding: '1rem', background: 'rgba(56, 189, 248, 0.1)', borderLeft: '3px solid #38bdf8', borderRadius: '4px' }}>
+                            <h4 style={{ color: '#38bdf8', margin: '0 0 0.5rem 0' }}>✍️ Wichtige Schreibaufgabe:</h4>
+                            <p style={{ margin: 0, fontStyle: 'italic', fontWeight: 'bold' }}>{note.deepLearningResult.writeAction}</p>
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <div className="hide-on-print" style={{ marginTop: '1.5rem' }}>
@@ -664,7 +714,7 @@ Struktur zwingend einhalten:
                           disabled={deepLearningLoading === key}
                           style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', width: '100%', background: 'linear-gradient(90deg, #66295c, #2c3170)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}
                         >
-                          {deepLearningLoading === key ? '✨ Generiere Quiz & Podcast...' : '✨ Deep Learning Material generieren'}
+                          {deepLearningLoading === key ? '✨ Generiere Quiz...' : '✨ Deep Learning Quiz generieren'}
                         </button>
                       </div>
                     )}
