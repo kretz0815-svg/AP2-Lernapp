@@ -608,7 +608,7 @@ function App() {
         </header>
         <div className="dashboard-grid">
           <div className="dash-card" onClick={() => { setAppMode('quiz_setup'); }}>
-            <div className="dash-icon">🎯</div>
+            <div className="dash-icon">🌊</div>
             <h2>Wissen testen<br />(Quiz)</h2>
             <p>Multiple-Choice Fragen zum Überprüfen deines Wissensstands.</p>
             <div className="chip">{allQuizzes.length === 0 ? 'Alles gemeistert! 🎉' : `${allQuizzes.length} Fragen fällig`}</div>
@@ -625,7 +625,7 @@ function App() {
           </div>
 
           <div className="dash-card" onClick={startWisor}>
-            <div className="dash-icon">⌨️</div>
+            <div className="dash-icon">🔥</div>
             <h2>Wisor<br />(Eingabe)</h2>
             <p>Freitext Eingabe für Zahlen und Fakten. Gekonntes verschwindet!</p>
             <div className="chip">{Object.keys(completedWisors).length === wisor1.questions.length ? 'Alles gemeistert! 🎉' : `${wisor1.questions.length - Object.keys(completedWisors).length} Fragen verfügbar`}</div>
