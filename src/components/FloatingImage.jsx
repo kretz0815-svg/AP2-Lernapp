@@ -75,20 +75,20 @@ const FloatingImage = ({ svgCode }) => {
                             className="svg-modal-content"
                             style={{
                                 flex: 1,
-                                overflow: 'hidden', /* Verhindert doppelte Scrollbars, Zoom-Komponente regelt Panning */
+                                overflow: 'hidden',
                                 background: 'rgba(255,255,255,0.05)',
                                 borderRadius: '12px', padding: '1rem',
-                                display: 'flex', justifyContent: 'center', alignItems: 'center'
+                                // Remove flex because Safari collapses react-zoom-pan-pinch wrapper inside flex
                             }}
                         >
                             <TransformWrapper
                                 initialScale={1}
-                                minScale={0.5}
-                                maxScale={4}
+                                minScale={0.2}
+                                maxScale={5}
                                 centerOnInit={true}
                                 wheel={{ step: 0.1 }}
                             >
-                                <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
+                                <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }} contentStyle={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                                     <div
                                         className="svg-container"
                                         dangerouslySetInnerHTML={{ __html: svgCode }}
@@ -97,21 +97,32 @@ const FloatingImage = ({ svgCode }) => {
                             </TransformWrapper>
                         </div>
                         <style>{`
+                            .svg-modal-content {
+                                position: relative;
+                            }
+                            /* Force the react-transform-wrapper to fill parent */
+                            .react-transform-wrapper {
+                                width: 100% !important;
+                                height: 100% !important;
+                            }
                             .svg-container {
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
+                                display: block;
                                 width: 100%;
-                                height: 100%;
+                                text-align: center;
                             }
                             .svg-container svg {
-                                max-width: 100%;
-                                max-height: 100vh; /* Verhindert, dass das Bild ohne Zoom riesig ist */
+                                width: 100%;
                                 height: auto;
+                                min-width: 600px; /* SVG starts large enough to be readable, user can pinch to zoom out */
+                            }
+                            @media (max-width: 768px) {
+                                .svg-container svg {
+                                    min-width: 800px; /* Force even larger on mobile so text is legible before zoom */
+                                }
                             }
                             @media (min-width: 769px) {
                                 .zoom-hint {
-                                    display: none; /* Hinweis auf Desktop ausblenden */
+                                    display: none;
                                 }
                             }
                         `}</style>
