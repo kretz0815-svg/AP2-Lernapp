@@ -202,9 +202,18 @@ function App() {
 
       let queryStr = q.youtubeQuery;
       if (!queryStr) {
-        // Clean formatting, drop numbers at start, limit to first 12 words to avoid weird YouTube partial-word queries
-        const cleanQ = formatLatex(q.question).split(/[\n]/)[0].replace(/^[\d\.]+\s*/, '').trim();
-        queryStr = cleanQ.split(' ').slice(0, 12).join(' ');
+        // Clean formatting, drop numbers at start
+        let cleanQ = formatLatex(q.question).split(/[\n]/)[0].replace(/^[\d\.]+\s*/, '').trim();
+        // Remove punctuation
+        cleanQ = cleanQ.replace(/[?.,!;:()"]/g, '');
+
+        // Basic German stop words to filter out so YouTube focuses on the real keywords
+        const stopWords = new Set(['was', 'wie', 'warum', 'wann', 'wo', 'wer', 'welche', 'welcher', 'welches', 'ein', 'eine', 'einer', 'einem', 'eines', 'der', 'die', 'das', 'den', 'dem', 'des', 'als', 'ist', 'sind', 'wird', 'werden', 'kann', 'können', 'für', 'und', 'oder', 'zu', 'im', 'am', 'um', 'auf', 'von', 'bei', 'beim', 'mit', 'kann', 'gilt', 'es', 'sich', 'in']);
+
+        const words = cleanQ.split(/\s+/).filter(w => !stopWords.has(w.toLowerCase()));
+
+        // Take up to 10 of the most relevant words
+        queryStr = words.slice(0, 10).join(' ');
       }
 
       let fetched = [];
