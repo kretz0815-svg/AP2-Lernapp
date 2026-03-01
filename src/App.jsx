@@ -736,7 +736,7 @@ function App() {
           >
             🌗
           </button>
-          <h1 style={{ fontFamily: '"Bungee", sans-serif', fontWeight: 'bold', letterSpacing: '2px', fontSize: '2.5rem', color: 'white', textShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>MasterPat APP</h1>
+          <h1 style={{ fontFamily: '"Anton", sans-serif', fontWeight: 'bold', letterSpacing: '2px', fontSize: '2.5rem', color: 'white', textShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>MasterPat APP</h1>
           <p className="subtitle">Wähle deinen Lernmodus</p>
         </header>
         <div className="dashboard-grid">
