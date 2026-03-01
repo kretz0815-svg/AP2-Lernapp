@@ -60,7 +60,50 @@ function App() {
   // --- AUTH STATE ---
   const [pinInput, setPinInput] = useState('');
   const [authError, setAuthError] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [authLoading, setAuthLoading] = useState(false);
+  const [authMsg, setAuthMsg] = useState('');
+  const [authUser, setAuthUser] = useState(null);
   const SECRET_PIN = '261115'; // Das Passwort, das du später ändern kannst
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setAuthLoading(true);
+    setAuthMsg('');
+    const { error, data } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) { setAuthMsg(error.message); setAuthLoading(false); }
+    else {
+      setAuthMsg('Erfolgreich eingeloggt! Lade Account...');
+      localStorage.setItem('masterpat_auth', 'true');
+      localStorage.setItem('masterpat_device_id', data.session.user.id);
+      window.location.reload();
+    }
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setAuthLoading(true);
+    setAuthMsg('');
+    const { error, data } = await supabase.auth.signUp({ email, password });
+    if (error) { setAuthMsg(error.message); setAuthLoading(false); }
+    else {
+      setAuthMsg('Account erstellt! Logge ein...');
+      if (data?.session) {
+        localStorage.setItem('masterpat_auth', 'true');
+        localStorage.setItem('masterpat_device_id', data.session.user.id);
+        window.location.reload();
+      }
+      setAuthLoading(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    localStorage.removeItem('masterpat_auth');
+    localStorage.removeItem('masterpat_device_id');
+    window.location.reload();
+  };
 
   // --- FLASHCARD STATE ---
   const [allCards, setAllCards] = useState([]);
@@ -210,6 +253,13 @@ function App() {
 
   useEffect(() => {
     const initApp = async () => {
+      // 0. Get current Auth
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        setAuthUser(session.user);
+        localStorage.setItem('masterpat_device_id', session.user.id);
+      }
+
       // 1. Get or Generate Device ID
       let deviceId = localStorage.getItem('masterpat_device_id');
       if (!deviceId) {
@@ -599,15 +649,45 @@ function App() {
       <div className="app-container" style={{ zIndex: 10 }}>
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
+
         <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '400px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-          <h2 style={{ color: 'white', marginBottom: '1.5rem', fontSize: '2rem' }}>Geschlossener Bereich</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Bitte gib deine PIN ein, um fortzufahren.</p>
+          <h2 style={{ color: 'white', marginBottom: '1.5rem', fontSize: '2rem' }}>Login / Account</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.95rem' }}>Erstelle einen Account oder logge dich ein, um deinen Lernfortschritt auf all deinen Geräten ("Cloud") synchron zu halten.</p>
+          <form style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
+            <input
+              type="email"
+              className="wisor-input"
+              placeholder="E-Mail Adresse"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{ fontSize: '1rem', padding: '1rem' }}
+            />
+            <input
+              type="password"
+              className="wisor-input"
+              placeholder="Passwort"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ fontSize: '1rem', padding: '1rem' }}
+            />
+            <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
+              <button type="button" onClick={handleLogin} className="btn-primary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading}>Login</button>
+              <button type="button" onClick={handleRegister} className="btn-secondary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading}>Registrieren</button>
+            </div>
+          </form>
+
+          {authMsg && <p style={{ color: authMsg.includes('Erfolg') || authMsg.includes('erstellt') ? 'var(--success)' : 'var(--error)', marginBottom: '1rem', fontWeight: 'bold' }}>{authMsg}</p>}
+
+          <hr style={{ margin: '1.5rem 0', borderColor: 'var(--glass-border)' }} />
+
+          <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '0.8rem' }}>Alternativ: Lokaler Gast Zugang (Nur auf diesem Gerät)</p>
           <form onSubmit={(e) => {
             e.preventDefault();
             if (pinInput === SECRET_PIN) {
               setAuthError(false);
               localStorage.setItem('masterpat_auth', 'true');
               setAppMode('dashboard');
+              window.location.reload(); // Zum Laden der User Data vom Device
             } else {
               setAuthError(true);
               setPinInput('');
@@ -616,14 +696,13 @@ function App() {
             <input
               type="password"
               className="wisor-input"
-              placeholder="PIN eingeben"
+              placeholder="App-PIN"
               value={pinInput}
               onChange={(e) => setPinInput(e.target.value)}
-              style={{ textAlign: 'center', letterSpacing: '0.2rem', marginBottom: '1rem' }}
-              autoFocus
+              style={{ textAlign: 'center', letterSpacing: '0.2rem', marginBottom: '1rem', padding: '0.7rem', fontSize: '1rem' }}
             />
-            {authError && <p style={{ color: 'var(--color-error)', marginBottom: '1rem', fontWeight: 'bold' }}>Falsche PIN!</p>}
-            <button type="submit" className="btn-primary" style={{ width: '100%' }}>Entsperren</button>
+            {authError && <p style={{ color: 'var(--error)', marginBottom: '1rem', fontWeight: 'bold' }}>Falsche PIN!</p>}
+            <button type="submit" className="btn-secondary" style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}>Als Gast (Lokal) fortfahren</button>
           </form>
         </div>
       </div>
@@ -645,6 +724,21 @@ function App() {
           >
             🌗
           </button>
+          {authUser ? (
+            <button
+              onClick={handleLogout}
+              style={{ position: 'absolute', left: 0, top: '0.5rem', background: 'transparent', border: 'none', fontSize: '0.9rem', color: 'var(--error)', cursor: 'pointer', zIndex: 20, textDecoration: 'underline' }}
+            >
+              Logout ({authUser.email})
+            </button>
+          ) : (
+            <button
+              onClick={handleLogout}
+              style={{ position: 'absolute', left: 0, top: '0.5rem', background: 'transparent', border: 'none', fontSize: '0.9rem', color: 'var(--text-muted)', cursor: 'pointer', zIndex: 20, textDecoration: 'underline' }}
+            >
+              (Gast) Abmelden
+            </button>
+          )}
           <h1 style={{ fontFamily: '"Bungee", sans-serif', fontWeight: 'bold', letterSpacing: '2px', fontSize: '2.5rem', color: 'white', textShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>MasterPat APP</h1>
           <p className="subtitle">Wähle deinen Lernmodus</p>
         </header>
