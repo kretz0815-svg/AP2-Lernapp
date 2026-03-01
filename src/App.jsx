@@ -1405,7 +1405,7 @@ Die JSON muss exakt diese Struktur haben:
                 </button>
               </div>
             )}
-            <FloatingImage svgCode={q.svgCode} />
+            <FloatingImage svgCode={q.svgCode} isLightMode={isLightMode} />
           </form>
 
           {wisorEvaluated && (

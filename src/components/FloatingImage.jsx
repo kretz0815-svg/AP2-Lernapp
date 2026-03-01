@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
-const FloatingImage = ({ svgCode }) => {
+const FloatingImage = ({ svgCode, isLightMode }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     if (!svgCode) return null;
@@ -41,7 +41,7 @@ const FloatingImage = ({ svgCode }) => {
                     e.currentTarget.style.background = '#3b82f6';
                 }}
             >
-                Organigramm
+                Anhang
             </button>
 
             {isOpen && (
@@ -57,7 +57,7 @@ const FloatingImage = ({ svgCode }) => {
                         maxHeight: '90vh', display: 'flex', flexDirection: 'column'
                     }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                            <h3 style={{ color: 'white', margin: 0 }}>Zugehörige Grafik</h3>
+                            <h3 style={{ color: 'var(--text-light)', margin: 0 }}>Zugehörige Grafik</h3>
                             <button
                                 className="btn-secondary"
                                 style={{ padding: '0.4rem 0.8rem', fontSize: '1rem' }}
@@ -114,6 +114,7 @@ const FloatingImage = ({ svgCode }) => {
                                 width: 100%;
                                 height: auto;
                                 min-width: 600px; /* SVG starts large enough to be readable, user can pinch to zoom out */
+                                ${isLightMode ? 'filter: invert(1) hue-rotate(180deg);' : ''}
                             }
                             @media (max-width: 768px) {
                                 .svg-container svg {
