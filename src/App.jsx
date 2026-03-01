@@ -202,9 +202,9 @@ function App() {
 
       let queryStr = q.youtubeQuery;
       if (!queryStr) {
-        // Clean formatting, drop numbers at start, limit to first 8 words to avoid weird YouTube partial-word queries
+        // Clean formatting, drop numbers at start, limit to first 12 words to avoid weird YouTube partial-word queries
         const cleanQ = formatLatex(q.question).split(/[\n]/)[0].replace(/^[\d\.]+\s*/, '').trim();
-        queryStr = cleanQ.split(' ').slice(0, 8).join(' ');
+        queryStr = cleanQ.split(' ').slice(0, 12).join(' ');
       }
 
       let fetched = [];
