@@ -1,0 +1,44 @@
+<svg viewBox='0 0 1100 660' xmlns='http://www.w3.org/2000/svg'>
+  <style>
+    .l { stroke: #a3a3a3; stroke-width: 2; fill: none; }
+    .b { fill: #2d2f3d; stroke: #5c5e73; stroke-width: 2; rx: 8px; }
+    .s { fill: #3f4156; stroke: #6b6d85; stroke-width: 2; rx: 20px; }
+    .t { fill: #ffffff; font-size: 13px; font-weight: bold; text-anchor: middle; dominant-baseline: central; font-family: sans-serif; }
+    .sub { fill: #1e1f29; stroke: #454759; stroke-width: 1.5; rx: 6px; }
+    .st { fill: #dddddd; font-size: 11px; text-anchor: middle; dominant-baseline: central; font-family: sans-serif; }
+  </style>
+
+  <!-- Title/Frame could be added but background is enough -->
+  <rect width='100%' height='100%' fill='transparent' />
+
+  <!-- L0 -->
+  <rect class='b' x='450' y='20' width='200' height='40'/><text class='t' x='550' y='40'>Geschäftsführung</text>
+  <path class='l' d='M 550 60 L 550 160'/>
+
+  <path class='l' d='M 350 110 L 725 110'/>
+  <rect class='s' x='250' y='90' width='200' height='40'/><text class='t' x='350' y='110'>Nachhaltigkeitsmanagement</text>
+  <rect class='s' x='650' y='90' width='150' height='40'/><text class='t' x='725' y='110'>Haus-Jurist</text>
+
+  <!-- L1 Header line -->
+  <path class='l' d='M 80 160 L 1000 160'/>
+  <path class='l' d='M 80 160 L 80 180 M 250 160 L 250 180 M 440 160 L 440 180 M 620 160 L 620 180 M 810 160 L 810 180 M 1000 160 L 1000 180'/>
+
+  <rect class='b' x='10' y='180' width='140' height='40'/><text class='t' x='80' y='200'>Category Manag.</text>
+  <rect class='b' x='180' y='180' width='140' height='40'/><text class='t' x='250' y='200'>Sales</text>
+  <rect class='b' x='370' y='180' width='140' height='40'/><text class='t' x='440' y='200'>Kommunikation</text>
+  <rect class='b' x='550' y='180' width='140' height='40'/><text class='t' x='620' y='200'>Personalmanag.</text>
+  <rect class='b' x='740' y='180' width='140' height='40'/><text class='t' x='810' y='200'>Rechnungswesen</text>
+  <rect class='b' x='930' y='180' width='140' height='40'/><text class='t' x='1000' y='200'>Organisation/IT</text>
+
+  <!-- Nodes -->
+  <path class='l' d='M 40 220 L 40 455'/><path class='l' d='M 40 255 L 60 255'/><rect class='sub' x='60' y='240' width='110' height='30' rx='6'/><text class='st' x='115' y='255' >Textil</text><path class='l' d='M 40 295 L 60 295'/><rect class='sub' x='60' y='280' width='110' height='30' rx='6'/><text class='st' x='115' y='295' >Hardware/Elek.</text><path class='l' d='M 40 335 L 60 335'/><rect class='sub' x='60' y='320' width='110' height='30' rx='6'/><text class='st' x='115' y='335' >Sport/Outdoor</text><path class='l' d='M 40 375 L 60 375'/><rect class='sub' x='60' y='360' width='110' height='30' rx='6'/><text class='st' x='115' y='375' >Erlebnis-Reisen</text><path class='l' d='M 40 415 L 60 415'/><rect class='sub' x='60' y='400' width='110' height='30' rx='6'/><text class='st' x='115' y='415' >Versicherungen</text><path class='l' d='M 40 455 L 60 455'/><rect class='sub' x='60' y='440' width='110' height='30' rx='6'/><text class='st' x='115' y='455' >Vermietung</text>
+
+  <path class='l' d='M 210 220 L 210 455'/><path class='l' d='M 210 255 L 230 255'/><rect class='sub' x='230' y='240' width='110' height='30' rx='6'/><text class='st' x='285' y='255' >Marketing</text><path class='l' d='M 210 295 L 230 295'/><rect class='sub' x='230' y='280' width='110' height='30' rx='6'/><text class='st' x='285' y='295' >Vertrieb</text><path class='l' d='M 240 310 L 240 375'/><path class='l' d='M 240 335 L 260 335'/><rect class='sub' x='260' y='320' width='90' height='30' rx='6'/><text class='st' x='305' y='335' >E-Commerce</text><path class='l' d='M 240 375 L 260 375'/><rect class='sub' x='260' y='360' width='90' height='30' rx='6'/><text class='st' x='305' y='375' >Filialen</text><path class='l' d='M 210 415 L 230 415'/><rect class='sub' x='230' y='400' width='110' height='30' rx='6'/><text class='st' x='285' y='415' >Auftragsbearb.</text><path class='l' d='M 210 455 L 230 455'/><rect class='sub' x='230' y='440' width='110' height='30' rx='6'/><text class='st' x='285' y='455' >Lagerlogistik</text><path class='l' d='M 240 470 L 240 535'/><path class='l' d='M 240 495 L 260 495'/><rect class='sub' x='260' y='480' width='90' height='30' rx='6'/><text class='st' x='305' y='495' >Warenannahme</text><path class='l' d='M 240 535 L 260 535'/><rect class='sub' x='260' y='520' width='90' height='30' rx='6'/><text class='st' x='305' y='535' >Warenausgabe</text>
+
+  <path class='l' d='M 400 220 L 400 335'/><path class='l' d='M 400 255 L 420 255'/><rect class='sub' x='420' y='240' width='110' height='30' rx='6'/><text class='st' x='475' y='255' >Kundenservice</text><path class='l' d='M 400 295 L 420 295'/><rect class='sub' x='420' y='280' width='110' height='30' rx='6'/><text class='st' x='475' y='295' >Beschwerdem.</text><path class='l' d='M 400 335 L 420 335'/><rect class='sub' x='420' y='320' width='110' height='30' rx='6'/><text class='st' x='475' y='335' >Public Relations</text>
+
+  <path class='l' d='M 580 220 L 580 335'/><path class='l' d='M 580 255 L 600 255'/><rect class='sub' x='600' y='240' width='110' height='30' rx='6'/><text class='st' x='655' y='255' >Personalverw.</text><path class='l' d='M 580 295 L 600 295'/><rect class='sub' x='600' y='280' width='110' height='30' rx='6'/><text class='st' x='655' y='295' >Lohn/Gehalt</text><path class='l' d='M 580 335 L 600 335'/><rect class='sub' x='600' y='320' width='110' height='30' rx='6'/><text class='st' x='655' y='335' >Aus/Weiterbild.</text>
+
+  <path class='l' d='M 770 220 L 770 375'/><path class='l' d='M 770 255 L 790 255'/><rect class='sub' x='790' y='240' width='110' height='30' rx='6'/><text class='st' x='845' y='255' >Kostenrechnung</text><path class='l' d='M 770 295 L 790 295'/><rect class='sub' x='790' y='280' width='110' height='30' rx='6'/><text class='st' x='845' y='295' >Rechnungsprüf.</text><path class='l' d='M 770 335 L 790 335'/><rect class='sub' x='790' y='320' width='110' height='30' rx='6'/><text class='st' x='845' y='335' >Kreditoren</text><path class='l' d='M 770 375 L 790 375'/><rect class='sub' x='790' y='360' width='110' height='30' rx='6'/><text class='st' x='845' y='375' >Debitoren</text>
+
+</svg>

@@ -10,12 +10,14 @@ import quiz3 from './data/quiz_3.json';
 import quizUForm2 from './data/uform2_quiz.json';
 
 import wisor1 from './data/wisor_1.json';
+import wisorEco from './data/wisor_eco.json';
 
 import { supabase } from './supabaseClient';
 import { askGemini } from './geminiClient';
 import { fetchYouTubeVideos } from './youtubeClient';
 import FloatingNotes from './components/FloatingNotes';
 import FloatingCalculator from './components/FloatingCalculator';
+import FloatingImage from './components/FloatingImage';
 
 const generateId = (text) => {
   let hash = 0;
@@ -82,6 +84,8 @@ function App() {
   const [wisorScore, setWisorScore] = useState({ correct: 0, total: 0 });
   const [wisorVideoOpen, setWisorVideoOpen] = useState(false);
   const [completedWisors, setCompletedWisors] = useState({});
+  const [completedWisorsEco, setCompletedWisorsEco] = useState({});
+  const [activeWisorMode, setActiveWisorMode] = useState('wisor1');
   const [resetModalVisible, setResetModalVisible] = useState(false);
   const [resetTarget, setResetTarget] = useState('wisor');
   const [resetMath, setResetMath] = useState({ a: 0, b: 0, input: '' });
@@ -146,7 +150,7 @@ function App() {
 
       const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY || import.meta.env.VITE_GEMINI_API_KEY;
 
-      const queryStr = q.question.split(/[\n]/)[0].replace(/^[\d\.]+\s*/, '').trim().substring(0, 60);
+      const queryStr = q.youtubeQuery || q.question.split(/[\n]/)[0].replace(/^[\d\.]+\s*/, '').trim().substring(0, 60);
 
       let fetched = [];
       if (apiKey) {
@@ -230,6 +234,9 @@ function App() {
           if (data.progress_data.wisor_progress) {
             localStorage.setItem('ap2_wisor_progress', JSON.stringify(data.progress_data.wisor_progress));
           }
+          if (data.progress_data.wisor_eco_progress) {
+            localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(data.progress_data.wisor_eco_progress));
+          }
         } else if (!data) {
           // Init empty row
           await supabase.from('user_data').insert([{ device_id: deviceId, progress_data: progressData }]);
@@ -240,6 +247,9 @@ function App() {
 
       let wisorProg = JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {};
       setCompletedWisors(wisorProg);
+
+      let wisorEcoProg = JSON.parse(localStorage.getItem('ap2_wisor_eco_progress')) || {};
+      setCompletedWisorsEco(wisorEcoProg);
 
       // 3. Setup Flashcards with loaded progress
       const rawCards = [
@@ -411,11 +421,13 @@ function App() {
     setSelectedAnswer(null);
   };
 
-  const startWisor = () => {
-    const rawWisors = [...wisor1.questions];
-    const wisorProg = JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {};
+  const startWisor = (mode = 'wisor1') => {
+    setActiveWisorMode(mode);
+    const rawWisors = mode === 'wisor1' ? [...wisor1.questions] : [...(wisorEco.questions || [])];
+    const key = mode === 'wisor1' ? 'ap2_wisor_progress' : 'ap2_wisor_eco_progress';
+    const wisorProg = JSON.parse(localStorage.getItem(key)) || {};
     const uncompleted = rawWisors.filter(q => !wisorProg[q.id]);
-    const shuffled = [...uncompleted].sort(() => Math.random() - 0.5);
+    const shuffled = mode === 'wisor1' ? [...uncompleted].sort(() => Math.random() - 0.5) : [...uncompleted];
 
     setAllWisors(shuffled);
     setCurrentWisorIndex(0);
@@ -455,6 +467,27 @@ function App() {
 
         const rawWisors = [...wisor1.questions];
         setAllWisors(rawWisors.sort(() => Math.random() - 0.5));
+        setCurrentWisorIndex(0);
+        setWisorScore({ correct: 0, total: 0 });
+        setWisorInput('');
+        setWisorEvaluated(false);
+        setWisorIsCorrect(false);
+        setWisorVideoOpen(false);
+        if (appMode === 'wisor') setAppMode('wisor');
+      } else if (resetTarget === 'wisorEco') {
+        setCompletedWisorsEco({});
+        localStorage.removeItem('ap2_wisor_eco_progress');
+
+        const deviceId = localStorage.getItem('masterpat_device_id');
+        if (deviceId) {
+          const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
+          supabase.from('user_data').update({ progress_data: { ...srsData, wisor_eco_progress: {} } }).eq('device_id', deviceId).then();
+        }
+
+        setResetModalVisible(false);
+
+        const rawWisors = [...(wisorEco.questions || [])];
+        setAllWisors(rawWisors);
         setCurrentWisorIndex(0);
         setWisorScore({ correct: 0, total: 0 });
         setWisorInput('');
@@ -510,17 +543,26 @@ function App() {
     setWisorEvaluated(true);
     if (correct) {
       setWisorScore(s => ({ ...s, correct: s.correct + 1 }));
-      setCompletedWisors(prev => {
+
+      const updateProg = prev => {
         const next = { ...prev, [q.id]: true };
-        localStorage.setItem('ap2_wisor_progress', JSON.stringify(next));
+        const key = activeWisorMode === 'wisor1' ? 'ap2_wisor_progress' : 'ap2_wisor_eco_progress';
+        localStorage.setItem(key, JSON.stringify(next));
 
         const deviceId = localStorage.getItem('masterpat_device_id');
         if (deviceId) {
           const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
-          supabase.from('user_data').update({ progress_data: { ...srsData, wisor_progress: next } }).eq('device_id', deviceId).then();
+          const dbKey = activeWisorMode === 'wisor1' ? 'wisor_progress' : 'wisor_eco_progress';
+          supabase.from('user_data').update({ progress_data: { ...srsData, [dbKey]: next } }).eq('device_id', deviceId).then();
         }
         return next;
-      });
+      };
+
+      if (activeWisorMode === 'wisor1') {
+        setCompletedWisors(updateProg);
+      } else {
+        setCompletedWisorsEco(updateProg);
+      }
     }
   };
 
@@ -624,9 +666,9 @@ function App() {
             )}
           </div>
 
-          <div className="dash-card" onClick={startWisor}>
+          <div className="dash-card" onClick={() => startWisor('wisor1')}>
             <div className="dash-icon">🔥</div>
-            <h2>Wisor<br />(Eingabe)</h2>
+            <h2>WisoR<br />(Eingabe)</h2>
             <p>Freitext Eingabe für Zahlen und Fakten. Gekonntes verschwindet!</p>
             <div className="chip">{Object.keys(completedWisors).length === wisor1.questions.length ? 'Alles gemeistert! 🎉' : `${wisor1.questions.length - Object.keys(completedWisors).length} Fragen verfügbar`}</div>
 
@@ -635,6 +677,23 @@ function App() {
                 className="btn-secondary"
                 style={{ marginTop: 'auto', width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
                 onClick={(e) => { e.stopPropagation(); openResetModal(e, 'wisor'); }}
+              >
+                🔄 Lernfortschritt zurücksetzen
+              </button>
+            )}
+          </div>
+
+          <div className="dash-card" onClick={() => startWisor('wisorEco')}>
+            <div className="dash-icon">🛒</div>
+            <h2>WisoR im<br />E-Commerce</h2>
+            <p>Freitext Eingabe für E-Commerce spezifische Aufgaben.</p>
+            <div className="chip">{Object.keys(completedWisorsEco).length === (wisorEco?.questions?.length || 0) && (wisorEco?.questions?.length || 0) > 0 ? 'Alles gemeistert! 🎉' : `${(wisorEco?.questions?.length || 0) - Object.keys(completedWisorsEco).length} Fragen verfügbar`}</div>
+
+            {Object.keys(completedWisorsEco).length > 0 && (
+              <button
+                className="btn-secondary"
+                style={{ marginTop: 'auto', width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
+                onClick={(e) => { e.stopPropagation(); openResetModal(e, 'wisorEco'); }}
               >
                 🔄 Lernfortschritt zurücksetzen
               </button>
@@ -693,7 +752,7 @@ function App() {
 
     const formatNoteContext = (key, contextText) => {
       const parts = key.split('_');
-      const typeStr = parts[0] === 'quiz' ? 'Quiz' : parts[0] === 'wisor' ? 'Wisor' : parts[0] === 'flashcard' ? 'Lernkarte' : 'Aufgabe';
+      const typeStr = parts[0] === 'quiz' ? 'Quiz' : parts[0] === 'wisor' ? 'Wisor' : parts[0] === 'wisoreco' ? 'WisoR E-Commerce' : parts[0] === 'flashcard' ? 'Lernkarte' : 'Aufgabe';
       const idNum = parts.length > 1 ? parts[1] : '';
       const parsedNum = parseInt(idNum, 10);
       const numStr = isNaN(parsedNum) ? '' : ` ${parsedNum + 1}`;
@@ -1067,7 +1126,7 @@ Die JSON muss exakt diese Struktur haben:
             <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Alles geschafft! 🎉</h2>
             <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Du hast alle Wisor-Fragen erfolgreich gemeistert.</p>
             <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
-            <button className="btn-primary" onClick={openResetModal} style={{ marginLeft: '1rem' }}>Fortschritt zurücksetzen</button>
+            <button className="btn-primary" onClick={(e) => openResetModal(e, activeWisorMode === 'wisor1' ? 'wisor' : 'wisorEco')} style={{ marginLeft: '1rem' }}>Fortschritt zurücksetzen</button>
           </div>
           {resetModalVisible && (
             <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -1098,7 +1157,7 @@ Die JSON muss exakt diese Struktur haben:
             <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {wisorScore.correct} / {wisorScore.total}</p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
               <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
-              <button className="btn-primary" onClick={startWisor}>Nächsten offene Fragen</button>
+              <button className="btn-primary" onClick={() => startWisor(activeWisorMode)}>Nächsten offene Fragen</button>
             </div>
           </div>
         </div>
@@ -1222,10 +1281,7 @@ Die JSON muss exakt diese Struktur haben:
             </div>
           )}
 
-          {q.svgCode && (
-            <div className="quiz-svg-container fade-in" style={{ marginBottom: '1.5rem', textAlign: 'center', width: '100%' }} dangerouslySetInnerHTML={{ __html: q.svgCode }} />
-          )}
-
+          {/* svgCode now handled by FloatingImage */}
           <div className="quiz-question">
             {q.question}
           </div>
@@ -1267,6 +1323,7 @@ Die JSON muss exakt diese Struktur haben:
                 </button>
               </div>
             )}
+            <FloatingImage svgCode={q.svgCode} />
           </form>
 
           {wisorEvaluated && (
@@ -1297,7 +1354,7 @@ Die JSON muss exakt diese Struktur haben:
             </div>
           )}
         </div>
-        <FloatingNotes questionId={`wisor_${q.id}`} questionText={q.question || 'Wisor Frage'} />
+        <FloatingNotes questionId={`${activeWisorMode === 'wisor1' ? 'wisor' : 'wisoreco'}_${q.id}`} questionText={q.question || 'Wisor Frage'} />
         <FloatingCalculator />
       </div>
     );
