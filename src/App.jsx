@@ -749,7 +749,22 @@ function App() {
           </div>
 
           <div className="dash-card" onClick={() => startWisor('wisor1')}>
-            <div className="dash-icon">🔥</div>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <svg width="1.2em" height="1.2em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 280 200 H 460 V 420 L 420 460 L 380 420 L 340 460 L 300 420 L 260 460 L 220 420 V 320" fill="none" stroke="var(--text-light)" strokeWidth="32" strokeLinejoin="round" strokeLinecap="round" />
+                <rect x="290" y="270" width="140" height="24" rx="12" fill="var(--text-light)" />
+                <rect x="290" y="325" width="140" height="24" rx="12" fill="var(--text-light)" />
+                <rect x="290" y="380" width="80" height="24" rx="12" fill="var(--text-light)" />
+                <g transform="translate(190, 220) rotate(45)">
+                  <rect x="-20" y="40" width="40" height="200" rx="20" fill="var(--text-light)" />
+                  <rect x="-60" y="-45" width="120" height="90" rx="5" fill="var(--text-light)" />
+                  <rect x="-80" y="-35" width="20" height="70" fill="var(--text-light)" />
+                  <rect x="-105" y="-55" width="25" height="110" rx="12" fill="var(--text-light)" />
+                  <rect x="60" y="-35" width="20" height="70" fill="var(--text-light)" />
+                  <rect x="80" y="-55" width="25" height="110" rx="12" fill="var(--text-light)" />
+                </g>
+              </svg>
+            </div>
             <h2>WisoR<br />(Eingabe)</h2>
             <p>Freitext Eingabe für Zahlen und Fakten. Gekonntes verschwindet!</p>
             <div className="chip">{Object.keys(completedWisors).length === wisor1.questions.length ? 'Alles gemeistert! 🎉' : `${wisor1.questions.length - Object.keys(completedWisors).length} Fragen verfügbar`}</div>
