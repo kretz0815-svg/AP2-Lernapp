@@ -170,6 +170,12 @@ function App() {
     setGeminiResponse('');
   }, [currentWisorIndex, currentQuizIndex]);
 
+  const formatLatex = (text) => {
+    if (typeof text !== 'string') return text;
+    // Removes the wrapping $ signs and any backslash \ escapes (e.g., \$ -> $, \% -> %)
+    return text.replace(/\$([^\$]+)\$/g, (match, inner) => inner.replace(/\\/g, '').trim());
+  };
+
   const handleToggleVideos = async (q) => {
     if (wisorVideoOpen) {
       setWisorVideoOpen(false);
@@ -194,7 +200,12 @@ function App() {
 
       const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY || import.meta.env.VITE_GEMINI_API_KEY;
 
-      const queryStr = q.youtubeQuery || q.question.split(/[\n]/)[0].replace(/^[\d\.]+\s*/, '').trim().substring(0, 60);
+      let queryStr = q.youtubeQuery;
+      if (!queryStr) {
+        // Clean formatting, drop numbers at start, limit to first 8 words to avoid weird YouTube partial-word queries
+        const cleanQ = formatLatex(q.question).split(/[\n]/)[0].replace(/^[\d\.]+\s*/, '').trim();
+        queryStr = cleanQ.split(' ').slice(0, 8).join(' ');
+      }
 
       let fetched = [];
       if (apiKey) {
@@ -992,7 +1003,7 @@ Die JSON muss exakt diese Struktur haben:
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                           {note.deepLearningResult.quiz?.map((q, qIndex) => (
                             <div key={qIndex} style={{ background: 'var(--glass-bg)', padding: '1rem', borderRadius: '8px' }}>
-                              <p style={{ fontWeight: 'bold', marginBottom: '1rem', color: 'var(--text-light)' }}>{q.question}</p>
+                              <p style={{ fontWeight: 'bold', marginBottom: '1rem', color: 'var(--text-light)' }}>{formatLatex(q.question)}</p>
                               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                 {q.options.map((opt, oIndex) => (
                                   <button
@@ -1002,16 +1013,16 @@ Die JSON muss exakt diese Struktur haben:
                                       if (oIndex === q.correctAnswer) {
                                         e.target.style.background = '#10b981';
                                         e.target.style.color = 'white';
-                                        e.target.innerText = '✅ ' + opt;
+                                        e.target.innerText = '✅ ' + formatLatex(opt);
                                       } else {
                                         e.target.style.background = '#ef4444';
                                         e.target.style.color = 'white';
-                                        e.target.innerText = '❌ ' + opt;
+                                        e.target.innerText = '❌ ' + formatLatex(opt);
                                       }
                                     }}
                                     style={{ textAlign: 'left', padding: '0.8rem', fontSize: '0.9rem', width: '100%', background: 'rgba(255,255,255,0.1)', border: 'none', transition: 'all 0.2s' }}
                                   >
-                                    {opt}
+                                    {formatLatex(opt)}
                                   </button>
                                 ))}
                               </div>
@@ -1204,7 +1215,7 @@ Die JSON muss exakt diese Struktur haben:
           )}
 
           <div className="quiz-question">
-            {q.question}
+            {formatLatex(q.question)}
           </div>
           <div className="quiz-options">
             {q.answerOptions.map((opt, idx) => {
@@ -1220,7 +1231,7 @@ Die JSON muss exakt diese Struktur haben:
                   onClick={() => handleQuizAnswer(idx)}
                   disabled={selectedAnswer !== null}
                 >
-                  {opt.text}
+                  {formatLatex(opt.text)}
                 </button>
               )
             })}
@@ -1228,7 +1239,7 @@ Die JSON muss exakt diese Struktur haben:
 
           {selectedAnswer !== null && (
             <div className="quiz-rationale fade-in">
-              <p><strong>Erklärung:</strong> {q.answerOptions[selectedAnswer].rationale}</p>
+              <p><strong>Erklärung:</strong> {formatLatex(q.answerOptions[selectedAnswer].rationale)}</p>
               <button className="btn-primary" style={{ marginTop: '1rem' }} onClick={nextQuizQuestion}>Nächste Frage &rarr;</button>
             </div>
           )}
@@ -1406,7 +1417,7 @@ Die JSON muss exakt diese Struktur haben:
 
           {/* svgCode now handled by FloatingImage */}
           <div className="quiz-question">
-            {q.question}
+            {formatLatex(q.question)}
           </div>
 
           <form className="wisor-form" onSubmit={handleWisorSubmit}>
