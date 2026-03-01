@@ -19,6 +19,7 @@ import FloatingNotes from './components/FloatingNotes';
 import FloatingCalculator from './components/FloatingCalculator';
 import FloatingImage from './components/FloatingImage';
 import BurgerMenu from './components/BurgerMenu';
+import QuestionManager from './components/QuestionManager';
 
 const generateId = (text) => {
   let hash = 0;
@@ -133,6 +134,7 @@ function App() {
   const [resetModalVisible, setResetModalVisible] = useState(false);
   const [resetTarget, setResetTarget] = useState('wisor');
   const [resetMath, setResetMath] = useState({ a: 0, b: 0, input: '' });
+  const [questionManagerCategory, setQuestionManagerCategory] = useState(null);
   const wisorInputRef = useRef(null);
 
   useEffect(() => {
@@ -770,7 +772,26 @@ function App() {
 
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
-        <BurgerMenu authUser={authUser} handleLogout={handleLogout} stats={stats} isLightMode={isLightMode} toggleTheme={toggleTheme} questionData={questionData} formatLatex={formatLatex} />
+        <BurgerMenu authUser={authUser} handleLogout={handleLogout} stats={stats} isLightMode={isLightMode} toggleTheme={toggleTheme} onOpenQuestionManager={(cat) => setQuestionManagerCategory(cat)} />
+        {questionManagerCategory && (
+          <QuestionManager
+            category={questionManagerCategory}
+            questions={
+              questionManagerCategory === 'quiz' ? allQuizQuestions :
+                questionManagerCategory === 'wisor' ? wisorQuestions : wisorEcoQuestions
+            }
+            progress={
+              questionManagerCategory === 'quiz' ? quizProg :
+                questionManagerCategory === 'wisor' ? completedWisors : completedWisorsEco
+            }
+            formatLatex={formatLatex}
+            onClose={() => setQuestionManagerCategory(null)}
+            onProgressUpdate={(cat, updatedProgress) => {
+              if (cat === 'wisor') setCompletedWisors(updatedProgress);
+              else if (cat === 'wisorEco') setCompletedWisorsEco(updatedProgress);
+            }}
+          />
+        )}
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header style={{ position: 'relative', width: '100%' }}>
