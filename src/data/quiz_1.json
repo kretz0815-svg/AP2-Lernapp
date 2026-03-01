@@ -2,22 +2,22 @@
   "title": "WiSor-1.07",
   "questions": [
     {
-      "question": "Wann wird aus einem blo\u00dfen Bed\u00fcrfnis ein 'Bedarf' im wirtschaftlichen Sinne?",
+      "question": "Wann wird aus einem bloßen Bedürfnis ein 'Bedarf' im wirtschaftlichen Sinne?",
       "answerOptions": [
         {
-          "text": "Sobald die Person sich entscheidet, ein Produkt tats\u00e4chlich im Laden zu kaufen.",
+          "text": "Sobald die Person sich entscheidet, ein Produkt tatsächlich im Laden zu kaufen.",
           "isCorrect": false,
-          "rationale": "Dies beschreibt eher den \u00dcbergang zur Nachfrage, w\u00e4hrend der Bedarf bereits bei vorhandener Kaufkraft vorliegt."
+          "rationale": "Dies beschreibt eher den Übergang zur Nachfrage, während der Bedarf bereits bei vorhandener Kaufkraft vorliegt."
         },
         {
           "text": "Wenn zur Befriedigung des Mangels die notwendige Kaufkraft vorhanden ist.",
           "isCorrect": true,
-          "rationale": "Bedarf ist definiert als das mit Kaufkraft ausgestattete Bed\u00fcrfnis."
+          "rationale": "Bedarf ist definiert als das mit Kaufkraft ausgestattete Bedürfnis."
         },
         {
           "text": "Wenn das Mangelempfinden so stark wird, dass es nicht mehr ignoriert werden kann.",
           "isCorrect": false,
-          "rationale": "Ein starkes Mangelempfinden ohne finanzielle Mittel bleibt rein auf der Ebene des Bed\u00fcrfnisses."
+          "rationale": "Ein starkes Mangelempfinden ohne finanzielle Mittel bleibt rein auf der Ebene des Bedürfnisses."
         },
         {
           "text": "Sobald ein Unternehmen ein passendes Produkt am Markt anbietet.",
@@ -25,7 +25,7 @@
           "rationale": "Das Marktangebot allein schafft keinen Bedarf beim Individuum; entscheidend ist die eigene Kaufkraft."
         }
       ],
-      "hint": "\u00dcberlegen Sie, welche Rolle das 'Kleingeld in der Tasche' f\u00fcr die Definition spielt."
+      "hint": "Überlegen Sie, welche Rolle das 'Kleingeld in der Tasche' für die Definition spielt."
     },
     {
       "question": "Welcher Schritt folgt unmittelbar, wenn ein Bedarf am Markt durch eine konkrete Bestellung gedeckt wird?",
@@ -36,25 +36,25 @@
           "rationale": "Die Wirksamwerdung des Bedarfs am Markt, zum Beispiel durch eine Bestellung, wird als Nachfrage bezeichnet."
         },
         {
-          "text": "Es entsteht ein neues Bed\u00fcrfnis.",
+          "text": "Es entsteht ein neues Bedürfnis.",
           "isCorrect": false,
-          "rationale": "Die Bestellung dient der Befriedigung eines bestehenden Bed\u00fcrfnisses, nicht der Erzeugung eines neuen."
+          "rationale": "Die Bestellung dient der Befriedigung eines bestehenden Bedürfnisses, nicht der Erzeugung eines neuen."
         },
         {
           "text": "Es bilden sich soziale Ziele.",
           "isCorrect": false,
-          "rationale": "Soziale Ziele beziehen sich auf die Mitarbeiterf\u00fchrung und nicht auf den individuellen Kaufprozess."
+          "rationale": "Soziale Ziele beziehen sich auf die Mitarbeiterführung und nicht auf den individuellen Kaufprozess."
         },
         {
           "text": "Das Produkt wird zum Betriebsmittel.",
           "isCorrect": false,
-          "rationale": "Betriebsmittel sind langlebige G\u00fcter f\u00fcr die Produktion, keine Konsumg\u00fcter des t\u00e4glichen Bedarfs."
+          "rationale": "Betriebsmittel sind langlebige Güter für die Produktion, keine Konsumgüter des täglichen Bedarfs."
         }
       ],
-      "hint": "Denken Sie an den Begriff f\u00fcr die Kaufentscheidung, die direkt an den Markt herangetragen wird."
+      "hint": "Denken Sie an den Begriff für die Kaufentscheidung, die direkt an den Markt herangetragen wird."
     },
     {
-      "question": "Wie wird die kostenpflichtige Beratung eines Anwalts f\u00fcr eine private Angelegenheit eingeordnet?",
+      "question": "Wie wird die kostenpflichtige Beratung eines Anwalts für eine private Angelegenheit eingeordnet?",
       "answerOptions": [
         {
           "text": "Als langlebiges Betriebsmittel.",
@@ -62,14 +62,14 @@
           "rationale": "Dienstleistungen sind immateriell und keine technischen Anlagen zur Leistungserstellung."
         },
         {
-          "text": "Als Werkstoff f\u00fcr die Produktion.",
+          "text": "Als Werkstoff für die Produktion.",
           "isCorrect": false,
           "rationale": "Werkstoffe werden verarbeitet oder umverpackt, was auf eine Rechtsberatung nicht zutrifft."
         },
         {
           "text": "Als Konsum- und Verbrauchsgut.",
           "isCorrect": true,
-          "rationale": "Dienstleistungen f\u00fcr private Zwecke gelten im wirtschaftlichen Sinne als Konsum- und Verbrauchsg\u00fcter."
+          "rationale": "Dienstleistungen für private Zwecke gelten im wirtschaftlichen Sinne als Konsum- und Verbrauchsgüter."
         },
         {
           "text": "Als sachliches Ziel des Klienten.",
@@ -80,15 +80,15 @@
       "hint": "Betrachten Sie den Zweck der Dienstleistung im privaten Kontext."
     },
     {
-      "question": "Was ist ein typisches Beispiel f\u00fcr ein 'soziales Ziel' in einem Unternehmen?",
+      "question": "Was ist ein typisches Beispiel für ein 'soziales Ziel' in einem Unternehmen?",
       "answerOptions": [
         {
-          "text": "Die Festlegung des Produktportfolios f\u00fcr das n\u00e4chste Gesch\u00e4ftsjahr.",
+          "text": "Die Festlegung des Produktportfolios für das nächste Geschäftsjahr.",
           "isCorrect": false,
-          "rationale": "Die Entscheidung \u00fcber Produkte geh\u00f6rt zu den sachlichen Zielen des Unternehmens."
+          "rationale": "Die Entscheidung über Produkte gehört zu den sachlichen Zielen des Unternehmens."
         },
         {
-          "text": "Die Einf\u00fchrung einer gerechten Entlohnung und humane Arbeitsbedingungen.",
+          "text": "Die Einführung einer gerechten Entlohnung und humane Arbeitsbedingungen.",
           "isCorrect": true,
           "rationale": "Soziale Ziele richten sich auf die Zufriedenheit und Motivation der Belegschaft."
         },
@@ -98,9 +98,9 @@
           "rationale": "Maschinen sind Betriebsmittel; ihre Anschaffung dient eher technischen oder wirtschaftlichen Zielen."
         },
         {
-          "text": "Die Erschlie\u00dfung neuer M\u00e4rkte f\u00fcr den Vertrieb von Fahrr\u00e4dern.",
+          "text": "Die Erschließung neuer Märkte für den Vertrieb von Fahrrädern.",
           "isCorrect": false,
-          "rationale": "Markterschlie\u00dfung und Vertriebskonzeption sind Bestandteile der sachlichen Zielsetzung."
+          "rationale": "Markterschließung und Vertriebskonzeption sind Bestandteile der sachlichen Zielsetzung."
         }
       ],
       "hint": "Konzentrieren Sie sich auf Aspekte, die direkt das Wohlergehen der Mitarbeiter betreffen."
@@ -116,12 +116,12 @@
         {
           "text": "Die Maximierung des Gewinns durch Einsparungen bei den Werkstoffen.",
           "isCorrect": false,
-          "rationale": "Gewinnmaximierung ist ein \u00f6konomisches Ziel, kein rein sachliches Ziel bez\u00fcglich des Angebots."
+          "rationale": "Gewinnmaximierung ist ein ökonomisches Ziel, kein rein sachliches Ziel bezüglich des Angebots."
         },
         {
-          "text": "Die F\u00f6rderung der Mitarbeiterzufriedenheit durch Gewinnbeteiligung.",
+          "text": "Die Förderung der Mitarbeiterzufriedenheit durch Gewinnbeteiligung.",
           "isCorrect": false,
-          "rationale": "Mitarbeiterfokussierte Ma\u00dfnahmen fallen unter die Kategorie der sozialen Ziele."
+          "rationale": "Mitarbeiterfokussierte Maßnahmen fallen unter die Kategorie der sozialen Ziele."
         },
         {
           "text": "Die langfristige Erhaltung der Betriebsmittel durch Wartung.",
@@ -132,17 +132,17 @@
       "hint": "Denken Sie an die Kernfrage: 'Was genau produziert oder verkauft das Unternehmen?'"
     },
     {
-      "question": "Zu welcher Kategorie geh\u00f6ren Materialien, die im Betrieb verarbeitet, bearbeitet oder ver\u00e4ndert werden?",
+      "question": "Zu welcher Kategorie gehören Materialien, die im Betrieb verarbeitet, bearbeitet oder verändert werden?",
       "answerOptions": [
         {
           "text": "Betriebsmittel",
           "isCorrect": false,
-          "rationale": "Betriebsmittel erm\u00f6glichen die Produktion technisch, werden aber selbst nicht im Produkt verarbeitet."
+          "rationale": "Betriebsmittel ermöglichen die Produktion technisch, werden aber selbst nicht im Produkt verarbeitet."
         },
         {
           "text": "Werkstoffe",
           "isCorrect": true,
-          "rationale": "Werkstoffe umfassen alle Materialien und Vorprodukte, die in die betriebliche Leistungserstellung einflie\u00dfen."
+          "rationale": "Werkstoffe umfassen alle Materialien und Vorprodukte, die in die betriebliche Leistungserstellung einfließen."
         },
         {
           "text": "Soziale Ziele",
@@ -150,72 +150,72 @@
           "rationale": "Ziele sind ideelle Vorstellungen, keine physischen Materialien."
         },
         {
-          "text": "Konsumg\u00fcter",
+          "text": "Konsumgüter",
           "isCorrect": false,
-          "rationale": "W\u00e4hrend Endprodukte Konsumg\u00fcter sein k\u00f6nnen, bezeichnet der Begriff im Produktionsprozess zun\u00e4chst die Werkstoffe."
+          "rationale": "Während Endprodukte Konsumgüter sein können, bezeichnet der Begriff im Produktionsprozess zunächst die Werkstoffe."
         }
       ],
-      "hint": "Suchen Sie nach dem Begriff f\u00fcr Substanzen, die am Ende Teil des fertigen Produkts werden oder dabei verbraucht werden."
+      "hint": "Suchen Sie nach dem Begriff für Substanzen, die am Ende Teil des fertigen Produkts werden oder dabei verbraucht werden."
     },
     {
-      "question": "Warum werden Computer in einem B\u00fcro in der Regel als 'Betriebsmittel' eingestuft?",
+      "question": "Warum werden Computer in einem Büro in der Regel als 'Betriebsmittel' eingestuft?",
       "answerOptions": [
         {
-          "text": "Weil sie kurzfristig verbraucht werden und st\u00e4ndig ersetzt werden m\u00fcssen.",
+          "text": "Weil sie kurzfristig verbraucht werden und ständig ersetzt werden müssen.",
           "isCorrect": false,
-          "rationale": "G\u00fcter, die verbraucht werden, z\u00e4hlen eher zu den Werkstoffen; Betriebsmittel sind langlebig."
+          "rationale": "Güter, die verbraucht werden, zählen eher zu den Werkstoffen; Betriebsmittel sind langlebig."
         },
         {
-          "text": "Weil sie langlebige Anlageg\u00fcter sind, die die Leistungserstellung technisch erm\u00f6glichen.",
+          "text": "Weil sie langlebige Anlagegüter sind, die die Leistungserstellung technisch ermöglichen.",
           "isCorrect": true,
-          "rationale": "Betriebsmittel sind G\u00fcter, die \u00fcber einen l\u00e4ngeren Zeitraum zur Produktion oder Verwaltung genutzt werden."
+          "rationale": "Betriebsmittel sind Güter, die über einen längeren Zeitraum zur Produktion oder Verwaltung genutzt werden."
         },
         {
           "text": "Weil sie direkt an den Endkunden weiterverkauft werden.",
           "isCorrect": false,
-          "rationale": "Gegenst\u00e4nde f\u00fcr den Weiterverkauf werden als Warenvorr\u00e4te den Werkstoffen zugeordnet."
+          "rationale": "Gegenstände für den Weiterverkauf werden als Warenvorräte den Werkstoffen zugeordnet."
         },
         {
           "text": "Weil sie ein Teil der sozialen Ziele zur Mitarbeiterunterhaltung sind.",
           "isCorrect": false,
-          "rationale": "Obwohl Computer die Zufriedenheit steigern k\u00f6nnen, ist ihre Prim\u00e4rfunktion die technische Unterst\u00fctzung der Arbeit."
+          "rationale": "Obwohl Computer die Zufriedenheit steigern können, ist ihre Primärfunktion die technische Unterstützung der Arbeit."
         }
       ],
-      "hint": "Ber\u00fccksichtigen Sie die Nutzungsdauer und die Funktion des Gegenstands im Arbeitsprozess."
+      "hint": "Berücksichtigen Sie die Nutzungsdauer und die Funktion des Gegenstands im Arbeitsprozess."
     },
     {
-      "question": "Warenvorr\u00e4te, die zum Beispiel nur umverpackt werden, z\u00e4hlen laut Quelle zu den:",
+      "question": "Warenvorräte, die zum Beispiel nur umverpackt werden, zählen laut Quelle zu den:",
       "answerOptions": [
         {
           "text": "Betriebsmitteln",
           "isCorrect": false,
-          "rationale": "Betriebsmittel sind Werkzeuge oder Maschinen, keine Vorr\u00e4te, die ver\u00e4ndert oder umgepackt werden."
+          "rationale": "Betriebsmittel sind Werkzeuge oder Maschinen, keine Vorräte, die verändert oder umgepackt werden."
         },
         {
           "text": "Sachlichen Zielen",
           "isCorrect": false,
-          "rationale": "Ziele sind Strategien, w\u00e4hrend Warenvorr\u00e4te physische Best\u00e4nde darstellen."
+          "rationale": "Ziele sind Strategien, während Warenvorräte physische Bestände darstellen."
         },
         {
           "text": "Werkstoffen",
           "isCorrect": true,
-          "rationale": "Die Quelle ordnet Warenvorr\u00e4te explizit den Werkstoffen zu, da sie Teil der Leistungserstellung sind."
+          "rationale": "Die Quelle ordnet Warenvorräte explizit den Werkstoffen zu, da sie Teil der Leistungserstellung sind."
         },
         {
           "text": "Dienstleistungen",
           "isCorrect": false,
-          "rationale": "Warenvorr\u00e4te sind materielle G\u00fcter, keine immateriellen Dienste."
+          "rationale": "Warenvorräte sind materielle Güter, keine immateriellen Dienste."
         }
       ],
-      "hint": "Erinnern Sie sich an die Definition von Materialien, die bezogen und gegebenenfalls leicht ver\u00e4ndert werden."
+      "hint": "Erinnern Sie sich an die Definition von Materialien, die bezogen und gegebenenfalls leicht verändert werden."
     },
     {
-      "question": "Ein Unternehmen beschlie\u00dft, ma\u00dfgeschneiderte IT-L\u00f6sungen anzubieten. Dies ist ein Beispiel f\u00fcr ein:",
+      "question": "Ein Unternehmen beschließt, maßgeschneiderte IT-Lösungen anzubieten. Dies ist ein Beispiel für ein:",
       "answerOptions": [
         {
           "text": "Soziales Ziel",
           "isCorrect": false,
-          "rationale": "Ein soziales Ziel w\u00fcrde sich auf die Arbeitsbedingungen der IT-Mitarbeiter beziehen."
+          "rationale": "Ein soziales Ziel würde sich auf die Arbeitsbedingungen der IT-Mitarbeiter beziehen."
         },
         {
           "text": "Werkstoffliches Ziel",
@@ -225,18 +225,18 @@
         {
           "text": "Sachliches Ziel",
           "isCorrect": true,
-          "rationale": "Die Entscheidung \u00fcber das Leistungsspektrum (hier IT-L\u00f6sungen) ist ein klassisches sachliches Ziel."
+          "rationale": "Die Entscheidung über das Leistungsspektrum (hier IT-Lösungen) ist ein klassisches sachliches Ziel."
         },
         {
           "text": "Bedarfsziel",
           "isCorrect": false,
-          "rationale": "Der Bedarf liegt auf der Seite der Kunden, w\u00e4hrend das Ziel die Planung des Unternehmens darstellt."
+          "rationale": "Der Bedarf liegt auf der Seite der Kunden, während das Ziel die Planung des Unternehmens darstellt."
         }
       ],
-      "hint": "\u00dcberlegen Sie, ob dies eine Festlegung des Produkt- und Leistungsspektrums darstellt."
+      "hint": "Überlegen Sie, ob dies eine Festlegung des Produkt- und Leistungsspektrums darstellt."
     },
     {
-      "question": "Welche der folgenden Aussagen \u00fcber Betriebsmittel ist korrekt?",
+      "question": "Welche der folgenden Aussagen über Betriebsmittel ist korrekt?",
       "answerOptions": [
         {
           "text": "Betriebsmittel gehen direkt als Bestandteil in das fertige Endprodukt ein.",
@@ -246,20 +246,20 @@
         {
           "text": "Betriebsmittel umfassen Maschinen, Fahrzeuge und Werkzeuge.",
           "isCorrect": true,
-          "rationale": "Diese G\u00fcter erm\u00f6glichen die Produktion technisch und z\u00e4hlen zur Betriebs- und Gesch\u00e4ftsausstattung."
+          "rationale": "Diese Güter ermöglichen die Produktion technisch und zählen zur Betriebs- und Geschäftsausstattung."
         },
         {
-          "text": "Betriebsmittel sind kurzlebige G\u00fcter, die sofort nach dem Kauf verbraucht werden.",
+          "text": "Betriebsmittel sind kurzlebige Güter, die sofort nach dem Kauf verbraucht werden.",
           "isCorrect": false,
-          "rationale": "Betriebsmittel sind in der Regel langlebige Anlageg\u00fcter."
+          "rationale": "Betriebsmittel sind in der Regel langlebige Anlagegüter."
         },
         {
-          "text": "Betriebsmittel dienen prim\u00e4r der Deckung privater Bed\u00fcrfnisse.",
+          "text": "Betriebsmittel dienen primär der Deckung privater Bedürfnisse.",
           "isCorrect": false,
-          "rationale": "Betriebsmittel werden f\u00fcr die betriebliche Leistungserstellung genutzt, nicht f\u00fcr den privaten Konsum."
+          "rationale": "Betriebsmittel werden für die betriebliche Leistungserstellung genutzt, nicht für den privaten Konsum."
         }
       ],
-      "hint": "Denken Sie an die physischen Gegenst\u00e4nde, die ein Unternehmen langfristig zur Arbeit ben\u00f6tigt."
+      "hint": "Denken Sie an die physischen Gegenstände, die ein Unternehmen langfristig zur Arbeit benötigt."
     }
   ]
 }
