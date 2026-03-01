@@ -83,7 +83,7 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme })
                             </button>
                         </div>
 
-                        <h3 style={{ color: 'white', marginBottom: '0.5rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Account</h3>
+                        <h3 style={{ color: 'var(--text-light)', marginBottom: '0.5rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Account</h3>
                         {authUser ? (
                             <div style={{ marginBottom: '1.5rem' }}>
                                 <p style={{ color: 'var(--primary)', fontWeight: 'bold', fontSize: '0.9rem', marginBottom: '0.5rem' }}>{authUser.email}</p>
@@ -96,7 +96,7 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme })
                             </div>
                         )}
 
-                        <h3 style={{ color: 'white', marginBottom: '1rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Mein Lernstand</h3>
+                        <h3 style={{ color: 'var(--text-light)', marginBottom: '1rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Mein Lernstand</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', flex: 1, overflowY: 'auto' }}>
 
                             <div className="stat-card">
