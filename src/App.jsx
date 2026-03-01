@@ -745,19 +745,32 @@ function App() {
   }
 
   if (appMode === 'dashboard') {
-    const quizTotal = [...(quiz1.questions || []), ...(quiz2.questions || []), ...(quiz3.questions || []), ...(quizUForm2.questions || [])].length;
+    const allQuizQuestions = [...(quiz1.questions || []), ...(quiz2.questions || []), ...(quiz3.questions || []), ...(quizUForm2.questions || [])];
+    const quizTotal = allQuizQuestions.length;
+    const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+    const wisorQuestions = wisor1.questions || [];
+    const wisorEcoQuestions = wisorEco.questions || [];
     const stats = {
       quizTotal,
       quizLearned: quizTotal - allQuizzes.length,
-      wisorTotal: wisor1.questions?.length || 0,
+      wisorTotal: wisorQuestions.length,
       wisorLearned: Object.keys(completedWisors).length,
-      wisorEcoTotal: wisorEco.questions?.length || 0,
+      wisorEcoTotal: wisorEcoQuestions.length,
       wisorEcoLearned: Object.keys(completedWisorsEco).length,
+    };
+
+    const questionData = {
+      quizQuestions: allQuizQuestions,
+      quizProgress: quizProg,
+      wisorQuestions,
+      wisorProgress: completedWisors,
+      wisorEcoQuestions,
+      wisorEcoProgress: completedWisorsEco,
     };
 
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
-        <BurgerMenu authUser={authUser} handleLogout={handleLogout} stats={stats} isLightMode={isLightMode} toggleTheme={toggleTheme} />
+        <BurgerMenu authUser={authUser} handleLogout={handleLogout} stats={stats} isLightMode={isLightMode} toggleTheme={toggleTheme} questionData={questionData} formatLatex={formatLatex} />
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header style={{ position: 'relative', width: '100%' }}>
