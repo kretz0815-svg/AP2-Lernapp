@@ -66,10 +66,30 @@ const FloatingImage = ({ svgCode }) => {
                             </button>
                         </div>
 
-                        <div style={{
-                            flex: 1, overflow: 'auto', background: 'rgba(255,255,255,0.05)',
-                            borderRadius: '12px', padding: '1rem', display: 'flex', justifyContent: 'center'
-                        }} dangerouslySetInnerHTML={{ __html: svgCode }} />
+                        <div
+                            className="svg-modal-content"
+                            style={{
+                                flex: 1, overflow: 'auto', background: 'rgba(255,255,255,0.05)',
+                                borderRadius: '12px', padding: '1rem',
+                                // Remove flex to let SVG take basic block sizing, preventing Safari mobile collapse
+                                textAlign: 'center'
+                            }}
+                            dangerouslySetInnerHTML={{ __html: svgCode }}
+                        />
+                        <style>{`
+                            .svg-modal-content svg {
+                                max-width: 100%;
+                                height: auto;
+                                /* Fallback min-height in case CSS engine fails to calculate aspect ratio */
+                                min-height: 200px;
+                            }
+                            @media (max-width: 768px) {
+                                .svg-modal-content svg {
+                                    /* Allow horizontal scrolling on mobile instead of shrinking to unreadable size */
+                                    min-width: 600px;
+                                }
+                            }
+                        `}</style>
                     </div>
                 </div>
             )}
