@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, onOpenQuestionManager }) => {
+const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, onOpenQuestionManager, onStartPomodoro, pomodoroRunning }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleCategoryClick = (category) => {
@@ -77,6 +77,25 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
                                     <polygon points="87,20 88.5,23.5 92,25 88.5,26.5 87,30 85.5,26.5 82,25 85.5,23.5" fill="currentColor" />
                                     <polygon points="78,16 79,18 81,19 79,20 78,22 77,20 75,19 77,18" fill="currentColor" />
                                 </svg>
+                            </button>
+                            <button
+                                onClick={() => { if (onStartPomodoro) onStartPomodoro(); setIsOpen(false); }}
+                                disabled={pomodoroRunning}
+                                style={{
+                                    background: pomodoroRunning ? 'rgba(239,68,68,0.15)' : 'transparent',
+                                    border: pomodoroRunning ? '1px solid rgba(239,68,68,0.3)' : 'none',
+                                    cursor: pomodoroRunning ? 'default' : 'pointer',
+                                    fontSize: '1.5rem',
+                                    padding: '0.2rem 0.4rem',
+                                    borderRadius: '8px',
+                                    transition: 'transform 0.2s',
+                                    opacity: pomodoroRunning ? 0.5 : 1
+                                }}
+                                title={pomodoroRunning ? 'Pomodoro läuft bereits' : 'Pomodoro Timer starten (25 Min)'}
+                                onMouseOver={(e) => { if (!pomodoroRunning) e.currentTarget.style.transform = 'scale(1.15)'; }}
+                                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                            >
+                                🍅
                             </button>
                             <button
                                 onClick={() => setIsOpen(false)}

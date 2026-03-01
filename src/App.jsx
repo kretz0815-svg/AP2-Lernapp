@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import './index.css';
 import flashcards1 from './data/flashcards_1.json';
 import flashcards2 from './data/flashcards_2.json';
@@ -20,6 +21,7 @@ import FloatingCalculator from './components/FloatingCalculator';
 import FloatingImage from './components/FloatingImage';
 import BurgerMenu from './components/BurgerMenu';
 import QuestionManager from './components/QuestionManager';
+import PomodoroTimer from './components/PomodoroTimer';
 
 const generateId = (text) => {
   let hash = 0;
@@ -135,6 +137,8 @@ function App() {
   const [resetTarget, setResetTarget] = useState('wisor');
   const [resetMath, setResetMath] = useState({ a: 0, b: 0, input: '' });
   const [questionManagerCategory, setQuestionManagerCategory] = useState(null);
+  const [pomodoroActive, setPomodoroActive] = useState(false);
+  const [pomodoroSessionLog, setPomodoroSessionLog] = useState([]);
   const wisorInputRef = useRef(null);
 
   useEffect(() => {
@@ -464,6 +468,13 @@ function App() {
       setQuizScore(s => ({ ...s, correct: s.correct + 1 }));
     }
 
+    // Pomodoro session logging
+    if (pomodoroActive) {
+      const questionText = q.question?.substring(0, 100) || 'Quiz-Frage';
+      const topic = q.hint ? 'Quiz' : 'Quiz';
+      setPomodoroSessionLog(prev => [...prev, { correct: isCorrect, questionText, topic: 'Quiz' }]);
+    }
+
     // Spaced repetition update
     let quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
     let { rep, ef, interval } = q.progress;
@@ -628,6 +639,14 @@ function App() {
 
     setWisorIsCorrect(correct);
     setWisorEvaluated(true);
+
+    // Pomodoro session logging
+    if (pomodoroActive) {
+      const questionText = q.question?.substring(0, 100) || q.id || 'WisoR-Frage';
+      const topicLabel = activeWisorMode === 'wisor1' ? 'WisoR' : 'WisoR E-Commerce';
+      setPomodoroSessionLog(prev => [...prev, { correct, questionText, topic: topicLabel }]);
+    }
+
     if (correct) {
       setWisorScore(s => ({ ...s, correct: s.correct + 1 }));
 
@@ -746,6 +765,27 @@ function App() {
     );
   }
 
+  // --- POMODORO PORTAL (renders globally across all modes) ---
+  const pomodoroPortal = createPortal(
+    <PomodoroTimer
+      isActive={pomodoroActive}
+      sessionLog={pomodoroSessionLog}
+      appMode={appMode}
+      onStart={() => { setPomodoroActive(true); setPomodoroSessionLog([]); }}
+      onStop={() => setPomodoroActive(false)}
+      onTimeUp={() => {
+        // Force end the current session
+        if (appMode === 'quiz') {
+          setCurrentQuizIndex(allQuizzes.length); // triggers end screen
+        } else if (appMode === 'wisor') {
+          setCurrentWisorIndex(allWisors.length); // triggers end screen
+        }
+        setPomodoroActive(false);
+      }}
+    />,
+    document.body
+  );
+
   if (appMode === 'dashboard') {
     const allQuizQuestions = [...(quiz1.questions || []), ...(quiz2.questions || []), ...(quiz3.questions || []), ...(quizUForm2.questions || [])];
     const quizTotal = allQuizQuestions.length;
@@ -772,7 +812,8 @@ function App() {
 
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
-        <BurgerMenu authUser={authUser} handleLogout={handleLogout} stats={stats} isLightMode={isLightMode} toggleTheme={toggleTheme} onOpenQuestionManager={(cat) => setQuestionManagerCategory(cat)} />
+        {pomodoroPortal}
+        <BurgerMenu authUser={authUser} handleLogout={handleLogout} stats={stats} isLightMode={isLightMode} toggleTheme={toggleTheme} onOpenQuestionManager={(cat) => setQuestionManagerCategory(cat)} onStartPomodoro={() => { setPomodoroActive(true); setPomodoroSessionLog([]); }} pomodoroRunning={pomodoroActive} />
         {questionManagerCategory && (
           <QuestionManager
             category={questionManagerCategory}
@@ -1184,6 +1225,7 @@ Die JSON muss exakt diese Struktur haben:
 
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
+        {pomodoroPortal}
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header>
@@ -1381,6 +1423,7 @@ Die JSON muss exakt diese Struktur haben:
 
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
+        {pomodoroPortal}
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header>
