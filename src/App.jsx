@@ -732,7 +732,17 @@ function App() {
         </header>
         <div className="dashboard-grid">
           <div className="dash-card" onClick={() => { setAppMode('quiz_setup'); }}>
-            <div className="dash-icon">🌊</div>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <svg width="1.2em" height="1.2em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="85" cy="85" r="50" fill="none" stroke="var(--text-light)" strokeWidth="35" />
+                <circle cx="85" cy="85" r="25" fill="var(--text-light)" />
+                <rect x="190" y="45" width="290" height="80" rx="10" fill="var(--text-light)" />
+                <circle cx="85" cy="256" r="50" fill="none" stroke="var(--text-light)" strokeWidth="35" />
+                <rect x="190" y="216" width="290" height="80" rx="10" fill="var(--text-light)" />
+                <circle cx="85" cy="427" r="50" fill="none" stroke="var(--text-light)" strokeWidth="35" />
+                <rect x="190" y="387" width="290" height="80" rx="10" fill="var(--text-light)" />
+              </svg>
+            </div>
             <h2>Wissen testen<br />(Quiz)</h2>
             <p>Multiple-Choice Fragen zum Überprüfen deines Wissensstands.</p>
             <div className="chip">{allQuizzes.length === 0 ? 'Alles gemeistert! 🎉' : `${allQuizzes.length} Fragen fällig`}</div>
