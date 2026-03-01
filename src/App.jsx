@@ -733,7 +733,7 @@ function App() {
         <div className="dashboard-grid">
           <div className="dash-card" onClick={() => { setAppMode('quiz_setup'); }}>
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <svg width="1.2em" height="1.2em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <svg width="0.9em" height="0.9em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="85" cy="85" r="50" fill="none" stroke="var(--text-light)" strokeWidth="35" />
                 <circle cx="85" cy="85" r="25" fill="var(--text-light)" />
                 <rect x="190" y="45" width="290" height="80" rx="10" fill="var(--text-light)" />
