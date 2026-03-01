@@ -16,7 +16,9 @@ export default function QuestionManager({ category, questions, progress, formatL
     const [filterMode, setFilterMode] = useState('all'); // 'all', 'learned', 'unlearned'
     const [editingId, setEditingId] = useState(null);
     const [editText, setEditText] = useState('');
+    const [editAnswers, setEditAnswers] = useState([]);
     const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+    const [expandedQuestionId, setExpandedQuestionId] = useState(null);
     const [localProgress, setLocalProgress] = useState(progress || {});
     const [deletedIds, setDeletedIds] = useState(() => {
         return JSON.parse(localStorage.getItem(`ap2_deleted_${category}`) || '[]');
@@ -114,13 +116,25 @@ export default function QuestionManager({ category, questions, progress, formatL
         localStorage.setItem(`ap2_deleted_${category}`, JSON.stringify(newDeleted));
     };
 
-    const handleStartEdit = (id, text) => {
+    const handleStartEdit = (id, text, raw) => {
         setEditingId(id);
         setEditText(text);
+        // For quiz questions, also load answer options for editing
+        if (category === 'quiz' && raw.answerOptions) {
+            setEditAnswers(raw.answerOptions.map(a => ({ ...a })));
+        } else {
+            setEditAnswers([]);
+        }
     };
 
     const handleSaveEdit = (id) => {
-        const updated = { ...editOverrides, [id]: editText };
+        const updated = { ...editOverrides };
+        // Save question text override
+        updated[id] = editText;
+        // Save answer overrides if quiz
+        if (category === 'quiz' && editAnswers.length > 0) {
+            updated[`${id}_answers`] = editAnswers;
+        }
         setEditOverrides(updated);
         localStorage.setItem(`ap2_edits_${category}`, JSON.stringify(updated));
         setEditingId(null);
@@ -360,6 +374,173 @@ export default function QuestionManager({ category, questions, progress, formatL
                                                 {fmt(q.text)}
                                             </p>
                                         )}
+
+                                        {/* Quiz Answer Options (collapsible) */}
+                                        {category === 'quiz' && q.raw.answerOptions && editingId !== q.id && (
+                                            <div style={{ marginTop: '0.6rem' }}>
+                                                <button
+                                                    onClick={() => setExpandedQuestionId(expandedQuestionId === q.id ? null : q.id)}
+                                                    style={{
+                                                        background: 'transparent',
+                                                        border: 'none',
+                                                        color: 'var(--text-muted)',
+                                                        fontSize: '0.78rem',
+                                                        cursor: 'pointer',
+                                                        padding: '0.2rem 0',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        gap: '4px'
+                                                    }}
+                                                >
+                                                    <span style={{
+                                                        display: 'inline-block',
+                                                        transition: 'transform 0.2s',
+                                                        transform: expandedQuestionId === q.id ? 'rotate(90deg)' : 'rotate(0deg)',
+                                                        fontSize: '0.7rem'
+                                                    }}>▶</span>
+                                                    {expandedQuestionId === q.id ? 'Antworten verbergen' : 'Antworten anzeigen'} ({q.raw.answerOptions.length})
+                                                </button>
+                                                {expandedQuestionId === q.id && (
+                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginTop: '0.5rem' }}>
+                                                        {(editOverrides[`${q.id}_answers`] || q.raw.answerOptions).map((opt, i) => (
+                                                            <div key={i} style={{
+                                                                padding: '0.55rem 0.8rem',
+                                                                borderRadius: '8px',
+                                                                border: `1px solid ${opt.isCorrect ? 'rgba(34,197,94,0.35)' : 'rgba(248,113,113,0.25)'}`,
+                                                                background: opt.isCorrect ? 'rgba(34,197,94,0.08)' : 'rgba(248,113,113,0.05)',
+                                                                display: 'flex',
+                                                                gap: '0.6rem',
+                                                                alignItems: 'flex-start'
+                                                            }}>
+                                                                <span style={{
+                                                                    flexShrink: 0,
+                                                                    width: '20px',
+                                                                    height: '20px',
+                                                                    borderRadius: '50%',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center',
+                                                                    justifyContent: 'center',
+                                                                    fontSize: '0.7rem',
+                                                                    background: opt.isCorrect ? 'var(--success)' : 'rgba(248,113,113,0.3)',
+                                                                    color: '#fff',
+                                                                    fontWeight: 'bold'
+                                                                }}>
+                                                                    {opt.isCorrect ? '✓' : String.fromCharCode(65 + i)}
+                                                                </span>
+                                                                <div style={{ flex: 1 }}>
+                                                                    <p style={{
+                                                                        margin: 0,
+                                                                        fontSize: '0.82rem',
+                                                                        color: 'var(--text-light)',
+                                                                        lineHeight: '1.4'
+                                                                    }}>
+                                                                        {fmt(opt.text)}
+                                                                    </p>
+                                                                    {opt.rationale && (
+                                                                        <p style={{
+                                                                            margin: '0.3rem 0 0 0',
+                                                                            fontSize: '0.75rem',
+                                                                            color: 'var(--text-muted)',
+                                                                            lineHeight: '1.35',
+                                                                            fontStyle: 'italic'
+                                                                        }}>
+                                                                            💡 {fmt(opt.rationale)}
+                                                                        </p>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
+
+                                        {/* Quiz answers inline editing */}
+                                        {category === 'quiz' && editingId === q.id && editAnswers.length > 0 && (
+                                            <div style={{ marginTop: '1rem' }}>
+                                                <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Antwortoptionen bearbeiten:</h4>
+                                                {editAnswers.map((opt, i) => (
+                                                    <div key={i} style={{
+                                                        padding: '0.6rem',
+                                                        marginBottom: '0.5rem',
+                                                        borderRadius: '8px',
+                                                        border: `1px solid ${opt.isCorrect ? 'rgba(34,197,94,0.4)' : 'var(--glass-border)'}`,
+                                                        background: opt.isCorrect ? 'rgba(34,197,94,0.05)' : 'transparent'
+                                                    }}>
+                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                                                            <span style={{
+                                                                fontSize: '0.75rem',
+                                                                fontWeight: 'bold',
+                                                                color: opt.isCorrect ? '#22c55e' : 'var(--text-muted)'
+                                                            }}>
+                                                                {opt.isCorrect ? '✓ Richtig' : `${String.fromCharCode(65 + i)}) Falsch`}
+                                                            </span>
+                                                            <button
+                                                                onClick={() => {
+                                                                    const updated = editAnswers.map((a, j) => ({
+                                                                        ...a,
+                                                                        isCorrect: j === i
+                                                                    }));
+                                                                    setEditAnswers(updated);
+                                                                }}
+                                                                style={{
+                                                                    padding: '0.15rem 0.5rem',
+                                                                    borderRadius: '4px',
+                                                                    border: '1px solid var(--glass-border)',
+                                                                    background: 'transparent',
+                                                                    color: 'var(--text-muted)',
+                                                                    fontSize: '0.7rem',
+                                                                    cursor: 'pointer'
+                                                                }}
+                                                            >
+                                                                {opt.isCorrect ? 'ist richtig' : 'als richtig markieren'}
+                                                            </button>
+                                                        </div>
+                                                        <input
+                                                            type="text"
+                                                            value={opt.text}
+                                                            onChange={(e) => {
+                                                                const updated = [...editAnswers];
+                                                                updated[i] = { ...updated[i], text: e.target.value };
+                                                                setEditAnswers(updated);
+                                                            }}
+                                                            style={{
+                                                                width: '100%',
+                                                                padding: '0.45rem',
+                                                                borderRadius: '6px',
+                                                                border: '1px solid var(--glass-border)',
+                                                                background: 'rgba(255,255,255,0.05)',
+                                                                color: 'var(--text-light)',
+                                                                fontSize: '0.82rem',
+                                                                outline: 'none'
+                                                            }}
+                                                            placeholder="Antworttext..."
+                                                        />
+                                                        <input
+                                                            type="text"
+                                                            value={opt.rationale || ''}
+                                                            onChange={(e) => {
+                                                                const updated = [...editAnswers];
+                                                                updated[i] = { ...updated[i], rationale: e.target.value };
+                                                                setEditAnswers(updated);
+                                                            }}
+                                                            style={{
+                                                                width: '100%',
+                                                                padding: '0.35rem',
+                                                                borderRadius: '6px',
+                                                                border: '1px solid var(--glass-border)',
+                                                                background: 'rgba(255,255,255,0.03)',
+                                                                color: 'var(--text-muted)',
+                                                                fontSize: '0.75rem',
+                                                                outline: 'none',
+                                                                marginTop: '0.3rem'
+                                                            }}
+                                                            placeholder="Erklärung/Rationale..."
+                                                        />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
 
@@ -392,7 +573,7 @@ export default function QuestionManager({ category, questions, progress, formatL
                                         )}
 
                                         <button
-                                            onClick={() => handleStartEdit(q.id, q.text)}
+                                            onClick={() => handleStartEdit(q.id, q.text, q.raw)}
                                             title="Frage bearbeiten"
                                             style={{
                                                 padding: '0.35rem 0.7rem',
