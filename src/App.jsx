@@ -1021,11 +1021,11 @@ Die JSON muss exakt diese Struktur haben:
                                     onClick={(e) => {
                                       if (oIndex === q.correctAnswer) {
                                         e.target.style.background = '#10b981';
-                                        e.target.style.color = 'white';
+                                        e.target.style.color = '#fff';
                                         e.target.innerText = '✅ ' + formatLatex(opt);
                                       } else {
                                         e.target.style.background = '#ef4444';
-                                        e.target.style.color = 'white';
+                                        e.target.style.color = '#fff';
                                         e.target.innerText = '❌ ' + formatLatex(opt);
                                       }
                                     }}
