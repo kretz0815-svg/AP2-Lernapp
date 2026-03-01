@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 const FloatingImage = ({ svgCode }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -66,27 +67,51 @@ const FloatingImage = ({ svgCode }) => {
                             </button>
                         </div>
 
+                        <div className="zoom-hint" style={{ textAlign: 'center', color: '#cbd5e1', fontSize: '0.8rem', marginBottom: '1rem' }}>
+                            🔍 Mit 2 Fingern zoomen & verschieben
+                        </div>
+
                         <div
                             className="svg-modal-content"
                             style={{
-                                flex: 1, overflow: 'auto', background: 'rgba(255,255,255,0.05)',
+                                flex: 1,
+                                overflow: 'hidden', /* Verhindert doppelte Scrollbars, Zoom-Komponente regelt Panning */
+                                background: 'rgba(255,255,255,0.05)',
                                 borderRadius: '12px', padding: '1rem',
-                                // Remove flex to let SVG take basic block sizing, preventing Safari mobile collapse
-                                textAlign: 'center'
+                                display: 'flex', justifyContent: 'center', alignItems: 'center'
                             }}
-                            dangerouslySetInnerHTML={{ __html: svgCode }}
-                        />
+                        >
+                            <TransformWrapper
+                                initialScale={1}
+                                minScale={0.5}
+                                maxScale={4}
+                                centerOnInit={true}
+                                wheel={{ step: 0.1 }}
+                            >
+                                <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
+                                    <div
+                                        className="svg-container"
+                                        dangerouslySetInnerHTML={{ __html: svgCode }}
+                                    />
+                                </TransformComponent>
+                            </TransformWrapper>
+                        </div>
                         <style>{`
-                            .svg-modal-content svg {
-                                max-width: 100%;
-                                height: auto;
-                                /* Fallback min-height in case CSS engine fails to calculate aspect ratio */
-                                min-height: 200px;
+                            .svg-container {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                width: 100%;
+                                height: 100%;
                             }
-                            @media (max-width: 768px) {
-                                .svg-modal-content svg {
-                                    /* Allow horizontal scrolling on mobile instead of shrinking to unreadable size */
-                                    min-width: 600px;
+                            .svg-container svg {
+                                max-width: 100%;
+                                max-height: 100vh; /* Verhindert, dass das Bild ohne Zoom riesig ist */
+                                height: auto;
+                            }
+                            @media (min-width: 769px) {
+                                .zoom-hint {
+                                    display: none; /* Hinweis auf Desktop ausblenden */
                                 }
                             }
                         `}</style>
