@@ -308,6 +308,20 @@ function App() {
           if (data.progress_data.wisor_eco_progress) {
             localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(data.progress_data.wisor_eco_progress));
           }
+          // Merge saved notes from Supabase into localStorage
+          if (data.progress_data.saved_notes) {
+            const localNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
+            const remoteNotes = data.progress_data.saved_notes;
+            let merged = { ...localNotes };
+            for (const key of Object.keys(remoteNotes)) {
+              const remoteDate = new Date(remoteNotes[key]?.date || 0).getTime();
+              const localDate = new Date(localNotes[key]?.date || 0).getTime();
+              if (!localNotes[key] || remoteDate > localDate) {
+                merged[key] = remoteNotes[key];
+              }
+            }
+            localStorage.setItem('ap2_saved_notes', JSON.stringify(merged));
+          }
         } else if (!data) {
           // Init empty row
           await supabase.from('user_data').insert([{ device_id: deviceId, progress_data: progressData }]);
@@ -883,11 +897,22 @@ function App() {
     const savedNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
     const noteKeys = Object.keys(savedNotes).sort((a, b) => new Date(savedNotes[b].date) - new Date(savedNotes[a].date));
 
-    const handleDeleteNote = (key) => {
+    const handleDeleteNote = async (key) => {
       if (window.confirm('Möchtest du diese Notiz wirklich löschen?')) {
         const notes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
         delete notes[key];
         localStorage.setItem('ap2_saved_notes', JSON.stringify(notes));
+        // Sync deletion to Supabase
+        const deviceId = localStorage.getItem('masterpat_device_id');
+        if (deviceId) {
+          try {
+            const { data } = await supabase.from('user_data').select('progress_data').eq('device_id', deviceId).single();
+            if (data?.progress_data) {
+              data.progress_data.saved_notes = notes;
+              await supabase.from('user_data').update({ progress_data: data.progress_data, updated_at: new Date().toISOString() }).eq('device_id', deviceId);
+            }
+          } catch (err) { console.error('Supabase note delete sync error:', err); }
+        }
         setAppMode('');
         setTimeout(() => setAppMode('notes_manager'), 0);
       }
@@ -949,6 +974,17 @@ Die JSON muss exakt diese Struktur haben:
             const parsedData = JSON.parse(cleanResponse);
             notes[key].deepLearningResult = parsedData;
             localStorage.setItem('ap2_saved_notes', JSON.stringify(notes));
+            // Sync deep learning result to Supabase
+            const deviceId = localStorage.getItem('masterpat_device_id');
+            if (deviceId) {
+              try {
+                const { data: dbRow } = await supabase.from('user_data').select('progress_data').eq('device_id', deviceId).single();
+                if (dbRow?.progress_data) {
+                  dbRow.progress_data.saved_notes = notes;
+                  await supabase.from('user_data').update({ progress_data: dbRow.progress_data, updated_at: new Date().toISOString() }).eq('device_id', deviceId);
+                }
+              } catch (err) { console.error('Supabase deep learning sync error:', err); }
+            }
           } catch (e) {
             console.error('Failed to parse JSON', e);
             alert('Die KI hat ein ungültiges Format gesendet.');

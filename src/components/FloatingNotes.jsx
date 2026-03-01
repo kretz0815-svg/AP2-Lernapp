@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { supabase } from '../supabaseClient';
 import '../index.css';
 
 export default function FloatingNotes({ questionId, questionText }) {
@@ -26,23 +27,97 @@ export default function FloatingNotes({ questionId, questionText }) {
     const startSizeRef = useRef({ w: 0, h: 0 });
     const startMouseRef = useRef({ x: 0, y: 0 });
 
-    useEffect(() => {
-        const saved = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
-        if (saved[questionId]) {
-            setNotes(saved[questionId].text);
-        } else {
-            setNotes('');
+    // --- Helper: read all notes (localStorage + Supabase merge) ---
+    const getAllNotes = () => {
+        return JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
+    };
+
+    // --- Helper: persist notes to localStorage AND Supabase ---
+    const persistNotes = async (allNotes) => {
+        localStorage.setItem('ap2_saved_notes', JSON.stringify(allNotes));
+
+        // Also sync to Supabase so notes appear on all devices
+        const deviceId = localStorage.getItem('masterpat_device_id');
+        if (deviceId) {
+            try {
+                const { data } = await supabase
+                    .from('user_data')
+                    .select('progress_data')
+                    .eq('device_id', deviceId)
+                    .single();
+
+                const progressData = (data && data.progress_data) ? data.progress_data : {};
+                progressData.saved_notes = allNotes;
+
+                await supabase
+                    .from('user_data')
+                    .update({ progress_data: progressData, updated_at: new Date().toISOString() })
+                    .eq('device_id', deviceId);
+            } catch (err) {
+                console.error('Supabase notes sync error:', err);
+            }
         }
+    };
+
+    // --- Load note for current question (from localStorage first, then Supabase in background) ---
+    useEffect(() => {
+        // Immediately load from localStorage
+        const saved = getAllNotes();
+        setNotes(saved[questionId]?.text || '');
+
+        // Then try to pull latest from Supabase (in case another device saved something newer)
+        const syncFromSupabase = async () => {
+            const deviceId = localStorage.getItem('masterpat_device_id');
+            if (!deviceId) return;
+
+            try {
+                const { data } = await supabase
+                    .from('user_data')
+                    .select('progress_data')
+                    .eq('device_id', deviceId)
+                    .single();
+
+                if (data?.progress_data?.saved_notes) {
+                    const remoteNotes = data.progress_data.saved_notes;
+                    const localNotes = getAllNotes();
+
+                    // Merge: for each key, keep the one with the newer date
+                    let merged = { ...localNotes };
+                    let changed = false;
+                    for (const key of Object.keys(remoteNotes)) {
+                        const remoteDate = new Date(remoteNotes[key]?.date || 0).getTime();
+                        const localDate = new Date(localNotes[key]?.date || 0).getTime();
+                        if (!localNotes[key] || remoteDate > localDate) {
+                            merged[key] = remoteNotes[key];
+                            changed = true;
+                        }
+                    }
+
+                    if (changed) {
+                        localStorage.setItem('ap2_saved_notes', JSON.stringify(merged));
+                        // Update the current note if it changed
+                        if (merged[questionId]?.text && merged[questionId].text !== notes) {
+                            setNotes(merged[questionId].text);
+                        }
+                    }
+                }
+            } catch (err) {
+                // Silently fail – localStorage version still works
+                console.error('Supabase notes fetch error:', err);
+            }
+        };
+
+        syncFromSupabase();
     }, [questionId]);
 
-    const handleSaveNote = () => {
-        const saved = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
+    const handleSaveNote = async () => {
+        const saved = getAllNotes();
         saved[questionId] = {
             text: notes,
             context: questionText || 'Kein Kontext',
             date: new Date().toISOString()
         };
-        localStorage.setItem('ap2_saved_notes', JSON.stringify(saved));
+        await persistNotes(saved);
         alert('Notiz erfolgreich gespeichert!');
     };
 
