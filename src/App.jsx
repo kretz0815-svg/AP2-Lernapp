@@ -18,6 +18,7 @@ import { fetchYouTubeVideos } from './youtubeClient';
 import FloatingNotes from './components/FloatingNotes';
 import FloatingCalculator from './components/FloatingCalculator';
 import FloatingImage from './components/FloatingImage';
+import BurgerMenu from './components/BurgerMenu';
 
 const generateId = (text) => {
   let hash = 0;
@@ -710,8 +711,19 @@ function App() {
   }
 
   if (appMode === 'dashboard') {
+    const quizTotal = [...(quiz1.questions || []), ...(quiz2.questions || []), ...(quiz3.questions || []), ...(quizUForm2.questions || [])].length;
+    const stats = {
+      quizTotal,
+      quizLearned: quizTotal - allQuizzes.length,
+      wisorTotal: wisor1.questions?.length || 0,
+      wisorLearned: Object.keys(completedWisors).length,
+      wisorEcoTotal: wisorEco.questions?.length || 0,
+      wisorEcoLearned: Object.keys(completedWisorsEco).length,
+    };
+
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
+        <BurgerMenu authUser={authUser} handleLogout={handleLogout} stats={stats} />
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header style={{ position: 'relative', width: '100%' }}>
@@ -724,21 +736,6 @@ function App() {
           >
             🌗
           </button>
-          {authUser ? (
-            <button
-              onClick={handleLogout}
-              style={{ position: 'absolute', left: 0, top: '0.5rem', background: 'transparent', border: 'none', fontSize: '0.9rem', color: 'var(--error)', cursor: 'pointer', zIndex: 20, textDecoration: 'underline' }}
-            >
-              Logout ({authUser.email})
-            </button>
-          ) : (
-            <button
-              onClick={handleLogout}
-              style={{ position: 'absolute', left: 0, top: '0.5rem', background: 'transparent', border: 'none', fontSize: '0.9rem', color: 'var(--text-muted)', cursor: 'pointer', zIndex: 20, textDecoration: 'underline' }}
-            >
-              (Gast) Abmelden
-            </button>
-          )}
           <h1 style={{ fontFamily: '"Bungee", sans-serif', fontWeight: 'bold', letterSpacing: '2px', fontSize: '2.5rem', color: 'white', textShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>MasterPat APP</h1>
           <p className="subtitle">Wähle deinen Lernmodus</p>
         </header>
