@@ -652,7 +652,7 @@ function App() {
         <div className="blob blob-2"></div>
 
         <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '400px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-          <h2 style={{ color: 'white', marginBottom: '1.5rem', fontSize: '2rem' }}>Login / Account</h2>
+          <h2 style={{ color: 'var(--text-light)', marginBottom: '1.5rem', fontSize: '2rem' }}>Login / Account</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.95rem' }}>Erstelle einen Account oder logge dich ein, um deinen Lernfortschritt auf all deinen Geräten ("Cloud") synchron zu halten.</p>
           <form style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
             <input
@@ -793,10 +793,10 @@ function App() {
         {resetModalVisible && (
           <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div className="card-face fade-in" style={{ padding: '2rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center', maxWidth: '350px' }}>
-              <h3 style={{ color: 'white', marginBottom: '1rem' }}>Fortschritt zurücksetzen?</h3>
+              <h3 style={{ color: 'var(--text-light)', marginBottom: '1rem' }}>Fortschritt zurücksetzen?</h3>
               <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>Bitte löse folgende Aufgabe, um ein versehentliches Löschen zu verhindern:</p>
               <form onSubmit={handleResetConfirm}>
-                <p style={{ fontSize: '1.5rem', color: 'white', marginBottom: '1rem' }}>{resetMath.a} + {resetMath.b} = ?</p>
+                <p style={{ fontSize: '1.5rem', color: 'var(--text-light)', marginBottom: '1rem' }}>{resetMath.a} + {resetMath.b} = ?</p>
                 <input
                   type="number"
                   className="wisor-input"
@@ -912,12 +912,12 @@ Die JSON muss exakt diese Struktur haben:
             <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
             <button className="btn-primary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', borderRadius: '8px' }} onClick={() => window.print()}>Als PDF drucken</button>
           </div>
-          <h1 style={{ margin: 0, color: 'white', fontSize: '2.5rem', textAlign: 'center', width: '100%' }}>Gespeicherte Notizen</h1>
+          <h1 style={{ margin: 0, color: 'var(--text-light)', fontSize: '2.5rem', textAlign: 'center', width: '100%' }}>Gespeicherte Notizen</h1>
         </header>
 
         <div className="notes-list-container" style={{ width: '100%' }}>
           {noteKeys.length === 0 ? (
-            <div style={{ color: 'white', textAlign: 'center', marginTop: '2rem' }}>Noch keine Notizen vorhanden.</div>
+            <div style={{ color: 'var(--text-light)', textAlign: 'center', marginTop: '2rem' }}>Noch keine Notizen vorhanden.</div>
           ) : (
             <div className="printable-notes" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '3rem' }}>
               {noteKeys.map(key => {
@@ -938,20 +938,20 @@ Die JSON muss exakt diese Struktur haben:
                     <div style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontStyle: 'italic', fontWeight: 'bold' }}>
                       {formatNoteContext(key, note.context)}
                     </div>
-                    <div style={{ color: 'white', whiteSpace: 'pre-wrap', lineHeight: '1.5' }}>
+                    <div style={{ color: 'var(--text-light)', whiteSpace: 'pre-wrap', lineHeight: '1.5' }}>
                       {note.text}
                     </div>
 
                     {note.deepLearningResult && typeof note.deepLearningResult === 'object' ? (
-                      <div className="fade-in hide-on-print" style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(0,0,0,0.3)', borderRadius: '12px', borderLeft: '4px solid var(--primary)', color: '#e2e8f0' }}>
-                        <h3 style={{ color: '#fff', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <div className="fade-in hide-on-print" style={{ marginTop: '2rem', padding: '1.5rem', background: 'var(--glass-bg)', borderRadius: '12px', borderLeft: '4px solid var(--primary)', color: 'var(--text-light)' }}>
+                        <h3 style={{ color: 'var(--text-light)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                           <span>🎯</span> Deep Learning Quiz
                         </h3>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                           {note.deepLearningResult.quiz?.map((q, qIndex) => (
-                            <div key={qIndex} style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '8px' }}>
-                              <p style={{ fontWeight: 'bold', marginBottom: '1rem', color: '#f8fafc' }}>{q.question}</p>
+                            <div key={qIndex} style={{ background: 'var(--glass-bg)', padding: '1rem', borderRadius: '8px' }}>
+                              <p style={{ fontWeight: 'bold', marginBottom: '1rem', color: 'var(--text-light)' }}>{q.question}</p>
                               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                 {q.options.map((opt, oIndex) => (
                                   <button
@@ -1016,7 +1016,7 @@ Die JSON muss exakt diese Struktur haben:
           <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
         </header>
         <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-          <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Wieviele Fragen?</h2>
+          <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Wieviele Fragen?</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Wähle aus, wie viele fällige Fragen du jetzt lernen möchtest.</p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <button className="btn-secondary" onClick={() => startQuizSession(10)}>10 Fragen</button>
@@ -1030,7 +1030,7 @@ Die JSON muss exakt diese Struktur haben:
   }
 
   if (appMode === 'quiz') {
-    if (allQuizzes.length === 0) return <div style={{ color: 'white', zIndex: 10 }}>Lade Quiz...</div>;
+    if (allQuizzes.length === 0) return <div style={{ color: 'var(--text-light)', zIndex: 10 }}>Lade Quiz...</div>;
 
     if (currentQuizIndex >= allQuizzes.length) {
       return (
@@ -1038,7 +1038,7 @@ Die JSON muss exakt diese Struktur haben:
           <div className="blob blob-1"></div>
           <div className="blob blob-2"></div>
           <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-            <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Quiz Beendet!</h2>
+            <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Quiz Beendet!</h2>
             <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {quizScore.correct} / {quizScore.total}</p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
               <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
@@ -1205,7 +1205,7 @@ Die JSON muss exakt diese Struktur haben:
           <div className="blob blob-1"></div>
           <div className="blob blob-2"></div>
           <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-            <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Alles geschafft! 🎉</h2>
+            <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Alles geschafft! 🎉</h2>
             <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Du hast alle Wisor-Fragen erfolgreich gemeistert.</p>
             <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
             <button className="btn-primary" onClick={(e) => openResetModal(e, activeWisorMode === 'wisor1' ? 'wisor' : 'wisorEco')} style={{ marginLeft: '1rem' }}>Fortschritt zurücksetzen</button>
@@ -1213,9 +1213,9 @@ Die JSON muss exakt diese Struktur haben:
           {resetModalVisible && (
             <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <div className="card-face fade-in" style={{ padding: '2rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center', maxWidth: '350px' }}>
-                <h3 style={{ color: 'white', marginBottom: '1rem' }}>Fortschritt zurücksetzen?</h3>
+                <h3 style={{ color: 'var(--text-light)', marginBottom: '1rem' }}>Fortschritt zurücksetzen?</h3>
                 <form onSubmit={handleResetConfirm}>
-                  <p style={{ fontSize: '1.5rem', color: 'white', marginBottom: '1rem' }}>{resetMath.a} + {resetMath.b} = ?</p>
+                  <p style={{ fontSize: '1.5rem', color: 'var(--text-light)', marginBottom: '1rem' }}>{resetMath.a} + {resetMath.b} = ?</p>
                   <input type="number" className="wisor-input" style={{ textAlign: 'center', marginBottom: '1rem' }} value={resetMath.input} onChange={(e) => setResetMath(s => ({ ...s, input: e.target.value }))} required autoFocus />
                   <div style={{ display: 'flex', gap: '0.5rem' }}>
                     <button type="button" className="btn-secondary" onClick={() => setResetModalVisible(false)} style={{ flex: 1 }}>Abbrechen</button>
@@ -1235,7 +1235,7 @@ Die JSON muss exakt diese Struktur haben:
           <div className="blob blob-1"></div>
           <div className="blob blob-2"></div>
           <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-            <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>Durchgang Beendet!</h2>
+            <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Durchgang Beendet!</h2>
             <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {wisorScore.correct} / {wisorScore.total}</p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
               <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
@@ -1329,7 +1329,7 @@ Die JSON muss exakt diese Struktur haben:
 
           {geminiVisible && (
             <div className="fade-in" style={{ marginBottom: '1.5rem', width: '100%', borderRadius: '16px', padding: '1.5rem', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
-              <p style={{ color: 'white', marginBottom: '1rem', fontSize: '1.1rem', fontWeight: 'bold' }}>Frage an deinen KI-Tutor</p>
+              <p style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '1.1rem', fontWeight: 'bold' }}>Frage an deinen KI-Tutor</p>
               <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <input
                   type="text"
@@ -1453,7 +1453,7 @@ Die JSON muss exakt diese Struktur haben:
           <h1 style={{ fontFamily: '"Anton", sans-serif', textTransform: 'uppercase', letterSpacing: '0px', fontSize: '3rem', transform: 'scaleY(1.2)', transformOrigin: 'bottom', color: 'var(--text-light)', textShadow: '0 4px 10px rgba(0,0,0,0.3)', margin: '0' }}>MASTERPAT APP</h1>
         </header>
         <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)' }}>
-          <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2rem' }}>🎉 Glückwunsch! 🎉</h2>
+          <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>🎉 Glückwunsch! 🎉</h2>
           <p style={{ margin: '1rem 0', color: 'var(--text-muted)', fontSize: '1.2rem' }}>Du hast alle fälligen Karten für heute gelernt.</p>
           <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Dein Gehirn baut jetzt die neuronalen Verbindungen aus. Komm später wieder!</p>
           <button className="btn-primary" onClick={forceReloadAll}>
