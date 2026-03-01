@@ -790,53 +790,62 @@ function App() {
     document.body
   );
 
+  // --- GLOBAL STATS + BURGER MENU (available in ALL modes) ---
+  const allQuizQuestions = [...(quiz1.questions || []), ...(quiz2.questions || []), ...(quiz3.questions || []), ...(quizUForm2.questions || [])];
+  const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+  const wisorQuestions = wisor1.questions || [];
+  const wisorEcoQuestions = wisorEco.questions || [];
+  const globalStats = {
+    quizTotal: allQuizQuestions.length,
+    quizLearned: allQuizQuestions.length - allQuizzes.length,
+    wisorTotal: wisorQuestions.length,
+    wisorLearned: Object.keys(completedWisors).length,
+    wisorEcoTotal: wisorEcoQuestions.length,
+    wisorEcoLearned: Object.keys(completedWisorsEco).length,
+  };
+
+  const burgerMenuPortal = createPortal(
+    <>
+      <BurgerMenu
+        authUser={authUser}
+        handleLogout={handleLogout}
+        stats={globalStats}
+        isLightMode={isLightMode}
+        toggleTheme={toggleTheme}
+        onOpenQuestionManager={(cat) => setQuestionManagerCategory(cat)}
+        onStartPomodoro={() => { setPomodoroActive(true); setPomodoroSessionLog([]); }}
+        pomodoroRunning={pomodoroActive}
+        pomodoroTimeLeft={pomodoroTimeLeft}
+        onStopPomodoro={() => setPomodoroForceStop(Date.now())}
+      />
+      {questionManagerCategory && (
+        <QuestionManager
+          category={questionManagerCategory}
+          questions={
+            questionManagerCategory === 'quiz' ? allQuizQuestions :
+              questionManagerCategory === 'wisor' ? wisorQuestions : wisorEcoQuestions
+          }
+          progress={
+            questionManagerCategory === 'quiz' ? quizProg :
+              questionManagerCategory === 'wisor' ? completedWisors : completedWisorsEco
+          }
+          formatLatex={formatLatex}
+          onClose={() => setQuestionManagerCategory(null)}
+          onProgressUpdate={(cat, updatedProgress) => {
+            if (cat === 'wisor') setCompletedWisors(updatedProgress);
+            else if (cat === 'wisorEco') setCompletedWisorsEco(updatedProgress);
+          }}
+        />
+      )}
+    </>,
+    document.body
+  );
+
   if (appMode === 'dashboard') {
-    const allQuizQuestions = [...(quiz1.questions || []), ...(quiz2.questions || []), ...(quiz3.questions || []), ...(quizUForm2.questions || [])];
-    const quizTotal = allQuizQuestions.length;
-    const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
-    const wisorQuestions = wisor1.questions || [];
-    const wisorEcoQuestions = wisorEco.questions || [];
-    const stats = {
-      quizTotal,
-      quizLearned: quizTotal - allQuizzes.length,
-      wisorTotal: wisorQuestions.length,
-      wisorLearned: Object.keys(completedWisors).length,
-      wisorEcoTotal: wisorEcoQuestions.length,
-      wisorEcoLearned: Object.keys(completedWisorsEco).length,
-    };
-
-    const questionData = {
-      quizQuestions: allQuizQuestions,
-      quizProgress: quizProg,
-      wisorQuestions,
-      wisorProgress: completedWisors,
-      wisorEcoQuestions,
-      wisorEcoProgress: completedWisorsEco,
-    };
-
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
         {pomodoroPortal}
-        <BurgerMenu authUser={authUser} handleLogout={handleLogout} stats={stats} isLightMode={isLightMode} toggleTheme={toggleTheme} onOpenQuestionManager={(cat) => setQuestionManagerCategory(cat)} onStartPomodoro={() => { setPomodoroActive(true); setPomodoroSessionLog([]); }} pomodoroRunning={pomodoroActive} pomodoroTimeLeft={pomodoroTimeLeft} onStopPomodoro={() => setPomodoroForceStop(Date.now())} />
-        {questionManagerCategory && (
-          <QuestionManager
-            category={questionManagerCategory}
-            questions={
-              questionManagerCategory === 'quiz' ? allQuizQuestions :
-                questionManagerCategory === 'wisor' ? wisorQuestions : wisorEcoQuestions
-            }
-            progress={
-              questionManagerCategory === 'quiz' ? quizProg :
-                questionManagerCategory === 'wisor' ? completedWisors : completedWisorsEco
-            }
-            formatLatex={formatLatex}
-            onClose={() => setQuestionManagerCategory(null)}
-            onProgressUpdate={(cat, updatedProgress) => {
-              if (cat === 'wisor') setCompletedWisors(updatedProgress);
-              else if (cat === 'wisorEco') setCompletedWisorsEco(updatedProgress);
-            }}
-          />
-        )}
+        {burgerMenuPortal}
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header style={{ position: 'relative', width: '100%' }}>
@@ -1186,6 +1195,7 @@ Die JSON muss exakt diese Struktur haben:
   if (appMode === 'quiz_setup') {
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
+        {burgerMenuPortal}
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header>
@@ -1211,6 +1221,7 @@ Die JSON muss exakt diese Struktur haben:
     if (currentQuizIndex >= allQuizzes.length) {
       return (
         <div className="app-container" style={{ zIndex: 10 }}>
+          {burgerMenuPortal}
           <div className="blob blob-1"></div>
           <div className="blob blob-2"></div>
           <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
@@ -1230,6 +1241,7 @@ Die JSON muss exakt diese Struktur haben:
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
         {pomodoroPortal}
+        {burgerMenuPortal}
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header>
@@ -1379,6 +1391,7 @@ Die JSON muss exakt diese Struktur haben:
     if (allWisors.length === 0) {
       return (
         <div className="app-container" style={{ zIndex: 10 }}>
+          {burgerMenuPortal}
           <div className="blob blob-1"></div>
           <div className="blob blob-2"></div>
           <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
@@ -1409,6 +1422,7 @@ Die JSON muss exakt diese Struktur haben:
     if (currentWisorIndex >= allWisors.length) {
       return (
         <div className="app-container" style={{ zIndex: 10 }}>
+          {burgerMenuPortal}
           <div className="blob blob-1"></div>
           <div className="blob blob-2"></div>
           <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
@@ -1428,6 +1442,7 @@ Die JSON muss exakt diese Struktur haben:
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
         {pomodoroPortal}
+        {burgerMenuPortal}
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header>
@@ -1624,6 +1639,7 @@ Die JSON muss exakt diese Struktur haben:
   if (learningQueue.length === 0) {
     return (
       <div className="app-container" style={{ textAlign: 'center', marginTop: '10vh', zIndex: 10 }}>
+        {burgerMenuPortal}
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header>
@@ -1647,6 +1663,7 @@ Die JSON muss exakt diese Struktur haben:
 
   return (
     <>
+      {burgerMenuPortal}
       <div className="blob blob-1"></div>
       <div className="blob blob-2"></div>
 
