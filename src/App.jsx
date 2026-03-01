@@ -750,7 +750,7 @@ function App() {
             {Object.keys(JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {}).length > 0 && (
               <button
                 className="btn-secondary"
-                style={{ marginTop: 'auto', width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
+                style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
                 onClick={(e) => { e.stopPropagation(); openResetModal(e, 'quiz'); }}
               >
                 🔄 Lernfortschritt zurücksetzen
@@ -782,7 +782,7 @@ function App() {
             {Object.keys(completedWisors).length > 0 && (
               <button
                 className="btn-secondary"
-                style={{ marginTop: 'auto', width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
+                style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
                 onClick={(e) => { e.stopPropagation(); openResetModal(e, 'wisor'); }}
               >
                 🔄 Lernfortschritt zurücksetzen
@@ -815,7 +815,7 @@ function App() {
             {Object.keys(completedWisorsEco).length > 0 && (
               <button
                 className="btn-secondary"
-                style={{ marginTop: 'auto', width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
+                style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
                 onClick={(e) => { e.stopPropagation(); openResetModal(e, 'wisorEco'); }}
               >
                 🔄 Lernfortschritt zurücksetzen
