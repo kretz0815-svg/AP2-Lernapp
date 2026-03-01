@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 
-const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, onOpenQuestionManager, onStartPomodoro, pomodoroRunning }) => {
+const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, onOpenQuestionManager, onStartPomodoro, pomodoroRunning, pomodoroTimeLeft, onStopPomodoro }) => {
     const [isOpen, setIsOpen] = useState(false);
+
+    const formatPomodoroTime = (seconds) => {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    };
 
     const handleCategoryClick = (category) => {
         setIsOpen(false);
@@ -120,6 +126,43 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
                                     <path d="M30 62 L34 66 L30 66 Z" fill="currentColor" stroke="none" />
                                 </svg>
                             </button>
+                            {pomodoroRunning && (
+                                <div style={
+                                    { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.2rem' }
+                                }>
+                                    <span style={{
+                                        fontFamily: 'monospace',
+                                        fontSize: '0.75rem',
+                                        fontWeight: 'bold',
+                                        color: pomodoroTimeLeft <= 60 ? '#ef4444' : 'var(--text-light)',
+                                        animation: pomodoroTimeLeft <= 60 ? 'pomoPulse 1s ease-in-out infinite' : 'none'
+                                    }}>
+                                        {formatPomodoroTime(pomodoroTimeLeft)}
+                                    </span>
+                                    <button
+                                        onClick={() => { if (onStopPomodoro) onStopPomodoro(); setIsOpen(false); }}
+                                        style={{
+                                            padding: '0.15rem 0.45rem',
+                                            borderRadius: '5px',
+                                            border: '1px solid rgba(239,68,68,0.4)',
+                                            background: 'rgba(239,68,68,0.1)',
+                                            color: '#ef4444',
+                                            fontSize: '0.6rem',
+                                            cursor: 'pointer',
+                                            fontWeight: 'bold',
+                                            whiteSpace: 'nowrap'
+                                        }}
+                                    >
+                                        Beenden
+                                    </button>
+                                    <style>{`
+                                        @keyframes pomoPulse {
+                                            0%, 100% { opacity: 1; }
+                                            50% { opacity: 0.5; }
+                                        }
+                                    `}</style>
+                                </div>
+                            )}
                             <button
                                 onClick={() => setIsOpen(false)}
                                 style={{

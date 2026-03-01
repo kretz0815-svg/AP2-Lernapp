@@ -23,7 +23,7 @@ const PomodoroIcon = ({ size = '1.5em' }) => (
     </svg>
 );
 
-export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, sessionLog, appMode }) {
+export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onTick, sessionLog, appMode, forceStop }) {
     const [timeLeft, setTimeLeft] = useState(POMODORO_DURATION);
     const [isRunning, setIsRunning] = useState(false);
     const [showResults, setShowResults] = useState(false);
@@ -31,6 +31,20 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, ses
     const [showFinalCountdown, setShowFinalCountdown] = useState(false);
     const intervalRef = useRef(null);
     const startTimeRef = useRef(null);
+    const lastForceStopRef = useRef(0);
+
+    // React to forceStop from parent
+    useEffect(() => {
+        if (forceStop && forceStop !== lastForceStopRef.current && isRunning) {
+            lastForceStopRef.current = forceStop;
+            setIsRunning(false);
+            setIsPaused(false);
+            setShowFinalCountdown(false);
+            if (intervalRef.current) clearInterval(intervalRef.current);
+            setShowResults(true);
+            if (onStop) onStop();
+        }
+    }, [forceStop]);
 
     // Cleanup on unmount
     useEffect(() => {
@@ -53,7 +67,9 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, ses
                     if (prev <= 4 && prev > 1) {
                         setShowFinalCountdown(true);
                     }
-                    return prev - 1;
+                    const next = prev - 1;
+                    if (onTick) onTick(next);
+                    return next;
                 });
             }, 1000);
         } else {
@@ -69,6 +85,7 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, ses
         setShowResults(false);
         setShowFinalCountdown(false);
         startTimeRef.current = Date.now();
+        if (onTick) onTick(POMODORO_DURATION);
         if (onStart) onStart();
     };
 

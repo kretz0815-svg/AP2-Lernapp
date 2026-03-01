@@ -139,6 +139,8 @@ function App() {
   const [questionManagerCategory, setQuestionManagerCategory] = useState(null);
   const [pomodoroActive, setPomodoroActive] = useState(false);
   const [pomodoroSessionLog, setPomodoroSessionLog] = useState([]);
+  const [pomodoroTimeLeft, setPomodoroTimeLeft] = useState(25 * 60);
+  const [pomodoroForceStop, setPomodoroForceStop] = useState(0);
   const wisorInputRef = useRef(null);
 
   useEffect(() => {
@@ -772,16 +774,18 @@ function App() {
       sessionLog={pomodoroSessionLog}
       appMode={appMode}
       onStart={() => { setPomodoroActive(true); setPomodoroSessionLog([]); }}
-      onStop={() => setPomodoroActive(false)}
+      onStop={() => { setPomodoroActive(false); setPomodoroTimeLeft(25 * 60); }}
+      onTick={(t) => setPomodoroTimeLeft(t)}
       onTimeUp={() => {
-        // Force end the current session
         if (appMode === 'quiz') {
-          setCurrentQuizIndex(allQuizzes.length); // triggers end screen
+          setCurrentQuizIndex(allQuizzes.length);
         } else if (appMode === 'wisor') {
-          setCurrentWisorIndex(allWisors.length); // triggers end screen
+          setCurrentWisorIndex(allWisors.length);
         }
         setPomodoroActive(false);
+        setPomodoroTimeLeft(25 * 60);
       }}
+      forceStop={pomodoroForceStop}
     />,
     document.body
   );
@@ -813,7 +817,7 @@ function App() {
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
         {pomodoroPortal}
-        <BurgerMenu authUser={authUser} handleLogout={handleLogout} stats={stats} isLightMode={isLightMode} toggleTheme={toggleTheme} onOpenQuestionManager={(cat) => setQuestionManagerCategory(cat)} onStartPomodoro={() => { setPomodoroActive(true); setPomodoroSessionLog([]); }} pomodoroRunning={pomodoroActive} />
+        <BurgerMenu authUser={authUser} handleLogout={handleLogout} stats={stats} isLightMode={isLightMode} toggleTheme={toggleTheme} onOpenQuestionManager={(cat) => setQuestionManagerCategory(cat)} onStartPomodoro={() => { setPomodoroActive(true); setPomodoroSessionLog([]); }} pomodoroRunning={pomodoroActive} pomodoroTimeLeft={pomodoroTimeLeft} onStopPomodoro={() => setPomodoroForceStop(Date.now())} />
         {questionManagerCategory && (
           <QuestionManager
             category={questionManagerCategory}
