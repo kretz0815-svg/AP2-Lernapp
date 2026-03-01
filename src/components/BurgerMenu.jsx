@@ -85,7 +85,6 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
                                     background: pomodoroRunning ? 'rgba(239,68,68,0.15)' : 'transparent',
                                     border: pomodoroRunning ? '1px solid rgba(239,68,68,0.3)' : 'none',
                                     cursor: pomodoroRunning ? 'default' : 'pointer',
-                                    fontSize: '1.5rem',
                                     padding: '0.2rem 0.4rem',
                                     borderRadius: '8px',
                                     transition: 'transform 0.2s',
@@ -95,7 +94,31 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
                                 onMouseOver={(e) => { if (!pomodoroRunning) e.currentTarget.style.transform = 'scale(1.15)'; }}
                                 onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
-                                🍅
+                                <svg viewBox="0 0 100 100" width="1.8em" height="1.8em" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--text-light)' }}>
+                                    {/* Tomato body */}
+                                    <ellipse cx="50" cy="56" rx="38" ry="34" strokeWidth="6" />
+                                    {/* Stem/leaves */}
+                                    <path d="M50 22 C50 16, 46 12, 42 14" strokeWidth="4" />
+                                    <path d="M42 28 C36 20, 30 22, 32 28" strokeWidth="3.5" fill="currentColor" />
+                                    <path d="M46 26 C44 18, 38 16, 36 22" strokeWidth="3.5" fill="currentColor" />
+                                    <path d="M50 25 C50 17, 46 14, 44 20" strokeWidth="3.5" fill="currentColor" />
+                                    <path d="M54 26 C56 18, 60 16, 62 22" strokeWidth="3.5" fill="currentColor" />
+                                    <path d="M58 28 C62 20, 68 22, 66 28" strokeWidth="3.5" fill="currentColor" />
+                                    {/* Clock circle (dashed right half) */}
+                                    <circle cx="55" cy="55" r="16" strokeWidth="3.5" strokeDasharray="0 25.1 50.2" />
+                                    <path d="M55 55 L55 55" strokeWidth="0" />
+                                    <circle cx="55" cy="55" r="16" strokeWidth="3.5" strokeDasharray="3 5" strokeDashoffset="-25" />
+                                    {/* Clock hands */}
+                                    <line x1="55" y1="55" x2="55" y2="44" strokeWidth="3.5" />
+                                    <line x1="55" y1="55" x2="63" y2="60" strokeWidth="3.5" />
+                                    {/* Arrow on clock */}
+                                    <path d="M40 44 C36 38, 42 34, 48 38" strokeWidth="3" />
+                                    <path d="M40 44 L42 39 L37 41" strokeWidth="2.5" fill="currentColor" />
+                                    {/* Hourglass */}
+                                    <path d="M28 62 L28 74 L36 74 L36 62 Z" strokeWidth="3" fill="none" />
+                                    <line x1="28" y1="68" x2="36" y2="68" strokeWidth="2" />
+                                    <path d="M30 62 L34 66 L30 66 Z" fill="currentColor" stroke="none" />
+                                </svg>
                             </button>
                             <button
                                 onClick={() => setIsOpen(false)}

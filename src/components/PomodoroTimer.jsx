@@ -2,6 +2,27 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 const POMODORO_DURATION = 25 * 60; // 25 minutes in seconds
 
+const PomodoroIcon = ({ size = '1.5em' }) => (
+    <svg viewBox="0 0 100 100" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
+        <ellipse cx="50" cy="56" rx="38" ry="34" strokeWidth="6" />
+        <path d="M50 22 C50 16, 46 12, 42 14" strokeWidth="4" />
+        <path d="M42 28 C36 20, 30 22, 32 28" strokeWidth="3.5" fill="currentColor" />
+        <path d="M46 26 C44 18, 38 16, 36 22" strokeWidth="3.5" fill="currentColor" />
+        <path d="M50 25 C50 17, 46 14, 44 20" strokeWidth="3.5" fill="currentColor" />
+        <path d="M54 26 C56 18, 60 16, 62 22" strokeWidth="3.5" fill="currentColor" />
+        <path d="M58 28 C62 20, 68 22, 66 28" strokeWidth="3.5" fill="currentColor" />
+        <circle cx="55" cy="55" r="16" strokeWidth="3.5" strokeDasharray="0 25.1 50.2" />
+        <circle cx="55" cy="55" r="16" strokeWidth="3.5" strokeDasharray="3 5" strokeDashoffset="-25" />
+        <line x1="55" y1="55" x2="55" y2="44" strokeWidth="3.5" />
+        <line x1="55" y1="55" x2="63" y2="60" strokeWidth="3.5" />
+        <path d="M40 44 C36 38, 42 34, 48 38" strokeWidth="3" />
+        <path d="M40 44 L42 39 L37 41" strokeWidth="2.5" fill="currentColor" />
+        <path d="M28 62 L28 74 L36 74 L36 62 Z" strokeWidth="3" fill="none" />
+        <line x1="28" y1="68" x2="36" y2="68" strokeWidth="2" />
+        <path d="M30 62 L34 66 L30 66 Z" fill="currentColor" stroke="none" />
+    </svg>
+);
+
 export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, sessionLog, appMode }) {
     const [timeLeft, setTimeLeft] = useState(POMODORO_DURATION);
     const [isRunning, setIsRunning] = useState(false);
@@ -177,7 +198,7 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, ses
                     boxShadow: '0 25px 80px rgba(0,0,0,0.5)'
                 }}>
                     <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-                        <span style={{ fontSize: '3rem' }}>🍅</span>
+                        <span style={{ color: 'var(--text-light)' }}><PomodoroIcon size="3rem" /></span>
                         <h2 style={{ color: 'var(--text-light)', margin: '0.5rem 0 0.3rem 0', fontSize: '1.5rem' }}>
                             Pomodoro beendet!
                         </h2>
@@ -371,7 +392,7 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, ses
                 cursor: 'default'
             }}>
                 {/* Tomato icon */}
-                <span style={{ fontSize: '1.2rem' }}>🍅</span>
+                <span style={{ color: timeLeft <= 60 ? '#ef4444' : '#fff', display: 'flex' }}><PomodoroIcon size="1.3em" /></span>
 
                 {/* Time display */}
                 <span style={{
