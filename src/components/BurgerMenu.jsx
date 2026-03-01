@@ -65,7 +65,7 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme })
                                 onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                                 onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
-                                <svg viewBox="0 0 100 50" width="3em" height="1.5em" style={{ overflow: 'visible' }}>
+                                <svg viewBox="0 0 100 50" width="3em" height="1.5em" style={{ overflow: 'visible', transition: 'transform 0.3s ease-in-out', transform: isLightMode ? 'scaleX(-1)' : 'scaleX(1)' }}>
                                     <rect x="-1" y="4" width="75" height="42" rx="21" fill="currentColor" />
                                     <circle cx="75" cy="25" r="25" fill="var(--bg-dark)" stroke="currentColor" strokeWidth="6" />
                                     <path d="M69 13 A 11 11 0 1 0 84 33 A 13 13 0 1 1 69 13 Z" fill="currentColor" />
