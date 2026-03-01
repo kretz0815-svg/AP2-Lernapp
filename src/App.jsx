@@ -732,7 +732,7 @@ function App() {
         </header>
         <div className="dashboard-grid">
           <div className="dash-card" onClick={() => { setAppMode('quiz_setup'); }}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
               <svg width="0.9em" height="0.9em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="85" cy="85" r="50" fill="none" stroke="var(--text-light)" strokeWidth="35" />
                 <circle cx="85" cy="85" r="25" fill="var(--text-light)" />
@@ -759,7 +759,7 @@ function App() {
           </div>
 
           <div className="dash-card" onClick={() => startWisor('wisor1')}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
               <svg width="1.2em" height="1.2em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <path d="M 280 200 H 460 V 420 L 420 460 L 380 420 L 340 460 L 300 420 L 260 460 L 220 420 V 320" fill="none" stroke="var(--text-light)" strokeWidth="32" strokeLinejoin="round" strokeLinecap="round" />
                 <rect x="290" y="270" width="140" height="24" rx="12" fill="var(--text-light)" />
@@ -791,7 +791,7 @@ function App() {
           </div>
 
           <div className="dash-card" onClick={() => startWisor('wisorEco')}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
               <svg width="1.2em" height="1.2em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <path d="M 280 200 H 460 V 420 L 420 460 L 380 420 L 340 460 L 300 420 L 260 460 L 220 420 V 320" fill="none" stroke="var(--text-light)" strokeWidth="32" strokeLinejoin="round" strokeLinecap="round" />
                 <text x="290" y="375" fontSize="130" fontWeight="900" fill="var(--text-light)" textAnchor="middle" fontFamily="system-ui, -apple-system, sans-serif">$</text>
