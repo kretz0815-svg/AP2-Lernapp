@@ -8,153 +8,214 @@ import { askGemini } from '../geminiClient';
 
 const round2 = (n) => Math.round(n * 100) / 100;
 
-// ── Level-Definitionen ──────────────────────────────────────────
+// ── Kaufmännische Rundung (Source of Truth) ──────────────────
+const commercialRound = (v) => Math.round(v * 100) / 100;
 
-const LEVELS = [
-    // ─── Level 1: Vorwärtskalkulation ───
+// ── Zufällige glatte Zahl in einem Bereich ──────────────────
+const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const randPrice = (min, max) => commercialRound(randInt(Math.round(min * 100), Math.round(max * 100)) / 100);
+
+// Format helper for hints
+const fmt = (v) => v.toFixed(2).replace('.', ',');
+
+// ── Level-Metadaten (statisch, nur Darstellung) ─────────────
+const LEVEL_CONFIG = [
     {
-        id: 1,
-        title: 'Vorwärtskalkulation',
-        subtitle: 'Anfänger',
+        id: 1, title: 'Vorwärtskalkulation', subtitle: 'Anfänger',
         story: 'Berechne den Angebotspreis für einen Kunden.',
-        direction: 'forward',
-        color: '#22c55e',
+        direction: 'forward', color: '#22c55e',
         youtubeQuery: 'Vorwärtskalkulation Handelskalkulation Kaufmann einfach erklärt',
-        given: { einstandspreis: 441.20, hk_pct: 20, gewinn_pct: 10, skonto_pct: 2, rabatt_pct: 15 },
-        steps: [
-            { key: 'einstandspreis', label: 'Einstandspreis', value: 441.20, given: true },
-            {
-                key: 'handlungskosten', label: 'Handlungskosten', sublabel: '20 % vom EP', value: 88.24, given: false,
-                hint: '441,20 ÷ 100 × 20 = 88,24 €\n(Vom Hundert: Basis = Einstandspreis)'
-            },
-            {
-                key: 'selbstkosten', label: '= Selbstkosten', value: 529.44, given: false, isSum: true,
-                hint: '441,20 + 88,24 = 529,44 €'
-            },
-            {
-                key: 'gewinn', label: 'Gewinn', sublabel: '10 % der SK', value: 52.94, given: false,
-                hint: '529,44 ÷ 100 × 10 = 52,94 €\n(Vom Hundert: Basis = Selbstkosten)'
-            },
-            {
-                key: 'bvp', label: '= Barverkaufspreis', value: 582.38, given: false, isSum: true,
-                hint: '529,44 + 52,94 = 582,38 €'
-            },
-            {
-                key: 'skonto', label: 'Kundenskonto', sublabel: '2 %', value: 11.89, given: false, danger: true,
-                hint: '⚠️ Im Hundert rechnen!\nBVP ÷ 98 × 2 = 11,89 €\n(BVP = 98% des ZVP, also ZVP = BVP ÷ 98 × 100)'
-            },
-            {
-                key: 'zvp', label: '= Zielverkaufspreis', value: 594.27, given: false, isSum: true,
-                hint: '582,38 + 11,89 = 594,27 €'
-            },
-            {
-                key: 'rabatt', label: 'Kundenrabatt', sublabel: '15 %', value: 104.87, given: false, danger: true,
-                hint: '⚠️ Im Hundert rechnen!\nZVP ÷ 85 × 15 = 104,87 €\n(ZVP = 85% des LVP, also LVP = ZVP ÷ 85 × 100)'
-            },
-            {
-                key: 'lvp', label: '= Listenverkaufspreis', value: 699.14, given: false, isSum: true,
-                hint: '594,27 + 104,87 = 699,14 €'
-            },
-        ]
     },
-    // ─── Level 2: Rückwärtskalkulation ───
     {
-        id: 2,
-        title: 'Rückwärtskalkulation',
-        subtitle: 'Mittel',
+        id: 2, title: 'Rückwärtskalkulation', subtitle: 'Mittel',
         story: 'Der Marktpreis steht fest. Wie hoch darf dein Einkaufspreis maximal sein?',
-        direction: 'backward',
-        color: '#f59e0b',
+        direction: 'backward', color: '#f59e0b',
         youtubeQuery: 'Rückwärtskalkulation Handelskalkulation Kaufmann einfach erklärt',
-        given: { lvp: 699.14, rabatt_pct: 15, skonto_pct: 2, gewinn_pct: 10, hk_pct: 20 },
-        steps: [
-            { key: 'lvp', label: 'Listenverkaufspreis', value: 699.14, given: true },
-            {
-                key: 'rabatt', label: 'Kundenrabatt', sublabel: '15 %', value: 104.87, given: false,
-                hint: '699,14 ÷ 100 × 15 = 104,87 €\n(Vom Hundert: Basis = LVP)'
-            },
-            {
-                key: 'zvp', label: '= Zielverkaufspreis', value: 594.27, given: false, isSum: true,
-                hint: '699,14 − 104,87 = 594,27 €'
-            },
-            {
-                key: 'skonto', label: 'Kundenskonto', sublabel: '2 %', value: 11.89, given: false,
-                hint: '594,27 ÷ 100 × 2 = 11,89 €\n(Vom Hundert: Basis = ZVP)'
-            },
-            {
-                key: 'bvp', label: '= Barverkaufspreis', value: 582.38, given: false, isSum: true,
-                hint: '594,27 − 11,89 = 582,38 €'
-            },
-            {
-                key: 'gewinn', label: 'Gewinn', sublabel: '10 %', value: 52.94, given: false, danger: true,
-                hint: '⚠️ Im Hundert rechnen!\nBVP ÷ 110 × 10 = 52,94 €\n(BVP = 110% der SK, also SK = BVP ÷ 110 × 100)'
-            },
-            {
-                key: 'selbstkosten', label: '= Selbstkosten', value: 529.44, given: false, isSum: true,
-                hint: '582,38 − 52,94 = 529,44 €'
-            },
-            {
-                key: 'handlungskosten', label: 'Handlungskosten', sublabel: '20 %', value: 88.24, given: false, danger: true,
-                hint: '⚠️ Im Hundert rechnen!\nSK ÷ 120 × 20 = 88,24 €\n(SK = 120% des EP, also EP = SK ÷ 120 × 100)'
-            },
-            {
-                key: 'einstandspreis', label: '= Einstandspreis', value: 441.20, given: false, isSum: true,
-                hint: '529,44 − 88,24 = 441,20 €'
-            },
-        ]
     },
-    // ─── Level 3: Differenzkalkulation ───
     {
-        id: 3,
-        title: 'Differenzkalkulation',
-        subtitle: 'Schwer',
+        id: 3, title: 'Differenzkalkulation', subtitle: 'Schwer',
         story: 'Kunde diktiert den Verkaufspreis, Lieferant den Einkaufspreis. Wie viel Gewinn bleibt?',
-        direction: 'diff',
-        color: '#ef4444',
+        direction: 'diff', color: '#ef4444',
         youtubeQuery: 'Differenzkalkulation Handelskalkulation Kaufmann einfach erklärt',
-        given: { einstandspreis: 441.20, hk_pct: 20, lvp: 650.00, rabatt_pct: 15, skonto_pct: 2 },
+    },
+];
+
+// ══════════════════════════════════════════════════════════════
+// DYNAMISCHE LEVEL-GENERIERUNG
+// ══════════════════════════════════════════════════════════════
+
+function generateLevel(config) {
+    const hk_pct = randInt(10, 30);
+    const gewinn_pct = randInt(5, 20);
+    const skonto_pct = randInt(1, 3);
+    const rabatt_pct = randInt(5, 15);
+
+    if (config.direction === 'forward') {
+        // ── Vorwärtskalkulation: Top → Down ──
+        const ep = randPrice(100, 500);
+        const hk = commercialRound(ep / 100 * hk_pct);
+        const sk = commercialRound(ep + hk);
+        const gewinn = commercialRound(sk / 100 * gewinn_pct);
+        const bvp = commercialRound(sk + gewinn);
+        // Im Hundert: BVP = (100 - skonto_pct)% des ZVP
+        const skonto = commercialRound(bvp / (100 - skonto_pct) * skonto_pct);
+        const zvp = commercialRound(bvp + skonto);
+        // Im Hundert: ZVP = (100 - rabatt_pct)% des LVP
+        const rabatt = commercialRound(zvp / (100 - rabatt_pct) * rabatt_pct);
+        const lvp = commercialRound(zvp + rabatt);
+
+        return {
+            ...config, given: { ep, hk_pct, gewinn_pct, skonto_pct, rabatt_pct },
+            steps: [
+                { key: 'ep', label: 'Einstandspreis', value: ep, given: true },
+                {
+                    key: 'hk', label: 'Handlungskosten', sublabel: `${hk_pct} % vom EP`, value: hk, given: false,
+                    hint: `${fmt(ep)} ÷ 100 × ${hk_pct} = ${fmt(hk)} €\n(Vom Hundert: Basis = Einstandspreis)`
+                },
+                {
+                    key: 'sk', label: '= Selbstkosten', value: sk, given: false, isSum: true,
+                    hint: `${fmt(ep)} + ${fmt(hk)} = ${fmt(sk)} €`
+                },
+                {
+                    key: 'gewinn', label: 'Gewinn', sublabel: `${gewinn_pct} % der SK`, value: gewinn, given: false,
+                    hint: `${fmt(sk)} ÷ 100 × ${gewinn_pct} = ${fmt(gewinn)} €\n(Vom Hundert: Basis = Selbstkosten)`
+                },
+                {
+                    key: 'bvp', label: '= Barverkaufspreis', value: bvp, given: false, isSum: true,
+                    hint: `${fmt(sk)} + ${fmt(gewinn)} = ${fmt(bvp)} €`
+                },
+                {
+                    key: 'skonto', label: 'Kundenskonto', sublabel: `${skonto_pct} %`, value: skonto, given: false, danger: true,
+                    hint: `⚠️ Im Hundert rechnen!\n${fmt(bvp)} ÷ ${100 - skonto_pct} × ${skonto_pct} = ${fmt(skonto)} €\n(BVP = ${100 - skonto_pct}% des ZVP)`
+                },
+                {
+                    key: 'zvp', label: '= Zielverkaufspreis', value: zvp, given: false, isSum: true,
+                    hint: `${fmt(bvp)} + ${fmt(skonto)} = ${fmt(zvp)} €`
+                },
+                {
+                    key: 'rabatt', label: 'Kundenrabatt', sublabel: `${rabatt_pct} %`, value: rabatt, given: false, danger: true,
+                    hint: `⚠️ Im Hundert rechnen!\n${fmt(zvp)} ÷ ${100 - rabatt_pct} × ${rabatt_pct} = ${fmt(rabatt)} €\n(ZVP = ${100 - rabatt_pct}% des LVP)`
+                },
+                {
+                    key: 'lvp', label: '= Listenverkaufspreis', value: lvp, given: false, isSum: true,
+                    hint: `${fmt(zvp)} + ${fmt(rabatt)} = ${fmt(lvp)} €`
+                },
+            ]
+        };
+    }
+
+    if (config.direction === 'backward') {
+        // ── Rückwärtskalkulation: Bottom → Up ──
+        const lvp = randPrice(400, 900);
+        // Vom Hundert: Rabatt vom LVP
+        const rabatt = commercialRound(lvp / 100 * rabatt_pct);
+        const zvp = commercialRound(lvp - rabatt);
+        // Vom Hundert: Skonto vom ZVP
+        const skonto = commercialRound(zvp / 100 * skonto_pct);
+        const bvp = commercialRound(zvp - skonto);
+        // Auf Hundert: BVP = (100 + gewinn_pct)% der SK
+        const gewinn = commercialRound(bvp / (100 + gewinn_pct) * gewinn_pct);
+        const sk = commercialRound(bvp - gewinn);
+        // Auf Hundert: SK = (100 + hk_pct)% des EP
+        const hk = commercialRound(sk / (100 + hk_pct) * hk_pct);
+        const ep = commercialRound(sk - hk);
+
+        return {
+            ...config, given: { lvp, hk_pct, gewinn_pct, skonto_pct, rabatt_pct },
+            steps: [
+                { key: 'lvp', label: 'Listenverkaufspreis', value: lvp, given: true },
+                {
+                    key: 'rabatt', label: 'Kundenrabatt', sublabel: `${rabatt_pct} %`, value: rabatt, given: false,
+                    hint: `${fmt(lvp)} ÷ 100 × ${rabatt_pct} = ${fmt(rabatt)} €\n(Vom Hundert: Basis = LVP)`
+                },
+                {
+                    key: 'zvp', label: '= Zielverkaufspreis', value: zvp, given: false, isSum: true,
+                    hint: `${fmt(lvp)} − ${fmt(rabatt)} = ${fmt(zvp)} €`
+                },
+                {
+                    key: 'skonto', label: 'Kundenskonto', sublabel: `${skonto_pct} %`, value: skonto, given: false,
+                    hint: `${fmt(zvp)} ÷ 100 × ${skonto_pct} = ${fmt(skonto)} €\n(Vom Hundert: Basis = ZVP)`
+                },
+                {
+                    key: 'bvp', label: '= Barverkaufspreis', value: bvp, given: false, isSum: true,
+                    hint: `${fmt(zvp)} − ${fmt(skonto)} = ${fmt(bvp)} €`
+                },
+                {
+                    key: 'gewinn', label: 'Gewinn', sublabel: `${gewinn_pct} %`, value: gewinn, given: false, danger: true,
+                    hint: `⚠️ Auf Hundert rechnen!\n${fmt(bvp)} ÷ ${100 + gewinn_pct} × ${gewinn_pct} = ${fmt(gewinn)} €\n(BVP = ${100 + gewinn_pct}% der SK)`
+                },
+                {
+                    key: 'sk', label: '= Selbstkosten', value: sk, given: false, isSum: true,
+                    hint: `${fmt(bvp)} − ${fmt(gewinn)} = ${fmt(sk)} €`
+                },
+                {
+                    key: 'hk', label: 'Handlungskosten', sublabel: `${hk_pct} %`, value: hk, given: false, danger: true,
+                    hint: `⚠️ Auf Hundert rechnen!\n${fmt(sk)} ÷ ${100 + hk_pct} × ${hk_pct} = ${fmt(hk)} €\n(SK = ${100 + hk_pct}% des EP)`
+                },
+                {
+                    key: 'ep', label: '= Einstandspreis', value: ep, given: false, isSum: true,
+                    hint: `${fmt(sk)} − ${fmt(hk)} = ${fmt(ep)} €`
+                },
+            ]
+        };
+    }
+
+    // ── Differenzkalkulation: Zangengriff ──
+    const ep = randPrice(100, 500);
+    const lvp = randPrice(Math.max(ep + 50, ep * 1.1), ep * 1.8);
+    // Phase 1: Vorwärts (EP → SK)
+    const hk = commercialRound(ep / 100 * hk_pct);
+    const sk = commercialRound(ep + hk);
+    // Phase 2: Rückwärts (LVP → BVP) — vom Hundert
+    const rabatt = commercialRound(lvp / 100 * rabatt_pct);
+    const zvp = commercialRound(lvp - rabatt);
+    const skonto = commercialRound(zvp / 100 * skonto_pct);
+    const bvp = commercialRound(zvp - skonto);
+    // Phase 3: Differenz
+    const gewinn = commercialRound(bvp - sk);
+    // Phase 4: Prozentsatz
+    const gewinn_pct_result = commercialRound((gewinn / sk) * 100);
+
+    return {
+        ...config, given: { ep, hk_pct, lvp, rabatt_pct, skonto_pct },
         steps: [
-            // Schritt 1: Vorwärts
-            { key: 'einstandspreis', label: 'Einstandspreis', value: 441.20, given: true, phase: 1 },
+            { key: 'ep', label: 'Einstandspreis', value: ep, given: true, phase: 1 },
             {
-                key: 'handlungskosten', label: 'Handlungskosten', sublabel: '20 % vom EP', value: 88.24, given: false, phase: 1,
-                hint: '441,20 ÷ 100 × 20 = 88,24 €'
+                key: 'hk', label: 'Handlungskosten', sublabel: `${hk_pct} % vom EP`, value: hk, given: false, phase: 1,
+                hint: `${fmt(ep)} ÷ 100 × ${hk_pct} = ${fmt(hk)} €`
             },
             {
-                key: 'selbstkosten', label: '= Selbstkosten', value: 529.44, given: false, isSum: true, phase: 1,
-                hint: '441,20 + 88,24 = 529,44 €'
+                key: 'sk', label: '= Selbstkosten', value: sk, given: false, isSum: true, phase: 1,
+                hint: `${fmt(ep)} + ${fmt(hk)} = ${fmt(sk)} €`
             },
-            // Schritt 2: Rückwärts
-            { key: 'lvp', label: 'Listenverkaufspreis', value: 650.00, given: true, phase: 2 },
+            { key: 'lvp', label: 'Listenverkaufspreis', value: lvp, given: true, phase: 2 },
             {
-                key: 'rabatt', label: 'Kundenrabatt', sublabel: '15 %', value: 97.50, given: false, phase: 2,
-                hint: '650,00 ÷ 100 × 15 = 97,50 €'
-            },
-            {
-                key: 'zvp', label: '= Zielverkaufspreis', value: 552.50, given: false, isSum: true, phase: 2,
-                hint: '650,00 − 97,50 = 552,50 €'
+                key: 'rabatt', label: 'Kundenrabatt', sublabel: `${rabatt_pct} %`, value: rabatt, given: false, phase: 2,
+                hint: `${fmt(lvp)} ÷ 100 × ${rabatt_pct} = ${fmt(rabatt)} €`
             },
             {
-                key: 'skonto', label: 'Kundenskonto', sublabel: '2 %', value: 11.05, given: false, phase: 2,
-                hint: '552,50 ÷ 100 × 2 = 11,05 €'
+                key: 'zvp', label: '= Zielverkaufspreis', value: zvp, given: false, isSum: true, phase: 2,
+                hint: `${fmt(lvp)} − ${fmt(rabatt)} = ${fmt(zvp)} €`
             },
             {
-                key: 'bvp', label: '= Barverkaufspreis', value: 541.45, given: false, isSum: true, phase: 2,
-                hint: '552,50 − 11,05 = 541,45 €'
+                key: 'skonto', label: 'Kundenskonto', sublabel: `${skonto_pct} %`, value: skonto, given: false, phase: 2,
+                hint: `${fmt(zvp)} ÷ 100 × ${skonto_pct} = ${fmt(skonto)} €`
             },
-            // Schritt 3: Differenz
             {
-                key: 'gewinn', label: 'Gewinn (absolut)', value: 12.01, given: false, isSum: true, phase: 3,
-                hint: 'BVP − SK = 541,45 − 529,44 = 12,01 €'
+                key: 'bvp', label: '= Barverkaufspreis', value: bvp, given: false, isSum: true, phase: 2,
+                hint: `${fmt(zvp)} − ${fmt(skonto)} = ${fmt(bvp)} €`
             },
-            // Schritt 4: Gewinnzuschlagssatz
             {
-                key: 'gewinn_pct', label: 'Gewinn in %', value: 2.27, given: false, phase: 4, isPercent: true,
-                hint: '(12,01 ÷ 529,44) × 100 = 2,27 %\n(Gewinn ÷ Selbstkosten × 100)'
+                key: 'gewinn', label: 'Gewinn (absolut)', value: gewinn, given: false, isSum: true, phase: 3,
+                hint: `BVP − SK = ${fmt(bvp)} − ${fmt(sk)} = ${fmt(gewinn)} €`
+            },
+            {
+                key: 'gewinn_pct', label: 'Gewinn in %', value: gewinn_pct_result, given: false, phase: 4, isPercent: true,
+                hint: `(${fmt(gewinn)} ÷ ${fmt(sk)}) × 100 = ${fmt(gewinn_pct_result)} %\n(Gewinn ÷ Selbstkosten × 100)`
             },
         ]
-    }
-];
+    };
+}
 
 // ── Phase Labels für Level 3 ───
 const PHASE_LABELS = {
@@ -201,7 +262,8 @@ export default function KalkulationsBoss({ onBack }) {
         localStorage.setItem('kalk_boss_completed', JSON.stringify(completedLevels));
     }, [completedLevels]);
 
-    const startLevel = (level) => {
+    const startLevel = (config) => {
+        const level = generateLevel(config);
         setSelectedLevel(level);
         setInputs({});
         setValidated({});
@@ -346,23 +408,23 @@ export default function KalkulationsBoss({ onBack }) {
                 </header>
 
                 <div className="dashboard-grid" style={{ maxWidth: '900px' }}>
-                    {LEVELS.map(level => {
-                        const done = completedLevels.includes(level.id);
+                    {LEVEL_CONFIG.map(config => {
+                        const done = completedLevels.includes(config.id);
                         return (
-                            <div key={level.id} className="dash-card" onClick={() => startLevel(level)}
-                                style={{ borderColor: done ? level.color : undefined, boxShadow: done ? `0 0 20px ${level.color}33` : undefined }}>
+                            <div key={config.id} className="dash-card" onClick={() => startLevel(config)}
+                                style={{ borderColor: done ? config.color : undefined, boxShadow: done ? `0 0 20px ${config.color}33` : undefined }}>
                                 <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>
-                                    {level.id === 1 ? '⬇️' : level.id === 2 ? '⬆️' : '🔀'}
+                                    {config.id === 1 ? '⬇️' : config.id === 2 ? '⬆️' : '🔀'}
                                 </div>
-                                <h2 style={{ color: 'var(--text-light)', margin: 0 }}>Level {level.id}</h2>
-                                <h3 style={{ color: level.color, margin: '0.2rem 0', fontWeight: 700, fontSize: '1.1rem' }}>{level.title}</h3>
-                                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>{level.story}</p>
+                                <h2 style={{ color: 'var(--text-light)', margin: 0 }}>Level {config.id}</h2>
+                                <h3 style={{ color: config.color, margin: '0.2rem 0', fontWeight: 700, fontSize: '1.1rem' }}>{config.title}</h3>
+                                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>{config.story}</p>
                                 <div className="chip" style={{
-                                    background: done ? `${level.color}33` : undefined,
-                                    color: done ? level.color : undefined,
-                                    borderColor: done ? level.color : undefined,
+                                    background: done ? `${config.color}33` : undefined,
+                                    color: done ? config.color : undefined,
+                                    borderColor: done ? config.color : undefined,
                                 }}>
-                                    {done ? '✅ Abgeschlossen' : level.subtitle}
+                                    {done ? '✅ Abgeschlossen' : config.subtitle}
                                 </div>
                             </div>
                         );
@@ -395,11 +457,11 @@ export default function KalkulationsBoss({ onBack }) {
                     </p>
 
                     <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                        <button className="btn-primary" onClick={() => startLevel(selectedLevel)}>🔄 Nochmal</button>
+                        <button className="btn-primary" onClick={() => startLevel(LEVEL_CONFIG[selectedLevel.id - 1])}>🔄 Nochmal</button>
                         <button className="btn-secondary" onClick={() => setSelectedLevel(null)}>📋 Level-Auswahl</button>
                         {selectedLevel.id < 3 && (
-                            <button className="btn-primary" style={{ background: LEVELS[selectedLevel.id].color }}
-                                onClick={() => startLevel(LEVELS[selectedLevel.id])}>
+                            <button className="btn-primary" style={{ background: LEVEL_CONFIG[selectedLevel.id].color }}
+                                onClick={() => startLevel(LEVEL_CONFIG[selectedLevel.id])}>
                                 ➡️ Level {selectedLevel.id + 1}
                             </button>
                         )}
