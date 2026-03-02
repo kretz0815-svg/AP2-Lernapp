@@ -554,7 +554,7 @@ export default function KalkulationsBoss({ onBack }) {
             <div ref={containerRef} style={{
                 width: '100%',
                 display: 'flex',
-                flexDirection: 'column',
+                flexDirection: selectedLevel.direction === 'backward' ? 'column-reverse' : 'column',
                 gap: '0',
                 position: 'relative',
             }}>
@@ -565,7 +565,9 @@ export default function KalkulationsBoss({ onBack }) {
                     top: '20px',
                     bottom: '20px',
                     width: '3px',
-                    background: `linear-gradient(180deg, ${selectedLevel.color}44, ${selectedLevel.color}22)`,
+                    background: selectedLevel.direction === 'backward'
+                        ? `linear-gradient(0deg, ${selectedLevel.color}44, ${selectedLevel.color}22)`
+                        : `linear-gradient(180deg, ${selectedLevel.color}44, ${selectedLevel.color}22)`,
                     borderRadius: '2px',
                     zIndex: 0,
                 }} />
