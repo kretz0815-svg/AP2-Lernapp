@@ -23,6 +23,7 @@ import FloatingImage from './components/FloatingImage';
 import BurgerMenu from './components/BurgerMenu';
 import QuestionManager from './components/QuestionManager';
 import PomodoroTimer from './components/PomodoroTimer';
+import KalkulationsBoss from './components/KalkulationsBoss';
 
 const generateId = (text) => {
   let hash = 0;
@@ -962,6 +963,26 @@ function App() {
             <p>Deine gespeicherten Notizen ansehen und als PDF exportieren.</p>
             <div className="chip" style={{ marginTop: 'auto' }}>Gespeichert</div>
           </div>
+
+          <div className="dash-card" onClick={() => setAppMode('kalkulation')}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
+              <svg width="1.1em" height="1.1em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round">
+                <rect x="2" y="2" width="20" height="20" rx="3" />
+                <line x1="12" y1="2" x2="12" y2="22" strokeWidth="1.5" />
+                <line x1="2" y1="12" x2="22" y2="12" strokeWidth="1.5" />
+                <line x1="7" y1="5" x2="7" y2="9" />
+                <line x1="5" y1="7" x2="9" y2="7" />
+                <line x1="15" y1="7" x2="19" y2="7" />
+                <line x1="15" y1="15.5" x2="19" y2="19" />
+                <line x1="19" y1="15.5" x2="15" y2="19" />
+                <line x1="5" y1="16" x2="9" y2="16" />
+                <line x1="5" y1="18.5" x2="9" y2="18.5" />
+              </svg>
+            </div>
+            <h2>Kalkulations-<br />Boss</h2>
+            <p>Meistere Vorwärts-, Rückwärts- und Differenzkalkulation spielerisch.</p>
+            <div className="chip">3 Level</div>
+          </div>
         </div>
 
         {resetModalVisible && (
@@ -989,6 +1010,16 @@ function App() {
           </div>
         )}
       </div>
+    );
+  }
+
+  if (appMode === 'kalkulation') {
+    return (
+      <>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <KalkulationsBoss onBack={() => setAppMode('dashboard')} />
+      </>
     );
   }
 
