@@ -291,7 +291,13 @@ export default function FloatingNotes({ questionId, questionText }) {
                         onClick={() => setIsOpen(true)}
                         title="Notizen zur aktuellen Frage"
                     >
-                        📝
+                        <svg viewBox="0 0 24 24" width="1.4em" height="1.4em" fill="currentColor" style={{ display: 'block' }}>
+                            <path d="M3 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6.586l-1 1V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h7v1H5a2 2 0 0 1-2-2V5z" />
+                            <rect x="7" y="7" width="6" height="1.2" rx="0.6" />
+                            <rect x="7" y="10" width="8" height="1.2" rx="0.6" />
+                            <rect x="7" y="13" width="5" height="1.2" rx="0.6" />
+                            <path d="M16.293 12.293a1 1 0 0 1 1.414 0l1 1a1 1 0 0 1 0 1.414l-5.5 5.5L11 21l.793-2.207 5.5-5.5z" />
+                        </svg>
                     </button>
                 </div>
             ) : (
