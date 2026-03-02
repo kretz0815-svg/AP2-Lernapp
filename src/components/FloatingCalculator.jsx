@@ -244,9 +244,20 @@ export default function FloatingCalculator() {
                         className="floating-notes-toggle"
                         onClick={() => setIsOpen(true)}
                         title="Taschenrechner öffnen"
-                        style={{ background: '#66295c', color: '#2c3170', fontSize: '1.8rem', fontWeight: 'bold' }}
                     >
-                        €
+                        <svg viewBox="0 0 24 24" width="1.4em" height="1.4em" fill="currentColor" style={{ display: 'block' }}>
+                            <path d="M2 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v2h12V4a1 1 0 0 0-1-1H4zM3 8v6a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V8H3z" />
+                            <rect x="4.5" y="9.5" width="2" height="2" rx="0.4" />
+                            <rect x="8" y="9.5" width="2" height="2" rx="0.4" />
+                            <rect x="11.5" y="9.5" width="2" height="2" rx="0.4" />
+                            <rect x="4.5" y="12.5" width="2" height="2" rx="0.4" />
+                            <rect x="8" y="12.5" width="2" height="2" rx="0.4" />
+                            <rect x="11.5" y="12.5" width="2" height="2" rx="0.4" />
+                            <circle cx="18.5" cy="18" r="3" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                            <circle cx="18.5" cy="18" r="1" />
+                            <ellipse cx="18.5" cy="21.5" rx="3.5" ry="1.2" fill="none" stroke="currentColor" strokeWidth="1" />
+                            <ellipse cx="18.5" cy="20" rx="3.5" ry="1.2" fill="none" stroke="currentColor" strokeWidth="1" />
+                        </svg>
                     </button>
                 </div>
             ) : (
