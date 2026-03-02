@@ -522,7 +522,7 @@ export default function KalkulationsBoss({ onBack }) {
                                                     background: isActive ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.03)',
                                                     border: isShaking ? '2px solid #ef4444' : isActive ? `2px solid ${selectedLevel.color}` : '1px solid rgba(255,255,255,0.1)',
                                                     borderRadius: '10px',
-                                                    padding: '0.5rem 0.8rem',
+                                                    padding: '0.5rem 2.2rem 0.5rem 0.8rem',
                                                     textAlign: 'right',
                                                     outline: 'none',
                                                     transition: 'all 0.2s ease',
@@ -532,8 +532,8 @@ export default function KalkulationsBoss({ onBack }) {
                                             />
                                             {isActive && (
                                                 <span style={{
-                                                    position: 'absolute', right: '0.6rem', top: '50%', transform: 'translateY(-50%)',
-                                                    color: 'var(--text-muted)', fontSize: '0.8rem', pointerEvents: 'none',
+                                                    position: 'absolute', right: '0.7rem', top: '50%', transform: 'translateY(-50%)',
+                                                    color: 'var(--text-muted)', fontSize: '0.85rem', pointerEvents: 'none', fontWeight: 600,
                                                 }}>
                                                     {step.isPercent ? '%' : '€'}
                                                 </span>

@@ -1019,6 +1019,8 @@ function App() {
         {pomodoroPortal}
         {burgerMenuPortal}
         <KalkulationsBoss onBack={() => setAppMode('dashboard')} />
+        <FloatingNotes questionId="kalkulation" questionText="Kalkulations-Boss" />
+        <FloatingCalculator />
       </>
     );
   }
