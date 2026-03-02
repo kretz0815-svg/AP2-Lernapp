@@ -295,9 +295,32 @@ export default function FloatingCalculator() {
                         > &times; </button>
                     </div>
 
-                    <div className="calc-display" style={{ fontSize }}>
-                        {currentValue}
-                    </div>
+                    <input
+                        className="calc-display"
+                        style={{ fontSize, border: 'none', outline: 'none', width: '100%', textAlign: 'right', background: 'transparent', color: 'inherit', fontFamily: 'inherit', fontWeight: 'inherit', caretColor: 'rgba(255,255,255,0.6)' }}
+                        value={currentValue}
+                        onChange={(e) => {
+                            const raw = e.target.value.replace(',', '.').replace(/[^0-9.\-]/g, '');
+                            if (raw === '' || raw === '-') { setCurrentValue(raw || '0'); return; }
+                            // Prevent multiple dots
+                            const parts = raw.split('.');
+                            const cleaned = parts.length > 2 ? parts[0] + '.' + parts.slice(1).join('') : raw;
+                            setCurrentValue(cleaned);
+                            setWaitingForNewValue(false);
+                        }}
+                        onPaste={(e) => {
+                            e.preventDefault();
+                            const pasted = (e.clipboardData.getData('text') || '').replace(',', '.').replace(/[^0-9.\-]/g, '');
+                            if (pasted) {
+                                setCurrentValue(pasted);
+                                setWaitingForNewValue(false);
+                            }
+                        }}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') { e.preventDefault(); handleEquals(); }
+                        }}
+                        inputMode="decimal"
+                    />
 
                     <div className="calc-wrapper">
                         <div className="calc-grid">
