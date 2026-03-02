@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { fetchYouTubeVideos } from '../youtubeClient';
+import { askGemini } from '../geminiClient';
 
 // ═══════════════════════════════════════════════════════════════
 // KALKULATIONS-BOSS – Interaktives Lernspiel für Handelskalkulation
@@ -14,9 +16,10 @@ const LEVELS = [
         id: 1,
         title: 'Vorwärtskalkulation',
         subtitle: 'Anfänger',
-        story: '📦 Berechne den Angebotspreis für einen Kunden.',
+        story: 'Berechne den Angebotspreis für einen Kunden.',
         direction: 'forward',
         color: '#22c55e',
+        youtubeQuery: 'Vorwärtskalkulation Handelskalkulation Kaufmann einfach erklärt',
         given: { einstandspreis: 441.20, hk_pct: 20, gewinn_pct: 10, skonto_pct: 2, rabatt_pct: 15 },
         steps: [
             { key: 'einstandspreis', label: 'Einstandspreis', value: 441.20, given: true },
@@ -59,9 +62,10 @@ const LEVELS = [
         id: 2,
         title: 'Rückwärtskalkulation',
         subtitle: 'Mittel',
-        story: '🏷️ Der Marktpreis steht fest. Wie hoch darf dein Einkaufspreis maximal sein?',
+        story: 'Der Marktpreis steht fest. Wie hoch darf dein Einkaufspreis maximal sein?',
         direction: 'backward',
         color: '#f59e0b',
+        youtubeQuery: 'Rückwärtskalkulation Handelskalkulation Kaufmann einfach erklärt',
         given: { lvp: 699.14, rabatt_pct: 15, skonto_pct: 2, gewinn_pct: 10, hk_pct: 20 },
         steps: [
             { key: 'lvp', label: 'Listenverkaufspreis', value: 699.14, given: true },
@@ -104,9 +108,10 @@ const LEVELS = [
         id: 3,
         title: 'Differenzkalkulation',
         subtitle: 'Schwer',
-        story: '🎯 Kunde diktiert den Verkaufspreis, Lieferant den Einkaufspreis. Wie viel Gewinn bleibt?',
+        story: 'Kunde diktiert den Verkaufspreis, Lieferant den Einkaufspreis. Wie viel Gewinn bleibt?',
         direction: 'diff',
         color: '#ef4444',
+        youtubeQuery: 'Differenzkalkulation Handelskalkulation Kaufmann einfach erklärt',
         given: { einstandspreis: 441.20, hk_pct: 20, lvp: 650.00, rabatt_pct: 15, skonto_pct: 2 },
         steps: [
             // Schritt 1: Vorwärts
@@ -176,6 +181,16 @@ export default function KalkulationsBoss({ onBack }) {
     const inputRefs = useRef({});
     const containerRef = useRef(null);
 
+    // Video & KI state
+    const [videoOpen, setVideoOpen] = useState(false);
+    const [videoLoading, setVideoLoading] = useState(false);
+    const [videos, setVideos] = useState([]);
+    const [selectedVideo, setSelectedVideo] = useState(null);
+    const [geminiVisible, setGeminiVisible] = useState(false);
+    const [geminiQuery, setGeminiQuery] = useState('');
+    const [geminiResponse, setGeminiResponse] = useState('');
+    const [geminiLoading, setGeminiLoading] = useState(false);
+
     // Completed levels persistent
     const [completedLevels, setCompletedLevels] = useState(() => {
         try { return JSON.parse(localStorage.getItem('kalk_boss_completed') || '[]'); }
@@ -196,6 +211,13 @@ export default function KalkulationsBoss({ onBack }) {
         setCompleted(false);
         setScore(0);
         setAttempts({});
+        // Reset video/KI
+        setVideoOpen(false);
+        setVideos([]);
+        setSelectedVideo(null);
+        setGeminiVisible(false);
+        setGeminiQuery('');
+        setGeminiResponse('');
         // Pre-fill given values
         const pre = {};
         level.steps.forEach((s, i) => {
@@ -276,6 +298,37 @@ export default function KalkulationsBoss({ onBack }) {
     const totalSteps = selectedLevel ? selectedLevel.steps.filter(s => !s.given).length : 0;
     const completedSteps = selectedLevel ? selectedLevel.steps.filter((s, i) => !s.given && validated[i]).length : 0;
     const maxScore = totalSteps * 2;
+
+    // ─── Video toggle handler ───
+    const handleToggleVideos = async () => {
+        if (videoOpen) {
+            setVideoOpen(false);
+            setSelectedVideo(null);
+            return;
+        }
+        setVideoOpen(true);
+        if (videos.length === 0) {
+            setVideoLoading(true);
+            const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+            const query = selectedLevel.youtubeQuery || selectedLevel.title;
+            const fetched = await fetchYouTubeVideos(query, apiKey, 4);
+            setVideos(fetched);
+            setVideoLoading(false);
+        }
+    };
+
+    // ─── Gemini KI handler ───
+    const handleGeminiAsk = async () => {
+        if (!geminiQuery.trim()) return;
+        setGeminiLoading(true);
+        setGeminiResponse('');
+        const currentStep = selectedLevel.steps[activeStep];
+        const contextQuestion = `${selectedLevel.title}: ${currentStep?.label || selectedLevel.story}`;
+        const contextAnswer = currentStep?.hint || 'Kalkulationsschema anwenden';
+        const response = await askGemini(geminiQuery, contextQuestion, contextAnswer);
+        setGeminiResponse(response);
+        setGeminiLoading(false);
+    };
 
     // ─── Level Select Screen ───
     if (!selectedLevel) {
@@ -394,6 +447,108 @@ export default function KalkulationsBoss({ onBack }) {
                     <div className="progress-bar" style={{ width: `${progressPct}%`, background: selectedLevel.color }} />
                 </div>
             </div>
+
+            {/* Video & KI Buttons */}
+            <div style={{ marginBottom: '1.2rem', textAlign: 'center', display: 'flex', gap: '0.8rem', justifyContent: 'center', flexWrap: 'wrap', width: '100%' }}>
+                <button
+                    className={`btn-secondary fade-in ${videoLoading ? 'loading' : ''}`}
+                    onClick={handleToggleVideos}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', padding: '0.55rem 1rem', borderRadius: '12px', background: videoOpen ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
+                >
+                    <span>{videoOpen ? '🙈' : '📺'}</span>
+                    {videoOpen ? 'Videos ausblenden' : 'Lernvideos ansehen'}
+                </button>
+
+                <button
+                    className="btn-secondary fade-in"
+                    onClick={() => { setGeminiVisible(!geminiVisible); setGeminiResponse(''); }}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', padding: '0.55rem 1rem', borderRadius: '12px', background: geminiVisible ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
+                >
+                    <span>✨</span>
+                    {geminiVisible ? 'KI schließen' : 'KI um Hilfe bitten'}
+                </button>
+            </div>
+
+            {/* Video Panel */}
+            {videoOpen && (
+                <div className="fade-in" style={{ marginBottom: '1.2rem', width: '100%' }}>
+                    {!selectedVideo ? (
+                        <>
+                            {videoLoading ? (
+                                <div style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '2rem', background: 'var(--glass-bg)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>Suche passende Videos... ⏳</div>
+                            ) : (
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem' }}>
+                                    {videos.length > 0 ? videos.map((video) => (
+                                        <div
+                                            key={video.id}
+                                            className="video-thumbnail-card"
+                                            onClick={() => setSelectedVideo(video)}
+                                            style={{ background: 'var(--glass-bg)', borderRadius: '12px', overflow: 'hidden', cursor: 'pointer', border: '1px solid var(--glass-border)', transition: 'all 0.2s', display: 'flex', flexDirection: 'column' }}
+                                        >
+                                            <img src={video.thumbnail} alt={video.title} style={{ width: '100%', height: '100px', objectFit: 'cover' }} />
+                                            <div style={{ padding: '0.6rem' }}>
+                                                <div style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'white', marginBottom: '0.3rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{video.title}</div>
+                                                <span style={{ color: 'var(--text-muted)', fontSize: '0.7rem' }}>{video.channelTitle}</span>
+                                            </div>
+                                        </div>
+                                    )) : (
+                                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'var(--text-muted)', padding: '1rem' }}>Keine Videos gefunden.</div>
+                                    )}
+                                </div>
+                            )}
+                        </>
+                    ) : (
+                        <div style={{ background: 'black', borderRadius: '16px', overflow: 'hidden', position: 'relative', paddingTop: '56.25%' }}>
+                            <iframe
+                                src={`https://www.youtube.com/embed/${selectedVideo.id}?autoplay=1`}
+                                title="YouTube video player"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                            ></iframe>
+                            <button
+                                onClick={() => setSelectedVideo(null)}
+                                style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(0,0,0,0.6)', color: 'white', border: 'none', borderRadius: '50%', width: '30px', height: '30px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}
+                            >
+                                ✕
+                            </button>
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {/* Gemini KI Panel */}
+            {geminiVisible && (
+                <div className="fade-in" style={{ marginBottom: '1.2rem', width: '100%', borderRadius: '16px', padding: '1.2rem', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
+                    <p style={{ color: 'var(--text-light)', marginBottom: '0.8rem', fontSize: '1rem', fontWeight: 'bold' }}>Frage an deinen KI-Tutor</p>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <input
+                            type="text"
+                            className="wisor-input"
+                            placeholder="Was verstehst du nicht?"
+                            value={geminiQuery}
+                            onChange={(e) => setGeminiQuery(e.target.value)}
+                            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleGeminiAsk(); } }}
+                            style={{ flex: 1, padding: '0.8rem', margin: 0 }}
+                        />
+                        <button
+                            type="button"
+                            className="btn-primary"
+                            onClick={handleGeminiAsk}
+                            disabled={geminiLoading || !geminiQuery.trim()}
+                            style={{ padding: '0 1.2rem' }}
+                        >
+                            {geminiLoading ? '⏳' : 'Fragen'}
+                        </button>
+                    </div>
+                    {geminiResponse && (
+                        <div className="fade-in" style={{ marginTop: '0.8rem', padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', color: '#e2e8f0', textAlign: 'left', lineHeight: '1.6' }}>
+                            <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', margin: 0, fontSize: '0.9rem' }}>{geminiResponse}</pre>
+                        </div>
+                    )}
+                </div>
+            )}
 
             {/* Elevator Schema */}
             <div ref={containerRef} style={{
