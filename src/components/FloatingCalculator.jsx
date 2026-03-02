@@ -245,18 +245,17 @@ export default function FloatingCalculator() {
                         onClick={() => setIsOpen(true)}
                         title="Taschenrechner öffnen"
                     >
-                        <svg viewBox="0 0 24 24" width="1.4em" height="1.4em" fill="currentColor" style={{ display: 'block' }}>
-                            <path d="M2 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v2h12V4a1 1 0 0 0-1-1H4zM3 8v6a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V8H3z" />
-                            <rect x="4.5" y="9.5" width="2" height="2" rx="0.4" />
-                            <rect x="8" y="9.5" width="2" height="2" rx="0.4" />
-                            <rect x="11.5" y="9.5" width="2" height="2" rx="0.4" />
-                            <rect x="4.5" y="12.5" width="2" height="2" rx="0.4" />
-                            <rect x="8" y="12.5" width="2" height="2" rx="0.4" />
-                            <rect x="11.5" y="12.5" width="2" height="2" rx="0.4" />
-                            <circle cx="18.5" cy="18" r="3" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                            <circle cx="18.5" cy="18" r="1" />
-                            <ellipse cx="18.5" cy="21.5" rx="3.5" ry="1.2" fill="none" stroke="currentColor" strokeWidth="1" />
-                            <ellipse cx="18.5" cy="20" rx="3.5" ry="1.2" fill="none" stroke="currentColor" strokeWidth="1" />
+                        <svg viewBox="0 0 24 24" width="1.4em" height="1.4em" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" style={{ display: 'block' }}>
+                            <rect x="2" y="2" width="20" height="20" rx="3" />
+                            <line x1="12" y1="2" x2="12" y2="22" strokeWidth="1.5" />
+                            <line x1="2" y1="12" x2="22" y2="12" strokeWidth="1.5" />
+                            <line x1="7" y1="5" x2="7" y2="9" />
+                            <line x1="5" y1="7" x2="9" y2="7" />
+                            <line x1="15" y1="7" x2="19" y2="7" />
+                            <line x1="15" y1="15.5" x2="19" y2="19" />
+                            <line x1="19" y1="15.5" x2="15" y2="19" />
+                            <line x1="5" y1="16" x2="9" y2="16" />
+                            <line x1="5" y1="18.5" x2="9" y2="18.5" />
                         </svg>
                     </button>
                 </div>
