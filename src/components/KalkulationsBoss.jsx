@@ -38,6 +38,12 @@ const LEVEL_CONFIG = [
         direction: 'diff', color: '#ef4444',
         youtubeQuery: 'Differenzkalkulation Handelskalkulation Kaufmann einfach erklärt',
     },
+    {
+        id: 4, title: 'Boss-Modus', subtitle: 'Boss',
+        story: 'Alle Kalkulationsarten – mit begrenzten Leben! Schaffst du den Deal?',
+        direction: 'boss', color: '#a855f7',
+        youtubeQuery: 'Handelskalkulation komplett einfach erklärt IHK',
+    },
 ];
 
 // ══════════════════════════════════════════════════════════════
@@ -45,6 +51,22 @@ const LEVEL_CONFIG = [
 // ══════════════════════════════════════════════════════════════
 
 function generateLevel(config) {
+    // Boss-Modus: zufällig eine der 3 Kalkulationsarten wählen
+    if (config.direction === 'boss') {
+        const types = ['forward', 'backward', 'diff'];
+        const pick = types[Math.floor(Math.random() * types.length)];
+        const subConfig = { ...config, direction: pick };
+        const level = generateLevel(subConfig);
+        // Restore boss metadata
+        level.id = 4;
+        level.title = 'Boss-Modus';
+        level.color = '#a855f7';
+        level.direction = 'boss';
+        level.bossSubType = pick;
+        level.subtitle = pick === 'forward' ? '⬇ Vorwärts' : pick === 'backward' ? '⬆ Rückwärts' : '🔀 Differenz';
+        return level;
+    }
+
     const hk_pct = randInt(10, 30);
     const gewinn_pct = randInt(5, 20);
     const skonto_pct = randInt(1, 3);
@@ -239,6 +261,12 @@ export default function KalkulationsBoss({ onBack }) {
     const [completed, setCompleted] = useState(false);
     const [score, setScore] = useState(0);
     const [attempts, setAttempts] = useState({});
+
+    // Boss-Modus Gamification
+    const [lives, setLives] = useState(3);
+    const [streak, setStreak] = useState(0);
+    const [gameOver, setGameOver] = useState(false);
+    const [floatingPoints, setFloatingPoints] = useState(null); // { idx, points }
     const inputRefs = useRef({});
     const containerRef = useRef(null);
 
@@ -273,6 +301,11 @@ export default function KalkulationsBoss({ onBack }) {
         setCompleted(false);
         setScore(0);
         setAttempts({});
+        // Boss-Modus reset
+        setLives(3);
+        setStreak(0);
+        setGameOver(false);
+        setFloatingPoints(null);
         // Reset video/KI
         setVideoOpen(false);
         setVideos([]);
@@ -302,6 +335,8 @@ export default function KalkulationsBoss({ onBack }) {
         setInputs(prev => ({ ...prev, [idx]: cleaned }));
     };
 
+    const isBoss = selectedLevel?.id === 4;
+
     const validateStep = (idx) => {
         if (!selectedLevel) return;
         const step = selectedLevel.steps[idx];
@@ -312,15 +347,25 @@ export default function KalkulationsBoss({ onBack }) {
         const userRounded = round2(userVal);
 
         if (Math.abs(userRounded - correct) < 0.015) {
-            // CORRECT
+            // ✅ CORRECT
             setValidated(prev => ({ ...prev, [idx]: true }));
             setInputs(prev => ({ ...prev, [idx]: correct.toFixed(2) }));
             setShowHint(prev => ({ ...prev, [idx]: false }));
 
-            // Score: First try = 2pts, second = 1pt, third+ = 0
-            const att = (attempts[idx] || 0);
-            if (att === 0) setScore(prev => prev + 2);
-            else if (att === 1) setScore(prev => prev + 1);
+            if (isBoss) {
+                // Boss scoring: 100 × streak multiplier
+                const newStreak = streak + 1;
+                setStreak(newStreak);
+                const pts = 100 * newStreak;
+                setScore(prev => prev + pts);
+                setFloatingPoints({ idx, points: pts });
+                setTimeout(() => setFloatingPoints(null), 1200);
+            } else {
+                // Normal scoring: First try = 2pts, second = 1pt
+                const att = (attempts[idx] || 0);
+                if (att === 0) setScore(prev => prev + 2);
+                else if (att === 1) setScore(prev => prev + 1);
+            }
 
             // Find next un-validated step 
             const nextIdx = selectedLevel.steps.findIndex((s, i) => i > idx && !s.given && !validated[i]);
@@ -338,14 +383,26 @@ export default function KalkulationsBoss({ onBack }) {
                 }
             }
         } else {
-            // WRONG
+            // ❌ WRONG
             setShaking(prev => ({ ...prev, [idx]: true }));
             setAttempts(prev => ({ ...prev, [idx]: (prev[idx] || 0) + 1 }));
             setTimeout(() => setShaking(prev => ({ ...prev, [idx]: false })), 600);
 
-            // Show hint after 2 wrong attempts
-            if ((attempts[idx] || 0) >= 1) {
+            if (isBoss) {
+                setStreak(0);
+                const newLives = lives - 1;
+                setLives(newLives);
+                if (newLives <= 0) {
+                    setGameOver(true);
+                    return;
+                }
+                // Show hint immediately in boss mode
                 setShowHint(prev => ({ ...prev, [idx]: true }));
+            } else {
+                // Show hint after 2 wrong attempts
+                if ((attempts[idx] || 0) >= 1) {
+                    setShowHint(prev => ({ ...prev, [idx]: true }));
+                }
             }
         }
     };
@@ -414,7 +471,7 @@ export default function KalkulationsBoss({ onBack }) {
                             <div key={config.id} className="dash-card" onClick={() => startLevel(config)}
                                 style={{ borderColor: done ? config.color : undefined, boxShadow: done ? `0 0 20px ${config.color}33` : undefined }}>
                                 <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>
-                                    {config.id === 1 ? '⬇️' : config.id === 2 ? '⬆️' : '🔀'}
+                                    {config.id === 1 ? '⬇️' : config.id === 2 ? '⬆️' : config.id === 3 ? '🔀' : '👑'}
                                 </div>
                                 <h2 style={{ color: 'var(--text-light)', margin: 0 }}>Level {config.id}</h2>
                                 <h3 style={{ color: config.color, margin: '0.2rem 0', fontWeight: 700, fontSize: '1.1rem' }}>{config.title}</h3>
@@ -434,10 +491,38 @@ export default function KalkulationsBoss({ onBack }) {
         );
     }
 
+    // ─── Game Over Screen (Boss-Modus) ───
+    if (gameOver && isBoss) {
+        return (
+            <div className="app-container" style={{ zIndex: 10 }}>
+                <div className="blob blob-1"></div>
+                <div className="blob blob-2"></div>
+                <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '500px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '2px solid #ef4444', textAlign: 'center' }}>
+                    <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>💥</div>
+                    <h2 style={{ color: '#ef4444', fontSize: '1.8rem', marginBottom: '0.5rem' }}>
+                        Deal geplatzt!
+                    </h2>
+                    <p style={{ color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
+                        Die Geduld deines Verhandlungspartners ist aufgebraucht.
+                    </p>
+                    <p style={{ color: '#a855f7', fontWeight: 700, fontSize: '1.2rem', marginBottom: '1.5rem' }}>
+                        Endpunktzahl: {score} Punkte
+                    </p>
+                    <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                        <button className="btn-primary" style={{ background: '#a855f7' }} onClick={() => startLevel(LEVEL_CONFIG[3])}>🔄 Neuen Deal starten</button>
+                        <button className="btn-secondary" onClick={() => setSelectedLevel(null)}>📋 Level-Auswahl</button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     // ─── Completed Screen ───
     if (completed) {
-        const pct = Math.round((score / maxScore) * 100);
-        const stars = pct >= 90 ? 3 : pct >= 60 ? 2 : 1;
+        const bossStars = lives >= 3 ? 3 : lives >= 2 ? 2 : 1;
+        const normalPct = Math.round((score / maxScore) * 100);
+        const normalStars = normalPct >= 90 ? 3 : normalPct >= 60 ? 2 : 1;
+        const stars = isBoss ? bossStars : normalStars;
         return (
             <div className="app-container" style={{ zIndex: 10 }}>
                 <div className="blob blob-1"></div>
@@ -447,19 +532,28 @@ export default function KalkulationsBoss({ onBack }) {
                         {stars === 3 ? '🏆' : stars === 2 ? '⭐' : '💪'}
                     </div>
                     <h2 style={{ color: 'var(--text-light)', fontSize: '1.8rem', marginBottom: '0.5rem' }}>
-                        Level {selectedLevel.id} geschafft!
+                        {isBoss ? 'Deal erfolgreich abgeschlossen!' : `Level ${selectedLevel.id} geschafft!`}
                     </h2>
+                    {isBoss && (
+                        <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: '0.3rem 0' }}>
+                            Kalkulationstyp: {selectedLevel.subtitle}
+                        </p>
+                    )}
                     <p style={{ color: selectedLevel.color, fontWeight: 700, fontSize: '1.2rem', margin: '0.5rem 0' }}>
                         {'⭐'.repeat(stars)}{'☆'.repeat(3 - stars)}
                     </p>
-                    <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-                        {score} / {maxScore} Punkte ({pct}%)
+                    <p style={{ color: 'var(--text-muted)', marginBottom: isBoss ? '0.3rem' : '1.5rem' }}>
+                        {isBoss ? `${score} Punkte` : `${score} / ${maxScore} Punkte (${normalPct}%)`}
                     </p>
-
+                    {isBoss && (
+                        <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
+                            {'☕'.repeat(lives)}{'🤍'.repeat(3 - lives)} {lives}/3 Leben übrig
+                        </p>
+                    )}
                     <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                        <button className="btn-primary" onClick={() => startLevel(LEVEL_CONFIG[selectedLevel.id - 1])}>🔄 Nochmal</button>
+                        <button className="btn-primary" onClick={() => startLevel(LEVEL_CONFIG[selectedLevel.id - 1])}>🔄 {isBoss ? 'Nächster Deal' : 'Nochmal'}</button>
                         <button className="btn-secondary" onClick={() => setSelectedLevel(null)}>📋 Level-Auswahl</button>
-                        {selectedLevel.id < 3 && (
+                        {!isBoss && selectedLevel.id < 4 && (
                             <button className="btn-primary" style={{ background: LEVEL_CONFIG[selectedLevel.id].color }}
                                 onClick={() => startLevel(LEVEL_CONFIG[selectedLevel.id])}>
                                 ➡️ Level {selectedLevel.id + 1}
@@ -480,13 +574,30 @@ export default function KalkulationsBoss({ onBack }) {
             <div className="blob blob-1"></div>
             <div className="blob blob-2"></div>
 
-            {/* Header */}
-            <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                <button onClick={() => setSelectedLevel(null)} className="btn-nav">← Level-Auswahl</button>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                    <span style={{ color: selectedLevel.color, fontWeight: 700, fontSize: '0.9rem' }}>
-                        ⭐ {score}/{maxScore}
-                    </span>
+            {/* Header with Lives & Score */}
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem', padding: '0 0.5rem' }}>
+                <button onClick={() => setSelectedLevel(null)} className="btn-nav">← Auswahl</button>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    {isBoss && (
+                        <div style={{ display: 'flex', gap: '0.3rem', alignItems: 'center', background: 'rgba(0,0,0,0.3)', padding: '0.4rem 0.8rem', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                            <span style={{ fontSize: '1.1rem' }}>{Array.from({ length: 3 }).map((_, i) => (
+                                <span key={i} style={{ opacity: i < lives ? 1 : 0.2, filter: i < lives ? 'none' : 'grayscale(1)', transition: 'all 0.4s' }}>☕</span>
+                            ))}</span>
+                            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginLeft: '0.4rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Geduld</span>
+                        </div>
+                    )}
+
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                        <span style={{ color: selectedLevel.color, fontWeight: 800, fontSize: '1.2rem', textShadow: `0 0 10px ${selectedLevel.color}44` }}>
+                            {score} <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>PTS</span>
+                        </span>
+                        {streak > 1 && (
+                            <span className="fade-in" style={{ fontSize: '0.7rem', background: 'linear-gradient(45deg, #f59e0b, #ef4444)', padding: '1px 6px', borderRadius: '4px', color: 'black', fontWeight: 900 }}>
+                                {streak}× COMBO
+                            </span>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -749,6 +860,22 @@ export default function KalkulationsBoss({ onBack }) {
                                                     boxShadow: isActive ? `0 0 12px ${selectedLevel.color}22` : 'none',
                                                 }}
                                             />
+                                            {/* Floating Points Animation */}
+                                            {floatingPoints?.idx === idx && (
+                                                <div className="fade-out-up" style={{
+                                                    position: 'absolute',
+                                                    right: '-2rem',
+                                                    top: '0',
+                                                    color: '#fbbf24',
+                                                    fontWeight: 900,
+                                                    fontSize: '1.2rem',
+                                                    zIndex: 20,
+                                                    pointerEvents: 'none',
+                                                    textShadow: '0 0 10px rgba(251, 191, 36, 0.5)'
+                                                }}>
+                                                    +{floatingPoints.points}
+                                                </div>
+                                            )}
                                             {isActive && (
                                                 <span style={{
                                                     position: 'absolute', right: '0.7rem', top: '50%', transform: 'translateY(-50%)',
