@@ -87,18 +87,19 @@ export default function QuestionManager({ category, questions, progress, formatL
         // Update localStorage
         localStorage.setItem(config.progressKey, JSON.stringify(updatedProgress));
 
-        // Sync to Supabase
-        const deviceId = localStorage.getItem('masterpat_device_id');
-        if (deviceId) {
-            try {
-                const { data } = await supabase.from('user_data').select('progress_data').eq('device_id', deviceId).single();
+        // Sync to Supabase (only for authenticated users)
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user) {
+                const userId = session.user.id;
+                const { data } = await supabase.from('user_data').select('progress_data').eq('user_id', userId).single();
                 if (data?.progress_data) {
                     const key = category === 'quiz' ? 'quiz_progress' : category === 'wisor' ? 'wisor_progress' : 'wisor_eco_progress';
                     data.progress_data[key] = updatedProgress;
-                    await supabase.from('user_data').update({ progress_data: data.progress_data, updated_at: new Date().toISOString() }).eq('device_id', deviceId);
+                    await supabase.from('user_data').update({ progress_data: data.progress_data, updated_at: new Date().toISOString() }).eq('user_id', userId);
                 }
-            } catch (err) { console.error('Supabase reset sync error:', err); }
-        }
+            }
+        } catch (err) { console.error('Supabase reset sync error:', err); }
 
         if (onProgressUpdate) onProgressUpdate(category, updatedProgress);
     };

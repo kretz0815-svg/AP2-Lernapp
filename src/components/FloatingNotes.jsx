@@ -36,14 +36,15 @@ export default function FloatingNotes({ questionId, questionText }) {
     const persistNotes = async (allNotes) => {
         localStorage.setItem('ap2_saved_notes', JSON.stringify(allNotes));
 
-        // Also sync to Supabase so notes appear on all devices
-        const deviceId = localStorage.getItem('masterpat_device_id');
-        if (deviceId) {
-            try {
+        // Also sync to Supabase so notes appear on all devices (only for authenticated users)
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user) {
+                const userId = session.user.id;
                 const { data } = await supabase
                     .from('user_data')
                     .select('progress_data')
-                    .eq('device_id', deviceId)
+                    .eq('user_id', userId)
                     .single();
 
                 const progressData = (data && data.progress_data) ? data.progress_data : {};
@@ -52,10 +53,10 @@ export default function FloatingNotes({ questionId, questionText }) {
                 await supabase
                     .from('user_data')
                     .update({ progress_data: progressData, updated_at: new Date().toISOString() })
-                    .eq('device_id', deviceId);
-            } catch (err) {
-                console.error('Supabase notes sync error:', err);
+                    .eq('user_id', userId);
             }
+        } catch (err) {
+            console.error('Supabase notes sync error:', err);
         }
     };
 
@@ -65,16 +66,17 @@ export default function FloatingNotes({ questionId, questionText }) {
         const saved = getAllNotes();
         setNotes(saved[questionId]?.text || '');
 
-        // Then try to pull latest from Supabase (in case another device saved something newer)
+        // Then try to pull latest from Supabase (only for authenticated users)
         const syncFromSupabase = async () => {
-            const deviceId = localStorage.getItem('masterpat_device_id');
-            if (!deviceId) return;
-
             try {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (!session?.user) return;
+                const userId = session.user.id;
+
                 const { data } = await supabase
                     .from('user_data')
                     .select('progress_data')
-                    .eq('device_id', deviceId)
+                    .eq('user_id', userId)
                     .single();
 
                 if (data?.progress_data?.saved_notes) {

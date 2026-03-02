@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { createPortal } from 'react-dom';
 import './index.css';
 import flashcards1 from './data/flashcards_1.json';
@@ -69,33 +70,39 @@ function App() {
   const [authLoading, setAuthLoading] = useState(false);
   const [authMsg, setAuthMsg] = useState('');
   const [authUser, setAuthUser] = useState(null);
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const captchaRef = useRef(null);
   const SECRET_PIN = '261115'; // Das Passwort, das du später ändern kannst
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (!captchaToken) { setAuthMsg('Bitte bestätige das Captcha.'); return; }
     setAuthLoading(true);
     setAuthMsg('');
-    const { error, data } = await supabase.auth.signInWithPassword({ email, password });
+    const { error, data } = await supabase.auth.signInWithPassword({ email, password, options: { captchaToken } });
+    captchaRef.current?.resetCaptcha();
+    setCaptchaToken(null);
     if (error) { setAuthMsg(error.message); setAuthLoading(false); }
     else {
       setAuthMsg('Erfolgreich eingeloggt! Lade Account...');
       localStorage.setItem('masterpat_auth', 'true');
-      localStorage.setItem('masterpat_device_id', data.session.user.id);
       window.location.reload();
     }
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (!captchaToken) { setAuthMsg('Bitte bestätige das Captcha.'); return; }
     setAuthLoading(true);
     setAuthMsg('');
-    const { error, data } = await supabase.auth.signUp({ email, password });
+    const { error, data } = await supabase.auth.signUp({ email, password, options: { captchaToken } });
+    captchaRef.current?.resetCaptcha();
+    setCaptchaToken(null);
     if (error) { setAuthMsg(error.message); setAuthLoading(false); }
     else {
       setAuthMsg('Account erstellt! Logge ein...');
       if (data?.session) {
         localStorage.setItem('masterpat_auth', 'true');
-        localStorage.setItem('masterpat_device_id', data.session.user.id);
         window.location.reload();
       }
       setAuthLoading(false);
@@ -105,7 +112,6 @@ function App() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     localStorage.removeItem('masterpat_auth');
-    localStorage.removeItem('masterpat_device_id');
     window.location.reload();
   };
 
@@ -286,56 +292,52 @@ function App() {
       const { data: { session } } = await supabase.auth.getSession();
       if (session?.user) {
         setAuthUser(session.user);
-        localStorage.setItem('masterpat_device_id', session.user.id);
       }
 
-      // 1. Get or Generate Device ID
-      let deviceId = localStorage.getItem('masterpat_device_id');
-      if (!deviceId) {
-        deviceId = (crypto && crypto.randomUUID) ? crypto.randomUUID() : 'id_' + Math.random().toString(36).substr(2, 12);
-        localStorage.setItem('masterpat_device_id', deviceId);
-      }
-
-      // 2. Fetch from Supabase
+      // 1. Load local progress
       let progressData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
 
-      try {
-        const { data } = await supabase
-          .from('user_data')
-          .select('progress_data')
-          .eq('device_id', deviceId)
-          .single();
+      // 2. Fetch from Supabase (only for authenticated users)
+      if (session?.user) {
+        const userId = session.user.id;
+        try {
+          const { data } = await supabase
+            .from('user_data')
+            .select('progress_data')
+            .eq('user_id', userId)
+            .single();
 
-        if (data && data.progress_data) {
-          progressData = { ...progressData, ...data.progress_data };
-          localStorage.setItem('ap2_srs_progress', JSON.stringify(progressData));
+          if (data && data.progress_data) {
+            progressData = { ...progressData, ...data.progress_data };
+            localStorage.setItem('ap2_srs_progress', JSON.stringify(progressData));
 
-          if (data.progress_data.wisor_progress) {
-            localStorage.setItem('ap2_wisor_progress', JSON.stringify(data.progress_data.wisor_progress));
-          }
-          if (data.progress_data.wisor_eco_progress) {
-            localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(data.progress_data.wisor_eco_progress));
-          }
-          // Merge saved notes from Supabase into localStorage
-          if (data.progress_data.saved_notes) {
-            const localNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
-            const remoteNotes = data.progress_data.saved_notes;
-            let merged = { ...localNotes };
-            for (const key of Object.keys(remoteNotes)) {
-              const remoteDate = new Date(remoteNotes[key]?.date || 0).getTime();
-              const localDate = new Date(localNotes[key]?.date || 0).getTime();
-              if (!localNotes[key] || remoteDate > localDate) {
-                merged[key] = remoteNotes[key];
-              }
+            if (data.progress_data.wisor_progress) {
+              localStorage.setItem('ap2_wisor_progress', JSON.stringify(data.progress_data.wisor_progress));
             }
-            localStorage.setItem('ap2_saved_notes', JSON.stringify(merged));
+            if (data.progress_data.wisor_eco_progress) {
+              localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(data.progress_data.wisor_eco_progress));
+            }
+            // Merge saved notes from Supabase into localStorage
+            if (data.progress_data.saved_notes) {
+              const localNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
+              const remoteNotes = data.progress_data.saved_notes;
+              let merged = { ...localNotes };
+              for (const key of Object.keys(remoteNotes)) {
+                const remoteDate = new Date(remoteNotes[key]?.date || 0).getTime();
+                const localDate = new Date(localNotes[key]?.date || 0).getTime();
+                if (!localNotes[key] || remoteDate > localDate) {
+                  merged[key] = remoteNotes[key];
+                }
+              }
+              localStorage.setItem('ap2_saved_notes', JSON.stringify(merged));
+            }
+          } else if (!data) {
+            // Init empty row for this authenticated user
+            await supabase.from('user_data').insert([{ user_id: userId, device_id: userId, progress_data: progressData }]);
           }
-        } else if (!data) {
-          // Init empty row
-          await supabase.from('user_data').insert([{ device_id: deviceId, progress_data: progressData }]);
+        } catch (err) {
+          console.error("Supabase load error: ", err);
         }
-      } catch (err) {
-        console.error("Supabase load error: ", err);
       }
 
       let wisorProg = JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {};
@@ -439,10 +441,9 @@ function App() {
     storageData[currentCard.id] = newProgress;
     localStorage.setItem('ap2_srs_progress', JSON.stringify(storageData));
 
-    // Sync to Supabase in background
-    const deviceId = localStorage.getItem('masterpat_device_id');
-    if (deviceId) {
-      supabase.from('user_data').update({ progress_data: storageData, updated_at: new Date().toISOString() }).eq('device_id', deviceId).then();
+    // Sync to Supabase in background (only for authenticated users)
+    if (authUser?.id) {
+      supabase.from('user_data').update({ progress_data: storageData, updated_at: new Date().toISOString() }).eq('user_id', authUser.id).then();
     }
 
     let newQueue = [...learningQueue];
@@ -498,11 +499,10 @@ function App() {
     quizProg[q.id] = { rep, ef, interval, nextReview };
     localStorage.setItem('ap2_quiz_progress', JSON.stringify(quizProg));
 
-    let deviceId = localStorage.getItem('masterpat_device_id');
-    if (deviceId) {
+    if (authUser?.id) {
       let progressData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
       progressData.quiz_progress = quizProg;
-      supabase.from('user_data').update({ progress_data: progressData }).eq('device_id', deviceId).catch(e => console.error(e));
+      supabase.from('user_data').update({ progress_data: progressData }).eq('user_id', authUser.id).catch(e => console.error(e));
     }
   };
 
@@ -557,10 +557,9 @@ function App() {
         setCompletedWisors({});
         localStorage.removeItem('ap2_wisor_progress');
 
-        const deviceId = localStorage.getItem('masterpat_device_id');
-        if (deviceId) {
+        if (authUser?.id) {
           const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
-          supabase.from('user_data').update({ progress_data: { ...srsData, wisor_progress: {} } }).eq('device_id', deviceId).then();
+          supabase.from('user_data').update({ progress_data: { ...srsData, wisor_progress: {} } }).eq('user_id', authUser.id).then();
         }
 
         setResetModalVisible(false);
@@ -578,10 +577,9 @@ function App() {
         setCompletedWisorsEco({});
         localStorage.removeItem('ap2_wisor_eco_progress');
 
-        const deviceId = localStorage.getItem('masterpat_device_id');
-        if (deviceId) {
+        if (authUser?.id) {
           const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
-          supabase.from('user_data').update({ progress_data: { ...srsData, wisor_eco_progress: {} } }).eq('device_id', deviceId).then();
+          supabase.from('user_data').update({ progress_data: { ...srsData, wisor_eco_progress: {} } }).eq('user_id', authUser.id).then();
         }
 
         setResetModalVisible(false);
@@ -598,10 +596,9 @@ function App() {
       } else if (resetTarget === 'quiz') {
         localStorage.removeItem('ap2_quiz_progress');
 
-        const deviceId = localStorage.getItem('masterpat_device_id');
-        if (deviceId) {
+        if (authUser?.id) {
           const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
-          supabase.from('user_data').update({ progress_data: { ...srsData, quiz_progress: {} } }).eq('device_id', deviceId).then();
+          supabase.from('user_data').update({ progress_data: { ...srsData, quiz_progress: {} } }).eq('user_id', authUser.id).then();
         }
 
         setResetModalVisible(false);
@@ -657,11 +654,10 @@ function App() {
         const key = activeWisorMode === 'wisor1' ? 'ap2_wisor_progress' : 'ap2_wisor_eco_progress';
         localStorage.setItem(key, JSON.stringify(next));
 
-        const deviceId = localStorage.getItem('masterpat_device_id');
-        if (deviceId) {
+        if (authUser?.id) {
           const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
           const dbKey = activeWisorMode === 'wisor1' ? 'wisor_progress' : 'wisor_eco_progress';
-          supabase.from('user_data').update({ progress_data: { ...srsData, [dbKey]: next } }).eq('device_id', deviceId).then();
+          supabase.from('user_data').update({ progress_data: { ...srsData, [dbKey]: next } }).eq('user_id', authUser.id).then();
         }
         return next;
       };
@@ -728,9 +724,18 @@ function App() {
               onChange={(e) => setPassword(e.target.value)}
               style={{ fontSize: '1rem', padding: '1rem' }}
             />
+            <div style={{ display: 'flex', justifyContent: 'center', margin: '0.5rem 0' }}>
+              <HCaptcha
+                ref={captchaRef}
+                sitekey={import.meta.env.VITE_HCAPTCHA_SITEKEY || '10000000-ffff-ffff-ffff-000000000001'}
+                theme="dark"
+                onVerify={(token) => setCaptchaToken(token)}
+                onExpire={() => setCaptchaToken(null)}
+              />
+            </div>
             <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
-              <button type="button" onClick={handleLogin} className="btn-primary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading}>Login</button>
-              <button type="button" onClick={handleRegister} className="btn-secondary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading}>Registrieren</button>
+              <button type="button" onClick={handleLogin} className="btn-primary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading || !captchaToken}>Login</button>
+              <button type="button" onClick={handleRegister} className="btn-secondary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading || !captchaToken}>Registrieren</button>
             </div>
           </form>
 
@@ -990,14 +995,13 @@ function App() {
         const notes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
         delete notes[key];
         localStorage.setItem('ap2_saved_notes', JSON.stringify(notes));
-        // Sync deletion to Supabase
-        const deviceId = localStorage.getItem('masterpat_device_id');
-        if (deviceId) {
+        // Sync deletion to Supabase (only for authenticated users)
+        if (authUser?.id) {
           try {
-            const { data } = await supabase.from('user_data').select('progress_data').eq('device_id', deviceId).single();
+            const { data } = await supabase.from('user_data').select('progress_data').eq('user_id', authUser.id).single();
             if (data?.progress_data) {
               data.progress_data.saved_notes = notes;
-              await supabase.from('user_data').update({ progress_data: data.progress_data, updated_at: new Date().toISOString() }).eq('device_id', deviceId);
+              await supabase.from('user_data').update({ progress_data: data.progress_data, updated_at: new Date().toISOString() }).eq('user_id', authUser.id);
             }
           } catch (err) { console.error('Supabase note delete sync error:', err); }
         }
@@ -1062,14 +1066,13 @@ Die JSON muss exakt diese Struktur haben:
             const parsedData = JSON.parse(cleanResponse);
             notes[key].deepLearningResult = parsedData;
             localStorage.setItem('ap2_saved_notes', JSON.stringify(notes));
-            // Sync deep learning result to Supabase
-            const deviceId = localStorage.getItem('masterpat_device_id');
-            if (deviceId) {
+            // Sync deep learning result to Supabase (only for authenticated users)
+            if (authUser?.id) {
               try {
-                const { data: dbRow } = await supabase.from('user_data').select('progress_data').eq('device_id', deviceId).single();
+                const { data: dbRow } = await supabase.from('user_data').select('progress_data').eq('user_id', authUser.id).single();
                 if (dbRow?.progress_data) {
                   dbRow.progress_data.saved_notes = notes;
-                  await supabase.from('user_data').update({ progress_data: dbRow.progress_data, updated_at: new Date().toISOString() }).eq('device_id', deviceId);
+                  await supabase.from('user_data').update({ progress_data: dbRow.progress_data, updated_at: new Date().toISOString() }).eq('user_id', authUser.id);
                 }
               } catch (err) { console.error('Supabase deep learning sync error:', err); }
             }
