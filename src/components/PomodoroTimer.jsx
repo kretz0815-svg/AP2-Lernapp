@@ -46,6 +46,15 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onT
         }
     }, [forceStop]);
 
+    // React to isActive from parent (BurgerMenu start button)
+    const prevIsActiveRef = useRef(false);
+    useEffect(() => {
+        if (isActive && !prevIsActiveRef.current && !isRunning) {
+            handleStart();
+        }
+        prevIsActiveRef.current = isActive;
+    }, [isActive]);
+
     // Cleanup on unmount
     useEffect(() => {
         return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
