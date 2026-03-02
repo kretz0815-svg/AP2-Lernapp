@@ -707,9 +707,12 @@ function App() {
         <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '400px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
           <h2 style={{ color: 'var(--text-light)', marginBottom: '1.5rem', fontSize: '2rem' }}>Login / Account</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.95rem' }}>Erstelle einen Account oder logge dich ein, um deinen Lernfortschritt auf all deinen Geräten ("Cloud") synchron zu halten.</p>
-          <form style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
+          <form autoComplete="on" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
             <input
               type="email"
+              id="login-email"
+              name="email"
+              autoComplete="email"
               className="wisor-input"
               placeholder="E-Mail Adresse"
               value={email}
@@ -718,6 +721,9 @@ function App() {
             />
             <input
               type="password"
+              id="login-password"
+              name="password"
+              autoComplete="current-password"
               className="wisor-input"
               placeholder="Passwort"
               value={password}
