@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../index.css';
 
+const CALC_MIN_WIDTH = 220;
+const CALC_MIN_HEIGHT = 320;
+const CALC_MAX_WIDTH = 420;
+const CALC_MAX_HEIGHT = 560;
+
 export default function FloatingCalculator() {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -123,11 +128,14 @@ export default function FloatingCalculator() {
                 if (resizeRef.current.includes('t')) { newHeight -= dy; newY += dy; }
                 else if (resizeRef.current.includes('b')) { newHeight += dy; }
 
-                if (newWidth < 220) { if (resizeRef.current.includes('l')) newX += (newWidth - 220); newWidth = 220; }
-                if (newHeight < 320) { if (resizeRef.current.includes('t')) newY += (newHeight - 320); newHeight = 320; }
+                if (newWidth < CALC_MIN_WIDTH) { if (resizeRef.current.includes('l')) newX += (newWidth - CALC_MIN_WIDTH); newWidth = CALC_MIN_WIDTH; }
+                if (newHeight < CALC_MIN_HEIGHT) { if (resizeRef.current.includes('t')) newY += (newHeight - CALC_MIN_HEIGHT); newHeight = CALC_MIN_HEIGHT; }
 
-                if (newWidth > 380) { if (resizeRef.current.includes('l')) newX += (newWidth - 380); newWidth = 380; }
-                if (newHeight > 520) { if (resizeRef.current.includes('t')) newY += (newHeight - 520); newHeight = 520; }
+                if (newWidth > CALC_MAX_WIDTH) { if (resizeRef.current.includes('l')) newX += (newWidth - CALC_MAX_WIDTH); newWidth = CALC_MAX_WIDTH; }
+                if (newHeight > CALC_MAX_HEIGHT) { if (resizeRef.current.includes('t')) newY += (newHeight - CALC_MAX_HEIGHT); newHeight = CALC_MAX_HEIGHT; }
+
+                newX = Math.min(Math.max(0, newX), window.innerWidth - newWidth);
+                newY = Math.min(Math.max(0, newY), window.innerHeight - newHeight);
 
                 setSize({ width: newWidth, height: newHeight });
                 setPosition({ x: newX, y: newY });
@@ -198,6 +206,22 @@ export default function FloatingCalculator() {
         setPrevValue(null);
         setOperator(null);
         setWaitingForNewValue(false);
+    };
+
+    const handleBackspace = () => {
+        if (waitingForNewValue) {
+            setWaitingForNewValue(false);
+            setCurrentValue('0');
+            return;
+        }
+
+        if (currentValue.length <= 1 || (currentValue.startsWith('-') && currentValue.length <= 2)) {
+            setCurrentValue('0');
+            return;
+        }
+
+        const next = currentValue.slice(0, -1);
+        setCurrentValue(next === '-' ? '0' : next);
     };
 
     const handleToggleSign = () => {
@@ -276,9 +300,9 @@ export default function FloatingCalculator() {
                         position: 'fixed',
                         left: `${position.x}px`, top: `${position.y}px`,
                         width: `${size.width}px`, height: `${size.height}px`,
-                        maxWidth: '380px', maxHeight: '520px',
+                        maxWidth: `${CALC_MAX_WIDTH}px`, maxHeight: `${CALC_MAX_HEIGHT}px`,
                         zIndex: 1000, resize: 'none', margin: 0, transform: 'none',
-                        padding: '12px', display: 'flex', flexDirection: 'column', background: 'rgba(15, 23, 42, 0.95)'
+                        padding: '10px 0', display: 'flex', flexDirection: 'column', background: 'rgba(15, 23, 42, 0.95)'
                     }}
                 >
                     <div
@@ -318,6 +342,10 @@ export default function FloatingCalculator() {
                         }}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') { e.preventDefault(); handleEquals(); }
+                            if (e.key === 'Backspace' && currentValue.length <= 1) {
+                                e.preventDefault();
+                                setCurrentValue('0');
+                            }
                         }}
                         inputMode="decimal"
                     />
@@ -344,8 +372,9 @@ export default function FloatingCalculator() {
                             <button className="calc-btn calc-num" onClick={() => handleDigit('3')}>3</button>
                             <button className={`calc-btn calc-op ${operator === '+' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('+')}>+</button>
 
-                            <button className="calc-btn calc-num calc-zero" onClick={() => handleDigit('0')}>0</button>
+                            <button className="calc-btn calc-num" onClick={() => handleDigit('0')}>0</button>
                             <button className="calc-btn calc-num" onClick={handleDot}>,</button>
+                            <button className="calc-btn calc-top" onClick={handleBackspace} title="Eine Ziffer löschen">⌫</button>
                             <button className="calc-btn calc-op" onClick={handleEquals}>=</button>
                         </div>
                     </div>

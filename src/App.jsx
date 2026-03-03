@@ -10,6 +10,7 @@ import quiz1 from './data/quiz_1.json';
 import quiz2 from './data/quiz_2.json';
 import quiz3 from './data/quiz_3.json';
 import quizUForm2 from './data/uform2_quiz.json';
+import notesIcon from './assets/book-line-icon.png';
 
 import wisor1 from './data/wisor_1.json';
 import wisorEco from './data/wisor_eco.json';
@@ -24,6 +25,7 @@ import BurgerMenu from './components/BurgerMenu';
 import QuestionManager from './components/QuestionManager';
 import PomodoroTimer from './components/PomodoroTimer';
 import KalkulationsBoss from './components/KalkulationsBoss';
+import BreakEvenPoint from './components/BreakEvenPoint';
 
 const generateId = (text) => {
   let hash = 0;
@@ -958,7 +960,18 @@ function App() {
           </div>
 
           <div className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
-            <div className="dash-icon">📓</div>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
+              <img
+                src={notesIcon}
+                alt="Notizen"
+                style={{
+                  width: '1.05em',
+                  height: '1.05em',
+                  objectFit: 'contain',
+                  filter: isLightMode ? 'none' : 'invert(1)'
+                }}
+              />
+            </div>
             <h2>Meine Notizen</h2>
             <p>Deine gespeicherten Notizen ansehen und als PDF exportieren.</p>
             <div className="chip" style={{ marginTop: 'auto' }}>Gespeichert</div>
@@ -982,6 +995,23 @@ function App() {
             <h2>Kalkulations-<br />Boss</h2>
             <p>Meistere Vorwärts-, Rückwärts- und Differenzkalkulation spielerisch.</p>
             <div className="chip">3 Level</div>
+          </div>
+
+          <div className="dash-card" onClick={() => setAppMode('break_even')}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
+              <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="3" x2="3" y2="21" />
+                <line x1="3" y1="21" x2="21" y2="21" />
+                <line x1="4" y1="17" x2="9" y2="17" />
+                <line x1="9" y1="17" x2="13" y2="12" />
+                <line x1="13" y1="12" x2="20" y2="12" />
+                <circle cx="9" cy="17" r="1.2" fill="var(--text-light)" stroke="none" />
+                <circle cx="13" cy="12" r="1.2" fill="var(--text-light)" stroke="none" />
+              </svg>
+            </div>
+            <h2>Break Even<br />Point</h2>
+            <p>Trainiere Deckungsbeitrag, Gewinnschwelle in Stück und kritischen Umsatz.</p>
+            <div className="chip">Neuer Raum</div>
           </div>
         </div>
 
@@ -1020,6 +1050,18 @@ function App() {
         {burgerMenuPortal}
         <KalkulationsBoss onBack={() => setAppMode('dashboard')} />
         <FloatingNotes questionId="kalkulation" questionText="Kalkulations-Boss" />
+        <FloatingCalculator />
+      </>
+    );
+  }
+
+  if (appMode === 'break_even') {
+    return (
+      <>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <BreakEvenPoint onBack={() => setAppMode('dashboard')} />
+        <FloatingNotes questionId="break_even_point" questionText="Break-Even-Point Training" />
         <FloatingCalculator />
       </>
     );

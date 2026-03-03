@@ -735,21 +735,26 @@ button {
   flex: 1 1 0;
   min-height: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: stretch;
   width: 100%;
   container-type: size;
 }
 
 .calc-grid {
+  --calc-gap: clamp(6px, 1.2cqi, 10px);
+  --btn-size: min(
+    calc((100cqi - (3 * var(--calc-gap)) - 16px) / 4),
+    calc((100cqh - (4 * var(--calc-gap))) / 5)
+  );
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
-  gap: 8px;
-
-  --S: min(calc((100cqi - 24px) / 4), calc((100cqh - 32px) / 5));
-  width: calc(4 * var(--S) + 24px);
-  height: calc(5 * var(--S) + 32px);
+  gap: var(--calc-gap);
+  width: 100%;
+  height: 100%;
+  padding: 0 8px;
+  box-sizing: border-box;
 }
 
 .calc-display {
@@ -777,6 +782,11 @@ button {
   align-items: center;
   transition: filter 0.2s, background-color 0.2s;
   overflow: hidden;
+  justify-self: center;
+  align-self: center;
+  width: var(--btn-size);
+  height: var(--btn-size);
+  aspect-ratio: 1 / 1;
 }
 
 .calc-btn:hover {
@@ -791,13 +801,6 @@ button {
 .calc-num {
   background: #333333;
   color: white;
-}
-
-.calc-zero {
-  grid-column: span 2;
-  border-radius: 9999px;
-  padding-left: 1.3rem;
-  justify-content: flex-start;
 }
 
 .calc-top {

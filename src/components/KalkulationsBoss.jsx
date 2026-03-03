@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchYouTubeVideos } from '../youtubeClient';
 import { askGemini } from '../geminiClient';
+import FloatingNotes from './FloatingNotes';
+import FloatingCalculator from './FloatingCalculator';
 
 // ═══════════════════════════════════════════════════════════════
 // KALKULATIONS-BOSS – Interaktives Lernspiel für Handelskalkulation
 // ═══════════════════════════════════════════════════════════════
 
 const round2 = (n) => Math.round(n * 100) / 100;
+const toCents = (n) => Math.round((Number(n) + Number.EPSILON) * 100);
 
 // ── Kaufmännische Rundung (Source of Truth) ──────────────────
 const commercialRound = (v) => Math.round(v * 100) / 100;
@@ -241,8 +244,8 @@ function generateLevel(config) {
 
 // ── Phase Labels für Level 3 ───
 const PHASE_LABELS = {
-    1: { title: '⬇ Schritt 1: Vorwärts', color: '#22c55e', desc: 'Von oben bis zu den Selbstkosten' },
-    2: { title: '⬆ Schritt 2: Rückwärts', color: '#f59e0b', desc: 'Von unten bis zum Barverkaufspreis' },
+    1: { title: '⬇ Schritt 1: Vorwärts', color: '#22c55e', desc: 'Vom Einstandspreis bis zu den Selbstkosten' },
+    2: { title: '⬆ Schritt 2: Rückwärts', color: '#f59e0b', desc: 'Vom Listenverkaufspreis bis zum Barverkaufspreis' },
     3: { title: '🎯 Schritt 3: Differenz', color: '#ef4444', desc: 'Gewinn = BVP − Selbstkosten' },
     4: { title: '📊 Schritt 4: Prozentsatz', color: '#a855f7', desc: 'Gewinnzuschlagssatz berechnen' },
 };
@@ -257,6 +260,7 @@ export default function KalkulationsBoss({ onBack }) {
     const [validated, setValidated] = useState({});
     const [shaking, setShaking] = useState({});
     const [showHint, setShowHint] = useState({});
+    const [wrongSteps, setWrongSteps] = useState({});
     const [activeStep, setActiveStep] = useState(0);
     const [completed, setCompleted] = useState(false);
     const [score, setScore] = useState(0);
@@ -297,6 +301,7 @@ export default function KalkulationsBoss({ onBack }) {
         setValidated({});
         setShaking({});
         setShowHint({});
+        setWrongSteps({});
         setActiveStep(0);
         setCompleted(false);
         setScore(0);
@@ -333,6 +338,7 @@ export default function KalkulationsBoss({ onBack }) {
         // Allow comma as decimal separator
         const cleaned = value.replace(',', '.');
         setInputs(prev => ({ ...prev, [idx]: cleaned }));
+        setWrongSteps(prev => ({ ...prev, [idx]: false }));
     };
 
     const isBoss = selectedLevel?.id === 4;
@@ -340,17 +346,20 @@ export default function KalkulationsBoss({ onBack }) {
     const validateStep = (idx) => {
         if (!selectedLevel) return;
         const step = selectedLevel.steps[idx];
-        const userVal = parseFloat(inputs[idx]);
+        const rawInput = String(inputs[idx] ?? '').trim().replace(',', '.').replace(/[^0-9.\-]/g, '');
+        const userVal = parseFloat(rawInput);
         if (isNaN(userVal)) return;
 
         const correct = round2(step.value);
-        const userRounded = round2(userVal);
+        const correctCents = toCents(correct);
+        const userCents = toCents(userVal);
 
-        if (Math.abs(userRounded - correct) < 0.015) {
+        if (userCents === correctCents) {
             // ✅ CORRECT
             setValidated(prev => ({ ...prev, [idx]: true }));
             setInputs(prev => ({ ...prev, [idx]: correct.toFixed(2) }));
             setShowHint(prev => ({ ...prev, [idx]: false }));
+            setWrongSteps(prev => ({ ...prev, [idx]: false }));
 
             if (isBoss) {
                 // Boss scoring: 100 × streak multiplier
@@ -386,6 +395,7 @@ export default function KalkulationsBoss({ onBack }) {
             // ❌ WRONG
             setShaking(prev => ({ ...prev, [idx]: true }));
             setAttempts(prev => ({ ...prev, [idx]: (prev[idx] || 0) + 1 }));
+            setWrongSteps(prev => ({ ...prev, [idx]: true }));
             setTimeout(() => setShaking(prev => ({ ...prev, [idx]: false })), 600);
 
             if (isBoss) {
@@ -456,8 +466,22 @@ export default function KalkulationsBoss({ onBack }) {
                 <div className="blob blob-1"></div>
                 <div className="blob blob-2"></div>
 
-                <header style={{ width: '100%', textAlign: 'center' }}>
-                    <button onClick={onBack} className="btn-nav" style={{ position: 'absolute', top: '1rem', left: '1rem' }}>← Zurück</button>
+                <header style={{ width: '100%', textAlign: 'center', position: 'relative', zIndex: 20 }}>
+                    <button
+                        onClick={onBack}
+                        className="btn-nav"
+                        style={{
+                            position: 'absolute',
+                            top: '1rem',
+                            left: '1rem',
+                            zIndex: 50,
+                            pointerEvents: 'auto',
+                            minHeight: '42px',
+                            padding: '0.55rem 1rem'
+                        }}
+                    >
+                        ← Zurück
+                    </button>
                     <h1 style={{ fontFamily: '"Anton", sans-serif', textTransform: 'uppercase', letterSpacing: '2px', fontSize: '2.5rem', transform: 'scaleY(1.15)', color: 'var(--text-light)', marginBottom: '0.3rem', textShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>
                         Kalkulations-Boss
                     </h1>
@@ -568,6 +592,16 @@ export default function KalkulationsBoss({ onBack }) {
     // ─── Game Screen ───
     const progressPct = totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0;
     let currentPhase = null;
+    const shouldMirrorPhase2InDiff = selectedLevel?.id === 3 && selectedLevel?.direction === 'diff';
+    const stepIndices = selectedLevel.steps.map((_, index) => index);
+    const renderStepIndices = shouldMirrorPhase2InDiff
+        ? [
+            ...stepIndices.filter((index) => selectedLevel.steps[index].phase === 1),
+            ...stepIndices.filter((index) => selectedLevel.steps[index].phase === 3),
+            ...stepIndices.filter((index) => selectedLevel.steps[index].phase === 2).reverse(),
+            ...stepIndices.filter((index) => selectedLevel.steps[index].phase === 4),
+        ]
+        : stepIndices;
 
     return (
         <div className="app-container" style={{ zIndex: 10, maxWidth: '650px' }}>
@@ -575,8 +609,14 @@ export default function KalkulationsBoss({ onBack }) {
             <div className="blob blob-2"></div>
 
             {/* Header with Lives & Score */}
-            <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem', padding: '0 0.5rem' }}>
-                <button onClick={() => setSelectedLevel(null)} className="btn-nav">← Auswahl</button>
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem', padding: '0 0.5rem', position: 'relative', zIndex: 30 }}>
+                <button
+                    onClick={() => setSelectedLevel(null)}
+                    className="btn-nav"
+                    style={{ position: 'relative', zIndex: 31, minHeight: '40px', padding: '0.55rem 1rem', pointerEvents: 'auto' }}
+                >
+                    ← Auswahl
+                </button>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     {isBoss && (
@@ -745,34 +785,50 @@ export default function KalkulationsBoss({ onBack }) {
                     zIndex: 0,
                 }} />
 
-                {selectedLevel.steps.map((step, idx) => {
-                    const isActive = idx === activeStep;
-                    const isDone = validated[idx];
+                {renderStepIndices.map((stepIndex, renderIndex) => {
+                    const step = selectedLevel.steps[stepIndex];
+                    const isActive = stepIndex === activeStep;
+                    const isDone = validated[stepIndex];
                     const isGiven = step.given;
-                    const isShaking = shaking[idx];
-                    const hintVisible = showHint[idx];
+                    const isShaking = shaking[stepIndex];
+                    const hintVisible = showHint[stepIndex];
+                    const stepStatusColor = isDone ? '#22c55e' : (wrongSteps[stepIndex] ? '#ef4444' : '#f59e0b');
+                    const isMirroredDiffPhase2 = shouldMirrorPhase2InDiff && step.phase === 2;
+                    const showPhase2HeaderUnderLvp = isMirroredDiffPhase2 && step.key === 'lvp';
+                    const isInlineDiffPhase3 = shouldMirrorPhase2InDiff && step.phase === 3;
 
                     // Phase divider for Level 3
                     let phaseHeader = null;
                     if (selectedLevel.direction === 'diff' && step.phase && step.phase !== currentPhase) {
                         currentPhase = step.phase;
                         const pl = PHASE_LABELS[step.phase];
-                        phaseHeader = (
-                            <div key={`phase-${step.phase}`} style={{
-                                display: 'flex', alignItems: 'center', gap: '0.7rem',
-                                padding: '0.6rem 0.8rem', marginBottom: '0.3rem', marginTop: idx > 0 ? '0.8rem' : 0,
-                                borderRadius: '10px',
-                                background: `${pl.color}15`,
-                                border: `1px solid ${pl.color}33`,
-                            }}>
-                                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: pl.color }}>{pl.title}</span>
-                                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{pl.desc}</span>
-                            </div>
-                        );
+                        if (shouldMirrorPhase2InDiff && step.phase === 2) {
+                            phaseHeader = null;
+                        } else if (shouldMirrorPhase2InDiff && step.phase === 3) {
+                            phaseHeader = null;
+                        } else {
+                            phaseHeader = (
+                                <div key={`phase-${step.phase}`} style={{
+                                    display: 'flex', alignItems: 'center', gap: '0.7rem',
+                                    padding: '0.6rem 0.8rem', marginBottom: '0.3rem', marginTop: renderIndex > 0 ? '0.8rem' : 0,
+                                    borderRadius: '10px',
+                                    background: `${pl.color}15`,
+                                    border: `1px solid ${pl.color}33`,
+                                }}>
+                                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: pl.color }}>{pl.title}</span>
+                                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{pl.desc}</span>
+                                </div>
+                            );
+                        }
                     }
 
                     return (
-                        <React.Fragment key={idx}>
+                        <div key={stepIndex} style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '0',
+                            position: 'relative'
+                        }}>
                             {phaseHeader}
                             <div style={{
                                 display: 'flex',
@@ -781,8 +837,8 @@ export default function KalkulationsBoss({ onBack }) {
                                 padding: '0.6rem 0.8rem 0.6rem 0.5rem',
                                 marginLeft: '8px',
                                 borderRadius: '14px',
-                                background: isActive ? 'rgba(255,255,255,0.06)' : 'transparent',
-                                border: isActive ? `1px solid ${selectedLevel.color}55` : '1px solid transparent',
+                                background: isInlineDiffPhase3 ? `${stepStatusColor}14` : isActive ? 'rgba(255,255,255,0.06)' : 'transparent',
+                                border: isInlineDiffPhase3 ? `1px solid ${stepStatusColor}66` : isActive ? `1px solid ${stepStatusColor}55` : '1px solid transparent',
                                 transition: 'all 0.3s ease',
                                 position: 'relative',
                                 zIndex: 1,
@@ -794,12 +850,12 @@ export default function KalkulationsBoss({ onBack }) {
                                     borderRadius: '50%',
                                     display: 'flex', justifyContent: 'center', alignItems: 'center',
                                     fontSize: '0.8rem', fontWeight: 700,
-                                    background: isDone ? selectedLevel.color : isGiven ? 'rgba(255,255,255,0.15)' : isActive ? `${selectedLevel.color}33` : 'rgba(255,255,255,0.06)',
-                                    color: isDone ? '#fff' : isGiven ? 'var(--text-light)' : isActive ? selectedLevel.color : 'var(--text-muted)',
-                                    border: isActive ? `2px solid ${selectedLevel.color}` : isDone ? 'none' : '1px solid rgba(255,255,255,0.15)',
+                                    background: isDone ? stepStatusColor : isGiven ? 'rgba(255,255,255,0.15)' : isActive ? `${stepStatusColor}33` : 'rgba(255,255,255,0.06)',
+                                    color: isDone ? '#fff' : isGiven ? 'var(--text-light)' : isActive ? stepStatusColor : 'var(--text-muted)',
+                                    border: isActive ? `2px solid ${stepStatusColor}` : isDone ? 'none' : '1px solid rgba(255,255,255,0.15)',
                                     transition: 'all 0.3s ease',
                                 }}>
-                                    {isDone ? '✓' : isGiven ? '📌' : (idx + 1)}
+                                    {isDone ? '✓' : isGiven ? '📌' : (stepIndex + 1)}
                                 </div>
 
                                 {/* Label */}
@@ -810,6 +866,11 @@ export default function KalkulationsBoss({ onBack }) {
                                         color: isDone ? 'var(--text-light)' : isActive ? 'var(--text-light)' : 'var(--text-muted)',
                                         lineHeight: 1.3,
                                     }}>
+                                        {isInlineDiffPhase3 && (
+                                            <span style={{ fontWeight: 800, color: stepStatusColor, marginRight: '0.7rem' }}>
+                                                {PHASE_LABELS[3].title}
+                                            </span>
+                                        )}
                                         {step.label}
                                         {step.sublabel && <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginLeft: '0.4rem' }}>({step.sublabel})</span>}
                                         {step.danger && !isDone && <span style={{ marginLeft: '0.3rem', fontSize: '0.7rem' }}>⚠️</span>}
@@ -823,11 +884,11 @@ export default function KalkulationsBoss({ onBack }) {
                                             fontFamily: 'monospace',
                                             fontSize: '1.05rem',
                                             fontWeight: 700,
-                                            color: isDone && !isGiven ? selectedLevel.color : 'var(--text-light)',
+                                            color: isDone && !isGiven ? stepStatusColor : 'var(--text-light)',
                                             padding: '0.5rem 0.8rem',
                                             borderRadius: '10px',
-                                            background: isDone && !isGiven ? `${selectedLevel.color}15` : 'rgba(255,255,255,0.05)',
-                                            border: isDone && !isGiven ? `1px solid ${selectedLevel.color}44` : '1px solid transparent',
+                                            background: isDone && !isGiven ? `${stepStatusColor}15` : 'rgba(255,255,255,0.05)',
+                                            border: isDone && !isGiven ? `1px solid ${stepStatusColor}44` : '1px solid transparent',
                                             textAlign: 'right',
                                         }}>
                                             {step.value.toFixed(2)} {step.isPercent ? '%' : '€'}
@@ -835,12 +896,12 @@ export default function KalkulationsBoss({ onBack }) {
                                     ) : (
                                         <div style={{ position: 'relative' }}>
                                             <input
-                                                ref={el => inputRefs.current[idx] = el}
+                                                ref={el => inputRefs.current[stepIndex] = el}
                                                 type="text"
                                                 inputMode="decimal"
-                                                value={inputs[idx] || ''}
-                                                onChange={(e) => handleInput(idx, e.target.value)}
-                                                onKeyDown={(e) => handleKeyDown(e, idx)}
+                                                value={inputs[stepIndex] || ''}
+                                                onChange={(e) => handleInput(stepIndex, e.target.value)}
+                                                onKeyDown={(e) => handleKeyDown(e, stepIndex)}
                                                 disabled={!isActive}
                                                 placeholder={isActive ? '0,00' : '—'}
                                                 style={{
@@ -850,18 +911,18 @@ export default function KalkulationsBoss({ onBack }) {
                                                     fontWeight: 600,
                                                     color: 'var(--text-light)',
                                                     background: isActive ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.03)',
-                                                    border: isShaking ? '2px solid #ef4444' : isActive ? `2px solid ${selectedLevel.color}` : '1px solid rgba(255,255,255,0.1)',
+                                                    border: isActive ? `2px solid ${stepStatusColor}` : '1px solid rgba(255,255,255,0.1)',
                                                     borderRadius: '10px',
                                                     padding: '0.5rem 2.2rem 0.5rem 0.8rem',
                                                     textAlign: 'right',
                                                     outline: 'none',
                                                     transition: 'all 0.2s ease',
                                                     opacity: isActive ? 1 : 0.4,
-                                                    boxShadow: isActive ? `0 0 12px ${selectedLevel.color}22` : 'none',
+                                                    boxShadow: isActive ? `0 0 12px ${stepStatusColor}22` : 'none',
                                                 }}
                                             />
                                             {/* Floating Points Animation */}
-                                            {floatingPoints?.idx === idx && (
+                                            {floatingPoints?.idx === stepIndex && (
                                                 <div className="fade-out-up" style={{
                                                     position: 'absolute',
                                                     right: '-2rem',
@@ -890,18 +951,17 @@ export default function KalkulationsBoss({ onBack }) {
 
                                 {/* Check Button */}
                                 {isActive && !isDone && (
-                                    <button onClick={() => validateStep(idx)} style={{
-                                        background: selectedLevel.color,
+                                    <button onClick={() => validateStep(stepIndex)} style={{
+                                        background: stepStatusColor,
                                         border: 'none',
                                         borderRadius: '10px',
                                         color: '#fff',
                                         fontWeight: 700,
                                         fontSize: '0.85rem',
                                         padding: '0.5rem 0.8rem',
+                                        marginLeft: '0.5rem',
                                         cursor: 'pointer',
-                                        minWidth: '50px',
-                                        transition: 'all 0.2s ease',
-                                        boxShadow: `0 2px 8px ${selectedLevel.color}44`,
+                                        boxShadow: `0 4px 10px ${stepStatusColor}44`,
                                     }}>
                                         ✓
                                     </button>
@@ -912,7 +972,7 @@ export default function KalkulationsBoss({ onBack }) {
                             {hintVisible && !isDone && (
                                 <div className="fade-in" style={{
                                     marginLeft: '52px',
-                                    marginBottom: '0.3rem',
+                                    marginBottom: '0.6rem',
                                     padding: '0.7rem 1rem',
                                     borderRadius: '10px',
                                     background: step.danger ? 'rgba(239,68,68,0.1)' : 'rgba(99,102,241,0.1)',
@@ -921,13 +981,34 @@ export default function KalkulationsBoss({ onBack }) {
                                     color: 'var(--text-light)',
                                     lineHeight: 1.5,
                                     whiteSpace: 'pre-line',
+                                    zIndex: 5
                                 }}>
                                     <span style={{ fontWeight: 700, color: step.danger ? '#ef4444' : '#818cf8' }}>💡 Spickzettel:</span>
                                     <br />
                                     {step.hint}
                                 </div>
                             )}
-                        </React.Fragment>
+
+                            {showPhase2HeaderUnderLvp && (() => {
+                                const pl = PHASE_LABELS[2];
+                                return (
+                                    <div key="phase-2-relocated" style={{
+                                        display: 'flex', alignItems: 'center', gap: '0.7rem',
+                                        padding: '0.6rem 0.8rem',
+                                        marginLeft: '52px',
+                                        marginRight: '8px',
+                                        marginBottom: '0.3rem',
+                                        marginTop: '0.35rem',
+                                        borderRadius: '10px',
+                                        background: `${pl.color}15`,
+                                        border: `1px solid ${pl.color}33`,
+                                    }}>
+                                        <span style={{ fontSize: '0.85rem', fontWeight: 700, color: pl.color }}>{pl.title}</span>
+                                        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{pl.desc}</span>
+                                    </div>
+                                );
+                            })()}
+                        </div>
                     );
                 })}
             </div>
@@ -940,6 +1021,8 @@ export default function KalkulationsBoss({ onBack }) {
           20%, 40%, 60%, 80% { transform: translateX(6px); }
         }
       `}</style>
+            <FloatingNotes label="Kalkulations-Notizen" />
+            <FloatingCalculator label="Kalkulations-Hilfe" />
         </div>
     );
 }
