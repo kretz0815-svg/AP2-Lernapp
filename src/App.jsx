@@ -736,7 +736,7 @@ function App() {
             <div style={{ display: 'flex', justifyContent: 'center', margin: '0.5rem 0' }}>
               <HCaptcha
                 ref={captchaRef}
-                sitekey={import.meta.env.VITE_HCAPTCHA_SITEKEY || '10000000-ffff-ffff-ffff-000000000001'}
+                sitekey={import.meta.env.VITE_HCAPTCHA_SITEKEY || '360a00c0-d898-4cc8-807e-3eb4a19abd48'}
                 theme="dark"
                 onVerify={(token) => setCaptchaToken(token)}
                 onExpire={() => setCaptchaToken(null)}
