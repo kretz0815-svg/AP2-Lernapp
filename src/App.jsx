@@ -39,6 +39,8 @@ const generateId = (text) => {
 
 function App() {
   const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'dashboard' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor'
+  const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
+  const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || import.meta.env.VITE_HCAPTCHA_SITEKEY || '';
 
   // --- THEME STATE ---
   const [isLightMode, setIsLightMode] = useState(false);
@@ -814,21 +816,27 @@ function App() {
               style={{ fontSize: '1rem', padding: '1rem' }}
             />
             <div style={{ display: 'flex', justifyContent: 'center', margin: '0.5rem 0' }}>
-              <HCaptcha
-                ref={captchaRef}
-                sitekey={captchaSiteKey}
-                theme="dark"
-                onLoad={() => setCaptchaError('')}
-                onVerify={(token) => {
-                  setCaptchaToken(token);
-                  setCaptchaError('');
-                }}
-                onExpire={() => setCaptchaToken(null)}
-                onError={() => {
-                  setCaptchaToken(null);
-                  setCaptchaError(`hCaptcha konnte nicht geladen werden. Prüfe die Domain-Freigabe für "${currentHost}" im hCaptcha-Dashboard und den Sitekey.`);
-                }}
-              />
+              {captchaSiteKey ? (
+                <HCaptcha
+                  ref={captchaRef}
+                  sitekey={captchaSiteKey}
+                  theme="dark"
+                  onLoad={() => setCaptchaError('')}
+                  onVerify={(token) => {
+                    setCaptchaToken(token);
+                    setCaptchaError('');
+                  }}
+                  onExpire={() => setCaptchaToken(null)}
+                  onError={() => {
+                    setCaptchaToken(null);
+                    setCaptchaError(`hCaptcha konnte nicht geladen werden. Prüfe die Domain-Freigabe für "${currentHost}" im hCaptcha-Dashboard und den Sitekey.`);
+                  }}
+                />
+              ) : (
+                <p style={{ color: 'var(--error)', fontWeight: 'bold', margin: 0 }}>
+                  hCaptcha Sitekey fehlt (VITE_HCAPTCHA_SITE_KEY).
+                </p>
+              )}
             </div>
             {captchaError && <p style={{ color: 'var(--error)', marginBottom: '0.75rem', fontWeight: 'bold' }}>{captchaError}</p>}
             <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
