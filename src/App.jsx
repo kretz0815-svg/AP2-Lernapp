@@ -38,8 +38,6 @@ const generateId = (text) => {
 };
 
 function App() {
-  const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITEKEY || import.meta.env.VITE_HCAPTCHA_SITE_KEY || '360a00c0-d898-4cc8-807e-3eb4a19abd48';
-  const currentHost = typeof window !== 'undefined' ? window.location.hostname : '';
   const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'dashboard' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor'
 
   // --- THEME STATE ---
@@ -133,6 +131,7 @@ function App() {
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
+  const [selectedQuizTopic, setSelectedQuizTopic] = useState('all');
 
   // --- WISOR STATE ---
   const [allWisors, setAllWisors] = useState([]);
@@ -178,11 +177,13 @@ function App() {
   const [wisorVideos, setWisorVideos] = useState([]);
   const [wisorVideoLoading, setWisorVideoLoading] = useState(false);
   const [selectedWisorVideo, setSelectedWisorVideo] = useState(null);
+  const [wisorVideoError, setWisorVideoError] = useState('');
 
   useEffect(() => {
     setWisorVideos([]);
     setSelectedWisorVideo(null);
     setWisorVideoOpen(false);
+    setWisorVideoError('');
     setWisorEvaluated(false);
     setWisorInput('');
     setGeminiVisible(false);
@@ -196,6 +197,52 @@ function App() {
     return text.replace(/\$([^\$]+)\$/g, (match, inner) => inner.replace(/\\/g, '').trim());
   };
 
+  const detectQuizTopic = (quiz) => {
+    if (quiz?.topic) return quiz.topic;
+
+    const topicSource = `${quiz?.question || ''} ${quiz?.hint || ''} ${quiz?.youtubeQuery || ''}`.toLowerCase();
+
+    if (/(a\/b|landingpage|konversion|conversion|metrik)/i.test(topicSource)) return 'A/B-Testing';
+    if (/(eye|heatmap|usability|nulltreffer|suchfeld|navigation)/i.test(topicSource)) return 'Usability & UX';
+    if (/(dropshipping|amazon|fba)/i.test(topicSource)) return 'Geschäftsmodelle';
+    if (/(k[iï]|künstliche intelligenz|markttrend|budgetallokation|garbage in)/i.test(topicSource)) return 'KI im Vertrieb';
+    if (/(sortiment|marge|eigenmarke|warenkorb|bundle|cross[- ]selling|rabatt)/i.test(topicSource)) return 'Sortiment & Ertrag';
+    if (/(influencer|pay-per|affiliate|likes)/i.test(topicSource)) return 'Influencer Marketing';
+    if (/(uwg|wettbewerb|abmahnung|unterlassung)/i.test(topicSource)) return 'Recht (UWG)';
+    if (/(online-shop|wartungsmodus|checkout|zahlungsart|impressum|seo)/i.test(topicSource)) return 'Shop-Einrichtung & Checkout';
+    if (/(soziale ziele|sachliche ziele|unternehmensziele|betriebswirtschaft|wiso)/i.test(topicSource)) return 'WiSo Grundlagen';
+
+    return 'Allgemein';
+  };
+
+  const getPreparedQuizzes = () => {
+    const rawQuizzes = [
+      ...(quiz1.questions || []),
+      ...(quiz2.questions || []),
+      ...(quiz3.questions || []),
+      ...(quizUForm2.questions || [])
+    ];
+
+    const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+
+    return rawQuizzes.map(q => {
+      const id = q.id || generateId(q.question);
+      return {
+        ...q,
+        id,
+        topic: detectQuizTopic(q),
+        progress: quizProg[id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 }
+      };
+    });
+  };
+
+  const getDueQuizzesByTopic = (topic = 'all') => {
+    const now = Date.now();
+    const due = getPreparedQuizzes().filter(q => q.progress.nextReview <= now);
+    if (topic === 'all') return due;
+    return due.filter(q => q.topic === topic);
+  };
+
   const handleToggleVideos = async (q) => {
     if (wisorVideoOpen) {
       setWisorVideoOpen(false);
@@ -206,6 +253,7 @@ function App() {
 
     if (wisorVideos.length === 0 && !wisorVideoLoading) {
       setWisorVideoLoading(true);
+      setWisorVideoError('');
 
       const predefinedVideos = [];
       if (q && q.videoUrl) {
@@ -218,30 +266,75 @@ function App() {
         });
       }
 
-      const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY || import.meta.env.VITE_GEMINI_API_KEY;
+      const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
 
-      let queryStr = q.youtubeQuery;
-      if (!queryStr) {
-        // Clean formatting, drop numbers at start
-        let cleanQ = formatLatex(q.question).split(/[\n]/)[0].replace(/^[\d\.]+\s*/, '').trim();
-        // Remove punctuation
-        cleanQ = cleanQ.replace(/[?.,!;:()"]/g, '');
+      const buildQueryCandidates = () => {
+        const candidates = [];
+        if (q?.youtubeQuery?.trim()) {
+          candidates.push(q.youtubeQuery.trim());
+        }
 
-        // Basic German stop words to filter out so YouTube focuses on the real keywords
-        const stopWords = new Set(['was', 'wie', 'warum', 'wann', 'wo', 'wer', 'welche', 'welcher', 'welches', 'ein', 'eine', 'einer', 'einem', 'eines', 'der', 'die', 'das', 'den', 'dem', 'des', 'als', 'ist', 'sind', 'wird', 'werden', 'kann', 'können', 'für', 'und', 'oder', 'zu', 'im', 'am', 'um', 'auf', 'von', 'bei', 'beim', 'mit', 'kann', 'gilt', 'es', 'sich', 'in']);
+        const extractKeywords = (text, limit = 8) => {
+          const stopWords = new Set(['was', 'wie', 'warum', 'wann', 'wo', 'wer', 'welche', 'welcher', 'welches', 'ein', 'eine', 'einer', 'einem', 'eines', 'der', 'die', 'das', 'den', 'dem', 'des', 'als', 'ist', 'sind', 'wird', 'werden', 'kann', 'können', 'für', 'und', 'oder', 'zu', 'im', 'am', 'um', 'auf', 'von', 'bei', 'beim', 'mit', 'gilt', 'es', 'sich', 'in', 'einem', 'einen']);
+          return (text || '')
+            .normalize('NFKD')
+            .replace(/[^\p{L}\p{N}\s-]/gu, ' ')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .split(/\s+/)
+            .filter(word => word.length > 2 && !stopWords.has(word.toLowerCase()))
+            .slice(0, limit)
+            .join(' ');
+        };
 
-        const words = cleanQ.split(/\s+/).filter(w => !stopWords.has(w.toLowerCase()));
+        let cleanQ = formatLatex(q?.question || '')
+          .split(/[\n]/)[0]
+          .replace(/^[\d\.]+\s*/, '')
+          .replace(/„[^“]+“|"[^"]+"/g, ' ')
+          .replace(/[^\p{L}\p{N}\s-]/gu, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
 
-        // Take up to 10 of the most relevant words
-        queryStr = words.slice(0, 10).join(' ');
+        const keywords = extractKeywords(cleanQ, 8);
+        const hintKeywords = extractKeywords(q?.hint || '', 6);
+        const correctAnswer = q?.answerOptions?.find(option => option?.isCorrect)?.text || '';
+        const correctAnswerKeywords = extractKeywords(correctAnswer, 6);
+
+        if (keywords) candidates.push(keywords);
+        if (hintKeywords) candidates.push(hintKeywords);
+        if (correctAnswerKeywords) candidates.push(correctAnswerKeywords);
+
+        const fullContext = `${cleanQ} ${q?.hint || ''} ${correctAnswer}`.toLowerCase();
+        if (/(online|shop|e-commerce|dropshipping|checkout|warenkorb|seo)/i.test(fullContext)) {
+          candidates.push('E-Commerce Grundlagen einfach erklärt');
+        } else if (/(rechnung|kalkulation|gewinn|marge|wirtschaft|bwl|marketing)/i.test(fullContext)) {
+          candidates.push('Wirtschaft BWL Grundlagen einfach erklärt');
+        } else {
+          candidates.push('Ausbildung Lernvideo einfach erklärt');
+        }
+
+        return [...new Set(candidates.filter(Boolean))];
+      };
+
+      const queryCandidates = buildQueryCandidates();
+
+      if (!apiKey) {
+        setWisorVideos(predefinedVideos);
+        setWisorVideoError('Kein YouTube API-Key gefunden. Bitte VITE_YOUTUBE_API_KEY in der .env setzen.');
+        setWisorVideoLoading(false);
+        return;
       }
 
       let fetched = [];
-      if (apiKey) {
-        fetched = await fetchYouTubeVideos(queryStr, apiKey, 4 - predefinedVideos.length);
+      for (const candidate of queryCandidates) {
+        fetched = await fetchYouTubeVideos(candidate, apiKey, 4 - predefinedVideos.length);
+        if (fetched.length > 0) break;
       }
 
       setWisorVideos([...predefinedVideos, ...fetched]);
+      if (predefinedVideos.length + fetched.length === 0) {
+        setWisorVideoError('Keine passenden Videos gefunden. Versuche die Frage im Question Manager mit einem youtubeQuery zu ergänzen.');
+      }
       setWisorVideoLoading(false);
     }
   };
@@ -265,28 +358,12 @@ function App() {
     setGeminiLoading(false);
   };
 
-  const startQuizSession = (limit) => {
-    const rawQuizzes = [
-      ...(quiz1.questions || []),
-      ...(quiz2.questions || []),
-      ...(quiz3.questions || []),
-      ...(quizUForm2.questions || [])
-    ];
-    let quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
-    const mergedQuizzes = rawQuizzes.map(q => {
-      const id = q.id || generateId(q.question);
-      return {
-        ...q,
-        id,
-        progress: quizProg[id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 }
-      };
-    });
-    const now = Date.now();
-    const due = mergedQuizzes.filter(q => q.progress.nextReview <= now);
-    let sessionQs = due.sort(() => Math.random() - 0.5);
+  const startQuizSession = (limit, topic = 'all') => {
+    let sessionQs = [...getDueQuizzesByTopic(topic)].sort(() => Math.random() - 0.5);
     if (limit !== 'all') {
       sessionQs = sessionQs.slice(0, limit);
     }
+
     resetQuiz(sessionQs);
     setAppMode('quiz');
   };
@@ -1289,6 +1366,15 @@ Die JSON muss exakt diese Struktur haben:
   }
 
   if (appMode === 'quiz_setup') {
+    const dueByTopicMap = getDueQuizzesByTopic('all').reduce((acc, q) => {
+      acc[q.topic] = (acc[q.topic] || 0) + 1;
+      return acc;
+    }, {});
+    const dueByTopicEntries = Object.entries(dueByTopicMap).sort((a, b) => b[1] - a[1]);
+    const selectedTopicDueCount = selectedQuizTopic === 'all'
+      ? getDueQuizzesByTopic('all').length
+      : (dueByTopicMap[selectedQuizTopic] || 0);
+
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
         {burgerMenuPortal}
@@ -1299,12 +1385,42 @@ Die JSON muss exakt diese Struktur haben:
         </header>
         <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
           <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Wieviele Fragen?</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Wähle aus, wie viele fällige Fragen du jetzt lernen möchtest.</p>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Wähle deinen Themenblock innerhalb von „Wissen testen“ und dann die Anzahl fälliger Fragen.</p>
+
+          <div style={{ marginBottom: '1.3rem', textAlign: 'left' }}>
+            <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '0.45rem' }}>
+              Themenblock
+            </label>
+            <select
+              value={selectedQuizTopic}
+              onChange={(e) => setSelectedQuizTopic(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '0.7rem 0.9rem',
+                borderRadius: '10px',
+                border: '1px solid var(--glass-border)',
+                background: 'rgba(255,255,255,0.05)',
+                color: 'var(--text-light)',
+                fontSize: '0.92rem'
+              }}
+            >
+              <option value="all">Alle Themen ({getDueQuizzesByTopic('all').length} fällig)</option>
+              {dueByTopicEntries.map(([topic, count]) => (
+                <option key={topic} value={topic}>{topic} ({count} fällig)</option>
+              ))}
+            </select>
+            {selectedTopicDueCount === 0 && (
+              <p style={{ color: 'var(--text-muted)', marginTop: '0.6rem', marginBottom: 0, fontSize: '0.83rem' }}>
+                Für diesen Themenblock sind aktuell keine Fragen fällig.
+              </p>
+            )}
+          </div>
+
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <button className="btn-secondary" onClick={() => startQuizSession(10)}>10 Fragen</button>
-            <button className="btn-secondary" onClick={() => startQuizSession(20)}>20 Fragen</button>
-            <button className="btn-secondary" onClick={() => startQuizSession(50)}>50 Fragen</button>
-            <button className="btn-primary" onClick={() => startQuizSession('all')}>Alle fälligen</button>
+            <button className="btn-secondary" onClick={() => startQuizSession(10, selectedQuizTopic)} disabled={selectedTopicDueCount === 0}>10 Fragen</button>
+            <button className="btn-secondary" onClick={() => startQuizSession(20, selectedQuizTopic)} disabled={selectedTopicDueCount === 0}>20 Fragen</button>
+            <button className="btn-secondary" onClick={() => startQuizSession(50, selectedQuizTopic)} disabled={selectedTopicDueCount === 0}>50 Fragen</button>
+            <button className="btn-primary" onClick={() => startQuizSession('all', selectedQuizTopic)} disabled={selectedTopicDueCount === 0}>Alle fälligen</button>
           </div>
         </div>
       </div>
@@ -1312,7 +1428,23 @@ Die JSON muss exakt diese Struktur haben:
   }
 
   if (appMode === 'quiz') {
-    if (allQuizzes.length === 0) return <div style={{ color: 'var(--text-light)', zIndex: 10 }}>Lade Quiz...</div>;
+    if (allQuizzes.length === 0) {
+      return (
+        <div className="app-container" style={{ zIndex: 10 }}>
+          {burgerMenuPortal}
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
+            <h2 style={{ color: 'var(--text-light)', marginBottom: '0.8rem', fontSize: '1.8rem' }}>Keine fälligen Fragen</h2>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.8rem' }}>Für den gewählten Themenblock ist gerade nichts offen.</p>
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+              <button className="btn-secondary" onClick={() => setAppMode('quiz_setup')}>Themenwahl</button>
+              <button className="btn-primary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     if (currentQuizIndex >= allQuizzes.length) {
       return (
@@ -1391,7 +1523,9 @@ Die JSON muss exakt diese Struktur haben:
                           </div>
                         </div>
                       )) : (
-                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'var(--text-muted)', padding: '1rem' }}>Keine Videos gefunden.</div>
+                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'var(--text-muted)', padding: '1rem' }}>
+                          {wisorVideoError || 'Keine Videos gefunden.'}
+                        </div>
                       )}
                     </div>
                   )}

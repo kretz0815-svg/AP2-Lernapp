@@ -2,254 +2,625 @@
   "title": "01",
   "questions": [
     {
-      "question": "Welcher Schritt sollte laut dem Prozessablauf unmittelbar vor dem finalen 'Shop online schalten' durchgeführt werden?",
+      "question": "Die „Nature-Equip AG“ baut einen komplett neuen Online-Shop für eine spezielle Produktsparte auf. Bevor Artikel angelegt, Zahlungsarten definiert oder Kundengruppen berechtigt werden, muss eine grundlegende technische Einstellung vorgenommen werden. Welcher Schritt sollte in der Ablauf-Reihenfolge der Einrichtung zwingend als Erstes erfolgen?",
       "answerOptions": [
         {
-          "text": "Datensicherung ausführen",
+          "text": "Die Erstellung und Verknüpfung des Impressums.",
+          "isCorrect": false,
+          "rationale": "Das Impressum ist rechtlich wichtig, aber nicht der erste technische Sicherungsschritt beim Setup."
+        },
+        {
+          "text": "Den Shop im System zunächst „offline“ stellen.",
           "isCorrect": true,
-          "rationale": "Bevor ein System live geht, stellt eine abschließende Sicherung sicher, dass der aktuelle Konfigurationsstand bei Fehlern wiederhergestellt werden kann."
+          "rationale": "Richtig: Zu Beginn sollte der Shop offline bzw. im Wartungsmodus sein, damit keine unfertigen Inhalte sichtbar sind und keine Testbestellungen oder rechtliche Risiken entstehen."
         },
         {
-          "text": "Layout einstellen",
+          "text": "Die Newsletter-Anmeldung konfigurieren.",
           "isCorrect": false,
-          "rationale": "Das visuelle Design wird in der Regel bereits in einer früheren Phase der Einrichtung festgelegt, nicht erst unmittelbar vor dem Go-Live."
+          "rationale": "Newsletter-Konfiguration ist ein späterer Marketing-Schritt und nicht die erste Basiseinstellung."
         },
         {
-          "text": "E-Mail Versand einrichten",
+          "text": "Die Suchmaschinenoptimierung (SEO) der Startseite abschließen.",
           "isCorrect": false,
-          "rationale": "Die technische Einrichtung der Kommunikation erfolgt im Mittelfeld des Prozesses, um Benachrichtigungen während der Testphase zu prüfen."
-        },
-        {
-          "text": "Impressum und Datenschutzerklärung einrichten",
-          "isCorrect": false,
-          "rationale": "Rechtliche Inhalte werden zwar spät, aber noch vor der abschließenden technischen Sicherung im System hinterlegt."
+          "rationale": "SEO folgt üblicherweise nach der grundlegenden technischen und rechtlichen Einrichtung."
         }
       ],
-      "hint": "Denken Sie an die präventive Maßnahme zum Schutz der vorgenommenen Einstellungen."
+      "hint": "Denke an den Schutz vor Sichtbarkeit eines unfertigen Shops.",
+      "youtubeQuery": "Online Shop einrichten Wartungsmodus offline stellen Reihenfolge"
     },
     {
-      "question": "Die Outdoor-Fun GmbH möchte ein Produktvideo erstellen lassen. Welches Kriterium prüft, ob die Agentur die Marke und die Zielgruppe versteht?",
+      "question": "Die „Active-Wear GmbH“ führt einen A/B-Test für zwei neue Landingpages durch, um herauszufinden, welche Version zu mehr Verkäufen führt. Version A zeigt ein Bannerbild, Version B ein Video. Was ist ein klassischer methodischer Fehler, der bei der Durchführung eines solchen Tests unbedingt vermieden werden sollte?",
       "answerOptions": [
         {
-          "text": "Kreativität und Konzept",
+          "text": "Es werden zu viele gravierende Unterschiede zwischen den Versionen gleichzeitig getestet.",
           "isCorrect": true,
-          "rationale": "Dieses Kriterium bewertet, wie gut die Ideen der Agentur zum Markenimage und den Erwartungen der Kunden passen."
+          "rationale": "Richtig: Werden zu viele Elemente gleichzeitig verändert, ist nicht mehr klar, welches Element den Effekt verursacht hat."
         },
         {
-          "text": "Technische Fähigkeiten",
+          "text": "Der Test wird mit einer statistisch signifikanten, sehr großen Stichprobengröße durchgeführt.",
           "isCorrect": false,
-          "rationale": "Hierbei geht es primär um die Ausrüstung und Spezialeffekte, nicht um das strategische Markenverständnis."
+          "rationale": "Eine ausreichende Stichprobengröße ist Best Practice und kein methodischer Fehler."
         },
         {
-          "text": "Referenzen",
+          "text": "Die Ergebnisse werden erst nach einer vollen Woche Laufzeit ausgewertet.",
           "isCorrect": false,
-          "rationale": "Referenzen belegen die Qualität vergangener Arbeiten, sagen aber nichts direkt über das spezifische Konzept für die neue Kampagne aus."
+          "rationale": "Eine sinnvolle Laufzeit kann saisonale/wochentägliche Effekte ausgleichen und ist kein Fehler."
         },
         {
-          "text": "Zeitplan und Flexibilität",
+          "text": "Es wird neben der Konversionsrate auch der durchschnittliche Bestellwert betrachtet.",
           "isCorrect": false,
-          "rationale": "Diese Kategorie befasst sich mit der organisatorischen Abwicklung und der Dauer der Produktion."
+          "rationale": "Mehrere passende KPI zu betrachten ist methodisch sinnvoll."
         }
       ],
-      "hint": "Es geht um die inhaltliche Gestaltung und die strategische Ausrichtung des Video-Vorschlags."
+      "hint": "Beim A/B-Test sollte idealerweise nur ein klarer Hebel isoliert werden.",
+      "youtubeQuery": "A/B Testing Fehler nur eine Variable Landingpage Conversion"
     },
     {
-      "question": "Wie viele Auszubildende sind derzeit bei der Outdoor-Fun GmbH beschäftigt?",
+      "question": "Eine Agentur führt für einen E-Commerce-Shop einen Eye-Tracking-Test durch. Die Ergebnisse zeigen, dass die Blicke der Nutzer am häufigsten auf dem Preis und dem Hauptbild ruhen. Welche konkrete Optimierungsmaßnahme lässt sich direkt aus dieser Erkenntnis ableiten?",
       "answerOptions": [
         {
-          "text": "$6$",
+          "text": "Die Top-Navigation sollte komplett ausgeblendet werden, um den Fokus zu erhöhen.",
+          "isCorrect": false,
+          "rationale": "Das vollständige Ausblenden der Navigation ist nicht zwingend aus Eye-Tracking auf Preis/Bild ableitbar."
+        },
+        {
+          "text": "Das Suchfeld sollte zwingend mit einer Auto-Vervollständigungsfunktion ausgestattet werden.",
+          "isCorrect": false,
+          "rationale": "Das ist eher aus Suchverhalten oder Klickdaten begründbar, nicht primär aus Blickfokus auf Produktbild/Preis."
+        },
+        {
+          "text": "Die Produktbilder sollten hochauflösend sein, aus verschiedenen Winkeln gezeigt werden und eine Zoom-Funktion bieten.",
           "isCorrect": true,
-          "rationale": "Gemäß dem Unternehmensprofil sind neben den $60$ Angestellten genau $6$ Auszubildende im Betrieb tätig."
+          "rationale": "Richtig: Wenn das Hauptbild besonders viel Aufmerksamkeit bekommt, sollte genau dieses Element maximal informativ und hochwertig sein."
         },
         {
-          "text": "$60$",
+          "text": "Die Social-Media-Icons sollten direkt neben den Preis verschoben werden.",
           "isCorrect": false,
-          "rationale": "Dies entspricht der Gesamtzahl der regulären Angestellten, nicht der Anzahl der Auszubildenden."
-        },
-        {
-          "text": "$1995$",
-          "isCorrect": false,
-          "rationale": "Dies ist das Gründungsjahr des Unternehmens und steht in keinem Zusammenhang mit der Mitarbeiterstruktur."
-        },
-        {
-          "text": "$2001$",
-          "isCorrect": false,
-          "rationale": "Dies markiert den Start des Online-Handels, nicht die Anzahl der Personalstellen."
+          "rationale": "Social-Icons am Preis verbessern die Produktdarstellung nicht direkt und können eher ablenken."
         }
       ],
-      "hint": "Die gesuchte Zahl ist im Verhältnis zur Gesamtbelegschaft einstellig."
+      "hint": "Optimiere zuerst die Elemente mit der höchsten visuellen Aufmerksamkeit.",
+      "youtubeQuery": "Eye Tracking E Commerce Produktbild Preis Usability Optimierung"
     },
     {
-      "question": "Bei der Einrichtung des Online-Shops müssen 'Nummernkreise für Belege' festgelegt werden. Was ist damit primär gemeint?",
+      "question": "Ein junges Start-up entscheidet sich für das Geschäftsmodell „Dropshipping“ im E-Commerce, um Outdoor-Gadgets zu verkaufen. Welcher wesentliche Nachteil ist typischerweise mit diesem Modell verbunden?",
       "answerOptions": [
         {
-          "text": "Die systematische Vergabe von Rechnungs- und Lieferscheinnummern",
+          "text": "Es wird ein extrem hohes Startkapital für den ersten Wareneinkauf und die Lagerhalle benötigt.",
+          "isCorrect": false,
+          "rationale": "Dropshipping reduziert typischerweise genau diese Anfangsinvestitionen."
+        },
+        {
+          "text": "Der Händler ist zwingend an einen festen physischen Standort für die Abwicklung gebunden.",
+          "isCorrect": false,
+          "rationale": "Das Modell ist meist standortunabhängig, da kein eigenes Lager betrieben werden muss."
+        },
+        {
+          "text": "Der Händler hat weniger Kontrolle über die tatsächlichen Lagerbestände, die Lieferzeiten und die Qualität der Verpackung.",
           "isCorrect": true,
-          "rationale": "Nummernkreise definieren die fortlaufende und eindeutige Kennzeichnung von Buchungsbelegen für die Buchhaltung."
+          "rationale": "Richtig: Der Versand liegt beim Drittanbieter, wodurch operative Kontrolle über Fulfillment und Qualität sinkt."
         },
         {
-          "text": "Die Festlegung der Telefon-Durchwahlnummern für den Kundensupport",
+          "text": "Das Sortiment ist starr und kann nicht flexibel an kurzfristige Markttrends angepasst werden.",
           "isCorrect": false,
-          "rationale": "Support-Rufnummern sind Teil der Kommunikation, fallen aber nicht unter die technische Belegverwaltung des Shop-Systems."
-        },
-        {
-          "text": "Die Anzahl der maximal verfügbaren Artikel pro Produktkategorie",
-          "isCorrect": false,
-          "rationale": "Bestandsobergrenzen regeln das Inventar, haben aber keinen Bezug zur formalen Belegnummerierung."
-        },
-        {
-          "text": "Die Postleitzahlengebiete, in die der Shop E-Bikes liefert",
-          "isCorrect": false,
-          "rationale": "Dies betrifft die Logistik und Versandzonen, nicht die interne Nummerierung von Dokumenten."
+          "rationale": "Dropshipping erlaubt oft eher flexible Sortimentsanpassungen ohne eigenes Lager."
         }
       ],
-      "hint": "Denken Sie an die organisatorische Strukturierung von Verkaufsdokumenten."
+      "hint": "Denke an die Folgen der Auslagerung von Lager und Versand an externe Partner.",
+      "youtubeQuery": "Dropshipping Nachteile Lieferzeit Qualität Kontrolle Lagerbestand"
     },
     {
-      "question": "In welchem Jahr startete die Outdoor-Fun GmbH ihren ersten eigenen Online-Shop?",
+      "question": "Die „Mountain-Gear GmbH“ plant den Einsatz eines KI-gestützten Analyse- und Steuerungssystems zur Budgetoptimierung ihrer Online-Vertriebskanäle. Welche fundamentale Grenze (Risiko) des KI-Einsatzes muss das Projektteam dabei unbedingt beachten?",
       "answerOptions": [
         {
-          "text": "$2001$",
+          "text": "KI-Systeme können grundsätzlich keine Webtracking-Daten auswerten.",
+          "isCorrect": false,
+          "rationale": "KI kann Webtracking-Daten sehr wohl auswerten; die Herausforderung liegt in deren Qualität und Struktur."
+        },
+        {
+          "text": "Die Qualität der Ergebnisse ist stark abhängig von der zugrundeliegenden Datenqualität; unvollständige Daten führen zu Fehlinterpretationen.",
           "isCorrect": true,
-          "rationale": "Nach der Gründung als stationärer Handel im Jahr $1995$ wurde der digitale Vertriebskanal im Jahr $2001$ eröffnet."
+          "rationale": "Richtig: „Garbage in, garbage out“ – fehlerhafte Daten führen zu fehlerhaften Modellergebnissen und Entscheidungen."
         },
         {
-          "text": "$1995$",
+          "text": "Die Implementierungskosten von KI-Systemen sind mittlerweile branchenweit auf null gesunken, was zu einem unübersichtlichen Überangebot führt.",
           "isCorrect": false,
-          "rationale": "In diesem Jahr wurde das Unternehmen gegründet, der Online-Handel kam jedoch erst später hinzu."
+          "rationale": "Implementierung und Betrieb sind in der Praxis nicht kostenfrei und häufig ein relevanter Kostenfaktor."
         },
         {
-          "text": "$2015$",
+          "text": "Die KI übernimmt die strategische Unternehmensführung komplett, wodurch das Management rechtlich die Haftung verliert.",
           "isCorrect": false,
-          "rationale": "Dies war das Jahr, in dem der bestehende Shop zuletzt von einem externen Dienstleister eingerichtet wurde."
-        },
-        {
-          "text": "$2026$",
-          "isCorrect": false,
-          "rationale": "Dies ist ein Datum in der Zukunft bzw. das aktuelle Systemdatum und entspricht nicht der historischen Unternehmensentwicklung."
+          "rationale": "Strategische Verantwortung und Haftung bleiben beim Management."
         }
       ],
-      "hint": "Es war einige Jahre nach der Unternehmensgründung, aber noch vor der Neuausrichtung im Jahr $2015$."
+      "hint": "Achte auf das Grundprinzip: Die KI ist nur so gut wie die Daten, die sie bekommt.",
+      "youtubeQuery": "KI Datenqualität Garbage in Garbage out Marketing Budgetoptimierung"
     },
     {
-      "question": "Was gehört beim Online-Shop-Setup zu den zwingend zu beachtenden rechtlichen Aspekten?",
+      "question": "Ein stark wachsender Online-Shop entscheidet sich für einen rein ertragsorientierten Ansatz zur Optimierung seines Sortiments, da die Lagerkosten aus dem Ruder laufen. Welche konkrete Maßnahme passt am besten zu dieser strategischen Ausrichtung?",
       "answerOptions": [
         {
-          "text": "Impressum und Datenschutzerklärung",
+          "text": "Das Einholen von Kundenfeedback über Umfragen, um gezielt Nischenprodukte für kleine Zielgruppen aufzunehmen.",
+          "isCorrect": false,
+          "rationale": "Das ist eher kundenorientiert und nicht primär ertragsgetrieben."
+        },
+        {
+          "text": "Die detaillierte Analyse der Produktmargen und das Aussortieren von schlecht verkauften Produkten mit geringer Marge.",
           "isCorrect": true,
-          "rationale": "Diese Angaben sind gesetzlich vorgeschrieben, um die Anbieterkennzeichnung und den Schutz personenbezogener Daten zu gewährleisten."
+          "rationale": "Richtig: Ein ertragsorientierter Ansatz priorisiert Marge, Profitabilität und das Entfernen von Ladenhütern."
         },
         {
-          "text": "Logo und Teaser-Bilder",
+          "text": "Die Erweiterung der Produktinformationen durch aufwendige Anwendungs- und Erklärvideos.",
           "isCorrect": false,
-          "rationale": "Diese Elemente dienen dem Marketing und Design, unterliegen aber nicht den spezifischen Informationspflichten des Telemediengesetzes."
+          "rationale": "Das kann Conversion unterstützen, ist aber nicht der direkteste Hebel für eine reine Ertragsoptimierung des Sortiments."
         },
         {
-          "text": "Layout und Header-Inhalte",
+          "text": "Das ständige Aufnehmen aktueller, aber oft unprofitabler Trendprodukte, um die Kundenbindung zu erhöhen.",
           "isCorrect": false,
-          "rationale": "Die Gestaltung ist eine ästhetische Entscheidung und keine rechtliche Pflichtangabe für den Shopbetrieb."
-        },
-        {
-          "text": "Produkt-Kategorien und Artikelcontent",
-          "isCorrect": false,
-          "rationale": "Diese Inhalte sind für den Verkauf notwendig, stellen aber nicht die rechtlichen Rahmenbedingungen des Shop-Betreibers dar."
+          "rationale": "Unprofitable Trendprodukte widersprechen einer konsequent ertragsorientierten Sortimentspolitik."
         }
       ],
-      "hint": "Überlegen Sie, welche Informationen jeder gewerbliche Webseitenbetreiber in Deutschland zur Verfügung stellen muss."
+      "hint": "Im Fokus stehen Marge, Profitabilität und Lagerentlastung.",
+      "youtubeQuery": "Sortimentsoptimierung Marge Profitabilität Ladenhüter aussortieren"
     },
     {
-      "question": "Warum ist das Kriterium 'Referenzen' bei der Auswahl einer Video-Agentur von Bedeutung?",
+      "question": "Ein Online-Händler für Survival-Zubehör stellt bei der monatlichen Auswertung einen deutlichen Rückgang des durchschnittlichen Warenkorbwertes fest. Die Conversion Rate ist jedoch stabil. Welche Maßnahme eignet sich am besten, um den Warenkorbwert kurzfristig wieder zu steigern?",
       "answerOptions": [
         {
-          "text": "Um die Qualität und Erfahrung anhand ähnlicher früherer Projekte zu bewerten",
+          "text": "Das Entfernen der Cross-Selling-Vorschläge auf der Produktdetailseite, um den Kunden nicht abzulenken.",
+          "isCorrect": false,
+          "rationale": "Cross-Selling zu entfernen nimmt eher Potenzial für höhere Warenkörbe weg."
+        },
+        {
+          "text": "Die generelle Senkung aller Produktpreise im Shop durch eine weitreichende Rabattaktion.",
+          "isCorrect": false,
+          "rationale": "Breite Preissenkungen können den durchschnittlichen Warenkorbwert bei gleicher Artikelanzahl weiter reduzieren."
+        },
+        {
+          "text": "Die Einführung von „Produktbundles“, bei denen zusammenhängende Artikel (z. B. Zelt + Schlafsack) zu einem leicht reduzierten Gesamtpreis angeboten werden.",
           "isCorrect": true,
-          "rationale": "Frühere Arbeiten geben Aufschluss darüber, ob die Agentur bereits erfolgreich vergleichbare Formate umgesetzt hat."
+          "rationale": "Richtig: Bundles fördern Zusatzkäufe in einem Vorgang und erhöhen den Average Order Value direkt."
         },
         {
-          "text": "Um sicherzustellen, dass die Agentur die günstigsten Preise am Markt bietet",
+          "text": "Das Ausblenden von Kundenbewertungen im Checkout-Prozess.",
           "isCorrect": false,
-          "rationale": "Die Preisgestaltung wird über das Kriterium 'Kosten' geprüft, nicht über die Liste der Referenzkunden."
-        },
-        {
-          "text": "Um die Erreichbarkeit der Agentur während der Bürozeiten zu testen",
-          "isCorrect": false,
-          "rationale": "Die Erreichbarkeit ist Teil des Kriteriums 'Kommunikation und Professionalität'."
-        },
-        {
-          "text": "Um herauszufinden, ob die Agentur die neueste Drohnentechnologie besitzt",
-          "isCorrect": false,
-          "rationale": "Der Einsatz spezifischer Hardware fällt unter das Kriterium der 'Technischen Fähigkeiten'."
+          "rationale": "Das beeinflusst den Warenkorbwert nicht zielgerichtet und kann Vertrauen reduzieren."
         }
       ],
-      "hint": "Es geht um den Nachweis von Expertise durch bereits abgeschlossene Aufträge."
+      "hint": "Gesucht ist ein Hebel, der die Warenkorbgröße pro Kauf erhöht.",
+      "youtubeQuery": "Warenkorbwert steigern Produktbundles Cross Selling Average Order Value"
     },
     {
-      "question": "Welcher Schritt sollte laut der empfohlenen Reihenfolge ganz zu Beginn der Online-Shop-Einrichtung stehen?",
+      "question": "Ein E-Commerce-Unternehmen plant eine Kampagne und verhandelt mit verschiedenen Influencern über die Vergütung. Welches der folgenden Abrechnungssysteme ist in der Praxis kein gängiges, performance- oder reichweitenbasiertes Standardmodell für solche Kooperationen?",
       "answerOptions": [
         {
-          "text": "Shop zunächst offline stellen",
+          "text": "Pay-per-Post (PPP)",
+          "isCorrect": false,
+          "rationale": "Pay-per-Post ist ein verbreitetes Modell mit fixer Vergütung pro veröffentlichtem Inhalt."
+        },
+        {
+          "text": "Pay-per-Click (PPC)",
+          "isCorrect": false,
+          "rationale": "Pay-per-Click ist ein gängiges performance-basiertes Modell."
+        },
+        {
+          "text": "Pay-per-Month (PPM)",
           "isCorrect": true,
-          "rationale": "Durch das Offline-Stellen wird verhindert, dass Kunden eine unfertige oder fehlerhafte Seite sehen, während Änderungen vorgenommen werden."
+          "rationale": "Richtig: Eine pauschale Monatsvergütung ohne klare Leistungs- oder Reichweitenkopplung ist im klassischen Influencer-Marketing unüblich."
         },
         {
-          "text": "Versandarten festlegen",
+          "text": "Pay-per-Sale / Affiliate-Link (PPS)",
           "isCorrect": false,
-          "rationale": "Logistik-Einstellungen erfolgen meist erst, wenn die grundlegende Struktur und die Produkte bereits definiert sind."
-        },
-        {
-          "text": "Bewertungen aktiv schalten",
-          "isCorrect": false,
-          "rationale": "Kundenbewertungen sind ein optionales Feature, das erst nach der vollständigen Einrichtung und dem Go-Live relevant wird."
-        },
-        {
-          "text": "Zahlungsarten festlegen",
-          "isCorrect": false,
-          "rationale": "Die Konfiguration der Zahlungswege erfolgt im späteren Verlauf der technischen Einrichtung, nicht als erster Schritt."
+          "rationale": "Affiliate-/Provision-basierte Sale-Modelle sind im E-Commerce weit verbreitet."
         }
       ],
-      "hint": "Vermeiden Sie es, dass Kunden während der Bauphase Zugriff auf das System haben."
+      "hint": "Achte darauf, welches Modell weder klar reichweiten- noch performancebasiert ist.",
+      "youtubeQuery": "Influencer Marketing Vergütung Pay per Post Pay per Click Affiliate"
     },
     {
-      "question": "Was wird unter dem Auswahlkriterium 'Kommunikation und Professionalität' bei einer Agentur geprüft?",
+      "question": "Die Geschäftsführung der „Tech-Vision GmbH“ überarbeitet ihre Unternehmensziele für das kommende Geschäftsjahr. Dabei wird explizit die Schaffung von humanen Arbeitsbedingungen und einer gerechten Gewinnbeteiligung für die Belegschaft als neues Kernziel definiert. Um welche Art von Zielen handelt es sich hierbei betriebswirtschaftlich?",
       "answerOptions": [
         {
-          "text": "Reaktionsschnelligkeit und Zugänglichkeit während des Angebotsprozesses",
+          "text": "Ökologische Ziele",
+          "isCorrect": false,
+          "rationale": "Ökologische Ziele betreffen vor allem Umweltaspekte, nicht primär Mitarbeiterzufriedenheit oder Entlohnungsmodelle."
+        },
+        {
+          "text": "Sachliche Ziele",
+          "isCorrect": false,
+          "rationale": "Sachliche Ziele definieren vor allem das Produkt- und Leistungsspektrum am Markt."
+        },
+        {
+          "text": "Soziale Ziele",
           "isCorrect": true,
-          "rationale": "Dieses Kriterium bewertet, wie zuverlässig und professionell der Austausch zwischen Auftraggeber und Dienstleister funktioniert."
+          "rationale": "Richtig: Soziale Ziele beziehen sich auf Motivation, Zufriedenheit und faire Bedingungen für Mitarbeitende."
         },
         {
-          "text": "Die Anzahl der verfügbaren Kameras und Schnittplätze",
+          "text": "Monetäre Ziele",
           "isCorrect": false,
-          "rationale": "Die Ausstattung gehört zu den technischen Fähigkeiten, nicht zur kommunikativen Ebene."
-        },
-        {
-          "text": "Ob die Agentur bereit ist, Rabatte auf den Listenpreis zu gewähren",
-          "isCorrect": false,
-          "rationale": "Verhandlungen über den Preis gehören zum Kostenmanagement und nicht zur allgemeinen Professionalität der Kommunikation."
-        },
-        {
-          "text": "Die Gesamtzahl der Follower auf dem Youtube-Kanal der Agentur",
-          "isCorrect": false,
-          "rationale": "Die eigene Social-Media-Reichweite der Agentur ist kein direktes Maß für die Professionalität in der Kundenbetreuung."
+          "rationale": "Monetäre Ziele fokussieren Kennzahlen wie Gewinn, Umsatz oder Rentabilität."
         }
       ],
-      "hint": "Achten Sie auf die Qualität der Interaktion zwischen den Geschäftspartnern."
+      "hint": "Achte darauf, ob sich das Ziel auf Menschen im Unternehmen oder auf Zahlen/Produkte bezieht.",
+      "youtubeQuery": "BWL soziale Ziele sachliche Ziele Unternehmensziele einfach erklärt"
     },
     {
-      "question": "Wahr oder Falsch: Die Outdoor-Fun GmbH ist laut den Unterlagen eine Aktiengesellschaft (AG).",
+      "question": "Ein Online-Händler für Premium-Kaffee stellt fest, dass die Conversion Rate (Kaufrate) und die Gesamtanzahl der Bestellungen konstant hoch bleiben, der durchschnittliche Warenkorbwert jedoch im letzten Quartal deutlich gesunken ist. Welcher der folgenden Gründe ist eine typische und logische Ursache für dieses Phänomen?",
       "answerOptions": [
         {
-          "text": "Falsch",
+          "text": "Der Shop hat in diesem Quartal weitreichende Preissenkungen und Rabattaktionen (Sale) durchgeführt.",
           "isCorrect": true,
-          "rationale": "Die Rechtsform des Unternehmens ist explizit als GmbH (Gesellschaft mit beschränkter Haftung) angegeben."
+          "rationale": "Richtig: Sinkende Preise senken den durchschnittlichen Warenkorbwert, auch wenn Bestellmenge und Conversion stabil bleiben."
         },
         {
-          "text": "Wahr",
+          "text": "Die Ladezeit der Website hat sich massiv verschlechtert, was zu mehr Kaufabbrüchen führt.",
           "isCorrect": false,
-          "rationale": "Die Unterlagen weisen eindeutig eine GmbH und keine Aktiengesellschaft aus."
+          "rationale": "Das würde typischerweise Conversion und Bestellzahl negativ beeinflussen, nicht bei stabiler Conversion isoliert den Warenkorbwert."
+        },
+        {
+          "text": "Das Suchfeld im Shop liefert neuerdings zu viele Nulltreffer.",
+          "isCorrect": false,
+          "rationale": "Nulltreffer beeinflussen eher Auffindbarkeit/Conversion, nicht primär den Durchschnittswert bei konstanten Abschlüssen."
+        },
+        {
+          "text": "Es wird zu aggressives Upselling auf der Produktdetailseite betrieben.",
+          "isCorrect": false,
+          "rationale": "Aggressives Upselling erhöht meist den Wert pro Bestellung statt ihn zu senken."
         }
       ],
-      "hint": "Werfen Sie einen Blick auf den Namenszusatz im Unternehmensprofil."
+      "hint": "Was passiert mit dem Durchschnittswert, wenn Produkte pro Bestellung günstiger verkauft werden?",
+      "youtubeQuery": "Warenkorbwert sinkt trotz stabiler Conversion Rabattaktionen Ursache"
+    },
+    {
+      "question": "Ein Händler für Campingausrüstung verzeichnet im Sortimentsbereich Schlafsäcke signifikant rückläufige Umsätze. Um den Trend umzukehren, soll das Sortiment innovativ weiterentwickelt werden. Welche Maßnahme stellt einen innovativen Ansatz zur Weiterentwicklung dieses spezifischen Sortiments dar?",
+      "answerOptions": [
+        {
+          "text": "Die Erhöhung des allgemeinen Marketingbudgets für Google Ads.",
+          "isCorrect": false,
+          "rationale": "Mehr Werbung verbessert Sichtbarkeit, ist aber keine Produktinnovation im Sortiment selbst."
+        },
+        {
+          "text": "Die bloße Reduzierung der Verkaufspreise aller bestehenden Schlafsäcke um 15 %.",
+          "isCorrect": false,
+          "rationale": "Preismaßnahmen sind vertrieblich, aber keine inhaltliche Weiterentwicklung des Produktes."
+        },
+        {
+          "text": "Die Einführung von Schlafsäcken mit integrierten technologischen Features (z. B. Powerbanks, beheizbare Elemente).",
+          "isCorrect": true,
+          "rationale": "Richtig: Neue technologische Features sind echte Sortimentsinnovation mit neuem Kundennutzen."
+        },
+        {
+          "text": "Die Auslagerung des gesamten Versands an Amazon FBA.",
+          "isCorrect": false,
+          "rationale": "FBA betrifft Logistikprozesse, nicht die Innovation des Produktsortiments."
+        }
+      ],
+      "hint": "Gesucht ist eine Maßnahme, die das Produkt selbst innovativ verändert.",
+      "youtubeQuery": "Sortimentsinnovation Produktinnovation E Commerce neue Produktfeatures"
+    },
+    {
+      "question": "Die „Urban-Sports GmbH“ möchte ihr Sortiment stärker ertragsorientiert (Fokus auf Rentabilität) ausrichten, um die Gewinne zu maximieren. Welche konkrete strategische Maßnahme passt am besten zu diesem Ziel?",
+      "answerOptions": [
+        {
+          "text": "Das Sortiment wird ausschließlich nach den Wünschen aus der letzten Kundenumfrage ausgerichtet, unabhängig von den Kosten.",
+          "isCorrect": false,
+          "rationale": "Das ist kundenorientiert, aber nicht zwingend rentabilitätsorientiert."
+        },
+        {
+          "text": "Die Entwicklung und Einführung von Eigenmarken in den margenstärksten Kategorien.",
+          "isCorrect": true,
+          "rationale": "Richtig: Eigenmarken ermöglichen oft höhere Margen und bessere Steuerung der Rentabilität."
+        },
+        {
+          "text": "Das Anbieten von kostenlosem Premium-Versand ohne Mindestbestellwert für alle Artikel.",
+          "isCorrect": false,
+          "rationale": "Das kann die Kosten deutlich erhöhen und die Ertragslage verschlechtern."
+        },
+        {
+          "text": "Die Aufnahme von hunderten neuen Nischenprodukten, die sich nur sehr selten verkaufen, um jeden Kundenwunsch abzudecken.",
+          "isCorrect": false,
+          "rationale": "Das bindet Kapital und Lagerfläche, häufig ohne ausreichenden Ertrag."
+        }
+      ],
+      "hint": "Ertragsorientierung bedeutet: Marge und Profitabilität zuerst.",
+      "youtubeQuery": "Eigenmarke höhere Marge Sortimentsstrategie ertragsorientiert"
+    },
+    {
+      "question": "Die „Next-Level Fitness GmbH“ plant die Produktion eines hochwertigen Imagevideos für ihren YouTube-Kanal. Mehrere Agenturen haben ein Angebot eingereicht. Die Geschäftsleitung prüft die Angebote anhand verschiedener Kriterien. Welcher Prüf-Aspekt fällt unter das Auswahlkriterium Referenzen?",
+      "answerOptions": [
+        {
+          "text": "Die Überprüfung, ob das Angebot im Rahmen des gesetzten Budgets liegt.",
+          "isCorrect": false,
+          "rationale": "Das gehört zum Kriterium Kosten, nicht zu Referenzen."
+        },
+        {
+          "text": "Die Klärung, wie flexibel die Agentur auf unvorhergesehene Änderungen reagiert.",
+          "isCorrect": false,
+          "rationale": "Das betrifft eher Projektmanagement/Flexibilität."
+        },
+        {
+          "text": "Die Analyse, ob die Agentur in der Vergangenheit bereits ähnliche Projekte erfolgreich durchgeführt hat.",
+          "isCorrect": true,
+          "rationale": "Richtig: Referenzen zeigen Qualität und Erfahrung aus vergleichbaren früheren Projekten."
+        },
+        {
+          "text": "Die Frage, welche Kameras und Spezialeffekte die Agentur technisch einsetzen kann.",
+          "isCorrect": false,
+          "rationale": "Das ist primär technische Ausstattung, nicht Referenzbewertung."
+        }
+      ],
+      "hint": "Referenzen beantworten die Frage: Was hat die Agentur bereits nachweislich gut umgesetzt?",
+      "youtubeQuery": "Agenturauswahl Referenzen Medienproduktion Imagevideo Kriterien"
+    },
+    {
+      "question": "Eine Agentur präsentiert die Ergebnisse einer Heatmap-Analyse (Mausaktionen) eines Online-Shops. Es fällt auf, dass das Suchfeld mit gigantischem Abstand die meisten Klicks und Interaktionen der Nutzer aufweist. Die Top-Navigation wird zwar genutzt, aber deutlich seltener. Was ist die logischste Interpretation dieses Nutzerverhaltens?",
+      "answerOptions": [
+        {
+          "text": "Die Nutzer empfinden die Suchfunktion als völlig überflüssig und klicken sie nur versehentlich an.",
+          "isCorrect": false,
+          "rationale": "Hohe Interaktion spricht eher für Relevanz statt versehentliche Nutzung."
+        },
+        {
+          "text": "Die Nutzer haben entweder bereits eine sehr klare Vorstellung davon, wonach sie suchen, oder sie finden die generelle Menü-Navigation nicht intuitiv genug.",
+          "isCorrect": true,
+          "rationale": "Richtig: Starke Suchnutzung deutet auf zielgerichtetes Suchen oder Navigationsschwächen hin."
+        },
+        {
+          "text": "Das Suchfeld ist farblich falsch gestaltet und lenkt vom eigentlichen Kauf ab.",
+          "isCorrect": false,
+          "rationale": "Aus den Daten folgt nicht automatisch ein reines Farbproblem."
+        },
+        {
+          "text": "Die Produkte im Shop sind generell zu teuer, weshalb die Nutzer sofort abspringen.",
+          "isCorrect": false,
+          "rationale": "Preisprobleme erklären die starke Suchfeldnutzung nicht unmittelbar."
+        }
+      ],
+      "hint": "Interpretation von Klickmustern: Warum nutzen Nutzer Suche statt Menü?",
+      "youtubeQuery": "Heatmap Analyse Online Shop Suchfeld Klicks Navigation Usability"
+    },
+    {
+      "question": "Die Geschäftsleitung definiert als wichtiges Quartalsziel die Senkung der Absprungrate im Checkout-Prozess (Kaufabbruch). Welche der folgenden E-Commerce-Maßnahmen zielt direkt auf dieses spezifische Problem ab?",
+      "answerOptions": [
+        {
+          "text": "Die Optimierung der Meta-Tags für ein besseres Google-Ranking.",
+          "isCorrect": false,
+          "rationale": "SEO bringt Traffic, reduziert aber nicht direkt Checkout-Abbrüche."
+        },
+        {
+          "text": "Die prominente Integration der bei der Zielgruppe beliebtesten Zahlungsarten (z. B. PayPal, Kauf auf Rechnung) direkt im Checkout.",
+          "isCorrect": true,
+          "rationale": "Richtig: Fehlende bevorzugte Zahlungsarten sind ein häufiger Grund für Abbrüche im letzten Schritt."
+        },
+        {
+          "text": "Der Start einer teuren Influencer-Kampagne auf Instagram, um neuen Traffic zu generieren.",
+          "isCorrect": false,
+          "rationale": "Mehr Traffic löst nicht automatisch Checkout-Friktionen."
+        },
+        {
+          "text": "Die Reduzierung der Produktbeschreibungen auf ein Minimum.",
+          "isCorrect": false,
+          "rationale": "Das betrifft eher Informationsqualität im Shop und nicht den konkreten Checkout-Hebel."
+        }
+      ],
+      "hint": "Suche nach einem direkten Hebel genau im letzten Kaufschritt.",
+      "youtubeQuery": "Checkout Abbruch reduzieren beliebte Zahlungsarten PayPal Kauf auf Rechnung"
+    },
+    {
+      "question": "Ein mittelständisches Handelsunternehmen nutzt erfolgreich eigene Lagerhallen, überlegt aber, aus Kapazitätsgründen teilweise auf Amazon FBA umzustellen. Aus welchem strategischen Grund raten E-Commerce-Experten oft davon ab, zu 100 % exklusiv auf das FBA-Modell von Amazon umzustellen?",
+      "answerOptions": [
+        {
+          "text": "Weil Amazon FBA-Produkte grundsätzlich von der Prime-Berechtigung ausgeschlossen werden.",
+          "isCorrect": false,
+          "rationale": "FBA-Produkte profitieren in der Regel gerade von Prime-Berechtigung."
+        },
+        {
+          "text": "Weil Amazon keine internationalen Fulfillment-Zentren besitzt und der Export dadurch unmöglich wird.",
+          "isCorrect": false,
+          "rationale": "Amazon verfügt über internationale Fulfillment-Strukturen."
+        },
+        {
+          "text": "Weil der Verzicht auf eine Diversifizierung der Vertriebskanäle zu einer riskanten Abhängigkeit von einer einzigen Plattform führt.",
+          "isCorrect": true,
+          "rationale": "Richtig: Exklusive Plattformabhängigkeit erhöht das Risiko bei Regeländerungen, Gebühren oder Account-Problemen."
+        },
+        {
+          "text": "Weil der Händler bei FBA den Versandprozess an den Endkunden noch komplett selbst durchführen muss.",
+          "isCorrect": false,
+          "rationale": "Bei FBA übernimmt Amazon zentrale Fulfillment-Aufgaben inklusive Versandabwicklung."
+        }
+      ],
+      "hint": "Strategisch geht es um Risikostreuung statt Ein-Plattform-Abhängigkeit.",
+      "youtubeQuery": "Amazon FBA Risiken Plattformabhängigkeit Diversifizierung Vertriebskanäle"
+    },
+    {
+      "question": "Ein Händler entscheidet sich für die Nutzung von Amazon FBA. Neben der reinen Einlagerung und dem Versand der Pakete übernimmt Amazon in diesem Modell noch eine weitere, sehr ressourcenintensive Aufgabe für den Verkäufer. Welche ist das?",
+      "answerOptions": [
+        {
+          "text": "Die rechtliche Überprüfung des Impressums des Händlers.",
+          "isCorrect": false,
+          "rationale": "Rechtliche Pflichtangaben bleiben Verantwortung des Händlers."
+        },
+        {
+          "text": "Die Beantwortung von Kundenanfragen, die Abwicklung von Rücksendungen und die Erstattung von Käufen.",
+          "isCorrect": true,
+          "rationale": "Richtig: FBA umfasst typischerweise auch Kundenservice- und Retourenprozesse für FBA-Bestellungen."
+        },
+        {
+          "text": "Die Produktion und Herstellung der Artikel im Auftrag des Händlers.",
+          "isCorrect": false,
+          "rationale": "FBA ist ein Logistik- und Service-Modell, keine Produktionsleistung."
+        },
+        {
+          "text": "Die automatische Steuererklärung für den Händler am Jahresende.",
+          "isCorrect": false,
+          "rationale": "Steuerliche Pflichten verbleiben beim Unternehmen bzw. dessen Steuerberatung."
+        }
+      ],
+      "hint": "Denke an Aufgaben nach dem Kaufprozess: Support, Retouren, Erstattungen.",
+      "youtubeQuery": "Amazon FBA Kundenservice Retouren Erstattungen erklärt"
+    },
+    {
+      "question": "Die „Style-Lounge GmbH“ hat einen A/B-Test für zwei Landingpages durchgeführt. Version A hat 150 Verkäufe generiert, Version B generierte 210 Verkäufe. Bevor das Marketing-Team Version B final als Gewinner kürt, sollte zwingend eine weitere, entscheidende wirtschaftliche Metrik geprüft werden. Welche?",
+      "answerOptions": [
+        {
+          "text": "Das Alter der Server-Hardware, auf der die Landingpage gehostet wird.",
+          "isCorrect": false,
+          "rationale": "Das ist keine direkte wirtschaftliche Erfolgsmetrik für die Kampagnenentscheidung."
+        },
+        {
+          "text": "Die Anzahl der verwendeten HTML-Zeichen im Quellcode.",
+          "isCorrect": false,
+          "rationale": "Code-Länge ist kein valider KPI für Umsatzwirksamkeit einer Landingpage."
+        },
+        {
+          "text": "Der durchschnittliche Bestellwert (Warenkorbwert) der jeweiligen Versionen.",
+          "isCorrect": true,
+          "rationale": "Richtig: Mehr Verkäufe allein reichen nicht; mit AOV ergibt sich erst die echte Umsatzwirkung pro Variante."
+        },
+        {
+          "text": "Die genaue Uhrzeit, zu der die Programmierer den Test gestartet haben.",
+          "isCorrect": false,
+          "rationale": "Zeitpunktdetails sind nicht die zentrale wirtschaftliche Vergleichsgröße zwischen Varianten."
+        }
+      ],
+      "hint": "Mehr Conversions bedeuten nicht automatisch mehr Umsatz.",
+      "youtubeQuery": "A B Test Auswertung durchschnittlicher Bestellwert Conversion Umsatz"
+    },
+    {
+      "question": "Das Unternehmen Sun-Sports vereinbart folgendes Abrechnungsmodell mit einer Influencerin: Eine feste Vergütung von 500 € pro Beitrag. Zusätzlich 0,05 € für jeden Like. Erreicht der Beitrag mehr als 10.000 Likes, gibt es einen Bonus von 100 €. Die Influencerin veröffentlicht einen Beitrag, der am Ende exakt 12.300 Likes erzielt. Wie hoch ist die gesamte Vergütung für diesen einen Beitrag?",
+      "answerOptions": [
+        {
+          "text": "615 €",
+          "isCorrect": false,
+          "rationale": "Dies entspricht nur dem Like-Anteil (12.300 * 0,05 €), ohne Grundvergütung und Bonus."
+        },
+        {
+          "text": "1.115 €",
+          "isCorrect": false,
+          "rationale": "Hier fehlt ein Teil der Gesamtberechnung."
+        },
+        {
+          "text": "1.215 €",
+          "isCorrect": true,
+          "rationale": "Richtig: 500 € Grundvergütung + 615 € Likes + 100 € Bonus = 1.215 €."
+        },
+        {
+          "text": "600 €",
+          "isCorrect": false,
+          "rationale": "Hier wurde nur Grundvergütung plus Bonus betrachtet, der Like-Anteil fehlt."
+        }
+      ],
+      "hint": "Rechne in drei Blöcken: Fixbetrag + Like-Betrag + Bonus.",
+      "youtubeQuery": "Influencer Vergütung berechnen Fixbetrag Like Bonus Rechenbeispiel"
+    },
+    {
+      "question": "Ein Online-Shop mit einem hohen sechsstelligen Marketingbudget entscheidet sich, ein KI-gestütztes Steuerungssystem einzuführen. In welchem der folgenden Bereiche kann eine KI im Bereich des Vertriebs und Marketings den größten Mehrwert durch Automatisierung liefern?",
+      "answerOptions": [
+        {
+          "text": "Bei der physischen Endmontage der Produkte in der Lagerhalle.",
+          "isCorrect": false,
+          "rationale": "Das ist ein Produktions-/Operations-Thema, nicht der Kernnutzen von Marketing-KI."
+        },
+        {
+          "text": "Bei der performance-basierten Allokation (automatisierten Verteilung) des Werbebudgets auf verschiedene Vertriebskanäle in Echtzeit.",
+          "isCorrect": true,
+          "rationale": "Richtig: Echtzeit-Optimierung der Budgetverteilung ist ein zentraler KI-Mehrwert im digitalen Vertrieb."
+        },
+        {
+          "text": "Bei der handschriftlichen Unterzeichnung von Arbeitsverträgen für neue Mitarbeiter.",
+          "isCorrect": false,
+          "rationale": "Das ist kein typischer Einsatzbereich für Vertriebs-/Marketing-KI."
+        },
+        {
+          "text": "Bei der Erstellung der jährlichen Gewerbesteuererklärung für das Finanzamt.",
+          "isCorrect": false,
+          "rationale": "Steuererklärungen liegen außerhalb des beschriebenen Marketing-Optimierungskontexts."
+        }
+      ],
+      "hint": "Gesucht ist ein Einsatzgebiet mit direktem Hebel auf Kanalperformance und Budgeteffizienz.",
+      "youtubeQuery": "KI Marketing Budgetallokation Echtzeit Performance Kanäle"
+    },
+    {
+      "question": "Die Implementierung von KI-Systemen ist teuer und komplex. Dennoch nehmen viele Handelsunternehmen diese Hürde auf sich, um sich aus strategischer Perspektive im Wettbewerb zu behaupten. Was ist eine zentrale strategische Chance beim Einsatz von KI-Analysetools?",
+      "answerOptions": [
+        {
+          "text": "Die KI übernimmt die rechtliche Haftung bei Datenschutzverstößen, sodass der Geschäftsführer entlastet wird.",
+          "isCorrect": false,
+          "rationale": "Haftung bleibt rechtlich beim Unternehmen/Management."
+        },
+        {
+          "text": "Das Unternehmen wird völlig unabhängig vom Internet und kann komplett offline verkaufen.",
+          "isCorrect": false,
+          "rationale": "Das widerspricht dem digitalen Einsatzkontext von KI-Analysetools."
+        },
+        {
+          "text": "Die Früherkennung von aufkommenden Markttrends durch die Auswertung riesiger Datenmengen.",
+          "isCorrect": true,
+          "rationale": "Richtig: KI kann Muster früh erkennen und so strategische Entscheidungen beschleunigen."
+        },
+        {
+          "text": "Der komplette Verzicht auf menschliches Personal im Kundenservice.",
+          "isCorrect": false,
+          "rationale": "KI unterstützt Prozesse, ersetzt aber nicht pauschal alle menschlichen Rollen."
+        }
+      ],
+      "hint": "Strategische Chance heißt: Wettbewerbsvorteile durch schnellere, datenbasierte Erkenntnisse.",
+      "youtubeQuery": "KI E Commerce Markttrends früh erkennen Datenanalyse Wettbewerbsvorteil"
+    },
+    {
+      "question": "Die Alpha-Electronics GmbH wirbt wider besseres Wissen intensiv mit dem irreführenden Slogan Niedrigster Preis in Europa, obwohl die Produkte bei der Konkurrenz nachweislich billiger sind. Dies stellt einen klaren Verstoß gegen das UWG dar. Mit welchen direkten Konsequenzen muss das Unternehmen primär rechnen?",
+      "answerOptions": [
+        {
+          "text": "Mit der sofortigen Zwangsenteignung der Lagerbestände durch die IHK.",
+          "isCorrect": false,
+          "rationale": "Eine Zwangsenteignung durch die IHK ist hier kein typischer Rechtsweg."
+        },
+        {
+          "text": "Mit Abmahnungen durch Konkurrenten oder Verbraucherschutzverbände sowie gerichtlichen Unterlassungsklagen.",
+          "isCorrect": true,
+          "rationale": "Richtig: Typisch sind kostenpflichtige Abmahnungen und Unterlassungsansprüche nach UWG."
+        },
+        {
+          "text": "Mit einer mehrjährigen Gefängnisstrafe für alle Angestellten der Marketingabteilung.",
+          "isCorrect": false,
+          "rationale": "Diese pauschale strafrechtliche Folge ist in diesem Kontext nicht die typische Primärkonsequenz."
+        },
+        {
+          "text": "Es gibt keine Konsequenzen, da das UWG im Internet nicht gilt.",
+          "isCorrect": false,
+          "rationale": "Das UWG gilt selbstverständlich auch im Online-Handel."
+        }
+      ],
+      "hint": "Denke an typische wettbewerbsrechtliche Schritte von Mitbewerbern und Verbänden.",
+      "youtubeQuery": "UWG irreführende Werbung Abmahnung Unterlassungsklage Online Shop"
+    },
+    {
+      "question": "Ein Kunde sucht in einem Online-Baumarkt nach Schraubendreher elektrisch, doch der Shop führt dieses exakte Produkt nicht. Es entsteht ein Nulltreffer (leere Suchergebnisseite). Wie sollte der Online-Shop aus Sicht der Usability im besten Fall auf diesen Nulltreffer reagieren, um einen Kaufabbruch zu verhindern?",
+      "answerOptions": [
+        {
+          "text": "Der Shop sollte eine komplett weiße Seite anzeigen, um Ladezeit zu sparen.",
+          "isCorrect": false,
+          "rationale": "Eine leere Seite erhöht Frustration und fördert Abbrüche."
+        },
+        {
+          "text": "Der Shop sollte dem Kunden ähnliche Produkte, Alternativvorschläge oder beliebte Kategorien auf der Ergebnisseite anzeigen.",
+          "isCorrect": true,
+          "rationale": "Richtig: Alternative Vorschläge halten Nutzer im Shop und reduzieren Kaufabbrüche bei Nulltreffern."
+        },
+        {
+          "text": "Der Shop sollte ein Pop-Up-Fenster öffnen, in dem der Kunde aufgefordert wird, seinen Suchbegriff im Duden nachzuschlagen.",
+          "isCorrect": false,
+          "rationale": "Das löst das Einkaufsproblem nicht und verschlechtert die Nutzererfahrung."
+        },
+        {
+          "text": "Der Shop sollte den Kunden sofort zurück zur Google-Startseite leiten.",
+          "isCorrect": false,
+          "rationale": "Das würde den Nutzerverlust direkt verstärken statt ihn im Shop zu halten."
+        }
+      ],
+      "hint": "Nulltreffer sollten immer einen hilfreichen nächsten Schritt anbieten.",
+      "youtubeQuery": "Nulltreffer Online Shop Usability Alternativvorschlaege Suchergebnisse"
     }
   ]
 }

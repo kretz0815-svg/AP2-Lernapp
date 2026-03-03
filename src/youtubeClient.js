@@ -5,23 +5,60 @@ export async function fetchYouTubeVideos(query, apiKey, maxResults = 4) {
     }
 
     try {
-        const safeQuery = encodeURIComponent(query + " Erklärung IHK"); // Add some context to get better educational videos
-        const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${safeQuery}&maxResults=${maxResults}&key=${apiKey}&relevanceLanguage=de`);
+        const normalizedQuery = (query || '')
+            .normalize('NFKD')
+            .replace(/[^\p{L}\p{N}\s-]/gu, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+
+        if (!normalizedQuery) {
+            return [];
+        }
+
+        const safeQuery = encodeURIComponent(normalizedQuery + " einfach erklärt");
+        const fetchSize = Math.min(Math.max(maxResults * 3, 8), 20);
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${safeQuery}&maxResults=${fetchSize}&key=${apiKey}&relevanceLanguage=de`);
 
         if (!response.ok) {
             const errorData = await response.json();
-            alert("YouTube API Fehler:\n" + (errorData.error?.message || response.status));
+            console.error("YouTube API Fehler:", errorData.error?.message || response.status);
             throw new Error(`YouTube API returned ${response.status}`);
         }
 
         const data = await response.json();
-        return data.items.slice(0, maxResults).map(item => ({
-            id: item.id.videoId,
-            title: item.snippet.title,
-            thumbnail: item.snippet.thumbnails.medium.url,
-            channelTitle: item.snippet.channelTitle,
-            url: `https://www.youtube.com/embed/${item.id.videoId}?autoplay=1`
-        }));
+        const queryTokens = normalizedQuery
+            .toLowerCase()
+            .split(/\s+/)
+            .filter(token => token.length > 2);
+
+        const scored = (data.items || [])
+            .filter(item => item?.id?.videoId && item?.snippet)
+            .map(item => {
+                const title = item.snippet.title || '';
+                const description = item.snippet.description || '';
+                const channelTitle = item.snippet.channelTitle || '';
+                const haystack = `${title} ${description} ${channelTitle}`.toLowerCase();
+
+                const tokenHits = queryTokens.reduce((sum, token) => sum + (haystack.includes(token) ? 1 : 0), 0);
+                const titleHits = queryTokens.reduce((sum, token) => sum + (title.toLowerCase().includes(token) ? 1 : 0), 0);
+                const eduBonus = /erklär|einfach|grundlagen|tutorial|lernvideo|wirtschaft|e-commerce|shop/i.test(haystack) ? 1 : 0;
+
+                return {
+                    item,
+                    score: (titleHits * 2) + tokenHits + eduBonus
+                };
+            })
+            .sort((a, b) => b.score - a.score)
+            .slice(0, maxResults)
+            .map(({ item }) => ({
+                id: item.id.videoId,
+                title: item.snippet.title,
+                thumbnail: item.snippet.thumbnails.medium.url,
+                channelTitle: item.snippet.channelTitle,
+                url: `https://www.youtube.com/embed/${item.id.videoId}?autoplay=1`
+            }));
+
+        return scored;
     } catch (error) {
         console.error("Error fetching YouTube videos:", error);
         return [];
