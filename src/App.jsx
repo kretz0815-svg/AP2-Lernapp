@@ -38,6 +38,8 @@ const generateId = (text) => {
 };
 
 function App() {
+  const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITEKEY || import.meta.env.VITE_HCAPTCHA_SITE_KEY || '360a00c0-d898-4cc8-807e-3eb4a19abd48';
+  const currentHost = typeof window !== 'undefined' ? window.location.hostname : '';
   const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'dashboard' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor'
 
   // --- THEME STATE ---
@@ -72,6 +74,7 @@ function App() {
   const [password, setPassword] = useState('');
   const [authLoading, setAuthLoading] = useState(false);
   const [authMsg, setAuthMsg] = useState('');
+  const [captchaError, setCaptchaError] = useState('');
   const [authUser, setAuthUser] = useState(null);
   const [captchaToken, setCaptchaToken] = useState(null);
   const captchaRef = useRef(null);
@@ -736,12 +739,21 @@ function App() {
             <div style={{ display: 'flex', justifyContent: 'center', margin: '0.5rem 0' }}>
               <HCaptcha
                 ref={captchaRef}
-                sitekey={import.meta.env.VITE_HCAPTCHA_SITEKEY || '360a00c0-d898-4cc8-807e-3eb4a19abd48'}
+                sitekey={captchaSiteKey}
                 theme="dark"
-                onVerify={(token) => setCaptchaToken(token)}
+                onLoad={() => setCaptchaError('')}
+                onVerify={(token) => {
+                  setCaptchaToken(token);
+                  setCaptchaError('');
+                }}
                 onExpire={() => setCaptchaToken(null)}
+                onError={() => {
+                  setCaptchaToken(null);
+                  setCaptchaError(`hCaptcha konnte nicht geladen werden. Prüfe die Domain-Freigabe für "${currentHost}" im hCaptcha-Dashboard und den Sitekey.`);
+                }}
               />
             </div>
+            {captchaError && <p style={{ color: 'var(--error)', marginBottom: '0.75rem', fontWeight: 'bold' }}>{captchaError}</p>}
             <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
               <button type="submit" className="btn-primary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading || !captchaToken}>Login</button>
               <button type="button" onClick={handleRegister} className="btn-secondary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading || !captchaToken}>Registrieren</button>
