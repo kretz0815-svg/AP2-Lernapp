@@ -113,3 +113,28 @@ export async function getDueTasksForToday(supabase, userId, {
   if (error) throw error;
   return data || [];
 }
+
+export async function getTaskProgressByType(supabase, userId, taskType) {
+  if (!userId || !taskType) return [];
+
+  const { data, error } = await supabase
+    .from('user_task_progress')
+    .select('*')
+    .eq('user_id', userId)
+    .eq('task_type', taskType);
+
+  if (error) throw error;
+  return data || [];
+}
+
+export async function clearTaskProgressByType(supabase, userId, taskType) {
+  if (!userId || !taskType) return;
+
+  const { error } = await supabase
+    .from('user_task_progress')
+    .delete()
+    .eq('user_id', userId)
+    .eq('task_type', taskType);
+
+  if (error) throw error;
+}

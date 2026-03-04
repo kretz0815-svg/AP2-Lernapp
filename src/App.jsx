@@ -27,7 +27,7 @@ import PomodoroTimer from './components/PomodoroTimer';
 import KalkulationsBoss from './components/KalkulationsBoss';
 import BreakEvenPoint from './components/BreakEvenPoint';
 import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
-import { reviewTaskWithDSR, getDueTasksForToday } from './services/srsStore';
+import { reviewTaskWithDSR, getDueTasksForToday, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
 
 const ANALYTICS_STORAGE_PREFIX = 'ap2_learning_analytics_';
 const CUSTOM_QUIZ_STORAGE_PREFIX = 'ap2_custom_quiz_questions_';
@@ -269,6 +269,7 @@ function App() {
 
   // --- QUIZ STATE ---
   const [allQuizzes, setAllQuizzes] = useState([]);
+  const [quizDuePool, setQuizDuePool] = useState([]);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
@@ -528,10 +529,41 @@ function App() {
     });
   };
 
-  const getPreparedQuizzes = () => {
-    const rawQuizzes = getAllQuizQuestions();
+  const refreshQuizDuePool = async ({ customData = null } = {}) => {
+    const rawQuizzes = [
+      ...(quiz1.questions || []),
+      ...(quiz2.questions || []),
+      ...(quiz3.questions || []),
+      ...(quizUForm2.questions || []),
+      ...((customData ?? customQuizQuestions) || [])
+    ];
+
     const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
-    return buildPreparedQuizzes(rawQuizzes, quizProg);
+    const prepared = buildPreparedQuizzes(rawQuizzes, quizProg);
+    const now = Date.now();
+
+    if (!authUser?.id) {
+      const localDue = prepared.filter(q => q.progress.nextReview <= now);
+      setQuizDuePool(localDue);
+      return localDue;
+    }
+
+    try {
+      const rows = await getTaskProgressByType(supabase, authUser.id, 'quiz');
+      const byTaskId = new Map(rows.map(row => [row.task_id, row]));
+      const due = prepared.filter(q => {
+        const row = byTaskId.get(`quiz:${q.id}`);
+        if (!row?.due_date) return true;
+        return new Date(row.due_date).getTime() <= now;
+      });
+      setQuizDuePool(due);
+      return due;
+    } catch (err) {
+      console.error('Failed loading quiz due pool from user_task_progress:', err);
+      const fallbackDue = prepared.filter(q => q.progress.nextReview <= now);
+      setQuizDuePool(fallbackDue);
+      return fallbackDue;
+    }
   };
 
   const handleAddCustomQuizQuestion = async (payload) => {
@@ -563,24 +595,13 @@ function App() {
     localStorage.setItem(getCustomQuizStorageKey(authUser), JSON.stringify(updatedCustom));
     await syncProgressToSupabase({ custom_quiz_questions: updatedCustom });
 
-    if (appMode !== 'quiz') {
-      const quizProgNow = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
-      const due = buildPreparedQuizzes([
-        ...(quiz1.questions || []),
-        ...(quiz2.questions || []),
-        ...(quiz3.questions || []),
-        ...(quizUForm2.questions || []),
-        ...updatedCustom
-      ], quizProgNow).filter(q => q.progress.nextReview <= Date.now());
-      setAllQuizzes(due);
-    }
+    await refreshQuizDuePool({ customData: updatedCustom });
 
     return { ok: true };
   };
 
   const getDueQuizzesByTopic = (topic = 'all') => {
-    const now = Date.now();
-    const due = getPreparedQuizzes().filter(q => q.progress.nextReview <= now);
+    const due = quizDuePool;
     if (topic === 'all') return due;
     return due.filter(q => q.topic === topic);
   };
@@ -865,21 +886,7 @@ function App() {
       rebuildQueue(mergedCards);
 
       // 4. Setup Quizzes
-      const rawQuizzes = [
-        ...(quiz1.questions || []),
-        ...(quiz2.questions || []),
-        ...(quiz3.questions || []),
-        ...(quizUForm2.questions || []),
-        ...customQuizData
-      ];
-      let quizProgStorage = progressData.quiz_progress || JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
-      const mergedQuizzesInit = rawQuizzes.map(q => {
-        const id = q.id || generateId(q.question);
-        return { progress: quizProgStorage[id] || { nextReview: 0 } };
-      });
-      // Just keep track of total due count in allQuizzes for Dashboard logic
-      const dueCountQs = mergedQuizzesInit.filter(q => q.progress.nextReview <= Date.now());
-      setAllQuizzes(dueCountQs);
+      await refreshQuizDuePool({ customData: customQuizData });
 
       // 5. Setup Wisor
       const rawWisors = [
@@ -897,6 +904,11 @@ function App() {
     setLearningAnalytics(loadAnalyticsForUser(authUser));
     setCustomQuizQuestions(loadCustomQuizForUser(authUser));
   }, [authUser?.email]);
+
+  useEffect(() => {
+    refreshQuizDuePool().catch(() => { });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authUser?.id, customQuizQuestions]);
 
   useEffect(() => {
     if (!authUser?.id) return;
@@ -1073,7 +1085,11 @@ function App() {
           source: q.custom ? 'custom_quiz' : 'default_quiz',
           question: q.question
         }
-      }).catch(err => console.error('DSR quiz review failed:', err));
+      })
+        .then(() => refreshQuizDuePool())
+        .catch(err => console.error('DSR quiz review failed:', err));
+    } else {
+      refreshQuizDuePool().catch(() => { });
     }
   };
 
@@ -1164,24 +1180,20 @@ function App() {
         if (appMode === 'wisor') setAppMode('wisor');
       } else if (resetTarget === 'quiz') {
         localStorage.removeItem('ap2_quiz_progress');
+        const resetTasks = [];
 
         if (authUser?.id) {
-          syncProgressToSupabase({ quiz_progress: {} }).catch(() => { });
+          resetTasks.push(syncProgressToSupabase({ quiz_progress: {} }));
+          resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'quiz'));
         }
 
         setResetModalVisible(false);
-        const rawQuizzes = [
-          ...(quiz1.questions || []),
-          ...(quiz2.questions || []),
-          ...(quiz3.questions || []),
-          ...(quizUForm2.questions || []),
-          ...customQuizQuestions
-        ];
-        const mergedQuizzesInit = rawQuizzes.map(q => {
-          const id = q.id || generateId(q.question);
-          return { ...q, id, progress: { nextReview: 0 } };
-        });
-        setAllQuizzes(mergedQuizzesInit);
+        setAllQuizzes([]);
+
+        Promise.allSettled(resetTasks)
+          .then(() => refreshQuizDuePool())
+          .catch(() => refreshQuizDuePool());
+
         if (appMode === 'quiz' || appMode === 'quiz_setup') setAppMode('dashboard');
       }
     } else {
@@ -1515,7 +1527,7 @@ function App() {
             </div>
             <h2>Wissen testen<br />(Quiz)</h2>
             <p>Multiple-Choice Fragen zum Überprüfen deines Wissensstands.</p>
-            <div className="chip">{allQuizzes.length === 0 ? 'Alles gemeistert! 🎉' : `${allQuizzes.length} Fragen fällig`}</div>
+            <div className="chip">{quizDuePool.length === 0 ? 'Alles gemeistert! 🎉' : `${quizDuePool.length} Fragen fällig`}</div>
 
             {Object.keys(JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {}).length > 0 && (
               <button
