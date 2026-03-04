@@ -279,6 +279,8 @@ function App() {
   const [feynmanLoading, setFeynmanLoading] = useState(false);
   const [feynmanFeedback, setFeynmanFeedback] = useState('');
   const [feynmanFeedbackLevel, setFeynmanFeedbackLevel] = useState(null);
+  const [quizExplanationRevealed, setQuizExplanationRevealed] = useState(false);
+  const [quizRevealConfirmVisible, setQuizRevealConfirmVisible] = useState(false);
 
   // --- WISOR STATE ---
   const [allWisors, setAllWisors] = useState([]);
@@ -1097,6 +1099,8 @@ ${feynmanInput}`;
     setFeynmanInput('');
     setFeynmanFeedback('');
     setFeynmanFeedbackLevel(null);
+    setQuizExplanationRevealed(false);
+    setQuizRevealConfirmVisible(false);
 
     setSelectedAnswer(optionIndex);
     const q = allQuizzes[currentQuizIndex];
@@ -1174,6 +1178,8 @@ ${feynmanInput}`;
     setFeynmanInput('');
     setFeynmanFeedback('');
     setFeynmanFeedbackLevel(null);
+    setQuizExplanationRevealed(false);
+    setQuizRevealConfirmVisible(false);
     setCurrentQuizIndex(prev => prev + 1);
   };
 
@@ -1187,6 +1193,8 @@ ${feynmanInput}`;
     setFeynmanInput('');
     setFeynmanFeedback('');
     setFeynmanFeedbackLevel(null);
+    setQuizExplanationRevealed(false);
+    setQuizRevealConfirmVisible(false);
   };
 
   const startWisor = (mode = 'wisor1') => {
@@ -2255,6 +2263,11 @@ Die JSON muss exakt diese Struktur haben:
     }
 
     const q = allQuizzes[currentQuizIndex];
+    const selectedOption = selectedAnswer !== null ? q.answerOptions[selectedAnswer] : null;
+    const shouldGateExplanation = selectedAnswer !== null
+      && feynmanModeEnabled
+      && !!selectedOption?.isCorrect
+      && !quizExplanationRevealed;
 
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
@@ -2396,7 +2409,22 @@ Die JSON muss exakt diese Struktur haben:
 
           {selectedAnswer !== null && (
             <div className="quiz-rationale fade-in">
-              <p><strong>Erklärung:</strong> {formatLatex(q.answerOptions[selectedAnswer].rationale)}</p>
+              {!shouldGateExplanation ? (
+                <p><strong>Erklärung:</strong> {formatLatex(q.answerOptions[selectedAnswer].rationale)}</p>
+              ) : (
+                <div style={{ marginBottom: '0.4rem', textAlign: 'left', border: '1px dashed var(--glass-border)', borderRadius: '10px', padding: '0.85rem', background: 'rgba(255,255,255,0.02)' }}>
+                  <p style={{ margin: 0, color: 'var(--text-muted)' }}>
+                    Erklärung ist ausgeblendet, damit du zuerst selbst denkst.
+                  </p>
+                  <button
+                    className="btn-secondary"
+                    style={{ marginTop: '0.75rem' }}
+                    onClick={() => setQuizRevealConfirmVisible(true)}
+                  >
+                    Erklärung aufklappen
+                  </button>
+                </div>
+              )}
 
               {feynmanModeEnabled && q.answerOptions[selectedAnswer].isCorrect && (
                 <div style={{ marginTop: '1rem', textAlign: 'left', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '1rem', background: 'rgba(255,255,255,0.03)' }}>
@@ -2440,6 +2468,30 @@ Die JSON muss exakt diese Struktur haben:
               )}
 
               <button className="btn-primary" style={{ marginTop: '1rem' }} onClick={nextQuizQuestion}>Nächste Frage &rarr;</button>
+            </div>
+          )}
+
+          {quizRevealConfirmVisible && (
+            <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.72)', zIndex: 120, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <div className="card-face fade-in" style={{ width: '100%', maxWidth: '420px', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
+                <h3 style={{ marginTop: 0, marginBottom: '0.6rem', color: 'var(--text-light)' }}>Sicher?</h3>
+                <p style={{ marginTop: 0, marginBottom: '1rem', color: 'var(--text-muted)', lineHeight: 1.45 }}>
+                  Wenn du jetzt aufklappst, siehst du direkt die Muster-Erklärung.
+                  Versuche vorher, den Kernpunkt wirklich selbst zu formulieren.
+                </p>
+                <div style={{ display: 'flex', gap: '0.7rem', justifyContent: 'center' }}>
+                  <button className="btn-secondary" onClick={() => setQuizRevealConfirmVisible(false)}>Weiter selbst denken</button>
+                  <button
+                    className="btn-primary"
+                    onClick={() => {
+                      setQuizExplanationRevealed(true);
+                      setQuizRevealConfirmVisible(false);
+                    }}
+                  >
+                    Ja, aufklappen
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </div>
