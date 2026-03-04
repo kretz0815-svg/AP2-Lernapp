@@ -952,6 +952,258 @@
       "hint": "Qualitätssicherung bei KI ist ein kontinuierlicher Prüfprozess, kein Einmal-Setup.",
       "youtubeQuery": "KI Prognosen validieren Monitoring Qualitätssicherung Disposition",
       "topic": "KI Integration"
+    },
+    {
+      "question": "Die „Adventure-Gear GmbH“ evaluiert verschiedene Plattformen für ihre neue Marketingstrategie. Die Marketingleitung spricht sich stark für die Nutzung von Facebook aus. Welches Argument ist aus E-Commerce-Sicht die fachlich korrekte Begründung für die Eignung dieses Kanals?",
+      "answerOptions": [
+        {
+          "text": "Facebook zeichnet sich durch extrem kurzlebigen Content aus, wodurch täglich hunderte Posts ohne Streuverlust abgesetzt werden können.",
+          "isCorrect": false,
+          "rationale": "Kurzlebiger Content ist eher typisch für X (Twitter) und keine Hauptstärke von Facebook für E-Commerce-Marketing."
+        },
+        {
+          "text": "Facebook hat eine hohe Verbreitung, bietet sehr vielfältige und detaillierte Werbemöglichkeiten und deckt eine breite Zielgruppe ab.",
+          "isCorrect": true,
+          "rationale": "Richtig: Facebook ist stark verbreitet, bietet präzise Ads-Targeting-Optionen und erreicht breite Zielgruppen."
+        },
+        {
+          "text": "Facebook ist die einzige Plattform, die komplett auf textbasierte Inhalte verzichtet.",
+          "isCorrect": false,
+          "rationale": "Facebook unterstützt verschiedene Inhaltsformate, inklusive Text."
+        },
+        {
+          "text": "Facebook verbietet kommerzielle Werbung, weshalb organischer Content dort immer eine 100%ige Reichweite erzielt.",
+          "isCorrect": false,
+          "rationale": "Kommerzielle Werbung ist auf Facebook möglich; 100% organische Reichweite ist unrealistisch."
+        }
+      ],
+      "hint": "Denke an Reichweite, Zielgruppenabdeckung und Ads-Targeting.",
+      "youtubeQuery": "Facebook Marketing E-Commerce Zielgruppe Ads Vorteile",
+      "topic": "Social Media Kanal - Facebook"
+    },
+    {
+      "question": "Ein Händler für Premium-Outdoormöbel möchte seine Produkte auf der Plattform „X“ (ehemals Twitter) visuell in Szene setzen und langfristig als Katalogersatz nutzen. Warum bewerten Social-Media-Experten die Eignung von X für dieses spezifische Vorhaben meist als „Nein“ oder „Sehr gering“?",
+      "answerOptions": [
+        {
+          "text": "Weil der Content auf X extrem kurzlebig ist und die Werbemöglichkeiten für klassische E-Commerce-Produkte im Vergleich reduziert sind.",
+          "isCorrect": true,
+          "rationale": "Richtig: X ist stark feed-getrieben und weniger auf langlebige, visuelle Produktkataloge ausgelegt."
+        },
+        {
+          "text": "Weil X gesetzlich vorschreibt, dass jeder Post zwingend ein Video enthalten muss.",
+          "isCorrect": false,
+          "rationale": "Eine solche gesetzliche Pflicht gibt es nicht."
+        },
+        {
+          "text": "Weil die Plattform ausschließlich für B2B-Kommunikation zugelassen ist.",
+          "isCorrect": false,
+          "rationale": "X ist nicht exklusiv auf B2B beschränkt."
+        },
+        {
+          "text": "Weil X die direkte Verlinkung auf externe Online-Shops technisch blockiert.",
+          "isCorrect": false,
+          "rationale": "Externe Links sind grundsätzlich möglich."
+        }
+      ],
+      "hint": "Achte auf Content-Lebensdauer und E-Commerce-Visualisierung.",
+      "youtubeQuery": "X Twitter E-Commerce Eignung kurzlebiger Content",
+      "topic": "Social Media Kanal - X"
+    },
+    {
+      "question": "Ein Online-Shop für Sportnahrung möchte den direkten Kanal „WhatsApp“ nutzen, um Kunden über Rabattaktionen und neue Produkte zu informieren. Unter welcher zwingenden Voraussetzung ist dieser Kanal für Marketing-Aktivitäten überhaupt erst geeignet und rechtlich zulässig?",
+      "answerOptions": [
+        {
+          "text": "Wenn das Unternehmen sicherstellt, dass die Nachrichten nur außerhalb der gesetzlichen Ruhezeiten verschickt werden.",
+          "isCorrect": false,
+          "rationale": "Ruhezeiten allein reichen rechtlich nicht aus."
+        },
+        {
+          "text": "Wenn die explizite Nutzerzustimmung (Opt-in) des Kunden für den Empfang von Nachrichten über diesen Kanal vorliegt.",
+          "isCorrect": true,
+          "rationale": "Richtig: Für Messenger-Marketing ist die ausdrückliche Einwilligung (Opt-in) erforderlich."
+        },
+        {
+          "text": "Wenn das Unternehmen nachweist, dass der Kunde in den letzten 5 Jahren mindestens einmal im Shop bestellt hat.",
+          "isCorrect": false,
+          "rationale": "Eine frühere Bestellung ersetzt keine ausdrückliche Werbeeinwilligung."
+        },
+        {
+          "text": "WhatsApp ist für unternehmerische Marketingzwecke durch die AGB der Plattform generell und ausnahmslos verboten.",
+          "isCorrect": false,
+          "rationale": "Marketing ist möglich, aber an strenge Rahmenbedingungen gebunden."
+        }
+      ],
+      "hint": "Stichwort: Einwilligung vor Werbenachrichten.",
+      "youtubeQuery": "WhatsApp Marketing Opt-in rechtlich zulässig",
+      "topic": "Social Media Kanal - WhatsApp"
+    },
+    {
+      "question": "Die „Tech-World AG“ verkauft erklärungsbedürftige, komplexe Smart-Home-Systeme. Warum ist YouTube für dieses spezifische Sortiment ein besonders gut geeigneter Social-Media-Kanal?",
+      "answerOptions": [
+        {
+          "text": "Weil YouTube die niedrigsten Klickpreise (CPC) für reine Textanzeigen bietet.",
+          "isCorrect": false,
+          "rationale": "Die Stärke von YouTube liegt vor allem im Videoformat, nicht in Textanzeigen-CPC."
+        },
+        {
+          "text": "Weil YouTube ausschließlich von einer extrem jungen Zielgruppe (unter 14 Jahren) genutzt wird, die besonders technikaffin ist.",
+          "isCorrect": false,
+          "rationale": "YouTube wird von sehr breiten Altersgruppen genutzt."
+        },
+        {
+          "text": "Weil YouTube sehr beliebt ist und durch das Videoformat exzellente Möglichkeiten für detaillierte Produktplatzierungen, Erklärungen und Tutorials bietet.",
+          "isCorrect": true,
+          "rationale": "Richtig: Komplexe Produkte profitieren von Video-Erklärung, Demonstration und Tutorial-Content."
+        },
+        {
+          "text": "Weil YouTube-Videos nach 24 Stunden automatisch gelöscht werden, was Exklusivität schafft.",
+          "isCorrect": false,
+          "rationale": "YouTube-Inhalte sind in der Regel dauerhaft verfügbar."
+        }
+      ],
+      "hint": "Für erklärungsbedürftige Produkte zählt visuelle Tiefe.",
+      "youtubeQuery": "YouTube E-Commerce Produktvideos Tutorials Smart Home",
+      "topic": "Social Media Kanal - YouTube"
+    },
+    {
+      "question": "Ein Online-Shop, der sich auf Inneneinrichtung und Dekoration spezialisiert hat, überlegt, auf Pinterest aktiv zu werden. Warum wird Pinterest von Experten für diese Branche meist als hochgradig geeignet eingestuft?",
+      "answerOptions": [
+        {
+          "text": "Wegen der sehr guten visuellen Darstellungsmöglichkeiten und der direkten Einbindung von Shop-Funktionen (z. B. Product Pins).",
+          "isCorrect": true,
+          "rationale": "Richtig: Pinterest ist visuell geprägt und unterstützt Shopping-nahe Formate wie Product Pins."
+        },
+        {
+          "text": "Weil Pinterest die Plattform mit dem höchsten Anteil an reinem Text-Content ist, was detaillierte Produktbeschreibungen ermöglicht.",
+          "isCorrect": false,
+          "rationale": "Pinterest ist primär visuell, nicht textzentriert."
+        },
+        {
+          "text": "Weil Pinterest keine Anmeldung erfordert und somit jeder Internetnutzer automatisch als Follower generiert wird.",
+          "isCorrect": false,
+          "rationale": "Follower entstehen nicht automatisch und Nutzer benötigen Plattformzugang."
+        },
+        {
+          "text": "Weil Pinterest die einzige Plattform ist, die keine Kosten für Werbeanzeigen (Ads) erhebt.",
+          "isCorrect": false,
+          "rationale": "Werbeanzeigen können auch auf Pinterest kostenpflichtig sein."
+        }
+      ],
+      "hint": "Pinterest funktioniert stark als visuelle Suchmaschine.",
+      "youtubeQuery": "Pinterest E-Commerce Product Pins Deko Shop",
+      "topic": "Social Media Kanal - Pinterest"
+    },
+    {
+      "question": "Ein Bekleidungs-Start-up überlegt, Instagram als Hauptkanal zu wählen. Wenn man die Kriterien zur Kanalauswahl betrachtet: Welcher Content-Art muss das Unternehmen auf dieser Plattform zwingend höchste Priorität einräumen, um dort erfolgreich zu sein?",
+      "answerOptions": [
+        {
+          "text": "Langen, detaillierten Fachartikeln und Blogbeiträgen.",
+          "isCorrect": false,
+          "rationale": "Instagram ist kein primär textlastiger Langformat-Kanal."
+        },
+        {
+          "text": "Rein auditiven Inhalten (Podcasts und Sprachnachrichten).",
+          "isCorrect": false,
+          "rationale": "Audio kann ergänzen, ist aber nicht der Haupttreiber auf Instagram."
+        },
+        {
+          "text": "Hochwertigen Bildern und Videos (visueller Content).",
+          "isCorrect": true,
+          "rationale": "Richtig: Instagram ist visuell dominiert; Bild- und Videoqualität sind zentral für Performance."
+        },
+        {
+          "text": "Textbasierten Umfragen und Foren-Diskussionen.",
+          "isCorrect": false,
+          "rationale": "Forenartige Diskussionen sind nicht das Kernformat der Plattform."
+        }
+      ],
+      "hint": "Instagram-Erfolg ist vor allem visuell getrieben.",
+      "youtubeQuery": "Instagram E-Commerce visueller Content Reels Stories",
+      "topic": "Social Media Kanal - Instagram"
+    },
+    {
+      "question": "Die „Local-Roasters GmbH“ besteht nur aus zwei Mitarbeitern, die den Shop nebenbei betreiben. Sie überlegen, einen YouTube-Kanal mit wöchentlichen Hintergrund-Dokumentationen zu starten. Welches essenzielle Kriterium zur Social-Media-Auswahl wird bei diesem Vorhaben offensichtlich völlig unterschätzt?",
+      "answerOptions": [
+        {
+          "text": "Die Frage, wie sich die allgemeinen Nutzerzahlen des Netzwerks entwickeln.",
+          "isCorrect": false,
+          "rationale": "Nutzerzahlen sind relevant, aber hier ist das zentrale Risiko die operative Umsetzbarkeit."
+        },
+        {
+          "text": "Die Frage, welchen konkreten Arbeits- und Ressourcenaufwand die Erstellung dieses speziellen Contents (Videos) verursacht.",
+          "isCorrect": true,
+          "rationale": "Richtig: Für kleine Teams ist Ressourcen- und Produktionsaufwand ein entscheidendes Auswahlkriterium."
+        },
+        {
+          "text": "Die Frage, ob das Preisniveau für Anzeigen auf der Plattform günstig ist.",
+          "isCorrect": false,
+          "rationale": "Ad-Preise sind nachgelagert, wenn der Content operativ kaum produzierbar ist."
+        },
+        {
+          "text": "Die Frage, ob das Netzwerk zum Image des Unternehmens passt.",
+          "isCorrect": false,
+          "rationale": "Image-Fit ist wichtig, aber im Szenario wird vor allem der Aufwand unterschätzt."
+        }
+      ],
+      "hint": "Kanalwahl muss zur realen Teamkapazität passen.",
+      "youtubeQuery": "Social Media Kanalwahl Ressourcen Aufwand Video Produktion",
+      "topic": "Auswahlkriterium - Ressourcen & Aufwand"
+    },
+    {
+      "question": "Ein E-Commerce-Shop verkauft exklusive, hochpreisige Treppenlifte und medizinische Hilfsmittel für Senioren. Das Marketing-Team schlägt vor, das gesamte Werbebudget in die Plattform TikTok zu stecken, weil diese „gerade extrem angesagt ist“. Welches primäre Auswahlkriterium spricht vehement gegen diese Idee?",
+      "answerOptions": [
+        {
+          "text": "Ist die spezifische Zielgruppe (hier: Senioren) auf diesem Netzwerk überhaupt nennenswert vertreten?",
+          "isCorrect": true,
+          "rationale": "Richtig: Ohne Zielgruppen-Match ist ein Kanal trotz Trend und Reichweite strategisch ungeeignet."
+        },
+        {
+          "text": "Welche Content-Arten sind auf der Plattform am häufigsten vertreten?",
+          "isCorrect": false,
+          "rationale": "Content-Format ist wichtig, aber die Zielgruppenfrage ist hier grundlegender."
+        },
+        {
+          "text": "Wie entwickeln sich die Nutzerzahlen des Netzwerks im Allgemeinen?",
+          "isCorrect": false,
+          "rationale": "Allgemeines Wachstum ersetzt keine passende Zielgruppenabdeckung."
+        },
+        {
+          "text": "Wie hoch ist der Aufwand für die Erstellung der Videos?",
+          "isCorrect": false,
+          "rationale": "Aufwand ist relevant, aber das stärkste Gegenargument ist das Zielgruppen-Mismatch."
+        }
+      ],
+      "hint": "Trend ersetzt nicht die Frage: Ist meine Käufergruppe dort?",
+      "youtubeQuery": "Zielgruppen Match Social Media Kanalwahl Senioren Marketing",
+      "topic": "Auswahlkriterium - Zielgruppen-Match"
+    },
+    {
+      "question": "Eine traditionelle, sehr konservative Privatbank bietet über eine Landingpage exklusive Anlageberatung an. Eine Agentur rät der Bank, einen Kanal auf einer sehr bunten, von Pranks (Streichen) und Comedy-Tänzen dominierten Plattform zu eröffnen. Welches Kriterium der Social-Media-Auswahl sollte die Bank hier kritisch hinterfragen?",
+      "answerOptions": [
+        {
+          "text": "Welches Preisniveau für Anzeigen auf diesem Netzwerk üblich ist.",
+          "isCorrect": false,
+          "rationale": "Der Preis ist sekundär, wenn die Plattform nicht zur Markenwahrnehmung passt."
+        },
+        {
+          "text": "Ob das Netzwerk und die dort übliche Tonalität überhaupt zum seriösen Image des Unternehmens passt.",
+          "isCorrect": true,
+          "rationale": "Richtig: Image- und Marken-Passung ist entscheidend, besonders in vertrauenssensiblen Branchen."
+        },
+        {
+          "text": "Ob auf dem Netzwerk überwiegend Text- oder Videoinhalte konsumiert werden.",
+          "isCorrect": false,
+          "rationale": "Das Format ist weniger kritisch als der potenzielle Imagekonflikt."
+        },
+        {
+          "text": "Ob die Zielgruppe über ein Smartphone oder einen Desktop-PC auf die Plattform zugreift.",
+          "isCorrect": false,
+          "rationale": "Device-Nutzung ist hier nachrangig gegenüber Brand-Fit."
+        }
+      ],
+      "hint": "Brand Safety und Tonalität müssen zur Marke passen.",
+      "youtubeQuery": "Brand Safety Social Media Image Fit Finanzbranche",
+      "topic": "Auswahlkriterium - Image & Marken-Passung"
     }
   ]
 }
