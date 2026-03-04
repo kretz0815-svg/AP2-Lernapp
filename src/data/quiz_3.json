@@ -1204,6 +1204,174 @@
       "hint": "Brand Safety und Tonalität müssen zur Marke passen.",
       "youtubeQuery": "Brand Safety Social Media Image Fit Finanzbranche",
       "topic": "Auswahlkriterium - Image & Marken-Passung"
+    },
+    {
+      "question": "Ein erfolgreicher Fashion-Händler auf Instagram möchte ohne Strategieanpassung auf X (ehemals Twitter) expandieren. Die Geschäftsführung ordnet an: „Wer Instagram beherrscht, wird auch auf X schnell erfolgreich sein. Postet einfach dieselben Inhalte.“ Warum ist diese Annahme aus Sicht des Social-Media-Marketings fachlich falsch?",
+      "answerOptions": [
+        {
+          "text": "Weil X (Twitter) grundsätzlich keine Unternehmensprofile oder kommerzielle Werbung zulässt.",
+          "isCorrect": false,
+          "rationale": "Unternehmensprofile und Werbung sind möglich; das ist nicht der Kern des Problems."
+        },
+        {
+          "text": "Weil jede Plattform eigene Kommunikationsregeln, Inhaltsformate und eine spezifisch gewachsene Kultur besitzt, die nicht 1:1 kopiert werden kann.",
+          "isCorrect": true,
+          "rationale": "Richtig: Plattformen unterscheiden sich in Kultur, Formatlogik und Nutzererwartung – Content muss angepasst werden."
+        },
+        {
+          "text": "Weil Instagram-Nutzer durch die AGB von Meta automatisch von der Nutzung von X (Twitter) ausgeschlossen werden.",
+          "isCorrect": false,
+          "rationale": "Es gibt keinen solchen AGB-basierten Ausschluss."
+        },
+        {
+          "text": "Weil die Algorithmen beider Plattformen von demselben Mutterkonzern gesteuert werden und doppelten Content abstrafen.",
+          "isCorrect": false,
+          "rationale": "Die Plattformen gehören nicht demselben Mutterkonzern und funktionieren algorithmisch unterschiedlich."
+        }
+      ],
+      "hint": "Erfolg ist plattformspezifisch – nicht copy & paste.",
+      "youtubeQuery": "Social Media Plattform Unterschiede Content Anpassung Instagram X",
+      "topic": "Social-Media-Strategie (Plattformübergreifender Erfolg)"
+    },
+    {
+      "question": "Ein Social-Media-Manager bereitet ein Briefing für die Content-Erstellung vor. Er muss den Auszubildenden die grundlegenden Unterschiede in den Content-Anforderungen zwischen Instagram und X (ehemals Twitter) erklären. Worin besteht der zentrale funktionale Unterschied?",
+      "answerOptions": [
+        {
+          "text": "Auf Instagram dominieren visuelle Inhalte (Bilder) und Hashtags, während X primär auf textbasierte Kurzmeldungen mit geringer Lebensdauer ausgelegt ist.",
+          "isCorrect": true,
+          "rationale": "Richtig: Instagram ist stark visuell geprägt, X ist feed-dynamisch und kurztext-orientierter."
+        },
+        {
+          "text": "X (Twitter) fokussiert sich ausschließlich auf stundenlange Live-Video-Streams, während Instagram nur reinen Text zulässt.",
+          "isCorrect": false,
+          "rationale": "Diese Beschreibung ist fachlich falsch."
+        },
+        {
+          "text": "Instagram ist ein reines B2B-Netzwerk für lange Fachartikel, während X ausschließlich für private B2C-Bilder genutzt wird.",
+          "isCorrect": false,
+          "rationale": "Beide Plattformcharakterisierungen sind unzutreffend."
+        },
+        {
+          "text": "Auf X (Twitter) ist die Lebensdauer eines Beitrags extrem lang (mehrere Monate), während Instagram-Posts zwingend nach 24 Stunden gelöscht werden.",
+          "isCorrect": false,
+          "rationale": "X-Beiträge sind eher kurzlebig; Instagram-Feed-Posts werden nicht automatisch nach 24h gelöscht."
+        }
+      ],
+      "hint": "Vergleiche Kernformat und Content-Lebensdauer.",
+      "youtubeQuery": "Instagram vs X Content Formate Kurzlebigkeit",
+      "topic": "Content-Formate (Instagram vs. X)"
+    },
+    {
+      "question": "Die „Urban-Streetwear GmbH“ verkauft hippe Mode für junge Erwachsene an Endkunden (B2C). Eine externe Agentur rät dem Unternehmen, das gesamte Werbebudget für die neue Kollektion in die Netzwerke XING und LinkedIn zu investieren. Warum wird diese Empfehlung von E-Commerce-Experten stark kritisiert?",
+      "answerOptions": [
+        {
+          "text": "Weil Werbung auf diesen Netzwerken vom Gesetzgeber für Modeunternehmen verboten ist.",
+          "isCorrect": false,
+          "rationale": "Ein solches Werbeverbot für Modeunternehmen besteht nicht."
+        },
+        {
+          "text": "Weil es sich bei XING und LinkedIn um Business-Netzwerke handelt, deren primäre Nutzerschaft und Tonalität absolut nicht zur Zielgruppe eines B2C-Modehändlers passen.",
+          "isCorrect": true,
+          "rationale": "Richtig: Für B2C-Streetwear sind klassische Business-Netzwerke meist kein passender Hauptkanal."
+        },
+        {
+          "text": "Weil XING und LinkedIn ausschließlich Videoinhalte erlauben, für die das Mode-Unternehmen keine Ressourcen hat.",
+          "isCorrect": false,
+          "rationale": "Beide Netzwerke erlauben verschiedene Formate, nicht nur Video."
+        },
+        {
+          "text": "Weil auf diesen Plattformen nur Produkte verkauft werden dürfen, die primär für das Home-Office gedacht sind.",
+          "isCorrect": false,
+          "rationale": "Eine solche Produktbeschränkung existiert nicht."
+        }
+      ],
+      "hint": "Prüfe den Zielgruppen- und Tonalitäts-Fit des Netzwerks.",
+      "youtubeQuery": "B2B vs B2C Netzwerke LinkedIn XING Zielgruppenfit",
+      "topic": "B2B vs. B2C Netzwerke (XING / LinkedIn)"
+    },
+    {
+      "question": "Ein traditionsreicher Online-Shop evaluiert die Nutzung von TikTok als neuen Marketingkanal. Obwohl die organische Reichweite verlockend ist, rät die Compliance-Abteilung (Rechtsabteilung) von einer unternehmerischen Präsenz ab. Welche fachliche Begründung führt – neben der sehr jungen Zielgruppe – häufig zur Ablehnung von TikTok auf Unternehmensebene?",
+      "answerOptions": [
+        {
+          "text": "Die Plattform ist für Unternehmen in der Basisnutzung extrem teuer.",
+          "isCorrect": false,
+          "rationale": "Kosten sind nicht der zentrale fachliche Ablehnungsgrund im beschriebenen Kontext."
+        },
+        {
+          "text": "Massive rechtliche Bedenken, unter anderem in Bezug auf den Datenschutz und den Unternehmenssitz der Plattform in China.",
+          "isCorrect": true,
+          "rationale": "Richtig: Datenschutz- und Compliance-Bedenken sind häufig ein Hauptgrund gegen eine Nutzung."
+        },
+        {
+          "text": "TikTok verlangt zwingend, dass Unternehmen ihre monatlichen Bilanzdaten öffentlich im Profil posten.",
+          "isCorrect": false,
+          "rationale": "Eine solche Pflicht gibt es nicht."
+        },
+        {
+          "text": "TikTok verbietet generell jegliche Form von E-Commerce-Aktivitäten oder Verlinkungen in Onlineshops.",
+          "isCorrect": false,
+          "rationale": "E-Commerce-nahe Aktivitäten sind grundsätzlich möglich."
+        }
+      ],
+      "hint": "Denke an Compliance, Datenschutz und regulatorische Risiken.",
+      "youtubeQuery": "TikTok Datenschutz Compliance Unternehmen Risiko",
+      "topic": "Risikobewertung bei TikTok"
+    },
+    {
+      "question": "Ein Startup im Bereich Outdoor-Zubehör möchte Performance-Marketing betreiben und entscheidet sich für Instagram. Neben der hohen Verbreitung und der passenden Zielgruppe bietet Instagram einen massiven infrastrukturellen Vorteil für Werbetreibende. Welcher ist das?",
+      "answerOptions": [
+        {
+          "text": "Instagram ist rechtlich verpflichtet, E-Commerce-Startups im ersten Jahr kostenlose Anzeigenplätze zu gewähren.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine allgemeine gesetzliche Pflicht zu kostenlosen Anzeigenplätzen."
+        },
+        {
+          "text": "Instagram ist direkt mit dem Bundesverband E-Commerce gekoppelt, was Zertifizierungen erleichtert.",
+          "isCorrect": false,
+          "rationale": "Eine solche direkte Kopplung besteht nicht."
+        },
+        {
+          "text": "Instagram ist eng mit Facebook gekoppelt, was die gemeinsame Nutzung der Werbe-Infrastruktur und eine extrem hohe Reichweite ermöglicht.",
+          "isCorrect": true,
+          "rationale": "Richtig: Über das Meta-Ads-Ökosystem lassen sich beide Plattformen zentral steuern und skalieren."
+        },
+        {
+          "text": "Instagram gehört zu Google und integriert alle Foto-Anzeigen automatisch ganz oben in den Google-Suchergebnissen.",
+          "isCorrect": false,
+          "rationale": "Instagram gehört nicht zu Google und es gibt keine automatische Top-Integration dieser Art."
+        }
+      ],
+      "hint": "Der Schlüssel liegt in der gemeinsamen Meta-Werbeinfrastruktur.",
+      "youtubeQuery": "Instagram Facebook Meta Ads Infrastruktur Reichweite",
+      "topic": "Werbe-Infrastruktur bei Instagram (Meta)"
+    },
+    {
+      "question": "Die Geschäftsführung eines E-Commerce-Unternehmens verlangt, dass der Online-Shop „auf absolut allen verfügbaren Social-Media-Kanälen gleichzeitig“ präsent ist, um die maximale Sichtbarkeit zu erreichen. Welches strategische Argument spricht aus E-Commerce-Sicht massiv gegen diesen sogenannten „Gießkannen-Ansatz“?",
+      "answerOptions": [
+        {
+          "text": "Der Algorithmus von Suchmaschinen bestraft Unternehmen, die auf mehr als drei Plattformen aktiv sind, mit einem schlechteren Ranking.",
+          "isCorrect": false,
+          "rationale": "Eine solche pauschale Abstrafungsregel gibt es nicht."
+        },
+        {
+          "text": "Ressourcenverschwendung: Jede Plattform hat spezifische Kommunikationsregeln; wer überall präsent sein will, verfehlt oft die plattformspezifische Zielgruppe und liefert ineffektiven Content.",
+          "isCorrect": true,
+          "rationale": "Richtig: Ohne Fokus entstehen oft Streuverluste, Qualitätsprobleme und ineffiziente Ressourcennutzung."
+        },
+        {
+          "text": "Die gleichzeitige werbliche Nutzung von mehr als vier Netzwerken ist durch das Gesetz gegen den unlauteren Wettbewerb (UWG) verboten.",
+          "isCorrect": false,
+          "rationale": "Es gibt kein solches pauschales Netzwerk-Limit im UWG."
+        },
+        {
+          "text": "Nutzer können technisch nur einer einzigen Unternehmensseite pro Tag folgen.",
+          "isCorrect": false,
+          "rationale": "Diese technische Einschränkung existiert nicht."
+        }
+      ],
+      "hint": "Mehr Kanäle bedeuten nicht automatisch mehr Wirkung.",
+      "youtubeQuery": "Social Media Gießkannenprinzip Ressourcenverschwendung Kanalstrategie",
+      "topic": "Kanal-Strategie (Fehlervermeidung)"
     }
   ]
 }
