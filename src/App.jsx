@@ -512,6 +512,20 @@ function App() {
     return 'Allgemein';
   };
 
+  const getQuizTopicGroup = (topic) => {
+    const rawTopic = String(topic || '').trim();
+    if (!rawTopic) return 'Allgemein';
+
+    if (/auswahlkriterium/i.test(rawTopic)) return 'Auswahlkriterium';
+    if (/\bki\b|künstliche intelligenz/i.test(rawTopic)) return 'KI';
+
+    if (/(social media|social-media|instagram|facebook|whatsapp|youtube|pinterest|linkedin|xing|tiktok|kanal-strategie|content-formate|b2b vs)/i.test(rawTopic)) {
+      return 'Social Media';
+    }
+
+    return rawTopic;
+  };
+
   const getAllQuizQuestions = () => [
     ...(quiz1.questions || []),
     ...(quiz2.questions || []),
@@ -625,7 +639,7 @@ function App() {
   const getDueQuizzesByTopic = (topic = 'all') => {
     const due = quizDuePool;
     if (topic === 'all') return due;
-    return due.filter(q => q.topic === topic);
+    return due.filter(q => getQuizTopicGroup(q.topic) === topic);
   };
 
   const handleToggleVideos = async (q) => {
@@ -2130,7 +2144,8 @@ Die JSON muss exakt diese Struktur haben:
 
   if (appMode === 'quiz_setup') {
     const dueByTopicMap = getDueQuizzesByTopic('all').reduce((acc, q) => {
-      acc[q.topic] = (acc[q.topic] || 0) + 1;
+      const groupedTopic = getQuizTopicGroup(q.topic);
+      acc[groupedTopic] = (acc[groupedTopic] || 0) + 1;
       return acc;
     }, {});
     const dueByTopicEntries = Object.entries(dueByTopicMap).sort((a, b) => b[1] - a[1]);
