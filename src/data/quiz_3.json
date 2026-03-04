@@ -26,7 +26,8 @@
         }
       ],
       "hint": "Denke an den Schutz vor Sichtbarkeit eines unfertigen Shops.",
-      "youtubeQuery": "Online Shop einrichten Wartungsmodus offline stellen Reihenfolge"
+      "youtubeQuery": "Online Shop einrichten Wartungsmodus offline stellen Reihenfolge",
+      "topic": "Shop-Einrichtung & Checkout"
     },
     {
       "question": "Die „Active-Wear GmbH“ führt einen A/B-Test für zwei neue Landingpages durch, um herauszufinden, welche Version zu mehr Verkäufen führt. Version A zeigt ein Bannerbild, Version B ein Video. Was ist ein klassischer methodischer Fehler, der bei der Durchführung eines solchen Tests unbedingt vermieden werden sollte?",
@@ -53,7 +54,8 @@
         }
       ],
       "hint": "Beim A/B-Test sollte idealerweise nur ein klarer Hebel isoliert werden.",
-      "youtubeQuery": "A/B Testing Fehler nur eine Variable Landingpage Conversion"
+      "youtubeQuery": "A/B Testing Fehler nur eine Variable Landingpage Conversion",
+      "topic": "A/B-Testing"
     },
     {
       "question": "Eine Agentur führt für einen E-Commerce-Shop einen Eye-Tracking-Test durch. Die Ergebnisse zeigen, dass die Blicke der Nutzer am häufigsten auf dem Preis und dem Hauptbild ruhen. Welche konkrete Optimierungsmaßnahme lässt sich direkt aus dieser Erkenntnis ableiten?",
@@ -80,7 +82,8 @@
         }
       ],
       "hint": "Optimiere zuerst die Elemente mit der höchsten visuellen Aufmerksamkeit.",
-      "youtubeQuery": "Eye Tracking E Commerce Produktbild Preis Usability Optimierung"
+      "youtubeQuery": "Eye Tracking E Commerce Produktbild Preis Usability Optimierung",
+      "topic": "Usability & UX"
     },
     {
       "question": "Ein junges Start-up entscheidet sich für das Geschäftsmodell „Dropshipping“ im E-Commerce, um Outdoor-Gadgets zu verkaufen. Welcher wesentliche Nachteil ist typischerweise mit diesem Modell verbunden?",
@@ -107,7 +110,8 @@
         }
       ],
       "hint": "Denke an die Folgen der Auslagerung von Lager und Versand an externe Partner.",
-      "youtubeQuery": "Dropshipping Nachteile Lieferzeit Qualität Kontrolle Lagerbestand"
+      "youtubeQuery": "Dropshipping Nachteile Lieferzeit Qualität Kontrolle Lagerbestand",
+      "topic": "Geschäftsmodelle"
     },
     {
       "question": "Die „Mountain-Gear GmbH“ plant den Einsatz eines KI-gestützten Analyse- und Steuerungssystems zur Budgetoptimierung ihrer Online-Vertriebskanäle. Welche fundamentale Grenze (Risiko) des KI-Einsatzes muss das Projektteam dabei unbedingt beachten?",
@@ -134,7 +138,8 @@
         }
       ],
       "hint": "Achte auf das Grundprinzip: Die KI ist nur so gut wie die Daten, die sie bekommt.",
-      "youtubeQuery": "KI Datenqualität Garbage in Garbage out Marketing Budgetoptimierung"
+      "youtubeQuery": "KI Datenqualität Garbage in Garbage out Marketing Budgetoptimierung",
+      "topic": "KI in Disposition"
     },
     {
       "question": "Ein stark wachsender Online-Shop entscheidet sich für einen rein ertragsorientierten Ansatz zur Optimierung seines Sortiments, da die Lagerkosten aus dem Ruder laufen. Welche konkrete Maßnahme passt am besten zu dieser strategischen Ausrichtung?",
@@ -161,7 +166,8 @@
         }
       ],
       "hint": "Im Fokus stehen Marge, Profitabilität und Lagerentlastung.",
-      "youtubeQuery": "Sortimentsoptimierung Marge Profitabilität Ladenhüter aussortieren"
+      "youtubeQuery": "Sortimentsoptimierung Marge Profitabilität Ladenhüter aussortieren",
+      "topic": "Sortiment & Ertrag"
     },
     {
       "question": "Ein Online-Händler für Survival-Zubehör stellt bei der monatlichen Auswertung einen deutlichen Rückgang des durchschnittlichen Warenkorbwertes fest. Die Conversion Rate ist jedoch stabil. Welche Maßnahme eignet sich am besten, um den Warenkorbwert kurzfristig wieder zu steigern?",
@@ -188,7 +194,8 @@
         }
       ],
       "hint": "Gesucht ist ein Hebel, der die Warenkorbgröße pro Kauf erhöht.",
-      "youtubeQuery": "Warenkorbwert steigern Produktbundles Cross Selling Average Order Value"
+      "youtubeQuery": "Warenkorbwert steigern Produktbundles Cross Selling Average Order Value",
+      "topic": "A/B-Testing"
     },
     {
       "question": "Ein E-Commerce-Unternehmen plant eine Kampagne und verhandelt mit verschiedenen Influencern über die Vergütung. Welches der folgenden Abrechnungssysteme ist in der Praxis kein gängiges, performance- oder reichweitenbasiertes Standardmodell für solche Kooperationen?",
@@ -215,7 +222,8 @@
         }
       ],
       "hint": "Achte darauf, welches Modell weder klar reichweiten- noch performancebasiert ist.",
-      "youtubeQuery": "Influencer Marketing Vergütung Pay per Post Pay per Click Affiliate"
+      "youtubeQuery": "Influencer Marketing Vergütung Pay per Post Pay per Click Affiliate",
+      "topic": "Influencer Marketing"
     },
     {
       "question": "Die Geschäftsführung der „Tech-Vision GmbH“ überarbeitet ihre Unternehmensziele für das kommende Geschäftsjahr. Dabei wird explizit die Schaffung von humanen Arbeitsbedingungen und einer gerechten Gewinnbeteiligung für die Belegschaft als neues Kernziel definiert. Um welche Art von Zielen handelt es sich hierbei betriebswirtschaftlich?",
@@ -242,7 +250,8 @@
         }
       ],
       "hint": "Achte darauf, ob sich das Ziel auf Menschen im Unternehmen oder auf Zahlen/Produkte bezieht.",
-      "youtubeQuery": "BWL soziale Ziele sachliche Ziele Unternehmensziele einfach erklärt"
+      "youtubeQuery": "BWL soziale Ziele sachliche Ziele Unternehmensziele einfach erklärt",
+      "topic": "WiSo Grundlagen"
     },
     {
       "question": "Ein Online-Händler für Premium-Kaffee stellt fest, dass die Conversion Rate (Kaufrate) und die Gesamtanzahl der Bestellungen konstant hoch bleiben, der durchschnittliche Warenkorbwert jedoch im letzten Quartal deutlich gesunken ist. Welcher der folgenden Gründe ist eine typische und logische Ursache für dieses Phänomen?",
@@ -269,7 +278,8 @@
         }
       ],
       "hint": "Was passiert mit dem Durchschnittswert, wenn Produkte pro Bestellung günstiger verkauft werden?",
-      "youtubeQuery": "Warenkorbwert sinkt trotz stabiler Conversion Rabattaktionen Ursache"
+      "youtubeQuery": "Warenkorbwert sinkt trotz stabiler Conversion Rabattaktionen Ursache",
+      "topic": "A/B-Testing"
     },
     {
       "question": "Ein Händler für Campingausrüstung verzeichnet im Sortimentsbereich Schlafsäcke signifikant rückläufige Umsätze. Um den Trend umzukehren, soll das Sortiment innovativ weiterentwickelt werden. Welche Maßnahme stellt einen innovativen Ansatz zur Weiterentwicklung dieses spezifischen Sortiments dar?",
@@ -296,7 +306,8 @@
         }
       ],
       "hint": "Gesucht ist eine Maßnahme, die das Produkt selbst innovativ verändert.",
-      "youtubeQuery": "Sortimentsinnovation Produktinnovation E Commerce neue Produktfeatures"
+      "youtubeQuery": "Sortimentsinnovation Produktinnovation E Commerce neue Produktfeatures",
+      "topic": "Sortiment & Ertrag"
     },
     {
       "question": "Die „Urban-Sports GmbH“ möchte ihr Sortiment stärker ertragsorientiert (Fokus auf Rentabilität) ausrichten, um die Gewinne zu maximieren. Welche konkrete strategische Maßnahme passt am besten zu diesem Ziel?",
@@ -323,7 +334,8 @@
         }
       ],
       "hint": "Ertragsorientierung bedeutet: Marge und Profitabilität zuerst.",
-      "youtubeQuery": "Eigenmarke höhere Marge Sortimentsstrategie ertragsorientiert"
+      "youtubeQuery": "Eigenmarke höhere Marge Sortimentsstrategie ertragsorientiert",
+      "topic": "Sortiment & Ertrag"
     },
     {
       "question": "Die „Next-Level Fitness GmbH“ plant die Produktion eines hochwertigen Imagevideos für ihren YouTube-Kanal. Mehrere Agenturen haben ein Angebot eingereicht. Die Geschäftsleitung prüft die Angebote anhand verschiedener Kriterien. Welcher Prüf-Aspekt fällt unter das Auswahlkriterium Referenzen?",
@@ -350,7 +362,8 @@
         }
       ],
       "hint": "Referenzen beantworten die Frage: Was hat die Agentur bereits nachweislich gut umgesetzt?",
-      "youtubeQuery": "Agenturauswahl Referenzen Medienproduktion Imagevideo Kriterien"
+      "youtubeQuery": "Agenturauswahl Referenzen Medienproduktion Imagevideo Kriterien",
+      "topic": "Allgemein"
     },
     {
       "question": "Eine Agentur präsentiert die Ergebnisse einer Heatmap-Analyse (Mausaktionen) eines Online-Shops. Es fällt auf, dass das Suchfeld mit gigantischem Abstand die meisten Klicks und Interaktionen der Nutzer aufweist. Die Top-Navigation wird zwar genutzt, aber deutlich seltener. Was ist die logischste Interpretation dieses Nutzerverhaltens?",
@@ -377,7 +390,8 @@
         }
       ],
       "hint": "Interpretation von Klickmustern: Warum nutzen Nutzer Suche statt Menü?",
-      "youtubeQuery": "Heatmap Analyse Online Shop Suchfeld Klicks Navigation Usability"
+      "youtubeQuery": "Heatmap Analyse Online Shop Suchfeld Klicks Navigation Usability",
+      "topic": "Usability & UX"
     },
     {
       "question": "Die Geschäftsleitung definiert als wichtiges Quartalsziel die Senkung der Absprungrate im Checkout-Prozess (Kaufabbruch). Welche der folgenden E-Commerce-Maßnahmen zielt direkt auf dieses spezifische Problem ab?",
@@ -404,7 +418,8 @@
         }
       ],
       "hint": "Suche nach einem direkten Hebel genau im letzten Kaufschritt.",
-      "youtubeQuery": "Checkout Abbruch reduzieren beliebte Zahlungsarten PayPal Kauf auf Rechnung"
+      "youtubeQuery": "Checkout Abbruch reduzieren beliebte Zahlungsarten PayPal Kauf auf Rechnung",
+      "topic": "Shop-Einrichtung & Checkout"
     },
     {
       "question": "Ein mittelständisches Handelsunternehmen nutzt erfolgreich eigene Lagerhallen, überlegt aber, aus Kapazitätsgründen teilweise auf Amazon FBA umzustellen. Aus welchem strategischen Grund raten E-Commerce-Experten oft davon ab, zu 100 % exklusiv auf das FBA-Modell von Amazon umzustellen?",
@@ -431,7 +446,8 @@
         }
       ],
       "hint": "Strategisch geht es um Risikostreuung statt Ein-Plattform-Abhängigkeit.",
-      "youtubeQuery": "Amazon FBA Risiken Plattformabhängigkeit Diversifizierung Vertriebskanäle"
+      "youtubeQuery": "Amazon FBA Risiken Plattformabhängigkeit Diversifizierung Vertriebskanäle",
+      "topic": "Geschäftsmodelle"
     },
     {
       "question": "Ein Händler entscheidet sich für die Nutzung von Amazon FBA. Neben der reinen Einlagerung und dem Versand der Pakete übernimmt Amazon in diesem Modell noch eine weitere, sehr ressourcenintensive Aufgabe für den Verkäufer. Welche ist das?",
@@ -458,7 +474,8 @@
         }
       ],
       "hint": "Denke an Aufgaben nach dem Kaufprozess: Support, Retouren, Erstattungen.",
-      "youtubeQuery": "Amazon FBA Kundenservice Retouren Erstattungen erklärt"
+      "youtubeQuery": "Amazon FBA Kundenservice Retouren Erstattungen erklärt",
+      "topic": "Geschäftsmodelle"
     },
     {
       "question": "Die „Style-Lounge GmbH“ hat einen A/B-Test für zwei Landingpages durchgeführt. Version A hat 150 Verkäufe generiert, Version B generierte 210 Verkäufe. Bevor das Marketing-Team Version B final als Gewinner kürt, sollte zwingend eine weitere, entscheidende wirtschaftliche Metrik geprüft werden. Welche?",
@@ -485,7 +502,8 @@
         }
       ],
       "hint": "Mehr Conversions bedeuten nicht automatisch mehr Umsatz.",
-      "youtubeQuery": "A B Test Auswertung durchschnittlicher Bestellwert Conversion Umsatz"
+      "youtubeQuery": "A B Test Auswertung durchschnittlicher Bestellwert Conversion Umsatz",
+      "topic": "A/B-Testing"
     },
     {
       "question": "Das Unternehmen Sun-Sports vereinbart folgendes Abrechnungsmodell mit einer Influencerin: Eine feste Vergütung von 500 € pro Beitrag. Zusätzlich 0,05 € für jeden Like. Erreicht der Beitrag mehr als 10.000 Likes, gibt es einen Bonus von 100 €. Die Influencerin veröffentlicht einen Beitrag, der am Ende exakt 12.300 Likes erzielt. Wie hoch ist die gesamte Vergütung für diesen einen Beitrag?",
@@ -512,7 +530,8 @@
         }
       ],
       "hint": "Rechne in drei Blöcken: Fixbetrag + Like-Betrag + Bonus.",
-      "youtubeQuery": "Influencer Vergütung berechnen Fixbetrag Like Bonus Rechenbeispiel"
+      "youtubeQuery": "Influencer Vergütung berechnen Fixbetrag Like Bonus Rechenbeispiel",
+      "topic": "Influencer Marketing"
     },
     {
       "question": "Ein Online-Shop mit einem hohen sechsstelligen Marketingbudget entscheidet sich, ein KI-gestütztes Steuerungssystem einzuführen. In welchem der folgenden Bereiche kann eine KI im Bereich des Vertriebs und Marketings den größten Mehrwert durch Automatisierung liefern?",
@@ -539,7 +558,8 @@
         }
       ],
       "hint": "Gesucht ist ein Einsatzgebiet mit direktem Hebel auf Kanalperformance und Budgeteffizienz.",
-      "youtubeQuery": "KI Marketing Budgetallokation Echtzeit Performance Kanäle"
+      "youtubeQuery": "KI Marketing Budgetallokation Echtzeit Performance Kanäle",
+      "topic": "KI in Disposition"
     },
     {
       "question": "Die Implementierung von KI-Systemen ist teuer und komplex. Dennoch nehmen viele Handelsunternehmen diese Hürde auf sich, um sich aus strategischer Perspektive im Wettbewerb zu behaupten. Was ist eine zentrale strategische Chance beim Einsatz von KI-Analysetools?",
@@ -566,7 +586,8 @@
         }
       ],
       "hint": "Strategische Chance heißt: Wettbewerbsvorteile durch schnellere, datenbasierte Erkenntnisse.",
-      "youtubeQuery": "KI E Commerce Markttrends früh erkennen Datenanalyse Wettbewerbsvorteil"
+      "youtubeQuery": "KI E Commerce Markttrends früh erkennen Datenanalyse Wettbewerbsvorteil",
+      "topic": "KI in Disposition"
     },
     {
       "question": "Die Alpha-Electronics GmbH wirbt wider besseres Wissen intensiv mit dem irreführenden Slogan Niedrigster Preis in Europa, obwohl die Produkte bei der Konkurrenz nachweislich billiger sind. Dies stellt einen klaren Verstoß gegen das UWG dar. Mit welchen direkten Konsequenzen muss das Unternehmen primär rechnen?",
@@ -593,7 +614,8 @@
         }
       ],
       "hint": "Denke an typische wettbewerbsrechtliche Schritte von Mitbewerbern und Verbänden.",
-      "youtubeQuery": "UWG irreführende Werbung Abmahnung Unterlassungsklage Online Shop"
+      "youtubeQuery": "UWG irreführende Werbung Abmahnung Unterlassungsklage Online Shop",
+      "topic": "Recht (UWG)"
     },
     {
       "question": "Ein Kunde sucht in einem Online-Baumarkt nach Schraubendreher elektrisch, doch der Shop führt dieses exakte Produkt nicht. Es entsteht ein Nulltreffer (leere Suchergebnisseite). Wie sollte der Online-Shop aus Sicht der Usability im besten Fall auf diesen Nulltreffer reagieren, um einen Kaufabbruch zu verhindern?",
@@ -620,7 +642,8 @@
         }
       ],
       "hint": "Nulltreffer sollten immer einen hilfreichen nächsten Schritt anbieten.",
-      "youtubeQuery": "Nulltreffer Online Shop Usability Alternativvorschlaege Suchergebnisse"
+      "youtubeQuery": "Nulltreffer Online Shop Usability Alternativvorschlaege Suchergebnisse",
+      "topic": "Usability & UX"
     },
     {
       "question": "Die Mountain-Peak Ausrüstung GmbH implementiert eine KI. Das Ziel ist es, in der operativen Bestandssteuerung die Verfügbarkeit der Waren zu optimieren. Welche der folgenden Aufgaben übernimmt die KI in diesem spezifischen Anwendungsbereich primär?",
