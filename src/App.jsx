@@ -2268,6 +2268,12 @@ Die JSON muss exakt diese Struktur haben:
       && feynmanModeEnabled
       && !!selectedOption?.isCorrect
       && !quizExplanationRevealed;
+    const requireFeynmanCompletion = selectedAnswer !== null
+      && feynmanModeEnabled
+      && !!selectedOption?.isCorrect;
+    const canProceedToNextQuizQuestion = !requireFeynmanCompletion
+      || quizExplanationRevealed
+      || !!feynmanFeedback;
 
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
@@ -2467,7 +2473,19 @@ Die JSON muss exakt diese Struktur haben:
                 </div>
               )}
 
-              <button className="btn-primary" style={{ marginTop: '1rem' }} onClick={nextQuizQuestion}>Nächste Frage &rarr;</button>
+              <button
+                className="btn-primary"
+                style={{ marginTop: '1rem' }}
+                onClick={nextQuizQuestion}
+                disabled={!canProceedToNextQuizQuestion || feynmanLoading}
+              >
+                Nächste Frage &rarr;
+              </button>
+              {!canProceedToNextQuizQuestion && (
+                <p style={{ marginTop: '0.55rem', marginBottom: 0, fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                  Für die nächste Frage: erst Feynman-Check absenden oder Erklärung bewusst aufklappen.
+                </p>
+              )}
             </div>
           )}
 
