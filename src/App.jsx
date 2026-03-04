@@ -26,6 +26,8 @@ import QuestionManager from './components/QuestionManager';
 import PomodoroTimer from './components/PomodoroTimer';
 import KalkulationsBoss from './components/KalkulationsBoss';
 import BreakEvenPoint from './components/BreakEvenPoint';
+import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
+import { reviewTaskWithDSR, getDueTasksForToday } from './services/srsStore';
 
 const ANALYTICS_STORAGE_PREFIX = 'ap2_learning_analytics_';
 const CUSTOM_QUIZ_STORAGE_PREFIX = 'ap2_custom_quiz_questions_';
@@ -979,6 +981,19 @@ function App() {
     // Sync to Supabase in background (only for authenticated users)
     syncProgressToSupabase().catch(() => { });
 
+    if (authUser?.id) {
+      const rating = mapFlashcardQualityToRating(quality);
+      reviewTaskWithDSR({
+        supabase,
+        userId: authUser.id,
+        taskId: `flashcard:${currentCard.id}`,
+        rating,
+        taskType: 'flashcard',
+        category: 'spaced_repetition',
+        metadata: { source: 'flashcard', front: currentCard.front }
+      }).catch(err => console.error('DSR flashcard review failed:', err));
+    }
+
     let newQueue = [...learningQueue];
     if (quality < 3) {
       const cardToRequeue = newQueue.splice(currentIndex, 1)[0];
@@ -1044,6 +1059,22 @@ function App() {
     });
 
     syncProgressToSupabase({ quiz_progress: quizProg }).catch(e => console.error(e));
+
+    if (authUser?.id) {
+      const rating = mapQuizAnswerToRating({ isCorrect, attempt: 1 });
+      reviewTaskWithDSR({
+        supabase,
+        userId: authUser.id,
+        taskId: `quiz:${q.id}`,
+        rating,
+        taskType: 'quiz',
+        category: q.topic || 'quiz',
+        metadata: {
+          source: q.custom ? 'custom_quiz' : 'default_quiz',
+          question: q.question
+        }
+      }).catch(err => console.error('DSR quiz review failed:', err));
+    }
   };
 
   const nextQuizQuestion = () => {
@@ -1213,6 +1244,29 @@ function App() {
       } else {
         setCompletedWisorsEco(updateProg);
       }
+    }
+
+    if (authUser?.id) {
+      const rating = mapWisorAnswerToRating({ isCorrect: correct, attempt: 1 });
+      reviewTaskWithDSR({
+        supabase,
+        userId: authUser.id,
+        taskId: `${activeWisorMode === 'wisor1' ? 'wisor' : 'wisorEco'}:${q.id}`,
+        rating,
+        taskType: activeWisorMode === 'wisor1' ? 'wisor' : 'wisorEco',
+        category: activeWisorMode,
+        metadata: { source: activeWisorMode, question: q.question }
+      }).catch(err => console.error('DSR wisor review failed:', err));
+    }
+  };
+
+  const getGlobalDueTasks = async (userId, limit = 100) => {
+    if (!userId) return [];
+    try {
+      return await getDueTasksForToday(supabase, userId, { limit });
+    } catch (err) {
+      console.error('Global queue manager failed:', err);
+      return [];
     }
   };
 
