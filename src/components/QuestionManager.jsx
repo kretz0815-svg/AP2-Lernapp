@@ -111,11 +111,20 @@ export default function QuestionManager({ category, questions, progress, formatL
             const { data: { session } } = await supabase.auth.getSession();
             if (session?.user) {
                 const userId = session.user.id;
-                const { data } = await supabase.from('user_data').select('progress_data').eq('user_id', userId).single();
-                if (data?.progress_data) {
-                    const key = category === 'quiz' ? 'quiz_progress' : category === 'wisor' ? 'wisor_progress' : 'wisor_eco_progress';
-                    data.progress_data[key] = updatedProgress;
-                    await supabase.from('user_data').update({ progress_data: data.progress_data, updated_at: new Date().toISOString() }).eq('user_id', userId);
+                if (category === 'quiz') {
+                    await supabase
+                        .from('user_task_progress')
+                        .delete()
+                        .eq('user_id', userId)
+                        .eq('task_type', 'quiz')
+                        .eq('task_id', `quiz:${id}`);
+                } else {
+                    const { data } = await supabase.from('user_data').select('progress_data').eq('user_id', userId).single();
+                    if (data?.progress_data) {
+                        const key = category === 'wisor' ? 'wisor_progress' : 'wisor_eco_progress';
+                        data.progress_data[key] = updatedProgress;
+                        await supabase.from('user_data').update({ progress_data: data.progress_data, updated_at: new Date().toISOString() }).eq('user_id', userId);
+                    }
                 }
             }
         } catch (err) { console.error('Supabase reset sync error:', err); }

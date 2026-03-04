@@ -344,7 +344,6 @@ function App() {
 
   const getLocalProgressData = (overrides = {}) => {
     const srsProgress = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
-    const quizProgress = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
     const wisorProgress = JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {};
     const wisorEcoProgress = JSON.parse(localStorage.getItem('ap2_wisor_eco_progress')) || {};
     const savedNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
@@ -353,7 +352,6 @@ function App() {
 
     return {
       ...srsProgress,
-      quiz_progress: quizProgress,
       wisor_progress: wisorProgress,
       wisor_eco_progress: wisorEcoProgress,
       saved_notes: savedNotes,
@@ -790,12 +788,7 @@ function App() {
           if (data && data.progress_data) {
             progressData = { ...data.progress_data };
             localStorage.setItem('ap2_srs_progress', JSON.stringify(progressData));
-
-            if (data.progress_data.quiz_progress) {
-              localStorage.setItem('ap2_quiz_progress', JSON.stringify(data.progress_data.quiz_progress));
-            } else {
-              localStorage.setItem('ap2_quiz_progress', JSON.stringify({}));
-            }
+            localStorage.setItem('ap2_quiz_progress', JSON.stringify({}));
 
             if (data.progress_data.wisor_progress) {
               localStorage.setItem('ap2_wisor_progress', JSON.stringify(data.progress_data.wisor_progress));
@@ -1060,26 +1053,29 @@ function App() {
       setPomodoroSessionLog(prev => [...prev, { correct: isCorrect, questionText, topic: 'Quiz' }]);
     }
 
-    // Spaced repetition update
-    let quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
-    let { rep, ef, interval } = q.progress;
+    if (!authUser?.id) {
+      // Guest fallback only
+      const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+      let { rep, ef, interval } = q.progress;
 
-    if (isCorrect) {
-      if (rep === 0) {
-        interval = 1;
-      } else if (rep === 1) {
-        interval = 6;
+      if (isCorrect) {
+        if (rep === 0) {
+          interval = 1;
+        } else if (rep === 1) {
+          interval = 6;
+        } else {
+          interval = Math.round(interval * ef);
+        }
+        rep += 1;
       } else {
-        interval = Math.round(interval * ef);
+        rep = 0;
+        interval = 1 / (24 * 60); // 1 minute
       }
-      rep += 1;
-    } else {
-      rep = 0;
-      interval = 1 / (24 * 60); // 1 minute
+      const nextReview = Date.now() + interval * 24 * 60 * 60 * 1000;
+      quizProg[q.id] = { rep, ef, interval, nextReview };
+      localStorage.setItem('ap2_quiz_progress', JSON.stringify(quizProg));
+      setQuizProgressView(quizProg);
     }
-    const nextReview = Date.now() + interval * 24 * 60 * 60 * 1000;
-    quizProg[q.id] = { rep, ef, interval, nextReview };
-    localStorage.setItem('ap2_quiz_progress', JSON.stringify(quizProg));
 
     appendLearningEvent({
       mode: 'quiz',
@@ -1089,8 +1085,6 @@ function App() {
       userAnswer: selectedOption?.text || '',
       expectedAnswer: expectedOption?.text || ''
     });
-
-    syncProgressToSupabase({ quiz_progress: quizProg }).catch(e => console.error(e));
 
     if (authUser?.id) {
       const rating = mapQuizAnswerToRating({ isCorrect, attempt: 1 });
@@ -1204,7 +1198,6 @@ function App() {
         const resetTasks = [];
 
         if (authUser?.id) {
-          resetTasks.push(syncProgressToSupabase({ quiz_progress: {} }));
           resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'quiz'));
         }
 
@@ -1513,7 +1506,8 @@ function App() {
           onClose={() => setQuestionManagerCategory(null)}
           onAddCustomQuizQuestion={handleAddCustomQuizQuestion}
           onProgressUpdate={(cat, updatedProgress) => {
-            if (cat === 'wisor') setCompletedWisors(updatedProgress);
+            if (cat === 'quiz') refreshQuizDuePool().catch(() => { });
+            else if (cat === 'wisor') setCompletedWisors(updatedProgress);
             else if (cat === 'wisorEco') setCompletedWisorsEco(updatedProgress);
           }}
         />
@@ -1550,7 +1544,7 @@ function App() {
             <p>Multiple-Choice Fragen zum Überprüfen deines Wissensstands.</p>
             <div className="chip">{quizDuePool.length === 0 ? 'Alles gemeistert! 🎉' : `${quizDuePool.length} Fragen fällig`}</div>
 
-            {Object.keys(JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {}).length > 0 && (
+            {(Object.keys(quizProg || {}).length > 0 || !!authUser?.id) && (
               <button
                 className="btn-secondary"
                 style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
