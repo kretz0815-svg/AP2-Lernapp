@@ -678,11 +678,21 @@ function App() {
             progressData = { ...data.progress_data };
             localStorage.setItem('ap2_srs_progress', JSON.stringify(progressData));
 
+            if (data.progress_data.quiz_progress) {
+              localStorage.setItem('ap2_quiz_progress', JSON.stringify(data.progress_data.quiz_progress));
+            } else {
+              localStorage.setItem('ap2_quiz_progress', JSON.stringify({}));
+            }
+
             if (data.progress_data.wisor_progress) {
               localStorage.setItem('ap2_wisor_progress', JSON.stringify(data.progress_data.wisor_progress));
+            } else {
+              localStorage.setItem('ap2_wisor_progress', JSON.stringify({}));
             }
             if (data.progress_data.wisor_eco_progress) {
               localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(data.progress_data.wisor_eco_progress));
+            } else {
+              localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
             }
             if (data.progress_data.learning_analytics) {
               const remoteAnalytics = {
