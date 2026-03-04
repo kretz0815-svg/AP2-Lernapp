@@ -1256,11 +1256,17 @@ function App() {
   // --- GLOBAL STATS + BURGER MENU (available in ALL modes) ---
   const allQuizQuestions = [...(quiz1.questions || []), ...(quiz2.questions || []), ...(quiz3.questions || []), ...(quizUForm2.questions || [])];
   const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+  const quizLearnedCount = allQuizQuestions.reduce((count, question) => {
+    const questionId = question.id || generateId(question.question);
+    const progress = quizProg[questionId];
+    if (!progress) return count;
+    return count + ((progress.rep || 0) > 0 ? 1 : 0);
+  }, 0);
   const wisorQuestions = wisor1.questions || [];
   const wisorEcoQuestions = wisorEco.questions || [];
   const globalStats = {
     quizTotal: allQuizQuestions.length,
-    quizLearned: allQuizQuestions.length - allQuizzes.length,
+    quizLearned: Math.min(quizLearnedCount, allQuizQuestions.length),
     wisorTotal: wisorQuestions.length,
     wisorLearned: Object.keys(completedWisors).length,
     wisorEcoTotal: wisorEcoQuestions.length,
