@@ -138,6 +138,21 @@ function App() {
     window.location.reload();
   };
 
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setAuthUser(session.user);
+        localStorage.setItem('masterpat_auth', 'true');
+        setAppMode(prev => prev === 'auth' ? 'dashboard' : prev);
+      } else {
+        setAuthUser(null);
+        localStorage.removeItem('masterpat_auth');
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   // --- FLASHCARD STATE ---
   const [allCards, setAllCards] = useState([]);
   const [learningQueue, setLearningQueue] = useState([]);
@@ -394,6 +409,8 @@ function App() {
       const { data: { session } } = await supabase.auth.getSession();
       if (session?.user) {
         setAuthUser(session.user);
+        localStorage.setItem('masterpat_auth', 'true');
+        setAppMode(prev => prev === 'auth' ? 'dashboard' : prev);
       }
 
       // 1. Load local progress
