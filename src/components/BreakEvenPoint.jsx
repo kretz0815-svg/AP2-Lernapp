@@ -2,7 +2,7 @@ import React, { useMemo, useRef, useState } from 'react';
 
 const toEuro = (cents) => (cents / 100).toFixed(2).replace('.', ',');
 const parseEuroToCents = (raw) => {
-  const cleaned = String(raw ?? '').trim().replace(',', '.').replace(/[^0-9.\-]/g, '');
+  const cleaned = String(raw ?? '').trim().replace(',', '.').replace(/[^0-9.-]/g, '');
   if (!cleaned) return NaN;
   const value = Number(cleaned);
   if (!Number.isFinite(value)) return NaN;
@@ -104,7 +104,7 @@ export default function BreakEvenPoint({ onBack }) {
     let fingerprint = raw;
 
     if (key === 'bepUnits') {
-      const inputUnits = Number(raw.replace(/[^0-9\-]/g, ''));
+      const inputUnits = Number(raw.replace(/[^0-9-]/g, ''));
       isCorrect = Number.isFinite(inputUnits) && inputUnits === expected;
       fingerprint = String(inputUnits);
     } else {
@@ -144,7 +144,7 @@ export default function BreakEvenPoint({ onBack }) {
 
     const inputDb = parseEuroToCents(inputs.db);
     const inputTotalDb = parseEuroToCents(inputs.totalDb);
-    const inputUnits = Number(String(inputs.bepUnits).replace(/[^0-9\-]/g, ''));
+    const inputUnits = Number(String(inputs.bepUnits).replace(/[^0-9-]/g, ''));
     const inputProfitLoss = parseEuroToCents(inputs.profitLoss);
 
     const nextState = {

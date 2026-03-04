@@ -324,7 +324,7 @@ export default function FloatingCalculator() {
                         style={{ fontSize, border: 'none', outline: 'none', width: '100%', textAlign: 'right', background: 'transparent', color: 'inherit', fontFamily: 'inherit', fontWeight: 'inherit', caretColor: 'rgba(255,255,255,0.6)' }}
                         value={currentValue}
                         onChange={(e) => {
-                            const raw = e.target.value.replace(',', '.').replace(/[^0-9.\-]/g, '');
+                            const raw = e.target.value.replace(',', '.').replace(/[^0-9.-]/g, '');
                             if (raw === '' || raw === '-') { setCurrentValue(raw || '0'); return; }
                             // Prevent multiple dots
                             const parts = raw.split('.');
@@ -334,7 +334,7 @@ export default function FloatingCalculator() {
                         }}
                         onPaste={(e) => {
                             e.preventDefault();
-                            const pasted = (e.clipboardData.getData('text') || '').replace(',', '.').replace(/[^0-9.\-]/g, '');
+                            const pasted = (e.clipboardData.getData('text') || '').replace(',', '.').replace(/[^0-9.-]/g, '');
                             if (pasted) {
                                 setCurrentValue(pasted);
                                 setWaitingForNewValue(false);

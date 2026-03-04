@@ -27,7 +27,7 @@ import PomodoroTimer from './components/PomodoroTimer';
 import KalkulationsBoss from './components/KalkulationsBoss';
 import BreakEvenPoint from './components/BreakEvenPoint';
 import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
-import { reviewTaskWithDSR, getDueTasksForToday, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
+import { reviewTaskWithDSR, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
 
 const ANALYTICS_STORAGE_PREFIX = 'ap2_learning_analytics_';
 const CUSTOM_QUIZ_STORAGE_PREFIX = 'ap2_custom_quiz_questions_';
@@ -176,7 +176,7 @@ function App() {
     if (!captchaToken) { setAuthMsg('Bitte bestätige das Captcha.'); return; }
     setAuthLoading(true);
     setAuthMsg('');
-    const { error, data } = await supabase.auth.signInWithPassword({ email, password, options: { captchaToken } });
+    const { error } = await supabase.auth.signInWithPassword({ email, password, options: { captchaToken } });
     captchaRef.current?.resetCaptcha();
     setCaptchaToken(null);
     if (error) { setAuthMsg(error.message); setAuthLoading(false); }
@@ -338,7 +338,7 @@ function App() {
   const formatLatex = (text) => {
     if (typeof text !== 'string') return text;
     // Removes the wrapping $ signs and any backslash \ escapes (e.g., \$ -> $, \% -> %)
-    return text.replace(/\$([^\$]+)\$/g, (match, inner) => inner.replace(/\\/g, '').trim());
+    return text.replace(/\$([^$]+)\$/g, (match, inner) => inner.replace(/\\/g, '').trim());
   };
 
   const getLocalProgressData = (overrides = {}) => {
@@ -669,7 +669,7 @@ function App() {
 
         let cleanQ = formatLatex(q?.question || '')
           .split(/[\n]/)[0]
-          .replace(/^[\d\.]+\s*/, '')
+          .replace(/^[\d.]+\s*/, '')
           .replace(/„[^“]+“|"[^"]+"/g, ' ')
           .replace(/[^\p{L}\p{N}\s-]/gu, ' ')
           .replace(/\s+/g, ' ')
@@ -1048,7 +1048,6 @@ function App() {
     // Pomodoro session logging
     if (pomodoroActive) {
       const questionText = q.question?.substring(0, 100) || 'Quiz-Frage';
-      const topic = q.hint ? 'Quiz' : 'Quiz';
       setPomodoroSessionLog(prev => [...prev, { correct: isCorrect, questionText, topic: 'Quiz' }]);
     }
 
@@ -1282,16 +1281,6 @@ function App() {
         category: activeWisorMode,
         metadata: { source: activeWisorMode, question: q.question }
       }).catch(err => console.error('DSR wisor review failed:', err));
-    }
-  };
-
-  const getGlobalDueTasks = async (userId, limit = 100) => {
-    if (!userId) return [];
-    try {
-      return await getDueTasksForToday(supabase, userId, { limit });
-    } catch (err) {
-      console.error('Global queue manager failed:', err);
-      return [];
     }
   };
 

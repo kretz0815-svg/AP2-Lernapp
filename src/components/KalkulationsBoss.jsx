@@ -346,7 +346,7 @@ export default function KalkulationsBoss({ onBack }) {
     const validateStep = (idx) => {
         if (!selectedLevel) return;
         const step = selectedLevel.steps[idx];
-        const rawInput = String(inputs[idx] ?? '').trim().replace(',', '.').replace(/[^0-9.\-]/g, '');
+        const rawInput = String(inputs[idx] ?? '').trim().replace(',', '.').replace(/[^0-9.-]/g, '');
         const userVal = parseFloat(rawInput);
         if (isNaN(userVal)) return;
 
@@ -591,7 +591,6 @@ export default function KalkulationsBoss({ onBack }) {
 
     // ─── Game Screen ───
     const progressPct = totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0;
-    let currentPhase = null;
     const shouldMirrorPhase2InDiff = selectedLevel?.id === 3 && selectedLevel?.direction === 'diff';
     const stepIndices = selectedLevel.steps.map((_, index) => index);
     const renderStepIndices = shouldMirrorPhase2InDiff
@@ -787,6 +786,8 @@ export default function KalkulationsBoss({ onBack }) {
 
                 {renderStepIndices.map((stepIndex, renderIndex) => {
                     const step = selectedLevel.steps[stepIndex];
+                    const prevStepIndex = renderIndex > 0 ? renderStepIndices[renderIndex - 1] : null;
+                    const previousPhase = prevStepIndex !== null ? selectedLevel.steps[prevStepIndex]?.phase : null;
                     const isActive = stepIndex === activeStep;
                     const isDone = validated[stepIndex];
                     const isGiven = step.given;
@@ -799,8 +800,7 @@ export default function KalkulationsBoss({ onBack }) {
 
                     // Phase divider for Level 3
                     let phaseHeader = null;
-                    if (selectedLevel.direction === 'diff' && step.phase && step.phase !== currentPhase) {
-                        currentPhase = step.phase;
+                    if (selectedLevel.direction === 'diff' && step.phase && step.phase !== previousPhase) {
                         const pl = PHASE_LABELS[step.phase];
                         if (shouldMirrorPhase2InDiff && step.phase === 2) {
                             phaseHeader = null;

@@ -64,6 +64,7 @@ export default function FloatingNotes({ questionId, questionText }) {
     useEffect(() => {
         // Immediately load from localStorage
         const saved = getAllNotes();
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setNotes(saved[questionId]?.text || '');
 
         // Then try to pull latest from Supabase (only for authenticated users)

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const POMODORO_DURATION = 25 * 60; // 25 minutes in seconds
 
@@ -23,20 +23,68 @@ const PomodoroIcon = ({ size = '1.5em' }) => (
     </svg>
 );
 
-export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onTick, sessionLog, appMode, forceStop }) {
+export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onTick, sessionLog, forceStop }) {
     const [timeLeft, setTimeLeft] = useState(POMODORO_DURATION);
     const [isRunning, setIsRunning] = useState(false);
     const [showResults, setShowResults] = useState(false);
+    const [analysisSnapshot, setAnalysisSnapshot] = useState(null);
     const [isPaused, setIsPaused] = useState(false);
     const [showFinalCountdown, setShowFinalCountdown] = useState(false);
     const intervalRef = useRef(null);
     const startTimeRef = useRef(null);
+    const endTimeRef = useRef(null);
     const lastForceStopRef = useRef(0);
+
+    const buildSessionAnalysis = (endTimestamp = null) => {
+        if (!sessionLog || sessionLog.length === 0) return null;
+
+        const total = sessionLog.length;
+        const correct = sessionLog.filter(l => l.correct).length;
+        const wrong = sessionLog.filter(l => !l.correct);
+        const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+        const topicMap = {};
+        sessionLog.forEach(l => {
+            const topic = l.topic || 'Allgemein';
+            if (!topicMap[topic]) topicMap[topic] = { correct: 0, total: 0 };
+            topicMap[topic].total++;
+            if (l.correct) topicMap[topic].correct++;
+        });
+
+        const weakTopics = Object.entries(topicMap)
+            .filter((entry) => {
+                const v = entry[1];
+                return v.total >= 2 && (v.correct / v.total) < 0.5;
+            })
+            .sort((a, b) => (a[1].correct / a[1].total) - (b[1].correct / b[1].total));
+
+        const resolvedEnd = endTimestamp ?? endTimeRef.current;
+        const timeUsed = startTimeRef.current && resolvedEnd
+            ? Math.round((resolvedEnd - startTimeRef.current) / 1000)
+            : POMODORO_DURATION - timeLeft;
+
+        return { total, correct, wrong, accuracy, weakTopics, timeUsed, topicMap };
+    };
+
+    const handleStart = () => {
+        setTimeLeft(POMODORO_DURATION);
+        setIsRunning(true);
+        setIsPaused(false);
+        setShowResults(false);
+        setShowFinalCountdown(false);
+        startTimeRef.current = Date.now();
+        endTimeRef.current = null;
+        setAnalysisSnapshot(null);
+        if (onTick) onTick(POMODORO_DURATION);
+        if (onStart) onStart();
+    };
 
     // React to forceStop from parent
     useEffect(() => {
         if (forceStop && forceStop !== lastForceStopRef.current && isRunning) {
             lastForceStopRef.current = forceStop;
+            endTimeRef.current = Date.now();
+            setAnalysisSnapshot(buildSessionAnalysis(endTimeRef.current));
             setIsRunning(false);
             setIsPaused(false);
             setShowFinalCountdown(false);
@@ -50,10 +98,11 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onT
     const prevIsActiveRef = useRef(false);
     useEffect(() => {
         if (isActive && !prevIsActiveRef.current && !isRunning) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             handleStart();
         }
         prevIsActiveRef.current = isActive;
-    }, [isActive]);
+    }, [isActive, isRunning]);
 
     // Cleanup on unmount
     useEffect(() => {
@@ -67,6 +116,8 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onT
                 setTimeLeft(prev => {
                     if (prev <= 1) {
                         clearInterval(intervalRef.current);
+                        endTimeRef.current = Date.now();
+                        setAnalysisSnapshot(buildSessionAnalysis(endTimeRef.current));
                         setIsRunning(false);
                         setShowResults(true);
                         setShowFinalCountdown(false);
@@ -85,24 +136,15 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onT
             if (intervalRef.current) clearInterval(intervalRef.current);
         }
         return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-    }, [isRunning, isPaused, onTimeUp]);
-
-    const handleStart = () => {
-        setTimeLeft(POMODORO_DURATION);
-        setIsRunning(true);
-        setIsPaused(false);
-        setShowResults(false);
-        setShowFinalCountdown(false);
-        startTimeRef.current = Date.now();
-        if (onTick) onTick(POMODORO_DURATION);
-        if (onStart) onStart();
-    };
+    }, [isRunning, isPaused, onTimeUp, onTick]);
 
     const handlePause = () => {
         setIsPaused(!isPaused);
     };
 
     const handleCancel = () => {
+        endTimeRef.current = Date.now();
+        setAnalysisSnapshot(buildSessionAnalysis(endTimeRef.current));
         setIsRunning(false);
         setIsPaused(false);
         setShowFinalCountdown(false);
@@ -114,6 +156,7 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onT
     const handleClose = () => {
         setShowResults(false);
         setTimeLeft(POMODORO_DURATION);
+        setAnalysisSnapshot(null);
         if (onStop) onStop();
     };
 
@@ -124,36 +167,6 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onT
     };
 
     const progress = ((POMODORO_DURATION - timeLeft) / POMODORO_DURATION) * 100;
-
-    // Analyze session weaknesses
-    const analyzeSession = () => {
-        if (!sessionLog || sessionLog.length === 0) return null;
-
-        const total = sessionLog.length;
-        const correct = sessionLog.filter(l => l.correct).length;
-        const wrong = sessionLog.filter(l => !l.correct);
-        const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
-
-        // Group by topic/category
-        const topicMap = {};
-        sessionLog.forEach(l => {
-            const topic = l.topic || 'Allgemein';
-            if (!topicMap[topic]) topicMap[topic] = { correct: 0, total: 0 };
-            topicMap[topic].total++;
-            if (l.correct) topicMap[topic].correct++;
-        });
-
-        // Find weak topics (< 50% accuracy with at least 2 questions)
-        const weakTopics = Object.entries(topicMap)
-            .filter(([_, v]) => v.total >= 2 && (v.correct / v.total) < 0.5)
-            .sort((a, b) => (a[1].correct / a[1].total) - (b[1].correct / b[1].total));
-
-        const timeUsed = startTimeRef.current
-            ? Math.round((Date.now() - startTimeRef.current) / 1000)
-            : POMODORO_DURATION - timeLeft;
-
-        return { total, correct, wrong, accuracy, weakTopics, timeUsed, topicMap };
-    };
 
     // --- Full countdown overlay (last 3 seconds) ---
     if (showFinalCountdown && isRunning) {
@@ -199,7 +212,7 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onT
 
     // --- Results overlay ---
     if (showResults) {
-        const analysis = analyzeSession();
+        const analysis = analysisSnapshot;
 
         return (
             <div style={{

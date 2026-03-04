@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { supabase } from '../supabaseClient';
 
 const generateId = (text) => {
@@ -253,7 +253,7 @@ export default function QuestionManager({ category, questions, progress, formatL
 
             resetAddForm();
             setShowAddForm(false);
-        } catch (err) {
+        } catch {
             setAddFormError('Speichern fehlgeschlagen. Bitte erneut versuchen.');
         } finally {
             setAddFormLoading(false);
