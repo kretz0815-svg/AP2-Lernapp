@@ -57,6 +57,14 @@ const loadAnalyticsForUser = (user) => {
   }
 };
 
+const createEmptyMemberProgressData = () => ({
+  quiz_progress: {},
+  wisor_progress: {},
+  wisor_eco_progress: {},
+  saved_notes: {},
+  learning_analytics: createEmptyAnalytics()
+});
+
 const generateId = (text) => {
   let hash = 0;
   for (let i = 0; i < text.length; i++) {
@@ -156,6 +164,9 @@ function App() {
     if (error) { setAuthMsg(error.message); setAuthLoading(false); }
     else {
       setAuthMsg('Erfolgreich eingeloggt! Lade Account...');
+      if (localStorage.getItem(ACCESS_MODE_KEY) === 'guest') {
+        clearGuestProgressData();
+      }
       localStorage.setItem('masterpat_auth', 'true');
       localStorage.setItem(ACCESS_MODE_KEY, 'member');
       window.location.reload();
@@ -174,6 +185,9 @@ function App() {
     else {
       setAuthMsg('Account erstellt! Logge ein...');
       if (data?.session) {
+        if (localStorage.getItem(ACCESS_MODE_KEY) === 'guest') {
+          clearGuestProgressData();
+        }
         localStorage.setItem('masterpat_auth', 'true');
         localStorage.setItem(ACCESS_MODE_KEY, 'member');
         window.location.reload();
@@ -211,6 +225,9 @@ function App() {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
+        if (localStorage.getItem(ACCESS_MODE_KEY) === 'guest') {
+          clearGuestProgressData();
+        }
         setAuthUser(session.user);
         localStorage.setItem('masterpat_auth', 'true');
         localStorage.setItem(ACCESS_MODE_KEY, 'member');
@@ -634,6 +651,9 @@ function App() {
       }
 
       if (session?.user) {
+        if (storedAccessMode === 'guest') {
+          clearGuestProgressData();
+        }
         setAuthUser(session.user);
         localStorage.setItem('masterpat_auth', 'true');
         localStorage.setItem(ACCESS_MODE_KEY, 'member');
@@ -714,7 +734,16 @@ function App() {
             }
           } else if (!data) {
             // Init empty row for this authenticated user
-            await supabase.from('user_data').upsert([{ user_id: userId, device_id: userId, progress_data: getLocalProgressData() }], { onConflict: 'user_id' });
+            const emptyProgress = createEmptyMemberProgressData();
+            await supabase.from('user_data').upsert([{ user_id: userId, device_id: userId, progress_data: emptyProgress }], { onConflict: 'user_id' });
+            progressData = { ...emptyProgress };
+            localStorage.setItem('ap2_srs_progress', JSON.stringify(progressData));
+            localStorage.setItem('ap2_quiz_progress', JSON.stringify({}));
+            localStorage.setItem('ap2_wisor_progress', JSON.stringify({}));
+            localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
+            localStorage.setItem('ap2_saved_notes', JSON.stringify({}));
+            localStorage.setItem(getAnalyticsStorageKey(session.user), JSON.stringify(createEmptyAnalytics()));
+            analyticsData = createEmptyAnalytics();
           }
         } catch (err) {
           console.error("Supabase load error: ", err);
