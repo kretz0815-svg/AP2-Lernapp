@@ -115,6 +115,23 @@ function App() {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    setAuthMsg('');
+    setAuthLoading(true);
+
+    const redirectTo = import.meta.env.VITE_OAUTH_REDIRECT_TO || window.location.origin;
+
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo }
+    });
+
+    if (error) {
+      setAuthMsg('Fehler beim Google-Login: ' + error.message);
+      setAuthLoading(false);
+    }
+  };
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     localStorage.removeItem('masterpat_auth');
@@ -843,6 +860,17 @@ function App() {
               <button type="submit" className="btn-primary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading || !captchaToken}>Login</button>
               <button type="button" onClick={handleRegister} className="btn-secondary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading || !captchaToken}>Registrieren</button>
             </div>
+
+            <button
+              id="google-login-btn"
+              type="button"
+              className="btn-secondary"
+              onClick={handleGoogleLogin}
+              disabled={authLoading}
+              style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}
+            >
+              Mit Google anmelden
+            </button>
           </form>
 
           {authMsg && <p style={{ color: authMsg.includes('Erfolg') || authMsg.includes('erstellt') ? 'var(--success)' : 'var(--error)', marginBottom: '1rem', fontWeight: 'bold' }}>{authMsg}</p>}
