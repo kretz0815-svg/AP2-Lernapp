@@ -270,6 +270,7 @@ function App() {
   // --- QUIZ STATE ---
   const [allQuizzes, setAllQuizzes] = useState([]);
   const [quizDuePool, setQuizDuePool] = useState([]);
+  const [quizProgressView, setQuizProgressView] = useState(() => JSON.parse(localStorage.getItem('ap2_quiz_progress') || '{}'));
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
@@ -544,6 +545,7 @@ function App() {
 
     if (!authUser?.id) {
       const localDue = prepared.filter(q => q.progress.nextReview <= now);
+      setQuizProgressView(quizProg);
       setQuizDuePool(localDue);
       return localDue;
     }
@@ -551,16 +553,34 @@ function App() {
     try {
       const rows = await getTaskProgressByType(supabase, authUser.id, 'quiz');
       const byTaskId = new Map(rows.map(row => [row.task_id, row]));
+      const effectiveProgress = {};
+      prepared.forEach(q => {
+        const row = byTaskId.get(`quiz:${q.id}`);
+        if (row) {
+          effectiveProgress[q.id] = {
+            rep: row.review_count || 0,
+            ef: q.progress?.ef || 2.5,
+            interval: row.scheduled_days || 0,
+            nextReview: row.due_date ? new Date(row.due_date).getTime() : 0
+          };
+        } else {
+          effectiveProgress[q.id] = quizProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 };
+        }
+      });
+
       const due = prepared.filter(q => {
         const row = byTaskId.get(`quiz:${q.id}`);
         if (!row?.due_date) return true;
         return new Date(row.due_date).getTime() <= now;
       });
+
+      setQuizProgressView(effectiveProgress);
       setQuizDuePool(due);
       return due;
     } catch (err) {
       console.error('Failed loading quiz due pool from user_task_progress:', err);
       const fallbackDue = prepared.filter(q => q.progress.nextReview <= now);
+      setQuizProgressView(quizProg);
       setQuizDuePool(fallbackDue);
       return fallbackDue;
     }
@@ -1180,6 +1200,7 @@ function App() {
         if (appMode === 'wisor') setAppMode('wisor');
       } else if (resetTarget === 'quiz') {
         localStorage.removeItem('ap2_quiz_progress');
+        setQuizProgressView({});
         const resetTasks = [];
 
         if (authUser?.id) {
@@ -1443,7 +1464,7 @@ function App() {
 
   // --- GLOBAL STATS + BURGER MENU (available in ALL modes) ---
   const allQuizQuestions = getAllQuizQuestions();
-  const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+  const quizProg = quizProgressView || {};
   const quizLearnedCount = allQuizQuestions.reduce((count, question) => {
     const questionId = question.id || generateId(question.question);
     const progress = quizProg[questionId];
