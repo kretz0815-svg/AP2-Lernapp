@@ -28,6 +28,7 @@ import KalkulationsBoss from './components/KalkulationsBoss';
 import BreakEvenPoint from './components/BreakEvenPoint';
 
 const ANALYTICS_STORAGE_PREFIX = 'ap2_learning_analytics_';
+const CUSTOM_QUIZ_STORAGE_PREFIX = 'ap2_custom_quiz_questions_';
 const MEMBER_SYNC_PENDING_PREFIX = 'ap2_member_pending_sync_';
 const ACCESS_MODE_KEY = 'masterpat_access_mode';
 
@@ -49,6 +50,11 @@ const getAnalyticsStorageKey = (user) => {
   return `${ANALYTICS_STORAGE_PREFIX}${normalizeAnalyticsIdentity(identity)}`;
 };
 
+const getCustomQuizStorageKey = (user) => {
+  const identity = user?.email || 'guest';
+  return `${CUSTOM_QUIZ_STORAGE_PREFIX}${normalizeAnalyticsIdentity(identity)}`;
+};
+
 const loadAnalyticsForUser = (user) => {
   try {
     return JSON.parse(localStorage.getItem(getAnalyticsStorageKey(user))) || createEmptyAnalytics();
@@ -57,12 +63,22 @@ const loadAnalyticsForUser = (user) => {
   }
 };
 
+const loadCustomQuizForUser = (user) => {
+  try {
+    const raw = JSON.parse(localStorage.getItem(getCustomQuizStorageKey(user)) || '[]');
+    return Array.isArray(raw) ? raw : [];
+  } catch {
+    return [];
+  }
+};
+
 const createEmptyMemberProgressData = () => ({
   quiz_progress: {},
   wisor_progress: {},
   wisor_eco_progress: {},
   saved_notes: {},
-  learning_analytics: createEmptyAnalytics()
+  learning_analytics: createEmptyAnalytics(),
+  custom_quiz_questions: []
 });
 
 const generateId = (text) => {
@@ -125,6 +141,7 @@ function App() {
     localStorage.removeItem('ap2_wisor_eco_progress');
     localStorage.removeItem('ap2_saved_notes');
     localStorage.removeItem(getAnalyticsStorageKey(null));
+    localStorage.removeItem(getCustomQuizStorageKey(null));
   };
 
   const getPendingSyncStorageKey = (userId) => `${MEMBER_SYNC_PENDING_PREFIX}${userId}`;
@@ -271,6 +288,7 @@ function App() {
   const [resetMath, setResetMath] = useState({ a: 0, b: 0, input: '' });
   const [questionManagerCategory, setQuestionManagerCategory] = useState(null);
   const [learningAnalytics, setLearningAnalytics] = useState(createEmptyAnalytics());
+  const [customQuizQuestions, setCustomQuizQuestions] = useState([]);
   const [pomodoroActive, setPomodoroActive] = useState(false);
   const [pomodoroSessionLog, setPomodoroSessionLog] = useState([]);
   const [pomodoroTimeLeft, setPomodoroTimeLeft] = useState(25 * 60);
@@ -327,6 +345,7 @@ function App() {
     const wisorEcoProgress = JSON.parse(localStorage.getItem('ap2_wisor_eco_progress')) || {};
     const savedNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
     const analytics = loadAnalyticsForUser(authUser);
+    const customQuiz = loadCustomQuizForUser(authUser);
 
     return {
       ...srsProgress,
@@ -335,6 +354,7 @@ function App() {
       wisor_eco_progress: wisorEcoProgress,
       saved_notes: savedNotes,
       learning_analytics: analytics,
+      custom_quiz_questions: customQuiz,
       ...overrides
     };
   };
@@ -486,16 +506,15 @@ function App() {
     return 'Allgemein';
   };
 
-  const getPreparedQuizzes = () => {
-    const rawQuizzes = [
-      ...(quiz1.questions || []),
-      ...(quiz2.questions || []),
-      ...(quiz3.questions || []),
-      ...(quizUForm2.questions || [])
-    ];
+  const getAllQuizQuestions = () => [
+    ...(quiz1.questions || []),
+    ...(quiz2.questions || []),
+    ...(quiz3.questions || []),
+    ...(quizUForm2.questions || []),
+    ...(customQuizQuestions || [])
+  ];
 
-    const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
-
+  const buildPreparedQuizzes = (rawQuizzes, quizProg) => {
     return rawQuizzes.map(q => {
       const id = q.id || generateId(q.question);
       return {
@@ -505,6 +524,56 @@ function App() {
         progress: quizProg[id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 }
       };
     });
+  };
+
+  const getPreparedQuizzes = () => {
+    const rawQuizzes = getAllQuizQuestions();
+    const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+    return buildPreparedQuizzes(rawQuizzes, quizProg);
+  };
+
+  const handleAddCustomQuizQuestion = async (payload) => {
+    const normalizedAnswers = (payload.answerOptions || [])
+      .filter(opt => String(opt.text || '').trim())
+      .map(opt => ({
+        text: String(opt.text || '').trim(),
+        isCorrect: !!opt.isCorrect,
+        rationale: String(opt.rationale || '').trim()
+      }));
+
+    if (!payload.question || !normalizedAnswers.length || !normalizedAnswers.some(opt => opt.isCorrect)) {
+      return { ok: false, message: 'Bitte Frage, Antworten und mindestens eine richtige Antwort angeben.' };
+    }
+
+    const newQuestion = {
+      id: `custom_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+      question: String(payload.question).trim(),
+      topic: String(payload.topic || 'Eigenes Thema').trim(),
+      hint: String(payload.hint || '').trim(),
+      youtubeQuery: String(payload.youtubeQuery || '').trim(),
+      answerOptions: normalizedAnswers,
+      custom: true,
+      createdAt: new Date().toISOString()
+    };
+
+    const updatedCustom = [...(customQuizQuestions || []), newQuestion];
+    setCustomQuizQuestions(updatedCustom);
+    localStorage.setItem(getCustomQuizStorageKey(authUser), JSON.stringify(updatedCustom));
+    await syncProgressToSupabase({ custom_quiz_questions: updatedCustom });
+
+    if (appMode !== 'quiz') {
+      const quizProgNow = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+      const due = buildPreparedQuizzes([
+        ...(quiz1.questions || []),
+        ...(quiz2.questions || []),
+        ...(quiz3.questions || []),
+        ...(quizUForm2.questions || []),
+        ...updatedCustom
+      ], quizProgNow).filter(q => q.progress.nextReview <= Date.now());
+      setAllQuizzes(due);
+    }
+
+    return { ok: true };
   };
 
   const getDueQuizzesByTopic = (topic = 'all') => {
@@ -663,6 +732,7 @@ function App() {
       // 1. Load local progress
       let progressData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
       let analyticsData = loadAnalyticsForUser(session?.user || null);
+      let customQuizData = loadCustomQuizForUser(session?.user || null);
 
       // 2. Fetch from Supabase (only for authenticated users)
       if (session?.user) {
@@ -728,6 +798,13 @@ function App() {
               };
               localStorage.setItem(getAnalyticsStorageKey(session.user), JSON.stringify(analyticsData));
             }
+            if (Array.isArray(data.progress_data.custom_quiz_questions)) {
+              customQuizData = data.progress_data.custom_quiz_questions;
+              localStorage.setItem(getCustomQuizStorageKey(session.user), JSON.stringify(customQuizData));
+            } else {
+              customQuizData = [];
+              localStorage.setItem(getCustomQuizStorageKey(session.user), JSON.stringify([]));
+            }
             // Merge saved notes from Supabase into localStorage
             if (data.progress_data.saved_notes) {
               const localNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
@@ -753,7 +830,9 @@ function App() {
             localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
             localStorage.setItem('ap2_saved_notes', JSON.stringify({}));
             localStorage.setItem(getAnalyticsStorageKey(session.user), JSON.stringify(createEmptyAnalytics()));
+            localStorage.setItem(getCustomQuizStorageKey(session.user), JSON.stringify([]));
             analyticsData = createEmptyAnalytics();
+            customQuizData = [];
           }
         } catch (err) {
           console.error("Supabase load error: ", err);
@@ -766,6 +845,7 @@ function App() {
       let wisorEcoProg = JSON.parse(localStorage.getItem('ap2_wisor_eco_progress')) || {};
       setCompletedWisorsEco(wisorEcoProg);
       setLearningAnalytics(analyticsData);
+      setCustomQuizQuestions(customQuizData);
 
       // 3. Setup Flashcards with loaded progress
       const rawCards = [
@@ -787,7 +867,8 @@ function App() {
         ...(quiz1.questions || []),
         ...(quiz2.questions || []),
         ...(quiz3.questions || []),
-        ...(quizUForm2.questions || [])
+        ...(quizUForm2.questions || []),
+        ...customQuizData
       ];
       let quizProgStorage = progressData.quiz_progress || JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
       const mergedQuizzesInit = rawQuizzes.map(q => {
@@ -812,6 +893,7 @@ function App() {
 
   useEffect(() => {
     setLearningAnalytics(loadAnalyticsForUser(authUser));
+    setCustomQuizQuestions(loadCustomQuizForUser(authUser));
   }, [authUser?.email]);
 
   useEffect(() => {
@@ -1061,7 +1143,8 @@ function App() {
           ...(quiz1.questions || []),
           ...(quiz2.questions || []),
           ...(quiz3.questions || []),
-          ...(quizUForm2.questions || [])
+          ...(quizUForm2.questions || []),
+          ...customQuizQuestions
         ];
         const mergedQuizzesInit = rawQuizzes.map(q => {
           const id = q.id || generateId(q.question);
@@ -1293,7 +1376,7 @@ function App() {
   );
 
   // --- GLOBAL STATS + BURGER MENU (available in ALL modes) ---
-  const allQuizQuestions = [...(quiz1.questions || []), ...(quiz2.questions || []), ...(quiz3.questions || []), ...(quizUForm2.questions || [])];
+  const allQuizQuestions = getAllQuizQuestions();
   const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
   const quizLearnedCount = allQuizQuestions.reduce((count, question) => {
     const questionId = question.id || generateId(question.question);
@@ -1334,12 +1417,14 @@ function App() {
             questionManagerCategory === 'quiz' ? allQuizQuestions :
               questionManagerCategory === 'wisor' ? wisorQuestions : wisorEcoQuestions
           }
+          authUser={authUser}
           progress={
             questionManagerCategory === 'quiz' ? quizProg :
               questionManagerCategory === 'wisor' ? completedWisors : completedWisorsEco
           }
           formatLatex={formatLatex}
           onClose={() => setQuestionManagerCategory(null)}
+          onAddCustomQuizQuestion={handleAddCustomQuizQuestion}
           onProgressUpdate={(cat, updatedProgress) => {
             if (cat === 'wisor') setCompletedWisors(updatedProgress);
             else if (cat === 'wisorEco') setCompletedWisorsEco(updatedProgress);

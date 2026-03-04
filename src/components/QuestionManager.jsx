@@ -11,7 +11,7 @@ const generateId = (text) => {
     return `card_${Math.abs(hash)}`;
 };
 
-export default function QuestionManager({ category, questions, progress, formatLatex, onClose, onProgressUpdate }) {
+export default function QuestionManager({ category, questions, progress, formatLatex, onClose, onProgressUpdate, onAddCustomQuizQuestion, authUser }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterMode, setFilterMode] = useState('all'); // 'all', 'learned', 'unlearned'
     const [editingId, setEditingId] = useState(null);
@@ -20,6 +20,19 @@ export default function QuestionManager({ category, questions, progress, formatL
     const [confirmDeleteId, setConfirmDeleteId] = useState(null);
     const [expandedQuestionId, setExpandedQuestionId] = useState(null);
     const [localProgress, setLocalProgress] = useState(progress || {});
+    const [showAddForm, setShowAddForm] = useState(false);
+    const [newQuestionText, setNewQuestionText] = useState('');
+    const [newQuestionTopic, setNewQuestionTopic] = useState('Eigenes Thema');
+    const [newQuestionHint, setNewQuestionHint] = useState('');
+    const [newQuestionYoutubeQuery, setNewQuestionYoutubeQuery] = useState('');
+    const [newAnswerOptions, setNewAnswerOptions] = useState([
+        { text: '', isCorrect: true, rationale: '' },
+        { text: '', isCorrect: false, rationale: '' },
+        { text: '', isCorrect: false, rationale: '' },
+        { text: '', isCorrect: false, rationale: '' }
+    ]);
+    const [addFormError, setAddFormError] = useState('');
+    const [addFormLoading, setAddFormLoading] = useState(false);
     const [deletedIds, setDeletedIds] = useState(() => {
         return JSON.parse(localStorage.getItem(`ap2_deleted_${category}`) || '[]');
     });
@@ -146,6 +159,92 @@ export default function QuestionManager({ category, questions, progress, formatL
         setEditText('');
     };
 
+    const resetAddForm = () => {
+        setNewQuestionText('');
+        setNewQuestionTopic('Eigenes Thema');
+        setNewQuestionHint('');
+        setNewQuestionYoutubeQuery('');
+        setNewAnswerOptions([
+            { text: '', isCorrect: true, rationale: '' },
+            { text: '', isCorrect: false, rationale: '' },
+            { text: '', isCorrect: false, rationale: '' },
+            { text: '', isCorrect: false, rationale: '' }
+        ]);
+        setAddFormError('');
+    };
+
+    const handleMarkCorrectAnswer = (index) => {
+        setNewAnswerOptions(prev => prev.map((opt, i) => ({ ...opt, isCorrect: i === index })));
+    };
+
+    const handleAddAnswerOption = () => {
+        setNewAnswerOptions(prev => {
+            if (prev.length >= 8) return prev;
+            return [...prev, { text: '', isCorrect: false, rationale: '' }];
+        });
+    };
+
+    const handleRemoveAnswerOption = (index) => {
+        setNewAnswerOptions(prev => {
+            if (prev.length <= 2) return prev;
+            const removedWasCorrect = prev[index]?.isCorrect;
+            const next = prev.filter((_, i) => i !== index);
+            if (removedWasCorrect && next.length > 0) {
+                next[0] = { ...next[0], isCorrect: true };
+            }
+            return next;
+        });
+    };
+
+    const handleSubmitCustomQuestion = async () => {
+        if (category !== 'quiz') return;
+        if (!onAddCustomQuizQuestion) {
+            setAddFormError('Hinzufügen ist momentan nicht verfügbar.');
+            return;
+        }
+
+        const trimmedQuestion = newQuestionText.trim();
+        const filledAnswers = newAnswerOptions.filter(opt => opt.text.trim());
+        const hasCorrect = filledAnswers.some(opt => opt.isCorrect);
+
+        if (!trimmedQuestion) {
+            setAddFormError('Bitte gib eine Frage ein.');
+            return;
+        }
+        if (filledAnswers.length < 2) {
+            setAddFormError('Bitte mindestens 2 Antwortmöglichkeiten ausfüllen.');
+            return;
+        }
+        if (!hasCorrect) {
+            setAddFormError('Bitte eine richtige Antwort markieren.');
+            return;
+        }
+
+        setAddFormError('');
+        setAddFormLoading(true);
+        try {
+            const result = await onAddCustomQuizQuestion({
+                question: trimmedQuestion,
+                topic: newQuestionTopic,
+                hint: newQuestionHint,
+                youtubeQuery: newQuestionYoutubeQuery,
+                answerOptions: filledAnswers
+            });
+
+            if (!result?.ok) {
+                setAddFormError(result?.message || 'Frage konnte nicht gespeichert werden.');
+                return;
+            }
+
+            resetAddForm();
+            setShowAddForm(false);
+        } catch (err) {
+            setAddFormError('Speichern fehlgeschlagen. Bitte erneut versuchen.');
+        } finally {
+            setAddFormLoading(false);
+        }
+    };
+
     // Get deleted questions for restore panel
     const deletedQuestions = questions
         .map((q, idx) => {
@@ -209,6 +308,33 @@ export default function QuestionManager({ category, questions, progress, formatL
                         </div>
                     </div>
                 </div>
+                {category === 'quiz' && (
+                    <button
+                        onClick={() => {
+                            if (!authUser?.email) {
+                                setAddFormError('Eigene Quizkarten sind nur mit E-Mail/Google-Login möglich.');
+                                return;
+                            }
+                            setAddFormError('');
+                            setShowAddForm(prev => !prev);
+                        }}
+                        style={{
+                            flexShrink: 0,
+                            width: '38px',
+                            height: '38px',
+                            borderRadius: '50%',
+                            border: '1px solid var(--glass-border)',
+                            background: 'rgba(255,255,255,0.06)',
+                            color: 'var(--text-light)',
+                            fontSize: '1.35rem',
+                            lineHeight: 1,
+                            cursor: 'pointer'
+                        }}
+                        title={authUser?.email ? 'Eigene Karte hinzufügen' : 'Nur mit E-Mail/Google-Login'}
+                    >
+                        +
+                    </button>
+                )}
             </div>
 
             {/* Search + Filter bar */}
@@ -260,6 +386,197 @@ export default function QuestionManager({ category, questions, progress, formatL
                     ))}
                 </div>
             </div>
+
+            {category === 'quiz' && showAddForm && (
+                <div style={{
+                    padding: '0.9rem 1.5rem',
+                    borderBottom: '1px solid var(--glass-border)',
+                    background: 'rgba(255,255,255,0.02)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.6rem'
+                }}>
+                    <h4 style={{ margin: 0, color: 'var(--text-light)', fontSize: '0.92rem' }}>Neue Multiple-Choice-Karte</h4>
+                    <input
+                        type="text"
+                        value={newQuestionText}
+                        onChange={(e) => setNewQuestionText(e.target.value)}
+                        placeholder="Frage eingeben..."
+                        style={{
+                            padding: '0.65rem 0.8rem',
+                            borderRadius: '10px',
+                            border: '1px solid var(--glass-border)',
+                            background: 'rgba(255,255,255,0.05)',
+                            color: 'var(--text-light)',
+                            fontSize: '0.86rem',
+                            outline: 'none'
+                        }}
+                    />
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
+                        <input
+                            type="text"
+                            value={newQuestionTopic}
+                            onChange={(e) => setNewQuestionTopic(e.target.value)}
+                            placeholder="Thema (z.B. Marketing)"
+                            style={{
+                                padding: '0.55rem 0.75rem',
+                                borderRadius: '8px',
+                                border: '1px solid var(--glass-border)',
+                                background: 'rgba(255,255,255,0.05)',
+                                color: 'var(--text-light)',
+                                fontSize: '0.8rem',
+                                outline: 'none'
+                            }}
+                        />
+                        <input
+                            type="text"
+                            value={newQuestionYoutubeQuery}
+                            onChange={(e) => setNewQuestionYoutubeQuery(e.target.value)}
+                            placeholder="YouTube Suchbegriff (optional)"
+                            style={{
+                                padding: '0.55rem 0.75rem',
+                                borderRadius: '8px',
+                                border: '1px solid var(--glass-border)',
+                                background: 'rgba(255,255,255,0.05)',
+                                color: 'var(--text-light)',
+                                fontSize: '0.8rem',
+                                outline: 'none'
+                            }}
+                        />
+                    </div>
+                    <input
+                        type="text"
+                        value={newQuestionHint}
+                        onChange={(e) => setNewQuestionHint(e.target.value)}
+                        placeholder="Hinweis (optional)"
+                        style={{
+                            padding: '0.55rem 0.75rem',
+                            borderRadius: '8px',
+                            border: '1px solid var(--glass-border)',
+                            background: 'rgba(255,255,255,0.05)',
+                            color: 'var(--text-light)',
+                            fontSize: '0.8rem',
+                            outline: 'none'
+                        }}
+                    />
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                        {newAnswerOptions.map((opt, index) => (
+                            <div key={index} style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: '0.45rem', alignItems: 'center' }}>
+                                <button
+                                    onClick={() => handleMarkCorrectAnswer(index)}
+                                    style={{
+                                        width: '24px',
+                                        height: '24px',
+                                        borderRadius: '50%',
+                                        border: `1px solid ${opt.isCorrect ? 'rgba(34,197,94,0.5)' : 'var(--glass-border)'}`,
+                                        background: opt.isCorrect ? 'rgba(34,197,94,0.2)' : 'transparent',
+                                        color: opt.isCorrect ? '#22c55e' : 'var(--text-muted)',
+                                        fontWeight: 'bold',
+                                        cursor: 'pointer'
+                                    }}
+                                    title="Als richtige Antwort markieren"
+                                >
+                                    {opt.isCorrect ? '✓' : String.fromCharCode(65 + index)}
+                                </button>
+                                <input
+                                    type="text"
+                                    value={opt.text}
+                                    onChange={(e) => {
+                                        const updated = [...newAnswerOptions];
+                                        updated[index] = { ...updated[index], text: e.target.value };
+                                        setNewAnswerOptions(updated);
+                                    }}
+                                    placeholder={`Antwort ${index + 1}`}
+                                    style={{
+                                        padding: '0.48rem 0.68rem',
+                                        borderRadius: '8px',
+                                        border: '1px solid var(--glass-border)',
+                                        background: 'rgba(255,255,255,0.05)',
+                                        color: 'var(--text-light)',
+                                        fontSize: '0.8rem',
+                                        outline: 'none'
+                                    }}
+                                />
+                                <button
+                                    onClick={() => handleRemoveAnswerOption(index)}
+                                    disabled={newAnswerOptions.length <= 2}
+                                    style={{
+                                        padding: '0.32rem 0.5rem',
+                                        borderRadius: '6px',
+                                        border: '1px solid var(--glass-border)',
+                                        background: 'transparent',
+                                        color: 'var(--text-muted)',
+                                        cursor: newAnswerOptions.length <= 2 ? 'not-allowed' : 'pointer',
+                                        opacity: newAnswerOptions.length <= 2 ? 0.5 : 1
+                                    }}
+                                    title="Antwort entfernen"
+                                >
+                                    −
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+                        <button
+                            onClick={handleAddAnswerOption}
+                            disabled={newAnswerOptions.length >= 8}
+                            style={{
+                                padding: '0.38rem 0.7rem',
+                                borderRadius: '8px',
+                                border: '1px solid var(--glass-border)',
+                                background: 'transparent',
+                                color: 'var(--text-muted)',
+                                fontSize: '0.78rem',
+                                cursor: newAnswerOptions.length >= 8 ? 'not-allowed' : 'pointer',
+                                opacity: newAnswerOptions.length >= 8 ? 0.6 : 1
+                            }}
+                        >
+                            + Antwort hinzufügen
+                        </button>
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <button
+                                onClick={() => {
+                                    resetAddForm();
+                                    setShowAddForm(false);
+                                }}
+                                style={{
+                                    padding: '0.4rem 0.85rem',
+                                    borderRadius: '8px',
+                                    border: '1px solid var(--glass-border)',
+                                    background: 'transparent',
+                                    color: 'var(--text-muted)',
+                                    fontSize: '0.8rem',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                Abbrechen
+                            </button>
+                            <button
+                                onClick={handleSubmitCustomQuestion}
+                                disabled={addFormLoading || !authUser?.email}
+                                style={{
+                                    padding: '0.4rem 0.85rem',
+                                    borderRadius: '8px',
+                                    border: 'none',
+                                    background: 'var(--success)',
+                                    color: '#fff',
+                                    fontSize: '0.8rem',
+                                    cursor: addFormLoading || !authUser?.email ? 'not-allowed' : 'pointer',
+                                    opacity: addFormLoading || !authUser?.email ? 0.65 : 1,
+                                    fontWeight: 'bold'
+                                }}
+                            >
+                                {addFormLoading ? 'Speichert…' : 'Karte hinzufügen'}
+                            </button>
+                        </div>
+                    </div>
+                    {addFormError && (
+                        <div style={{ color: '#f87171', fontSize: '0.78rem', fontWeight: 'bold' }}>{addFormError}</div>
+                    )}
+                </div>
+            )}
 
             {/* Question list */}
             <div style={{
