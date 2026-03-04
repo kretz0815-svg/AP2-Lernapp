@@ -274,6 +274,11 @@ function App() {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
   const [selectedQuizTopic, setSelectedQuizTopic] = useState('all');
+  const [feynmanModeEnabled, setFeynmanModeEnabled] = useState(false);
+  const [feynmanInput, setFeynmanInput] = useState('');
+  const [feynmanLoading, setFeynmanLoading] = useState(false);
+  const [feynmanFeedback, setFeynmanFeedback] = useState('');
+  const [feynmanFeedbackLevel, setFeynmanFeedbackLevel] = useState(null);
 
   // --- WISOR STATE ---
   const [allWisors, setAllWisors] = useState([]);
@@ -738,6 +743,46 @@ function App() {
     setGeminiLoading(false);
   };
 
+  const handleFeynmanCheck = async () => {
+    if (!feynmanInput.trim()) return;
+    const q = allQuizzes[currentQuizIndex];
+    if (!q) return;
+
+    const correctOption = q.answerOptions.find(opt => opt.isCorrect);
+    const learnerPrompt = `Bewerte die folgende Lernerklärung eines Azubis auf fachliche Richtigkeit und Tiefe.
+Antworte exakt in diesem Format:
+STATUS: GUT oder TEILWEISE
+FEEDBACK: <maximal 4 kurze Sätze, konkret und lernförderlich>
+
+Erklärung des Azubis:
+${feynmanInput}`;
+
+    const solutionContext = `Musterlösung: ${correctOption?.text || 'N/A'} | Begründung: ${correctOption?.rationale || 'N/A'}`;
+
+    setFeynmanLoading(true);
+    setFeynmanFeedback('');
+    setFeynmanFeedbackLevel(null);
+
+    try {
+      const result = await askGemini(learnerPrompt, q.question, solutionContext);
+      const statusMatch = result.match(/STATUS\s*:\s*(GUT|TEILWEISE)/i);
+      const parsedStatus = statusMatch?.[1]?.toUpperCase() || 'TEILWEISE';
+      const cleanedFeedback = result
+        .replace(/STATUS\s*:\s*(GUT|TEILWEISE)\s*/ig, '')
+        .replace(/FEEDBACK\s*:\s*/i, '')
+        .trim();
+
+      setFeynmanFeedbackLevel(parsedStatus === 'GUT' ? 'good' : 'partial');
+      setFeynmanFeedback(cleanedFeedback || result);
+    } catch (err) {
+      console.error('Feynman check failed:', err);
+      setFeynmanFeedbackLevel('partial');
+      setFeynmanFeedback('Die Überprüfung konnte gerade nicht abgeschlossen werden. Bitte versuche es erneut.');
+    } finally {
+      setFeynmanLoading(false);
+    }
+  };
+
   const startQuizSession = (limit, topic = 'all') => {
     let sessionQs = [...getDueQuizzesByTopic(topic)].sort(() => Math.random() - 0.5);
     if (limit !== 'all') {
@@ -1035,6 +1080,10 @@ function App() {
   const handleQuizAnswer = (optionIndex) => {
     if (selectedAnswer !== null) return; // already answered
 
+    setFeynmanInput('');
+    setFeynmanFeedback('');
+    setFeynmanFeedbackLevel(null);
+
     setSelectedAnswer(optionIndex);
     const q = allQuizzes[currentQuizIndex];
     const isCorrect = q.answerOptions[optionIndex].isCorrect;
@@ -1108,6 +1157,9 @@ function App() {
   const nextQuizQuestion = () => {
     setQuizScore(s => ({ ...s, total: s.total + 1 }));
     setSelectedAnswer(null);
+    setFeynmanInput('');
+    setFeynmanFeedback('');
+    setFeynmanFeedbackLevel(null);
     setCurrentQuizIndex(prev => prev + 1);
   };
 
@@ -1118,6 +1170,9 @@ function App() {
     setCurrentQuizIndex(0);
     setQuizScore({ correct: 0, total: 0 });
     setSelectedAnswer(null);
+    setFeynmanInput('');
+    setFeynmanFeedback('');
+    setFeynmanFeedbackLevel(null);
   };
 
   const startWisor = (mode = 'wisor1') => {
@@ -2124,6 +2179,18 @@ Die JSON muss exakt diese Struktur haben:
             )}
           </div>
 
+          <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.7rem', marginBottom: '1.3rem', textAlign: 'left', color: 'var(--text-light)', cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={feynmanModeEnabled}
+              onChange={(e) => setFeynmanModeEnabled(e.target.checked)}
+              style={{ marginTop: '0.2rem' }}
+            />
+            <span style={{ fontSize: '0.9rem', lineHeight: '1.4' }}>
+              Feynman-Methode: Antworten nach Erfolg selbst erklären (Empfohlen für tieferes Verständnis)
+            </span>
+          </label>
+
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <button className="btn-secondary" onClick={() => startQuizSession(10, selectedQuizTopic)} disabled={selectedTopicDueCount === 0}>10 Fragen</button>
             <button className="btn-secondary" onClick={() => startQuizSession(20, selectedQuizTopic)} disabled={selectedTopicDueCount === 0}>20 Fragen</button>
@@ -2315,6 +2382,48 @@ Die JSON muss exakt diese Struktur haben:
           {selectedAnswer !== null && (
             <div className="quiz-rationale fade-in">
               <p><strong>Erklärung:</strong> {formatLatex(q.answerOptions[selectedAnswer].rationale)}</p>
+
+              {feynmanModeEnabled && q.answerOptions[selectedAnswer].isCorrect && (
+                <div style={{ marginTop: '1rem', textAlign: 'left', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '1rem', background: 'rgba(255,255,255,0.03)' }}>
+                  <label style={{ display: 'block', color: 'var(--text-light)', marginBottom: '0.55rem', fontWeight: 600 }}>
+                    Feynman-Check
+                  </label>
+                  <textarea
+                    className="wisor-input"
+                    placeholder="Erkläre in deinen eigenen Worten, warum diese Antwort richtig ist..."
+                    value={feynmanInput}
+                    onChange={(e) => setFeynmanInput(e.target.value)}
+                    rows={4}
+                    style={{ width: '100%', resize: 'vertical', marginBottom: '0.75rem' }}
+                  />
+                  <button
+                    className="btn-secondary"
+                    onClick={handleFeynmanCheck}
+                    disabled={feynmanLoading || !feynmanInput.trim()}
+                  >
+                    {feynmanLoading ? 'Überprüfung läuft…' : 'Erklärung überprüfen'}
+                  </button>
+
+                  {feynmanFeedback && (
+                    <div
+                      style={{
+                        marginTop: '0.8rem',
+                        borderRadius: '10px',
+                        padding: '0.8rem',
+                        border: `1px solid ${feynmanFeedbackLevel === 'good' ? 'rgba(34,197,94,0.45)' : 'rgba(245,158,11,0.45)'}`,
+                        background: feynmanFeedbackLevel === 'good' ? 'rgba(34,197,94,0.12)' : 'rgba(245,158,11,0.12)',
+                        color: 'var(--text-light)'
+                      }}
+                    >
+                      <strong style={{ display: 'block', marginBottom: '0.35rem', color: feynmanFeedbackLevel === 'good' ? 'var(--success)' : '#fbbf24' }}>
+                        {feynmanFeedbackLevel === 'good' ? 'Gut verstanden' : 'Teilweise richtig / Ergänzung nötig'}
+                      </strong>
+                      <div style={{ whiteSpace: 'pre-wrap', lineHeight: '1.45' }}>{feynmanFeedback}</div>
+                    </div>
+                  )}
+                </div>
+              )}
+
               <button className="btn-primary" style={{ marginTop: '1rem' }} onClick={nextQuizQuestion}>Nächste Frage &rarr;</button>
             </div>
           )}
