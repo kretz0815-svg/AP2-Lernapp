@@ -17,6 +17,7 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
     return (
         <>
             <button
+                className="burger-menu-toggle hide-on-print"
                 style={{
                     position: 'absolute',
                     left: 0,

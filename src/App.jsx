@@ -2070,6 +2070,10 @@ Die JSON muss exakt diese Struktur haben:
           </p>
         </header>
 
+        <h1 className="print-only-title" style={{ margin: 0, textAlign: 'center', color: 'var(--text-light)', fontSize: '2.35rem', fontWeight: 900, letterSpacing: '0.02em' }}>
+          MasterPat APP
+        </h1>
+
         <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
           {[
             { label: 'Heute', values: day },

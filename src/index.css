@@ -821,6 +821,10 @@ button {
   color: var(--error) !important;
 }
 
+.print-only-title {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .floating-notes-window {
     width: 200px;
@@ -953,6 +957,10 @@ button {
 
   .blob,
   .hide-on-print,
+  .btn-nav,
+  .btn-primary,
+  .btn-secondary,
+  .burger-menu-toggle,
   .floating-notes-toggle,
   .floating-notes-window {
     display: none !important;
@@ -1002,6 +1010,16 @@ button {
     gap: 0 !important;
   }
 
+  .learning-analytics-dashboard .print-only-title {
+    display: block !important;
+    color: #000 !important;
+    text-align: center !important;
+    margin: 0 0 1.2rem 0 !important;
+    font-size: 2.2rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.02em !important;
+  }
+
   .learning-analytics-dashboard .card-face {
     position: static !important;
     transform: none !important;
@@ -1013,7 +1031,7 @@ button {
     margin: 0 0 1rem 0 !important;
     border-radius: 0 !important;
     background: white !important;
-    border: 1px solid #ddd !important;
+    border: none !important;
     box-shadow: none !important;
     display: block !important;
     text-align: left !important;
@@ -1035,5 +1053,16 @@ button {
     display: block !important;
     margin-bottom: 1rem !important;
     width: 100% !important;
+  }
+
+  .learning-analytics-dashboard .note-card,
+  .learning-analytics-dashboard .note-card > div,
+  .learning-analytics-dashboard .note-card [style*="border"],
+  .learning-analytics-dashboard .card-face [style*="border"] {
+    border: none !important;
+    border-left: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: white !important;
   }
 }
