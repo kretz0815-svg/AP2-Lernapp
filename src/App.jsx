@@ -27,6 +27,36 @@ import PomodoroTimer from './components/PomodoroTimer';
 import KalkulationsBoss from './components/KalkulationsBoss';
 import BreakEvenPoint from './components/BreakEvenPoint';
 
+const ANALYTICS_STORAGE_PREFIX = 'ap2_learning_analytics_';
+const MEMBER_SYNC_PENDING_PREFIX = 'ap2_member_pending_sync_';
+const ACCESS_MODE_KEY = 'masterpat_access_mode';
+
+const createEmptyAnalytics = () => ({
+  events: [],
+  mistakes: {},
+  lastRefreshedAt: null
+});
+
+const normalizeAnalyticsIdentity = (identity) => {
+  return String(identity || 'guest')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9@._-]+/g, '_');
+};
+
+const getAnalyticsStorageKey = (user) => {
+  const identity = user?.email || 'guest';
+  return `${ANALYTICS_STORAGE_PREFIX}${normalizeAnalyticsIdentity(identity)}`;
+};
+
+const loadAnalyticsForUser = (user) => {
+  try {
+    return JSON.parse(localStorage.getItem(getAnalyticsStorageKey(user))) || createEmptyAnalytics();
+  } catch {
+    return createEmptyAnalytics();
+  }
+};
+
 const generateId = (text) => {
   let hash = 0;
   for (let i = 0; i < text.length; i++) {
@@ -80,6 +110,41 @@ function App() {
   const captchaRef = useRef(null);
   const SECRET_PIN = '261115'; // Das Passwort, das du später ändern kannst
 
+  const clearGuestProgressData = () => {
+    localStorage.removeItem('ap2_srs_progress');
+    localStorage.removeItem('ap2_quiz_progress');
+    localStorage.removeItem('ap2_wisor_progress');
+    localStorage.removeItem('ap2_wisor_eco_progress');
+    localStorage.removeItem('ap2_saved_notes');
+    localStorage.removeItem(getAnalyticsStorageKey(null));
+  };
+
+  const getPendingSyncStorageKey = (userId) => `${MEMBER_SYNC_PENDING_PREFIX}${userId}`;
+
+  const persistPendingMemberSync = (userId, payload) => {
+    if (!userId) return;
+    localStorage.setItem(getPendingSyncStorageKey(userId), JSON.stringify({
+      payload,
+      timestamp: Date.now()
+    }));
+  };
+
+  const readPendingMemberSync = (userId) => {
+    if (!userId) return null;
+    try {
+      return JSON.parse(localStorage.getItem(getPendingSyncStorageKey(userId)) || 'null');
+    } catch {
+      return null;
+    }
+  };
+
+  const clearPendingMemberSync = (userId) => {
+    if (!userId) return;
+    localStorage.removeItem(getPendingSyncStorageKey(userId));
+  };
+
+  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!captchaToken) { setAuthMsg('Bitte bestätige das Captcha.'); return; }
@@ -92,6 +157,7 @@ function App() {
     else {
       setAuthMsg('Erfolgreich eingeloggt! Lade Account...');
       localStorage.setItem('masterpat_auth', 'true');
+      localStorage.setItem(ACCESS_MODE_KEY, 'member');
       window.location.reload();
     }
   };
@@ -109,6 +175,7 @@ function App() {
       setAuthMsg('Account erstellt! Logge ein...');
       if (data?.session) {
         localStorage.setItem('masterpat_auth', 'true');
+        localStorage.setItem(ACCESS_MODE_KEY, 'member');
         window.location.reload();
       }
       setAuthLoading(false);
@@ -129,12 +196,15 @@ function App() {
     if (error) {
       setAuthMsg('Fehler beim Google-Login: ' + error.message);
       setAuthLoading(false);
+    } else {
+      localStorage.setItem(ACCESS_MODE_KEY, 'member');
     }
   };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     localStorage.removeItem('masterpat_auth');
+    localStorage.removeItem(ACCESS_MODE_KEY);
     window.location.reload();
   };
 
@@ -143,6 +213,7 @@ function App() {
       if (session?.user) {
         setAuthUser(session.user);
         localStorage.setItem('masterpat_auth', 'true');
+        localStorage.setItem(ACCESS_MODE_KEY, 'member');
         setAppMode(prev => prev === 'auth' ? 'dashboard' : prev);
       } else {
         setAuthUser(null);
@@ -182,6 +253,7 @@ function App() {
   const [resetTarget, setResetTarget] = useState('wisor');
   const [resetMath, setResetMath] = useState({ a: 0, b: 0, input: '' });
   const [questionManagerCategory, setQuestionManagerCategory] = useState(null);
+  const [learningAnalytics, setLearningAnalytics] = useState(createEmptyAnalytics());
   const [pomodoroActive, setPomodoroActive] = useState(false);
   const [pomodoroSessionLog, setPomodoroSessionLog] = useState([]);
   const [pomodoroTimeLeft, setPomodoroTimeLeft] = useState(25 * 60);
@@ -229,6 +301,154 @@ function App() {
     if (typeof text !== 'string') return text;
     // Removes the wrapping $ signs and any backslash \ escapes (e.g., \$ -> $, \% -> %)
     return text.replace(/\$([^\$]+)\$/g, (match, inner) => inner.replace(/\\/g, '').trim());
+  };
+
+  const getLocalProgressData = (overrides = {}) => {
+    const srsProgress = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
+    const quizProgress = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+    const wisorProgress = JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {};
+    const wisorEcoProgress = JSON.parse(localStorage.getItem('ap2_wisor_eco_progress')) || {};
+    const savedNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
+    const analytics = loadAnalyticsForUser(authUser);
+
+    return {
+      ...srsProgress,
+      quiz_progress: quizProgress,
+      wisor_progress: wisorProgress,
+      wisor_eco_progress: wisorEcoProgress,
+      saved_notes: savedNotes,
+      learning_analytics: analytics,
+      ...overrides
+    };
+  };
+
+  const syncProgressToSupabase = async (overrides = {}, options = { queueOnFail: true }) => {
+    if (!authUser?.id) return;
+
+    const payload = getLocalProgressData(overrides);
+    const userId = authUser.id;
+    let lastError = null;
+
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const { error } = await supabase
+          .from('user_data')
+          .upsert([
+            {
+              user_id: userId,
+              device_id: userId,
+              progress_data: payload,
+              updated_at: new Date().toISOString()
+            }
+          ], { onConflict: 'user_id' });
+
+        if (error) throw error;
+        clearPendingMemberSync(userId);
+        return;
+      } catch (err) {
+        lastError = err;
+        if (attempt < 3) {
+          await sleep(attempt * 350);
+        }
+      }
+    }
+
+    if (options?.queueOnFail !== false) {
+      persistPendingMemberSync(userId, payload);
+    }
+    console.error('Supabase sync failed, payload queued locally:', lastError);
+  };
+
+  const flushPendingMemberSync = async () => {
+    if (!authUser?.id) return;
+    const pending = readPendingMemberSync(authUser.id);
+    if (!pending?.payload) return;
+
+    try {
+      const { error } = await supabase
+        .from('user_data')
+        .upsert([
+          {
+            user_id: authUser.id,
+            device_id: authUser.id,
+            progress_data: pending.payload,
+            updated_at: new Date().toISOString()
+          }
+        ], { onConflict: 'user_id' });
+
+      if (error) throw error;
+      clearPendingMemberSync(authUser.id);
+    } catch (err) {
+      console.error('Pending sync flush failed:', err);
+    }
+  };
+
+  const appendLearningEvent = ({ mode, questionId, questionText, correct, userAnswer = '', expectedAnswer = '' }) => {
+    const now = Date.now();
+    const keyBase = `${mode}::${questionId || (questionText || '').slice(0, 120).toLowerCase()}`;
+
+    setLearningAnalytics(prev => {
+      const safePrev = prev && Array.isArray(prev.events) ? prev : createEmptyAnalytics();
+      const events = [...safePrev.events, {
+        id: `${now}_${Math.random().toString(36).slice(2, 8)}`,
+        ts: now,
+        mode,
+        questionId,
+        questionText,
+        correct,
+        userAnswer,
+        expectedAnswer
+      }].slice(-3000);
+
+      const mistakes = { ...(safePrev.mistakes || {}) };
+      if (!correct) {
+        mistakes[keyBase] = {
+          mode,
+          questionId: questionId || null,
+          questionText: questionText || 'Unbekannte Frage',
+          count: (mistakes[keyBase]?.count || 0) + 1,
+          lastAt: now,
+          lastUserAnswer: userAnswer,
+          expectedAnswer
+        };
+      }
+
+      const nextState = { ...safePrev, events, mistakes };
+      localStorage.setItem(getAnalyticsStorageKey(authUser), JSON.stringify(nextState));
+      syncProgressToSupabase({ learning_analytics: nextState }).catch(() => { });
+      return nextState;
+    });
+  };
+
+  const refreshMistakeAnalysis = () => {
+    setLearningAnalytics(prev => {
+      const safePrev = prev && Array.isArray(prev.events) ? prev : createEmptyAnalytics();
+      const rebuiltMistakes = {};
+
+      for (const event of safePrev.events) {
+        if (event.correct) continue;
+        const key = `${event.mode}::${event.questionId || (event.questionText || '').slice(0, 120).toLowerCase()}`;
+        rebuiltMistakes[key] = {
+          mode: event.mode,
+          questionId: event.questionId || null,
+          questionText: event.questionText || 'Unbekannte Frage',
+          count: (rebuiltMistakes[key]?.count || 0) + 1,
+          lastAt: event.ts,
+          lastUserAnswer: event.userAnswer || '',
+          expectedAnswer: event.expectedAnswer || ''
+        };
+      }
+
+      const nextState = {
+        ...safePrev,
+        mistakes: rebuiltMistakes,
+        lastRefreshedAt: Date.now()
+      };
+
+      localStorage.setItem(getAnalyticsStorageKey(authUser), JSON.stringify(nextState));
+      syncProgressToSupabase({ learning_analytics: nextState }).catch(() => { });
+      return nextState;
+    });
   };
 
   const detectQuizTopic = (quiz) => {
@@ -407,14 +627,22 @@ function App() {
     const initApp = async () => {
       // 0. Get current Auth
       const { data: { session } } = await supabase.auth.getSession();
+      const storedAccessMode = localStorage.getItem(ACCESS_MODE_KEY);
+
+      if (!session?.user && storedAccessMode === 'guest') {
+        clearGuestProgressData();
+      }
+
       if (session?.user) {
         setAuthUser(session.user);
         localStorage.setItem('masterpat_auth', 'true');
+        localStorage.setItem(ACCESS_MODE_KEY, 'member');
         setAppMode(prev => prev === 'auth' ? 'dashboard' : prev);
       }
 
       // 1. Load local progress
       let progressData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
+      let analyticsData = loadAnalyticsForUser(session?.user || null);
 
       // 2. Fetch from Supabase (only for authenticated users)
       if (session?.user) {
@@ -424,10 +652,10 @@ function App() {
             .from('user_data')
             .select('progress_data')
             .eq('user_id', userId)
-            .single();
+            .maybeSingle();
 
           if (data && data.progress_data) {
-            progressData = { ...progressData, ...data.progress_data };
+            progressData = { ...data.progress_data };
             localStorage.setItem('ap2_srs_progress', JSON.stringify(progressData));
 
             if (data.progress_data.wisor_progress) {
@@ -435,6 +663,40 @@ function App() {
             }
             if (data.progress_data.wisor_eco_progress) {
               localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(data.progress_data.wisor_eco_progress));
+            }
+            if (data.progress_data.learning_analytics) {
+              const remoteAnalytics = {
+                ...createEmptyAnalytics(),
+                ...data.progress_data.learning_analytics
+              };
+              const localAnalytics = {
+                ...createEmptyAnalytics(),
+                ...analyticsData
+              };
+
+              const mergedEvents = [...(localAnalytics.events || []), ...(remoteAnalytics.events || [])]
+                .sort((a, b) => (a.ts || 0) - (b.ts || 0));
+
+              const uniqueEvents = [];
+              const seenIds = new Set();
+              for (const event of mergedEvents) {
+                const eventId = event?.id || `${event?.ts || 0}_${event?.mode || 'x'}_${event?.questionId || ''}_${event?.correct ? '1' : '0'}`;
+                if (seenIds.has(eventId)) continue;
+                seenIds.add(eventId);
+                uniqueEvents.push({ ...event, id: eventId });
+              }
+
+              analyticsData = {
+                ...createEmptyAnalytics(),
+                ...remoteAnalytics,
+                ...localAnalytics,
+                events: uniqueEvents.slice(-3000),
+                mistakes: {
+                  ...(remoteAnalytics.mistakes || {}),
+                  ...(localAnalytics.mistakes || {})
+                }
+              };
+              localStorage.setItem(getAnalyticsStorageKey(session.user), JSON.stringify(analyticsData));
             }
             // Merge saved notes from Supabase into localStorage
             if (data.progress_data.saved_notes) {
@@ -452,7 +714,7 @@ function App() {
             }
           } else if (!data) {
             // Init empty row for this authenticated user
-            await supabase.from('user_data').insert([{ user_id: userId, device_id: userId, progress_data: progressData }]);
+            await supabase.from('user_data').upsert([{ user_id: userId, device_id: userId, progress_data: getLocalProgressData() }], { onConflict: 'user_id' });
           }
         } catch (err) {
           console.error("Supabase load error: ", err);
@@ -464,6 +726,7 @@ function App() {
 
       let wisorEcoProg = JSON.parse(localStorage.getItem('ap2_wisor_eco_progress')) || {};
       setCompletedWisorsEco(wisorEcoProg);
+      setLearningAnalytics(analyticsData);
 
       // 3. Setup Flashcards with loaded progress
       const rawCards = [
@@ -507,6 +770,29 @@ function App() {
     initApp();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setLearningAnalytics(loadAnalyticsForUser(authUser));
+  }, [authUser?.email]);
+
+  useEffect(() => {
+    if (!authUser?.id) return;
+
+    flushPendingMemberSync();
+    const interval = setInterval(() => {
+      flushPendingMemberSync();
+    }, 20000);
+
+    const handleOnline = () => {
+      flushPendingMemberSync();
+    };
+
+    window.addEventListener('online', handleOnline);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('online', handleOnline);
+    };
+  }, [authUser?.id]);
 
   const rebuildQueue = (cards) => {
     const now = Date.now();
@@ -560,10 +846,17 @@ function App() {
     storageData[currentCard.id] = newProgress;
     localStorage.setItem('ap2_srs_progress', JSON.stringify(storageData));
 
+    appendLearningEvent({
+      mode: 'flashcard',
+      questionId: currentCard.id,
+      questionText: currentCard.front,
+      correct: quality >= 3,
+      userAnswer: quality >= 3 ? 'Kann ich' : 'Kann ich nicht',
+      expectedAnswer: 'Sicher erinnern'
+    });
+
     // Sync to Supabase in background (only for authenticated users)
-    if (authUser?.id) {
-      supabase.from('user_data').update({ progress_data: storageData, updated_at: new Date().toISOString() }).eq('user_id', authUser.id).then();
-    }
+    syncProgressToSupabase().catch(() => { });
 
     let newQueue = [...learningQueue];
     if (quality < 3) {
@@ -585,6 +878,8 @@ function App() {
     setSelectedAnswer(optionIndex);
     const q = allQuizzes[currentQuizIndex];
     const isCorrect = q.answerOptions[optionIndex].isCorrect;
+    const selectedOption = q.answerOptions[optionIndex];
+    const expectedOption = q.answerOptions.find(opt => opt.isCorrect);
 
     if (isCorrect) {
       setQuizScore(s => ({ ...s, correct: s.correct + 1 }));
@@ -618,11 +913,16 @@ function App() {
     quizProg[q.id] = { rep, ef, interval, nextReview };
     localStorage.setItem('ap2_quiz_progress', JSON.stringify(quizProg));
 
-    if (authUser?.id) {
-      let progressData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
-      progressData.quiz_progress = quizProg;
-      supabase.from('user_data').update({ progress_data: progressData }).eq('user_id', authUser.id).catch(e => console.error(e));
-    }
+    appendLearningEvent({
+      mode: 'quiz',
+      questionId: q.id,
+      questionText: q.question,
+      correct: isCorrect,
+      userAnswer: selectedOption?.text || '',
+      expectedAnswer: expectedOption?.text || ''
+    });
+
+    syncProgressToSupabase({ quiz_progress: quizProg }).catch(e => console.error(e));
   };
 
   const nextQuizQuestion = () => {
@@ -677,8 +977,7 @@ function App() {
         localStorage.removeItem('ap2_wisor_progress');
 
         if (authUser?.id) {
-          const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
-          supabase.from('user_data').update({ progress_data: { ...srsData, wisor_progress: {} } }).eq('user_id', authUser.id).then();
+          syncProgressToSupabase({ wisor_progress: {} }).catch(() => { });
         }
 
         setResetModalVisible(false);
@@ -697,8 +996,7 @@ function App() {
         localStorage.removeItem('ap2_wisor_eco_progress');
 
         if (authUser?.id) {
-          const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
-          supabase.from('user_data').update({ progress_data: { ...srsData, wisor_eco_progress: {} } }).eq('user_id', authUser.id).then();
+          syncProgressToSupabase({ wisor_eco_progress: {} }).catch(() => { });
         }
 
         setResetModalVisible(false);
@@ -716,8 +1014,7 @@ function App() {
         localStorage.removeItem('ap2_quiz_progress');
 
         if (authUser?.id) {
-          const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
-          supabase.from('user_data').update({ progress_data: { ...srsData, quiz_progress: {} } }).eq('user_id', authUser.id).then();
+          syncProgressToSupabase({ quiz_progress: {} }).catch(() => { });
         }
 
         setResetModalVisible(false);
@@ -758,6 +1055,15 @@ function App() {
     setWisorIsCorrect(correct);
     setWisorEvaluated(true);
 
+    appendLearningEvent({
+      mode: activeWisorMode === 'wisor1' ? 'wisor' : 'wisorEco',
+      questionId: q.id,
+      questionText: q.question,
+      correct,
+      userAnswer: wisorInput,
+      expectedAnswer: (q.expectedAnswers || []).join(' | ')
+    });
+
     // Pomodoro session logging
     if (pomodoroActive) {
       const questionText = q.question?.substring(0, 100) || q.id || 'WisoR-Frage';
@@ -774,9 +1080,8 @@ function App() {
         localStorage.setItem(key, JSON.stringify(next));
 
         if (authUser?.id) {
-          const srsData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
           const dbKey = activeWisorMode === 'wisor1' ? 'wisor_progress' : 'wisor_eco_progress';
-          supabase.from('user_data').update({ progress_data: { ...srsData, [dbKey]: next } }).eq('user_id', authUser.id).then();
+          syncProgressToSupabase({ [dbKey]: next }).catch(() => { });
         }
         return next;
       };
@@ -899,6 +1204,8 @@ function App() {
             e.preventDefault();
             if (pinInput === SECRET_PIN) {
               setAuthError(false);
+              localStorage.setItem(ACCESS_MODE_KEY, 'guest');
+              clearGuestProgressData();
               localStorage.setItem('masterpat_auth', 'true');
               setAppMode('dashboard');
               window.location.reload(); // Zum Laden der User Data vom Device
@@ -969,6 +1276,7 @@ function App() {
         isLightMode={isLightMode}
         toggleTheme={toggleTheme}
         onOpenQuestionManager={(cat) => setQuestionManagerCategory(cat)}
+        onOpenLearningDashboard={() => setAppMode('learning_dashboard')}
         onStartPomodoro={() => { setPomodoroActive(true); setPomodoroSessionLog([]); }}
         pomodoroRunning={pomodoroActive}
         pomodoroTimeLeft={pomodoroTimeLeft}
@@ -1221,11 +1529,7 @@ function App() {
         // Sync deletion to Supabase (only for authenticated users)
         if (authUser?.id) {
           try {
-            const { data } = await supabase.from('user_data').select('progress_data').eq('user_id', authUser.id).single();
-            if (data?.progress_data) {
-              data.progress_data.saved_notes = notes;
-              await supabase.from('user_data').update({ progress_data: data.progress_data, updated_at: new Date().toISOString() }).eq('user_id', authUser.id);
-            }
+            await syncProgressToSupabase({ saved_notes: notes });
           } catch (err) { console.error('Supabase note delete sync error:', err); }
         }
         setAppMode('');
@@ -1292,11 +1596,7 @@ Die JSON muss exakt diese Struktur haben:
             // Sync deep learning result to Supabase (only for authenticated users)
             if (authUser?.id) {
               try {
-                const { data: dbRow } = await supabase.from('user_data').select('progress_data').eq('user_id', authUser.id).single();
-                if (dbRow?.progress_data) {
-                  dbRow.progress_data.saved_notes = notes;
-                  await supabase.from('user_data').update({ progress_data: dbRow.progress_data, updated_at: new Date().toISOString() }).eq('user_id', authUser.id);
-                }
+                await syncProgressToSupabase({ saved_notes: notes });
               } catch (err) { console.error('Supabase deep learning sync error:', err); }
             }
           } catch (e) {
@@ -1413,6 +1713,162 @@ Die JSON muss exakt diese Struktur haben:
               })}
             </div>
           )}
+        </div>
+      </div>
+    );
+  }
+
+  if (appMode === 'learning_dashboard') {
+    if (!authUser?.email) {
+      return (
+        <div className="app-container" style={{ zIndex: 10 }}>
+          {burgerMenuPortal}
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '620px', padding: '2.2rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
+            <h2 style={{ color: 'var(--text-light)', marginTop: 0 }}>Nur für registrierte Accounts</h2>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
+              Die Lernkarten-Analyse ist nur mit E-Mail-Login verfügbar. Pro E-Mail wird ein eigener Lernstand geführt.
+            </p>
+            <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
+          </div>
+        </div>
+      );
+    }
+
+    const events = learningAnalytics?.events || [];
+    const mistakes = learningAnalytics?.mistakes || {};
+
+    const periodStart = {
+      day: Date.now() - (24 * 60 * 60 * 1000),
+      week: Date.now() - (7 * 24 * 60 * 60 * 1000),
+      month: Date.now() - (30 * 24 * 60 * 60 * 1000)
+    };
+
+    const getCounts = (startTs) => {
+      const inRange = events.filter(e => e.ts >= startTs);
+      const questionEvents = inRange.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco');
+      const cardEvents = inRange.filter(e => e.mode === 'flashcard');
+
+      return {
+        questionsCorrect: questionEvents.filter(e => e.correct).length,
+        questionsWrong: questionEvents.filter(e => !e.correct).length,
+        cardsCorrect: cardEvents.filter(e => e.correct).length,
+        cardsWrong: cardEvents.filter(e => !e.correct).length,
+      };
+    };
+
+    const day = getCounts(periodStart.day);
+    const week = getCounts(periodStart.week);
+    const month = getCounts(periodStart.month);
+
+    const topMistakes = Object.values(mistakes)
+      .sort((a, b) => (b.count || 0) - (a.count || 0))
+      .slice(0, 12);
+
+    const modeTotals = events.reduce((acc, event) => {
+      const mode = event.mode || 'unknown';
+      if (!acc[mode]) acc[mode] = { correct: 0, wrong: 0 };
+      if (event.correct) acc[mode].correct += 1;
+      else acc[mode].wrong += 1;
+      return acc;
+    }, {});
+
+    return (
+      <div className="app-container learning-analytics-dashboard" style={{ zIndex: 10, alignItems: 'stretch' }}>
+        {burgerMenuPortal}
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+
+        <header className="hide-on-print" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto 1.2rem auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '0.8rem' }}>
+            <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
+          </div>
+          <h1 style={{ margin: 0, color: 'var(--text-light)', fontSize: '2rem', textAlign: 'center', width: '100%' }}>Lernkarten Analyse</h1>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.6rem', flexWrap: 'wrap', marginTop: '0.8rem' }}>
+            <button className="btn-secondary" onClick={refreshMistakeAnalysis}>🔄 Analyse aktualisieren</button>
+            <button className="btn-primary" onClick={() => window.print()}>📄 Lernstand als PDF</button>
+          </div>
+          <p style={{ color: 'var(--text-muted)', marginTop: '0.8rem', marginBottom: 0, textAlign: 'center' }}>
+            Überblick über richtige/falsche Antworten pro Zeitraum, inkl. Fehlercluster und Schwächen.
+          </p>
+        </header>
+
+        <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
+          {[
+            { label: 'Heute', values: day },
+            { label: 'Letzte 7 Tage', values: week },
+            { label: 'Letzte 30 Tage', values: month }
+          ].map(item => (
+            <div key={item.label} className="card-face" style={{ padding: '1.2rem', border: '1px solid var(--glass-border)', borderRadius: '16px', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', textAlign: 'left' }}>
+              <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.9rem' }}>{item.label}</h3>
+              <p style={{ margin: '0.35rem 0', color: 'var(--text-muted)' }}>Fragen richtig: <strong style={{ color: 'var(--success)' }}>{item.values.questionsCorrect}</strong></p>
+              <p style={{ margin: '0.35rem 0', color: 'var(--text-muted)' }}>Fragen falsch: <strong style={{ color: 'var(--error)' }}>{item.values.questionsWrong}</strong></p>
+              <p style={{ margin: '0.35rem 0', color: 'var(--text-muted)' }}>Karten richtig: <strong style={{ color: 'var(--success)' }}>{item.values.cardsCorrect}</strong></p>
+              <p style={{ margin: '0.35rem 0', color: 'var(--text-muted)' }}>Karten unsicher/falsch: <strong style={{ color: 'var(--error)' }}>{item.values.cardsWrong}</strong></p>
+            </div>
+          ))}
+        </div>
+
+        <div className="printable-notes" style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
+          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Fehler-Analyse (Top Schwächen)</h3>
+            <p style={{ color: 'var(--text-muted)', marginTop: 0, marginBottom: '1rem', fontSize: '0.9rem' }}>
+              Letzte Aktualisierung: {learningAnalytics?.lastRefreshedAt ? new Date(learningAnalytics.lastRefreshedAt).toLocaleString() : 'noch nicht ausgeführt'}
+            </p>
+            {topMistakes.length === 0 ? (
+              <p style={{ color: 'var(--text-muted)', margin: 0 }}>Noch keine Fehlerdaten vorhanden.</p>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+                {topMistakes.map((entry, idx) => (
+                  <div key={`${entry.mode}_${entry.questionId || idx}`} style={{ padding: '0.75rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '0.35rem' }}>
+                      <strong style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{entry.questionText}</strong>
+                      <span style={{ color: 'var(--error)', fontWeight: 'bold', whiteSpace: 'nowrap' }}>{entry.count}× Fehler</span>
+                    </div>
+                    <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                      Bereich: {entry.mode} · Letzter Fehler: {entry.lastAt ? new Date(entry.lastAt).toLocaleString() : '-'}
+                    </div>
+                    {entry.expectedAnswer ? (
+                      <div style={{ marginTop: '0.3rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                        Erwartet: {entry.expectedAnswer}
+                      </div>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
+          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Detaillierter Lernstand</h3>
+            <p style={{ color: 'var(--text-muted)', marginTop: 0, marginBottom: '0.75rem' }}>Gesamte Antworten: <strong style={{ color: 'var(--text-light)' }}>{events.length}</strong></p>
+            {Object.keys(modeTotals).length === 0 ? (
+              <p style={{ color: 'var(--text-muted)', margin: 0 }}>Noch keine Trainingsdaten vorhanden.</p>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                {Object.entries(modeTotals).map(([mode, counts]) => {
+                  const total = counts.correct + counts.wrong;
+                  const accuracy = total > 0 ? Math.round((counts.correct / total) * 100) : 0;
+                  return (
+                    <div key={mode} style={{ padding: '0.7rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <strong style={{ color: 'var(--text-light)' }}>{mode}</strong>
+                        <span style={{ color: accuracy >= 70 ? 'var(--success)' : 'var(--error)', fontWeight: 'bold' }}>{accuracy}% Trefferquote</span>
+                      </div>
+                      <div style={{ marginTop: '0.35rem', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                        Richtig: {counts.correct} · Falsch: {counts.wrong} · Gesamt: {total}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            <div style={{ marginTop: '1rem', padding: '0.75rem', borderRadius: '10px', border: '1px dashed var(--glass-border)', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+              PDF-Export enthält alle sichtbaren Kennzahlen, Fehlercluster und Bereichs-Trefferquoten.
+            </div>
+          </section>
         </div>
       </div>
     );

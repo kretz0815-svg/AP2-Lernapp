@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, onOpenQuestionManager, onStartPomodoro, pomodoroRunning, pomodoroTimeLeft, onStopPomodoro }) => {
+const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, onOpenQuestionManager, onOpenLearningDashboard, onStartPomodoro, pomodoroRunning, pomodoroTimeLeft, onStopPomodoro }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const formatPomodoroTime = (seconds) => {
@@ -188,6 +188,37 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
 
                         <h3 style={{ color: 'var(--text-light)', marginBottom: '1rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Mein Lernstand</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', flex: 1, overflowY: 'auto' }}>
+
+                            {authUser ? (
+                                <div
+                                    className="stat-card"
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                        if (onOpenLearningDashboard) onOpenLearningDashboard();
+                                    }}
+                                >
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Lernkarten Analyse</span>
+                                        <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                        <span style={{ fontSize: '1rem', fontWeight: 'bold', color: 'var(--primary)' }}>Daily / Week / Month</span>
+                                    </div>
+                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>
+                                        Fehlerboard, Schwächen, PDF-Export
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="stat-card" style={{ opacity: 0.72, cursor: 'not-allowed' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Lernkarten Analyse 🔒</span>
+                                    </div>
+                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>
+                                        Nur mit E-Mail-Login verfügbar
+                                    </div>
+                                </div>
+                            )}
 
                             <div className="stat-card" style={{ cursor: 'pointer' }} onClick={() => handleCategoryClick('quiz')}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
