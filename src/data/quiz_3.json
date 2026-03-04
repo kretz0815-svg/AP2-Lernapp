@@ -621,6 +621,314 @@
       ],
       "hint": "Nulltreffer sollten immer einen hilfreichen nächsten Schritt anbieten.",
       "youtubeQuery": "Nulltreffer Online Shop Usability Alternativvorschlaege Suchergebnisse"
+    },
+    {
+      "question": "Die Mountain-Peak Ausrüstung GmbH implementiert eine KI. Das Ziel ist es, in der operativen Bestandssteuerung die Verfügbarkeit der Waren zu optimieren. Welche der folgenden Aufgaben übernimmt die KI in diesem spezifischen Anwendungsbereich primär?",
+      "answerOptions": [
+        {
+          "text": "Die Identifikation von sogenannten Low-Performern im Sortiment.",
+          "isCorrect": false,
+          "rationale": "Die Identifikation von Low-Performern gehört primär zur Sortimentsoptimierung, nicht zur operativen Bestandssteuerung."
+        },
+        {
+          "text": "Die Analyse von Social-Media-Daten und Suchvolumen zur Trendforschung.",
+          "isCorrect": false,
+          "rationale": "Social-Media- und Suchvolumen-Analysen sind Teil der Trend- und Wettbewerbsanalyse."
+        },
+        {
+          "text": "Die automatische Generierung von Nachbestellvorschlägen und die Berechnung des Sicherheitsbestands.",
+          "isCorrect": true,
+          "rationale": "Richtig: Nachbestellvorschläge, Sicherheitsbestand und Out-of-Stock-Vermeidung sind Kernaufgaben der KI in der Bestandssteuerung."
+        },
+        {
+          "text": "Die Überwachung der saisonalen Schwankungen im vergangenen Kalenderjahr.",
+          "isCorrect": false,
+          "rationale": "Die reine historische Beobachtung ist kein primärer operativer Steuerungshebel wie automatische Dispositionsvorschläge."
+        }
+      ],
+      "hint": "Denke an operative Disposition: Wann und wie viel soll automatisch nachbestellt werden?",
+      "youtubeQuery": "KI Bestandssteuerung Nachbestellvorschlag Sicherheitsbestand Out of Stock",
+      "topic": "KI in Disposition"
+    },
+    {
+      "question": "Die Einkaufsabteilung nutzt das neue KI-System, um das überladene Sortiment von über 4.500 Artikeln zu bereinigen und profitabler zu gestalten. Welche konkrete KI-Funktion fällt in den Bereich der Sortimentsoptimierung?",
+      "answerOptions": [
+        {
+          "text": "Das Ermitteln von besonders margenstarken Produkten und passenden Ergänzungssortimenten.",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Identifikation margenstarker Produkte und sinnvoller Ergänzungssortimente ist ein Kern der KI-basierten Sortimentsoptimierung."
+        },
+        {
+          "text": "Die Anbindung des Web-Analytics-Tools an das ERP-System.",
+          "isCorrect": false,
+          "rationale": "Das ist eine technische Integrationsmaßnahme, aber keine konkrete Optimierungsfunktion des Sortiments."
+        },
+        {
+          "text": "Die automatische Beantwortung von Kundenbewertungen auf Bewertungsportalen.",
+          "isCorrect": false,
+          "rationale": "Das gehört eher zu Kundenservice/Kommunikation und nicht zur Sortimentsoptimierung."
+        },
+        {
+          "text": "Die Vorhersage von allgemeinen Marktbewegungen durch die Auswertung des Google-Suchvolumens.",
+          "isCorrect": false,
+          "rationale": "Das ist primär Trend- und Wettbewerbsanalyse, nicht die direkte Bereinigung des Sortiments."
+        }
+      ],
+      "hint": "Sortimentsoptimierung heißt: Profitabilität im Artikelspektrum steigern.",
+      "youtubeQuery": "KI Sortimentsoptimierung Low Performer margenstarke Produkte Ergänzungssortiment",
+      "topic": "KI in Disposition"
+    },
+    {
+      "question": "Damit eine KI zuverlässige Trend- und Wettbewerbsanalysen durchführen kann, muss sie mit externen Datenströmen abseits der reinen Unternehmenszahlen gefüttert werden. Welche Datenquelle ist hierfür unabdingbar?",
+      "answerOptions": [
+        {
+          "text": "Die Daten aus der internen Finanzbuchhaltung.",
+          "isCorrect": false,
+          "rationale": "Finanzbuchhaltung ist eine interne Datenquelle und liefert keinen vollständigen externen Marktblick."
+        },
+        {
+          "text": "Die historischen Verkaufsdaten aus dem ERP-System der letzten drei Jahre.",
+          "isCorrect": false,
+          "rationale": "ERP-Daten sind wichtig für interne Prognosen, reichen für externe Trend- und Wettbewerbsanalysen allein aber nicht aus."
+        },
+        {
+          "text": "Das Customer-Relationship-Management-System (CRM).",
+          "isCorrect": false,
+          "rationale": "CRM ist ebenfalls eine interne Quelle mit Fokus auf Kundenbeziehungen, nicht auf externe Marktbewegungen."
+        },
+        {
+          "text": "Die Daten aus Social-Media-Plattformen und allgemeinen Suchvolumen-Analysen.",
+          "isCorrect": true,
+          "rationale": "Richtig: Für Trend- und Wettbewerbsanalysen braucht die KI externe Signale wie Social-Media-Daten und Suchvolumen."
+        }
+      ],
+      "hint": "Trendanalyse braucht den Blick nach außen, nicht nur interne Kennzahlen.",
+      "youtubeQuery": "KI Trendanalyse Social Media Daten Suchvolumen Wettbewerbsanalyse",
+      "topic": "KI in Disposition"
+    },
+    {
+      "question": "Die Geschäftsführung diskutiert die Risiken der KI-Einführung. Der Leiter der Einkaufsabteilung befürchtet einen Verlust der unternehmerischen Intuition sowie eine Überoptimierung auf kurzfristige Kennzahlen. Welcher Perspektive sind diese spezifischen Risiken zuzuordnen?",
+      "answerOptions": [
+        {
+          "text": "Der rein betriebswirtschaftlichen Perspektive.",
+          "isCorrect": false,
+          "rationale": "Betriebswirtschaftliche Risiken betreffen stärker operative/finanzielle Effekte wie Kosten, Fehlprognosen oder Lieferengpässe."
+        },
+        {
+          "text": "Der strategischen Perspektive.",
+          "isCorrect": true,
+          "rationale": "Richtig: Verlust von Intuition, Fokus auf kurzfristige KPI und Vernachlässigung langfristiger Markenstrategie sind strategische Risiken."
+        },
+        {
+          "text": "Der technologisch-infrastrukturellen Perspektive.",
+          "isCorrect": false,
+          "rationale": "Technologische Perspektive betrifft eher Systemstabilität, Datenqualität oder Integrationsfragen."
+        },
+        {
+          "text": "Der juristischen Perspektive (Datenschutz).",
+          "isCorrect": false,
+          "rationale": "Juristische Risiken beziehen sich vor allem auf Datenschutz und Compliance, nicht primär auf strategische Steuerungslogik."
+        }
+      ],
+      "hint": "Frage dich: Geht es um kurzfristige Kennzahlen vs. langfristige Unternehmensausrichtung?",
+      "youtubeQuery": "KI strategische Risiken unternehmerische Intuition kurzfristige Kennzahlen",
+      "topic": "KI Chancen & Risiken"
+    },
+    {
+      "question": "Welches der folgenden Argumente ist eine primär betriebswirtschaftliche Chance (auf operativer und finanzieller Ebene), die für den Einsatz eines KI-Systems in der Disposition spricht?",
+      "answerOptions": [
+        {
+          "text": "Der Aufbau eines langfristigen Wettbewerbsvorteils gegenüber der Konkurrenz.",
+          "isCorrect": false,
+          "rationale": "Das ist eher eine strategische Chance und weniger eine unmittelbare betriebswirtschaftliche Operativwirkung."
+        },
+        {
+          "text": "Die Etablierung einer rein datenbasierten Entscheidungskultur im Unternehmen.",
+          "isCorrect": false,
+          "rationale": "Das ist primär organisatorisch-strategisch und nicht direkt eine operative Kosten- bzw. Ergebniskennzahl."
+        },
+        {
+          "text": "Die Reduzierung der Lagerkosten durch eine Senkung der Out-of-Stock- und Abschriftenquoten.",
+          "isCorrect": true,
+          "rationale": "Richtig: Geringere Lagerkosten, weniger Abschriften und bessere Warenverfügbarkeit sind direkte betriebswirtschaftliche Vorteile."
+        },
+        {
+          "text": "Die schnellere strategische Reaktion auf neue Modetrends.",
+          "isCorrect": false,
+          "rationale": "Das ist eher strategisch als unmittelbar operativ-finanziell."
+        }
+      ],
+      "hint": "Achte auf direkte finanzielle/operative Effekte im Tagesgeschäft.",
+      "youtubeQuery": "KI Disposition betriebswirtschaftliche Chancen Lagerkosten Out of Stock Abschriften",
+      "topic": "KI Chancen & Risiken"
+    },
+    {
+      "question": "Ein halbes Jahr nach der Einführung des KI-Systems in der Disposition soll der Erfolg evaluiert werden. Das Hauptziel der KI war es, zu verhindern, dass Artikel im Shop ausverkauft sind und Kunden abwandern. Mit welcher Key Performance Indicator (KPI) lässt sich dieser Erfolg am direktesten messen?",
+      "answerOptions": [
+        {
+          "text": "Retourenquote",
+          "isCorrect": false,
+          "rationale": "Die Retourenquote misst Rücksendungen, nicht die Produktverfügbarkeit im Shop."
+        },
+        {
+          "text": "Kapitalbindungsgrad",
+          "isCorrect": false,
+          "rationale": "Der Kapitalbindungsgrad ist wichtig, aber nicht die direkteste Kennzahl für Verfügbarkeitsprobleme."
+        },
+        {
+          "text": "Out-of-Stock-Quote",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Out-of-Stock-Quote misst direkt die Häufigkeit von Nichtverfügbarkeit und damit das Kernziel der Disposition."
+        },
+        {
+          "text": "Forecast-Genauigkeit",
+          "isCorrect": false,
+          "rationale": "Die Forecast-Genauigkeit ist ein indirekter Indikator, aber nicht so direkt wie die Out-of-Stock-Quote."
+        }
+      ],
+      "hint": "Welche KPI zeigt unmittelbar, ob Kunden ein Produkt nicht kaufen konnten, weil es fehlte?",
+      "youtubeQuery": "Out of Stock Quote KPI Disposition Erfolgsmessung",
+      "topic": "KI Erfolgsmessung"
+    },
+    {
+      "question": "Die Geschäftsführung möchte durch den Einsatz der KI-gestützten Sortimentssteuerung sicherstellen, dass Ware nicht unnötig lange im Lager liegt und somit finanzielle Mittel blockiert. Welche beiden eng verwandten KPIs müssen hierfür primär im Controlling-Reporting betrachtet werden?",
+      "answerOptions": [
+        {
+          "text": "Die Conversion-Rate und der Deckungsbeitrag je Artikel.",
+          "isCorrect": false,
+          "rationale": "Diese Kennzahlen sind relevant, messen aber nicht direkt Lagerverweildauer und Kapitalbindung im Bestand."
+        },
+        {
+          "text": "Die Lagerumschlagshäufigkeit und die durchschnittliche Lagerdauer.",
+          "isCorrect": true,
+          "rationale": "Richtig: Diese beiden KPI zeigen direkt, wie schnell Ware abverkauft wird und wie lange Kapital im Lager gebunden bleibt."
+        },
+        {
+          "text": "Die Abschriftenquote und die Retourenquote.",
+          "isCorrect": false,
+          "rationale": "Wichtige Kennzahlen, aber nicht das engste KPI-Paar zur Messung von Umschlag und Lagerdauer."
+        },
+        {
+          "text": "Die Click-Through-Rate und die Forecast-Genauigkeit.",
+          "isCorrect": false,
+          "rationale": "Diese KPI adressieren Marketing/Prognosequalität, nicht primär Lagerbindungsgeschwindigkeit."
+        }
+      ],
+      "hint": "Gesucht sind die Kernkennzahlen für Lagerdynamik und Kapitalbindung.",
+      "youtubeQuery": "Lagerumschlagshäufigkeit durchschnittliche Lagerdauer KPI Controlling",
+      "topic": "KI Erfolgsmessung"
+    },
+    {
+      "question": "Ein E-Commerce-Unternehmen hat eine KI-Software zur Disposition lizenziert. Um das Risiko von katastrophalen Fehlbestellungen zu Beginn zu minimieren, rät das Projektteam von einem sofortigen, kompletten Rollout für alle 4.500 Artikel ab. Welche Maßnahme sollte stattdessen zwingend als Erstes durchgeführt werden?",
+      "answerOptions": [
+        {
+          "text": "Das komplette Outsourcing der Logistik an einen Drittanbieter.",
+          "isCorrect": false,
+          "rationale": "Outsourcing ist eine strategische Strukturentscheidung, aber nicht die zentrale Startmaßnahme für sichere KI-Einführung."
+        },
+        {
+          "text": "Eine Pilotphase, in der die KI zunächst nur mit einer ausgewählten Warengruppe getestet wird.",
+          "isCorrect": true,
+          "rationale": "Richtig: Eine Pilotphase reduziert Risiko und ermöglicht kontrolliertes Lernen vor dem Gesamt-Rollout."
+        },
+        {
+          "text": "Die sofortige Entlassung des bisherigen Dispositionsteams, um Personalkosten zu sparen.",
+          "isCorrect": false,
+          "rationale": "Das wäre operativ gefährlich und widerspricht sinnvoller Change- und Qualitätssicherung."
+        },
+        {
+          "text": "Die Löschung aller historischen Verkaufsdaten, damit die KI unbelastet lernen kann.",
+          "isCorrect": false,
+          "rationale": "Historische Daten sind zentral für Prognosequalität; ihre Löschung verschlechtert die KI-Leistung."
+        }
+      ],
+      "hint": "Bei risikoreichen Einführungen zuerst klein und kontrolliert testen.",
+      "youtubeQuery": "KI Einführung Pilotphase Disposition Rollout Warengruppe",
+      "topic": "KI Integration"
+    },
+    {
+      "question": "Damit die KI in der Lage ist, automatisiert Bestellvorschläge zu generieren oder sogar direkte Nachbestellungen bei Lieferanten auszulösen, muss eine grundlegende technische Integrationsmaßnahme umgesetzt werden. Welche ist das?",
+      "answerOptions": [
+        {
+          "text": "Die Umstellung des gesamten Webshops auf ein neues Content-Management-System (CMS).",
+          "isCorrect": false,
+          "rationale": "Ein CMS-Wechsel ist nicht die Kernvoraussetzung für KI-gestützte Dispositionsautomation."
+        },
+        {
+          "text": "Die Etablierung eines Social-Media-Kanals für jedes einzelne Produkt.",
+          "isCorrect": false,
+          "rationale": "Social Media ist nicht die technische Grundlage für ERP-nahe Bestellautomatisierung."
+        },
+        {
+          "text": "Die Schaffung einer sauberen Schnittstellenanbindung (API) an das bestehende ERP-System.",
+          "isCorrect": true,
+          "rationale": "Richtig: Ohne ERP-API-Anbindung kann die KI nicht operativ auf Bestände und Bestellprozesse zugreifen."
+        },
+        {
+          "text": "Die Ausstattung des Lagers mit autonomen Transportrobotern.",
+          "isCorrect": false,
+          "rationale": "Robotik kann hilfreich sein, ist aber nicht die zwingende Basistechnik für KI-Dispositionsvorschläge."
+        }
+      ],
+      "hint": "Automatisierte Nachbestellung braucht direkte Systemkommunikation mit dem Warenwirtschaftssystem.",
+      "youtubeQuery": "ERP API Schnittstelle KI Disposition Nachbestellung Integration",
+      "topic": "KI Integration"
+    },
+    {
+      "question": "Während der Pilotphase der neuen KI kommt es häufig zu Konflikten: Ein menschlicher Einkäufer storniert die Bestellvorschläge der KI, weil er seiner eigenen Erfahrung mehr vertraut. Welche organisatorische Maßnahme wurde hier bei der Einführung der KI versäumt?",
+      "answerOptions": [
+        {
+          "text": "Die KI wurde nicht mit ausreichend Rechenleistung ausgestattet.",
+          "isCorrect": false,
+          "rationale": "Das Problem ist hier nicht primär technische Leistung, sondern Entscheidungsgovernance."
+        },
+        {
+          "text": "Es wurden keine klaren Entscheidungsprozesse zwischen Mensch und Maschine definiert.",
+          "isCorrect": true,
+          "rationale": "Richtig: Klare Entscheidungsregeln sind zentral, um Konflikte zwischen menschlicher Erfahrung und KI-Vorschlägen zu vermeiden."
+        },
+        {
+          "text": "Das ERP-System wurde nicht regelmäßig geupdatet.",
+          "isCorrect": false,
+          "rationale": "Regelmäßige Updates sind wichtig, erklären hier aber nicht den beschriebenen Zuständigkeitskonflikt."
+        },
+        {
+          "text": "Der Einkäufer wurde nicht juristisch belehrt.",
+          "isCorrect": false,
+          "rationale": "Das Kernproblem ist organisatorische Prozessklarheit, nicht juristische Einweisung."
+        }
+      ],
+      "hint": "Change-Management heißt auch: Wer entscheidet wann final?",
+      "youtubeQuery": "KI Change Management Entscheidungsprozesse Mensch Maschine Einkauf",
+      "topic": "KI Integration"
+    },
+    {
+      "question": "Auch das beste KI-System lernt kontinuierlich und kann – beispielsweise durch unvorhersehbare Marktereignisse (wie Pandemien oder Lieferkettenabrisse) – falsche Trends prognostizieren. Durch welche fortlaufende Maßnahme stellt ein Unternehmen sicher, dass die KI nicht langfristig in die falsche Richtung optimiert?",
+      "answerOptions": [
+        {
+          "text": "Durch den Verzicht auf jegliche manuelle Eingriffe.",
+          "isCorrect": false,
+          "rationale": "Ohne menschliche Kontrolle steigen Risiko und Fehlerfortschreibung im Modell."
+        },
+        {
+          "text": "Durch die regelmäßige Validierung (Überprüfung) der KI-Prognosen durch das Fachpersonal.",
+          "isCorrect": true,
+          "rationale": "Richtig: Laufende Validierung durch Fachpersonal ist zentral, um Prognosefehler früh zu erkennen und gegenzusteuern."
+        },
+        {
+          "text": "Durch die tägliche Neuinstallation der KI-Software.",
+          "isCorrect": false,
+          "rationale": "Neuinstallation verbessert nicht die Modellqualität oder Prognosegüte."
+        },
+        {
+          "text": "Durch das Ignorieren aller Warnmeldungen im ERP-System.",
+          "isCorrect": false,
+          "rationale": "Warnungen zu ignorieren erhöht Risiken und widerspricht wirksamer Qualitätssicherung."
+        }
+      ],
+      "hint": "Qualitätssicherung bei KI ist ein kontinuierlicher Prüfprozess, kein Einmal-Setup.",
+      "youtubeQuery": "KI Prognosen validieren Monitoring Qualitätssicherung Disposition",
+      "topic": "KI Integration"
     }
   ]
 }
