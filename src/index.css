@@ -657,6 +657,104 @@ button {
     padding: 0.8rem 1rem;
     font-size: 0.9rem;
   }
+
+  body {
+    align-items: flex-start;
+    min-height: 100dvh;
+  }
+
+  .app-container {
+    max-width: none;
+    width: 100%;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .dash-card {
+    border-radius: 16px;
+    padding: 1.2rem;
+  }
+
+  .quiz-container {
+    padding: 1rem;
+    border-radius: 16px;
+  }
+
+  .quiz-question {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.35;
+  }
+
+  .quiz-options {
+    gap: 0.7rem;
+  }
+
+  .quiz-btn {
+    padding: 0.95rem;
+    font-size: 0.96rem;
+    border-radius: 10px;
+  }
+
+  .quiz-rationale {
+    margin-top: 1.1rem;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-nav {
+    min-height: 44px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .score-badge {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .quiz-container {
+    padding: 0.85rem;
+  }
+
+  .quiz-question {
+    font-size: 1.02rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
 }
 
 /* Floating Notes Styles */
