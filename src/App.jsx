@@ -2491,7 +2491,7 @@ Die JSON muss exakt diese Struktur haben:
 
           {quizRevealConfirmVisible && (
             <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.72)', zIndex: 120, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <div className="card-face fade-in" style={{ width: '100%', maxWidth: '420px', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
+              <div className="fade-in" style={{ width: 'min(420px, calc(100% - 2rem))', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)', textAlign: 'center', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', boxShadow: '0 18px 45px rgba(0,0,0,0.4)' }}>
                 <h3 style={{ marginTop: 0, marginBottom: '0.6rem', color: 'var(--text-light)' }}>Sicher?</h3>
                 <p style={{ marginTop: 0, marginBottom: '1rem', color: 'var(--text-muted)', lineHeight: 1.45 }}>
                   Wenn du jetzt aufklappst, siehst du direkt die Muster-Erklärung.
