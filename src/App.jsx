@@ -75,7 +75,6 @@ const loadCustomQuizForUser = (user) => {
 };
 
 const createEmptyMemberProgressData = () => ({
-  quiz_progress: {},
   wisor_progress: {},
   wisor_eco_progress: {},
   saved_notes: {},
