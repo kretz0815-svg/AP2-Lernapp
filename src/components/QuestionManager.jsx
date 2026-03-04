@@ -13,7 +13,7 @@ const generateId = (text) => {
 
 export default function QuestionManager({ category, questions, progress, formatLatex, onClose, onProgressUpdate, onAddCustomQuizQuestion, authUser }) {
     const [searchTerm, setSearchTerm] = useState('');
-    const [filterMode, setFilterMode] = useState('all'); // 'all', 'learned', 'unlearned'
+    const [filterMode, setFilterMode] = useState('all'); // 'all', 'learned', 'unlearned', 'own'
     const [editingId, setEditingId] = useState(null);
     const [editText, setEditText] = useState('');
     const [editAnswers, setEditAnswers] = useState([]);
@@ -75,10 +75,15 @@ export default function QuestionManager({ category, questions, progress, formatL
         })
         .filter(Boolean);
 
+    const availableFilterModes = category === 'quiz'
+        ? ['all', 'learned', 'unlearned', 'own']
+        : ['all', 'learned', 'unlearned'];
+
     // Filter and search
     const filteredQuestions = questionList.filter(q => {
         if (filterMode === 'learned' && !q.isLearned) return false;
         if (filterMode === 'unlearned' && q.isLearned) return false;
+        if (filterMode === 'own' && !q.raw?.custom) return false;
         if (searchTerm.trim()) {
             return q.text.toLowerCase().includes(searchTerm.toLowerCase());
         }
@@ -87,6 +92,7 @@ export default function QuestionManager({ category, questions, progress, formatL
 
     const learnedCount = questionList.filter(q => q.isLearned).length;
     const totalCount = questionList.length;
+    const ownCount = questionList.filter(q => !!q.raw?.custom).length;
 
     const fmt = (text) => (formatLatex ? formatLatex(text) : text);
 
@@ -365,7 +371,7 @@ export default function QuestionManager({ category, questions, progress, formatL
                     }}
                 />
                 <div style={{ display: 'flex', gap: '0.4rem' }}>
-                    {['all', 'learned', 'unlearned'].map(mode => (
+                    {availableFilterModes.map(mode => (
                         <button
                             key={mode}
                             onClick={() => setFilterMode(mode)}
@@ -381,7 +387,14 @@ export default function QuestionManager({ category, questions, progress, formatL
                                 transition: 'all 0.15s ease'
                             }}
                         >
-                            {mode === 'all' ? 'Alle' : mode === 'learned' ? '✓ Gelernt' : '○ Offen'}
+                            {mode === 'all'
+                                ? 'Alle'
+                                : mode === 'learned'
+                                    ? '✓ Gelernt'
+                                    : mode === 'unlearned'
+                                        ? '○ Offen'
+                                        : `⭐ Eigene (${ownCount})`
+                            }
                         </button>
                     ))}
                 </div>
