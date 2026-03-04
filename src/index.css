@@ -993,4 +993,47 @@ button {
     border-left: 3px solid #666 !important;
     color: #444 !important;
   }
+
+  /* Learning dashboard print hardening */
+  .learning-analytics-dashboard {
+    max-width: 100% !important;
+    width: 100% !important;
+    display: block !important;
+    gap: 0 !important;
+  }
+
+  .learning-analytics-dashboard .card-face {
+    position: static !important;
+    transform: none !important;
+    backface-visibility: visible !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 1rem !important;
+    margin: 0 0 1rem 0 !important;
+    border-radius: 0 !important;
+    background: white !important;
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+    display: block !important;
+    text-align: left !important;
+  }
+
+  .learning-analytics-dashboard .card-face * {
+    color: black !important;
+  }
+
+  .learning-analytics-dashboard .printable-notes {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 1rem !important;
+    padding: 0 !important;
+  }
+
+  .learning-analytics-dashboard .printable-notes > * {
+    display: block !important;
+    margin-bottom: 1rem !important;
+    width: 100% !important;
+  }
 }
