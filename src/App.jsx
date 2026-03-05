@@ -672,7 +672,7 @@ function App() {
     color: 'var(--text-light)',
     fontWeight: 700,
     fontSize: '0.8rem',
-    minWidth: '2.1rem',
+    minWidth: '6.1rem',
     textAlign: 'center',
     borderRadius: '999px',
     border: '1px solid var(--glass-border)',
@@ -2747,7 +2747,7 @@ Die JSON muss exakt diese Struktur haben:
           MasterPat APP
         </h1>
 
-        <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
+        <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
           <section className="note-card" style={{ padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem' }}>Gesamt-Trefferquote</p>
             <p style={{ margin: '0.2rem 0 0 0', color: overallAccuracy >= 75 ? 'var(--success)' : 'var(--error)', fontSize: '2rem', fontWeight: 800 }}>{overallAccuracy}%</p>
@@ -2773,11 +2773,11 @@ Die JSON muss exakt diese Struktur haben:
             style={analyticsToggleButtonStyle}
           >
             <h3 style={{ margin: 0, color: 'var(--text-light)', textAlign: 'left' }}>Zeitraumvergleich</h3>
-            <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.periods ? 'HIDE' : 'SHOW'}</span>
+            <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.periods ? 'Ausblenden' : 'Anzeigen'}</span>
           </button>
 
           {analyticsExpanded.periods && (
-            <div style={{ marginTop: '0.85rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
+            <div style={{ marginTop: '0.85rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
               {[
                 { label: 'Heute', values: day },
                 { label: 'Letzte 7 Tage', values: week },
@@ -2801,11 +2801,11 @@ Die JSON muss exakt diese Struktur haben:
           )}
         </section>
 
-        <div className="printable-notes" style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem', alignItems: 'start' }}>
+        <div className="printable-notes" style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem', alignItems: 'start' }}>
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <button type="button" onClick={() => toggleAnalyticsPanel('topics')} style={analyticsToggleButtonStyle}>
               <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left' }}>Themenanalyse (Prüfungsfokus)</h3>
-              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.topics ? 'HIDE' : 'SHOW'}</span>
+              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.topics ? 'Ausblenden' : 'Anzeigen'}</span>
             </button>
             {analyticsExpanded.topics && (
               <div style={{ marginTop: '0.8rem' }}>
@@ -2836,7 +2836,7 @@ Die JSON muss exakt diese Struktur haben:
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <button type="button" onClick={() => toggleAnalyticsPanel('radar')} style={analyticsToggleButtonStyle}>
               <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left' }}>Radar: Themenkompetenz</h3>
-              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.radar ? 'HIDE' : 'SHOW'}</span>
+              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.radar ? 'Ausblenden' : 'Anzeigen'}</span>
             </button>
             {analyticsExpanded.radar && (
               <div style={{ marginTop: '0.8rem' }}>
@@ -2883,7 +2883,7 @@ Die JSON muss exakt diese Struktur haben:
                       </svg>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.45rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.45rem' }}>
                       {radarTopics.map(row => (
                         <div key={`legend_${row.topic}`} style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between', gap: '0.6rem' }}>
                           <span>{row.topic}</span>
@@ -2900,12 +2900,12 @@ Die JSON muss exakt diese Struktur haben:
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <button type="button" onClick={() => toggleAnalyticsPanel('swot')} style={analyticsToggleButtonStyle}>
               <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left' }}>Stärken · Schwächen · Risiken · Chancen</h3>
-              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.swot ? 'HIDE' : 'SHOW'}</span>
+              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.swot ? 'Ausblenden' : 'Anzeigen'}</span>
             </button>
 
             {analyticsExpanded.swot && (
               <div style={{ marginTop: '0.8rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.7rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '0.7rem' }}>
                   {swotCards.map(card => (
                     <div key={card.key} style={{ padding: '0.65rem', borderRadius: '10px', border: card.border, background: card.background }}>
                       <strong style={{ color: card.titleColor, fontSize: '0.84rem' }}>{card.title}</strong>
@@ -2962,7 +2962,7 @@ Die JSON muss exakt diese Struktur haben:
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <button type="button" onClick={() => toggleAnalyticsPanel('mistakes')} style={analyticsToggleButtonStyle}>
               <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left' }}>Fehler-Analyse (Top Schwächen nach Themen)</h3>
-              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.mistakes ? 'HIDE' : 'SHOW'}</span>
+              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.mistakes ? 'Ausblenden' : 'Anzeigen'}</span>
             </button>
             {analyticsExpanded.mistakes && (
               <div style={{ marginTop: '0.8rem' }}>
@@ -2975,9 +2975,9 @@ Die JSON muss exakt diese Struktur haben:
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
                     {groupedWeaknessRows.slice(0, 8).map((group, idx) => (
                       <div key={`weakness_${group.topic}_${idx}`} style={{ padding: '0.75rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '0.3rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.4rem 0.75rem', marginBottom: '0.3rem' }}>
                           <strong style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{group.topic}</strong>
-                          <span style={{ color: 'var(--error)', fontWeight: 'bold', whiteSpace: 'nowrap' }}>{group.count}× Fehler gesamt</span>
+                          <span style={{ color: 'var(--error)', fontWeight: 'bold', whiteSpace: 'normal', overflowWrap: 'anywhere', wordBreak: 'break-word', textAlign: 'right' }}>{group.count}x Fehler gesamt</span>
                         </div>
 
                         <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.35rem' }}>
@@ -2986,7 +2986,7 @@ Die JSON muss exakt diese Struktur haben:
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                           {group.sampleQuestions.map((entry, sampleIdx) => (
-                            <div key={`sample_${sampleIdx}`} style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                            <div key={`sample_${sampleIdx}`} style={{ fontSize: '0.8rem', color: 'var(--text-muted)', overflowWrap: 'anywhere', wordBreak: 'break-word' }}>
                               • {(entry.questionText || '').slice(0, 82)}{(entry.questionText || '').length > 82 ? '...' : ''} ({entry.count || 0}x)
                             </div>
                           ))}
