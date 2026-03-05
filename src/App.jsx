@@ -33,6 +33,7 @@ const ANALYTICS_STORAGE_PREFIX = 'ap2_learning_analytics_';
 const CUSTOM_QUIZ_STORAGE_PREFIX = 'ap2_custom_quiz_questions_';
 const MEMBER_SYNC_PENDING_PREFIX = 'ap2_member_pending_sync_';
 const ACCESS_MODE_KEY = 'masterpat_access_mode';
+const CUSTOM_BACKGROUND_COLOR_KEY = 'masterpat_custom_background_color';
 
 const createEmptyAnalytics = () => ({
   events: [],
@@ -92,6 +93,31 @@ const generateId = (text) => {
   return `card_${Math.abs(hash)}`;
 };
 
+const isValidHexColor = (value) => /^#([A-Fa-f0-9]{6})$/.test(String(value || '').trim());
+
+const hexToRgb = (hexColor) => {
+  const clean = hexColor.replace('#', '');
+  return {
+    r: parseInt(clean.slice(0, 2), 16),
+    g: parseInt(clean.slice(2, 4), 16),
+    b: parseInt(clean.slice(4, 6), 16)
+  };
+};
+
+const applyCustomBackgroundColor = (hexColor) => {
+  if (!isValidHexColor(hexColor)) {
+    document.body.style.removeProperty('--app-bg-color');
+    document.body.style.removeProperty('--app-glow-1');
+    document.body.style.removeProperty('--app-glow-2');
+    return;
+  }
+
+  const { r, g, b } = hexToRgb(hexColor);
+  document.body.style.setProperty('--app-bg-color', hexColor);
+  document.body.style.setProperty('--app-glow-1', `rgba(${r}, ${g}, ${b}, 0.22)`);
+  document.body.style.setProperty('--app-glow-2', `rgba(${r}, ${g}, ${b}, 0.12)`);
+};
+
 function App() {
   const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'dashboard' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor'
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
@@ -99,6 +125,8 @@ function App() {
 
   // --- THEME STATE ---
   const [isLightMode, setIsLightMode] = useState(false);
+  const [customBackgroundColor, setCustomBackgroundColor] = useState('');
+  const [settingsMenuOpen, setSettingsMenuOpen] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('masterpat_theme');
@@ -106,7 +134,19 @@ function App() {
       setIsLightMode(true);
       document.body.classList.add('light-theme');
     }
+
+    const savedBackground = localStorage.getItem(CUSTOM_BACKGROUND_COLOR_KEY);
+    if (isValidHexColor(savedBackground)) {
+      setCustomBackgroundColor(savedBackground);
+      applyCustomBackgroundColor(savedBackground);
+    }
   }, []);
+
+  useEffect(() => {
+    if (appMode !== 'dashboard') {
+      setSettingsMenuOpen(false);
+    }
+  }, [appMode]);
 
   const toggleTheme = () => {
     setIsLightMode(prev => {
@@ -120,6 +160,20 @@ function App() {
       }
       return newVal;
     });
+  };
+
+  const activeBackgroundColor = customBackgroundColor || (isLightMode ? '#f8fafc' : '#0f172a');
+
+  const handleBackgroundColorChange = (nextColor) => {
+    setCustomBackgroundColor(nextColor);
+    localStorage.setItem(CUSTOM_BACKGROUND_COLOR_KEY, nextColor);
+    applyCustomBackgroundColor(nextColor);
+  };
+
+  const resetBackgroundColor = () => {
+    setCustomBackgroundColor('');
+    localStorage.removeItem(CUSTOM_BACKGROUND_COLOR_KEY);
+    applyCustomBackgroundColor('');
   };
 
   // --- AUTH STATE ---
@@ -1589,6 +1643,32 @@ ${feynmanInput}`;
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header style={{ position: 'relative', width: '100%' }}>
+          <div style={{ position: 'absolute', top: '0.2rem', right: 0, zIndex: 15 }}>
+            <button
+              className="settings-gear-btn"
+              onClick={() => setSettingsMenuOpen(prev => !prev)}
+              aria-label="Einstellungen"
+              title="Einstellungen"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+            </button>
+            {settingsMenuOpen && (
+              <div className="settings-popover">
+                <button
+                  className="settings-popover-item"
+                  onClick={() => {
+                    setSettingsMenuOpen(false);
+                    setAppMode('appearance_settings');
+                  }}
+                >
+                  Darstellung anpassen
+                </button>
+              </div>
+            )}
+          </div>
           <h1 style={{ fontFamily: '"Anton", sans-serif', textTransform: 'uppercase', letterSpacing: '0px', fontSize: '3.5rem', transform: 'scaleY(1.2)', transformOrigin: 'bottom', margin: '0 0 1rem 0', color: 'var(--text-light)', textShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>MASTERPAT APP</h1>
           <p className="subtitle">Wähle deinen Lernmodus</p>
         </header>
@@ -1765,6 +1845,57 @@ ${feynmanInput}`;
             </div>
           </div>
         )}
+      </div>
+    );
+  }
+
+  if (appMode === 'appearance_settings') {
+    return (
+      <div className="app-container" style={{ zIndex: 10 }}>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+
+        <header style={{ width: '100%', maxWidth: '760px' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '0.8rem' }}>
+            <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
+          </div>
+          <h1 style={{ margin: 0, fontSize: '2.2rem', color: 'var(--text-light)' }}>Darstellung anpassen</h1>
+          <p className="subtitle" style={{ marginTop: '0.5rem' }}>Passe den Hintergrund im Hauptmenu an.</p>
+        </header>
+
+        <section className="appearance-panel" style={{ width: '100%', maxWidth: '760px' }}>
+          <h3 style={{ marginTop: 0, marginBottom: '0.9rem', color: 'var(--text-light)' }}>Backgroundfarbe</h3>
+          <div className="appearance-row">
+            <input
+              type="color"
+              value={activeBackgroundColor}
+              onChange={(e) => handleBackgroundColorChange(e.target.value)}
+              className="background-color-picker"
+              aria-label="Backgroundfarbe auswählen"
+            />
+            <input
+              type="text"
+              value={activeBackgroundColor}
+              onChange={(e) => {
+                const inputValue = e.target.value.trim();
+                setCustomBackgroundColor(inputValue);
+                if (isValidHexColor(inputValue)) {
+                  localStorage.setItem(CUSTOM_BACKGROUND_COLOR_KEY, inputValue);
+                  applyCustomBackgroundColor(inputValue);
+                }
+              }}
+              className="background-color-input"
+              placeholder="#0f172a"
+            />
+          </div>
+
+          <div className="appearance-actions">
+            <button className="btn-secondary" onClick={resetBackgroundColor}>Standard wiederherstellen</button>
+            <button className="btn-primary" onClick={() => setAppMode('dashboard')}>Fertig</button>
+          </div>
+        </section>
       </div>
     );
   }

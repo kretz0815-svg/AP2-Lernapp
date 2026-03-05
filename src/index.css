@@ -12,6 +12,9 @@
 
   --success: #22c55e;
   --error: #ef4444;
+  --app-bg-color: var(--bg-dark);
+  --app-glow-1: rgba(99, 102, 241, 0.15);
+  --app-glow-2: rgba(168, 85, 247, 0.15);
 }
 
 body.light-theme {
@@ -40,9 +43,9 @@ body {
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
-  background: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.15), transparent 25%),
-    var(--bg-dark);
+  background: radial-gradient(circle at 15% 50%, var(--app-glow-1), transparent 25%),
+    radial-gradient(circle at 85% 30%, var(--app-glow-2), transparent 25%),
+    var(--app-bg-color);
 }
 
 .app-container {
@@ -305,6 +308,107 @@ h1 {
 
 .btn-secondary:hover {
   background: var(--glass-border);
+}
+
+.settings-gear-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-light);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.settings-gear-btn:hover {
+  transform: translateY(-1px) rotate(25deg);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.settings-popover {
+  position: absolute;
+  top: 46px;
+  right: 0;
+  min-width: 210px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+  padding: 0.45rem;
+  z-index: 20;
+}
+
+body.light-theme .settings-popover {
+  background: rgba(248, 250, 252, 0.96);
+}
+
+.settings-popover-item {
+  width: 100%;
+  border-radius: 9px;
+  padding: 0.65rem 0.75rem;
+  border: none;
+  background: transparent;
+  color: var(--text-light);
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+
+.settings-popover-item:hover {
+  background: rgba(99, 102, 241, 0.2);
+}
+
+.appearance-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 1.25rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.appearance-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.background-color-picker {
+  width: 62px;
+  height: 44px;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.background-color-input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+.background-color-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.appearance-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.7rem;
+  justify-content: flex-end;
 }
 
 /* Progress */
@@ -721,6 +825,30 @@ button {
 
   .subtitle {
     font-size: 0.95rem;
+  }
+
+  .settings-gear-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .settings-popover {
+    right: -4px;
+    min-width: 190px;
+  }
+
+  .appearance-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .background-color-picker {
+    width: 100%;
+    height: 46px;
+  }
+
+  .appearance-actions {
+    flex-direction: column;
   }
 
   .score-badge {
