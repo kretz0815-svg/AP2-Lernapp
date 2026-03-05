@@ -2707,7 +2707,7 @@ Die JSON muss exakt diese Struktur haben:
           })}
         </div>
 
-        <div className="printable-notes" style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
+        <div className="printable-notes" style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem', alignItems: 'start' }}>
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Themenanalyse (Prüfungsfokus)</h3>
             {topicRows.length === 0 ? (
@@ -2825,6 +2825,44 @@ Die JSON muss exakt diese Struktur haben:
                 </ul>
               </div>
             </div>
+
+            <div style={{ marginTop: '0.9rem', paddingTop: '0.8rem', borderTop: '1px dashed var(--glass-border)' }}>
+              <h4 style={{ margin: '0 0 0.55rem 0', color: 'var(--text-light)', fontSize: '0.95rem' }}>Prüfungsprognose</h4>
+              {Object.keys(modeTotals).length === 0 ? (
+                <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.83rem' }}>Noch keine Trainingsdaten vorhanden.</p>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+                  {Object.entries(modeTotals).map(([mode, counts]) => {
+                    const total = counts.correct + counts.wrong;
+                    const accuracy = total > 0 ? Math.round((counts.correct / total) * 100) : 0;
+                    return (
+                      <div key={`swot_${mode}`} style={{ padding: '0.58rem', borderRadius: '9px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.6rem' }}>
+                          <strong style={{ color: 'var(--text-light)', fontSize: '0.82rem' }}>{modeLabel[mode] || mode}</strong>
+                          <span style={{ color: accuracy >= 70 ? 'var(--success)' : 'var(--error)', fontWeight: 'bold', fontSize: '0.8rem' }}>{accuracy}%</span>
+                        </div>
+                        <div style={{ marginTop: '0.28rem', fontSize: '0.76rem', color: 'var(--text-muted)' }}>
+                          R: {counts.correct} · F: {counts.wrong} · G: {total}
+                        </div>
+                      </div>
+                    );
+                  })}
+
+                  <div style={{ marginTop: '0.1rem', padding: '0.58rem', borderRadius: '9px', border: '1px dashed var(--glass-border)', color: 'var(--text-light)', fontSize: '0.78rem', lineHeight: '1.45' }}>
+                    <strong style={{ display: 'block', marginBottom: '0.28rem' }}>Fokus bis zur Prüfung:</strong>
+                    {strategicActions.length > 0 ? (
+                      <ul style={{ margin: '0 0 0 1rem', color: 'var(--text-muted)' }}>
+                        {strategicActions.map((item, idx) => (
+                          <li key={`swot_a_${idx}`}>{item}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <span style={{ color: 'var(--text-muted)' }}>Noch zu wenig Daten für eine belastbare Prognose.</span>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
           </section>
 
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
@@ -2866,48 +2904,6 @@ Die JSON muss exakt diese Struktur haben:
             )}
           </section>
 
-          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Professionelle Lernprognose</h3>
-            <p style={{ color: 'var(--text-muted)', marginTop: 0, marginBottom: '0.75rem' }}>Gesamte Antworten: <strong style={{ color: 'var(--text-light)' }}>{events.length}</strong></p>
-            {Object.keys(modeTotals).length === 0 ? (
-              <p style={{ color: 'var(--text-muted)', margin: 0 }}>Noch keine Trainingsdaten vorhanden.</p>
-            ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                {Object.entries(modeTotals).map(([mode, counts]) => {
-                  const total = counts.correct + counts.wrong;
-                  const accuracy = total > 0 ? Math.round((counts.correct / total) * 100) : 0;
-                  return (
-                    <div key={mode} style={{ padding: '0.7rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <strong style={{ color: 'var(--text-light)' }}>{modeLabel[mode] || mode}</strong>
-                        <span style={{ color: accuracy >= 70 ? 'var(--success)' : 'var(--error)', fontWeight: 'bold' }}>{accuracy}% Trefferquote</span>
-                      </div>
-                      <div style={{ marginTop: '0.35rem', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                        Richtig: {counts.correct} · Falsch: {counts.wrong} · Gesamt: {total}
-                      </div>
-                    </div>
-                  );
-                })}
-
-                <div style={{ marginTop: '0.2rem', padding: '0.75rem', borderRadius: '10px', border: '1px dashed var(--glass-border)', color: 'var(--text-light)', fontSize: '0.84rem', lineHeight: '1.5' }}>
-                  <strong style={{ display: 'block', marginBottom: '0.35rem' }}>Empfohlener Fokus bis zur Prüfung:</strong>
-                  {strategicActions.length > 0 ? (
-                    <ul style={{ margin: '0 0 0 1rem', color: 'var(--text-muted)' }}>
-                      {strategicActions.map((item, idx) => (
-                        <li key={`a_${idx}`}>{item}</li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <span style={{ color: 'var(--text-muted)' }}>Noch zu wenig Daten für eine belastbare Prognose. Bitte weiter trainieren.</span>
-                  )}
-                </div>
-              </div>
-            )}
-
-            <div style={{ marginTop: '1rem', padding: '0.75rem', borderRadius: '10px', border: '1px dashed var(--glass-border)', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-              Analyse deckt jetzt Kennzahlen, Themenleistung, SWOT-Logik und einen konkreten Prüfungsfokus ab.
-            </div>
-          </section>
         </div>
       </div>
     );
