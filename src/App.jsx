@@ -2296,7 +2296,7 @@ ${feynmanInput}`;
       <>
         {pomodoroPortal}
         {burgerMenuPortal}
-        <KalkulationsBoss onBack={() => setAppMode('dashboard')} />
+        <KalkulationsBoss onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
         <FloatingNotes questionId="kalkulation" questionText="Kalkulations-Boss" />
         <FloatingCalculator />
       </>
@@ -2308,7 +2308,7 @@ ${feynmanInput}`;
       <>
         {pomodoroPortal}
         {burgerMenuPortal}
-        <BreakEvenPoint onBack={() => setAppMode('dashboard')} />
+        <BreakEvenPoint onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
         <FloatingNotes questionId="break_even_point" questionText="Break-Even-Point Training" />
         <FloatingCalculator />
       </>
@@ -2555,6 +2555,8 @@ Die JSON muss exakt diese Struktur haben:
         wisor: byMode('wisor'),
         wisorEco: byMode('wisorEco'),
         flashcard: byMode('flashcard'),
+        kalkulation: byMode('kalkulation'),
+        breakEven: byMode('breakEven'),
       };
     };
 
@@ -2570,7 +2572,9 @@ Die JSON muss exakt diese Struktur haben:
       quiz: 'Quiz',
       wisor: 'WisoR',
       wisorEco: 'WisoR E-Commerce',
-      flashcard: 'Lernkarten'
+      flashcard: 'Lernkarten',
+      kalkulation: 'Kalkulations-Boss',
+      breakEven: 'Break-Even-Point'
     };
 
     const modeTotals = events.reduce((acc, event) => {
@@ -2581,7 +2585,7 @@ Die JSON muss exakt diese Struktur haben:
       return acc;
     }, {});
 
-    const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco');
+    const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco' || e.mode === 'kalkulation' || e.mode === 'breakEven');
     const totalAnswers = events.length;
     const totalCorrect = events.filter(e => e.correct).length;
     const overallAccuracy = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
@@ -2597,6 +2601,8 @@ Die JSON muss exakt diese Struktur haben:
       if (event.mode === 'quiz') return quizTopicById.get(String(event.questionId)) || 'Quiz Allgemein';
       if (event.mode === 'wisor') return 'WisoR Grundlagen';
       if (event.mode === 'wisorEco') return 'WisoR E-Commerce';
+      if (event.mode === 'kalkulation') return 'Kalkulations-Boss';
+      if (event.mode === 'breakEven') return 'Break-Even-Point';
       return 'Allgemein';
     };
 
@@ -2830,6 +2836,8 @@ Die JSON muss exakt diese Struktur haben:
                   { key: 'quiz', label: 'Quiz (Multiple Choice)' },
                   { key: 'wisor', label: 'WisoR Grundlagen' },
                   { key: 'wisorEco', label: 'WisoR E-Commerce' },
+                  { key: 'kalkulation', label: 'Kalkulations-Boss' },
+                  { key: 'breakEven', label: 'Break-Even-Point' },
                   { key: 'flashcard', label: 'Lernkarten' }
                 ];
                 const totalCorrect = modes.reduce((s, m) => s + item.values[m.key].correct, 0);

@@ -254,7 +254,7 @@ const PHASE_LABELS = {
 // KOMPONENTE
 // ═══════════════════════════════════════════════════════════════
 
-export default function KalkulationsBoss({ onBack }) {
+export default function KalkulationsBoss({ onBack, onLearningEvent }) {
     const [selectedLevel, setSelectedLevel] = useState(null);
     const [inputs, setInputs] = useState({});
     const [validated, setValidated] = useState({});
@@ -356,6 +356,7 @@ export default function KalkulationsBoss({ onBack }) {
 
         if (userCents === correctCents) {
             // ✅ CORRECT
+            if (onLearningEvent) onLearningEvent({ mode: 'kalkulation', questionId: `kalk_${selectedLevel.id}_${idx}`, questionText: `${selectedLevel.name}: ${step.label}`, correct: true, userAnswer: rawInput, expectedAnswer: correct.toFixed(2) });
             setValidated(prev => ({ ...prev, [idx]: true }));
             setInputs(prev => ({ ...prev, [idx]: correct.toFixed(2) }));
             setShowHint(prev => ({ ...prev, [idx]: false }));
@@ -393,6 +394,7 @@ export default function KalkulationsBoss({ onBack }) {
             }
         } else {
             // ❌ WRONG
+            if (onLearningEvent) onLearningEvent({ mode: 'kalkulation', questionId: `kalk_${selectedLevel.id}_${idx}`, questionText: `${selectedLevel.name}: ${step.label}`, correct: false, userAnswer: rawInput, expectedAnswer: correct.toFixed(2) });
             setShaking(prev => ({ ...prev, [idx]: true }));
             setAttempts(prev => ({ ...prev, [idx]: (prev[idx] || 0) + 1 }));
             setWrongSteps(prev => ({ ...prev, [idx]: true }));

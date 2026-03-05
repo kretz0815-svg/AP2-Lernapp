@@ -63,7 +63,7 @@ function generateChallenge() {
   };
 }
 
-export default function BreakEvenPoint({ onBack }) {
+export default function BreakEvenPoint({ onBack, onLearningEvent }) {
   const [challenge, setChallenge] = useState(() => generateChallenge());
   const [inputs, setInputs] = useState({ db: '', totalDb: '', bepUnits: '', profitLoss: '' });
   const [fieldState, setFieldState] = useState({ db: 'pending', totalDb: 'pending', bepUnits: 'pending', profitLoss: 'pending' });
@@ -156,6 +156,13 @@ export default function BreakEvenPoint({ onBack }) {
 
     setFieldState(nextState);
     setEvaluated(true);
+
+    if (onLearningEvent) {
+      const fieldLabels = { db: 'Deckungsbeitrag', totalDb: 'Gesamt-DB', bepUnits: 'Break-Even-Menge', profitLoss: 'Gewinn/Verlust' };
+      for (const [key, state] of Object.entries(nextState)) {
+        onLearningEvent({ mode: 'breakEven', questionId: `bep_${key}`, questionText: `Break-Even: ${fieldLabels[key]}`, correct: state === 'correct', userAnswer: String(inputs[key] || ''), expectedAnswer: String(challenge.values[key]) });
+      }
+    }
 
     const allOk = Object.values(nextState).every((state) => state === 'correct');
     if (!allOk) {
