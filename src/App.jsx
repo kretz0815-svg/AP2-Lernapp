@@ -591,6 +591,24 @@ function App() {
   const [pomodoroTimeLeft, setPomodoroTimeLeft] = useState(25 * 60);
   const [pomodoroForceStop, setPomodoroForceStop] = useState(0);
   const wisorInputRef = useRef(null);
+  const einsteinRef = useRef(null);
+  const [einsteinTilt, setEinsteinTilt] = useState({ rotateX: 0, rotateY: 0 });
+
+  useEffect(() => {
+    if (appMode !== 'dashboard') return;
+    const handleMouseMove = (e) => {
+      if (!einsteinRef.current) return;
+      const rect = einsteinRef.current.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (window.innerWidth / 2);
+      const dy = (e.clientY - cy) / (window.innerHeight / 2);
+      const maxTilt = 18;
+      setEinsteinTilt({ rotateY: dx * maxTilt, rotateX: -dy * maxTilt * 0.6 });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [appMode]);
 
   useEffect(() => {
     if (appMode === 'wisor' && !wisorEvaluated && wisorInputRef.current) {
@@ -1947,8 +1965,33 @@ ${feynmanInput}`;
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header style={{ position: 'relative', width: '100%' }}>
-          <h1 style={{ fontFamily: '"Anton", sans-serif', textTransform: 'uppercase', letterSpacing: '0px', fontSize: '3.5rem', transform: 'scaleY(1.2)', transformOrigin: 'bottom', margin: '0 0 1rem 0', color: 'var(--text-light)', textShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>MASTERPAT APP</h1>
-          <p className="subtitle">Wähle deinen Lernmodus</p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+            <div
+              ref={einsteinRef}
+              style={{
+                width: '70px',
+                height: '70px',
+                perspective: '600px',
+                flexShrink: 0
+              }}
+            >
+              <img
+                src="/einstein.png"
+                alt="Einstein"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  transform: `rotateX(${einsteinTilt.rotateX}deg) rotateY(${einsteinTilt.rotateY}deg)`,
+                  transition: 'transform 0.1s ease-out',
+                  filter: 'drop-shadow(0 0 12px rgba(34,197,94,0.5))',
+                  pointerEvents: 'none'
+                }}
+              />
+            </div>
+            <h1 style={{ fontFamily: '"Anton", sans-serif', textTransform: 'uppercase', letterSpacing: '0px', fontSize: '3.5rem', transform: 'scaleY(1.2)', transformOrigin: 'bottom', margin: '0 0 0 0', color: 'var(--text-light)', textShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>MASTERPAT APP</h1>
+          </div>
+          <p className="subtitle" style={{ marginTop: '0.8rem' }}>Wähle deinen Lernmodus</p>
         </header>
         <div className="dashboard-grid">
           <div className="dash-card" onClick={() => { setAppMode('quiz_setup'); }}>
