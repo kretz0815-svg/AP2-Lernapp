@@ -607,7 +607,34 @@ function App() {
       setEinsteinTilt({ rotateY: dx * maxTilt, rotateX: -dy * maxTilt * 0.6 });
     };
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+
+    let orientationGranted = false;
+    const handleOrientation = (e) => {
+      const gamma = Math.max(-45, Math.min(45, e.gamma || 0));
+      const beta = Math.max(-45, Math.min(45, (e.beta || 0) - 45));
+      setEinsteinTilt({ rotateY: (gamma / 45) * 20, rotateX: -(beta / 45) * 12 });
+    };
+    const requestGyro = () => {
+      if (orientationGranted) return;
+      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission().then(state => {
+          if (state === 'granted') {
+            orientationGranted = true;
+            window.addEventListener('deviceorientation', handleOrientation);
+          }
+        }).catch(() => {});
+      } else if ('DeviceOrientationEvent' in window) {
+        orientationGranted = true;
+        window.addEventListener('deviceorientation', handleOrientation);
+      }
+    };
+    window.addEventListener('touchstart', requestGyro, { once: true });
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('deviceorientation', handleOrientation);
+      window.removeEventListener('touchstart', requestGyro);
+    };
   }, [appMode]);
 
   useEffect(() => {
@@ -1965,15 +1992,10 @@ ${feynmanInput}`;
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header style={{ position: 'relative', width: '100%' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+          <div className="einstein-header-row">
             <div
               ref={einsteinRef}
-              style={{
-                width: '210px',
-                height: '210px',
-                perspective: '600px',
-                flexShrink: 0
-              }}
+              className="einstein-container"
             >
               <img
                 src="/einstein.png"
@@ -1983,7 +2005,7 @@ ${feynmanInput}`;
                   height: '100%',
                   objectFit: 'contain',
                   transform: `rotateX(${einsteinTilt.rotateX}deg) rotateY(${einsteinTilt.rotateY}deg)`,
-                  transition: 'transform 0.1s ease-out',
+                  transition: 'transform 0.12s ease-out',
                   filter: 'drop-shadow(0 0 12px rgba(34,197,94,0.5))',
                   pointerEvents: 'none'
                 }}
