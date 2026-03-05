@@ -637,6 +637,11 @@ function App() {
     };
   }, [appMode]);
 
+  // Scroll to top on every mode change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [appMode]);
+
   useEffect(() => {
     if (appMode === 'wisor' && !wisorEvaluated && wisorInputRef.current) {
       // Small timeout to let rendering finish naturally on slower devices or initial mount
