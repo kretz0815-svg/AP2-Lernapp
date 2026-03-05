@@ -1614,28 +1614,27 @@ ${feynmanInput}`;
 
         if (appMode === 'quiz' || appMode === 'quiz_setup') setAppMode('dashboard');
       } else if (resetTarget === 'fullAccount') {
-        // Clear all localStorage progress
+        // Clear progress localStorage (keep custom quiz questions)
         localStorage.removeItem('ap2_srs_progress');
         localStorage.removeItem('ap2_quiz_progress');
         localStorage.removeItem('ap2_wisor_progress');
         localStorage.removeItem('ap2_wisor_eco_progress');
         localStorage.removeItem('ap2_saved_notes');
         localStorage.removeItem(getAnalyticsStorageKey(authUser));
-        localStorage.removeItem(getCustomQuizStorageKey(authUser));
 
-        // Reset all React state
+        // Reset progress state (keep customQuizQuestions intact)
         setCompletedWisors({});
         setCompletedWisorsEco({});
         setQuizProgressView({});
         setAllQuizzes([]);
         setLearningAnalytics(createEmptyAnalytics());
-        setCustomQuizQuestions([]);
         setStats({ learnedToday: 0, totalDue: 0 });
 
-        // Clear Supabase data
+        // Clear Supabase progress but preserve custom questions
         const resetTasks = [];
         if (authUser?.id) {
-          resetTasks.push(syncProgressToSupabase(createEmptyMemberProgressData(), { queueOnFail: false }));
+          const preservedData = { ...createEmptyMemberProgressData(), custom_quiz_questions: customQuizQuestions };
+          resetTasks.push(syncProgressToSupabase(preservedData, { queueOnFail: false }));
           resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'quiz'));
         }
 
