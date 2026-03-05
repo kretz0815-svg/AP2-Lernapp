@@ -623,6 +623,12 @@ function App() {
   const [wisorVideoLoading, setWisorVideoLoading] = useState(false);
   const [selectedWisorVideo, setSelectedWisorVideo] = useState(null);
   const [wisorVideoError, setWisorVideoError] = useState('');
+  const [swotExpanded, setSwotExpanded] = useState({
+    strengths: true,
+    weaknesses: true,
+    risks: true,
+    opportunities: true
+  });
 
   useEffect(() => {
     setWisorVideos([]);
@@ -640,6 +646,13 @@ function App() {
     if (typeof text !== 'string') return text;
     // Removes the wrapping $ signs and any backslash \ escapes (e.g., \$ -> $, \% -> %)
     return text.replace(/\$([^$]+)\$/g, (match, inner) => inner.replace(/\\/g, '').trim());
+  };
+
+  const toggleSwotSection = (sectionKey) => {
+    setSwotExpanded(prev => ({
+      ...prev,
+      [sectionKey]: !prev[sectionKey]
+    }));
   };
 
   const getLocalProgressData = (overrides = {}) => {
@@ -2642,6 +2655,49 @@ Die JSON muss exakt diese Struktur haben:
       strategicActions.push(`Wochenleistung: ${recentWeekAnswers} Antworten bei ${recentWeekAccuracy}% Treffern. Ziel: > 75% für Prüfungssicherheit.`);
     }
 
+    const swotCards = [
+      {
+        key: 'strengths',
+        title: 'Stärken',
+        border: '1px solid rgba(34,197,94,0.35)',
+        background: 'rgba(34,197,94,0.08)',
+        titleColor: 'var(--success)',
+        items: strongestTopics.length > 0
+          ? strongestTopics.map(item => `${item.topic}${item.accuracy ? ` (${item.accuracy}%)` : ''}`)
+          : ['Noch keine stabilen Stärken']
+      },
+      {
+        key: 'weaknesses',
+        title: 'Schwächen',
+        border: '1px solid rgba(239,68,68,0.35)',
+        background: 'rgba(239,68,68,0.08)',
+        titleColor: 'var(--error)',
+        items: weakestTopics.length > 0
+          ? weakestTopics.map(item => `${item.topic}${item.accuracy ? ` (${item.accuracy}%)` : ''}`)
+          : ['Keine kritischen Schwächen erkannt']
+      },
+      {
+        key: 'risks',
+        title: 'Risiken',
+        border: '1px solid rgba(245,158,11,0.35)',
+        background: 'rgba(245,158,11,0.08)',
+        titleColor: '#f59e0b',
+        items: riskEntries.length > 0
+          ? riskEntries.map(item => `${(item.questionText || '').slice(0, 52)}${(item.questionText || '').length > 52 ? '...' : ''}${item.count ? ` (${item.count}x)` : ''}`)
+          : ['Keine akuten Risiko-Fragen gefunden']
+      },
+      {
+        key: 'opportunities',
+        title: 'Chancen',
+        border: '1px solid rgba(99,102,241,0.35)',
+        background: 'rgba(99,102,241,0.08)',
+        titleColor: 'var(--primary)',
+        items: opportunityTopics.length > 0
+          ? opportunityTopics.map(item => `${item.topic}${item.accuracy ? ` (${item.accuracy}%)` : ''}`)
+          : ['Nächster Schritt: mehr Trainingsvolumen']
+      }
+    ];
+
     return (
       <div className="app-container learning-analytics-dashboard" style={{ zIndex: 10, alignItems: 'stretch' }}>
         {burgerMenuPortal}
@@ -2792,38 +2848,38 @@ Die JSON muss exakt diese Struktur haben:
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Stärken · Schwächen · Risiken · Chancen</h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.7rem' }}>
-              <div style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid rgba(34,197,94,0.35)', background: 'rgba(34,197,94,0.08)' }}>
-                <strong style={{ color: 'var(--success)', fontSize: '0.84rem' }}>Stärken</strong>
-                <ul style={{ margin: '0.5rem 0 0 1rem', color: 'var(--text-light)', fontSize: '0.8rem', lineHeight: '1.4' }}>
-                  {(strongestTopics.length > 0 ? strongestTopics : [{ topic: 'Noch keine stabilen Stärken', accuracy: 0 }]).map(item => (
-                    <li key={`s_${item.topic}`}>{item.topic}{item.accuracy ? ` (${item.accuracy}%)` : ''}</li>
-                  ))}
-                </ul>
-              </div>
-              <div style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid rgba(239,68,68,0.35)', background: 'rgba(239,68,68,0.08)' }}>
-                <strong style={{ color: 'var(--error)', fontSize: '0.84rem' }}>Schwächen</strong>
-                <ul style={{ margin: '0.5rem 0 0 1rem', color: 'var(--text-light)', fontSize: '0.8rem', lineHeight: '1.4' }}>
-                  {(weakestTopics.length > 0 ? weakestTopics : [{ topic: 'Keine kritischen Schwächen erkannt', accuracy: 0 }]).map(item => (
-                    <li key={`w_${item.topic}`}>{item.topic}{item.accuracy ? ` (${item.accuracy}%)` : ''}</li>
-                  ))}
-                </ul>
-              </div>
-              <div style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid rgba(245,158,11,0.35)', background: 'rgba(245,158,11,0.08)' }}>
-                <strong style={{ color: '#f59e0b', fontSize: '0.84rem' }}>Risiken</strong>
-                <ul style={{ margin: '0.5rem 0 0 1rem', color: 'var(--text-light)', fontSize: '0.8rem', lineHeight: '1.4' }}>
-                  {(riskEntries.length > 0 ? riskEntries : [{ questionText: 'Keine akuten Risiko-Fragen gefunden', count: 0 }]).map((item, idx) => (
-                    <li key={`r_${idx}`}>{(item.questionText || '').slice(0, 52)}{(item.questionText || '').length > 52 ? '...' : ''}{item.count ? ` (${item.count}x)` : ''}</li>
-                  ))}
-                </ul>
-              </div>
-              <div style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid rgba(99,102,241,0.35)', background: 'rgba(99,102,241,0.08)' }}>
-                <strong style={{ color: 'var(--primary)', fontSize: '0.84rem' }}>Chancen</strong>
-                <ul style={{ margin: '0.5rem 0 0 1rem', color: 'var(--text-light)', fontSize: '0.8rem', lineHeight: '1.4' }}>
-                  {(opportunityTopics.length > 0 ? opportunityTopics : [{ topic: 'Nächster Schritt: mehr Trainingsvolumen', accuracy: 0 }]).map(item => (
-                    <li key={`o_${item.topic}`}>{item.topic}{item.accuracy ? ` (${item.accuracy}%)` : ''}</li>
-                  ))}
-                </ul>
-              </div>
+              {swotCards.map(card => {
+                const expanded = !!swotExpanded[card.key];
+                return (
+                  <div key={card.key} style={{ padding: '0.65rem', borderRadius: '10px', border: card.border, background: card.background }}>
+                    <button
+                      type="button"
+                      onClick={() => toggleSwotSection(card.key)}
+                      style={{
+                        width: '100%',
+                        background: 'transparent',
+                        border: 'none',
+                        padding: 0,
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <strong style={{ color: card.titleColor, fontSize: '0.84rem' }}>{card.title}</strong>
+                      <span style={{ color: card.titleColor, fontSize: '0.78rem', fontWeight: 700 }}>{expanded ? '−' : '+'}</span>
+                    </button>
+
+                    {expanded && (
+                      <ul style={{ margin: '0.5rem 0 0 1rem', color: 'var(--text-light)', fontSize: '0.8rem', lineHeight: '1.4' }}>
+                        {card.items.map((text, idx) => (
+                          <li key={`${card.key}_${idx}`}>{text}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             <div style={{ marginTop: '0.9rem', paddingTop: '0.8rem', borderTop: '1px dashed var(--glass-border)' }}>
