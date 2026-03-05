@@ -2446,7 +2446,7 @@ Die JSON muss exakt diese Struktur haben:
           {burgerMenuPortal}
           <div className="blob blob-1"></div>
           <div className="blob blob-2"></div>
-          <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '620px', padding: '2.2rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
+          <div className="note-card" style={{ position: 'relative', width: '100%', maxWidth: '620px', padding: '2.2rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
             <h2 style={{ color: 'var(--text-light)', marginTop: 0 }}>Nur für registrierte Accounts</h2>
             <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
               Die Lernkarten-Analyse ist nur mit E-Mail-Login verfügbar. Pro E-Mail wird ein eigener Lernstand geführt.
@@ -2459,11 +2459,12 @@ Die JSON muss exakt diese Struktur haben:
 
     const events = learningAnalytics?.events || [];
     const mistakes = learningAnalytics?.mistakes || {};
+    const nowTs = Date.now();
 
     const periodStart = {
-      day: Date.now() - (24 * 60 * 60 * 1000),
-      week: Date.now() - (7 * 24 * 60 * 60 * 1000),
-      month: Date.now() - (30 * 24 * 60 * 60 * 1000)
+      day: nowTs - (24 * 60 * 60 * 1000),
+      week: nowTs - (7 * 24 * 60 * 60 * 1000),
+      month: nowTs - (30 * 24 * 60 * 60 * 1000)
     };
 
     const getCounts = (startTs) => {
@@ -2487,6 +2488,13 @@ Die JSON muss exakt diese Struktur haben:
       .sort((a, b) => (b.count || 0) - (a.count || 0))
       .slice(0, 12);
 
+    const modeLabel = {
+      quiz: 'Quiz',
+      wisor: 'WisoR',
+      wisorEco: 'WisoR E-Commerce',
+      flashcard: 'Lernkarten'
+    };
+
     const modeTotals = events.reduce((acc, event) => {
       const mode = event.mode || 'unknown';
       if (!acc[mode]) acc[mode] = { correct: 0, wrong: 0 };
@@ -2494,6 +2502,74 @@ Die JSON muss exakt diese Struktur haben:
       else acc[mode].wrong += 1;
       return acc;
     }, {});
+
+    const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco');
+    const totalAnswers = events.length;
+    const totalCorrect = events.filter(e => e.correct).length;
+    const overallAccuracy = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
+    const recentWeekAnswers = events.filter(e => e.ts >= periodStart.week).length;
+    const recentWeekAccuracy = recentWeekAnswers > 0
+      ? Math.round((events.filter(e => e.ts >= periodStart.week && e.correct).length / recentWeekAnswers) * 100)
+      : 0;
+
+    const quizTopicById = new Map((allQuizzes || []).map(q => [String(q.id), getQuizTopicGroup(q.topic || detectQuizTopic(q))]));
+
+    const resolveTopic = (event) => {
+      if (!event) return 'Allgemein';
+      if (event.mode === 'quiz') return quizTopicById.get(String(event.questionId)) || 'Quiz Allgemein';
+      if (event.mode === 'wisor') return 'WisoR Grundlagen';
+      if (event.mode === 'wisorEco') return 'WisoR E-Commerce';
+      return 'Allgemein';
+    };
+
+    const topicTotals = questionEvents.reduce((acc, event) => {
+      const topic = resolveTopic(event);
+      if (!acc[topic]) acc[topic] = { correct: 0, wrong: 0, total: 0, lastAt: 0 };
+      if (event.correct) acc[topic].correct += 1;
+      else acc[topic].wrong += 1;
+      acc[topic].total += 1;
+      acc[topic].lastAt = Math.max(acc[topic].lastAt || 0, event.ts || 0);
+      return acc;
+    }, {});
+
+    const topicRows = Object.entries(topicTotals)
+      .map(([topic, stats]) => {
+        const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
+        return { topic, ...stats, accuracy };
+      })
+      .sort((a, b) => b.total - a.total);
+
+    const strongestTopics = topicRows
+      .filter(row => row.total >= 3 && row.accuracy >= 75)
+      .sort((a, b) => b.accuracy - a.accuracy)
+      .slice(0, 4);
+
+    const weakestTopics = topicRows
+      .filter(row => row.total >= 3 && row.accuracy < 60)
+      .sort((a, b) => a.accuracy - b.accuracy)
+      .slice(0, 4);
+
+    const opportunityTopics = topicRows
+      .filter(row => row.total >= 2 && row.accuracy >= 60 && row.accuracy < 75)
+      .slice(0, 4);
+
+    const riskEntries = topMistakes
+      .filter(item => (item.count || 0) >= 2)
+      .slice(0, 4);
+
+    const strategicActions = [];
+    if (weakestTopics.length > 0) {
+      strategicActions.push(`Priorität 1: ${weakestTopics[0].topic} gezielt trainieren (${weakestTopics[0].accuracy}% Trefferquote).`);
+    }
+    if (opportunityTopics.length > 0) {
+      strategicActions.push(`Chance nutzen: ${opportunityTopics[0].topic} steht kurz vor "sicher" - mit 10-15 Zusatzaufgaben stabilisieren.`);
+    }
+    if (riskEntries.length > 0) {
+      strategicActions.push(`Risikofrage wiederholt falsch: "${riskEntries[0].questionText?.slice(0, 85) || 'Unbekannt'}" -> Lernkarte + Wiederholung einplanen.`);
+    }
+    if (recentWeekAnswers > 0) {
+      strategicActions.push(`Wochenleistung: ${recentWeekAnswers} Antworten bei ${recentWeekAccuracy}% Treffern. Ziel: > 75% für Prüfungssicherheit.`);
+    }
 
     return (
       <div className="app-container learning-analytics-dashboard" style={{ zIndex: 10, alignItems: 'stretch' }}>
@@ -2520,22 +2596,109 @@ Die JSON muss exakt diese Struktur haben:
         </h1>
 
         <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
+          <section className="note-card" style={{ padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem' }}>Gesamt-Trefferquote</p>
+            <p style={{ margin: '0.2rem 0 0 0', color: overallAccuracy >= 75 ? 'var(--success)' : 'var(--error)', fontSize: '2rem', fontWeight: 800 }}>{overallAccuracy}%</p>
+          </section>
+          <section className="note-card" style={{ padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem' }}>Bearbeitete Antworten</p>
+            <p style={{ margin: '0.2rem 0 0 0', color: 'var(--text-light)', fontSize: '2rem', fontWeight: 800 }}>{totalAnswers}</p>
+          </section>
+          <section className="note-card" style={{ padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem' }}>Schwächste Themen</p>
+            <p style={{ margin: '0.2rem 0 0 0', color: weakestTopics.length > 0 ? 'var(--error)' : 'var(--success)', fontSize: '2rem', fontWeight: 800 }}>{weakestTopics.length}</p>
+          </section>
+          <section className="note-card" style={{ padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem' }}>Top-Risiko-Fehler</p>
+            <p style={{ margin: '0.2rem 0 0 0', color: riskEntries.length > 0 ? 'var(--error)' : 'var(--success)', fontSize: '2rem', fontWeight: 800 }}>{riskEntries.length}</p>
+          </section>
+        </div>
+
+        <div style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
           {[
             { label: 'Heute', values: day },
             { label: 'Letzte 7 Tage', values: week },
             { label: 'Letzte 30 Tage', values: month }
-          ].map(item => (
-            <div key={item.label} className="card-face" style={{ padding: '1.2rem', border: '1px solid var(--glass-border)', borderRadius: '16px', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', textAlign: 'left' }}>
-              <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.9rem' }}>{item.label}</h3>
-              <p style={{ margin: '0.35rem 0', color: 'var(--text-muted)' }}>Fragen richtig: <strong style={{ color: 'var(--success)' }}>{item.values.questionsCorrect}</strong></p>
-              <p style={{ margin: '0.35rem 0', color: 'var(--text-muted)' }}>Fragen falsch: <strong style={{ color: 'var(--error)' }}>{item.values.questionsWrong}</strong></p>
-              <p style={{ margin: '0.35rem 0', color: 'var(--text-muted)' }}>Karten richtig: <strong style={{ color: 'var(--success)' }}>{item.values.cardsCorrect}</strong></p>
-              <p style={{ margin: '0.35rem 0', color: 'var(--text-muted)' }}>Karten unsicher/falsch: <strong style={{ color: 'var(--error)' }}>{item.values.cardsWrong}</strong></p>
-            </div>
-          ))}
+          ].map(item => {
+            const total = item.values.questionsCorrect + item.values.questionsWrong + item.values.cardsCorrect + item.values.cardsWrong;
+            const hitRate = total > 0 ? Math.round(((item.values.questionsCorrect + item.values.cardsCorrect) / total) * 100) : 0;
+            return (
+              <section key={item.label} className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+                <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.6rem' }}>{item.label}</h3>
+                <div style={{ height: '8px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)', marginBottom: '0.7rem' }}>
+                  <div style={{ width: `${hitRate}%`, height: '100%', background: hitRate >= 75 ? 'var(--success)' : hitRate >= 60 ? '#f59e0b' : 'var(--error)' }}></div>
+                </div>
+                <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Trefferquote: <strong style={{ color: 'var(--text-light)' }}>{hitRate}%</strong></p>
+                <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Fragen richtig/falsch: <strong style={{ color: 'var(--text-light)' }}>{item.values.questionsCorrect}/{item.values.questionsWrong}</strong></p>
+                <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Karten richtig/falsch: <strong style={{ color: 'var(--text-light)' }}>{item.values.cardsCorrect}/{item.values.cardsWrong}</strong></p>
+              </section>
+            );
+          })}
         </div>
 
         <div className="printable-notes" style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
+          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Themenanalyse (Prüfungsfokus)</h3>
+            {topicRows.length === 0 ? (
+              <p style={{ color: 'var(--text-muted)', margin: 0 }}>Noch keine themenbezogenen Antworten vorhanden.</p>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                {topicRows.slice(0, 8).map(row => (
+                  <div key={row.topic} style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
+                      <strong style={{ color: 'var(--text-light)', fontSize: '0.88rem' }}>{row.topic}</strong>
+                      <span style={{ color: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)', fontWeight: 700, fontSize: '0.85rem' }}>{row.accuracy}%</span>
+                    </div>
+                    <div style={{ height: '7px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)' }}>
+                      <div style={{ width: `${row.accuracy}%`, height: '100%', background: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)' }}></div>
+                    </div>
+                    <div style={{ marginTop: '0.35rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                      Antworten: {row.total} · Richtig: {row.correct} · Falsch: {row.wrong}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
+          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Stärken · Schwächen · Risiken · Chancen</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.7rem' }}>
+              <div style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid rgba(34,197,94,0.35)', background: 'rgba(34,197,94,0.08)' }}>
+                <strong style={{ color: 'var(--success)', fontSize: '0.84rem' }}>Stärken</strong>
+                <ul style={{ margin: '0.5rem 0 0 1rem', color: 'var(--text-light)', fontSize: '0.8rem', lineHeight: '1.4' }}>
+                  {(strongestTopics.length > 0 ? strongestTopics : [{ topic: 'Noch keine stabilen Stärken', accuracy: 0 }]).map(item => (
+                    <li key={`s_${item.topic}`}>{item.topic}{item.accuracy ? ` (${item.accuracy}%)` : ''}</li>
+                  ))}
+                </ul>
+              </div>
+              <div style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid rgba(239,68,68,0.35)', background: 'rgba(239,68,68,0.08)' }}>
+                <strong style={{ color: 'var(--error)', fontSize: '0.84rem' }}>Schwächen</strong>
+                <ul style={{ margin: '0.5rem 0 0 1rem', color: 'var(--text-light)', fontSize: '0.8rem', lineHeight: '1.4' }}>
+                  {(weakestTopics.length > 0 ? weakestTopics : [{ topic: 'Keine kritischen Schwächen erkannt', accuracy: 0 }]).map(item => (
+                    <li key={`w_${item.topic}`}>{item.topic}{item.accuracy ? ` (${item.accuracy}%)` : ''}</li>
+                  ))}
+                </ul>
+              </div>
+              <div style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid rgba(245,158,11,0.35)', background: 'rgba(245,158,11,0.08)' }}>
+                <strong style={{ color: '#f59e0b', fontSize: '0.84rem' }}>Risiken</strong>
+                <ul style={{ margin: '0.5rem 0 0 1rem', color: 'var(--text-light)', fontSize: '0.8rem', lineHeight: '1.4' }}>
+                  {(riskEntries.length > 0 ? riskEntries : [{ questionText: 'Keine akuten Risiko-Fragen gefunden', count: 0 }]).map((item, idx) => (
+                    <li key={`r_${idx}`}>{(item.questionText || '').slice(0, 52)}{(item.questionText || '').length > 52 ? '...' : ''}{item.count ? ` (${item.count}x)` : ''}</li>
+                  ))}
+                </ul>
+              </div>
+              <div style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid rgba(99,102,241,0.35)', background: 'rgba(99,102,241,0.08)' }}>
+                <strong style={{ color: 'var(--primary)', fontSize: '0.84rem' }}>Chancen</strong>
+                <ul style={{ margin: '0.5rem 0 0 1rem', color: 'var(--text-light)', fontSize: '0.8rem', lineHeight: '1.4' }}>
+                  {(opportunityTopics.length > 0 ? opportunityTopics : [{ topic: 'Nächster Schritt: mehr Trainingsvolumen', accuracy: 0 }]).map(item => (
+                    <li key={`o_${item.topic}`}>{item.topic}{item.accuracy ? ` (${item.accuracy}%)` : ''}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Fehler-Analyse (Top Schwächen)</h3>
             <p style={{ color: 'var(--text-muted)', marginTop: 0, marginBottom: '1rem', fontSize: '0.9rem' }}>
@@ -2566,7 +2729,7 @@ Die JSON muss exakt diese Struktur haben:
           </section>
 
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Detaillierter Lernstand</h3>
+            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Professionelle Lernprognose</h3>
             <p style={{ color: 'var(--text-muted)', marginTop: 0, marginBottom: '0.75rem' }}>Gesamte Antworten: <strong style={{ color: 'var(--text-light)' }}>{events.length}</strong></p>
             {Object.keys(modeTotals).length === 0 ? (
               <p style={{ color: 'var(--text-muted)', margin: 0 }}>Noch keine Trainingsdaten vorhanden.</p>
@@ -2578,7 +2741,7 @@ Die JSON muss exakt diese Struktur haben:
                   return (
                     <div key={mode} style={{ padding: '0.7rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <strong style={{ color: 'var(--text-light)' }}>{mode}</strong>
+                        <strong style={{ color: 'var(--text-light)' }}>{modeLabel[mode] || mode}</strong>
                         <span style={{ color: accuracy >= 70 ? 'var(--success)' : 'var(--error)', fontWeight: 'bold' }}>{accuracy}% Trefferquote</span>
                       </div>
                       <div style={{ marginTop: '0.35rem', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
@@ -2587,11 +2750,24 @@ Die JSON muss exakt diese Struktur haben:
                     </div>
                   );
                 })}
+
+                <div style={{ marginTop: '0.2rem', padding: '0.75rem', borderRadius: '10px', border: '1px dashed var(--glass-border)', color: 'var(--text-light)', fontSize: '0.84rem', lineHeight: '1.5' }}>
+                  <strong style={{ display: 'block', marginBottom: '0.35rem' }}>Empfohlener Fokus bis zur Prüfung:</strong>
+                  {strategicActions.length > 0 ? (
+                    <ul style={{ margin: '0 0 0 1rem', color: 'var(--text-muted)' }}>
+                      {strategicActions.map((item, idx) => (
+                        <li key={`a_${idx}`}>{item}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <span style={{ color: 'var(--text-muted)' }}>Noch zu wenig Daten für eine belastbare Prognose. Bitte weiter trainieren.</span>
+                  )}
+                </div>
               </div>
             )}
 
             <div style={{ marginTop: '1rem', padding: '0.75rem', borderRadius: '10px', border: '1px dashed var(--glass-border)', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-              PDF-Export enthält alle sichtbaren Kennzahlen, Fehlercluster und Bereichs-Trefferquoten.
+              Analyse deckt jetzt Kennzahlen, Themenleistung, SWOT-Logik und einen konkreten Prüfungsfokus ab.
             </div>
           </section>
         </div>
