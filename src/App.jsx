@@ -213,7 +213,6 @@ function App() {
   const [backgroundEffectsEnabled, setBackgroundEffectsEnabled] = useState(true);
   const [backgroundEffectsIntensity, setBackgroundEffectsIntensity] = useState(100);
   const [appearanceNotice, setAppearanceNotice] = useState('');
-  const [settingsMenuOpen, setSettingsMenuOpen] = useState(false);
 
   const persistBackgroundSettings = (settings) => {
     try {
@@ -277,12 +276,6 @@ function App() {
       persistBackgroundSettings({ mode: 'color', color: legacySavedColor, presetId: '', imageData: '', effectsEnabled: true, effectsIntensity: 100 });
     }
   }, []);
-
-  useEffect(() => {
-    if (appMode !== 'dashboard') {
-      setSettingsMenuOpen(false);
-    }
-  }, [appMode]);
 
   const toggleTheme = () => {
     setIsLightMode(prev => {
@@ -1890,6 +1883,7 @@ ${feynmanInput}`;
         pomodoroRunning={pomodoroActive}
         pomodoroTimeLeft={pomodoroTimeLeft}
         onStopPomodoro={() => setPomodoroForceStop(Date.now())}
+        onOpenAppearanceSettings={() => setAppMode('appearance_settings')}
       />
       {questionManagerCategory && (
         <QuestionManager
@@ -1925,32 +1919,6 @@ ${feynmanInput}`;
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <header style={{ position: 'relative', width: '100%' }}>
-          <div style={{ position: 'absolute', top: '0.2rem', right: 0, zIndex: 15 }}>
-            <button
-              className="settings-gear-btn"
-              onClick={() => setSettingsMenuOpen(prev => !prev)}
-              aria-label="Einstellungen"
-              title="Einstellungen"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-              </svg>
-            </button>
-            {settingsMenuOpen && (
-              <div className="settings-popover">
-                <button
-                  className="settings-popover-item"
-                  onClick={() => {
-                    setSettingsMenuOpen(false);
-                    setAppMode('appearance_settings');
-                  }}
-                >
-                  Darstellung anpassen
-                </button>
-              </div>
-            )}
-          </div>
           <h1 style={{ fontFamily: '"Anton", sans-serif', textTransform: 'uppercase', letterSpacing: '0px', fontSize: '3.5rem', transform: 'scaleY(1.2)', transformOrigin: 'bottom', margin: '0 0 1rem 0', color: 'var(--text-light)', textShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>MASTERPAT APP</h1>
           <p className="subtitle">Wähle deinen Lernmodus</p>
         </header>
