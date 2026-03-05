@@ -2539,6 +2539,77 @@ Die JSON muss exakt diese Struktur haben:
       })
       .sort((a, b) => b.total - a.total);
 
+    const radarTopics = topicRows.slice(0, 6);
+    const radarSize = 270;
+    const radarCenter = radarSize / 2;
+    const radarRadius = 96;
+    const radarRings = [25, 50, 75, 100];
+    const polarToCartesian = (angleDeg, valuePct = 100) => {
+      const angle = ((angleDeg - 90) * Math.PI) / 180;
+      const radius = (Math.max(0, Math.min(100, valuePct)) / 100) * radarRadius;
+      return {
+        x: radarCenter + (Math.cos(angle) * radius),
+        y: radarCenter + (Math.sin(angle) * radius)
+      };
+    };
+    const radarPolygonPoints = radarTopics.length > 2
+      ? radarTopics.map((row, idx) => {
+        const angle = (360 / radarTopics.length) * idx;
+        const point = polarToCartesian(angle, row.accuracy);
+        return `${point.x},${point.y}`;
+      }).join(' ')
+      : '';
+
+    const extractKeyTerms = (input) => {
+      const stopWords = new Set(['und', 'oder', 'der', 'die', 'das', 'ein', 'eine', 'einer', 'einem', 'den', 'dem', 'des', 'ist', 'sind', 'mit', 'auf', 'von', 'für', 'im', 'in', 'zu', 'bei', 'aus', 'nach', 'nicht', 'noch', 'wird', 'werden', 'frage', 'bereich']);
+      return String(input || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9äöüß\s-]/g, ' ')
+        .split(/\s+/)
+        .filter(token => token.length >= 4 && !stopWords.has(token));
+    };
+
+    const getMistakeTopic = (entry) => {
+      if (!entry) return 'Allgemein';
+      if (entry.mode === 'quiz') {
+        const byId = quizTopicById.get(String(entry.questionId));
+        if (byId) return byId;
+        return getQuizTopicGroup(detectQuizTopic({ question: entry.questionText || '', hint: '', youtubeQuery: '' }));
+      }
+      if (entry.mode === 'wisor') return 'WisoR Grundlagen';
+      if (entry.mode === 'wisorEco') return 'WisoR E-Commerce';
+      if (entry.mode === 'flashcard') return 'Lernkarten Wissen';
+      return 'Allgemein';
+    };
+
+    const thematicWeaknessGroups = topMistakes.reduce((acc, entry) => {
+      const topic = getMistakeTopic(entry);
+      if (!acc[topic]) acc[topic] = { topic, count: 0, entries: [], terms: {} };
+      acc[topic].count += (entry.count || 0);
+      acc[topic].entries.push(entry);
+
+      extractKeyTerms(entry.questionText || '').forEach(term => {
+        acc[topic].terms[term] = (acc[topic].terms[term] || 0) + 1;
+      });
+      return acc;
+    }, {});
+
+    const groupedWeaknessRows = Object.values(thematicWeaknessGroups)
+      .map(group => {
+        const topTerms = Object.entries(group.terms)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 3)
+          .map(([term]) => term);
+        return {
+          ...group,
+          topTerms,
+          sampleQuestions: group.entries
+            .sort((a, b) => (b.count || 0) - (a.count || 0))
+            .slice(0, 2)
+        };
+      })
+      .sort((a, b) => b.count - a.count);
+
     const strongestTopics = topicRows
       .filter(row => row.total >= 3 && row.accuracy >= 75)
       .sort((a, b) => b.accuracy - a.accuracy)
@@ -2662,6 +2733,63 @@ Die JSON muss exakt diese Struktur haben:
           </section>
 
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Radar: Themenkompetenz</h3>
+            {radarTopics.length < 3 ? (
+              <p style={{ color: 'var(--text-muted)', margin: 0 }}>Für ein Radar werden mindestens 3 Themen mit Daten benötigt.</p>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <svg width={radarSize} height={radarSize} viewBox={`0 0 ${radarSize} ${radarSize}`} role="img" aria-label="Radar der Themenkompetenz">
+                    {radarRings.map(ring => (
+                      <polygon
+                        key={`ring_${ring}`}
+                        points={radarTopics.map((_, idx) => {
+                          const angle = (360 / radarTopics.length) * idx;
+                          const pt = polarToCartesian(angle, ring);
+                          return `${pt.x},${pt.y}`;
+                        }).join(' ')}
+                        fill="none"
+                        stroke="rgba(148,163,184,0.28)"
+                        strokeWidth="1"
+                      />
+                    ))}
+
+                    {radarTopics.map((row, idx) => {
+                      const angle = (360 / radarTopics.length) * idx;
+                      const edge = polarToCartesian(angle, 100);
+                      const label = polarToCartesian(angle, 112);
+                      return (
+                        <g key={`axis_${row.topic}`}>
+                          <line x1={radarCenter} y1={radarCenter} x2={edge.x} y2={edge.y} stroke="rgba(148,163,184,0.35)" strokeWidth="1" />
+                          <text x={label.x} y={label.y} textAnchor="middle" dominantBaseline="middle" fontSize="10" fill="var(--text-muted)">
+                            {row.topic.length > 16 ? `${row.topic.slice(0, 16)}...` : row.topic}
+                          </text>
+                        </g>
+                      );
+                    })}
+
+                    <polygon points={radarPolygonPoints} fill="rgba(99,102,241,0.32)" stroke="var(--primary)" strokeWidth="2" />
+                    {radarTopics.map((row, idx) => {
+                      const angle = (360 / radarTopics.length) * idx;
+                      const point = polarToCartesian(angle, row.accuracy);
+                      return <circle key={`dot_${row.topic}`} cx={point.x} cy={point.y} r="3.4" fill="var(--primary)" />;
+                    })}
+                  </svg>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.45rem' }}>
+                  {radarTopics.map(row => (
+                    <div key={`legend_${row.topic}`} style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between', gap: '0.6rem' }}>
+                      <span>{row.topic}</span>
+                      <strong style={{ color: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)' }}>{row.accuracy}%</strong>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </section>
+
+          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Stärken · Schwächen · Risiken · Chancen</h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.7rem' }}>
               <div style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid rgba(34,197,94,0.35)', background: 'rgba(34,197,94,0.08)' }}>
@@ -2700,26 +2828,36 @@ Die JSON muss exakt diese Struktur haben:
           </section>
 
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Fehler-Analyse (Top Schwächen)</h3>
+            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Fehler-Analyse (Top Schwächen nach Themen)</h3>
             <p style={{ color: 'var(--text-muted)', marginTop: 0, marginBottom: '1rem', fontSize: '0.9rem' }}>
               Letzte Aktualisierung: {learningAnalytics?.lastRefreshedAt ? new Date(learningAnalytics.lastRefreshedAt).toLocaleString() : 'noch nicht ausgeführt'}
             </p>
-            {topMistakes.length === 0 ? (
+            {groupedWeaknessRows.length === 0 ? (
               <p style={{ color: 'var(--text-muted)', margin: 0 }}>Noch keine Fehlerdaten vorhanden.</p>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
-                {topMistakes.map((entry, idx) => (
-                  <div key={`${entry.mode}_${entry.questionId || idx}`} style={{ padding: '0.75rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '0.35rem' }}>
-                      <strong style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{entry.questionText}</strong>
-                      <span style={{ color: 'var(--error)', fontWeight: 'bold', whiteSpace: 'nowrap' }}>{entry.count}× Fehler</span>
+                {groupedWeaknessRows.slice(0, 8).map((group, idx) => (
+                  <div key={`weakness_${group.topic}_${idx}`} style={{ padding: '0.75rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '0.3rem' }}>
+                      <strong style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{group.topic}</strong>
+                      <span style={{ color: 'var(--error)', fontWeight: 'bold', whiteSpace: 'nowrap' }}>{group.count}× Fehler gesamt</span>
                     </div>
-                    <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                      Bereich: {entry.mode} · Letzter Fehler: {entry.lastAt ? new Date(entry.lastAt).toLocaleString() : '-'}
+
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.35rem' }}>
+                      Musterbegriffe: {group.topTerms.length > 0 ? group.topTerms.join(' · ') : 'Noch keine klaren Muster'}
                     </div>
-                    {entry.expectedAnswer ? (
-                      <div style={{ marginTop: '0.3rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                        Erwartet: {entry.expectedAnswer}
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                      {group.sampleQuestions.map((entry, sampleIdx) => (
+                        <div key={`sample_${sampleIdx}`} style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                          • {(entry.questionText || '').slice(0, 82)}{(entry.questionText || '').length > 82 ? '...' : ''} ({entry.count || 0}x)
+                        </div>
+                      ))}
+                    </div>
+
+                    {group.sampleQuestions[0]?.expectedAnswer ? (
+                      <div style={{ marginTop: '0.45rem', fontSize: '0.79rem', color: 'var(--text-muted)' }}>
+                        Erwarteter Kern: {String(group.sampleQuestions[0].expectedAnswer).slice(0, 90)}{String(group.sampleQuestions[0].expectedAnswer).length > 90 ? '...' : ''}
                       </div>
                     ) : null}
                   </div>
