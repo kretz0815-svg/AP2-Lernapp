@@ -623,11 +623,12 @@ function App() {
   const [wisorVideoLoading, setWisorVideoLoading] = useState(false);
   const [selectedWisorVideo, setSelectedWisorVideo] = useState(null);
   const [wisorVideoError, setWisorVideoError] = useState('');
-  const [swotExpanded, setSwotExpanded] = useState({
-    strengths: true,
-    weaknesses: true,
-    risks: true,
-    opportunities: true
+  const [analyticsExpanded, setAnalyticsExpanded] = useState({
+    periods: false,
+    topics: false,
+    radar: false,
+    swot: false,
+    mistakes: false
   });
 
   useEffect(() => {
@@ -648,11 +649,35 @@ function App() {
     return text.replace(/\$([^$]+)\$/g, (match, inner) => inner.replace(/\\/g, '').trim());
   };
 
-  const toggleSwotSection = (sectionKey) => {
-    setSwotExpanded(prev => ({
+  const toggleAnalyticsPanel = (panelKey) => {
+    setAnalyticsExpanded(prev => ({
       ...prev,
-      [sectionKey]: !prev[sectionKey]
+      [panelKey]: !prev[panelKey]
     }));
+  };
+
+  const analyticsToggleButtonStyle = {
+    width: '100%',
+    background: 'rgba(255,255,255,0.04)',
+    border: '1px solid var(--glass-border)',
+    borderRadius: '10px',
+    padding: '0.45rem 0.6rem',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    cursor: 'pointer'
+  };
+
+  const analyticsToggleBadgeStyle = {
+    color: 'var(--text-light)',
+    fontWeight: 700,
+    fontSize: '0.8rem',
+    minWidth: '2.1rem',
+    textAlign: 'center',
+    borderRadius: '999px',
+    border: '1px solid var(--glass-border)',
+    background: 'rgba(255,255,255,0.06)',
+    padding: '0.18rem 0.36rem'
   };
 
   const getLocalProgressData = (overrides = {}) => {
@@ -2741,221 +2766,241 @@ Die JSON muss exakt diese Struktur haben:
           </section>
         </div>
 
-        <div style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
-          {[
-            { label: 'Heute', values: day },
-            { label: 'Letzte 7 Tage', values: week },
-            { label: 'Letzte 30 Tage', values: month }
-          ].map(item => {
-            const total = item.values.questionsCorrect + item.values.questionsWrong + item.values.cardsCorrect + item.values.cardsWrong;
-            const hitRate = total > 0 ? Math.round(((item.values.questionsCorrect + item.values.cardsCorrect) / total) * 100) : 0;
-            return (
-              <section key={item.label} className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-                <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.6rem' }}>{item.label}</h3>
-                <div style={{ height: '8px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)', marginBottom: '0.7rem' }}>
-                  <div style={{ width: `${hitRate}%`, height: '100%', background: hitRate >= 75 ? 'var(--success)' : hitRate >= 60 ? '#f59e0b' : 'var(--error)' }}></div>
-                </div>
-                <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Trefferquote: <strong style={{ color: 'var(--text-light)' }}>{hitRate}%</strong></p>
-                <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Fragen richtig/falsch: <strong style={{ color: 'var(--text-light)' }}>{item.values.questionsCorrect}/{item.values.questionsWrong}</strong></p>
-                <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Karten richtig/falsch: <strong style={{ color: 'var(--text-light)' }}>{item.values.cardsCorrect}/{item.values.cardsWrong}</strong></p>
-              </section>
-            );
-          })}
-        </div>
+        <section className="note-card" style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+          <button
+            type="button"
+            onClick={() => toggleAnalyticsPanel('periods')}
+            style={analyticsToggleButtonStyle}
+          >
+            <h3 style={{ margin: 0, color: 'var(--text-light)', textAlign: 'left' }}>Zeitraumvergleich</h3>
+            <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.periods ? 'HIDE' : 'SHOW'}</span>
+          </button>
+
+          {analyticsExpanded.periods && (
+            <div style={{ marginTop: '0.85rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
+              {[
+                { label: 'Heute', values: day },
+                { label: 'Letzte 7 Tage', values: week },
+                { label: 'Letzte 30 Tage', values: month }
+              ].map(item => {
+                const total = item.values.questionsCorrect + item.values.questionsWrong + item.values.cardsCorrect + item.values.cardsWrong;
+                const hitRate = total > 0 ? Math.round(((item.values.questionsCorrect + item.values.cardsCorrect) / total) * 100) : 0;
+                return (
+                  <div key={item.label} style={{ padding: '1.1rem', borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
+                    <h4 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.6rem', fontSize: '0.98rem' }}>{item.label}</h4>
+                    <div style={{ height: '8px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)', marginBottom: '0.7rem' }}>
+                      <div style={{ width: `${hitRate}%`, height: '100%', background: hitRate >= 75 ? 'var(--success)' : hitRate >= 60 ? '#f59e0b' : 'var(--error)' }}></div>
+                    </div>
+                    <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Trefferquote: <strong style={{ color: 'var(--text-light)' }}>{hitRate}%</strong></p>
+                    <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Fragen richtig/falsch: <strong style={{ color: 'var(--text-light)' }}>{item.values.questionsCorrect}/{item.values.questionsWrong}</strong></p>
+                    <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Karten richtig/falsch: <strong style={{ color: 'var(--text-light)' }}>{item.values.cardsCorrect}/{item.values.cardsWrong}</strong></p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </section>
 
         <div className="printable-notes" style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem', alignItems: 'start' }}>
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Themenanalyse (Prüfungsfokus)</h3>
-            {topicRows.length === 0 ? (
-              <p style={{ color: 'var(--text-muted)', margin: 0 }}>Noch keine themenbezogenen Antworten vorhanden.</p>
-            ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                {topicRows.slice(0, 8).map(row => (
-                  <div key={row.topic} style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
-                      <strong style={{ color: 'var(--text-light)', fontSize: '0.88rem' }}>{row.topic}</strong>
-                      <span style={{ color: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)', fontWeight: 700, fontSize: '0.85rem' }}>{row.accuracy}%</span>
+            <button type="button" onClick={() => toggleAnalyticsPanel('topics')} style={analyticsToggleButtonStyle}>
+              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left' }}>Themenanalyse (Prüfungsfokus)</h3>
+              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.topics ? 'HIDE' : 'SHOW'}</span>
+            </button>
+            {analyticsExpanded.topics && (
+              <div style={{ marginTop: '0.8rem' }}>
+                {topicRows.length === 0 ? (
+                  <p style={{ color: 'var(--text-muted)', margin: 0 }}>Noch keine themenbezogenen Antworten vorhanden.</p>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                    {topicRows.slice(0, 8).map(row => (
+                      <div key={row.topic} style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
+                          <strong style={{ color: 'var(--text-light)', fontSize: '0.88rem' }}>{row.topic}</strong>
+                          <span style={{ color: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)', fontWeight: 700, fontSize: '0.85rem' }}>{row.accuracy}%</span>
+                        </div>
+                        <div style={{ height: '7px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)' }}>
+                          <div style={{ width: `${row.accuracy}%`, height: '100%', background: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)' }}></div>
+                        </div>
+                        <div style={{ marginTop: '0.35rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                          Antworten: {row.total} · Richtig: {row.correct} · Falsch: {row.wrong}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </section>
+
+          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+            <button type="button" onClick={() => toggleAnalyticsPanel('radar')} style={analyticsToggleButtonStyle}>
+              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left' }}>Radar: Themenkompetenz</h3>
+              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.radar ? 'HIDE' : 'SHOW'}</span>
+            </button>
+            {analyticsExpanded.radar && (
+              <div style={{ marginTop: '0.8rem' }}>
+                {radarTopics.length < 3 ? (
+                  <p style={{ color: 'var(--text-muted)', margin: 0 }}>Für ein Radar werden mindestens 3 Themen mit Daten benötigt.</p>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <svg width={radarSize} height={radarSize} viewBox={`0 0 ${radarSize} ${radarSize}`} role="img" aria-label="Radar der Themenkompetenz">
+                        {radarRings.map(ring => (
+                          <polygon
+                            key={`ring_${ring}`}
+                            points={radarTopics.map((_, idx) => {
+                              const angle = (360 / radarTopics.length) * idx;
+                              const pt = polarToCartesian(angle, ring);
+                              return `${pt.x},${pt.y}`;
+                            }).join(' ')}
+                            fill="none"
+                            stroke="rgba(148,163,184,0.28)"
+                            strokeWidth="1"
+                          />
+                        ))}
+
+                        {radarTopics.map((row, idx) => {
+                          const angle = (360 / radarTopics.length) * idx;
+                          const edge = polarToCartesian(angle, 100);
+                          const label = polarToCartesian(angle, 112);
+                          return (
+                            <g key={`axis_${row.topic}`}>
+                              <line x1={radarCenter} y1={radarCenter} x2={edge.x} y2={edge.y} stroke="rgba(148,163,184,0.35)" strokeWidth="1" />
+                              <text x={label.x} y={label.y} textAnchor="middle" dominantBaseline="middle" fontSize="10" fill="var(--text-muted)">
+                                {row.topic.length > 16 ? `${row.topic.slice(0, 16)}...` : row.topic}
+                              </text>
+                            </g>
+                          );
+                        })}
+
+                        <polygon points={radarPolygonPoints} fill="rgba(99,102,241,0.32)" stroke="var(--primary)" strokeWidth="2" />
+                        {radarTopics.map((row, idx) => {
+                          const angle = (360 / radarTopics.length) * idx;
+                          const point = polarToCartesian(angle, row.accuracy);
+                          return <circle key={`dot_${row.topic}`} cx={point.x} cy={point.y} r="3.4" fill="var(--primary)" />;
+                        })}
+                      </svg>
                     </div>
-                    <div style={{ height: '7px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)' }}>
-                      <div style={{ width: `${row.accuracy}%`, height: '100%', background: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)' }}></div>
-                    </div>
-                    <div style={{ marginTop: '0.35rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                      Antworten: {row.total} · Richtig: {row.correct} · Falsch: {row.wrong}
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.45rem' }}>
+                      {radarTopics.map(row => (
+                        <div key={`legend_${row.topic}`} style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between', gap: '0.6rem' }}>
+                          <span>{row.topic}</span>
+                          <strong style={{ color: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)' }}>{row.accuracy}%</strong>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                ))}
+                )}
               </div>
             )}
           </section>
 
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Radar: Themenkompetenz</h3>
-            {radarTopics.length < 3 ? (
-              <p style={{ color: 'var(--text-muted)', margin: 0 }}>Für ein Radar werden mindestens 3 Themen mit Daten benötigt.</p>
-            ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <svg width={radarSize} height={radarSize} viewBox={`0 0 ${radarSize} ${radarSize}`} role="img" aria-label="Radar der Themenkompetenz">
-                    {radarRings.map(ring => (
-                      <polygon
-                        key={`ring_${ring}`}
-                        points={radarTopics.map((_, idx) => {
-                          const angle = (360 / radarTopics.length) * idx;
-                          const pt = polarToCartesian(angle, ring);
-                          return `${pt.x},${pt.y}`;
-                        }).join(' ')}
-                        fill="none"
-                        stroke="rgba(148,163,184,0.28)"
-                        strokeWidth="1"
-                      />
-                    ))}
+            <button type="button" onClick={() => toggleAnalyticsPanel('swot')} style={analyticsToggleButtonStyle}>
+              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left' }}>Stärken · Schwächen · Risiken · Chancen</h3>
+              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.swot ? 'HIDE' : 'SHOW'}</span>
+            </button>
 
-                    {radarTopics.map((row, idx) => {
-                      const angle = (360 / radarTopics.length) * idx;
-                      const edge = polarToCartesian(angle, 100);
-                      const label = polarToCartesian(angle, 112);
-                      return (
-                        <g key={`axis_${row.topic}`}>
-                          <line x1={radarCenter} y1={radarCenter} x2={edge.x} y2={edge.y} stroke="rgba(148,163,184,0.35)" strokeWidth="1" />
-                          <text x={label.x} y={label.y} textAnchor="middle" dominantBaseline="middle" fontSize="10" fill="var(--text-muted)">
-                            {row.topic.length > 16 ? `${row.topic.slice(0, 16)}...` : row.topic}
-                          </text>
-                        </g>
-                      );
-                    })}
-
-                    <polygon points={radarPolygonPoints} fill="rgba(99,102,241,0.32)" stroke="var(--primary)" strokeWidth="2" />
-                    {radarTopics.map((row, idx) => {
-                      const angle = (360 / radarTopics.length) * idx;
-                      const point = polarToCartesian(angle, row.accuracy);
-                      return <circle key={`dot_${row.topic}`} cx={point.x} cy={point.y} r="3.4" fill="var(--primary)" />;
-                    })}
-                  </svg>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.45rem' }}>
-                  {radarTopics.map(row => (
-                    <div key={`legend_${row.topic}`} style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between', gap: '0.6rem' }}>
-                      <span>{row.topic}</span>
-                      <strong style={{ color: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)' }}>{row.accuracy}%</strong>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </section>
-
-          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Stärken · Schwächen · Risiken · Chancen</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.7rem' }}>
-              {swotCards.map(card => {
-                const expanded = !!swotExpanded[card.key];
-                return (
-                  <div key={card.key} style={{ padding: '0.65rem', borderRadius: '10px', border: card.border, background: card.background }}>
-                    <button
-                      type="button"
-                      onClick={() => toggleSwotSection(card.key)}
-                      style={{
-                        width: '100%',
-                        background: 'transparent',
-                        border: 'none',
-                        padding: 0,
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        cursor: 'pointer'
-                      }}
-                    >
+            {analyticsExpanded.swot && (
+              <div style={{ marginTop: '0.8rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.7rem' }}>
+                  {swotCards.map(card => (
+                    <div key={card.key} style={{ padding: '0.65rem', borderRadius: '10px', border: card.border, background: card.background }}>
                       <strong style={{ color: card.titleColor, fontSize: '0.84rem' }}>{card.title}</strong>
-                      <span style={{ color: card.titleColor, fontSize: '0.78rem', fontWeight: 700 }}>{expanded ? '−' : '+'}</span>
-                    </button>
-
-                    {expanded && (
                       <ul style={{ margin: '0.5rem 0 0 1rem', color: 'var(--text-light)', fontSize: '0.8rem', lineHeight: '1.4' }}>
                         {card.items.map((text, idx) => (
                           <li key={`${card.key}_${idx}`}>{text}</li>
                         ))}
                       </ul>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            <div style={{ marginTop: '0.9rem', paddingTop: '0.8rem', borderTop: '1px dashed var(--glass-border)' }}>
-              <h4 style={{ margin: '0 0 0.55rem 0', color: 'var(--text-light)', fontSize: '0.95rem' }}>Prüfungsprognose</h4>
-              {Object.keys(modeTotals).length === 0 ? (
-                <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.83rem' }}>Noch keine Trainingsdaten vorhanden.</p>
-              ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-                  {Object.entries(modeTotals).map(([mode, counts]) => {
-                    const total = counts.correct + counts.wrong;
-                    const accuracy = total > 0 ? Math.round((counts.correct / total) * 100) : 0;
-                    return (
-                      <div key={`swot_${mode}`} style={{ padding: '0.58rem', borderRadius: '9px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.6rem' }}>
-                          <strong style={{ color: 'var(--text-light)', fontSize: '0.82rem' }}>{modeLabel[mode] || mode}</strong>
-                          <span style={{ color: accuracy >= 70 ? 'var(--success)' : 'var(--error)', fontWeight: 'bold', fontSize: '0.8rem' }}>{accuracy}%</span>
-                        </div>
-                        <div style={{ marginTop: '0.28rem', fontSize: '0.76rem', color: 'var(--text-muted)' }}>
-                          R: {counts.correct} · F: {counts.wrong} · G: {total}
-                        </div>
-                      </div>
-                    );
-                  })}
-
-                  <div style={{ marginTop: '0.1rem', padding: '0.58rem', borderRadius: '9px', border: '1px dashed var(--glass-border)', color: 'var(--text-light)', fontSize: '0.78rem', lineHeight: '1.45' }}>
-                    <strong style={{ display: 'block', marginBottom: '0.28rem' }}>Fokus bis zur Prüfung:</strong>
-                    {strategicActions.length > 0 ? (
-                      <ul style={{ margin: '0 0 0 1rem', color: 'var(--text-muted)' }}>
-                        {strategicActions.map((item, idx) => (
-                          <li key={`swot_a_${idx}`}>{item}</li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <span style={{ color: 'var(--text-muted)' }}>Noch zu wenig Daten für eine belastbare Prognose.</span>
-                    )}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              )}
-            </div>
+
+                <div style={{ marginTop: '0.9rem', paddingTop: '0.8rem', borderTop: '1px dashed var(--glass-border)' }}>
+                  <h4 style={{ margin: '0 0 0.55rem 0', color: 'var(--text-light)', fontSize: '0.95rem' }}>Prüfungsprognose</h4>
+                  {Object.keys(modeTotals).length === 0 ? (
+                    <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.83rem' }}>Noch keine Trainingsdaten vorhanden.</p>
+                  ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+                      {Object.entries(modeTotals).map(([mode, counts]) => {
+                        const total = counts.correct + counts.wrong;
+                        const accuracy = total > 0 ? Math.round((counts.correct / total) * 100) : 0;
+                        return (
+                          <div key={`swot_${mode}`} style={{ padding: '0.58rem', borderRadius: '9px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.6rem' }}>
+                              <strong style={{ color: 'var(--text-light)', fontSize: '0.82rem' }}>{modeLabel[mode] || mode}</strong>
+                              <span style={{ color: accuracy >= 70 ? 'var(--success)' : 'var(--error)', fontWeight: 'bold', fontSize: '0.8rem' }}>{accuracy}%</span>
+                            </div>
+                            <div style={{ marginTop: '0.28rem', fontSize: '0.76rem', color: 'var(--text-muted)' }}>
+                              R: {counts.correct} · F: {counts.wrong} · G: {total}
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                      <div style={{ marginTop: '0.1rem', padding: '0.58rem', borderRadius: '9px', border: '1px dashed var(--glass-border)', color: 'var(--text-light)', fontSize: '0.78rem', lineHeight: '1.45' }}>
+                        <strong style={{ display: 'block', marginBottom: '0.28rem' }}>Fokus bis zur Prüfung:</strong>
+                        {strategicActions.length > 0 ? (
+                          <ul style={{ margin: '0 0 0 1rem', color: 'var(--text-muted)' }}>
+                            {strategicActions.map((item, idx) => (
+                              <li key={`swot_a_${idx}`}>{item}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <span style={{ color: 'var(--text-muted)' }}>Noch zu wenig Daten für eine belastbare Prognose.</span>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </section>
 
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <h3 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.8rem' }}>Fehler-Analyse (Top Schwächen nach Themen)</h3>
-            <p style={{ color: 'var(--text-muted)', marginTop: 0, marginBottom: '1rem', fontSize: '0.9rem' }}>
-              Letzte Aktualisierung: {learningAnalytics?.lastRefreshedAt ? new Date(learningAnalytics.lastRefreshedAt).toLocaleString() : 'noch nicht ausgeführt'}
-            </p>
-            {groupedWeaknessRows.length === 0 ? (
-              <p style={{ color: 'var(--text-muted)', margin: 0 }}>Noch keine Fehlerdaten vorhanden.</p>
-            ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
-                {groupedWeaknessRows.slice(0, 8).map((group, idx) => (
-                  <div key={`weakness_${group.topic}_${idx}`} style={{ padding: '0.75rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '0.3rem' }}>
-                      <strong style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{group.topic}</strong>
-                      <span style={{ color: 'var(--error)', fontWeight: 'bold', whiteSpace: 'nowrap' }}>{group.count}× Fehler gesamt</span>
-                    </div>
-
-                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.35rem' }}>
-                      Musterbegriffe: {group.topTerms.length > 0 ? group.topTerms.join(' · ') : 'Noch keine klaren Muster'}
-                    </div>
-
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                      {group.sampleQuestions.map((entry, sampleIdx) => (
-                        <div key={`sample_${sampleIdx}`} style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                          • {(entry.questionText || '').slice(0, 82)}{(entry.questionText || '').length > 82 ? '...' : ''} ({entry.count || 0}x)
+            <button type="button" onClick={() => toggleAnalyticsPanel('mistakes')} style={analyticsToggleButtonStyle}>
+              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left' }}>Fehler-Analyse (Top Schwächen nach Themen)</h3>
+              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.mistakes ? 'HIDE' : 'SHOW'}</span>
+            </button>
+            {analyticsExpanded.mistakes && (
+              <div style={{ marginTop: '0.8rem' }}>
+                <p style={{ color: 'var(--text-muted)', marginTop: 0, marginBottom: '1rem', fontSize: '0.9rem' }}>
+                  Letzte Aktualisierung: {learningAnalytics?.lastRefreshedAt ? new Date(learningAnalytics.lastRefreshedAt).toLocaleString() : 'noch nicht ausgeführt'}
+                </p>
+                {groupedWeaknessRows.length === 0 ? (
+                  <p style={{ color: 'var(--text-muted)', margin: 0 }}>Noch keine Fehlerdaten vorhanden.</p>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+                    {groupedWeaknessRows.slice(0, 8).map((group, idx) => (
+                      <div key={`weakness_${group.topic}_${idx}`} style={{ padding: '0.75rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '0.3rem' }}>
+                          <strong style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{group.topic}</strong>
+                          <span style={{ color: 'var(--error)', fontWeight: 'bold', whiteSpace: 'nowrap' }}>{group.count}× Fehler gesamt</span>
                         </div>
-                      ))}
-                    </div>
 
-                    {group.sampleQuestions[0]?.expectedAnswer ? (
-                      <div style={{ marginTop: '0.45rem', fontSize: '0.79rem', color: 'var(--text-muted)' }}>
-                        Erwarteter Kern: {String(group.sampleQuestions[0].expectedAnswer).slice(0, 90)}{String(group.sampleQuestions[0].expectedAnswer).length > 90 ? '...' : ''}
+                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.35rem' }}>
+                          Musterbegriffe: {group.topTerms.length > 0 ? group.topTerms.join(' · ') : 'Noch keine klaren Muster'}
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                          {group.sampleQuestions.map((entry, sampleIdx) => (
+                            <div key={`sample_${sampleIdx}`} style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                              • {(entry.questionText || '').slice(0, 82)}{(entry.questionText || '').length > 82 ? '...' : ''} ({entry.count || 0}x)
+                            </div>
+                          ))}
+                        </div>
+
+                        {group.sampleQuestions[0]?.expectedAnswer ? (
+                          <div style={{ marginTop: '0.45rem', fontSize: '0.79rem', color: 'var(--text-muted)' }}>
+                            Erwarteter Kern: {String(group.sampleQuestions[0].expectedAnswer).slice(0, 90)}{String(group.sampleQuestions[0].expectedAnswer).length > 90 ? '...' : ''}
+                          </div>
+                        ) : null}
                       </div>
-                    ) : null}
+                    ))}
                   </div>
-                ))}
+                )}
               </div>
             )}
           </section>
