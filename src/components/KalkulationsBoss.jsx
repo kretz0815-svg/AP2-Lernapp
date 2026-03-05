@@ -475,7 +475,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent }) {
                         style={{
                             position: 'absolute',
                             top: '0',
-                            left: '0',
+                            left: '3rem',
                             zIndex: 50,
                             pointerEvents: 'auto',
                             minHeight: '42px',
