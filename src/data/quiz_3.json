@@ -1372,6 +1372,174 @@
       "hint": "Mehr Kanäle bedeuten nicht automatisch mehr Wirkung.",
       "youtubeQuery": "Social Media Gießkannenprinzip Ressourcenverschwendung Kanalstrategie",
       "topic": "Kanal-Strategie (Fehlervermeidung)"
+    },
+    {
+      "question": "Die Marketing-Abteilung plant eine visuelle Influencer-Kampagne für die Zielgruppe der 15- bis 30-Jährigen. Eine aktuelle Datenanalyse zeigt folgende Nutzungsanteile: YouTube (ca. 90 %), Instagram (ca. 76 %) und TikTok (bis zu 94 %). Business-Netzwerke wie XING liegen unter 20 %. Welche strategische Schlussfolgerung für eine Influencer-Kampagne lässt sich aus diesen Daten ableiten?",
+      "answerOptions": [
+        {
+          "text": "Die Erfolgsaussichten sind sehr gering, da die Zielgruppe soziale Medien generell kaum nutzt und auf klassische Printmedien ausweicht.",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Daten zeigen gerade eine sehr hohe Social-Media-Nutzung in der Zielgruppe."
+        },
+        {
+          "text": "Die Erfolgsaussichten sind sehr hoch, da die für Influencer relevanten visuellen Plattformen (YouTube, Instagram, TikTok) in dieser Altersgruppe eine extrem starke Durchdringung aufweisen.",
+          "isCorrect": true,
+          "rationale": "Richtig: Die genannten Nutzungswerte sprechen klar für eine hohe Reichweite auf visuellen Influencer-Kanälen."
+        },
+        {
+          "text": "Die Erfolgsaussichten sind hoch, allerdings nur, wenn die Kampagne exklusiv über textbasierte Kurznachrichten (wie X/Twitter) ausgespielt wird.",
+          "isCorrect": false,
+          "rationale": "Falsch: Aus den Daten lassen sich vor allem visuelle Plattformen als starke Kanäle ableiten."
+        },
+        {
+          "text": "Die Erfolgsaussichten sind mäßig, da Influencer-Marketing grundsätzlich nur auf B2B-Plattformen wie XING und LinkedIn funktioniert.",
+          "isCorrect": false,
+          "rationale": "Falsch: Influencer-Marketing wirkt typischerweise auf stark genutzten Consumer-Plattformen, nicht primär auf B2B-Netzwerken."
+        }
+      ],
+      "hint": "Nutze die konkreten Nutzungsanteile der Zielgruppe als Entscheidungsbasis.",
+      "youtubeQuery": "Influencer Marketing Plattformwahl Zielgruppe 15 bis 30 Dateninterpretation",
+      "topic": "Dateninterpretation (Influencer-Marketing)"
+    },
+    {
+      "question": "Ein neuer Mitarbeiter schlägt vor, das gesamte Werbebudget für die neue Young Explorer Streetwear (Zielgruppe: 15 bis 20 Jahre) in Werbeanzeigen auf XING und LinkedIn zu investieren. Eine interne Analyse zeigt jedoch, dass die Nutzung dieser Plattformen in der Altersgruppe 15 bis 20 faktisch bei 0 % liegt. Was ist die fachliche Bewertung dieses Vorschlags?",
+      "answerOptions": [
+        {
+          "text": "Der Vorschlag ist strategisch sinnvoll, da die Nutzung von Konkurrenzplattformen wie Facebook in dieser Altersgruppe rückläufig ist.",
+          "isCorrect": false,
+          "rationale": "Falsch: Selbst wenn andere Plattformen rückläufig wären, bleibt der Kanal mit 0 % Zielgruppenpräsenz ungeeignet."
+        },
+        {
+          "text": "Die Daten unterstützen den Vorschlag, da XING und LinkedIn eine sehr kaufkräftige Zielgruppe ansprechen.",
+          "isCorrect": false,
+          "rationale": "Falsch: Für diese konkrete Kampagne zählt die passende Alterszielgruppe, die dort laut Daten gar nicht vertreten ist."
+        },
+        {
+          "text": "Der Vorschlag ist eine absolute Fehlallokation von Budget, da die Zielgruppe auf den gewählten B2B-Plattformen laut Datenlage gar nicht existent ist.",
+          "isCorrect": true,
+          "rationale": "Richtig: Wenn die Zielgruppe auf den ausgewählten Plattformen nicht vorkommt, laufen Ausgaben dort ins Leere."
+        },
+        {
+          "text": "Der Vorschlag ist gut, da junge Nutzer Business-Netzwerke bevorzugt für private Mode-Einkäufe nutzen.",
+          "isCorrect": false,
+          "rationale": "Falsch: Die angenommene Nutzung wird durch die Daten nicht gestützt."
+        }
+      ],
+      "hint": "Prüfe, ob Zielgruppe und Kanal laut Daten wirklich zusammenpassen.",
+      "youtubeQuery": "Zielgruppen Match Budgetallokation LinkedIn XING 15 bis 20",
+      "topic": "Zielgruppen-Match (Fehlallokation von Budget)"
+    },
+    {
+      "question": "Das E-Commerce-Team analysiert die Reichweite von TikTok über Altersgruppen. Die Erhebung zeigt: 94 % (15 bis 20 Jahre), 66 % (21 bis 30 Jahre) und 32 % (31 bis 40 Jahre). Welcher signifikante Trend lässt sich aus diesen Zahlen ableiten?",
+      "answerOptions": [
+        {
+          "text": "Es gibt einen klaren Nutzungsabfall mit zunehmendem Alter: Während die App bei Teenagern den Markt dominiert, bricht die Nutzung bei den über 30-Jährigen drastisch ein.",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Werte zeigen einen starken Rückgang von 94 % auf 32 % mit zunehmendem Alter."
+        },
+        {
+          "text": "Die Nutzung von TikTok steigt mit zunehmendem Alter der Zielgruppen kontinuierlich und linear an.",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Daten zeigen das Gegenteil, nämlich einen deutlichen Abfall."
+        },
+        {
+          "text": "TikTok hat über alle erfassten Altersgruppen hinweg eine nahezu identische, konstante Nutzung von durchschnittlich 66 %.",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Streuung zwischen 94 %, 66 % und 32 % ist groß und nicht konstant."
+        },
+        {
+          "text": "TikTok wird von der Altersgruppe der 31- bis 40-Jährigen exakt doppelt so stark genutzt wie von den 15- bis 20-Jährigen.",
+          "isCorrect": false,
+          "rationale": "Falsch: 32 % ist deutlich geringer als 94 % und nicht doppelt so hoch."
+        }
+      ],
+      "hint": "Vergleiche die Werte entlang des Altersverlaufs.",
+      "youtubeQuery": "TikTok Nutzung Altersgruppen Trendanalyse 15 bis 40",
+      "topic": "Plattform-Lebenszyklus und Alterssprung (TikTok)"
+    },
+    {
+      "question": "Ein E-Commerce-Unternehmen plant eine aufwendige Video-Marketingkampagne exklusiv auf TikTok und Snapchat. Die Zielgruppe für das neue Produkt sind Personen zwischen 31 und 50 Jahren. Interne Marktdaten zeigen: TikTok liegt bei den 31- bis 40-Jährigen nur bei 32 %, bei den 41- bis 50-Jährigen gibt es keine messbare Nutzung mehr. Snapchat weist in der gesamten Altersgruppe 31 bis 50 keine messbaren Nutzerdaten auf. Wie sind die Erfolgsaussichten dieser Kampagne zu bewerten?",
+      "answerOptions": [
+        {
+          "text": "Sehr hoch, da durch die geringe Nutzerzahl in diesem Alter auch die Konkurrenz durch andere Werbetreibende extrem niedrig ist.",
+          "isCorrect": false,
+          "rationale": "Falsch: Niedrige Konkurrenz hilft nicht, wenn die Zielgruppe auf den Plattformen kaum vorhanden ist."
+        },
+        {
+          "text": "Sehr gering, da die anvisierte Zielgruppe auf den ausgewählten Plattformen faktisch kaum bis gar nicht vertreten ist und das Budget somit ins Leere läuft.",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Daten deuten auf starke Streuverluste und eine Fehlallokation des Budgets hin."
+        },
+        {
+          "text": "Moderat, sofern die Videos aufwendig produziert und mit klassischen Texten untertitelt werden.",
+          "isCorrect": false,
+          "rationale": "Falsch: Produktionsqualität kompensiert keine fehlende Zielgruppenpraesenz auf dem Kanal."
+        },
+        {
+          "text": "Hoch, da diese Altersgruppe generell keine Social-Media-Plattformen nutzt und daher besonders sensibel auf TikTok-Werbung reagiert.",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Aussage ist widerspruechlich und nicht datenbasiert."
+        }
+      ],
+      "hint": "Pruefe zuerst, ob die Zielgruppe auf den gewaelten Plattformen ueberhaupt erreichbar ist.",
+      "youtubeQuery": "Kampagnenplanung Plattform Eignung TikTok Snapchat Zielgruppe 31 bis 50",
+      "topic": "Kampagnenplanung und Plattform-Eignung (Snapchat und TikTok)"
+    },
+    {
+      "question": "Das Marketing-Team analysiert die Social-Media-Nutzung der Altersgruppe 41 bis 60 Jahre. Bei Business-Netzwerken zeigt sich: XING lag bei den 21- bis 30-Jährigen bei 21 %, stuerzt bei den 41- bis 50-Jährigen auf 5 % ab und ist bei den 51- bis 60-Jährigen nicht mehr messbar (0 %). LinkedIn hat in dieser Altersgruppe ebenfalls keine messbare Relevanz. Was ist die logischste betriebswirtschaftliche Erklaerung fuer diesen Einbruch?",
+      "answerOptions": [
+        {
+          "text": "Business-Netzwerke sind gesetzlich nur fuer Personen unter 40 Jahren zugelassen.",
+          "isCorrect": false,
+          "rationale": "Falsch: Es gibt keine solche gesetzliche Altersgrenze fuer Business-Netzwerke."
+        },
+        {
+          "text": "Die Plattformen erfordern ein extrem hohes technisches Verstaendnis, welches in der Altersgruppe ab 41 Jahren grundsaetzlich nicht vorhanden ist.",
+          "isCorrect": false,
+          "rationale": "Falsch: Diese pauschale Annahme ist fachlich nicht haltbar."
+        },
+        {
+          "text": "Personen in dieser Altersgruppe sind meist beruflich etabliert, haben feste Netzwerke oder naehern sich dem Rentenalter, wodurch der Bedarf an aktiver digitaler Karriereplanung und Jobsuche stark abnimmt.",
+          "isCorrect": true,
+          "rationale": "Richtig: Mit steigender beruflicher Etablierung sinkt oft der Bedarf an aktiver Karriere-Netzwerk-Nutzung."
+        },
+        {
+          "text": "Die Altersgruppe ueber 40 nutzt fuer geschaeftliche Kontakte ausschliesslich die Plattform Snapchat.",
+          "isCorrect": false,
+          "rationale": "Falsch: Diese Aussage ist weder datenbasiert noch plausibel."
+        }
+      ],
+      "hint": "Denke an den typischen Lebenszyklus von Karriere- und Wechselmotivation.",
+      "youtubeQuery": "demografisches Nutzerverhalten Business Netzwerke XING LinkedIn 41 bis 60",
+      "topic": "Demografisches Nutzerverhalten (Business-Netzwerke)"
+    },
+    {
+      "question": "Ein Online-Shop mit Zielgruppe 15 bis 60 Jahre sucht einen Basis-Kanal mit hoher Reichweite ueber alle Generationen. Interne Daten zeigen, dass Plattformen wie TikTok nach dem 30. Lebensjahr stark einbrechen. Welche zwei Kanaele weisen ueber alle Altersgruppen hinweg die stabilste und hoechste Durchdringung auf und eignen sich daher als generationenuebergreifende Basis-Kanaele?",
+      "answerOptions": [
+        {
+          "text": "WhatsApp und YouTube",
+          "isCorrect": true,
+          "rationale": "Richtig: Diese Kanaele zeigen ueber Altersgruppen hinweg die stabilste Reichweite und eignen sich als breite Basis."
+        },
+        {
+          "text": "X (Twitter) und XING",
+          "isCorrect": false,
+          "rationale": "Falsch: Beide Kanaele sind nicht die stabilsten Reichweitenkanaele ueber alle Altersklassen."
+        },
+        {
+          "text": "Snapchat und Instagram",
+          "isCorrect": false,
+          "rationale": "Falsch: Snapchat ist stark altersabhaengig und bricht bei aelteren Zielgruppen deutlich ein."
+        },
+        {
+          "text": "LinkedIn und TikTok",
+          "isCorrect": false,
+          "rationale": "Falsch: Diese Kombination ist nicht generationenuebergreifend stabil genug."
+        }
+      ],
+      "hint": "Suche die Kanaele mit moeglichst hoher und stabiler Nutzung von jung bis aelter.",
+      "youtubeQuery": "Cross generationale Plattform Strategie WhatsApp YouTube Reichweite 15 bis 60",
+      "topic": "Cross-Generationale Plattform-Strategie (Meta-Analyse)"
     }
   ]
 }
