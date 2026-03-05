@@ -1613,6 +1613,35 @@ ${feynmanInput}`;
           .catch(() => refreshQuizDuePool());
 
         if (appMode === 'quiz' || appMode === 'quiz_setup') setAppMode('dashboard');
+      } else if (resetTarget === 'fullAccount') {
+        // Clear all localStorage progress
+        localStorage.removeItem('ap2_srs_progress');
+        localStorage.removeItem('ap2_quiz_progress');
+        localStorage.removeItem('ap2_wisor_progress');
+        localStorage.removeItem('ap2_wisor_eco_progress');
+        localStorage.removeItem('ap2_saved_notes');
+        localStorage.removeItem(getAnalyticsStorageKey(authUser));
+        localStorage.removeItem(getCustomQuizStorageKey(authUser));
+
+        // Reset all React state
+        setCompletedWisors({});
+        setCompletedWisorsEco({});
+        setQuizProgressView({});
+        setAllQuizzes([]);
+        setLearningAnalytics(createEmptyAnalytics());
+        setCustomQuizQuestions([]);
+        setStats({ learnedToday: 0, totalDue: 0 });
+
+        // Clear Supabase data
+        const resetTasks = [];
+        if (authUser?.id) {
+          resetTasks.push(syncProgressToSupabase(createEmptyMemberProgressData(), { queueOnFail: false }));
+          resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'quiz'));
+        }
+
+        setResetModalVisible(false);
+        Promise.allSettled(resetTasks).then(() => refreshQuizDuePool());
+        setAppMode('dashboard');
       }
     } else {
       alert("Falsches Ergebnis! Reset abgebrochen.");
@@ -2219,7 +2248,46 @@ ${feynmanInput}`;
             <button className="btn-secondary" onClick={resetBackgroundColor}>Standard wiederherstellen</button>
             <button className="btn-primary" onClick={() => setAppMode('dashboard')}>Fertig</button>
           </div>
+
+          <div style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--glass-border)' }}>
+            <h3 style={{ marginTop: 0, marginBottom: '0.5rem', color: 'var(--error, #ef4444)' }}>Gesamten Fortschritt zurücksetzen</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginBottom: '1rem' }}>
+              Setzt deinen kompletten Lernfortschritt auf Null zurück: Quiz, Wisor, Karteikarten, Statistiken und Notizen.
+            </p>
+            <button
+              className="btn-secondary"
+              style={{ background: 'rgba(239,68,68,0.12)', borderColor: 'var(--error, #ef4444)', color: 'var(--error, #ef4444)', fontWeight: 700 }}
+              onClick={(e) => openResetModal(e, 'fullAccount')}
+            >
+              Account zurücksetzen
+            </button>
+          </div>
         </section>
+
+        {resetModalVisible && (
+          <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="card-face fade-in" style={{ padding: '2rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center', maxWidth: '350px' }}>
+              <h3 style={{ color: 'var(--error, #ef4444)', marginBottom: '0.7rem' }}>Bist du dir sicher?</h3>
+              <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>Dein gesamter Lernstand wird unwiderruflich auf Null zurückgesetzt. Löse die Aufgabe, um fortzufahren:</p>
+              <form onSubmit={handleResetConfirm}>
+                <p style={{ fontSize: '1.5rem', color: 'var(--text-light)', marginBottom: '1rem' }}>{resetMath.a} + {resetMath.b} = ?</p>
+                <input
+                  type="number"
+                  className="wisor-input"
+                  style={{ textAlign: 'center', marginBottom: '1rem' }}
+                  value={resetMath.input}
+                  onChange={(e) => setResetMath(s => ({ ...s, input: e.target.value }))}
+                  required
+                  autoFocus
+                />
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <button type="button" className="btn-secondary" onClick={() => setResetModalVisible(false)} style={{ flex: 1 }}>Abbrechen</button>
+                  <button type="submit" className="btn-primary" style={{ flex: 1, background: 'var(--error, #ef4444)' }}>Alles löschen</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
