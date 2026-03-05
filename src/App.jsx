@@ -1969,8 +1969,8 @@ ${feynmanInput}`;
             <div
               ref={einsteinRef}
               style={{
-                width: '70px',
-                height: '70px',
+                width: '210px',
+                height: '210px',
                 perspective: '600px',
                 flexShrink: 0
               }}
