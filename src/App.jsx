@@ -118,6 +118,14 @@ const clearBackgroundLayers = () => {
   document.body.style.removeProperty('--app-bg-image-overlay');
 };
 
+const applyBackgroundEffectsVisibility = (enabled) => {
+  if (enabled) {
+    document.body.classList.remove('no-bg-effects');
+  } else {
+    document.body.classList.add('no-bg-effects');
+  }
+};
+
 const applyCustomBackgroundColor = (hexColor) => {
   clearBackgroundLayers();
 
@@ -177,6 +185,7 @@ function App() {
   const [backgroundMode, setBackgroundMode] = useState('default');
   const [backgroundPresetId, setBackgroundPresetId] = useState('');
   const [backgroundImageData, setBackgroundImageData] = useState('');
+  const [backgroundEffectsEnabled, setBackgroundEffectsEnabled] = useState(true);
   const [appearanceNotice, setAppearanceNotice] = useState('');
   const [settingsMenuOpen, setSettingsMenuOpen] = useState(false);
 
@@ -205,11 +214,14 @@ function App() {
         const savedColor = savedSettings?.color || '';
         const savedPreset = savedSettings?.presetId || '';
         const savedImage = savedSettings?.imageData || '';
+        const savedEffectsEnabled = savedSettings?.effectsEnabled !== false;
 
         setBackgroundMode(savedMode);
         setCustomBackgroundColor(savedColor);
         setBackgroundPresetId(savedPreset);
         setBackgroundImageData(savedImage);
+        setBackgroundEffectsEnabled(savedEffectsEnabled);
+        applyBackgroundEffectsVisibility(savedEffectsEnabled);
 
         if (savedMode === 'preset' && savedPreset) {
           applyPresetBackground(savedPreset);
@@ -228,8 +240,10 @@ function App() {
     if (isValidHexColor(legacySavedColor)) {
       setBackgroundMode('color');
       setCustomBackgroundColor(legacySavedColor);
+      setBackgroundEffectsEnabled(true);
+      applyBackgroundEffectsVisibility(true);
       applyCustomBackgroundColor(legacySavedColor);
-      persistBackgroundSettings({ mode: 'color', color: legacySavedColor, presetId: '', imageData: '' });
+      persistBackgroundSettings({ mode: 'color', color: legacySavedColor, presetId: '', imageData: '', effectsEnabled: true });
     }
   }, []);
 
@@ -262,7 +276,7 @@ function App() {
     setBackgroundImageData('');
     setAppearanceNotice('');
     setCustomBackgroundColor(nextColor);
-    persistBackgroundSettings({ mode: 'color', color: nextColor, presetId: '', imageData: '' });
+    persistBackgroundSettings({ mode: 'color', color: nextColor, presetId: '', imageData: '', effectsEnabled: backgroundEffectsEnabled });
     applyCustomBackgroundColor(nextColor);
   };
 
@@ -275,8 +289,21 @@ function App() {
     setBackgroundImageData('');
     setCustomBackgroundColor(preset.color);
     setAppearanceNotice('');
-    persistBackgroundSettings({ mode: 'preset', color: preset.color, presetId, imageData: '' });
+    persistBackgroundSettings({ mode: 'preset', color: preset.color, presetId, imageData: '', effectsEnabled: backgroundEffectsEnabled });
     applyPresetBackground(presetId);
+  };
+
+  const handleBackgroundEffectsToggle = (enabled) => {
+    setBackgroundEffectsEnabled(enabled);
+    applyBackgroundEffectsVisibility(enabled);
+    setAppearanceNotice('');
+    persistBackgroundSettings({
+      mode: backgroundMode,
+      color: customBackgroundColor,
+      presetId: backgroundPresetId,
+      imageData: backgroundImageData,
+      effectsEnabled: enabled
+    });
   };
 
   const handleBackgroundUpload = (file) => {
@@ -299,7 +326,7 @@ function App() {
       }
 
       const fallbackColor = isValidHexColor(customBackgroundColor) ? customBackgroundColor : '#0f172a';
-      const saved = persistBackgroundSettings({ mode: 'upload', color: fallbackColor, presetId: '', imageData: dataUrl });
+      const saved = persistBackgroundSettings({ mode: 'upload', color: fallbackColor, presetId: '', imageData: dataUrl, effectsEnabled: backgroundEffectsEnabled });
       if (!saved) {
         setAppearanceNotice('Speichern fehlgeschlagen. Bitte ein kleineres Bild waehlen.');
         return;
@@ -318,12 +345,14 @@ function App() {
 
   const resetBackgroundColor = () => {
     setBackgroundMode('default');
+    setBackgroundEffectsEnabled(true);
     setCustomBackgroundColor('');
     setBackgroundPresetId('');
     setBackgroundImageData('');
     setAppearanceNotice('Standard-Hintergrund wieder aktiv.');
     localStorage.removeItem(BACKGROUND_SETTINGS_KEY);
     localStorage.removeItem(CUSTOM_BACKGROUND_COLOR_KEY);
+    applyBackgroundEffectsVisibility(true);
     applyCustomBackgroundColor('');
     clearBackgroundLayers();
   };
@@ -2037,12 +2066,25 @@ ${feynmanInput}`;
                   setBackgroundMode('color');
                   setBackgroundPresetId('');
                   setBackgroundImageData('');
-                  persistBackgroundSettings({ mode: 'color', color: inputValue, presetId: '', imageData: '' });
+                  persistBackgroundSettings({ mode: 'color', color: inputValue, presetId: '', imageData: '', effectsEnabled: backgroundEffectsEnabled });
                   applyCustomBackgroundColor(inputValue);
                 }
               }}
               className="background-color-input"
               placeholder="#0f172a"
+            />
+          </div>
+
+          <div className="appearance-toggle-row">
+            <label htmlFor="background-effects-toggle" style={{ color: 'var(--text-light)', fontSize: '0.92rem', fontWeight: 600 }}>
+              Fleckigen Effekt anzeigen
+            </label>
+            <input
+              id="background-effects-toggle"
+              type="checkbox"
+              checked={backgroundEffectsEnabled}
+              onChange={(e) => handleBackgroundEffectsToggle(e.target.checked)}
+              className="appearance-effects-toggle"
             />
           </div>
 

@@ -56,6 +56,18 @@ body {
   background-attachment: fixed;
 }
 
+body.no-bg-effects {
+  background: var(--app-bg-image-overlay), var(--app-bg-image), var(--app-bg-color);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.no-bg-effects .blob {
+  display: none !important;
+}
+
 .app-container {
   width: 100%;
   max-width: 800px;
@@ -417,6 +429,25 @@ body.light-theme .settings-popover {
   display: flex;
   gap: 0.7rem;
   justify-content: flex-end;
+}
+
+.appearance-toggle-row {
+  margin-top: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.appearance-effects-toggle {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  cursor: pointer;
 }
 
 .appearance-presets {
@@ -910,6 +941,10 @@ button {
 
   .appearance-presets {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .appearance-toggle-row {
+    padding: 0.6rem 0.7rem;
   }
 
   .background-color-picker {
