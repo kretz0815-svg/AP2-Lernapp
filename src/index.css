@@ -1082,6 +1082,32 @@ button {
   display: none;
 }
 
+.analytics-period-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 1100px) {
+  .analytics-period-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .analytics-period-grid > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 680px) {
+  .analytics-period-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-period-grid > :last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+}
+
 @media (max-width: 768px) {
   .floating-notes-window {
     width: 200px;

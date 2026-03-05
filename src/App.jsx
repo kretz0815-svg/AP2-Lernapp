@@ -671,13 +671,17 @@ function App() {
   const analyticsToggleBadgeStyle = {
     color: 'var(--text-light)',
     fontWeight: 700,
-    fontSize: '0.8rem',
-    minWidth: '6.1rem',
+    fontSize: '1rem',
+    minWidth: '1.9rem',
+    height: '1.9rem',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     textAlign: 'center',
     borderRadius: '999px',
     border: '1px solid var(--glass-border)',
     background: 'rgba(255,255,255,0.06)',
-    padding: '0.18rem 0.36rem'
+    padding: 0
   };
 
   const getLocalProgressData = (overrides = {}) => {
@@ -2772,12 +2776,15 @@ Die JSON muss exakt diese Struktur haben:
             onClick={() => toggleAnalyticsPanel('periods')}
             style={analyticsToggleButtonStyle}
           >
-            <h3 style={{ margin: 0, color: 'var(--text-light)', textAlign: 'left' }}>Zeitraumvergleich</h3>
-            <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.periods ? 'Ausblenden' : 'Anzeigen'}</span>
+            <h3 style={{ margin: 0, color: 'var(--text-light)', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+              <span style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>{analyticsExpanded.periods ? '▾' : '▸'}</span>
+              <span>Zeitraumvergleich</span>
+            </h3>
+            <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.periods ? '−' : '+'}</span>
           </button>
 
           {analyticsExpanded.periods && (
-            <div style={{ marginTop: '0.85rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+            <div className="analytics-period-grid" style={{ marginTop: '0.85rem' }}>
               {[
                 { label: 'Heute', values: day },
                 { label: 'Letzte 7 Tage', values: week },
@@ -2804,8 +2811,11 @@ Die JSON muss exakt diese Struktur haben:
         <div className="printable-notes" style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem', alignItems: 'start' }}>
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <button type="button" onClick={() => toggleAnalyticsPanel('topics')} style={analyticsToggleButtonStyle}>
-              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left' }}>Themenanalyse (Prüfungsfokus)</h3>
-              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.topics ? 'Ausblenden' : 'Anzeigen'}</span>
+              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <span style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>{analyticsExpanded.topics ? '▾' : '▸'}</span>
+                <span>Themenanalyse (Prüfungsfokus)</span>
+              </h3>
+              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.topics ? '−' : '+'}</span>
             </button>
             {analyticsExpanded.topics && (
               <div style={{ marginTop: '0.8rem' }}>
@@ -2835,8 +2845,11 @@ Die JSON muss exakt diese Struktur haben:
 
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <button type="button" onClick={() => toggleAnalyticsPanel('radar')} style={analyticsToggleButtonStyle}>
-              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left' }}>Radar: Themenkompetenz</h3>
-              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.radar ? 'Ausblenden' : 'Anzeigen'}</span>
+              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <span style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>{analyticsExpanded.radar ? '▾' : '▸'}</span>
+                <span>Radar: Themenkompetenz</span>
+              </h3>
+              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.radar ? '−' : '+'}</span>
             </button>
             {analyticsExpanded.radar && (
               <div style={{ marginTop: '0.8rem' }}>
@@ -2899,8 +2912,11 @@ Die JSON muss exakt diese Struktur haben:
 
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <button type="button" onClick={() => toggleAnalyticsPanel('swot')} style={analyticsToggleButtonStyle}>
-              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left' }}>Stärken · Schwächen · Risiken · Chancen</h3>
-              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.swot ? 'Ausblenden' : 'Anzeigen'}</span>
+              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <span style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>{analyticsExpanded.swot ? '▾' : '▸'}</span>
+                <span>Stärken · Schwächen · Risiken · Chancen</span>
+              </h3>
+              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.swot ? '−' : '+'}</span>
             </button>
 
             {analyticsExpanded.swot && (
@@ -2961,8 +2977,11 @@ Die JSON muss exakt diese Struktur haben:
 
           <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <button type="button" onClick={() => toggleAnalyticsPanel('mistakes')} style={analyticsToggleButtonStyle}>
-              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left' }}>Fehler-Analyse (Top Schwächen nach Themen)</h3>
-              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.mistakes ? 'Ausblenden' : 'Anzeigen'}</span>
+              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <span style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>{analyticsExpanded.mistakes ? '▾' : '▸'}</span>
+                <span>Fehler-Analyse (Top Schwächen nach Themen)</span>
+              </h3>
+              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.mistakes ? '−' : '+'}</span>
             </button>
             {analyticsExpanded.mistakes && (
               <div style={{ marginTop: '0.8rem' }}>
