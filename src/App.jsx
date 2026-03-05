@@ -34,6 +34,15 @@ const CUSTOM_QUIZ_STORAGE_PREFIX = 'ap2_custom_quiz_questions_';
 const MEMBER_SYNC_PENDING_PREFIX = 'ap2_member_pending_sync_';
 const ACCESS_MODE_KEY = 'masterpat_access_mode';
 const CUSTOM_BACKGROUND_COLOR_KEY = 'masterpat_custom_background_color';
+const BACKGROUND_SETTINGS_KEY = 'masterpat_background_settings';
+
+const BACKGROUND_PRESETS = [
+  { id: 'ocean', name: 'Ocean', color: '#0b2239', glow1: 'rgba(34, 211, 238, 0.2)', glow2: 'rgba(59, 130, 246, 0.18)' },
+  { id: 'forest', name: 'Forest', color: '#0f2f27', glow1: 'rgba(34, 197, 94, 0.22)', glow2: 'rgba(16, 185, 129, 0.16)' },
+  { id: 'sunset', name: 'Sunset', color: '#3b1f2d', glow1: 'rgba(251, 146, 60, 0.24)', glow2: 'rgba(244, 63, 94, 0.16)' },
+  { id: 'sand', name: 'Sand', color: '#2a241f', glow1: 'rgba(245, 158, 11, 0.2)', glow2: 'rgba(251, 191, 36, 0.16)' },
+  { id: 'graphite', name: 'Graphite', color: '#111827', glow1: 'rgba(148, 163, 184, 0.2)', glow2: 'rgba(99, 102, 241, 0.14)' }
+];
 
 const createEmptyAnalytics = () => ({
   events: [],
@@ -104,7 +113,14 @@ const hexToRgb = (hexColor) => {
   };
 };
 
+const clearBackgroundLayers = () => {
+  document.body.style.removeProperty('--app-bg-image');
+  document.body.style.removeProperty('--app-bg-image-overlay');
+};
+
 const applyCustomBackgroundColor = (hexColor) => {
+  clearBackgroundLayers();
+
   if (!isValidHexColor(hexColor)) {
     document.body.style.removeProperty('--app-bg-color');
     document.body.style.removeProperty('--app-glow-1');
@@ -118,6 +134,38 @@ const applyCustomBackgroundColor = (hexColor) => {
   document.body.style.setProperty('--app-glow-2', `rgba(${r}, ${g}, ${b}, 0.12)`);
 };
 
+const applyPresetBackground = (presetId) => {
+  const preset = BACKGROUND_PRESETS.find((item) => item.id === presetId);
+  if (!preset) {
+    document.body.style.removeProperty('--app-bg-color');
+    document.body.style.removeProperty('--app-glow-1');
+    document.body.style.removeProperty('--app-glow-2');
+    clearBackgroundLayers();
+    return;
+  }
+
+  clearBackgroundLayers();
+  document.body.style.setProperty('--app-bg-color', preset.color);
+  document.body.style.setProperty('--app-glow-1', preset.glow1);
+  document.body.style.setProperty('--app-glow-2', preset.glow2);
+};
+
+const applyUploadedBackground = (imageData, fallbackColor) => {
+  if (!imageData) {
+    clearBackgroundLayers();
+    return;
+  }
+
+  const color = isValidHexColor(fallbackColor) ? fallbackColor : '#0f172a';
+  const { r, g, b } = hexToRgb(color);
+
+  document.body.style.setProperty('--app-bg-color', color);
+  document.body.style.setProperty('--app-glow-1', `rgba(${r}, ${g}, ${b}, 0.24)`);
+  document.body.style.setProperty('--app-glow-2', `rgba(${r}, ${g}, ${b}, 0.14)`);
+  document.body.style.setProperty('--app-bg-image', `url("${imageData}")`);
+  document.body.style.setProperty('--app-bg-image-overlay', 'linear-gradient(135deg, rgba(2, 6, 23, 0.65), rgba(2, 6, 23, 0.35))');
+};
+
 function App() {
   const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'dashboard' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor'
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
@@ -126,7 +174,21 @@ function App() {
   // --- THEME STATE ---
   const [isLightMode, setIsLightMode] = useState(false);
   const [customBackgroundColor, setCustomBackgroundColor] = useState('');
+  const [backgroundMode, setBackgroundMode] = useState('default');
+  const [backgroundPresetId, setBackgroundPresetId] = useState('');
+  const [backgroundImageData, setBackgroundImageData] = useState('');
+  const [appearanceNotice, setAppearanceNotice] = useState('');
   const [settingsMenuOpen, setSettingsMenuOpen] = useState(false);
+
+  const persistBackgroundSettings = (settings) => {
+    try {
+      localStorage.setItem(BACKGROUND_SETTINGS_KEY, JSON.stringify(settings));
+      localStorage.removeItem(CUSTOM_BACKGROUND_COLOR_KEY);
+      return true;
+    } catch {
+      return false;
+    }
+  };
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('masterpat_theme');
@@ -135,10 +197,39 @@ function App() {
       document.body.classList.add('light-theme');
     }
 
-    const savedBackground = localStorage.getItem(CUSTOM_BACKGROUND_COLOR_KEY);
-    if (isValidHexColor(savedBackground)) {
-      setCustomBackgroundColor(savedBackground);
-      applyCustomBackgroundColor(savedBackground);
+    try {
+      const savedSettingsRaw = localStorage.getItem(BACKGROUND_SETTINGS_KEY);
+      if (savedSettingsRaw) {
+        const savedSettings = JSON.parse(savedSettingsRaw);
+        const savedMode = savedSettings?.mode || 'default';
+        const savedColor = savedSettings?.color || '';
+        const savedPreset = savedSettings?.presetId || '';
+        const savedImage = savedSettings?.imageData || '';
+
+        setBackgroundMode(savedMode);
+        setCustomBackgroundColor(savedColor);
+        setBackgroundPresetId(savedPreset);
+        setBackgroundImageData(savedImage);
+
+        if (savedMode === 'preset' && savedPreset) {
+          applyPresetBackground(savedPreset);
+        } else if (savedMode === 'upload' && savedImage) {
+          applyUploadedBackground(savedImage, savedColor);
+        } else if (savedMode === 'color' && isValidHexColor(savedColor)) {
+          applyCustomBackgroundColor(savedColor);
+        }
+        return;
+      }
+    } catch {
+      // Ignore invalid stored settings and continue with legacy key fallback.
+    }
+
+    const legacySavedColor = localStorage.getItem(CUSTOM_BACKGROUND_COLOR_KEY);
+    if (isValidHexColor(legacySavedColor)) {
+      setBackgroundMode('color');
+      setCustomBackgroundColor(legacySavedColor);
+      applyCustomBackgroundColor(legacySavedColor);
+      persistBackgroundSettings({ mode: 'color', color: legacySavedColor, presetId: '', imageData: '' });
     }
   }, []);
 
@@ -163,17 +254,78 @@ function App() {
   };
 
   const activeBackgroundColor = customBackgroundColor || (isLightMode ? '#f8fafc' : '#0f172a');
+  const colorPickerValue = isValidHexColor(activeBackgroundColor) ? activeBackgroundColor : (isLightMode ? '#f8fafc' : '#0f172a');
 
   const handleBackgroundColorChange = (nextColor) => {
+    setBackgroundMode('color');
+    setBackgroundPresetId('');
+    setBackgroundImageData('');
+    setAppearanceNotice('');
     setCustomBackgroundColor(nextColor);
-    localStorage.setItem(CUSTOM_BACKGROUND_COLOR_KEY, nextColor);
+    persistBackgroundSettings({ mode: 'color', color: nextColor, presetId: '', imageData: '' });
     applyCustomBackgroundColor(nextColor);
   };
 
+  const handleBackgroundPresetChange = (presetId) => {
+    const preset = BACKGROUND_PRESETS.find((item) => item.id === presetId);
+    if (!preset) return;
+
+    setBackgroundMode('preset');
+    setBackgroundPresetId(presetId);
+    setBackgroundImageData('');
+    setCustomBackgroundColor(preset.color);
+    setAppearanceNotice('');
+    persistBackgroundSettings({ mode: 'preset', color: preset.color, presetId, imageData: '' });
+    applyPresetBackground(presetId);
+  };
+
+  const handleBackgroundUpload = (file) => {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      setAppearanceNotice('Bitte waehle eine Bilddatei (JPG, PNG, WEBP).');
+      return;
+    }
+    if (file.size > 2_500_000) {
+      setAppearanceNotice('Datei ist zu gross. Bitte ein Bild unter 2.5 MB waehlen.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = String(reader.result || '');
+      if (!dataUrl.startsWith('data:image/')) {
+        setAppearanceNotice('Bild konnte nicht geladen werden.');
+        return;
+      }
+
+      const fallbackColor = isValidHexColor(customBackgroundColor) ? customBackgroundColor : '#0f172a';
+      const saved = persistBackgroundSettings({ mode: 'upload', color: fallbackColor, presetId: '', imageData: dataUrl });
+      if (!saved) {
+        setAppearanceNotice('Speichern fehlgeschlagen. Bitte ein kleineres Bild waehlen.');
+        return;
+      }
+
+      setBackgroundMode('upload');
+      setBackgroundPresetId('');
+      setBackgroundImageData(dataUrl);
+      setCustomBackgroundColor(fallbackColor);
+      setAppearanceNotice('Eigenes Bild gespeichert und aktiviert.');
+      applyUploadedBackground(dataUrl, fallbackColor);
+    };
+    reader.onerror = () => setAppearanceNotice('Bild konnte nicht gelesen werden.');
+    reader.readAsDataURL(file);
+  };
+
   const resetBackgroundColor = () => {
+    setBackgroundMode('default');
     setCustomBackgroundColor('');
+    setBackgroundPresetId('');
+    setBackgroundImageData('');
+    setAppearanceNotice('Standard-Hintergrund wieder aktiv.');
+    localStorage.removeItem(BACKGROUND_SETTINGS_KEY);
     localStorage.removeItem(CUSTOM_BACKGROUND_COLOR_KEY);
     applyCustomBackgroundColor('');
+    clearBackgroundLayers();
   };
 
   // --- AUTH STATE ---
@@ -1870,7 +2022,7 @@ ${feynmanInput}`;
           <div className="appearance-row">
             <input
               type="color"
-              value={activeBackgroundColor}
+              value={colorPickerValue}
               onChange={(e) => handleBackgroundColorChange(e.target.value)}
               className="background-color-picker"
               aria-label="Backgroundfarbe auswählen"
@@ -1882,7 +2034,10 @@ ${feynmanInput}`;
                 const inputValue = e.target.value.trim();
                 setCustomBackgroundColor(inputValue);
                 if (isValidHexColor(inputValue)) {
-                  localStorage.setItem(CUSTOM_BACKGROUND_COLOR_KEY, inputValue);
+                  setBackgroundMode('color');
+                  setBackgroundPresetId('');
+                  setBackgroundImageData('');
+                  persistBackgroundSettings({ mode: 'color', color: inputValue, presetId: '', imageData: '' });
                   applyCustomBackgroundColor(inputValue);
                 }
               }}
@@ -1890,6 +2045,44 @@ ${feynmanInput}`;
               placeholder="#0f172a"
             />
           </div>
+
+          <h3 style={{ marginTop: '1.1rem', marginBottom: '0.7rem', color: 'var(--text-light)' }}>Preset-Styles</h3>
+          <div className="appearance-presets">
+            {BACKGROUND_PRESETS.map((preset) => {
+              const isSelected = backgroundMode === 'preset' && backgroundPresetId === preset.id;
+              return (
+                <button
+                  key={preset.id}
+                  type="button"
+                  className={`appearance-preset-card ${isSelected ? 'active' : ''}`}
+                  onClick={() => handleBackgroundPresetChange(preset.id)}
+                >
+                  <span className="appearance-preset-swatch" style={{ background: `linear-gradient(135deg, ${preset.glow1}, ${preset.glow2}), ${preset.color}` }}></span>
+                  <span>{preset.name}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <h3 style={{ marginTop: '1.1rem', marginBottom: '0.7rem', color: 'var(--text-light)' }}>Eigenes Hintergrundbild</h3>
+          <label className="appearance-upload-label">
+            Bild hochladen
+            <input
+              type="file"
+              accept="image/png,image/jpeg,image/webp,image/jpg"
+              className="appearance-upload-input"
+              onChange={(e) => handleBackgroundUpload(e.target.files?.[0])}
+            />
+          </label>
+          <p style={{ marginTop: '0.45rem', color: 'var(--text-muted)', fontSize: '0.82rem' }}>Empfehlung: max. 2.5 MB, Querformat fuer bestes Ergebnis.</p>
+          {backgroundMode === 'upload' && backgroundImageData ? (
+            <p style={{ marginTop: '0.35rem', color: 'var(--success)', fontSize: '0.84rem' }}>Eigenes Bild ist aktiv.</p>
+          ) : null}
+          {appearanceNotice ? (
+            <p style={{ marginTop: '0.35rem', color: appearanceNotice.includes('fehl') || appearanceNotice.includes('gross') || appearanceNotice.includes('Bitte') ? 'var(--error)' : 'var(--success)', fontSize: '0.84rem' }}>
+              {appearanceNotice}
+            </p>
+          ) : null}
 
           <div className="appearance-actions">
             <button className="btn-secondary" onClick={resetBackgroundColor}>Standard wiederherstellen</button>
