@@ -468,14 +468,14 @@ export default function KalkulationsBoss({ onBack, onLearningEvent }) {
                 <div className="blob blob-1"></div>
                 <div className="blob blob-2"></div>
 
-                <header style={{ width: '100%', textAlign: 'center', position: 'relative', zIndex: 20 }}>
+                <header style={{ width: '100%', textAlign: 'center', position: 'relative', zIndex: 20, paddingTop: '3.5rem' }}>
                     <button
                         onClick={onBack}
                         className="btn-nav"
                         style={{
                             position: 'absolute',
-                            top: '1rem',
-                            left: '1rem',
+                            top: '0',
+                            left: '0',
                             zIndex: 50,
                             pointerEvents: 'auto',
                             minHeight: '42px',
