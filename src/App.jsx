@@ -2546,14 +2546,15 @@ Die JSON muss exakt diese Struktur haben:
 
     const getCounts = (startTs) => {
       const inRange = events.filter(e => e.ts >= startTs);
-      const questionEvents = inRange.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco');
-      const cardEvents = inRange.filter(e => e.mode === 'flashcard');
-
+      const byMode = (mode) => {
+        const modeEvents = inRange.filter(e => e.mode === mode);
+        return { correct: modeEvents.filter(e => e.correct).length, wrong: modeEvents.filter(e => !e.correct).length };
+      };
       return {
-        questionsCorrect: questionEvents.filter(e => e.correct).length,
-        questionsWrong: questionEvents.filter(e => !e.correct).length,
-        cardsCorrect: cardEvents.filter(e => e.correct).length,
-        cardsWrong: cardEvents.filter(e => !e.correct).length,
+        quiz: byMode('quiz'),
+        wisor: byMode('wisor'),
+        wisorEco: byMode('wisorEco'),
+        flashcard: byMode('flashcard'),
       };
     };
 
@@ -2707,7 +2708,7 @@ Die JSON muss exakt diese Struktur haben:
 
     const strategicActions = [];
     if (weakestTopics.length > 0) {
-      strategicActions.push(`Priorität 1: ${weakestTopics[0].topic} gezielt trainieren (${weakestTopics[0].accuracy}% Trefferquote).`);
+      strategicActions.push(`Priorität 1: ${weakestTopics[0].topic} gezielt trainieren (${weakestTopics[0].accuracy}% Erfolgsquote).`);
     }
     if (opportunityTopics.length > 0) {
       strategicActions.push(`Chance nutzen: ${opportunityTopics[0].topic} steht kurz vor "sicher" - mit 10-15 Zusatzaufgaben stabilisieren.`);
@@ -2788,7 +2789,7 @@ Die JSON muss exakt diese Struktur haben:
 
         <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
           <section className="note-card" style={{ padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem' }}>Gesamt-Trefferquote</p>
+            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem' }}>Erfolgsquote gesamt</p>
             <p style={{ margin: '0.2rem 0 0 0', color: overallAccuracy >= 75 ? 'var(--success)' : 'var(--error)', fontSize: '2rem', fontWeight: 800 }}>{overallAccuracy}%</p>
           </section>
           <section className="note-card" style={{ padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
@@ -2825,17 +2826,35 @@ Die JSON muss exakt diese Struktur haben:
                 { label: 'Letzte 7 Tage', values: week },
                 { label: 'Letzte 30 Tage', values: month }
               ].map(item => {
-                const total = item.values.questionsCorrect + item.values.questionsWrong + item.values.cardsCorrect + item.values.cardsWrong;
-                const hitRate = total > 0 ? Math.round(((item.values.questionsCorrect + item.values.cardsCorrect) / total) * 100) : 0;
+                const modes = [
+                  { key: 'quiz', label: 'Quiz (Multiple Choice)' },
+                  { key: 'wisor', label: 'WisoR Grundlagen' },
+                  { key: 'wisorEco', label: 'WisoR E-Commerce' },
+                  { key: 'flashcard', label: 'Lernkarten' }
+                ];
+                const totalCorrect = modes.reduce((s, m) => s + item.values[m.key].correct, 0);
+                const totalWrong = modes.reduce((s, m) => s + item.values[m.key].wrong, 0);
+                const total = totalCorrect + totalWrong;
+                const successRate = total > 0 ? Math.round((totalCorrect / total) * 100) : 0;
+                const activeModes = modes.filter(m => item.values[m.key].correct + item.values[m.key].wrong > 0);
                 return (
                   <div key={item.label} style={{ padding: '1.1rem', borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
                     <h4 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.6rem', fontSize: '0.98rem' }}>{item.label}</h4>
                     <div style={{ height: '8px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)', marginBottom: '0.7rem' }}>
-                      <div style={{ width: `${hitRate}%`, height: '100%', background: hitRate >= 75 ? 'var(--success)' : hitRate >= 60 ? '#f59e0b' : 'var(--error)' }}></div>
+                      <div style={{ width: `${successRate}%`, height: '100%', background: successRate >= 75 ? 'var(--success)' : successRate >= 60 ? '#f59e0b' : 'var(--error)' }}></div>
                     </div>
-                    <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Trefferquote: <strong style={{ color: 'var(--text-light)' }}>{hitRate}%</strong></p>
-                    <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Fragen richtig/falsch: <strong style={{ color: 'var(--text-light)' }}>{item.values.questionsCorrect}/{item.values.questionsWrong}</strong></p>
-                    <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Karten richtig/falsch: <strong style={{ color: 'var(--text-light)' }}>{item.values.cardsCorrect}/{item.values.cardsWrong}</strong></p>
+                    <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Erfolgsquote: <strong style={{ color: 'var(--text-light)' }}>{successRate}%</strong></p>
+                    {activeModes.length > 0 ? activeModes.map(m => {
+                      const c = item.values[m.key].correct;
+                      const w = item.values[m.key].wrong;
+                      return (
+                        <p key={m.key} style={{ margin: '0.2rem 0', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
+                          {m.label}: <strong style={{ color: 'var(--text-light)' }}>{c}</strong> richtig / <strong style={{ color: 'var(--text-light)' }}>{w}</strong> falsch
+                        </p>
+                      );
+                    }) : (
+                      <p style={{ margin: '0.2rem 0', color: 'var(--text-muted)', fontSize: '0.88rem' }}>Noch keine Aktivität</p>
+                    )}
                   </div>
                 );
               })}
