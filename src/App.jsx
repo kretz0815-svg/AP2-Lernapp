@@ -2974,10 +2974,10 @@ Die JSON muss exakt diese Struktur haben:
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
                     {groupedWeaknessRows.slice(0, 8).map((group, idx) => (
-                      <div key={`weakness_${group.topic}_${idx}`} style={{ padding: '0.75rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.4rem 0.75rem', marginBottom: '0.3rem' }}>
-                          <strong style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{group.topic}</strong>
-                          <span style={{ color: 'var(--error)', fontWeight: 'bold', whiteSpace: 'normal', overflowWrap: 'anywhere', wordBreak: 'break-word', textAlign: 'right' }}>{group.count}x Fehler gesamt</span>
+                      <div key={`weakness_${group.topic}_${idx}`} style={{ padding: '0.75rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)', overflow: 'hidden' }}>
+                        <div style={{ marginBottom: '0.3rem' }}>
+                          <strong style={{ color: 'var(--text-light)', fontSize: '0.9rem', display: 'block', overflowWrap: 'anywhere', wordBreak: 'break-word' }}>{group.topic}</strong>
+                          <span style={{ display: 'block', marginTop: '0.15rem', color: 'var(--error)', fontWeight: 'bold', fontSize: '0.88rem', overflowWrap: 'anywhere', wordBreak: 'break-word' }}>{group.count} Fehler gesamt</span>
                         </div>
 
                         <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.35rem' }}>
