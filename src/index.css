@@ -17,6 +17,7 @@
   --app-glow-2: rgba(168, 85, 247, 0.15);
   --app-bg-image: none;
   --app-bg-image-overlay: linear-gradient(180deg, transparent, transparent);
+  --blob-opacity: 0.3;
 }
 
 body.light-theme {
@@ -450,6 +451,25 @@ body.light-theme .settings-popover {
   cursor: pointer;
 }
 
+.appearance-slider-row {
+  margin-top: 0.85rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.appearance-effects-slider {
+  width: 100%;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.appearance-effects-slider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .appearance-presets {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
@@ -707,7 +727,7 @@ button {
   position: fixed;
   filter: blur(80px);
   z-index: 0;
-  opacity: 0.3;
+  opacity: var(--blob-opacity);
   animation: float 20s infinite ease-in-out;
   pointer-events: none;
 }

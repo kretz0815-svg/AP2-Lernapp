@@ -118,6 +118,31 @@ const clearBackgroundLayers = () => {
   document.body.style.removeProperty('--app-bg-image-overlay');
 };
 
+const clampEffectStrength = (value) => {
+  const numeric = Number(value);
+  if (Number.isNaN(numeric)) return 100;
+  return Math.min(100, Math.max(0, Math.round(numeric)));
+};
+
+const withScaledAlpha = (r, g, b, alpha, strength = 100) => {
+  const factor = clampEffectStrength(strength) / 100;
+  const scaledAlpha = Math.max(0, Math.min(1, alpha * factor));
+  return `rgba(${r}, ${g}, ${b}, ${scaledAlpha.toFixed(3)})`;
+};
+
+const scaleRgbaAlpha = (rgbaValue, strength = 100) => {
+  const match = String(rgbaValue).match(/^rgba\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([\d.]+)\)$/i);
+  if (!match) return rgbaValue;
+  const [, r, g, b, a] = match;
+  return withScaledAlpha(Number(r), Number(g), Number(b), Number(a), strength);
+};
+
+const applyEffectStrength = (strength = 100) => {
+  const normalized = clampEffectStrength(strength);
+  document.body.style.setProperty('--app-effect-strength', String(normalized));
+  document.body.style.setProperty('--blob-opacity', (0.3 * (normalized / 100)).toFixed(3));
+};
+
 const applyBackgroundEffectsVisibility = (enabled) => {
   if (enabled) {
     document.body.classList.remove('no-bg-effects');
@@ -126,7 +151,7 @@ const applyBackgroundEffectsVisibility = (enabled) => {
   }
 };
 
-const applyCustomBackgroundColor = (hexColor) => {
+const applyCustomBackgroundColor = (hexColor, strength = 100) => {
   clearBackgroundLayers();
 
   if (!isValidHexColor(hexColor)) {
@@ -138,11 +163,11 @@ const applyCustomBackgroundColor = (hexColor) => {
 
   const { r, g, b } = hexToRgb(hexColor);
   document.body.style.setProperty('--app-bg-color', hexColor);
-  document.body.style.setProperty('--app-glow-1', `rgba(${r}, ${g}, ${b}, 0.22)`);
-  document.body.style.setProperty('--app-glow-2', `rgba(${r}, ${g}, ${b}, 0.12)`);
+  document.body.style.setProperty('--app-glow-1', withScaledAlpha(r, g, b, 0.22, strength));
+  document.body.style.setProperty('--app-glow-2', withScaledAlpha(r, g, b, 0.12, strength));
 };
 
-const applyPresetBackground = (presetId) => {
+const applyPresetBackground = (presetId, strength = 100) => {
   const preset = BACKGROUND_PRESETS.find((item) => item.id === presetId);
   if (!preset) {
     document.body.style.removeProperty('--app-bg-color');
@@ -154,11 +179,11 @@ const applyPresetBackground = (presetId) => {
 
   clearBackgroundLayers();
   document.body.style.setProperty('--app-bg-color', preset.color);
-  document.body.style.setProperty('--app-glow-1', preset.glow1);
-  document.body.style.setProperty('--app-glow-2', preset.glow2);
+  document.body.style.setProperty('--app-glow-1', scaleRgbaAlpha(preset.glow1, strength));
+  document.body.style.setProperty('--app-glow-2', scaleRgbaAlpha(preset.glow2, strength));
 };
 
-const applyUploadedBackground = (imageData, fallbackColor) => {
+const applyUploadedBackground = (imageData, fallbackColor, strength = 100) => {
   if (!imageData) {
     clearBackgroundLayers();
     return;
@@ -168,8 +193,8 @@ const applyUploadedBackground = (imageData, fallbackColor) => {
   const { r, g, b } = hexToRgb(color);
 
   document.body.style.setProperty('--app-bg-color', color);
-  document.body.style.setProperty('--app-glow-1', `rgba(${r}, ${g}, ${b}, 0.24)`);
-  document.body.style.setProperty('--app-glow-2', `rgba(${r}, ${g}, ${b}, 0.14)`);
+  document.body.style.setProperty('--app-glow-1', withScaledAlpha(r, g, b, 0.24, strength));
+  document.body.style.setProperty('--app-glow-2', withScaledAlpha(r, g, b, 0.14, strength));
   document.body.style.setProperty('--app-bg-image', `url("${imageData}")`);
   document.body.style.setProperty('--app-bg-image-overlay', 'linear-gradient(135deg, rgba(2, 6, 23, 0.65), rgba(2, 6, 23, 0.35))');
 };
@@ -186,6 +211,7 @@ function App() {
   const [backgroundPresetId, setBackgroundPresetId] = useState('');
   const [backgroundImageData, setBackgroundImageData] = useState('');
   const [backgroundEffectsEnabled, setBackgroundEffectsEnabled] = useState(true);
+  const [backgroundEffectsIntensity, setBackgroundEffectsIntensity] = useState(100);
   const [appearanceNotice, setAppearanceNotice] = useState('');
   const [settingsMenuOpen, setSettingsMenuOpen] = useState(false);
 
@@ -215,20 +241,23 @@ function App() {
         const savedPreset = savedSettings?.presetId || '';
         const savedImage = savedSettings?.imageData || '';
         const savedEffectsEnabled = savedSettings?.effectsEnabled !== false;
+        const savedEffectsIntensity = clampEffectStrength(savedSettings?.effectsIntensity ?? 100);
 
         setBackgroundMode(savedMode);
         setCustomBackgroundColor(savedColor);
         setBackgroundPresetId(savedPreset);
         setBackgroundImageData(savedImage);
         setBackgroundEffectsEnabled(savedEffectsEnabled);
+        setBackgroundEffectsIntensity(savedEffectsIntensity);
+        applyEffectStrength(savedEffectsIntensity);
         applyBackgroundEffectsVisibility(savedEffectsEnabled);
 
         if (savedMode === 'preset' && savedPreset) {
-          applyPresetBackground(savedPreset);
+          applyPresetBackground(savedPreset, savedEffectsIntensity);
         } else if (savedMode === 'upload' && savedImage) {
-          applyUploadedBackground(savedImage, savedColor);
+          applyUploadedBackground(savedImage, savedColor, savedEffectsIntensity);
         } else if (savedMode === 'color' && isValidHexColor(savedColor)) {
-          applyCustomBackgroundColor(savedColor);
+          applyCustomBackgroundColor(savedColor, savedEffectsIntensity);
         }
         return;
       }
@@ -241,9 +270,11 @@ function App() {
       setBackgroundMode('color');
       setCustomBackgroundColor(legacySavedColor);
       setBackgroundEffectsEnabled(true);
+      setBackgroundEffectsIntensity(100);
+      applyEffectStrength(100);
       applyBackgroundEffectsVisibility(true);
-      applyCustomBackgroundColor(legacySavedColor);
-      persistBackgroundSettings({ mode: 'color', color: legacySavedColor, presetId: '', imageData: '', effectsEnabled: true });
+      applyCustomBackgroundColor(legacySavedColor, 100);
+      persistBackgroundSettings({ mode: 'color', color: legacySavedColor, presetId: '', imageData: '', effectsEnabled: true, effectsIntensity: 100 });
     }
   }, []);
 
@@ -276,8 +307,8 @@ function App() {
     setBackgroundImageData('');
     setAppearanceNotice('');
     setCustomBackgroundColor(nextColor);
-    persistBackgroundSettings({ mode: 'color', color: nextColor, presetId: '', imageData: '', effectsEnabled: backgroundEffectsEnabled });
-    applyCustomBackgroundColor(nextColor);
+    persistBackgroundSettings({ mode: 'color', color: nextColor, presetId: '', imageData: '', effectsEnabled: backgroundEffectsEnabled, effectsIntensity: backgroundEffectsIntensity });
+    applyCustomBackgroundColor(nextColor, backgroundEffectsIntensity);
   };
 
   const handleBackgroundPresetChange = (presetId) => {
@@ -289,8 +320,33 @@ function App() {
     setBackgroundImageData('');
     setCustomBackgroundColor(preset.color);
     setAppearanceNotice('');
-    persistBackgroundSettings({ mode: 'preset', color: preset.color, presetId, imageData: '', effectsEnabled: backgroundEffectsEnabled });
-    applyPresetBackground(presetId);
+    persistBackgroundSettings({ mode: 'preset', color: preset.color, presetId, imageData: '', effectsEnabled: backgroundEffectsEnabled, effectsIntensity: backgroundEffectsIntensity });
+    applyPresetBackground(presetId, backgroundEffectsIntensity);
+  };
+
+  const handleBackgroundEffectsIntensityChange = (nextIntensity) => {
+    const normalized = clampEffectStrength(nextIntensity);
+    setBackgroundEffectsIntensity(normalized);
+    applyEffectStrength(normalized);
+    setAppearanceNotice('');
+
+    if (backgroundMode === 'preset' && backgroundPresetId) {
+      applyPresetBackground(backgroundPresetId, normalized);
+    } else if (backgroundMode === 'upload' && backgroundImageData) {
+      const uploadColor = isValidHexColor(customBackgroundColor) ? customBackgroundColor : '#0f172a';
+      applyUploadedBackground(backgroundImageData, uploadColor, normalized);
+    } else if (backgroundMode === 'color' && isValidHexColor(customBackgroundColor)) {
+      applyCustomBackgroundColor(customBackgroundColor, normalized);
+    }
+
+    persistBackgroundSettings({
+      mode: backgroundMode,
+      color: customBackgroundColor,
+      presetId: backgroundPresetId,
+      imageData: backgroundImageData,
+      effectsEnabled: backgroundEffectsEnabled,
+      effectsIntensity: normalized
+    });
   };
 
   const handleBackgroundEffectsToggle = (enabled) => {
@@ -302,7 +358,8 @@ function App() {
       color: customBackgroundColor,
       presetId: backgroundPresetId,
       imageData: backgroundImageData,
-      effectsEnabled: enabled
+      effectsEnabled: enabled,
+      effectsIntensity: backgroundEffectsIntensity
     });
   };
 
@@ -326,7 +383,7 @@ function App() {
       }
 
       const fallbackColor = isValidHexColor(customBackgroundColor) ? customBackgroundColor : '#0f172a';
-      const saved = persistBackgroundSettings({ mode: 'upload', color: fallbackColor, presetId: '', imageData: dataUrl, effectsEnabled: backgroundEffectsEnabled });
+      const saved = persistBackgroundSettings({ mode: 'upload', color: fallbackColor, presetId: '', imageData: dataUrl, effectsEnabled: backgroundEffectsEnabled, effectsIntensity: backgroundEffectsIntensity });
       if (!saved) {
         setAppearanceNotice('Speichern fehlgeschlagen. Bitte ein kleineres Bild waehlen.');
         return;
@@ -337,7 +394,7 @@ function App() {
       setBackgroundImageData(dataUrl);
       setCustomBackgroundColor(fallbackColor);
       setAppearanceNotice('Eigenes Bild gespeichert und aktiviert.');
-      applyUploadedBackground(dataUrl, fallbackColor);
+      applyUploadedBackground(dataUrl, fallbackColor, backgroundEffectsIntensity);
     };
     reader.onerror = () => setAppearanceNotice('Bild konnte nicht gelesen werden.');
     reader.readAsDataURL(file);
@@ -346,14 +403,16 @@ function App() {
   const resetBackgroundColor = () => {
     setBackgroundMode('default');
     setBackgroundEffectsEnabled(true);
+    setBackgroundEffectsIntensity(100);
     setCustomBackgroundColor('');
     setBackgroundPresetId('');
     setBackgroundImageData('');
     setAppearanceNotice('Standard-Hintergrund wieder aktiv.');
     localStorage.removeItem(BACKGROUND_SETTINGS_KEY);
     localStorage.removeItem(CUSTOM_BACKGROUND_COLOR_KEY);
+    applyEffectStrength(100);
     applyBackgroundEffectsVisibility(true);
-    applyCustomBackgroundColor('');
+    applyCustomBackgroundColor('', 100);
     clearBackgroundLayers();
   };
 
@@ -2066,8 +2125,8 @@ ${feynmanInput}`;
                   setBackgroundMode('color');
                   setBackgroundPresetId('');
                   setBackgroundImageData('');
-                  persistBackgroundSettings({ mode: 'color', color: inputValue, presetId: '', imageData: '', effectsEnabled: backgroundEffectsEnabled });
-                  applyCustomBackgroundColor(inputValue);
+                  persistBackgroundSettings({ mode: 'color', color: inputValue, presetId: '', imageData: '', effectsEnabled: backgroundEffectsEnabled, effectsIntensity: backgroundEffectsIntensity });
+                  applyCustomBackgroundColor(inputValue, backgroundEffectsIntensity);
                 }
               }}
               className="background-color-input"
@@ -2085,6 +2144,26 @@ ${feynmanInput}`;
               checked={backgroundEffectsEnabled}
               onChange={(e) => handleBackgroundEffectsToggle(e.target.checked)}
               className="appearance-effects-toggle"
+            />
+          </div>
+
+          <div className="appearance-slider-row">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
+              <label htmlFor="background-effects-intensity" style={{ color: 'var(--text-light)', fontSize: '0.9rem', fontWeight: 600 }}>
+                Effekt-Staerke
+              </label>
+              <span style={{ color: 'var(--text-muted)', fontSize: '0.84rem' }}>{backgroundEffectsIntensity}%</span>
+            </div>
+            <input
+              id="background-effects-intensity"
+              type="range"
+              min="0"
+              max="100"
+              step="1"
+              value={backgroundEffectsIntensity}
+              onChange={(e) => handleBackgroundEffectsIntensityChange(e.target.value)}
+              disabled={!backgroundEffectsEnabled}
+              className="appearance-effects-slider"
             />
           </div>
 
