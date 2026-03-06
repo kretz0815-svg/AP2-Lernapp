@@ -2957,7 +2957,7 @@ Die JSON muss exakt diese Struktur haben:
           MasterPat APP
         </h1>
 
-        <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+        <div className="analytics-kpi-grid" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
           <section className="note-card" style={{ padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
             <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem' }}>Erfolgsquote gesamt</p>
             <p style={{ margin: '0.2rem 0 0 0', color: overallAccuracy >= 75 ? 'var(--success)' : 'var(--error)', fontSize: '2rem', fontWeight: 800 }}>{overallAccuracy}%</p>
@@ -3084,7 +3084,7 @@ Die JSON muss exakt diese Struktur haben:
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      <svg width={radarSize} height={radarSize} viewBox={`0 0 ${radarSize} ${radarSize}`} role="img" aria-label="Radar der Themenkompetenz">
+                      <svg style={{ width: '100%', maxWidth: radarSize, height: 'auto' }} viewBox={`0 0 ${radarSize} ${radarSize}`} role="img" aria-label="Radar der Themenkompetenz">
                         {radarRings.map(ring => (
                           <polygon
                             key={`ring_${ring}`}
@@ -3122,7 +3122,7 @@ Die JSON muss exakt diese Struktur haben:
                       </svg>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.45rem' }}>
+                    <div className="analytics-radar-legend" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.45rem' }}>
                       {radarTopics.map(row => (
                         <div key={`legend_${row.topic}`} style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between', gap: '0.6rem' }}>
                           <span>{row.topic}</span>
@@ -3147,7 +3147,7 @@ Die JSON muss exakt diese Struktur haben:
 
             {analyticsExpanded.swot && (
               <div style={{ marginTop: '0.8rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '0.7rem' }}>
+                <div className="analytics-swot-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '0.7rem' }}>
                   {swotCards.map(card => (
                     <div key={card.key} style={{ padding: '0.65rem', borderRadius: '10px', border: card.border, background: card.background }}>
                       <strong style={{ color: card.titleColor, fontSize: '0.84rem' }}>{card.title}</strong>

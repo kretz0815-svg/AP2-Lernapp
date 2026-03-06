@@ -1139,6 +1139,86 @@ button {
   }
 }
 
+/* Learning Analytics Dashboard – mobile responsive */
+@media (max-width: 768px) {
+  .learning-analytics-dashboard {
+    padding: 1rem !important;
+    gap: 1rem !important;
+    overflow-x: hidden;
+  }
+
+  .learning-analytics-dashboard header {
+    margin-bottom: 0.4rem;
+  }
+
+  .learning-analytics-dashboard header h1 {
+    font-size: 1.35rem !important;
+  }
+
+  .learning-analytics-dashboard .note-card {
+    overflow-x: hidden;
+  }
+
+  .analytics-kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.7rem !important;
+  }
+
+  .analytics-kpi-grid .note-card {
+    padding: 0.75rem 0.85rem !important;
+  }
+
+  .analytics-kpi-grid .note-card p:last-child {
+    font-size: 1.5rem !important;
+  }
+
+  .printable-notes {
+    grid-template-columns: 1fr !important;
+    gap: 0.8rem !important;
+  }
+
+  .analytics-swot-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .analytics-radar-legend {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .learning-analytics-dashboard {
+    padding: 0.6rem !important;
+    gap: 0.8rem !important;
+  }
+
+  .learning-analytics-dashboard header h1 {
+    font-size: 1.2rem !important;
+  }
+
+  .analytics-kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .analytics-kpi-grid .note-card {
+    padding: 0.6rem 0.7rem !important;
+  }
+
+  .analytics-kpi-grid .note-card p:last-child {
+    font-size: 1.3rem !important;
+  }
+
+  .analytics-swot-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .analytics-swot-grid > div {
+    padding: 0.5rem !important;
+  }
+}
+
 @media (max-width: 768px) {
   .floating-notes-window {
     width: 200px;
