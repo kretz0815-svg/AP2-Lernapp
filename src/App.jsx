@@ -710,14 +710,19 @@ function App() {
   useEffect(() => {
     if (appMode === 'learning_dashboard' && authUser?.email) {
       const mistakes = learningAnalytics?.mistakes || {};
-      const allMistakeTexts = Object.values(mistakes)
+      const allMistakeData = Object.values(mistakes)
         .filter(m => (m.count || 0) >= 2)
         .sort((a, b) => (b.count || 0) - (a.count || 0))
         .slice(0, 10)
-        .map(m => ({ questionText: m.questionText }));
-      if (allMistakeTexts.length > 0) {
+        .map(m => ({
+          questionText: m.questionText,
+          expectedAnswer: m.expectedAnswer || '',
+          lastUserAnswer: m.lastUserAnswer || '',
+          topic: m.mode === 'quiz' ? '' : m.mode === 'wisor' ? 'WisoR Grundlagen' : m.mode === 'wisorEco' ? 'WisoR E-Commerce' : ''
+        }));
+      if (allMistakeData.length > 0) {
         setDashboardAiLoading(true);
-        extractFocusTopics(allMistakeTexts).then(result => {
+        extractFocusTopics(allMistakeData).then(result => {
           setDashboardAiTopics(result.topics || []);
           setDashboardAiLoading(false);
         });
@@ -897,7 +902,7 @@ function App() {
     }
   };
 
-  const appendLearningEvent = ({ mode, questionId, questionText, correct, userAnswer = '', expectedAnswer = '' }) => {
+  const appendLearningEvent = ({ mode, questionId, questionText, correct, userAnswer = '', expectedAnswer = '', topic = '' }) => {
     const now = Date.now();
     const keyBase = `${mode}::${questionId || (questionText || '').slice(0, 120).toLowerCase()}`;
 
@@ -911,7 +916,8 @@ function App() {
         questionText,
         correct,
         userAnswer,
-        expectedAnswer
+        expectedAnswer,
+        topic
       }].slice(-3000);
 
       const mistakes = { ...(safePrev.mistakes || {}) };
@@ -923,7 +929,8 @@ function App() {
           count: (mistakes[keyBase]?.count || 0) + 1,
           lastAt: now,
           lastUserAnswer: userAnswer,
-          expectedAnswer
+          expectedAnswer,
+          topic: topic || mistakes[keyBase]?.topic || ''
         };
       }
 
@@ -1594,7 +1601,8 @@ ${feynmanInput}`;
     // Pomodoro session logging
     if (pomodoroActive) {
       const questionText = q.question?.substring(0, 100) || 'Quiz-Frage';
-      setPomodoroSessionLog(prev => [...prev, { correct: isCorrect, questionText, topic: 'Quiz' }]);
+      const topicLabel = getQuizTopicGroup(q.topic || detectQuizTopic(q)) || 'Quiz';
+      setPomodoroSessionLog(prev => [...prev, { correct: isCorrect, questionText, topic: topicLabel }]);
     }
 
     if (!authUser?.id) {
@@ -1627,7 +1635,8 @@ ${feynmanInput}`;
       questionText: q.question,
       correct: isCorrect,
       userAnswer: selectedOption?.text || '',
-      expectedAnswer: expectedOption?.text || ''
+      expectedAnswer: expectedOption?.text || '',
+      topic: getQuizTopicGroup(q.topic || detectQuizTopic(q))
     });
 
     if (authUser?.id) {
@@ -2784,7 +2793,8 @@ Die JSON muss exakt diese Struktur haben:
 
     const resolveTopic = (event) => {
       if (!event) return 'Allgemein';
-      if (event.mode === 'quiz') return quizTopicById.get(String(event.questionId)) || 'Quiz Allgemein';
+      if (event.topic && event.topic !== 'Allgemein') return event.topic;
+      if (event.mode === 'quiz') return quizTopicById.get(String(event.questionId)) || getQuizTopicGroup(detectQuizTopic({ question: event.questionText || '', hint: '', youtubeQuery: '' })) || 'Quiz Allgemein';
       if (event.mode === 'wisor') return 'WisoR Grundlagen';
       if (event.mode === 'wisorEco') return 'WisoR E-Commerce';
       if (event.mode === 'kalkulation') return 'Kalkulations-Boss';

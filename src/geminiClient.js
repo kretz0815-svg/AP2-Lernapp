@@ -47,25 +47,35 @@ export async function extractFocusTopics(wrongQuestions) {
     }
     try {
         const questionList = wrongQuestions
-            .map((q, i) => `${i + 1}. ${typeof q === 'string' ? q : q.questionText || q.question || ''}`)
-            .filter(q => q.length > 4)
+            .map((q, i) => {
+                if (typeof q === 'string') return `${i + 1}. ${q}`;
+                const parts = [];
+                if (q.questionText || q.question) parts.push(`Frage: ${q.questionText || q.question}`);
+                if (q.expectedAnswer) parts.push(`Korrekte Antwort: ${q.expectedAnswer}`);
+                if (q.userAnswer) parts.push(`User antwortete: ${q.userAnswer}`);
+                if (q.topic && q.topic !== 'Allgemein' && q.topic !== 'Quiz Allgemein') parts.push(`Themenbereich: ${q.topic}`);
+                return `${i + 1}. ${parts.join(' | ')}`;
+            })
+            .filter(q => q.length > 6)
             .join('\n');
 
         if (!questionList.trim()) return { topics: [] };
 
-        const prompt = `Du bist ein präziser Lern-Assistent in einer EdTech-App.
-Deine Aufgabe ist es, aus einer Liste von falsch beantworteten Fragen die 1 bis maximal 3 übergeordneten fachlichen Kernthemen (Tags) zu extrahieren. Der User soll sofort wissen, welches Themengebiet er nachholen muss.
+        const prompt = `Du bist ein präziser Lern-Assistent für Azubis (Kaufleute im E-Commerce / Fachinformatiker).
+Deine Aufgabe: Analysiere die falsch beantworteten Prüfungsfragen und extrahiere 1 bis maximal 3 übergeordnete fachliche Kernthemen (Tags). Der User soll sofort erkennen, welches Themengebiet er nachholen muss.
 
 Regeln:
-1. Analysiere die bereitgestellten Fragentexte.
-2. Finde die gemeinsamen Nenner oder die Hauptkategorien der Fragen.
-3. Formuliere die Themen extrem kurz und prägnant (maximal 1 bis 3 Wörter pro Thema, z.B. "E-Commerce Strategie", "Zinsrechnung", "Marketing-Mix").
-4. Keine ganzen Sätze, keine Erklärungen.
-5. Gib die Antwort AUSSCHLIESSLICH als valides JSON-Objekt zurück:
+1. Analysiere Fragentext UND die korrekte Antwort, um das genaue Fachgebiet zu bestimmen.
+2. Finde die gemeinsamen Nenner oder die Hauptkategorien.
+3. Formuliere die Themen extrem kurz und prägnant (2 bis 4 Wörter pro Thema).
+4. Themen müssen KONKRET und FACHLICH sein — niemals generisch wie "Quiz", "Allgemein" oder "Prüfungswissen".
+5. Gute Beispiele: "Warenwirtschaft & Logistik", "Handelskalkulation", "UWG & Wettbewerbsrecht", "SEO & Online-Marketing", "Kaufvertragsstörungen", "E-Commerce Kennzahlen".
+6. Schlechte Beispiele (VERBOTEN): "Quiz Allgemein", "Allgemein", "Verschiedenes", "Prüfungsfragen".
+7. Gib die Antwort AUSSCHLIESSLICH als valides JSON-Objekt zurück:
 
 {"topics": ["Thema 1", "Thema 2", "Thema 3"]}
 
-Hier sind die falsch beantworteten Fragen des Users:
+Hier sind die falsch beantworteten Fragen:
 ${questionList}`;
 
         const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
