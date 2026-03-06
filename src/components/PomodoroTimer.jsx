@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { extractFocusTopics } from '../geminiClient';
 
 const POMODORO_DURATION = 25 * 60; // 25 minutes in seconds
 
@@ -23,13 +24,15 @@ const PomodoroIcon = ({ size = '1.5em' }) => (
     </svg>
 );
 
-export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onTick, sessionLog, forceStop }) {
+export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onTick, sessionLog, forceStop, onRetryErrors }) {
     const [timeLeft, setTimeLeft] = useState(POMODORO_DURATION);
     const [isRunning, setIsRunning] = useState(false);
     const [showResults, setShowResults] = useState(false);
     const [analysisSnapshot, setAnalysisSnapshot] = useState(null);
     const [isPaused, setIsPaused] = useState(false);
     const [showFinalCountdown, setShowFinalCountdown] = useState(false);
+    const [focusTopics, setFocusTopics] = useState([]);
+    const [focusTopicsLoading, setFocusTopicsLoading] = useState(false);
     const intervalRef = useRef(null);
     const startTimeRef = useRef(null);
     const endTimeRef = useRef(null);
@@ -109,6 +112,16 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onT
         return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
     }, []);
 
+    useEffect(() => {
+        if (showResults && analysisSnapshot && analysisSnapshot.wrong.length > 0) {
+            setFocusTopicsLoading(true);
+            extractFocusTopics(analysisSnapshot.wrong).then(result => {
+                setFocusTopics(result.topics || []);
+                setFocusTopicsLoading(false);
+            });
+        }
+    }, [showResults, analysisSnapshot]);
+
     // Timer logic
     useEffect(() => {
         if (isRunning && !isPaused) {
@@ -157,6 +170,8 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onT
         setShowResults(false);
         setTimeLeft(POMODORO_DURATION);
         setAnalysisSnapshot(null);
+        setFocusTopics([]);
+        setFocusTopicsLoading(false);
         if (onStop) onStop();
     };
 
@@ -312,55 +327,84 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onT
                                 </div>
                             </div>
 
-                            {/* Weakness analysis */}
-                            {analysis.weakTopics.length > 0 && (
+                            {/* KI Fokus-Themen */}
+                            {analysis.wrong.length > 0 && (
                                 <div style={{ marginBottom: '1.5rem' }}>
-                                    <h4 style={{ color: '#fb923c', fontSize: '0.9rem', margin: '0 0 0.6rem 0' }}>
-                                        ⚠️ Schwachstellen
+                                    <h4 style={{ color: '#a78bfa', fontSize: '0.9rem', margin: '0 0 0.6rem 0' }}>
+                                        🎯 Deine Fokus-Themen
                                     </h4>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                                        {analysis.weakTopics.map(([topic, data], i) => (
-                                            <div key={i} style={{
-                                                padding: '0.5rem 0.8rem',
-                                                borderRadius: '8px',
-                                                background: 'rgba(251,146,60,0.08)',
-                                                border: '1px solid rgba(251,146,60,0.25)',
-                                                display: 'flex',
-                                                justifyContent: 'space-between',
-                                                alignItems: 'center'
-                                            }}>
-                                                <span style={{ fontSize: '0.82rem', color: 'var(--text-light)' }}>{topic}</span>
-                                                <span style={{ fontSize: '0.78rem', color: '#fb923c', fontWeight: 'bold' }}>
-                                                    {data.correct}/{data.total} ({Math.round((data.correct / data.total) * 100)}%)
+                                    {focusTopicsLoading ? (
+                                        <div style={{
+                                            padding: '1rem',
+                                            borderRadius: '12px',
+                                            background: 'rgba(167,139,250,0.06)',
+                                            border: '1px solid rgba(167,139,250,0.2)',
+                                            textAlign: 'center'
+                                        }}>
+                                            <div style={{ fontSize: '1.2rem', marginBottom: '0.4rem', animation: 'pulse 1.5s infinite' }}>🤖</div>
+                                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>KI analysiert deine Fehler…</span>
+                                        </div>
+                                    ) : focusTopics.length > 0 ? (
+                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                            {focusTopics.map((topic, i) => (
+                                                <span key={i} style={{
+                                                    padding: '0.45rem 0.9rem',
+                                                    borderRadius: '20px',
+                                                    background: 'rgba(167,139,250,0.12)',
+                                                    border: '1px solid rgba(167,139,250,0.3)',
+                                                    color: '#a78bfa',
+                                                    fontSize: '0.82rem',
+                                                    fontWeight: '600'
+                                                }}>
+                                                    {topic}
                                                 </span>
-                                            </div>
-                                        ))}
-                                    </div>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                                            {analysis.weakTopics.slice(0, 3).map(([topic], i) => (
+                                                <span key={i} style={{
+                                                    padding: '0.45rem 0.9rem',
+                                                    borderRadius: '20px',
+                                                    background: 'rgba(251,146,60,0.1)',
+                                                    border: '1px solid rgba(251,146,60,0.3)',
+                                                    color: '#fb923c',
+                                                    fontSize: '0.82rem',
+                                                    fontWeight: '600'
+                                                }}>
+                                                    {topic}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+                                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: '0.5rem 0 0 0' }}>
+                                        {analysis.wrong.length} Frage{analysis.wrong.length !== 1 ? 'n' : ''} falsch beantwortet
+                                    </p>
                                 </div>
                             )}
 
-                            {/* Wrong questions list */}
-                            {analysis.wrong.length > 0 && (
-                                <div style={{ marginBottom: '1.5rem' }}>
-                                    <h4 style={{ color: '#ef4444', fontSize: '0.9rem', margin: '0 0 0.6rem 0' }}>
-                                        ✗ Falsch beantwortete Fragen
-                                    </h4>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', maxHeight: '150px', overflowY: 'auto' }}>
-                                        {analysis.wrong.map((q, i) => (
-                                            <div key={i} style={{
-                                                padding: '0.4rem 0.7rem',
-                                                borderRadius: '6px',
-                                                background: 'rgba(239,68,68,0.06)',
-                                                border: '1px solid rgba(239,68,68,0.15)',
-                                                fontSize: '0.78rem',
-                                                color: 'var(--text-muted)',
-                                                lineHeight: '1.3'
-                                            }}>
-                                                {q.questionText?.substring(0, 100) || `Frage ${i + 1}`}...
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
+                            {/* CTA: Retry errors */}
+                            {analysis.wrong.length > 0 && onRetryErrors && (
+                                <button
+                                    onClick={() => {
+                                        onRetryErrors(analysis.wrong);
+                                        handleClose();
+                                    }}
+                                    style={{
+                                        width: '100%',
+                                        padding: '0.8rem',
+                                        borderRadius: '12px',
+                                        border: 'none',
+                                        background: 'var(--primary)',
+                                        color: '#fff',
+                                        fontSize: '0.95rem',
+                                        fontWeight: 'bold',
+                                        cursor: 'pointer',
+                                        marginBottom: '0.6rem'
+                                    }}
+                                >
+                                    🔄 Fehler dieser Session jetzt wiederholen
+                                </button>
                             )}
 
                             {/* Performance rating */}
@@ -393,13 +437,12 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onT
                         onClick={handleClose}
                         style={{
                             width: '100%',
-                            padding: '0.8rem',
+                            padding: '0.7rem',
                             borderRadius: '12px',
-                            border: 'none',
-                            background: 'var(--primary)',
-                            color: '#fff',
-                            fontSize: '1rem',
-                            fontWeight: 'bold',
+                            border: '1px solid var(--glass-border)',
+                            background: 'transparent',
+                            color: 'var(--text-muted)',
+                            fontSize: '0.9rem',
                             cursor: 'pointer'
                         }}
                     >

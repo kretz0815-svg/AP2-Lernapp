@@ -16,7 +16,7 @@ import wisor1 from './data/wisor_1.json';
 import wisorEco from './data/wisor_eco.json';
 
 import { supabase } from './supabaseClient';
-import { askGemini } from './geminiClient';
+import { askGemini, extractFocusTopics } from './geminiClient';
 import { fetchYouTubeVideos } from './youtubeClient';
 import FloatingNotes from './components/FloatingNotes';
 import FloatingCalculator from './components/FloatingCalculator';
@@ -653,6 +653,8 @@ function App() {
   const [pomodoroSessionLog, setPomodoroSessionLog] = useState([]);
   const [pomodoroTimeLeft, setPomodoroTimeLeft] = useState(25 * 60);
   const [pomodoroForceStop, setPomodoroForceStop] = useState(0);
+  const [dashboardAiTopics, setDashboardAiTopics] = useState([]);
+  const [dashboardAiLoading, setDashboardAiLoading] = useState(false);
   const wisorInputRef = useRef(null);
   const einsteinRef = useRef(null);
   const [einsteinTilt, setEinsteinTilt] = useState({ rotateX: 0, rotateY: 0 });
@@ -704,6 +706,26 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [appMode]);
+
+  useEffect(() => {
+    if (appMode === 'learning_dashboard' && authUser?.email) {
+      const mistakes = learningAnalytics?.mistakes || {};
+      const allMistakeTexts = Object.values(mistakes)
+        .filter(m => (m.count || 0) >= 2)
+        .sort((a, b) => (b.count || 0) - (a.count || 0))
+        .slice(0, 10)
+        .map(m => ({ questionText: m.questionText }));
+      if (allMistakeTexts.length > 0) {
+        setDashboardAiLoading(true);
+        extractFocusTopics(allMistakeTexts).then(result => {
+          setDashboardAiTopics(result.topics || []);
+          setDashboardAiLoading(false);
+        });
+      } else {
+        setDashboardAiTopics([]);
+      }
+    }
+  }, [appMode, authUser?.email]);
 
   useEffect(() => {
     if (appMode === 'wisor' && !wisorEvaluated && wisorInputRef.current) {
@@ -2884,7 +2906,9 @@ Die JSON muss exakt diese Struktur haben:
       strategicActions.push(`Chance nutzen: ${opportunityTopics[0].topic} steht kurz vor "sicher" - mit 10-15 Zusatzaufgaben stabilisieren.`);
     }
     if (riskEntries.length > 0) {
-      strategicActions.push(`Risikofrage wiederholt falsch: "${riskEntries[0].questionText?.slice(0, 85) || 'Unbekannt'}" -> Lernkarte + Wiederholung einplanen.`);
+      strategicActions.push(dashboardAiTopics.length > 0
+        ? `KI-Fokus: "${dashboardAiTopics[0]}" gezielt wiederholen und Lernkarten einplanen.`
+        : `Risikofrage wiederholt falsch: "${riskEntries[0].questionText?.slice(0, 85) || 'Unbekannt'}" -> Lernkarte + Wiederholung einplanen.`);
     }
     if (recentWeekAnswers > 0) {
       strategicActions.push(`Wochenleistung: ${recentWeekAnswers} Antworten bei ${recentWeekAccuracy}% Treffern. Ziel: > 75% für Prüfungssicherheit.`);
@@ -2917,9 +2941,11 @@ Die JSON muss exakt diese Struktur haben:
         border: '1px solid rgba(245,158,11,0.35)',
         background: 'rgba(245,158,11,0.08)',
         titleColor: '#f59e0b',
-        items: riskEntries.length > 0
-          ? riskEntries.map(item => `${(item.questionText || '').slice(0, 52)}${(item.questionText || '').length > 52 ? '...' : ''}${item.count ? ` (${item.count}x)` : ''}`)
-          : ['Keine akuten Risiko-Fragen gefunden']
+        items: dashboardAiTopics.length > 0
+          ? dashboardAiTopics.map(t => `🎯 ${t}`)
+          : riskEntries.length > 0
+            ? riskEntries.map(item => `${(item.questionText || '').slice(0, 52)}${(item.questionText || '').length > 52 ? '...' : ''}${item.count ? ` (${item.count}x)` : ''}`)
+            : ['Keine akuten Risiko-Fragen gefunden']
       },
       {
         key: 'opportunities',
@@ -3149,19 +3175,36 @@ Die JSON muss exakt diese Struktur haben:
                       <strong style={{ color: 'var(--error)', fontSize: '0.84rem' }}>{item.accuracy}%</strong>
                     </div>
                   ))}
-                  {riskEntries.map((item, idx) => (
-                    <div key={`rsk_${idx}`} style={{ padding: '0.45rem 0.6rem', borderRadius: '8px', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ color: 'var(--text-light)', fontSize: '0.82rem', overflowWrap: 'anywhere', wordBreak: 'break-word' }}>
-                          {(item.questionText || '').slice(0, 60)}{(item.questionText || '').length > 60 ? '\u2026' : ''}
-                        </span>
-                        <strong style={{ color: '#f59e0b', fontSize: '0.82rem', flexShrink: 0, marginLeft: '0.5rem' }}>{item.count}x</strong>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               ) : <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.84rem' }}>Keine kritischen Schw&auml;chen</p>}
             </div>
+            {/* KI Fokus-Themen */}
+            {(dashboardAiLoading || dashboardAiTopics.length > 0) && (
+              <div style={{ marginTop: '1rem' }}>
+                <h4 style={{ margin: '0 0 0.5rem 0', color: '#a78bfa', fontSize: '0.88rem' }}>🎯 KI-Fokus-Themen</h4>
+                {dashboardAiLoading ? (
+                  <div style={{ padding: '0.8rem', borderRadius: '10px', background: 'rgba(167,139,250,0.06)', border: '1px solid rgba(167,139,250,0.2)', textAlign: 'center' }}>
+                    <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>🤖 KI analysiert deine Fehler…</span>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+                    {dashboardAiTopics.map((topic, i) => (
+                      <span key={`aitag_${i}`} style={{
+                        padding: '0.4rem 0.85rem',
+                        borderRadius: '20px',
+                        background: 'rgba(167,139,250,0.12)',
+                        border: '1px solid rgba(167,139,250,0.3)',
+                        color: '#a78bfa',
+                        fontSize: '0.82rem',
+                        fontWeight: '600'
+                      }}>
+                        {topic}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </section>
         </div>
 
