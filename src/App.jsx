@@ -2103,7 +2103,7 @@ ${feynmanInput}`;
               className="einstein-container"
             >
               <img
-                src="/einstein.png"
+                src="/einstein.webp"
                 alt="Einstein"
                 style={{
                   width: '100%',
@@ -2962,7 +2962,7 @@ Die JSON muss exakt diese Struktur haben:
     // --- Dashboard Layout Computed Values ---
     const einsteinNeonColor = overallAccuracy >= 100 ? '#fbbf24' : overallAccuracy >= 75 ? '#22c55e' : overallAccuracy >= 35 ? '#f59e0b' : '#ef4444';
     const einsteinGlow = overallAccuracy >= 100 ? 'rgba(251,191,36,0.7)' : overallAccuracy >= 75 ? 'rgba(34,197,94,0.6)' : overallAccuracy >= 35 ? 'rgba(245,158,11,0.6)' : 'rgba(239,68,68,0.6)';
-    const einsteinImage = overallAccuracy >= 100 ? '/EinsteinGold.png' : overallAccuracy >= 75 ? '/einstein.png' : overallAccuracy >= 35 ? '/EinsteinOrange.png' : '/EinsteinRot.png';
+    const einsteinImage = overallAccuracy >= 100 ? '/EinsteinGold.webp' : overallAccuracy >= 75 ? '/einstein.webp' : overallAccuracy >= 35 ? '/EinsteinOrange.webp' : '/EinsteinRot.webp';
     const statusLabel = overallAccuracy >= 100 ? 'Perfekt!' : overallAccuracy >= 75 ? 'Prüfungsbereit' : overallAccuracy >= 35 ? 'Solides Mittelfeld' : 'Viel Nachholbedarf';
     const statusEmoji = overallAccuracy >= 100 ? '\u{1F451}' : overallAccuracy >= 75 ? '\u{1F7E2}' : overallAccuracy >= 35 ? '\u{1F7E1}' : '\u{1F534}';
     const circleRadius = 62;
