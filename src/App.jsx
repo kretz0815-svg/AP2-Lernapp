@@ -36,6 +36,15 @@ const ACCESS_MODE_KEY = 'masterpat_access_mode';
 const CUSTOM_BACKGROUND_COLOR_KEY = 'masterpat_custom_background_color';
 const BACKGROUND_SETTINGS_KEY = 'masterpat_background_settings';
 
+const getAppearanceKey = (user) => {
+  const identity = normalizeAnalyticsIdentity(user?.email || 'guest');
+  return `masterpat_appearance_${identity}`;
+};
+const getThemeKey = (user) => {
+  const identity = normalizeAnalyticsIdentity(user?.email || 'guest');
+  return `masterpat_theme_${identity}`;
+};
+
 const BACKGROUND_PRESETS = [
   { id: 'ocean', name: 'Ocean', color: '#0b2239', glow1: 'rgba(34, 211, 238, 0.2)', glow2: 'rgba(59, 130, 246, 0.18)' },
   { id: 'forest', name: 'Forest', color: '#0f2f27', glow1: 'rgba(34, 197, 94, 0.22)', glow2: 'rgba(16, 185, 129, 0.16)' },
@@ -216,6 +225,9 @@ function App() {
 
   const persistBackgroundSettings = (settings) => {
     try {
+      const key = getAppearanceKey(authUser);
+      localStorage.setItem(key, JSON.stringify(settings));
+      // Also keep global key for initial load before auth resolves
       localStorage.setItem(BACKGROUND_SETTINGS_KEY, JSON.stringify(settings));
       localStorage.removeItem(CUSTOM_BACKGROUND_COLOR_KEY);
       return true;
@@ -224,15 +236,35 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('masterpat_theme');
+  const applyAppearanceDefaults = () => {
+    const defaultColor = isLightMode ? '#ffffff' : '#000000';
+    setBackgroundMode('color');
+    setCustomBackgroundColor(defaultColor);
+    setBackgroundEffectsEnabled(false);
+    setBackgroundEffectsIntensity(100);
+    setBackgroundPresetId('');
+    setBackgroundImageData('');
+    applyEffectStrength(100);
+    applyBackgroundEffectsVisibility(false);
+    applyCustomBackgroundColor(defaultColor, 100);
+    clearBackgroundLayers();
+  };
+
+  const loadAppearanceForUser = (user) => {
+    // Try per-user key first, then global fallback
+    const userKey = getAppearanceKey(user);
+    const themeKey = getThemeKey(user);
+    const savedTheme = localStorage.getItem(themeKey);
     if (savedTheme === 'light') {
       setIsLightMode(true);
       document.body.classList.add('light-theme');
+    } else {
+      setIsLightMode(false);
+      document.body.classList.remove('light-theme');
     }
 
     try {
-      const savedSettingsRaw = localStorage.getItem(BACKGROUND_SETTINGS_KEY);
+      const savedSettingsRaw = localStorage.getItem(userKey) || localStorage.getItem(BACKGROUND_SETTINGS_KEY);
       if (savedSettingsRaw) {
         const savedSettings = JSON.parse(savedSettingsRaw);
         const savedMode = savedSettings?.mode || 'default';
@@ -257,42 +289,44 @@ function App() {
           applyUploadedBackground(savedImage, savedColor, savedEffectsIntensity);
         } else if (savedMode === 'color' && isValidHexColor(savedColor)) {
           applyCustomBackgroundColor(savedColor, savedEffectsIntensity);
+        } else {
+          applyAppearanceDefaults();
         }
         return;
       }
     } catch {
-      // Ignore invalid stored settings and continue with legacy key fallback.
+      // Ignore invalid stored settings
     }
+    // No saved settings — apply defaults
+    applyAppearanceDefaults();
+  };
 
-    const legacySavedColor = localStorage.getItem(CUSTOM_BACKGROUND_COLOR_KEY);
-    if (isValidHexColor(legacySavedColor)) {
-      setBackgroundMode('color');
-      setCustomBackgroundColor(legacySavedColor);
-      setBackgroundEffectsEnabled(true);
-      setBackgroundEffectsIntensity(100);
-      applyEffectStrength(100);
-      applyBackgroundEffectsVisibility(true);
-      applyCustomBackgroundColor(legacySavedColor, 100);
-      persistBackgroundSettings({ mode: 'color', color: legacySavedColor, presetId: '', imageData: '', effectsEnabled: true, effectsIntensity: 100 });
-    } else {
-      // Apply default: black background, effects off
-      applyCustomBackgroundColor('#000000', 100);
-      applyBackgroundEffectsVisibility(false);
-    }
+  // Initial appearance load
+  useEffect(() => {
+    loadAppearanceForUser(null);
   }, []);
+
+  // Reload appearance when user logs in/out
+  useEffect(() => {
+    if (authUser) {
+      loadAppearanceForUser(authUser);
+    }
+  }, [authUser]);
 
   const toggleTheme = () => {
     setIsLightMode(prev => {
       const newVal = !prev;
+      const themeKey = getThemeKey(authUser);
       if (newVal) {
         document.body.classList.add('light-theme');
-        localStorage.setItem('masterpat_theme', 'light');
+        localStorage.setItem(themeKey, 'light');
       } else {
         document.body.classList.remove('light-theme');
-        localStorage.setItem('masterpat_theme', 'dark');
+        localStorage.setItem(themeKey, 'dark');
       }
       // Apply default colors per theme when no custom settings are saved
-      const hasSavedSettings = localStorage.getItem(BACKGROUND_SETTINGS_KEY);
+      const userKey = getAppearanceKey(authUser);
+      const hasSavedSettings = localStorage.getItem(userKey);
       if (!hasSavedSettings) {
         const defaultColor = newVal ? '#ffffff' : '#000000';
         setCustomBackgroundColor(defaultColor);
@@ -414,6 +448,7 @@ function App() {
     setBackgroundPresetId('');
     setBackgroundImageData('');
     setAppearanceNotice('Standard-Hintergrund wieder aktiv.');
+    localStorage.removeItem(getAppearanceKey(authUser));
     localStorage.removeItem(BACKGROUND_SETTINGS_KEY);
     localStorage.removeItem(CUSTOM_BACKGROUND_COLOR_KEY);
     applyEffectStrength(100);
@@ -747,6 +782,9 @@ function App() {
     const savedNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
     const analytics = loadAnalyticsForUser(authUser);
     const customQuiz = loadCustomQuizForUser(authUser);
+    const appearanceRaw = localStorage.getItem(getAppearanceKey(authUser));
+    const appearance = appearanceRaw ? JSON.parse(appearanceRaw) : null;
+    const theme = localStorage.getItem(getThemeKey(authUser)) || 'dark';
 
     return {
       ...srsProgress,
@@ -755,6 +793,8 @@ function App() {
       saved_notes: savedNotes,
       learning_analytics: analytics,
       custom_quiz_questions: customQuiz,
+      appearance_settings: appearance,
+      theme_mode: theme,
       ...overrides
     };
   };
@@ -1306,6 +1346,13 @@ ${feynmanInput}`;
                 }
               }
               localStorage.setItem('ap2_saved_notes', JSON.stringify(merged));
+            }
+            // Load appearance settings from Supabase
+            if (data.progress_data.appearance_settings) {
+              localStorage.setItem(getAppearanceKey(session.user), JSON.stringify(data.progress_data.appearance_settings));
+            }
+            if (data.progress_data.theme_mode) {
+              localStorage.setItem(getThemeKey(session.user), data.progress_data.theme_mode);
             }
           } else if (!data) {
             // Init empty row for this authenticated user
