@@ -597,16 +597,17 @@ function App() {
     }
   }, [authUser]);
 
-  // Force dark mode on auth screen — login must always be dark
+  // Force dark mode on auth screen and for guests on all screens
   useEffect(() => {
-    if (appMode === 'auth') {
+    const isGuest = !authUser;
+    if (appMode === 'auth' || isGuest) {
       document.body.classList.remove('light-theme');
       document.body.style.setProperty('--app-bg-color', '#000000');
       document.body.style.removeProperty('--app-glow-1');
       document.body.style.removeProperty('--app-glow-2');
       document.body.classList.add('no-bg-effects');
     }
-  }, [appMode]);
+  }, [appMode, authUser]);
 
   // --- FLASHCARD STATE ---
   const [allCards, setAllCards] = useState([]);
@@ -1247,8 +1248,11 @@ ${feynmanInput}`;
 
   const startQuizSession = (limit, topic = 'all') => {
     let sessionQs = [...getDueQuizzesByTopic(topic)].sort(() => Math.random() - 0.5);
-    if (limit !== 'all') {
-      sessionQs = sessionQs.slice(0, limit);
+    // Guests: max 3 trial questions
+    const isGuest = !authUser;
+    const effectiveLimit = isGuest ? 3 : limit;
+    if (effectiveLimit !== 'all') {
+      sessionQs = sessionQs.slice(0, effectiveLimit);
     }
 
     resetQuiz(sessionQs);
@@ -2109,7 +2113,11 @@ ${feynmanInput}`;
             </div>
             <h2>Wissen testen<br />(Quiz)</h2>
             <p>Multiple-Choice Fragen zum Überprüfen deines Wissensstands.</p>
-            <div className="chip">{quizDuePool.length === 0 ? 'Alles gemeistert! 🎉' : `${quizDuePool.length} Fragen fällig`}</div>
+            {!authUser ? (
+              <div className="chip">🔒 3 Testfragen (Gast)</div>
+            ) : (
+              <div className="chip">{quizDuePool.length === 0 ? 'Alles gemeistert! 🎉' : `${quizDuePool.length} Fragen fällig`}</div>
+            )}
 
             {(Object.keys(quizProg || {}).length > 0 || !!authUser?.id) && (
               <button
@@ -2122,7 +2130,7 @@ ${feynmanInput}`;
             )}
           </div>
 
-          <div className="dash-card" onClick={() => startWisor('wisor1')}>
+          <div className="dash-card" style={!authUser ? { opacity: 0.55, cursor: 'not-allowed' } : {}} onClick={() => { if (authUser) startWisor('wisor1'); }}>
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
               <svg width="1.2em" height="1.2em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <path d="M 280 200 H 460 V 420 L 420 460 L 380 420 L 340 460 L 300 420 L 260 460 L 220 420 V 320" fill="none" stroke="var(--text-light)" strokeWidth="32" strokeLinejoin="round" strokeLinecap="round" />
@@ -2141,9 +2149,13 @@ ${feynmanInput}`;
             </div>
             <h2>WisoR<br />(Eingabe)</h2>
             <p>Freitext Eingabe für Zahlen und Fakten. Gekonntes verschwindet!</p>
-            <div className="chip">{Object.keys(completedWisors).length === wisor1.questions.length ? 'Alles gemeistert! 🎉' : `${wisor1.questions.length - Object.keys(completedWisors).length} Fragen verfügbar`}</div>
+            {!authUser ? (
+              <div className="chip">🔒 Nur mit Account</div>
+            ) : (
+              <div className="chip">{Object.keys(completedWisors).length === wisor1.questions.length ? 'Alles gemeistert! 🎉' : `${wisor1.questions.length - Object.keys(completedWisors).length} Fragen verfügbar`}</div>
+            )}
 
-            {Object.keys(completedWisors).length > 0 && (
+            {authUser && Object.keys(completedWisors).length > 0 && (
               <button
                 className="btn-secondary"
                 style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
@@ -2154,7 +2166,7 @@ ${feynmanInput}`;
             )}
           </div>
 
-          <div className="dash-card" onClick={() => startWisor('wisorEco')}>
+          <div className="dash-card" style={!authUser ? { opacity: 0.55, cursor: 'not-allowed' } : {}} onClick={() => { if (authUser) startWisor('wisorEco'); }}>
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
               <svg width="1.2em" height="1.2em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <path d="M 280 200 H 460 V 420 L 420 460 L 380 420 L 340 460 L 300 420 L 260 460 L 220 420 V 320" fill="none" stroke="var(--text-light)" strokeWidth="32" strokeLinejoin="round" strokeLinecap="round" />
@@ -2174,9 +2186,13 @@ ${feynmanInput}`;
             </div>
             <h2>WisoR im<br />E-Commerce</h2>
             <p>Freitext Eingabe für E-Commerce spezifische Aufgaben.</p>
-            <div className="chip">{Object.keys(completedWisorsEco).length === (wisorEco?.questions?.length || 0) && (wisorEco?.questions?.length || 0) > 0 ? 'Alles gemeistert! 🎉' : `${(wisorEco?.questions?.length || 0) - Object.keys(completedWisorsEco).length} Fragen verfügbar`}</div>
+            {!authUser ? (
+              <div className="chip">🔒 Nur mit Account</div>
+            ) : (
+              <div className="chip">{Object.keys(completedWisorsEco).length === (wisorEco?.questions?.length || 0) && (wisorEco?.questions?.length || 0) > 0 ? 'Alles gemeistert! 🎉' : `${(wisorEco?.questions?.length || 0) - Object.keys(completedWisorsEco).length} Fragen verfügbar`}</div>
+            )}
 
-            {Object.keys(completedWisorsEco).length > 0 && (
+            {authUser && Object.keys(completedWisorsEco).length > 0 && (
               <button
                 className="btn-secondary"
                 style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
@@ -2222,7 +2238,11 @@ ${feynmanInput}`;
             </div>
             <h2>Kalkulations-<br />Boss</h2>
             <p>Meistere Vorwärts-, Rückwärts- und Differenzkalkulation spielerisch.</p>
-            <div className="chip">3 Level</div>
+            {!authUser ? (
+              <div className="chip">🔒 Level 1 frei (Gast)</div>
+            ) : (
+              <div className="chip">3 Level</div>
+            )}
           </div>
 
           <div className="dash-card" onClick={() => setAppMode('break_even')}>
@@ -2440,7 +2460,7 @@ ${feynmanInput}`;
       <>
         {pomodoroPortal}
         {burgerMenuPortal}
-        <KalkulationsBoss onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
+        <KalkulationsBoss onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} isGuest={!authUser} />
         <FloatingNotes questionId="kalkulation" questionText="Kalkulations-Boss" />
         <FloatingCalculator />
       </>
