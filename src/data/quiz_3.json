@@ -2,7 +2,7 @@
   "title": "01",
   "questions": [
     {
-      "question": "Die „Nature-Equip AG“ baut einen komplett neuen Online-Shop für eine spezielle Produktsparte auf. Bevor Artikel angelegt, Zahlungsarten definiert oder Kundengruppen berechtigt werden, muss eine grundlegende technische Einstellung vorgenommen werden. Welcher Schritt sollte in der Ablauf-Reihenfolge der Einrichtung zwingend als Erstes erfolgen?",
+      "question": "Die \"Nature-Equip AG\" baut einen komplett neuen Online-Shop für eine spezielle Produktsparte auf. Bevor Artikel angelegt, Zahlungsarten definiert oder Kundengruppen berechtigt werden, muss eine grundlegende technische Einstellung vorgenommen werden. Welcher Schritt sollte in der Ablauf-Reihenfolge der Einrichtung zwingend als Erstes erfolgen?",
       "answerOptions": [
         {
           "text": "Die Erstellung und Verknüpfung des Impressums.",
@@ -10,7 +10,7 @@
           "rationale": "Das Impressum ist rechtlich wichtig, aber nicht der erste technische Sicherungsschritt beim Setup."
         },
         {
-          "text": "Den Shop im System zunächst „offline“ stellen.",
+          "text": "Den Shop im System zunächst \"offline\" stellen.",
           "isCorrect": true,
           "rationale": "Richtig: Zu Beginn sollte der Shop offline bzw. im Wartungsmodus sein, damit keine unfertigen Inhalte sichtbar sind und keine Testbestellungen oder rechtliche Risiken entstehen."
         },
@@ -30,7 +30,7 @@
       "topic": "Shop-Einrichtung & Checkout"
     },
     {
-      "question": "Die „Active-Wear GmbH“ führt einen A/B-Test für zwei neue Landingpages durch, um herauszufinden, welche Version zu mehr Verkäufen führt. Version A zeigt ein Bannerbild, Version B ein Video. Was ist ein klassischer methodischer Fehler, der bei der Durchführung eines solchen Tests unbedingt vermieden werden sollte?",
+      "question": "Die \"Active-Wear GmbH\" führt einen A/B-Test für zwei neue Landingpages durch, um herauszufinden, welche Version zu mehr Verkäufen führt. Version A zeigt ein Bannerbild, Version B ein Video. Was ist ein klassischer methodischer Fehler, der bei der Durchführung eines solchen Tests unbedingt vermieden werden sollte?",
       "answerOptions": [
         {
           "text": "Es werden zu viele gravierende Unterschiede zwischen den Versionen gleichzeitig getestet.",
@@ -86,7 +86,7 @@
       "topic": "Usability & UX"
     },
     {
-      "question": "Ein junges Start-up entscheidet sich für das Geschäftsmodell „Dropshipping“ im E-Commerce, um Outdoor-Gadgets zu verkaufen. Welcher wesentliche Nachteil ist typischerweise mit diesem Modell verbunden?",
+      "question": "Ein junges Start-up entscheidet sich für das Geschäftsmodell \"Dropshipping\" im E-Commerce, um Outdoor-Gadgets zu verkaufen. Welcher wesentliche Nachteil ist typischerweise mit diesem Modell verbunden?",
       "answerOptions": [
         {
           "text": "Es wird ein extrem hohes Startkapital für den ersten Wareneinkauf und die Lagerhalle benötigt.",
@@ -114,7 +114,7 @@
       "topic": "Geschäftsmodelle"
     },
     {
-      "question": "Die „Mountain-Gear GmbH“ plant den Einsatz eines KI-gestützten Analyse- und Steuerungssystems zur Budgetoptimierung ihrer Online-Vertriebskanäle. Welche fundamentale Grenze (Risiko) des KI-Einsatzes muss das Projektteam dabei unbedingt beachten?",
+      "question": "Die \"Mountain-Gear GmbH\" plant den Einsatz eines KI-gestützten Analyse- und Steuerungssystems zur Budgetoptimierung ihrer Online-Vertriebskanäle. Welche fundamentale Grenze (Risiko) des KI-Einsatzes muss das Projektteam dabei unbedingt beachten?",
       "answerOptions": [
         {
           "text": "KI-Systeme können grundsätzlich keine Webtracking-Daten auswerten.",
@@ -124,7 +124,7 @@
         {
           "text": "Die Qualität der Ergebnisse ist stark abhängig von der zugrundeliegenden Datenqualität; unvollständige Daten führen zu Fehlinterpretationen.",
           "isCorrect": true,
-          "rationale": "Richtig: „Garbage in, garbage out“ – fehlerhafte Daten führen zu fehlerhaften Modellergebnissen und Entscheidungen."
+          "rationale": "Richtig: \"Garbage in, garbage out\" – fehlerhafte Daten führen zu fehlerhaften Modellergebnissen und Entscheidungen."
         },
         {
           "text": "Die Implementierungskosten von KI-Systemen sind mittlerweile branchenweit auf null gesunken, was zu einem unübersichtlichen Überangebot führt.",
@@ -183,7 +183,7 @@
           "rationale": "Breite Preissenkungen können den durchschnittlichen Warenkorbwert bei gleicher Artikelanzahl weiter reduzieren."
         },
         {
-          "text": "Die Einführung von „Produktbundles“, bei denen zusammenhängende Artikel (z. B. Zelt + Schlafsack) zu einem leicht reduzierten Gesamtpreis angeboten werden.",
+          "text": "Die Einführung von \"Produktbundles\", bei denen zusammenhängende Artikel (z. B. Zelt + Schlafsack) zu einem leicht reduzierten Gesamtpreis angeboten werden.",
           "isCorrect": true,
           "rationale": "Richtig: Bundles fördern Zusatzkäufe in einem Vorgang und erhöhen den Average Order Value direkt."
         },
@@ -226,7 +226,7 @@
       "topic": "Influencer Marketing"
     },
     {
-      "question": "Die Geschäftsführung der „Tech-Vision GmbH“ überarbeitet ihre Unternehmensziele für das kommende Geschäftsjahr. Dabei wird explizit die Schaffung von humanen Arbeitsbedingungen und einer gerechten Gewinnbeteiligung für die Belegschaft als neues Kernziel definiert. Um welche Art von Zielen handelt es sich hierbei betriebswirtschaftlich?",
+      "question": "Die Geschäftsführung der \"Tech-Vision GmbH\" überarbeitet ihre Unternehmensziele für das kommende Geschäftsjahr. Dabei wird explizit die Schaffung von humanen Arbeitsbedingungen und einer gerechten Gewinnbeteiligung für die Belegschaft als neues Kernziel definiert. Um welche Art von Zielen handelt es sich hierbei betriebswirtschaftlich?",
       "answerOptions": [
         {
           "text": "Ökologische Ziele",
@@ -310,7 +310,7 @@
       "topic": "Sortiment & Ertrag"
     },
     {
-      "question": "Die „Urban-Sports GmbH“ möchte ihr Sortiment stärker ertragsorientiert (Fokus auf Rentabilität) ausrichten, um die Gewinne zu maximieren. Welche konkrete strategische Maßnahme passt am besten zu diesem Ziel?",
+      "question": "Die \"Urban-Sports GmbH\" möchte ihr Sortiment stärker ertragsorientiert (Fokus auf Rentabilität) ausrichten, um die Gewinne zu maximieren. Welche konkrete strategische Maßnahme passt am besten zu diesem Ziel?",
       "answerOptions": [
         {
           "text": "Das Sortiment wird ausschließlich nach den Wünschen aus der letzten Kundenumfrage ausgerichtet, unabhängig von den Kosten.",
@@ -338,7 +338,7 @@
       "topic": "Sortiment & Ertrag"
     },
     {
-      "question": "Die „Next-Level Fitness GmbH“ plant die Produktion eines hochwertigen Imagevideos für ihren YouTube-Kanal. Mehrere Agenturen haben ein Angebot eingereicht. Die Geschäftsleitung prüft die Angebote anhand verschiedener Kriterien. Welcher Prüf-Aspekt fällt unter das Auswahlkriterium Referenzen?",
+      "question": "Die \"Next-Level Fitness GmbH\" plant die Produktion eines hochwertigen Imagevideos für ihren YouTube-Kanal. Mehrere Agenturen haben ein Angebot eingereicht. Die Geschäftsleitung prüft die Angebote anhand verschiedener Kriterien. Welcher Prüf-Aspekt fällt unter das Auswahlkriterium Referenzen?",
       "answerOptions": [
         {
           "text": "Die Überprüfung, ob das Angebot im Rahmen des gesetzten Budgets liegt.",
@@ -478,7 +478,7 @@
       "topic": "Geschäftsmodelle"
     },
     {
-      "question": "Die „Style-Lounge GmbH“ hat einen A/B-Test für zwei Landingpages durchgeführt. Version A hat 150 Verkäufe generiert, Version B generierte 210 Verkäufe. Bevor das Marketing-Team Version B final als Gewinner kürt, sollte zwingend eine weitere, entscheidende wirtschaftliche Metrik geprüft werden. Welche?",
+      "question": "Die \"Style-Lounge GmbH\" hat einen A/B-Test für zwei Landingpages durchgeführt. Version A hat 150 Verkäufe generiert, Version B generierte 210 Verkäufe. Bevor das Marketing-Team Version B final als Gewinner kürt, sollte zwingend eine weitere, entscheidende wirtschaftliche Metrik geprüft werden. Welche?",
       "answerOptions": [
         {
           "text": "Das Alter der Server-Hardware, auf der die Landingpage gehostet wird.",
@@ -954,7 +954,7 @@
       "topic": "KI Integration"
     },
     {
-      "question": "Die „Adventure-Gear GmbH“ evaluiert verschiedene Plattformen für ihre neue Marketingstrategie. Die Marketingleitung spricht sich stark für die Nutzung von Facebook aus. Welches Argument ist aus E-Commerce-Sicht die fachlich korrekte Begründung für die Eignung dieses Kanals?",
+      "question": "Die \"Adventure-Gear GmbH\" evaluiert verschiedene Plattformen für ihre neue Marketingstrategie. Die Marketingleitung spricht sich stark für die Nutzung von Facebook aus. Welches Argument ist aus E-Commerce-Sicht die fachlich korrekte Begründung für die Eignung dieses Kanals?",
       "answerOptions": [
         {
           "text": "Facebook zeichnet sich durch extrem kurzlebigen Content aus, wodurch täglich hunderte Posts ohne Streuverlust abgesetzt werden können.",
@@ -982,7 +982,7 @@
       "topic": "Social Media Kanal - Facebook"
     },
     {
-      "question": "Ein Händler für Premium-Outdoormöbel möchte seine Produkte auf der Plattform „X“ (ehemals Twitter) visuell in Szene setzen und langfristig als Katalogersatz nutzen. Warum bewerten Social-Media-Experten die Eignung von X für dieses spezifische Vorhaben meist als „Nein“ oder „Sehr gering“?",
+      "question": "Ein Händler für Premium-Outdoormöbel möchte seine Produkte auf der Plattform \"X\" (ehemals Twitter) visuell in Szene setzen und langfristig als Katalogersatz nutzen. Warum bewerten Social-Media-Experten die Eignung von X für dieses spezifische Vorhaben meist als \"Nein\" oder \"Sehr gering\"?",
       "answerOptions": [
         {
           "text": "Weil der Content auf X extrem kurzlebig ist und die Werbemöglichkeiten für klassische E-Commerce-Produkte im Vergleich reduziert sind.",
@@ -1010,7 +1010,7 @@
       "topic": "Social Media Kanal - X"
     },
     {
-      "question": "Ein Online-Shop für Sportnahrung möchte den direkten Kanal „WhatsApp“ nutzen, um Kunden über Rabattaktionen und neue Produkte zu informieren. Unter welcher zwingenden Voraussetzung ist dieser Kanal für Marketing-Aktivitäten überhaupt erst geeignet und rechtlich zulässig?",
+      "question": "Ein Online-Shop für Sportnahrung möchte den direkten Kanal \"WhatsApp\" nutzen, um Kunden über Rabattaktionen und neue Produkte zu informieren. Unter welcher zwingenden Voraussetzung ist dieser Kanal für Marketing-Aktivitäten überhaupt erst geeignet und rechtlich zulässig?",
       "answerOptions": [
         {
           "text": "Wenn das Unternehmen sicherstellt, dass die Nachrichten nur außerhalb der gesetzlichen Ruhezeiten verschickt werden.",
@@ -1038,7 +1038,7 @@
       "topic": "Social Media Kanal - WhatsApp"
     },
     {
-      "question": "Die „Tech-World AG“ verkauft erklärungsbedürftige, komplexe Smart-Home-Systeme. Warum ist YouTube für dieses spezifische Sortiment ein besonders gut geeigneter Social-Media-Kanal?",
+      "question": "Die \"Tech-World AG\" verkauft erklärungsbedürftige, komplexe Smart-Home-Systeme. Warum ist YouTube für dieses spezifische Sortiment ein besonders gut geeigneter Social-Media-Kanal?",
       "answerOptions": [
         {
           "text": "Weil YouTube die niedrigsten Klickpreise (CPC) für reine Textanzeigen bietet.",
@@ -1122,7 +1122,7 @@
       "topic": "Social Media Kanal - Instagram"
     },
     {
-      "question": "Die „Local-Roasters GmbH“ besteht nur aus zwei Mitarbeitern, die den Shop nebenbei betreiben. Sie überlegen, einen YouTube-Kanal mit wöchentlichen Hintergrund-Dokumentationen zu starten. Welches essenzielle Kriterium zur Social-Media-Auswahl wird bei diesem Vorhaben offensichtlich völlig unterschätzt?",
+      "question": "Die \"Local-Roasters GmbH\" besteht nur aus zwei Mitarbeitern, die den Shop nebenbei betreiben. Sie überlegen, einen YouTube-Kanal mit wöchentlichen Hintergrund-Dokumentationen zu starten. Welches essenzielle Kriterium zur Social-Media-Auswahl wird bei diesem Vorhaben offensichtlich völlig unterschätzt?",
       "answerOptions": [
         {
           "text": "Die Frage, wie sich die allgemeinen Nutzerzahlen des Netzwerks entwickeln.",
@@ -1150,7 +1150,7 @@
       "topic": "Auswahlkriterium - Ressourcen & Aufwand"
     },
     {
-      "question": "Ein E-Commerce-Shop verkauft exklusive, hochpreisige Treppenlifte und medizinische Hilfsmittel für Senioren. Das Marketing-Team schlägt vor, das gesamte Werbebudget in die Plattform TikTok zu stecken, weil diese „gerade extrem angesagt ist“. Welches primäre Auswahlkriterium spricht vehement gegen diese Idee?",
+      "question": "Ein E-Commerce-Shop verkauft exklusive, hochpreisige Treppenlifte und medizinische Hilfsmittel für Senioren. Das Marketing-Team schlägt vor, das gesamte Werbebudget in die Plattform TikTok zu stecken, weil diese \"gerade extrem angesagt ist\". Welches primäre Auswahlkriterium spricht vehement gegen diese Idee?",
       "answerOptions": [
         {
           "text": "Ist die spezifische Zielgruppe (hier: Senioren) auf diesem Netzwerk überhaupt nennenswert vertreten?",
@@ -1206,7 +1206,7 @@
       "topic": "Auswahlkriterium - Image & Marken-Passung"
     },
     {
-      "question": "Ein erfolgreicher Fashion-Händler auf Instagram möchte ohne Strategieanpassung auf X (ehemals Twitter) expandieren. Die Geschäftsführung ordnet an: „Wer Instagram beherrscht, wird auch auf X schnell erfolgreich sein. Postet einfach dieselben Inhalte.“ Warum ist diese Annahme aus Sicht des Social-Media-Marketings fachlich falsch?",
+      "question": "Ein erfolgreicher Fashion-Händler auf Instagram möchte ohne Strategieanpassung auf X (ehemals Twitter) expandieren. Die Geschäftsführung ordnet an: \"Wer Instagram beherrscht, wird auch auf X schnell erfolgreich sein. Postet einfach dieselben Inhalte.\" Warum ist diese Annahme aus Sicht des Social-Media-Marketings fachlich falsch?",
       "answerOptions": [
         {
           "text": "Weil X (Twitter) grundsätzlich keine Unternehmensprofile oder kommerzielle Werbung zulässt.",
@@ -1262,7 +1262,7 @@
       "topic": "Content-Formate (Instagram vs. X)"
     },
     {
-      "question": "Die „Urban-Streetwear GmbH“ verkauft hippe Mode für junge Erwachsene an Endkunden (B2C). Eine externe Agentur rät dem Unternehmen, das gesamte Werbebudget für die neue Kollektion in die Netzwerke XING und LinkedIn zu investieren. Warum wird diese Empfehlung von E-Commerce-Experten stark kritisiert?",
+      "question": "Die \"Urban-Streetwear GmbH\" verkauft hippe Mode für junge Erwachsene an Endkunden (B2C). Eine externe Agentur rät dem Unternehmen, das gesamte Werbebudget für die neue Kollektion in die Netzwerke XING und LinkedIn zu investieren. Warum wird diese Empfehlung von E-Commerce-Experten stark kritisiert?",
       "answerOptions": [
         {
           "text": "Weil Werbung auf diesen Netzwerken vom Gesetzgeber für Modeunternehmen verboten ist.",
@@ -1346,7 +1346,7 @@
       "topic": "Werbe-Infrastruktur bei Instagram (Meta)"
     },
     {
-      "question": "Die Geschäftsführung eines E-Commerce-Unternehmens verlangt, dass der Online-Shop „auf absolut allen verfügbaren Social-Media-Kanälen gleichzeitig“ präsent ist, um die maximale Sichtbarkeit zu erreichen. Welches strategische Argument spricht aus E-Commerce-Sicht massiv gegen diesen sogenannten „Gießkannen-Ansatz“?",
+      "question": "Die Geschäftsführung eines E-Commerce-Unternehmens verlangt, dass der Online-Shop \"auf absolut allen verfügbaren Social-Media-Kanälen gleichzeitig\" präsent ist, um die maximale Sichtbarkeit zu erreichen. Welches strategische Argument spricht aus E-Commerce-Sicht massiv gegen diesen sogenannten \"Gießkannen-Ansatz\"?",
       "answerOptions": [
         {
           "text": "Der Algorithmus von Suchmaschinen bestraft Unternehmen, die auf mehr als drei Plattformen aktiv sind, mit einem schlechteren Ranking.",
@@ -1540,6 +1540,230 @@
       "hint": "Suche die Kanaele mit moeglichst hoher und stabiler Nutzung von jung bis aelter.",
       "youtubeQuery": "Cross generationale Plattform Strategie WhatsApp YouTube Reichweite 15 bis 60",
       "topic": "Cross-Generationale Plattform-Strategie (Meta-Analyse)"
+    },
+    {
+      "question": "Die 'Outdoor-Fun GmbH' möchte für ein neues Produkt eine Zielgruppenanalyse durchführen. Das Marketing-Team untersucht gezielt die Interessen, den Lebensstil und die Werte der potenziellen Käufer. Welcher Kategorie der Zielgruppenanalyse sind diese spezifischen Merkmale zuzuordnen?",
+      "answerOptions": [
+        {
+          "text": "Den verhaltensbasierten Faktoren",
+          "isCorrect": false,
+          "rationale": "Falsch: Verhaltensbasierte Faktoren beschreiben das konkrete Kaufverhalten, nicht Werte und Lebensstil."
+        },
+        {
+          "text": "Den demografischen Faktoren",
+          "isCorrect": false,
+          "rationale": "Falsch: Demografische Faktoren wären Alter, Geschlecht oder Einkommen."
+        },
+        {
+          "text": "Den psychografischen Faktoren",
+          "isCorrect": true,
+          "rationale": "Richtig: Interessen, Lebensstil und Werte gehören in der Marketingplanung zu den psychografischen Faktoren. Demografische Faktoren wären Alter oder Einkommen, geografische die Region und verhaltensbasierte das konkrete Kaufverhalten."
+        },
+        {
+          "text": "Den geografischen Faktoren",
+          "isCorrect": false,
+          "rationale": "Falsch: Geografische Faktoren betreffen die Region oder den Standort der Zielgruppe."
+        }
+      ],
+      "hint": "Denke daran, welche Faktoren die innere Motivation und den Lebensstil einer Person beschreiben.",
+      "youtubeQuery": "Zielgruppenanalyse psychografische Faktoren Interessen Lebensstil Werte Marketing",
+      "topic": "Zielgruppenanalyse (Psychografische Faktoren)"
+    },
+    {
+      "question": "Im Rahmen der Kampagnenplanung erhebt das Unternehmen statistische Daten zum Alter, Geschlecht, Einkommen, zur Bildung und zum Familienstand der potenziellen Kunden. Wie werden diese messbaren Merkmale in der Zielgruppenanalyse fachlich genannt?",
+      "answerOptions": [
+        {
+          "text": "Demografische Faktoren",
+          "isCorrect": true,
+          "rationale": "Richtig: Harte, statistisch messbare Daten zur Person wie Alter, Geschlecht, Bildung, Einkommen und Familienstand bilden die demografischen Faktoren einer Zielgruppe."
+        },
+        {
+          "text": "Psychografische Faktoren",
+          "isCorrect": false,
+          "rationale": "Falsch: Psychografische Faktoren beschreiben Werte, Interessen und Lebensstil – nicht statistische Personendaten."
+        },
+        {
+          "text": "Geografische Faktoren",
+          "isCorrect": false,
+          "rationale": "Falsch: Geografische Faktoren beziehen sich auf den Standort oder die Region."
+        },
+        {
+          "text": "Verhaltensbasierte Faktoren",
+          "isCorrect": false,
+          "rationale": "Falsch: Verhaltensbasierte Faktoren beschreiben das konkrete Kaufverhalten und Produktpräferenzen."
+        }
+      ],
+      "hint": "Welche Kategorie umfasst harte, messbare Personendaten wie Alter und Einkommen?",
+      "youtubeQuery": "Zielgruppenanalyse demografische Faktoren Alter Geschlecht Einkommen Bildung",
+      "topic": "Zielgruppenanalyse (Demografische Faktoren)"
+    },
+    {
+      "question": "Die Marketingabteilung wertet aus, wie oft Stammkunden im vergangenen Jahr eingekauft haben und welche spezifischen Produktpräferenzen (z. B. Bevorzugung von Premium-Artikeln) sie zeigten. Welcher Bereich der Zielgruppenanalyse wird hierbei untersucht?",
+      "answerOptions": [
+        {
+          "text": "Geografische Faktoren (Urban/Rural)",
+          "isCorrect": false,
+          "rationale": "Falsch: Geografische Faktoren betreffen die regionale Verteilung, nicht das Kaufverhalten."
+        },
+        {
+          "text": "Demografische Faktoren",
+          "isCorrect": false,
+          "rationale": "Falsch: Demografische Faktoren erfassen statistische Personendaten, nicht das Kaufverhalten."
+        },
+        {
+          "text": "Verhaltensbasierte Faktoren",
+          "isCorrect": true,
+          "rationale": "Richtig: Wenn es um das konkrete Kaufverhalten und die spezifischen Produktpräferenzen der Kunden geht, spricht man im Marketingplan von verhaltensbasierten Faktoren."
+        },
+        {
+          "text": "Psychografische Faktoren",
+          "isCorrect": false,
+          "rationale": "Falsch: Psychografische Faktoren beschreiben Werte und Lebensstil, nicht das messbare Kaufverhalten."
+        }
+      ],
+      "hint": "Welche Faktoren beschreiben, was und wie oft Kunden tatsächlich kaufen?",
+      "youtubeQuery": "Zielgruppenanalyse verhaltensbasierte Faktoren Kaufverhalten Produktpräferenzen",
+      "topic": "Zielgruppenanalyse (Verhaltensbasierte Faktoren)"
+    },
+    {
+      "question": "Die 'Outdoor-Fun GmbH' plant, den Kunden durch den Aufbau eines eigenen Blogs, eines Podcasts und eines YouTube-Kanals echten Mehrwert und tiefgehende Informationen zu bieten. Welchem konkreten Online-Marketing-Kanal sind diese Maßnahmen zuzuordnen?",
+      "answerOptions": [
+        {
+          "text": "Dem Affiliate Marketing",
+          "isCorrect": false,
+          "rationale": "Falsch: Affiliate Marketing basiert auf Partnerprogrammen mit Provisionen, nicht auf eigenen Informationskanälen."
+        },
+        {
+          "text": "Der Display Werbung",
+          "isCorrect": false,
+          "rationale": "Falsch: Display Werbung besteht aus Werbebannern oder Video-Ads, nicht aus informativen Inhalten."
+        },
+        {
+          "text": "Dem Content Marketing",
+          "isCorrect": true,
+          "rationale": "Richtig: Eigene Blogs, Podcasts und YouTube-Videos fallen unter das Content Marketing, bei dem informative Inhalte im Vordergrund stehen. Display Werbung bestünde aus reinen Werbebannern, während SEA bezahlte Anzeigen in Suchmaschinen meint."
+        },
+        {
+          "text": "Der Suchmaschinenwerbung (SEA)",
+          "isCorrect": false,
+          "rationale": "Falsch: SEA bezeichnet bezahlte Anzeigen in Suchmaschinen wie Google Ads."
+        }
+      ],
+      "hint": "Bei welchem Kanal stehen informative Inhalte mit Mehrwert im Vordergrund?",
+      "youtubeQuery": "Content Marketing Blog Podcast YouTube Kanal Online Marketing Unterschied Display SEA",
+      "topic": "Online-Marketing-Kanäle (Content Marketing)"
+    },
+    {
+      "question": "Um kurzfristig den Umsatz zu steigern, entscheidet sich das Unternehmen dafür, bezahlte Werbeanzeigen bei Google (Google Ads) zu schalten, um ganz oben in den Suchergebnissen zu erscheinen. Wie lautet der korrekte Fachbegriff für diesen Marketing-Kanal?",
+      "answerOptions": [
+        {
+          "text": "Suchmaschinenwerbung (SEA)",
+          "isCorrect": true,
+          "rationale": "Richtig: Das Schalten von bezahlten Anzeigen wie Google Ads wird als Suchmaschinenwerbung (SEA – Search Engine Advertising) bezeichnet. Die Suchmaschinenoptimierung (SEO) beschreibt hingegen Maßnahmen, um organisch (unbezahlt) besser gefunden zu werden."
+        },
+        {
+          "text": "Suchmaschinenoptimierung (SEO)",
+          "isCorrect": false,
+          "rationale": "Falsch: SEO umfasst organische (unbezahlte) Maßnahmen zur besseren Auffindbarkeit, nicht bezahlte Anzeigen."
+        },
+        {
+          "text": "Influencer Marketing",
+          "isCorrect": false,
+          "rationale": "Falsch: Influencer Marketing nutzt Reichweite von Persönlichkeiten in sozialen Medien, nicht Suchmaschinen-Anzeigen."
+        },
+        {
+          "text": "E-Mail-Marketing",
+          "isCorrect": false,
+          "rationale": "Falsch: E-Mail-Marketing nutzt Newsletter und automatisierte Mails zur Kundenansprache."
+        }
+      ],
+      "hint": "Wie nennt man bezahlte Werbeanzeigen in Suchmaschinen?",
+      "youtubeQuery": "SEA Suchmaschinenwerbung Google Ads bezahlte Anzeigen Unterschied SEO",
+      "topic": "Online-Marketing-Kanäle (SEA vs. SEO)"
+    },
+    {
+      "question": "Der Marketingleiter muss entscheiden, ob die geplante Social-Media-Kampagne durch die eigenen Mitarbeiter im Haus umgesetzt wird, oder ob dafür eine spezialisierte externe Agentur beauftragt wird. Welchem der vier Hauptaspekte eines Marketingplans ist diese Entscheidung zuzuordnen?",
+      "answerOptions": [
+        {
+          "text": "Der Zielgruppenanalyse",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Zielgruppenanalyse beschäftigt sich mit den Merkmalen der potenziellen Kunden, nicht mit Personalentscheidungen."
+        },
+        {
+          "text": "Der Erfolgskontrolle und Anpassungsmaßnahmen",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Erfolgskontrolle bewertet Kampagnenergebnisse im Nachhinein."
+        },
+        {
+          "text": "Der Budgetierung und Ressourcenplanung",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Personalplanung (Entscheidung zwischen internen Mitarbeitern und der Beauftragung externer Agenturen) gehört neben der Festlegung und Aufteilung des Geldes zwingend zum Aspekt der Budgetierung und Ressourcenplanung."
+        },
+        {
+          "text": "Der Auswahl der Online-Marketing-Kanäle",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Kanalauswahl bestimmt, über welche Plattformen kommuniziert wird, nicht wer die Arbeit ausführt."
+        }
+      ],
+      "hint": "Welcher Aspekt des Marketingplans umfasst Personal- und Make-or-Buy-Entscheidungen?",
+      "youtubeQuery": "Marketingplan Budgetierung Ressourcenplanung Make or Buy Entscheidung Agentur intern",
+      "topic": "Budgetierung und Ressourcenplanung (Make-or-Buy)"
+    },
+    {
+      "question": "Bevor die Marketingkampagne startet, definiert das Team verbindliche Messgrößen: Die Conversion Rate (Kaufrate), den Return on Investment (ROI) und die Cost per Acquisition (CPA). Unter welchem englischen Fachbegriff fasst man diese Leistungskennzahlen in der Erfolgskontrolle zusammen?",
+      "answerOptions": [
+        {
+          "text": "Unique Selling Propositions (USPs)",
+          "isCorrect": false,
+          "rationale": "Falsch: USPs beschreiben Alleinstellungsmerkmale eines Produkts, keine Leistungskennzahlen."
+        },
+        {
+          "text": "Key Performance Indicators (KPIs)",
+          "isCorrect": true,
+          "rationale": "Richtig: Kennzahlen wie die Conversion Rate, der ROI oder die Cost per Acquisition werden im Marketing als Key Performance Indicators (KPIs) bezeichnet. Sie sind das Fundament jeder professionellen Erfolgskontrolle."
+        },
+        {
+          "text": "Customer Relationship Management (CRM)",
+          "isCorrect": false,
+          "rationale": "Falsch: CRM bezeichnet das Kundenbeziehungsmanagement, nicht einzelne Leistungskennzahlen."
+        },
+        {
+          "text": "Search Engine Result Pages (SERPs)",
+          "isCorrect": false,
+          "rationale": "Falsch: SERPs sind die Ergebnisseiten von Suchmaschinen, keine Marketingkennzahlen."
+        }
+      ],
+      "hint": "Wie nennt man messbare Leistungskennzahlen zur Erfolgskontrolle auf Englisch?",
+      "youtubeQuery": "Key Performance Indicators KPIs Marketing Erfolgskontrolle Conversion Rate ROI",
+      "topic": "Erfolgskontrolle (KPIs)"
+    },
+    {
+      "question": "Nachdem die Kampagne live geschaltet wurde, muss das E-Commerce-Team kontinuierlich prüfen, ob die definierten KPIs auch tatsächlich erreicht werden, um bei Bedarf schnell Anpassungsmaßnahmen vornehmen zu können. Wie wird dieses Monitoring laut Marketingplan technisch umgesetzt?",
+      "answerOptions": [
+        {
+          "text": "Durch das Beobachten von Google Trends.",
+          "isCorrect": false,
+          "rationale": "Falsch: Google Trends zeigt allgemeine Suchtrends, ist aber kein dediziertes Kampagnen-Monitoring-Tool."
+        },
+        {
+          "text": "Durch die wöchentliche Befragung der externen Marketing-Agentur.",
+          "isCorrect": false,
+          "rationale": "Falsch: Manuelles Nachfragen ist kein systematisches, automatisiertes Monitoring."
+        },
+        {
+          "text": "Durch den Einsatz von Analysetools, die die Kampagnenergebnisse automatisiert auswerten.",
+          "isCorrect": true,
+          "rationale": "Richtig: Um den Erfolg einer Kampagne zu kontrollieren und Anpassungsmaßnahmen abzuleiten, ist das kontinuierliche Monitoring der Kampagnenergebnisse mittels spezieller Analysetools unerlässlich."
+        },
+        {
+          "text": "Durch das manuelle Zählen der Kunden im physischen Ladengeschäft.",
+          "isCorrect": false,
+          "rationale": "Falsch: Manuelles Zählen im Laden ist keine geeignete Methode zur Online-Kampagnenauswertung."
+        }
+      ],
+      "hint": "Welche Methode erlaubt eine kontinuierliche, automatisierte Auswertung von Kampagnendaten?",
+      "youtubeQuery": "Kampagnen Monitoring Analysetools Erfolgskontrolle KPI Tracking E-Commerce",
+      "topic": "Erfolgskontrolle (Monitoring-Instrumente)"
     }
   ]
 }
