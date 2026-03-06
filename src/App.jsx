@@ -2934,10 +2934,11 @@ Die JSON muss exakt diese Struktur haben:
     ];
 
     // --- Dashboard Layout Computed Values ---
-    const einsteinNeonColor = overallAccuracy >= 75 ? '#22c55e' : overallAccuracy >= 50 ? '#f59e0b' : '#ef4444';
-    const einsteinGlow = overallAccuracy >= 75 ? 'rgba(34,197,94,0.6)' : overallAccuracy >= 50 ? 'rgba(245,158,11,0.6)' : 'rgba(239,68,68,0.6)';
-    const statusLabel = overallAccuracy >= 75 ? 'Prüfungsbereit' : overallAccuracy >= 50 ? 'Solides Mittelfeld' : 'Viel Nachholbedarf';
-    const statusEmoji = overallAccuracy >= 75 ? '\u{1F7E2}' : overallAccuracy >= 50 ? '\u{1F7E1}' : '\u{1F534}';
+    const einsteinNeonColor = overallAccuracy >= 100 ? '#fbbf24' : overallAccuracy >= 75 ? '#22c55e' : overallAccuracy >= 35 ? '#f59e0b' : '#ef4444';
+    const einsteinGlow = overallAccuracy >= 100 ? 'rgba(251,191,36,0.7)' : overallAccuracy >= 75 ? 'rgba(34,197,94,0.6)' : overallAccuracy >= 35 ? 'rgba(245,158,11,0.6)' : 'rgba(239,68,68,0.6)';
+    const einsteinImage = overallAccuracy >= 100 ? '/EinsteinGold.png' : overallAccuracy >= 75 ? '/einstein.png' : overallAccuracy >= 35 ? '/EinsteinOrange.png' : '/EinsteinRot.png';
+    const statusLabel = overallAccuracy >= 100 ? 'Perfekt!' : overallAccuracy >= 75 ? 'Prüfungsbereit' : overallAccuracy >= 35 ? 'Solides Mittelfeld' : 'Viel Nachholbedarf';
+    const statusEmoji = overallAccuracy >= 100 ? '\u{1F451}' : overallAccuracy >= 75 ? '\u{1F7E2}' : overallAccuracy >= 35 ? '\u{1F7E1}' : '\u{1F534}';
     const circleRadius = 62;
     const circleCircumference = 2 * Math.PI * circleRadius;
     const circleOffset = circleCircumference * (1 - overallAccuracy / 100);
@@ -2992,10 +2993,10 @@ Die JSON muss exakt diese Struktur haben:
             {/* Einstein */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
               <div ref={einsteinRef} style={{ width: '120px', height: '120px', perspective: '600px', flexShrink: 0 }}>
-                <img src="/einstein.png" alt="Einstein" style={{
+                <img src={einsteinImage} alt="Einstein" style={{
                   width: '100%', height: '100%', objectFit: 'contain',
                   transform: `rotateX(${einsteinTilt.rotateX}deg) rotateY(${einsteinTilt.rotateY}deg)`,
-                  transition: 'transform 0.12s ease-out',
+                  transition: 'transform 0.12s ease-out, filter 0.3s ease',
                   filter: `drop-shadow(0 0 18px ${einsteinGlow})`,
                   pointerEvents: 'none'
                 }} />
