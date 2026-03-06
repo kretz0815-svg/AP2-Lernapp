@@ -1764,6 +1764,174 @@
       "hint": "Welche Methode erlaubt eine kontinuierliche, automatisierte Auswertung von Kampagnendaten?",
       "youtubeQuery": "Kampagnen Monitoring Analysetools Erfolgskontrolle KPI Tracking E-Commerce",
       "topic": "Erfolgskontrolle (Monitoring-Instrumente)"
+    },
+    {
+      "question": "Die 'Outdoor-Fun GmbH' moechte erstmals eine strukturierte E-Mail-Marketing-Kampagne starten. Bevor Zielgruppen definiert oder Newsletter-Texte verfasst werden, muss der allererste und strategisch wichtigste Schritt erfolgen. Welcher ist das?",
+      "answerOptions": [
+        {
+          "text": "Das Design der E-Mail-Vorlagen an das Corporate Design anpassen.",
+          "isCorrect": false,
+          "rationale": "Falsch: Das Design wird erst erstellt, nachdem die Ziele und die Zielgruppe feststehen."
+        },
+        {
+          "text": "Die Definition von klaren Zielen fuer die Kampagne (z. B. Kundenbindung oder Umsatzsteigerung).",
+          "isCorrect": true,
+          "rationale": "Richtig: Der allererste Schritt jeder Kampagne ist immer die Zielsetzung. Erst wenn klar definierte Ziele (wie Umsatzsteigerung, Kundengewinnung oder Kundenbindung) feststehen, koennen die Zielgruppe, der Inhalt und das Design sinnvoll darauf abgestimmt werden."
+        },
+        {
+          "text": "Die Festlegung des optimalen Versandzeitpunkts (z. B. sonntags um 18 Uhr).",
+          "isCorrect": false,
+          "rationale": "Falsch: Der Versandzeitpunkt ist ein spaeterer operativer Schritt, nicht der strategische Ausgangspunkt."
+        },
+        {
+          "text": "Die Auswahl der Tracking-Software fuer die spaetere Erfolgskontrolle.",
+          "isCorrect": false,
+          "rationale": "Falsch: Tracking-Tools werden erst relevant, wenn die Kampagne bereits geplant und versendet wird."
+        }
+      ],
+      "hint": "Was muss immer zuerst feststehen, bevor alle anderen Schritte sinnvoll geplant werden koennen?",
+      "youtubeQuery": "E-Mail Marketing Kampagne erster Schritt Zielsetzung Strategie",
+      "topic": "E-Mail-Marketing (Zielsetzung)"
+    },
+    {
+      "question": "Das Marketing-Team moechte den neuen E-Mail-Newsletter an moeglichst viele Kontakte versenden. Ein Mitarbeiter schlaegt vor, einfach alle E-Mail-Adressen von alten Rechnungen der letzten 10 Jahre ungefragt in den Verteiler aufzunehmen, um die Reichweite zu maximieren. Warum ist dieses Vorgehen beim Aufbau von E-Mail-Listen fachlich und rechtlich unzulaessig?",
+      "answerOptions": [
+        {
+          "text": "Weil E-Mails an zu alte Kunden automatisch im Spam-Ordner des Unternehmens landen und den eigenen Server blockieren.",
+          "isCorrect": false,
+          "rationale": "Falsch: Das ist technisch nicht korrekt und nicht der eigentliche Grund."
+        },
+        {
+          "text": "Weil E-Mail-Marketing-Systeme technisch maximal 500 Empfaenger pro Liste verarbeiten koennen.",
+          "isCorrect": false,
+          "rationale": "Falsch: Es gibt keine solche technische Begrenzung bei professionellen E-Mail-Marketing-Systemen."
+        },
+        {
+          "text": "Weil alte Rechnungen keine demografischen Merkmale zur Zielgruppensegmentierung enthalten.",
+          "isCorrect": false,
+          "rationale": "Falsch: Das Fehlen von Segmentierungsdaten ist nicht der Hauptgrund fuer die Unzulaessigkeit."
+        },
+        {
+          "text": "Weil die Erstellung von E-Mail-Listen zwingend die ausdrueckliche Einwilligung der Empfaenger (z. B. durch ein Opt-in-Verfahren) voraussetzt.",
+          "isCorrect": true,
+          "rationale": "Richtig: Qualitativ hochwertige und rechtssichere E-Mail-Listen duerfen ausschliesslich mit der ausdruecklichen Einwilligung der Empfaenger erstellt werden. Dies geschieht in der Praxis meist ueber Newsletter-Anmeldungen im sogenannten Double-Opt-in-Verfahren."
+        }
+      ],
+      "hint": "Denke an die DSGVO und die rechtlichen Voraussetzungen fuer den Versand von Werbe-E-Mails.",
+      "youtubeQuery": "E-Mail Marketing Listenaufbau Opt-in Verfahren DSGVO Einwilligung rechtlich",
+      "topic": "E-Mail-Marketing (Rechtliche Vorgaben / Listenaufbau)"
+    },
+    {
+      "question": "Ein Online-Shop fuer Sportartikel plant eine Newsletter-Kampagne speziell fuer hochwertiges Golf-Zubehoer. Anstatt die E-Mail an den gesamten Verteiler zu senden, wird der Empfaengerkreis auf Kunden reduziert, die in der Vergangenheit bereits nach Golfartikeln gesucht oder diese gekauft haben. Welcher strategische Schritt der E-Mail-Kampagnenplanung wird hier angewandt?",
+      "answerOptions": [
+        {
+          "text": "Die Zielgruppenauswahl basierend auf Kundendaten wie Interessen und Kaufverhalten.",
+          "isCorrect": true,
+          "rationale": "Richtig: Bei der Zielgruppenauswahl (Segmentierung) werden Zielgruppen basierend auf vorhandenen Kundendaten identifiziert. Faktoren wie bisheriges Kaufverhalten, Interessen oder demografische Merkmale sorgen dafuer, dass Kunden nur fuer sie relevante Angebote erhalten."
+        },
+        {
+          "text": "Das A/B-Testing von verschiedenen E-Mail-Vorlagen.",
+          "isCorrect": false,
+          "rationale": "Falsch: A/B-Testing vergleicht verschiedene E-Mail-Varianten, nicht die Auswahl der Empfaenger."
+        },
+        {
+          "text": "Die Definition des optimalen Versandzeitpunkts.",
+          "isCorrect": false,
+          "rationale": "Falsch: Der Versandzeitpunkt bestimmt wann, nicht an wen gesendet wird."
+        },
+        {
+          "text": "Das Tracking der Oeffnungsrate.",
+          "isCorrect": false,
+          "rationale": "Falsch: Das Tracking erfolgt nach dem Versand und hat nichts mit der Empfaengerauswahl zu tun."
+        }
+      ],
+      "hint": "Wie nennt man es, wenn der Empfaengerkreis gezielt nach Interessen und Kaufverhalten eingegrenzt wird?",
+      "youtubeQuery": "E-Mail Marketing Zielgruppenauswahl Segmentierung Kundendaten Personalisierung",
+      "topic": "E-Mail-Marketing (Zielgruppenauswahl & Personalisierung)"
+    },
+    {
+      "question": "Eine E-Commerce-Agentur beraet einen Online-Shop bezueglich der Versandfrequenz des neuen Newsletters. Warum ist die strategische Wahl von Frequenz (Wie oft?) und Versandzeitpunkt (Wann?) ein so extrem kritischer Erfolgsfaktor im E-Mail-Marketing?",
+      "answerOptions": [
+        {
+          "text": "Um zu verhindern, dass die Konkurrenz die E-Mail-Inhalte rechtzeitig kopieren und selbst posten kann.",
+          "isCorrect": false,
+          "rationale": "Falsch: Das ist kein relevanter Faktor bei der Wahl von Frequenz und Zeitpunkt."
+        },
+        {
+          "text": "Um die Serverkosten fuer den Mail-Versand, die am Wochenende am hoechsten sind, zu reduzieren.",
+          "isCorrect": false,
+          "rationale": "Falsch: Serverkosten variieren nicht nach Wochentag und sind kein Entscheidungskriterium."
+        },
+        {
+          "text": "Um eine maximale Oeffnungs- und Klickrate zu erzielen, ohne die Empfaenger durch zu viele Mails zu ueberlasten (und Abmeldungen zu provozieren).",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Wahl des optimalen Zeitpunkts und der richtigen Frequenz zielt genau darauf ab, eine maximale Oeffnungs- und Klickrate zu erreichen. Wird die Frequenz zu hoch angesetzt, fuehlen sich die Empfaenger ueberlastet (Spam-Gefuehl), was zu hohen Abmelderaten fuehrt."
+        },
+        {
+          "text": "Um sicherzustellen, dass die E-Mails nicht durch die allgemeine Suchmaschinenoptimierung (SEO) abgewertet werden.",
+          "isCorrect": false,
+          "rationale": "Falsch: SEO hat keinen Einfluss auf E-Mail-Marketing und den Versandzeitpunkt."
+        }
+      ],
+      "hint": "Was passiert, wenn Newsletter zu oft oder zum falschen Zeitpunkt versendet werden?",
+      "youtubeQuery": "E-Mail Marketing Versandzeitpunkt Frequenz Oeffnungsrate Abmelderate optimal",
+      "topic": "E-Mail-Marketing (Versandzeitpunkt & Frequenz)"
+    },
+    {
+      "question": "Ein E-Commerce-Unternehmen laesst neue E-Mail-Vorlagen (Templates) fuer den regelmaessigen Newsletter-Versand programmieren. Welches Kriterium muss bei der visuellen Gestaltung der Layouts neben der reinen Lesbarkeit zwingend im Fokus stehen?",
+      "answerOptions": [
+        {
+          "text": "Die Gestaltung der E-Mail-Vorlagen muss zwingend zur Markenidentitaet (Corporate Design) und zum Erscheinungsbild des eigenen Online-Shops passen.",
+          "isCorrect": true,
+          "rationale": "Richtig: Ein Newsletter ist eine direkte Verlaengerung des Shops. Daher ist die Gestaltung von ansprechenden Layouts, die exakt zur Markenidentitaet und zum Erscheinungsbild des Online-Shops passen, ein essenzieller Schritt bei der Kampagnenplanung."
+        },
+        {
+          "text": "Das Layout darf ausschliesslich aus reinem Text bestehen, um die Ladezeiten beim Empfaenger auf null zu reduzieren.",
+          "isCorrect": false,
+          "rationale": "Falsch: Reine Text-Mails sind nicht der Standard und schraenken die Markenkommunikation stark ein."
+        },
+        {
+          "text": "Das Layout muss sich bei jedem einzelnen Versand komplett aendern, um die Kunden optisch immer wieder neu zu ueberraschen.",
+          "isCorrect": false,
+          "rationale": "Falsch: Staendige Layout-Wechsel schaden der Wiedererkennbarkeit und dem Branding."
+        },
+        {
+          "text": "Die Vorlagen muessen so programmiert sein, dass sie von der Google-Bildersuche als Landingpage indiziert werden.",
+          "isCorrect": false,
+          "rationale": "Falsch: E-Mails werden nicht von Suchmaschinen indiziert."
+        }
+      ],
+      "hint": "Was ist neben der Lesbarkeit das wichtigste visuelle Kriterium fuer einen professionellen Newsletter?",
+      "youtubeQuery": "E-Mail Marketing Template Design Corporate Design Markenidentitaet Newsletter Layout",
+      "topic": "E-Mail-Marketing (Vorlagen & Layout)"
+    },
+    {
+      "question": "Der Newsletter fuer die Sommer-Aktion wurde erfolgreich an 10.000 Kunden versendet. Nun geht das E-Commerce-Team in die finale Phase des E-Mail-Trackings. Welche spezifischen Kennzahlen werden in dieser abschliessenden Phase primaer ausgewertet, um den direkten Erfolg dieser E-Mail zu messen?",
+      "answerOptions": [
+        {
+          "text": "Die Ladezeit der Shop-Startseite und die Serverauslastung.",
+          "isCorrect": false,
+          "rationale": "Falsch: Ladezeit und Serverauslastung sind technische Metriken, keine E-Mail-Erfolgskennzahlen."
+        },
+        {
+          "text": "Die Oeffnungsrate der versendeten E-Mails und die Klickrate auf die enthaltenen Links.",
+          "isCorrect": true,
+          "rationale": "Richtig: Im letzten Schritt, dem Tracking, geht es um die direkte Verfolgung der E-Mail-Ergebnisse. Hierfuer sind spezifische Newsletter-KPIs wie die Oeffnungsrate (Wie viele Empfaenger haben die E-Mail gelesen?) und die Klickrate (Wie viele haben auf ein Angebot geklickt?) massgeblich."
+        },
+        {
+          "text": "Die Anzahl der neu gewonnenen Social-Media-Follower auf Instagram.",
+          "isCorrect": false,
+          "rationale": "Falsch: Social-Media-Follower sind keine direkten E-Mail-Marketing-Kennzahlen."
+        },
+        {
+          "text": "Die allgemeine Retourenquote aus dem vorangegangenen Quartal.",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Retourenquote hat keinen direkten Bezug zum Erfolg einer E-Mail-Kampagne."
+        }
+      ],
+      "hint": "Welche Kennzahlen messen direkt, ob eine E-Mail gelesen und ob darin geklickt wurde?",
+      "youtubeQuery": "E-Mail Marketing Tracking Oeffnungsrate Klickrate Newsletter KPIs Erfolgsmessung",
+      "topic": "E-Mail-Marketing (Versand & Tracking)"
     }
   ]
 }
