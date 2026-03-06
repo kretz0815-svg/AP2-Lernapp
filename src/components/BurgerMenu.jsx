@@ -9,7 +9,10 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
         return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
     };
 
+    const isGuest = !authUser;
+
     const handleCategoryClick = (category) => {
+        if (isGuest) return;
         setIsOpen(false);
         if (onOpenQuestionManager) onOpenQuestionManager(category);
     };
@@ -74,11 +77,11 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
                     >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                             <button
-                                onClick={toggleTheme}
+                                onClick={isGuest ? undefined : toggleTheme}
                                 style={{
-                                    background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-light)', transition: 'transform 0.2s', padding: 0
+                                    background: 'transparent', border: 'none', cursor: isGuest ? 'not-allowed' : 'pointer', color: 'var(--text-light)', transition: 'transform 0.2s', padding: 0, opacity: isGuest ? 0.35 : 1
                                 }}
-                                title={isLightMode ? 'Zum Darkmode wechseln' : 'Zum Hellmodus wechseln'}
+                                title={isGuest ? 'Nur für registrierte Nutzer' : (isLightMode ? 'Zum Darkmode wechseln' : 'Zum Hellmodus wechseln')}
                                 onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                                 onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
@@ -91,18 +94,18 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
                                 </svg>
                             </button>
                             <button
-                                onClick={() => { if (onStartPomodoro) onStartPomodoro(); setIsOpen(false); }}
-                                disabled={pomodoroRunning}
+                                onClick={isGuest ? undefined : () => { if (onStartPomodoro) onStartPomodoro(); setIsOpen(false); }}
+                                disabled={pomodoroRunning || isGuest}
                                 style={{
                                     background: pomodoroRunning ? 'rgba(239,68,68,0.15)' : 'transparent',
                                     border: pomodoroRunning ? '1px solid rgba(239,68,68,0.3)' : 'none',
-                                    cursor: pomodoroRunning ? 'default' : 'pointer',
+                                    cursor: (pomodoroRunning || isGuest) ? 'not-allowed' : 'pointer',
                                     padding: '0.2rem 0.4rem',
                                     borderRadius: '8px',
                                     transition: 'transform 0.2s',
-                                    opacity: pomodoroRunning ? 0.5 : 1
+                                    opacity: (pomodoroRunning || isGuest) ? 0.35 : 1
                                 }}
-                                title={pomodoroRunning ? 'Pomodoro läuft bereits' : 'Pomodoro Timer starten (25 Min)'}
+                                title={isGuest ? 'Nur für registrierte Nutzer' : (pomodoroRunning ? 'Pomodoro läuft bereits' : 'Pomodoro Timer starten (25 Min)')}
                                 onMouseOver={(e) => { if (!pomodoroRunning) e.currentTarget.style.transform = 'scale(1.15)'; }}
                                 onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
@@ -133,16 +136,17 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
                                 </svg>
                             </button>
                             <button
-                                onClick={() => { if (onOpenAppearanceSettings) onOpenAppearanceSettings(); setIsOpen(false); }}
+                                onClick={isGuest ? undefined : () => { if (onOpenAppearanceSettings) onOpenAppearanceSettings(); setIsOpen(false); }}
                                 style={{
                                     background: 'transparent',
                                     border: 'none',
-                                    cursor: 'pointer',
+                                    cursor: isGuest ? 'not-allowed' : 'pointer',
                                     padding: '0.2rem 0.4rem',
                                     borderRadius: '8px',
-                                    transition: 'transform 0.2s'
+                                    transition: 'transform 0.2s',
+                                    opacity: isGuest ? 0.35 : 1
                                 }}
-                                title="Darstellung anpassen"
+                                title={isGuest ? 'Nur für registrierte Nutzer' : 'Darstellung anpassen'}
                                 onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.15)'; }}
                                 onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
@@ -208,6 +212,7 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
                             <div style={{ marginBottom: '1.5rem' }}>
                                 <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Gast-Modus (Lokal)</p>
                                 <button onClick={handleLogout} className="btn-secondary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.9rem' }}>Zum Login wechseln</button>
+                                <p style={{ color: 'var(--error)', fontSize: '0.75rem', marginTop: '0.5rem', opacity: 0.85 }}>🔒 Im Gast-Modus sind viele Funktionen gesperrt. Registriere dich für vollen Zugriff.</p>
                             </div>
                         )}
 
@@ -245,46 +250,64 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
                                 </div>
                             )}
 
-                            <div className="stat-card" style={{ cursor: 'pointer' }} onClick={() => handleCategoryClick('quiz')}>
+                            <div className="stat-card" style={{ cursor: isGuest ? 'not-allowed' : 'pointer', opacity: isGuest ? 0.72 : 1 }} onClick={() => handleCategoryClick('quiz')}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Quiz (Wissen testen)</span>
-                                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Quiz (Wissen testen){isGuest ? ' 🔒' : ''}</span>
+                                    {!isGuest && <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>}
                                 </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                    <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--success)' }}>{stats.quizLearned}</span>
-                                    <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.quizTotal} verinnerlicht</span>
-                                </div>
-                                <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
-                                    <div className="progress-bar" style={{ width: `${(stats.quizLearned / Math.max(stats.quizTotal, 1)) * 100}%`, background: 'var(--success)' }}></div>
-                                </div>
+                                {isGuest ? (
+                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>Nur mit E-Mail-Login verfügbar</div>
+                                ) : (
+                                    <>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                            <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--success)' }}>{stats.quizLearned}</span>
+                                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.quizTotal} verinnerlicht</span>
+                                        </div>
+                                        <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
+                                            <div className="progress-bar" style={{ width: `${(stats.quizLearned / Math.max(stats.quizTotal, 1)) * 100}%`, background: 'var(--success)' }}></div>
+                                        </div>
+                                    </>
+                                )}
                             </div>
 
-                            <div className="stat-card" style={{ cursor: 'pointer' }} onClick={() => handleCategoryClick('wisor')}>
+                            <div className="stat-card" style={{ cursor: isGuest ? 'not-allowed' : 'pointer', opacity: isGuest ? 0.72 : 1 }} onClick={() => handleCategoryClick('wisor')}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>WisoR (Eingabe)</span>
-                                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>WisoR (Eingabe){isGuest ? ' 🔒' : ''}</span>
+                                    {!isGuest && <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>}
                                 </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                    <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--primary)' }}>{stats.wisorLearned}</span>
-                                    <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.wisorTotal} gemeistert</span>
-                                </div>
-                                <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
-                                    <div className="progress-bar" style={{ width: `${(stats.wisorLearned / Math.max(stats.wisorTotal, 1)) * 100}%`, background: 'var(--primary)' }}></div>
-                                </div>
+                                {isGuest ? (
+                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>Nur mit E-Mail-Login verfügbar</div>
+                                ) : (
+                                    <>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                            <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--primary)' }}>{stats.wisorLearned}</span>
+                                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.wisorTotal} gemeistert</span>
+                                        </div>
+                                        <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
+                                            <div className="progress-bar" style={{ width: `${(stats.wisorLearned / Math.max(stats.wisorTotal, 1)) * 100}%`, background: 'var(--primary)' }}></div>
+                                        </div>
+                                    </>
+                                )}
                             </div>
 
-                            <div className="stat-card" style={{ cursor: 'pointer' }} onClick={() => handleCategoryClick('wisorEco')}>
+                            <div className="stat-card" style={{ cursor: isGuest ? 'not-allowed' : 'pointer', opacity: isGuest ? 0.72 : 1 }} onClick={() => handleCategoryClick('wisorEco')}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>WisoR E-Commerce</span>
-                                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>WisoR E-Commerce{isGuest ? ' 🔒' : ''}</span>
+                                    {!isGuest && <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>}
                                 </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                    <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--accent)' }}>{stats.wisorEcoLearned}</span>
-                                    <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.wisorEcoTotal} gemeistert</span>
-                                </div>
-                                <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
-                                    <div className="progress-bar" style={{ width: `${(stats.wisorEcoLearned / Math.max(stats.wisorEcoTotal, 1)) * 100}%`, background: 'var(--accent)' }}></div>
-                                </div>
+                                {isGuest ? (
+                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>Nur mit E-Mail-Login verfügbar</div>
+                                ) : (
+                                    <>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                            <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--accent)' }}>{stats.wisorEcoLearned}</span>
+                                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.wisorEcoTotal} gemeistert</span>
+                                        </div>
+                                        <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
+                                            <div className="progress-bar" style={{ width: `${(stats.wisorEcoLearned / Math.max(stats.wisorEcoTotal, 1)) * 100}%`, background: 'var(--accent)' }}></div>
+                                        </div>
+                                    </>
+                                )}
                             </div>
 
                         </div>

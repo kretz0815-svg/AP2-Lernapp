@@ -303,6 +303,8 @@ function App() {
 
 
   const toggleTheme = () => {
+    // Guests are locked to dark mode
+    if (!authUser) return;
     setIsLightMode(prev => {
       const newVal = !prev;
       const themeKey = getThemeKey(authUser);
@@ -2033,7 +2035,7 @@ ${feynmanInput}`;
         pomodoroRunning={pomodoroActive}
         pomodoroTimeLeft={pomodoroTimeLeft}
         onStopPomodoro={() => setPomodoroForceStop(Date.now())}
-        onOpenAppearanceSettings={() => setAppMode('appearance_settings')}
+        onOpenAppearanceSettings={() => { if (authUser) setAppMode('appearance_settings'); }}
       />
       {questionManagerCategory && (
         <QuestionManager
