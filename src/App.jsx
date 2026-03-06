@@ -658,7 +658,7 @@ function App() {
   const [einsteinTilt, setEinsteinTilt] = useState({ rotateX: 0, rotateY: 0 });
 
   useEffect(() => {
-    if (appMode !== 'dashboard') return;
+    if (appMode !== 'dashboard' && appMode !== 'learning_dashboard') return;
     const handleMouseMove = (e) => {
       if (!einsteinRef.current) return;
       const rect = einsteinRef.current.getBoundingClientRect();
