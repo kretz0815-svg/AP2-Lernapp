@@ -291,12 +291,21 @@ function App() {
         document.body.classList.remove('light-theme');
         localStorage.setItem('masterpat_theme', 'dark');
       }
+      // Apply default colors per theme when no custom settings are saved
+      const hasSavedSettings = localStorage.getItem(BACKGROUND_SETTINGS_KEY);
+      if (!hasSavedSettings) {
+        const defaultColor = newVal ? '#ffffff' : '#000000';
+        setCustomBackgroundColor(defaultColor);
+        setBackgroundEffectsEnabled(false);
+        applyCustomBackgroundColor(defaultColor, 100);
+        applyBackgroundEffectsVisibility(false);
+      }
       return newVal;
     });
   };
 
-  const activeBackgroundColor = customBackgroundColor || (isLightMode ? '#f8fafc' : '#0f172a');
-  const colorPickerValue = isValidHexColor(activeBackgroundColor) ? activeBackgroundColor : (isLightMode ? '#f8fafc' : '#0f172a');
+  const activeBackgroundColor = customBackgroundColor || (isLightMode ? '#ffffff' : '#000000');
+  const colorPickerValue = isValidHexColor(activeBackgroundColor) ? activeBackgroundColor : (isLightMode ? '#ffffff' : '#000000');
 
   const handleBackgroundColorChange = (nextColor) => {
     setBackgroundMode('color');
