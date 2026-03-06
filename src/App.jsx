@@ -36,15 +36,6 @@ const ACCESS_MODE_KEY = 'masterpat_access_mode';
 const CUSTOM_BACKGROUND_COLOR_KEY = 'masterpat_custom_background_color';
 const BACKGROUND_SETTINGS_KEY = 'masterpat_background_settings';
 
-const getAppearanceKey = (user) => {
-  const identity = normalizeAnalyticsIdentity(user?.email || 'guest');
-  return `masterpat_appearance_${identity}`;
-};
-const getThemeKey = (user) => {
-  const identity = normalizeAnalyticsIdentity(user?.email || 'guest');
-  return `masterpat_theme_${identity}`;
-};
-
 const BACKGROUND_PRESETS = [
   { id: 'ocean', name: 'Ocean', color: '#0b2239', glow1: 'rgba(34, 211, 238, 0.2)', glow2: 'rgba(59, 130, 246, 0.18)' },
   { id: 'forest', name: 'Forest', color: '#0f2f27', glow1: 'rgba(34, 197, 94, 0.22)', glow2: 'rgba(16, 185, 129, 0.16)' },
@@ -64,6 +55,15 @@ const normalizeAnalyticsIdentity = (identity) => {
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9@._-]+/g, '_');
+};
+
+const getAppearanceKey = (user) => {
+  const identity = normalizeAnalyticsIdentity(user?.email || 'guest');
+  return `masterpat_appearance_${identity}`;
+};
+const getThemeKey = (user) => {
+  const identity = normalizeAnalyticsIdentity(user?.email || 'guest');
+  return `masterpat_theme_${identity}`;
 };
 
 const getAnalyticsStorageKey = (user) => {
