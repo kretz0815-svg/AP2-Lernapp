@@ -206,11 +206,11 @@ function App() {
 
   // --- THEME STATE ---
   const [isLightMode, setIsLightMode] = useState(false);
-  const [customBackgroundColor, setCustomBackgroundColor] = useState('');
-  const [backgroundMode, setBackgroundMode] = useState('default');
+  const [customBackgroundColor, setCustomBackgroundColor] = useState('#000000');
+  const [backgroundMode, setBackgroundMode] = useState('color');
   const [backgroundPresetId, setBackgroundPresetId] = useState('');
   const [backgroundImageData, setBackgroundImageData] = useState('');
-  const [backgroundEffectsEnabled, setBackgroundEffectsEnabled] = useState(true);
+  const [backgroundEffectsEnabled, setBackgroundEffectsEnabled] = useState(false);
   const [backgroundEffectsIntensity, setBackgroundEffectsIntensity] = useState(100);
   const [appearanceNotice, setAppearanceNotice] = useState('');
 
@@ -274,6 +274,10 @@ function App() {
       applyBackgroundEffectsVisibility(true);
       applyCustomBackgroundColor(legacySavedColor, 100);
       persistBackgroundSettings({ mode: 'color', color: legacySavedColor, presetId: '', imageData: '', effectsEnabled: true, effectsIntensity: 100 });
+    } else {
+      // Apply default: black background, effects off
+      applyCustomBackgroundColor('#000000', 100);
+      applyBackgroundEffectsVisibility(false);
     }
   }, []);
 
