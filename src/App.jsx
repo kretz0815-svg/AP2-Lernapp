@@ -2933,324 +2933,291 @@ Die JSON muss exakt diese Struktur haben:
       }
     ];
 
+    // --- Dashboard Layout Computed Values ---
+    const einsteinNeonColor = overallAccuracy >= 75 ? '#22c55e' : overallAccuracy >= 50 ? '#f59e0b' : '#ef4444';
+    const einsteinGlow = overallAccuracy >= 75 ? 'rgba(34,197,94,0.6)' : overallAccuracy >= 50 ? 'rgba(245,158,11,0.6)' : 'rgba(239,68,68,0.6)';
+    const statusLabel = overallAccuracy >= 75 ? 'Prüfungsbereit' : overallAccuracy >= 50 ? 'Solides Mittelfeld' : 'Viel Nachholbedarf';
+    const statusEmoji = overallAccuracy >= 75 ? '\u{1F7E2}' : overallAccuracy >= 50 ? '\u{1F7E1}' : '\u{1F534}';
+    const circleRadius = 62;
+    const circleCircumference = 2 * Math.PI * circleRadius;
+    const circleOffset = circleCircumference * (1 - overallAccuracy / 100);
+    const allModeKeys = ['quiz', 'wisor', 'wisorEco', 'kalkulation', 'breakEven', 'flashcard'];
+    const dayTotalCount = allModeKeys.reduce((s, m) => s + day[m].correct + day[m].wrong, 0);
+    const dayCorrectCount = allModeKeys.reduce((s, m) => s + day[m].correct, 0);
+    const dayAccuracy = dayTotalCount > 0 ? Math.round((dayCorrectCount / dayTotalCount) * 100) : 0;
+    const weekTotalCount = allModeKeys.reduce((s, m) => s + week[m].correct + week[m].wrong, 0);
+    const weekCorrectCount = allModeKeys.reduce((s, m) => s + week[m].correct, 0);
+    const weekAccuracy = weekTotalCount > 0 ? Math.round((weekCorrectCount / weekTotalCount) * 100) : 0;
+    const monthTotalCount = allModeKeys.reduce((s, m) => s + month[m].correct + month[m].wrong, 0);
+    const monthCorrectCount = allModeKeys.reduce((s, m) => s + month[m].correct, 0);
+    const monthAccuracy = monthTotalCount > 0 ? Math.round((monthCorrectCount / monthTotalCount) * 100) : 0;
+    const trendBars = [
+      { label: 'Heute', accuracy: dayAccuracy, total: dayTotalCount, correct: dayCorrectCount },
+      { label: '7 Tage', accuracy: weekAccuracy, total: weekTotalCount, correct: weekCorrectCount },
+      { label: '30 Tage', accuracy: monthAccuracy, total: monthTotalCount, correct: monthCorrectCount }
+    ];
+    const trendDirection = weekAccuracy > monthAccuracy ? 'up' : weekAccuracy < monthAccuracy ? 'down' : 'stable';
+    const actionCallText = (() => {
+      if (totalAnswers === 0) return 'Starte dein erstes Training, um personalisierte Empfehlungen zu erhalten!';
+      if (weakestTopics.length > 0) return `Wiederhole "${weakestTopics[0].topic}" \u2014 hier verlierst du die meisten Punkte (${weakestTopics[0].accuracy}%).`;
+      if (opportunityTopics.length > 0) return `"${opportunityTopics[0].topic}" steht bei ${opportunityTopics[0].accuracy}%. Mit 10\u201315 Aufgaben erreichst du Pr\u00fcfungsniveau!`;
+      if (overallAccuracy >= 75) return 'Starke Leistung! Deine Quote liegt \u00fcber 75%. Halte das Niveau und trainiere regelm\u00e4\u00dfig.';
+      return 'Trainiere regelm\u00e4\u00dfig in allen Bereichen, um deine Quote \u00fcber 75% zu bringen.';
+    })();
+
     return (
       <div className="app-container learning-analytics-dashboard" style={{ zIndex: 10, alignItems: 'stretch' }}>
         {burgerMenuPortal}
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
 
-        <header className="hide-on-print" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto 1.2rem auto' }}>
-          <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '0.8rem' }}>
-            <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
+        {/* Header */}
+        <header className="hide-on-print" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto 0.5rem auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '0.5rem' }}>
+            <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Men&uuml;</button>
           </div>
-          <h1 style={{ margin: 0, color: 'var(--text-light)', fontSize: '2rem', textAlign: 'center', width: '100%' }}>Lernkarten Analyse</h1>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.6rem', flexWrap: 'wrap', marginTop: '0.8rem' }}>
-            <button className="btn-secondary" onClick={refreshMistakeAnalysis}>🔄 Analyse aktualisieren</button>
-            <button className="btn-primary" onClick={() => window.print()}>📄 Lernstand als PDF</button>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <button className="btn-secondary" onClick={refreshMistakeAnalysis}>{'\uD83D\uDD04'} Analyse aktualisieren</button>
+            <button className="btn-primary" onClick={() => window.print()}>{'\uD83D\uDCC4'} Lernstand als PDF</button>
           </div>
-          <p style={{ color: 'var(--text-muted)', marginTop: '0.8rem', marginBottom: 0, textAlign: 'center' }}>
-            Überblick über richtige/falsche Antworten pro Zeitraum, inkl. Fehlercluster und Schwächen.
-          </p>
         </header>
 
         <h1 className="print-only-title" style={{ margin: 0, textAlign: 'center', color: 'var(--text-light)', fontSize: '2.35rem', fontWeight: 900, letterSpacing: '0.02em' }}>
-          MasterPat APP
+          MasterPat APP &ndash; Lernanalyse
         </h1>
 
-        <div className="analytics-kpi-grid" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
-          <section className="note-card" style={{ padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem' }}>Erfolgsquote gesamt</p>
-            <p style={{ margin: '0.2rem 0 0 0', color: overallAccuracy >= 75 ? 'var(--success)' : 'var(--error)', fontSize: '2rem', fontWeight: 800 }}>{overallAccuracy}%</p>
+        {/* 1. BIG PICTURE */}
+        <section className="note-card analytics-big-picture" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '1.5rem 2rem', borderRadius: '20px', border: `1px solid ${einsteinNeonColor}44`, background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
+          <div className="analytics-big-picture-inner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2.5rem', flexWrap: 'wrap' }}>
+            {/* Einstein */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <div ref={einsteinRef} style={{ width: '120px', height: '120px', perspective: '600px', flexShrink: 0 }}>
+                <img src="/einstein.png" alt="Einstein" style={{
+                  width: '100%', height: '100%', objectFit: 'contain',
+                  transform: `rotateX(${einsteinTilt.rotateX}deg) rotateY(${einsteinTilt.rotateY}deg)`,
+                  transition: 'transform 0.12s ease-out',
+                  filter: `drop-shadow(0 0 18px ${einsteinGlow})`,
+                  pointerEvents: 'none'
+                }} />
+              </div>
+              <span style={{ fontSize: '0.82rem', color: einsteinNeonColor, fontWeight: 700, textAlign: 'center' }}>{statusEmoji} {statusLabel}</span>
+            </div>
+
+            {/* Circular Progress */}
+            <div style={{ position: 'relative', width: '160px', height: '160px', flexShrink: 0 }}>
+              <svg width="160" height="160" viewBox="0 0 160 160">
+                <circle cx="80" cy="80" r={circleRadius} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" />
+                <circle cx="80" cy="80" r={circleRadius} fill="none" stroke={einsteinNeonColor} strokeWidth="10"
+                  strokeLinecap="round" strokeDasharray={circleCircumference} strokeDashoffset={circleOffset}
+                  transform="rotate(-90 80 80)" style={{ transition: 'stroke-dashoffset 0.8s ease' }} />
+              </svg>
+              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ fontSize: '2.4rem', fontWeight: 900, color: einsteinNeonColor, lineHeight: 1 }}>{overallAccuracy}%</span>
+                <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Erfolgsquote</span>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', minWidth: '140px' }}>
+              <div>
+                <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.78rem' }}>Bearbeitete Antworten</p>
+                <p style={{ margin: 0, color: 'var(--text-light)', fontSize: '1.6rem', fontWeight: 800 }}>{totalAnswers}</p>
+              </div>
+              <div>
+                <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.78rem' }}>Schw&auml;chste Themen</p>
+                <p style={{ margin: 0, color: weakestTopics.length > 0 ? 'var(--error)' : 'var(--success)', fontSize: '1.6rem', fontWeight: 800 }}>{weakestTopics.length}</p>
+              </div>
+              <div>
+                <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.78rem' }}>Top-Risiko-Fehler</p>
+                <p style={{ margin: 0, color: riskEntries.length > 0 ? 'var(--error)' : 'var(--success)', fontSize: '1.6rem', fontWeight: 800 }}>{riskEntries.length}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 2. ACTION CALL */}
+        <section className="note-card analytics-action-call" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '1.2rem 1.5rem', borderRadius: '16px', border: `1px solid ${einsteinNeonColor}55`, background: `linear-gradient(135deg, ${einsteinNeonColor}12, transparent 60%)`, backdropFilter: 'blur(16px)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+            <span style={{ fontSize: '1.5rem', flexShrink: 0 }}>{'\uD83C\uDFAF'}</span>
+            <div>
+              <h3 style={{ margin: '0 0 0.3rem 0', color: einsteinNeonColor, fontSize: '0.95rem', fontWeight: 700 }}>Dein Fokus f&uuml;r heute</h3>
+              <p style={{ margin: 0, color: 'var(--text-light)', fontSize: '0.92rem', lineHeight: 1.45 }}>{actionCallText}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. FORTSCHRITT & TREND */}
+        <section className="note-card" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '1.2rem 1.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <h3 style={{ margin: 0, color: 'var(--text-light)', fontSize: '1rem' }}>Fortschritt & Trend</h3>
+            <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+              {trendDirection === 'up' ? '\uD83D\uDCC8 Aufw\u00e4rtstrend' : trendDirection === 'down' ? '\uD83D\uDCC9 Abw\u00e4rtstrend' : '\u27A1\uFE0F Stabil'}
+            </span>
+          </div>
+          <div className="analytics-trend-chart" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: '1.5rem', height: '180px', padding: '0 1rem' }}>
+            {trendBars.map(bar => {
+              const barColor = bar.accuracy >= 75 ? 'var(--success)' : bar.accuracy >= 50 ? '#f59e0b' : 'var(--error)';
+              const barHeight = Math.max(bar.accuracy * 1.4, 12);
+              return (
+                <div key={bar.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem', flex: '1', maxWidth: '140px' }}>
+                  <span style={{ fontSize: '0.88rem', fontWeight: 800, color: barColor }}>{bar.accuracy}%</span>
+                  <div style={{ width: '100%', height: `${barHeight}px`, background: `linear-gradient(180deg, ${barColor}, ${barColor}66)`, borderRadius: '8px 8px 4px 4px', transition: 'height 0.6s ease', minHeight: '12px', position: 'relative' }}>
+                    {bar.total > 0 && <span style={{ position: 'absolute', bottom: '-1.3rem', left: '50%', transform: 'translateX(-50%)', fontSize: '0.7rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{bar.correct}/{bar.total}</span>}
+                  </div>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.8rem' }}>{bar.label}</span>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* 4. DEEP DIVE */}
+        <div className="analytics-deep-dive printable-notes" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', alignItems: 'start' }}>
+          {/* Radar Chart */}
+          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+            <h3 style={{ margin: '0 0 0.8rem 0', color: 'var(--text-light)', fontSize: '1rem' }}>Themenkompetenz</h3>
+            {radarTopics.length < 3 ? (
+              <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.88rem' }}>Mindestens 3 Themen mit Daten n&ouml;tig.</p>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <svg style={{ width: '100%', maxWidth: '280px', height: 'auto' }} viewBox={`0 0 ${radarSize} ${radarSize}`} role="img" aria-label="Radar">
+                    {radarRings.map(ring => (
+                      <polygon key={`ring_${ring}`} points={radarTopics.map((_, idx) => {
+                        const a = (360 / radarTopics.length) * idx;
+                        const pt = polarToCartesian(a, ring);
+                        return `${pt.x},${pt.y}`;
+                      }).join(' ')} fill="none" stroke="rgba(148,163,184,0.28)" strokeWidth="1" />
+                    ))}
+                    {radarTopics.map((row, idx) => {
+                      const a = (360 / radarTopics.length) * idx;
+                      const edge = polarToCartesian(a, 100);
+                      const lbl = polarToCartesian(a, 115);
+                      return (
+                        <g key={`ax_${row.topic}`}>
+                          <line x1={radarCenter} y1={radarCenter} x2={edge.x} y2={edge.y} stroke="rgba(148,163,184,0.35)" strokeWidth="1" />
+                          <text x={lbl.x} y={lbl.y} textAnchor="middle" dominantBaseline="middle" fontSize="9" fill="var(--text-muted)">
+                            {row.topic.length > 14 ? `${row.topic.slice(0, 14)}\u2026` : row.topic}
+                          </text>
+                        </g>
+                      );
+                    })}
+                    <polygon points={radarPolygonPoints} fill="rgba(99,102,241,0.32)" stroke="var(--primary)" strokeWidth="2" />
+                    {radarTopics.map((row, idx) => {
+                      const a = (360 / radarTopics.length) * idx;
+                      const pt = polarToCartesian(a, row.accuracy);
+                      return <circle key={`dot_${row.topic}`} cx={pt.x} cy={pt.y} r="3.4" fill="var(--primary)" />;
+                    })}
+                  </svg>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.3rem' }}>
+                  {radarTopics.map(row => (
+                    <div key={`lgnd_${row.topic}`} style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between', gap: '0.6rem' }}>
+                      <span>{row.topic}</span>
+                      <strong style={{ color: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)' }}>{row.accuracy}%</strong>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </section>
-          <section className="note-card" style={{ padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem' }}>Bearbeitete Antworten</p>
-            <p style={{ margin: '0.2rem 0 0 0', color: 'var(--text-light)', fontSize: '2rem', fontWeight: 800 }}>{totalAnswers}</p>
-          </section>
-          <section className="note-card" style={{ padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem' }}>Schwächste Themen</p>
-            <p style={{ margin: '0.2rem 0 0 0', color: weakestTopics.length > 0 ? 'var(--error)' : 'var(--success)', fontSize: '2rem', fontWeight: 800 }}>{weakestTopics.length}</p>
-          </section>
-          <section className="note-card" style={{ padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.82rem' }}>Top-Risiko-Fehler</p>
-            <p style={{ margin: '0.2rem 0 0 0', color: riskEntries.length > 0 ? 'var(--error)' : 'var(--success)', fontSize: '2rem', fontWeight: 800 }}>{riskEntries.length}</p>
+
+          {/* Top / Flop List */}
+          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+            <h3 style={{ margin: '0 0 0.8rem 0', color: 'var(--text-light)', fontSize: '1rem' }}>St&auml;rken & Schw&auml;chen</h3>
+            <div style={{ marginBottom: '1rem' }}>
+              <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--success)', fontSize: '0.88rem' }}>{'\uD83D\uDFE2'} Sichere Themen</h4>
+              {strongestTopics.length > 0 ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                  {strongestTopics.map(item => (
+                    <div key={`str_${item.topic}`} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.45rem 0.6rem', borderRadius: '8px', background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)' }}>
+                      <span style={{ color: 'var(--text-light)', fontSize: '0.84rem' }}>{item.topic}</span>
+                      <strong style={{ color: 'var(--success)', fontSize: '0.84rem' }}>{item.accuracy}%</strong>
+                    </div>
+                  ))}
+                </div>
+              ) : <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.84rem' }}>Noch keine stabilen St&auml;rken</p>}
+            </div>
+            <div>
+              <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--error)', fontSize: '0.88rem' }}>{'\uD83D\uDD34'} Top-Risiko-Fehler</h4>
+              {(weakestTopics.length > 0 || riskEntries.length > 0) ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                  {weakestTopics.map(item => (
+                    <div key={`wk_${item.topic}`} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.45rem 0.6rem', borderRadius: '8px', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}>
+                      <span style={{ color: 'var(--text-light)', fontSize: '0.84rem' }}>{item.topic}</span>
+                      <strong style={{ color: 'var(--error)', fontSize: '0.84rem' }}>{item.accuracy}%</strong>
+                    </div>
+                  ))}
+                  {riskEntries.map((item, idx) => (
+                    <div key={`rsk_${idx}`} style={{ padding: '0.45rem 0.6rem', borderRadius: '8px', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ color: 'var(--text-light)', fontSize: '0.82rem', overflowWrap: 'anywhere', wordBreak: 'break-word' }}>
+                          {(item.questionText || '').slice(0, 60)}{(item.questionText || '').length > 60 ? '\u2026' : ''}
+                        </span>
+                        <strong style={{ color: '#f59e0b', fontSize: '0.82rem', flexShrink: 0, marginLeft: '0.5rem' }}>{item.count}x</strong>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.84rem' }}>Keine kritischen Schw&auml;chen</p>}
+            </div>
           </section>
         </div>
 
-        <section className="note-card" style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-          <button
-            type="button"
-            onClick={() => toggleAnalyticsPanel('periods')}
-            style={analyticsToggleButtonStyle}
-          >
-            <h3 style={{ margin: 0, color: 'var(--text-light)', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-              <span style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>{analyticsExpanded.periods ? '▾' : '▸'}</span>
-              <span>Zeitraumvergleich</span>
-            </h3>
-            <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.periods ? '−' : '+'}</span>
-          </button>
-
-          {analyticsExpanded.periods && (
-            <div className="analytics-period-grid" style={{ marginTop: '0.85rem' }}>
-              {[
-                { label: 'Heute', values: day },
-                { label: 'Letzte 7 Tage', values: week },
-                { label: 'Letzte 30 Tage', values: month }
-              ].map(item => {
-                const modes = [
-                  { key: 'quiz', label: 'Quiz (Multiple Choice)' },
-                  { key: 'wisor', label: 'WisoR Grundlagen' },
-                  { key: 'wisorEco', label: 'WisoR E-Commerce' },
-                  { key: 'kalkulation', label: 'Kalkulations-Boss' },
-                  { key: 'breakEven', label: 'Break-Even-Point' },
-                  { key: 'flashcard', label: 'Lernkarten' }
-                ];
-                const totalCorrect = modes.reduce((s, m) => s + item.values[m.key].correct, 0);
-                const totalWrong = modes.reduce((s, m) => s + item.values[m.key].wrong, 0);
-                const total = totalCorrect + totalWrong;
-                const successRate = total > 0 ? Math.round((totalCorrect / total) * 100) : 0;
-                const activeModes = modes.filter(m => item.values[m.key].correct + item.values[m.key].wrong > 0);
+        {/* 5. PR&Uuml;FUNGSPROGNOSE */}
+        <section className="note-card analytics-prognose" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+          <h3 style={{ margin: '0 0 1rem 0', color: 'var(--text-light)', fontSize: '1.1rem', textAlign: 'center' }}>Pr&uuml;fungsprognose</h3>
+          {/* Gauge */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.2rem' }}>
+            <svg width="220" height="130" viewBox="0 0 220 130" style={{ maxWidth: '100%', height: 'auto' }}>
+              <path d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="14" strokeLinecap="round" />
+              <path d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke={einsteinNeonColor} strokeWidth="14" strokeLinecap="round"
+                strokeDasharray={`${Math.PI * 90}`} strokeDashoffset={Math.PI * 90 * (1 - overallAccuracy / 100)}
+                style={{ transition: 'stroke-dashoffset 0.8s ease' }} />
+              {(() => {
+                const na = Math.PI - (overallAccuracy / 100) * Math.PI;
+                return <line x1="110" y1="110" x2={110 + 70 * Math.cos(na)} y2={110 - 70 * Math.sin(na)} stroke={einsteinNeonColor} strokeWidth="2.5" strokeLinecap="round" />;
+              })()}
+              <circle cx="110" cy="110" r="5" fill={einsteinNeonColor} />
+              <text x="20" y="126" textAnchor="middle" fontSize="11" fill="var(--text-muted)">0%</text>
+              <text x="110" y="14" textAnchor="middle" fontSize="11" fill="var(--text-muted)">50%</text>
+              <text x="200" y="126" textAnchor="middle" fontSize="11" fill="var(--text-muted)">100%</text>
+              <text x="110" y="95" textAnchor="middle" fontSize="26" fontWeight="900" fill={einsteinNeonColor}>{overallAccuracy}%</text>
+              <text x="110" y="112" textAnchor="middle" fontSize="10" fill="var(--text-muted)">Pr&uuml;fungsbereitschaft</text>
+            </svg>
+          </div>
+          {/* Mode breakdown */}
+          {Object.keys(modeTotals).length > 0 && (
+            <div className="analytics-prognose-modes" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.6rem', marginBottom: '1rem' }}>
+              {Object.entries(modeTotals).map(([mode, counts]) => {
+                const total = counts.correct + counts.wrong;
+                const acc = total > 0 ? Math.round((counts.correct / total) * 100) : 0;
+                const bc = acc >= 75 ? 'var(--success)' : acc >= 50 ? '#f59e0b' : 'var(--error)';
                 return (
-                  <div key={item.label} style={{ padding: '1.1rem', borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
-                    <h4 style={{ marginTop: 0, color: 'var(--text-light)', marginBottom: '0.6rem', fontSize: '0.98rem' }}>{item.label}</h4>
-                    <div style={{ height: '8px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)', marginBottom: '0.7rem' }}>
-                      <div style={{ width: `${successRate}%`, height: '100%', background: successRate >= 75 ? 'var(--success)' : successRate >= 60 ? '#f59e0b' : 'var(--error)' }}></div>
+                  <div key={`prg_${mode}`} style={{ padding: '0.55rem 0.7rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
+                      <span style={{ color: 'var(--text-light)', fontSize: '0.82rem', fontWeight: 600 }}>{modeLabel[mode] || mode}</span>
+                      <span style={{ color: bc, fontWeight: 700, fontSize: '0.82rem' }}>{acc}%</span>
                     </div>
-                    <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)' }}>Erfolgsquote: <strong style={{ color: 'var(--text-light)' }}>{successRate}%</strong></p>
-                    {activeModes.length > 0 ? activeModes.map(m => {
-                      const c = item.values[m.key].correct;
-                      const w = item.values[m.key].wrong;
-                      return (
-                        <p key={m.key} style={{ margin: '0.2rem 0', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-                          {m.label}: <strong style={{ color: 'var(--text-light)' }}>{c}</strong> richtig / <strong style={{ color: 'var(--text-light)' }}>{w}</strong> falsch
-                        </p>
-                      );
-                    }) : (
-                      <p style={{ margin: '0.2rem 0', color: 'var(--text-muted)', fontSize: '0.88rem' }}>Noch keine Aktivität</p>
-                    )}
+                    <div style={{ height: '6px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)' }}>
+                      <div style={{ width: `${acc}%`, height: '100%', background: bc, transition: 'width 0.5s ease' }}></div>
+                    </div>
+                    <div style={{ marginTop: '0.2rem', fontSize: '0.72rem', color: 'var(--text-muted)' }}>{counts.correct} richtig &middot; {counts.wrong} falsch</div>
                   </div>
                 );
               })}
             </div>
           )}
+          {/* Strategic Actions */}
+          {strategicActions.length > 0 && (
+            <div style={{ padding: '0.8rem', borderRadius: '10px', border: '1px dashed var(--glass-border)', background: 'rgba(255,255,255,0.02)' }}>
+              <strong style={{ display: 'block', marginBottom: '0.4rem', color: 'var(--text-light)', fontSize: '0.88rem' }}>{'\uD83D\uDCCB'} Fokus bis zur Pr&uuml;fung</strong>
+              <ul style={{ margin: 0, paddingLeft: '1.2rem', color: 'var(--text-muted)', fontSize: '0.82rem', lineHeight: 1.5 }}>
+                {strategicActions.map((item, idx) => <li key={`act_${idx}`}>{item}</li>)}
+              </ul>
+            </div>
+          )}
         </section>
-
-        <div className="printable-notes" style={{ width: '100%', maxWidth: '1200px', margin: '1rem auto 0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem', alignItems: 'start' }}>
-          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <button type="button" onClick={() => toggleAnalyticsPanel('topics')} style={analyticsToggleButtonStyle}>
-              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                <span style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>{analyticsExpanded.topics ? '▾' : '▸'}</span>
-                <span>Themenanalyse (Prüfungsfokus)</span>
-              </h3>
-              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.topics ? '−' : '+'}</span>
-            </button>
-            {analyticsExpanded.topics && (
-              <div style={{ marginTop: '0.8rem' }}>
-                {topicRows.length === 0 ? (
-                  <p style={{ color: 'var(--text-muted)', margin: 0 }}>Noch keine themenbezogenen Antworten vorhanden.</p>
-                ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                    {topicRows.slice(0, 8).map(row => (
-                      <div key={row.topic} style={{ padding: '0.65rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
-                          <strong style={{ color: 'var(--text-light)', fontSize: '0.88rem' }}>{row.topic}</strong>
-                          <span style={{ color: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)', fontWeight: 700, fontSize: '0.85rem' }}>{row.accuracy}%</span>
-                        </div>
-                        <div style={{ height: '7px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)' }}>
-                          <div style={{ width: `${row.accuracy}%`, height: '100%', background: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)' }}></div>
-                        </div>
-                        <div style={{ marginTop: '0.35rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                          Antworten: {row.total} · Richtig: {row.correct} · Falsch: {row.wrong}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </section>
-
-          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <button type="button" onClick={() => toggleAnalyticsPanel('radar')} style={analyticsToggleButtonStyle}>
-              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                <span style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>{analyticsExpanded.radar ? '▾' : '▸'}</span>
-                <span>Radar: Themenkompetenz</span>
-              </h3>
-              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.radar ? '−' : '+'}</span>
-            </button>
-            {analyticsExpanded.radar && (
-              <div style={{ marginTop: '0.8rem' }}>
-                {radarTopics.length < 3 ? (
-                  <p style={{ color: 'var(--text-muted)', margin: 0 }}>Für ein Radar werden mindestens 3 Themen mit Daten benötigt.</p>
-                ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      <svg style={{ width: '100%', maxWidth: radarSize, height: 'auto' }} viewBox={`0 0 ${radarSize} ${radarSize}`} role="img" aria-label="Radar der Themenkompetenz">
-                        {radarRings.map(ring => (
-                          <polygon
-                            key={`ring_${ring}`}
-                            points={radarTopics.map((_, idx) => {
-                              const angle = (360 / radarTopics.length) * idx;
-                              const pt = polarToCartesian(angle, ring);
-                              return `${pt.x},${pt.y}`;
-                            }).join(' ')}
-                            fill="none"
-                            stroke="rgba(148,163,184,0.28)"
-                            strokeWidth="1"
-                          />
-                        ))}
-
-                        {radarTopics.map((row, idx) => {
-                          const angle = (360 / radarTopics.length) * idx;
-                          const edge = polarToCartesian(angle, 100);
-                          const label = polarToCartesian(angle, 112);
-                          return (
-                            <g key={`axis_${row.topic}`}>
-                              <line x1={radarCenter} y1={radarCenter} x2={edge.x} y2={edge.y} stroke="rgba(148,163,184,0.35)" strokeWidth="1" />
-                              <text x={label.x} y={label.y} textAnchor="middle" dominantBaseline="middle" fontSize="10" fill="var(--text-muted)">
-                                {row.topic.length > 16 ? `${row.topic.slice(0, 16)}...` : row.topic}
-                              </text>
-                            </g>
-                          );
-                        })}
-
-                        <polygon points={radarPolygonPoints} fill="rgba(99,102,241,0.32)" stroke="var(--primary)" strokeWidth="2" />
-                        {radarTopics.map((row, idx) => {
-                          const angle = (360 / radarTopics.length) * idx;
-                          const point = polarToCartesian(angle, row.accuracy);
-                          return <circle key={`dot_${row.topic}`} cx={point.x} cy={point.y} r="3.4" fill="var(--primary)" />;
-                        })}
-                      </svg>
-                    </div>
-
-                    <div className="analytics-radar-legend" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.45rem' }}>
-                      {radarTopics.map(row => (
-                        <div key={`legend_${row.topic}`} style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between', gap: '0.6rem' }}>
-                          <span>{row.topic}</span>
-                          <strong style={{ color: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)' }}>{row.accuracy}%</strong>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </section>
-
-          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <button type="button" onClick={() => toggleAnalyticsPanel('swot')} style={analyticsToggleButtonStyle}>
-              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                <span style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>{analyticsExpanded.swot ? '▾' : '▸'}</span>
-                <span>Stärken · Schwächen · Risiken · Chancen</span>
-              </h3>
-              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.swot ? '−' : '+'}</span>
-            </button>
-
-            {analyticsExpanded.swot && (
-              <div style={{ marginTop: '0.8rem' }}>
-                <div className="analytics-swot-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '0.7rem' }}>
-                  {swotCards.map(card => (
-                    <div key={card.key} style={{ padding: '0.65rem', borderRadius: '10px', border: card.border, background: card.background }}>
-                      <strong style={{ color: card.titleColor, fontSize: '0.84rem' }}>{card.title}</strong>
-                      <ul style={{ margin: '0.5rem 0 0 1rem', color: 'var(--text-light)', fontSize: '0.8rem', lineHeight: '1.4' }}>
-                        {card.items.map((text, idx) => (
-                          <li key={`${card.key}_${idx}`}>{text}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-
-                <div style={{ marginTop: '0.9rem', paddingTop: '0.8rem', borderTop: '1px dashed var(--glass-border)' }}>
-                  <h4 style={{ margin: '0 0 0.55rem 0', color: 'var(--text-light)', fontSize: '0.95rem' }}>Prüfungsprognose</h4>
-                  {Object.keys(modeTotals).length === 0 ? (
-                    <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.83rem' }}>Noch keine Trainingsdaten vorhanden.</p>
-                  ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-                      {Object.entries(modeTotals).map(([mode, counts]) => {
-                        const total = counts.correct + counts.wrong;
-                        const accuracy = total > 0 ? Math.round((counts.correct / total) * 100) : 0;
-                        return (
-                          <div key={`swot_${mode}`} style={{ padding: '0.58rem', borderRadius: '9px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.6rem' }}>
-                              <strong style={{ color: 'var(--text-light)', fontSize: '0.82rem' }}>{modeLabel[mode] || mode}</strong>
-                              <span style={{ color: accuracy >= 70 ? 'var(--success)' : 'var(--error)', fontWeight: 'bold', fontSize: '0.8rem' }}>{accuracy}%</span>
-                            </div>
-                            <div style={{ marginTop: '0.28rem', fontSize: '0.76rem', color: 'var(--text-muted)' }}>
-                              R: {counts.correct} · F: {counts.wrong} · G: {total}
-                            </div>
-                          </div>
-                        );
-                      })}
-
-                      <div style={{ marginTop: '0.1rem', padding: '0.58rem', borderRadius: '9px', border: '1px dashed var(--glass-border)', color: 'var(--text-light)', fontSize: '0.78rem', lineHeight: '1.45' }}>
-                        <strong style={{ display: 'block', marginBottom: '0.28rem' }}>Fokus bis zur Prüfung:</strong>
-                        {strategicActions.length > 0 ? (
-                          <ul style={{ margin: '0 0 0 1rem', color: 'var(--text-muted)' }}>
-                            {strategicActions.map((item, idx) => (
-                              <li key={`swot_a_${idx}`}>{item}</li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <span style={{ color: 'var(--text-muted)' }}>Noch zu wenig Daten für eine belastbare Prognose.</span>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-          </section>
-
-          <section className="note-card" style={{ padding: '1.2rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
-            <button type="button" onClick={() => toggleAnalyticsPanel('mistakes')} style={analyticsToggleButtonStyle}>
-              <h3 style={{ marginTop: 0, marginBottom: 0, color: 'var(--text-light)', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                <span style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>{analyticsExpanded.mistakes ? '▾' : '▸'}</span>
-                <span>Fehler-Analyse (Top Schwächen nach Themen)</span>
-              </h3>
-              <span style={analyticsToggleBadgeStyle}>{analyticsExpanded.mistakes ? '−' : '+'}</span>
-            </button>
-            {analyticsExpanded.mistakes && (
-              <div style={{ marginTop: '0.8rem' }}>
-                <p style={{ color: 'var(--text-muted)', marginTop: 0, marginBottom: '1rem', fontSize: '0.9rem' }}>
-                  Letzte Aktualisierung: {learningAnalytics?.lastRefreshedAt ? new Date(learningAnalytics.lastRefreshedAt).toLocaleString() : 'noch nicht ausgeführt'}
-                </p>
-                {groupedWeaknessRows.length === 0 ? (
-                  <p style={{ color: 'var(--text-muted)', margin: 0 }}>Noch keine Fehlerdaten vorhanden.</p>
-                ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
-                    {groupedWeaknessRows.slice(0, 8).map((group, idx) => (
-                      <div key={`weakness_${group.topic}_${idx}`} style={{ padding: '0.75rem', borderRadius: '10px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)', overflow: 'hidden' }}>
-                        <div style={{ marginBottom: '0.3rem' }}>
-                          <strong style={{ color: 'var(--text-light)', fontSize: '0.9rem', display: 'block', overflowWrap: 'anywhere', wordBreak: 'break-word' }}>{group.topic}</strong>
-                          <span style={{ display: 'block', marginTop: '0.15rem', color: 'var(--error)', fontWeight: 'bold', fontSize: '0.88rem', overflowWrap: 'anywhere', wordBreak: 'break-word' }}>{group.count} Fehler gesamt</span>
-                        </div>
-
-                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.35rem' }}>
-                          Musterbegriffe: {group.topTerms.length > 0 ? group.topTerms.join(' · ') : 'Noch keine klaren Muster'}
-                        </div>
-
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                          {group.sampleQuestions.map((entry, sampleIdx) => (
-                            <div key={`sample_${sampleIdx}`} style={{ fontSize: '0.8rem', color: 'var(--text-muted)', overflowWrap: 'anywhere', wordBreak: 'break-word' }}>
-                              • {(entry.questionText || '').slice(0, 82)}{(entry.questionText || '').length > 82 ? '...' : ''} ({entry.count || 0}x)
-                            </div>
-                          ))}
-                        </div>
-
-                        {group.sampleQuestions[0]?.expectedAnswer ? (
-                          <div style={{ marginTop: '0.45rem', fontSize: '0.79rem', color: 'var(--text-muted)' }}>
-                            Erwarteter Kern: {String(group.sampleQuestions[0].expectedAnswer).slice(0, 90)}{String(group.sampleQuestions[0].expectedAnswer).length > 90 ? '...' : ''}
-                          </div>
-                        ) : null}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </section>
-
-        </div>
       </div>
     );
   }

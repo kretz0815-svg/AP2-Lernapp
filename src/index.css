@@ -1151,38 +1151,29 @@ button {
     margin-bottom: 0.4rem;
   }
 
-  .learning-analytics-dashboard header h1 {
-    font-size: 1.35rem !important;
-  }
-
   .learning-analytics-dashboard .note-card {
     overflow-x: hidden;
   }
 
-  .analytics-kpi-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.7rem !important;
+  .analytics-big-picture {
+    padding: 1.2rem !important;
   }
 
-  .analytics-kpi-grid .note-card {
-    padding: 0.75rem 0.85rem !important;
+  .analytics-big-picture-inner {
+    gap: 1.5rem !important;
   }
 
-  .analytics-kpi-grid .note-card p:last-child {
-    font-size: 1.5rem !important;
-  }
-
-  .printable-notes {
+  .analytics-deep-dive {
     grid-template-columns: 1fr !important;
     gap: 0.8rem !important;
   }
 
-  .analytics-swot-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.5rem !important;
+  .analytics-trend-chart {
+    height: 150px !important;
+    gap: 1rem !important;
   }
 
-  .analytics-radar-legend {
+  .analytics-prognose-modes {
     grid-template-columns: 1fr !important;
   }
 }
@@ -1193,29 +1184,19 @@ button {
     gap: 0.8rem !important;
   }
 
-  .learning-analytics-dashboard header h1 {
-    font-size: 1.2rem !important;
+  .analytics-big-picture {
+    padding: 1rem 0.8rem !important;
   }
 
-  .analytics-kpi-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.5rem !important;
+  .analytics-big-picture-inner {
+    flex-direction: column !important;
+    gap: 1rem !important;
   }
 
-  .analytics-kpi-grid .note-card {
-    padding: 0.6rem 0.7rem !important;
-  }
-
-  .analytics-kpi-grid .note-card p:last-child {
-    font-size: 1.3rem !important;
-  }
-
-  .analytics-swot-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .analytics-swot-grid > div {
-    padding: 0.5rem !important;
+  .analytics-trend-chart {
+    height: 130px !important;
+    gap: 0.8rem !important;
+    padding: 0 0.5rem !important;
   }
 }
 
@@ -1414,25 +1395,22 @@ button {
     letter-spacing: 0.02em !important;
   }
 
-  .learning-analytics-dashboard .card-face {
-    position: static !important;
-    transform: none !important;
-    backface-visibility: visible !important;
-    width: 100% !important;
-    height: auto !important;
-    min-height: auto !important;
-    padding: 1rem !important;
-    margin: 0 0 1rem 0 !important;
-    border-radius: 0 !important;
-    background: white !important;
-    border: none !important;
-    box-shadow: none !important;
-    display: block !important;
-    text-align: left !important;
+  .learning-analytics-dashboard .analytics-big-picture,
+  .learning-analytics-dashboard .analytics-action-call,
+  .learning-analytics-dashboard .analytics-prognose {
+    border: 1px solid #ccc !important;
+    margin-bottom: 1rem !important;
   }
 
-  .learning-analytics-dashboard .card-face * {
-    color: black !important;
+  .learning-analytics-dashboard .analytics-deep-dive {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .learning-analytics-dashboard .analytics-deep-dive > * {
+    display: block !important;
+    margin-bottom: 1rem !important;
+    width: 100% !important;
   }
 
   .learning-analytics-dashboard .printable-notes {
@@ -1458,5 +1436,18 @@ button {
     box-shadow: none !important;
     border-radius: 0 !important;
     background: white !important;
+  }
+
+  .learning-analytics-dashboard svg text {
+    fill: #333 !important;
+  }
+
+  .learning-analytics-dashboard svg circle,
+  .learning-analytics-dashboard svg polygon {
+    stroke: #666 !important;
+  }
+
+  .learning-analytics-dashboard svg path[stroke] {
+    stroke: #333 !important;
   }
 }
