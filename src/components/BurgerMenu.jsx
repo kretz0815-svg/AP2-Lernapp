@@ -56,7 +56,9 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, o
                             bottom: 0,
                             width: '300px',
                             maxWidth: '80vw',
-                            background: 'linear-gradient(180deg, rgba(2,6,23,0.5), rgba(2,6,23,0.72)), var(--app-bg-image), var(--app-bg-color)',
+                            background: isLightMode
+                                ? 'linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,250,252,0.95))'
+                                : 'linear-gradient(180deg, rgba(2,6,23,0.5), rgba(2,6,23,0.72)), var(--app-bg-image), var(--app-bg-color)',
                             backgroundPosition: 'center',
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
