@@ -301,17 +301,6 @@ function App() {
     applyAppearanceDefaults();
   };
 
-  // Initial appearance load
-  useEffect(() => {
-    loadAppearanceForUser(null);
-  }, []);
-
-  // Reload appearance when user logs in/out
-  useEffect(() => {
-    if (authUser) {
-      loadAppearanceForUser(authUser);
-    }
-  }, [authUser]);
 
   const toggleTheme = () => {
     setIsLightMode(prev => {
@@ -593,6 +582,18 @@ function App() {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  // Initial appearance load
+  useEffect(() => {
+    loadAppearanceForUser(null);
+  }, []);
+
+  // Reload appearance when user logs in/out
+  useEffect(() => {
+    if (authUser) {
+      loadAppearanceForUser(authUser);
+    }
+  }, [authUser]);
 
   // --- FLASHCARD STATE ---
   const [allCards, setAllCards] = useState([]);
