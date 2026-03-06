@@ -2783,7 +2783,29 @@ Die JSON muss exakt diese Struktur haben:
     const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco' || e.mode === 'kalkulation' || e.mode === 'breakEven');
     const totalAnswers = events.length;
     const totalCorrect = events.filter(e => e.correct).length;
-    const overallAccuracy = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
+    const hitRate = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
+
+    // Gesamtpool: alle verfügbaren Fragen
+    const totalPoolSize =
+      (flashcards1.cards || []).length +
+      (flashcards2.cards || []).length +
+      (flashcards3.cards || []).length +
+      getAllQuizQuestions().length +
+      (wisor1.questions || []).length +
+      (wisorEco.questions || []).length;
+
+    // Unique richtig beantwortete Fragen (letzte Antwort pro questionId zählt)
+    const latestByQuestion = {};
+    for (const ev of events) {
+      const key = ev.questionId || `${ev.mode}::${(ev.questionText || '').slice(0, 80)}`;
+      if (!latestByQuestion[key] || ev.ts > latestByQuestion[key].ts) {
+        latestByQuestion[key] = ev;
+      }
+    }
+    const uniqueAnswered = Object.keys(latestByQuestion).length;
+    const uniqueCorrect = Object.values(latestByQuestion).filter(e => e.correct).length;
+    const overallAccuracy = totalPoolSize > 0 ? Math.round((uniqueCorrect / totalPoolSize) * 100) : 0;
+
     const recentWeekAnswers = events.filter(e => e.ts >= periodStart.week).length;
     const recentWeekAccuracy = recentWeekAnswers > 0
       ? Math.round((events.filter(e => e.ts >= periodStart.week && e.correct).length / recentWeekAnswers) * 100)
@@ -2996,10 +3018,12 @@ Die JSON muss exakt diese Struktur haben:
     const trendDirection = weekAccuracy > monthAccuracy ? 'up' : weekAccuracy < monthAccuracy ? 'down' : 'stable';
     const actionCallText = (() => {
       if (totalAnswers === 0) return 'Starte dein erstes Training, um personalisierte Empfehlungen zu erhalten!';
+      const coverage = totalPoolSize > 0 ? Math.round((uniqueAnswered / totalPoolSize) * 100) : 0;
+      if (coverage < 20) return `Du hast erst ${uniqueAnswered} von ${totalPoolSize} Fragen bearbeitet (${coverage}%). Arbeite dich durch mehr Themen, um ein vollst\u00e4ndiges Bild zu bekommen!`;
       if (weakestTopics.length > 0) return `Wiederhole "${weakestTopics[0].topic}" \u2014 hier verlierst du die meisten Punkte (${weakestTopics[0].accuracy}%).`;
       if (opportunityTopics.length > 0) return `"${opportunityTopics[0].topic}" steht bei ${opportunityTopics[0].accuracy}%. Mit 10\u201315 Aufgaben erreichst du Pr\u00fcfungsniveau!`;
-      if (overallAccuracy >= 75) return 'Starke Leistung! Deine Quote liegt \u00fcber 75%. Halte das Niveau und trainiere regelm\u00e4\u00dfig.';
-      return 'Trainiere regelm\u00e4\u00dfig in allen Bereichen, um deine Quote \u00fcber 75% zu bringen.';
+      if (overallAccuracy >= 75) return 'Starke Leistung! Dein Gesamtfortschritt liegt \u00fcber 75%. Halte das Niveau und trainiere regelm\u00e4\u00dfig.';
+      return `Du hast ${uniqueAnswered} von ${totalPoolSize} Fragen bearbeitet. Trainiere regelm\u00e4\u00dfig, um deinen Fortschritt \u00fcber 75% zu bringen.`;
     })();
 
     return (
@@ -3050,15 +3074,19 @@ Die JSON muss exakt diese Struktur haben:
               </svg>
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                 <span style={{ fontSize: '2.4rem', fontWeight: 900, color: einsteinNeonColor, lineHeight: 1 }}>{overallAccuracy}%</span>
-                <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Erfolgsquote</span>
+                <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>Gesamtfortschritt</span>
               </div>
             </div>
 
             {/* Quick Stats */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', minWidth: '140px' }}>
               <div>
-                <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.78rem' }}>Bearbeitete Antworten</p>
-                <p style={{ margin: 0, color: 'var(--text-light)', fontSize: '1.6rem', fontWeight: 800 }}>{totalAnswers}</p>
+                <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.78rem' }}>Bearbeitet</p>
+                <p style={{ margin: 0, color: 'var(--text-light)', fontSize: '1.6rem', fontWeight: 800 }}>{uniqueAnswered} <span style={{ fontSize: '0.82rem', fontWeight: 400, color: 'var(--text-muted)' }}>/ {totalPoolSize}</span></p>
+              </div>
+              <div>
+                <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.78rem' }}>Trefferquote</p>
+                <p style={{ margin: 0, color: hitRate >= 70 ? 'var(--success)' : hitRate >= 40 ? '#f59e0b' : 'var(--error)', fontSize: '1.6rem', fontWeight: 800 }}>{hitRate}%</p>
               </div>
               <div>
                 <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.78rem' }}>Schw&auml;chste Themen</p>
@@ -3237,7 +3265,7 @@ Die JSON muss exakt diese Struktur haben:
               <text x="110" y="14" textAnchor="middle" fontSize="11" fill="var(--text-muted)">50%</text>
               <text x="200" y="126" textAnchor="middle" fontSize="11" fill="var(--text-muted)">100%</text>
               <text x="110" y="95" textAnchor="middle" fontSize="26" fontWeight="900" fill={einsteinNeonColor}>{overallAccuracy}%</text>
-              <text x="110" y="112" textAnchor="middle" fontSize="10" fill="var(--text-muted)">Pr&uuml;fungsbereitschaft</text>
+              <text x="110" y="112" textAnchor="middle" fontSize="10" fill="var(--text-muted)">Gesamtfortschritt</text>
             </svg>
           </div>
           {/* Mode breakdown */}
