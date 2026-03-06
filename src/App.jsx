@@ -3016,6 +3016,26 @@ Die JSON muss exakt diese Struktur haben:
       { label: '30 Tage', accuracy: monthAccuracy, total: monthTotalCount, correct: monthCorrectCount }
     ];
     const trendDirection = weekAccuracy > monthAccuracy ? 'up' : weekAccuracy < monthAccuracy ? 'down' : 'stable';
+    // ── Rechenaufgaben-Analyse ──────────────────
+    const calcCategories = [
+      { key: 'vorwaerts', label: 'Vorwärtskalkulation', icon: '⬇️', color: '#22c55e', prefix: 'Vorwärtskalkulation' },
+      { key: 'rueckwaerts', label: 'Rückwärtskalkulation', icon: '⬆️', color: '#f59e0b', prefix: 'Rückwärtskalkulation' },
+      { key: 'differenz', label: 'Differenzkalkulation', icon: '🔀', color: '#ef4444', prefix: 'Differenzkalkulation' },
+      { key: 'boss', label: 'Boss-Modus', icon: '👾', color: '#a855f7', prefix: 'Boss-Modus' },
+      { key: 'breakEven', label: 'Break-Even-Point', icon: '📊', color: '#6366f1', prefix: 'Break-Even' },
+    ];
+    const calcStats = calcCategories.map(cat => {
+      const filtered = cat.key === 'breakEven'
+        ? events.filter(e => e.mode === 'breakEven')
+        : events.filter(e => e.mode === 'kalkulation' && (e.questionText || '').startsWith(cat.prefix));
+      const correct = filtered.filter(e => e.correct).length;
+      const wrong = filtered.filter(e => !e.correct).length;
+      const total = correct + wrong;
+      const accuracy = total > 0 ? Math.round((correct / total) * 100) : null;
+      return { ...cat, correct, wrong, total, accuracy };
+    });
+    const calcTotal = calcStats.reduce((s, c) => s + c.total, 0);
+
     const actionCallText = (() => {
       if (totalAnswers === 0) return 'Starte dein erstes Training, um personalisierte Empfehlungen zu erhalten!';
       const coverage = totalPoolSize > 0 ? Math.round((uniqueAnswered / totalPoolSize) * 100) : 0;
@@ -3245,6 +3265,35 @@ Die JSON muss exakt diese Struktur haben:
             )}
           </section>
         </div>
+
+        {/* 4b. RECHENAUFGABEN */}
+        <section className="note-card analytics-rechenaufgaben" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(99,102,241,0.3)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
+          <h3 style={{ margin: '0 0 1rem 0', color: 'var(--text-light)', fontSize: '1.1rem', textAlign: 'center' }}>🧮 Rechenaufgaben</h3>
+          {calcTotal === 0 ? (
+            <p style={{ color: 'var(--text-muted)', textAlign: 'center', margin: 0, fontSize: '0.88rem' }}>Noch keine Rechenaufgaben bearbeitet. Starte den Kalkulations-Boss oder Break-Even-Point!</p>
+          ) : (
+            <div className="analytics-calc-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.7rem' }}>
+              {calcStats.filter(c => c.total > 0).map(cat => (
+                <div key={cat.key} style={{ padding: '0.8rem', borderRadius: '12px', border: `1px solid ${cat.color}33`, background: `${cat.color}08` }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.5rem' }}>
+                    <span style={{ fontSize: '1.1rem' }}>{cat.icon}</span>
+                    <span style={{ color: 'var(--text-light)', fontSize: '0.84rem', fontWeight: 700 }}>{cat.label}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem', marginBottom: '0.4rem' }}>
+                    <span style={{ fontSize: '1.8rem', fontWeight: 900, color: cat.accuracy >= 75 ? 'var(--success)' : cat.accuracy >= 50 ? '#f59e0b' : 'var(--error)', lineHeight: 1 }}>{cat.accuracy}%</span>
+                    <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Trefferquote</span>
+                  </div>
+                  <div style={{ height: '5px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)', marginBottom: '0.35rem' }}>
+                    <div style={{ width: `${cat.accuracy}%`, height: '100%', background: cat.accuracy >= 75 ? 'var(--success)' : cat.accuracy >= 50 ? '#f59e0b' : 'var(--error)', borderRadius: '999px', transition: 'width 0.5s ease' }} />
+                  </div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                    <span style={{ color: 'var(--success)' }}>{cat.correct} ✓</span> · <span style={{ color: 'var(--error)' }}>{cat.wrong} ✗</span> · {cat.total} gesamt
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
 
         {/* 5. PR&Uuml;FUNGSPROGNOSE */}
         <section className="note-card analytics-prognose" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
