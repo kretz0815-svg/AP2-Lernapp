@@ -595,6 +595,17 @@ function App() {
     }
   }, [authUser]);
 
+  // Force dark mode on auth screen — login must always be dark
+  useEffect(() => {
+    if (appMode === 'auth') {
+      document.body.classList.remove('light-theme');
+      document.body.style.setProperty('--app-bg-color', '#000000');
+      document.body.style.removeProperty('--app-glow-1');
+      document.body.style.removeProperty('--app-glow-2');
+      document.body.classList.add('no-bg-effects');
+    }
+  }, [appMode]);
+
   // --- FLASHCARD STATE ---
   const [allCards, setAllCards] = useState([]);
   const [learningQueue, setLearningQueue] = useState([]);
