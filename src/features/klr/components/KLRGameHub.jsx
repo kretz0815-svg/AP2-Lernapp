@@ -191,7 +191,7 @@ const generateLevel4Mission = () => {
   return { math, capacity };
 };
 
-export default function KLRGameHub({ onBack }) {
+export default function KLRGameHub({ onBack, onLearningEvent }) {
   const { progress, setStartupName, grantXp, unlockLevel } = useKLRGame();
   const [nameInput, setNameInput] = useState(progress.startupName);
   const [screen, setScreen] = useState('home');
@@ -301,6 +301,15 @@ export default function KLRGameHub({ onBack }) {
     if (level1Done || !currentItem) return;
 
     const isCorrect = choice === currentItem.category;
+    onLearningEvent?.({
+      mode: 'klr',
+      questionId: `klr_l1_${currentItem.label}`,
+      questionText: `KLR L1: ${currentItem.label} (${euro(currentItem.amount)})`,
+      correct: isCorrect,
+      userAnswer: choice === 'fix' ? 'Fixkosten' : 'Variable Kosten',
+      expectedAnswer: currentItem.category === 'fix' ? 'Fixkosten' : 'Variable Kosten',
+      topic: 'KLR Level 1 · Kostenartenrechnung'
+    });
     if (isCorrect) {
       setLevel1Correct((n) => n + 1);
       setLevel1Feedback('Richtig. Saubere Einordnung.');
@@ -343,6 +352,16 @@ export default function KLRGameHub({ onBack }) {
   const validateLevel2Field = (fieldKey, showFieldFeedback = true) => {
     const value = parseMoneyInput(level2Inputs[fieldKey]);
     const ok = isLevel2FieldCorrect(fieldKey, value);
+    const fieldLabel = fieldKey === 'lager' ? 'Lager' : fieldKey === 'packstation' ? 'Packstation' : 'Büro';
+    onLearningEvent?.({
+      mode: 'klr',
+      questionId: `klr_l2_${fieldKey}`,
+      questionText: `KLR L2: ${fieldLabel} Anteil`,
+      correct: ok,
+      userAnswer: Number.isFinite(value) ? String(value) : String(level2Inputs[fieldKey] || ''),
+      expectedAnswer: String(level2Math.allocations[fieldKey]),
+      topic: 'KLR Level 2 · Kostenstellenrechnung'
+    });
 
     setLevel2FieldOk((prev) => ({ ...prev, [fieldKey]: ok }));
     if (ok && Number.isFinite(value)) {
@@ -361,13 +380,12 @@ export default function KLRGameHub({ onBack }) {
       setLevel2Status('success');
       setLevel2Feedback('Perfekt verteilt. Genau richtig!');
     } else if (showFieldFeedback) {
-      const label = fieldKey === 'lager' ? 'Lager' : fieldKey === 'packstation' ? 'Packstation' : 'Büro';
       if (ok) {
         setLevel2Status('idle');
-        setLevel2Feedback(`${label} korrekt ✓`);
+        setLevel2Feedback(`${fieldLabel} korrekt ✓`);
       } else {
         setLevel2Status('error');
-        setLevel2Feedback(`${label} noch nicht korrekt.`);
+        setLevel2Feedback(`${fieldLabel} noch nicht korrekt.`);
       }
     }
 
@@ -430,12 +448,30 @@ export default function KLRGameHub({ onBack }) {
     const selfCostCorrect = Number.isFinite(entered) && Math.round(entered * 100) === Math.round(level3Scenario.selfCost * 100);
 
     if (ratesCorrect && selfCostCorrect) {
+      onLearningEvent?.({
+        mode: 'klr',
+        questionId: 'klr_l3_selfcost',
+        questionText: 'KLR L3: Zuschlagskalkulation Selbstkosten',
+        correct: true,
+        userAnswer: String(entered),
+        expectedAnswer: String(level3Scenario.selfCost),
+        topic: 'KLR Level 3 · Kostenträgerrechnung'
+      });
       setLevel3Status('success');
       setLevel3Feedback('Stark. Zuschlagskalkulation korrekt abgeschlossen.');
       return;
     }
 
     setLevel3Status('error');
+    onLearningEvent?.({
+      mode: 'klr',
+      questionId: 'klr_l3_selfcost',
+      questionText: 'KLR L3: Zuschlagskalkulation Selbstkosten',
+      correct: false,
+      userAnswer: Number.isFinite(entered) ? String(entered) : String(level3SelfCostInput || ''),
+      expectedAnswer: String(level3Scenario.selfCost),
+      topic: 'KLR Level 3 · Kostenträgerrechnung'
+    });
     if (!ratesCorrect && !selfCostCorrect) {
       setLevel3Feedback('Noch nicht korrekt: Prüfe die Zuschlagssätze und die Selbstkosten.');
     } else if (!ratesCorrect) {
@@ -456,6 +492,15 @@ export default function KLRGameHub({ onBack }) {
     const selectedPrice = Number(level4Price);
     const math = level4Mission.math;
     if (!math.allowedPrices.includes(selectedPrice)) {
+      onLearningEvent?.({
+        mode: 'klr',
+        questionId: 'klr_l4_bep',
+        questionText: 'KLR L4: Break-Even-Menge Survival',
+        correct: false,
+        userAnswer: `Preis ${selectedPrice} | Menge ${level4BreakEvenInput}`,
+        expectedAnswer: 'Erlaubter Preis + korrekte Break-Even-Menge',
+        topic: 'KLR Level 4 · Break-Even-Analyse'
+      });
       setLevel4Status('error');
       setLevel4Feedback('Bitte einen erlaubten Preis aus der Liste wählen.');
       return;
@@ -468,17 +513,44 @@ export default function KLRGameHub({ onBack }) {
     const goalReached = expectedUnits <= level4Mission.capacity;
 
     if (!unitsCorrect) {
+      onLearningEvent?.({
+        mode: 'klr',
+        questionId: 'klr_l4_bep',
+        questionText: 'KLR L4: Break-Even-Menge Survival',
+        correct: false,
+        userAnswer: `Preis ${selectedPrice} | Menge ${level4BreakEvenInput}`,
+        expectedAnswer: String(expectedUnits),
+        topic: 'KLR Level 4 · Break-Even-Analyse'
+      });
       setLevel4Status('error');
       setLevel4Feedback(`Die Break-Even-Menge passt noch nicht. Rechne: Fixkosten / Deckungsbeitrag.`);
       return;
     }
 
     if (!goalReached) {
+      onLearningEvent?.({
+        mode: 'klr',
+        questionId: 'klr_l4_capacity',
+        questionText: 'KLR L4: Kapazitätsziel im Survival-Modus',
+        correct: false,
+        userAnswer: `${expectedUnits} Stück bei Preis ${selectedPrice}`,
+        expectedAnswer: `<= ${level4Mission.capacity} Stück`,
+        topic: 'KLR Level 4 · Break-Even-Analyse'
+      });
       setLevel4Status('error');
       setLevel4Feedback(`Rechnung korrekt, aber Ziel verfehlt: ${expectedUnits} Stück sind mehr als die Monatskapazität (${level4Mission.capacity}). Wähle einen besseren Preis.`);
       return;
     }
 
+    onLearningEvent?.({
+      mode: 'klr',
+      questionId: 'klr_l4_survival',
+      questionText: 'KLR L4: Survival-Mission bestanden',
+      correct: true,
+      userAnswer: `${expectedUnits} Stück bei Preis ${selectedPrice}`,
+      expectedAnswer: `<= ${level4Mission.capacity} Stück`,
+      topic: 'KLR Level 4 · Break-Even-Analyse'
+    });
     setLevel4Status('success');
     setLevel4Feedback(`Stark. Break-Even bei ${expectedUnits} Stück und damit innerhalb der Kapazität.`);
   };

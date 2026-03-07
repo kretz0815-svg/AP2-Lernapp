@@ -273,7 +273,7 @@ function App() {
           questionText: m.questionText,
           expectedAnswer: m.expectedAnswer || '',
           lastUserAnswer: m.lastUserAnswer || '',
-          topic: m.mode === 'quiz' ? '' : m.mode === 'wisor' ? 'WisoR Grundlagen' : m.mode === 'wisorEco' ? 'WisoR E-Commerce' : ''
+          topic: m.mode === 'quiz' ? '' : m.mode === 'wisor' ? 'WisoR Grundlagen' : m.mode === 'wisorEco' ? 'WisoR E-Commerce' : m.mode === 'klr' ? 'KLR' : ''
         }));
       if (allMistakeData.length > 0) {
         setDashboardAiLoading(true);
@@ -293,7 +293,7 @@ function App() {
 
     const events = learningAnalytics?.events || [];
     const wrongCalcEvents = events
-      .filter((event) => (event.mode === 'kalkulation' || event.mode === 'breakEven') && !event.correct)
+      .filter((event) => (event.mode === 'kalkulation' || event.mode === 'breakEven' || event.mode === 'klr') && !event.correct)
       .slice(-30);
 
     if (wrongCalcEvents.length === 0) {
@@ -2009,7 +2009,7 @@ ${feynmanInput}`;
             <h1 style={{ margin: 0, fontSize: '2.2rem', color: 'var(--text-light)' }}>KLR Startup Survival</h1>
             <p className="subtitle" style={{ marginTop: '0.5rem' }}>Architektur-, State- und Mathe-Basis für das neue KLR-Spiel.</p>
           </header>
-          <KLRGameHub onBack={() => setAppMode('dashboard')} />
+          <KLRGameHub onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
         </div>
         <FloatingNotes questionId="klr_game" questionText="KLR Startup Survival" />
         <FloatingCalculator />
@@ -2283,6 +2283,7 @@ Die JSON muss exakt diese Struktur haben:
         flashcard: byMode('flashcard'),
         kalkulation: byMode('kalkulation'),
         breakEven: byMode('breakEven'),
+        klr: byMode('klr'),
       };
     };
 
@@ -2300,7 +2301,8 @@ Die JSON muss exakt diese Struktur haben:
       wisorEco: 'WisoR E-Commerce',
       flashcard: 'Lernkarten',
       kalkulation: 'Kalkulations-Boss',
-      breakEven: 'Break-Even-Point'
+      breakEven: 'Break-Even-Point',
+      klr: 'KLR-Modul'
     };
 
     const modeTotals = events.reduce((acc, event) => {
@@ -2311,7 +2313,7 @@ Die JSON muss exakt diese Struktur haben:
       return acc;
     }, {});
 
-    const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco' || e.mode === 'kalkulation' || e.mode === 'breakEven');
+    const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco' || e.mode === 'kalkulation' || e.mode === 'breakEven' || e.mode === 'klr');
     const totalAnswers = events.length;
     const totalCorrect = events.filter(e => e.correct).length;
     const hitRate = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
@@ -2361,6 +2363,7 @@ Die JSON muss exakt diese Struktur haben:
       if (event.mode === 'wisorEco') return 'WisoR E-Commerce';
       if (event.mode === 'kalkulation') return 'Kalkulations-Boss';
       if (event.mode === 'breakEven') return 'Break-Even-Point';
+      if (event.mode === 'klr') return event.topic || 'KLR-Modul';
       return 'Allgemein';
     };
 
@@ -2421,6 +2424,7 @@ Die JSON muss exakt diese Struktur haben:
       if (entry.mode === 'wisor') return 'WisoR Grundlagen';
       if (entry.mode === 'wisorEco') return 'WisoR E-Commerce';
       if (entry.mode === 'flashcard') return 'Lernkarten Wissen';
+      if (entry.mode === 'klr') return entry.topic || 'KLR-Modul';
       return 'Allgemein';
     };
 
@@ -2540,7 +2544,7 @@ Die JSON muss exakt diese Struktur haben:
     const circleRadius = 62;
     const circleCircumference = 2 * Math.PI * circleRadius;
     const circleOffset = circleCircumference * (1 - overallAccuracy / 100);
-    const allModeKeys = ['quiz', 'wisor', 'wisorEco', 'kalkulation', 'breakEven', 'flashcard'];
+    const allModeKeys = ['quiz', 'wisor', 'wisorEco', 'kalkulation', 'breakEven', 'klr', 'flashcard'];
     const dayTotalCount = allModeKeys.reduce((s, m) => s + day[m].correct + day[m].wrong, 0);
     const dayCorrectCount = allModeKeys.reduce((s, m) => s + day[m].correct, 0);
     const dayAccuracy = dayTotalCount > 0 ? Math.round((dayCorrectCount / dayTotalCount) * 100) : 0;
@@ -2563,11 +2567,17 @@ Die JSON muss exakt diese Struktur haben:
       { key: 'differenz', label: 'Differenzkalkulation', icon: '🔀', color: '#ef4444', prefix: 'Differenzkalkulation' },
       { key: 'boss', label: 'Boss-Modus', icon: '👾', color: '#a855f7', prefix: 'Boss-Modus' },
       { key: 'breakEven', label: 'Break-Even-Point', icon: '📊', color: '#6366f1', prefix: 'Break-Even' },
+      { key: 'klr1', label: 'KLR Level 1', icon: '🧩', color: '#22c55e', topic: 'KLR Level 1 · Kostenartenrechnung' },
+      { key: 'klr2', label: 'KLR Level 2', icon: '🏭', color: '#f59e0b', topic: 'KLR Level 2 · Kostenstellenrechnung' },
+      { key: 'klr3', label: 'KLR Level 3', icon: '🧥', color: '#a855f7', topic: 'KLR Level 3 · Kostenträgerrechnung' },
+      { key: 'klr4', label: 'KLR Level 4', icon: '📈', color: '#14b8a6', topic: 'KLR Level 4 · Break-Even-Analyse' },
     ];
     const calcStats = calcCategories.map(cat => {
       const filtered = cat.key === 'breakEven'
         ? events.filter(e => e.mode === 'breakEven')
-        : events.filter(e => e.mode === 'kalkulation' && (e.questionText || '').startsWith(cat.prefix));
+        : cat.topic
+          ? events.filter(e => e.mode === 'klr' && (e.topic || '') === cat.topic)
+          : events.filter(e => e.mode === 'kalkulation' && (e.questionText || '').startsWith(cat.prefix));
       const correct = filtered.filter(e => e.correct).length;
       const wrong = filtered.filter(e => !e.correct).length;
       const total = correct + wrong;
@@ -2824,7 +2834,7 @@ Die JSON muss exakt diese Struktur haben:
         <section className="note-card analytics-rechenaufgaben" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(99,102,241,0.3)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
           <h3 style={{ margin: '0 0 1rem 0', color: 'var(--text-light)', fontSize: '1.1rem', textAlign: 'center' }}>🧮 Rechenaufgaben</h3>
           {calcTotal === 0 ? (
-            <p style={{ color: 'var(--text-muted)', textAlign: 'center', margin: 0, fontSize: '0.88rem' }}>Noch keine Rechenaufgaben bearbeitet. Starte den Kalkulations-Boss oder Break-Even-Point!</p>
+            <p style={{ color: 'var(--text-muted)', textAlign: 'center', margin: 0, fontSize: '0.88rem' }}>Noch keine Rechenaufgaben bearbeitet. Starte den Kalkulations-Boss, das KLR-Modul oder Break-Even-Point!</p>
           ) : (
             <>
               <div className="analytics-calc-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.7rem' }}>
@@ -2864,7 +2874,7 @@ Die JSON muss exakt diese Struktur haben:
                   </div>
                 ) : (
                   <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.84rem' }}>
-                    Noch nicht genug Rechenfehler für eine KI-Auswertung. Bearbeite einige Kalkulations- oder Break-Even-Aufgaben.
+                    Noch nicht genug Rechenfehler für eine KI-Auswertung. Bearbeite einige Kalkulations-, KLR- oder Break-Even-Aufgaben.
                   </p>
                 )}
               </div>
