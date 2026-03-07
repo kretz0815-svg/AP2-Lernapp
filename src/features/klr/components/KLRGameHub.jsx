@@ -113,6 +113,64 @@ const generateLevel1Run = () => {
   }));
 };
 
+const generateLevel3Scenario = () => {
+  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  const stepValue = (min, max, step) => {
+    const steps = Math.floor((max - min) / step);
+    return min + (Math.floor(Math.random() * (steps + 1)) * step);
+  };
+
+  for (let i = 0; i < 120; i += 1) {
+    const materialDirect = stepValue(30, 130, 10);
+    const laborDirect = stepValue(20, 110, 10);
+    const mgkPct = pick([10, 20, 30, 40, 50, 60]);
+    const fgkPct = pick([10, 20, 30, 40, 50, 60]);
+    const vwgkPct = pick([10, 20, 30, 40]);
+    const vtgkPct = pick([10, 20, 30, 40]);
+
+    const materialOverhead = Math.round((materialDirect * mgkPct) / 100);
+    const laborOverhead = Math.round((laborDirect * fgkPct) / 100);
+    const materialCost = materialDirect + materialOverhead;
+    const laborCost = laborDirect + laborOverhead;
+    const productionCost = materialCost + laborCost;
+    const adminOverhead = Math.round((productionCost * vwgkPct) / 100);
+    const salesOverhead = Math.round((productionCost * vtgkPct) / 100);
+    const selfCost = productionCost + adminOverhead + salesOverhead;
+
+    if ([materialOverhead, laborOverhead, adminOverhead, salesOverhead, selfCost].every(Number.isInteger)) {
+      return {
+        materialDirect,
+        laborDirect,
+        mgkPct,
+        fgkPct,
+        vwgkPct,
+        vtgkPct,
+        materialOverhead,
+        laborOverhead,
+        productionCost,
+        adminOverhead,
+        salesOverhead,
+        selfCost
+      };
+    }
+  }
+
+  return {
+    materialDirect: 80,
+    laborDirect: 60,
+    mgkPct: 20,
+    fgkPct: 30,
+    vwgkPct: 10,
+    vtgkPct: 10,
+    materialOverhead: 16,
+    laborOverhead: 18,
+    productionCost: 174,
+    adminOverhead: 17,
+    salesOverhead: 17,
+    selfCost: 208
+  };
+};
+
 export default function KLRGameHub({ onBack }) {
   const { progress, setStartupName, grantXp, unlockLevel } = useKLRGame();
   const [nameInput, setNameInput] = useState(progress.startupName);
@@ -133,6 +191,11 @@ export default function KLRGameHub({ onBack }) {
   const [level2Status, setLevel2Status] = useState('idle');
   const [level2Feedback, setLevel2Feedback] = useState('');
   const level2InputRefs = useRef({ lager: null, packstation: null, buero: null });
+  const [level3Scenario, setLevel3Scenario] = useState(() => generateLevel3Scenario());
+  const [level3Rates, setLevel3Rates] = useState({ mgkPct: 0, fgkPct: 0, vwgkPct: 0, vtgkPct: 0 });
+  const [level3SelfCostInput, setLevel3SelfCostInput] = useState('');
+  const [level3Status, setLevel3Status] = useState('idle');
+  const [level3Feedback, setLevel3Feedback] = useState('');
 
   const level1Done = level1Index >= level1Items.length;
   const currentItem = level1Items[level1Index];
@@ -282,6 +345,48 @@ export default function KLRGameHub({ onBack }) {
     if (level2Status !== 'success') return;
     grantXp(90);
     unlockLevel(3);
+    setScreen('home');
+  };
+
+  const startLevel3 = () => {
+    setLevel3Scenario(generateLevel3Scenario());
+    setLevel3Rates({ mgkPct: 0, fgkPct: 0, vwgkPct: 0, vtgkPct: 0 });
+    setLevel3SelfCostInput('');
+    setLevel3Status('idle');
+    setLevel3Feedback('');
+    setScreen('level3');
+  };
+
+  const checkLevel3 = () => {
+    const ratesCorrect = (
+      level3Rates.mgkPct === level3Scenario.mgkPct
+      && level3Rates.fgkPct === level3Scenario.fgkPct
+      && level3Rates.vwgkPct === level3Scenario.vwgkPct
+      && level3Rates.vtgkPct === level3Scenario.vtgkPct
+    );
+    const entered = parseMoneyInput(level3SelfCostInput);
+    const selfCostCorrect = Number.isFinite(entered) && Math.round(entered * 100) === Math.round(level3Scenario.selfCost * 100);
+
+    if (ratesCorrect && selfCostCorrect) {
+      setLevel3Status('success');
+      setLevel3Feedback('Stark. Zuschlagskalkulation korrekt abgeschlossen.');
+      return;
+    }
+
+    setLevel3Status('error');
+    if (!ratesCorrect && !selfCostCorrect) {
+      setLevel3Feedback('Noch nicht korrekt: Prüfe die Zuschlagssätze und die Selbstkosten.');
+    } else if (!ratesCorrect) {
+      setLevel3Feedback('Die Zuschlagssätze passen noch nicht komplett.');
+    } else {
+      setLevel3Feedback('Die Selbstkosten sind noch nicht korrekt.');
+    }
+  };
+
+  const finishLevel3 = () => {
+    if (level3Status !== 'success') return;
+    grantXp(120);
+    unlockLevel(4);
     setScreen('home');
   };
 
@@ -508,6 +613,92 @@ export default function KLRGameHub({ onBack }) {
     );
   }
 
+  if (screen === 'level3') {
+    const selectedProductionCost = (
+      level3Scenario.materialDirect
+      + Math.round((level3Scenario.materialDirect * level3Rates.mgkPct) / 100)
+      + level3Scenario.laborDirect
+      + Math.round((level3Scenario.laborDirect * level3Rates.fgkPct) / 100)
+    );
+    const selectedAdminOverhead = Math.round((selectedProductionCost * level3Rates.vwgkPct) / 100);
+    const selectedSalesOverhead = Math.round((selectedProductionCost * level3Rates.vtgkPct) / 100);
+    const selectedSelfCost = selectedProductionCost + selectedAdminOverhead + selectedSalesOverhead;
+
+    return (
+      <div style={{ ...shellStyle, maxWidth: '820px' }}>
+        {renderActionBar()}
+
+        <div style={sectionStyle}>
+          <h2 style={{ margin: '0 0 0.3rem 0' }}>Level 3: Produkt-Kalkulator</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '0.7rem' }}>
+            Stelle die Zuschlagssätze so ein, dass die Selbstkosten exakt stimmen.
+          </p>
+
+          <div style={{ border: '1px solid var(--glass-border)', borderRadius: '14px', padding: '0.85rem', background: 'rgba(2,6,23,0.45)' }}>
+            <p style={{ margin: '0 0 0.35rem 0' }}>Produkt: <strong>Hoodie Pro</strong></p>
+            <p style={{ margin: '0 0 0.25rem 0' }}>Materialeinzelkosten (MEK): <strong>{euro(level3Scenario.materialDirect)}</strong></p>
+            <p style={{ margin: '0 0 0.8rem 0' }}>Fertigungseinzelkosten (FEK): <strong>{euro(level3Scenario.laborDirect)}</strong></p>
+
+            <div style={{ display: 'grid', gap: '0.9rem' }}>
+              {[
+                { key: 'mgkPct', label: 'MGK-Satz', target: level3Scenario.mgkPct, value: level3Rates.mgkPct },
+                { key: 'fgkPct', label: 'FGK-Satz', target: level3Scenario.fgkPct, value: level3Rates.fgkPct },
+                { key: 'vwgkPct', label: 'VwGK-Satz', target: level3Scenario.vwgkPct, value: level3Rates.vwgkPct },
+                { key: 'vtgkPct', label: 'VtGK-Satz', target: level3Scenario.vtgkPct, value: level3Rates.vtgkPct }
+              ].map((row) => {
+                const isCorrect = row.value === row.target;
+                return (
+                  <label key={row.key} style={{ display: 'grid', gap: '0.3rem', textAlign: 'left' }}>
+                    <span style={{ fontWeight: 700 }}>{row.label}: <strong>{row.value}%</strong> {isCorrect ? '✓' : ''}</span>
+                    <input
+                      type="range"
+                      min={0}
+                      max={80}
+                      step={10}
+                      value={row.value}
+                      onChange={(e) => {
+                        const next = Number(e.target.value);
+                        setLevel3Rates((prev) => ({ ...prev, [row.key]: next }));
+                        setLevel3Status('idle');
+                      }}
+                    />
+                  </label>
+                );
+              })}
+            </div>
+
+            <div style={{ marginTop: '0.9rem', padding: '0.7rem', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
+              <p style={{ margin: '0 0 0.4rem 0' }}>Deine aktuelle Selbstkosten-Rechnung: <strong>{euro(selectedSelfCost)}</strong></p>
+              <label style={{ display: 'grid', gap: '0.3rem', textAlign: 'left' }}>
+                <span>Selbstkosten eingeben (€)</span>
+                <input
+                  className="wisor-input"
+                  inputMode="decimal"
+                  value={level3SelfCostInput}
+                  onChange={(e) => {
+                    setLevel3SelfCostInput(e.target.value.replace(/[^0-9.,]/g, ''));
+                    setLevel3Status('idle');
+                  }}
+                  style={{ maxWidth: '240px' }}
+                />
+              </label>
+            </div>
+
+            <div style={{ marginTop: '0.85rem', display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+              <button className="btn-primary" onClick={checkLevel3}>Prüfen</button>
+              <button className="btn-secondary" onClick={startLevel3}>Neue Aufgabe</button>
+              {level3Status === 'success' && <button className="btn-primary" onClick={finishLevel3}>Level abschließen</button>}
+            </div>
+
+            {!!level3Feedback && (
+              <p style={{ marginTop: '0.7rem', color: level3Status === 'success' ? '#86efac' : '#fca5a5' }}>{level3Feedback}</p>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={shellStyle}>
       <div style={{ ...topBarStyle, marginBottom: '0.1rem' }}>
@@ -605,6 +796,8 @@ export default function KLRGameHub({ onBack }) {
                   <button className="btn-primary" style={{ width: '100%' }} onClick={startLevel1}>Jetzt starten</button>
                 ) : lvl.id === 2 && unlocked ? (
                   <button className="btn-primary" style={{ width: '100%' }} onClick={startLevel2}>Level öffnen</button>
+                ) : lvl.id === 3 && unlocked ? (
+                  <button className="btn-primary" style={{ width: '100%' }} onClick={startLevel3}>Level öffnen</button>
                 ) : unlocked ? (
                   <button className="btn-secondary" style={{ width: '100%' }} onClick={() => openPendingLevel(lvl.id)}>Level öffnen</button>
                 ) : (
