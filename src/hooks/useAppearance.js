@@ -11,13 +11,9 @@ export const useAppearance = (authUser, appMode) => {
     const [systemPrefersDark, setSystemPrefersDark] = useState(() =>
         typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)').matches : true
     );
-    const [isDayTime, setIsDayTime] = useState(() => {
-        const hr = new Date().getHours();
-        return hr >= 6 && hr < 20; // 6 AM to 8 PM is day
-    });
 
-    // Derived light mode combining user preference, system preference and time
-    const isLightMode = themePreference === 'light' || (themePreference === 'system' && (!systemPrefersDark || isDayTime));
+    // In "system" mode, follow the OS color scheme 1:1.
+    const isLightMode = themePreference === 'light' || (themePreference === 'system' && !systemPrefersDark);
 
     const [customBackgroundColor, setCustomBackgroundColor] = useState('');
     const [backgroundMode, setBackgroundMode] = useState('color');
@@ -27,21 +23,14 @@ export const useAppearance = (authUser, appMode) => {
     const [backgroundEffectsIntensity, setBackgroundEffectsIntensity] = useState(100);
     const [appearanceNotice, setAppearanceNotice] = useState('');
 
-    // Listen for real-time OS theme changes and check time hourly
+    // Listen for real-time OS theme changes
     useEffect(() => {
         const mq = window.matchMedia('(prefers-color-scheme: dark)');
         const handler = (e) => setSystemPrefersDark(e.matches);
         mq.addEventListener('change', handler);
 
-        // Update dayTime state every hour
-        const timer = setInterval(() => {
-            const hr = new Date().getHours();
-            setIsDayTime(hr >= 6 && hr < 20);
-        }, 3600000);
-
         return () => {
             mq.removeEventListener('change', handler);
-            clearInterval(timer);
         };
     }, []);
 
