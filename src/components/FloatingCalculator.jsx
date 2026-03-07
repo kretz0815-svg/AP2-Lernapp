@@ -5,6 +5,16 @@ const CALC_MIN_WIDTH = 220;
 const CALC_MIN_HEIGHT = 320;
 const CALC_MAX_WIDTH = 420;
 const CALC_MAX_HEIGHT = 560;
+const MOBILE_CALC_MIN_WIDTH = 260;
+const MOBILE_CALC_MIN_HEIGHT = 300;
+const MOBILE_VIEWPORT_MARGIN = 8;
+
+const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+const touchDistance = (a, b) => Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+const touchMidpoint = (a, b) => ({
+    x: (a.clientX + b.clientX) / 2,
+    y: (a.clientY + b.clientY) / 2
+});
 
 export default function FloatingCalculator() {
     const [isOpen, setIsOpen] = useState(false);
@@ -24,15 +34,24 @@ export default function FloatingCalculator() {
     });
     const [size, setSize] = useState({ width: 260, height: 350 });
     const [vvState, setVvState] = useState({
+        width: typeof window !== 'undefined' ? window.innerWidth : 390,
         height: typeof window !== 'undefined' ? window.innerHeight : 800,
         offsetTop: 0
     });
+    const [mobileWindow, setMobileWindow] = useState({ x: 12, y: 120, width: 340, height: 420 });
 
     const dragRef = useRef(false);
     const resizeRef = useRef(null);
     const startPosRef = useRef({ x: 0, y: 0 });
     const startSizeRef = useRef({ w: 0, h: 0 });
     const startMouseRef = useRef({ x: 0, y: 0 });
+    const mobileGestureRef = useRef({
+        mode: null,
+        startTouch: null,
+        startDistance: 0,
+        startMidpoint: null,
+        startWindow: null
+    });
 
     useEffect(() => {
         const handleResize = () => {
@@ -54,11 +73,12 @@ export default function FloatingCalculator() {
         const updateVv = () => {
             if (window.visualViewport) {
                 setVvState({
+                    width: window.visualViewport.width,
                     height: window.visualViewport.height,
                     offsetTop: window.visualViewport.offsetTop
                 });
             } else {
-                setVvState({ height: window.innerHeight, offsetTop: 0 });
+                setVvState({ width: window.innerWidth, height: window.innerHeight, offsetTop: 0 });
             }
         };
         if (window.visualViewport) {
@@ -129,6 +149,133 @@ export default function FloatingCalculator() {
             document.removeEventListener('focusin', handleFocusIn);
         };
     }, [isMobile, isOpen]);
+
+    useEffect(() => {
+        if (!isMobile) return;
+        const maxWidth = Math.max(MOBILE_CALC_MIN_WIDTH, vvState.width - (MOBILE_VIEWPORT_MARGIN * 2));
+        const width = clamp(vvState.width - 20, MOBILE_CALC_MIN_WIDTH, Math.min(CALC_MAX_WIDTH, maxWidth));
+        const maxHeight = Math.max(MOBILE_CALC_MIN_HEIGHT, vvState.height - (MOBILE_VIEWPORT_MARGIN * 2));
+        const height = clamp(vvState.height * 0.62, MOBILE_CALC_MIN_HEIGHT, Math.min(500, maxHeight));
+        const x = clamp((vvState.width - width) / 2, MOBILE_VIEWPORT_MARGIN, vvState.width - width - MOBILE_VIEWPORT_MARGIN);
+        const y = clamp(
+            vvState.offsetTop + vvState.height - height - 18,
+            vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
+            vvState.offsetTop + vvState.height - height - MOBILE_VIEWPORT_MARGIN
+        );
+        setMobileWindow({ x, y, width, height });
+    }, [isMobile, isOpen]);
+
+    useEffect(() => {
+        if (!isMobile || !isOpen) return;
+        setMobileWindow((prev) => {
+            const maxWidth = Math.max(MOBILE_CALC_MIN_WIDTH, vvState.width - (MOBILE_VIEWPORT_MARGIN * 2));
+            const width = clamp(prev.width, MOBILE_CALC_MIN_WIDTH, Math.min(CALC_MAX_WIDTH, maxWidth));
+            const maxHeight = Math.max(MOBILE_CALC_MIN_HEIGHT, vvState.height - (MOBILE_VIEWPORT_MARGIN * 2));
+            const height = clamp(prev.height, MOBILE_CALC_MIN_HEIGHT, Math.min(500, maxHeight));
+            const x = clamp(prev.x, MOBILE_VIEWPORT_MARGIN, vvState.width - width - MOBILE_VIEWPORT_MARGIN);
+            const y = clamp(
+                prev.y,
+                vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
+                vvState.offsetTop + vvState.height - height - MOBILE_VIEWPORT_MARGIN
+            );
+            if (x === prev.x && y === prev.y && width === prev.width && height === prev.height) return prev;
+            return { x, y, width, height };
+        });
+    }, [vvState, isMobile, isOpen]);
+
+    const handleMobileWindowTouchStart = (e) => {
+        if (!isMobile) return;
+
+        if (e.touches.length >= 2) {
+            const [a, b] = e.touches;
+            mobileGestureRef.current = {
+                mode: 'pinch',
+                startTouch: null,
+                startDistance: touchDistance(a, b),
+                startMidpoint: touchMidpoint(a, b),
+                startWindow: mobileWindow
+            };
+            return;
+        }
+
+        const touch = e.touches[0];
+        if (!touch) return;
+        mobileGestureRef.current = {
+            mode: 'drag',
+            startTouch: { x: touch.clientX, y: touch.clientY },
+            startDistance: 0,
+            startMidpoint: null,
+            startWindow: mobileWindow
+        };
+    };
+
+    const handleMobileWindowTouchMove = (e) => {
+        if (!isMobile) return;
+        const gesture = mobileGestureRef.current;
+        if (!gesture.mode || !gesture.startWindow) return;
+        if (e.cancelable) e.preventDefault();
+
+        if (gesture.mode === 'drag' && e.touches.length === 1 && gesture.startTouch) {
+            const touch = e.touches[0];
+            const dx = touch.clientX - gesture.startTouch.x;
+            const dy = touch.clientY - gesture.startTouch.y;
+            const nextX = clamp(
+                gesture.startWindow.x + dx,
+                MOBILE_VIEWPORT_MARGIN,
+                vvState.width - gesture.startWindow.width - MOBILE_VIEWPORT_MARGIN
+            );
+            const nextY = clamp(
+                gesture.startWindow.y + dy,
+                vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
+                vvState.offsetTop + vvState.height - gesture.startWindow.height - MOBILE_VIEWPORT_MARGIN
+            );
+            setMobileWindow(prev => ({ ...prev, x: nextX, y: nextY }));
+            return;
+        }
+
+        if (e.touches.length >= 2) {
+            const [a, b] = e.touches;
+            const currentDistance = touchDistance(a, b);
+            const currentMid = touchMidpoint(a, b);
+            const scale = currentDistance / (gesture.startDistance || currentDistance);
+            const maxWidth = Math.max(MOBILE_CALC_MIN_WIDTH, vvState.width - (MOBILE_VIEWPORT_MARGIN * 2));
+            const maxHeight = Math.max(MOBILE_CALC_MIN_HEIGHT, vvState.height - (MOBILE_VIEWPORT_MARGIN * 2));
+            const nextWidth = clamp(
+                gesture.startWindow.width * scale,
+                MOBILE_CALC_MIN_WIDTH,
+                Math.min(CALC_MAX_WIDTH, maxWidth)
+            );
+            const nextHeight = clamp(
+                gesture.startWindow.height * scale,
+                MOBILE_CALC_MIN_HEIGHT,
+                Math.min(500, maxHeight)
+            );
+            const anchorX = gesture.startMidpoint ? gesture.startMidpoint.x : currentMid.x;
+            const anchorY = gesture.startMidpoint ? gesture.startMidpoint.y : currentMid.y;
+            const relX = (anchorX - gesture.startWindow.x) / gesture.startWindow.width;
+            const relY = (anchorY - gesture.startWindow.y) / gesture.startWindow.height;
+            const rawX = currentMid.x - (relX * nextWidth);
+            const rawY = currentMid.y - (relY * nextHeight);
+            const nextX = clamp(rawX, MOBILE_VIEWPORT_MARGIN, vvState.width - nextWidth - MOBILE_VIEWPORT_MARGIN);
+            const nextY = clamp(
+                rawY,
+                vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
+                vvState.offsetTop + vvState.height - nextHeight - MOBILE_VIEWPORT_MARGIN
+            );
+
+            setMobileWindow({ x: nextX, y: nextY, width: nextWidth, height: nextHeight });
+        }
+    };
+
+    const handleMobileWindowTouchEnd = () => {
+        mobileGestureRef.current = {
+            mode: null,
+            startTouch: null,
+            startDistance: 0,
+            startMidpoint: null,
+            startWindow: null
+        };
+    };
 
     const onDragStart = (e) => {
         if (isMobile || e.target.closest('.floating-notes-close') || e.target.closest('.calc-btn')) return;
@@ -311,7 +458,6 @@ export default function FloatingCalculator() {
         'br': { cursor: 'nwse-resize', vBorder: 'borderBottom', hBorder: 'borderRight', vPos: 'bottom', hPos: 'right' }
     }[activeResizeHandle];
 
-    const mobileHeight = Math.min(400, vvState.height * 0.7);
     const visibleTop = vvState.offsetTop;
     const visibleHeight = vvState.height;
     const preferredTop = visibleTop + Math.round(visibleHeight * 0.22);
@@ -360,14 +506,16 @@ export default function FloatingCalculator() {
                     className="floating-notes-window fade-in card-face"
                     style={isMobile ? {
                         position: 'fixed',
-                        left: '0px',
-                        top: `${vvState.offsetTop + vvState.height - mobileHeight}px`,
-                        width: '100vw',
-                        height: `${mobileHeight}px`,
-                        zIndex: 1000, margin: 0, padding: '10px 15px',
+                        left: `${mobileWindow.x}px`,
+                        top: `${mobileWindow.y}px`,
+                        width: `${mobileWindow.width}px`,
+                        height: `${mobileWindow.height}px`,
+                        maxWidth: `${CALC_MAX_WIDTH}px`,
+                        zIndex: 1000, margin: 0, padding: '10px 10px 8px 10px',
                         display: 'flex', flexDirection: 'column',
-                        borderRadius: '24px 24px 0 0', border: '1px solid var(--glass-border)',
-                        borderBottom: 'none', boxShadow: '0 -5px 25px rgba(0,0,0,0.5)', background: 'rgba(0, 0, 0, 0.96)'
+                        borderRadius: '18px', border: '1px solid var(--glass-border)',
+                        boxShadow: '0 8px 30px rgba(0,0,0,0.55)', background: 'rgba(0, 0, 0, 0.96)',
+                        touchAction: 'none'
                     } : {
                         position: 'fixed',
                         left: `${position.x}px`, top: `${position.y}px`,
@@ -380,15 +528,44 @@ export default function FloatingCalculator() {
                     <div
                         className="floating-notes-header"
                         onMouseDown={!isMobile ? onDragStart : undefined}
-                        onTouchStart={!isMobile ? onDragStart : undefined}
-                        style={{ cursor: isMobile ? 'default' : 'move', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px', userSelect: 'none' }}
+                        onTouchStart={isMobile ? handleMobileWindowTouchStart : onDragStart}
+                        onTouchMove={isMobile ? handleMobileWindowTouchMove : undefined}
+                        onTouchEnd={isMobile ? handleMobileWindowTouchEnd : undefined}
+                        onTouchCancel={isMobile ? handleMobileWindowTouchEnd : undefined}
+                        style={{ cursor: isMobile ? 'grab' : 'move', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px', userSelect: 'none', touchAction: 'none' }}
                     >
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'white' }}>Rechner</h3>
-                        <button
-                            className="floating-notes-close"
-                            onClick={() => setIsOpen(false)}
-                            style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', outline: 'none', padding: '0 5px' }}
-                        > &times; </button>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <h3 style={{ margin: 0, fontSize: '1.05rem', color: 'white' }}>Rechner</h3>
+                            {isMobile && (
+                                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.65)' }} title="Ziehen mit 1 Finger, Pinch mit 2 Fingern">
+                                    ↕︎ ziehen / 🤏 zoom
+                                </span>
+                            )}
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            {isMobile && (
+                                <span
+                                    style={{
+                                        width: '22px',
+                                        height: '22px',
+                                        borderRadius: '6px',
+                                        border: '1px solid rgba(255,255,255,0.25)',
+                                        display: 'grid',
+                                        placeItems: 'center',
+                                        fontSize: '0.85rem',
+                                        color: 'rgba(255,255,255,0.75)'
+                                    }}
+                                    title="Mit zwei Fingern im Header zoomen"
+                                >
+                                    ⤢
+                                </span>
+                            )}
+                            <button
+                                className="floating-notes-close"
+                                onClick={() => setIsOpen(false)}
+                                style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', outline: 'none', padding: '0 5px' }}
+                            > &times; </button>
+                        </div>
                     </div>
 
                     <input
