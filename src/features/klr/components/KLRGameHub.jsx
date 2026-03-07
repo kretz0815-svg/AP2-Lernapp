@@ -1,8 +1,10 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useKLRGame } from '../state/KLRGameProvider';
 import { generateLevel2Math, generateLevel4Math } from '../utils/generateLevelMath';
 import { fetchYouTubeVideos } from '../../../youtubeClient';
-import { askGemini } from '../../../geminiClient';
+import { askCyberEinstein, askGemini } from '../../../geminiClient';
+import CyberEinsteinMentor from './CyberEinsteinMentor';
+import './klr-cyber.css';
 
 const LEVELS = [
   {
@@ -231,6 +233,9 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
   const [level4BreakEvenInput, setLevel4BreakEvenInput] = useState('');
   const [level4Status, setLevel4Status] = useState('idle');
   const [level4Feedback, setLevel4Feedback] = useState('');
+  const [mentorState, setMentorState] = useState('booting');
+  const [mentorMessage, setMentorMessage] = useState('Hologramm-System fährt hoch...');
+  const mentorTimeoutRef = useRef(null);
 
   const level1Done = level1Index >= level1Items.length;
   const currentItem = level1Items[level1Index];
@@ -239,6 +244,53 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     if (!level1Items.length) return 0;
     return Math.round((level1Correct / level1Items.length) * 100);
   }, [level1Correct, level1Items.length]);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setMentorState('idle');
+      setMentorMessage('System online. Zeig mir saubere KLR-Logik.');
+    }, 950);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => () => {
+    if (mentorTimeoutRef.current) {
+      clearTimeout(mentorTimeoutRef.current);
+    }
+  }, []);
+
+  const setMentorTransient = (state, message, ms = 2600) => {
+    if (mentorTimeoutRef.current) clearTimeout(mentorTimeoutRef.current);
+    setMentorState(state);
+    setMentorMessage(message);
+    mentorTimeoutRef.current = setTimeout(() => {
+      setMentorState('idle');
+    }, ms);
+  };
+
+  const successLine = () => {
+    const lines = [
+      'Exzellent. Diese Rechnung ist relativitätssicher.',
+      'Sehr gut. Dein Startup bleibt im grünen Bereich.',
+      'Sauber gelöst. Genau so skaliert man ohne Chaos.'
+    ];
+    return lines[Math.floor(Math.random() * lines.length)];
+  };
+
+  const requestMentorError = async (question, expected, userInput) => {
+    setMentorState('speaking');
+    setMentorMessage('Analyse läuft... ich berechne deinen Denkfehler.');
+    try {
+      const response = await askCyberEinstein({
+        userPrompt: `Meine Antwort: ${userInput || 'leer'}`,
+        contextQuestion: question,
+        contextAnswer: expected
+      });
+      setMentorTransient('error', response, 4200);
+    } catch {
+      setMentorTransient('error', 'Relativitätsbruch erkannt. Prüfe Formel und Bezugsbasis erneut.', 3800);
+    }
+  };
 
   const shellStyle = {
     width: '100%',
@@ -269,6 +321,15 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     gap: '0.6rem',
     flexWrap: 'wrap'
   };
+
+  const renderScreen = (content, maxWidth = '980px') => (
+    <div className={`klr-cyber-theme ${mentorState === 'success' ? 'klr-cyber-theme--success' : ''}`}>
+      <div style={{ ...shellStyle, maxWidth }}>
+        {content}
+      </div>
+      <CyberEinsteinMentor state={mentorState} message={mentorMessage} visible />
+    </div>
+  );
 
   const startLevel1 = () => {
     setVideoOpen(false);
@@ -313,12 +374,18 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     if (isCorrect) {
       setLevel1Correct((n) => n + 1);
       setLevel1Feedback('Richtig. Saubere Einordnung.');
+      setMentorTransient('success', successLine(), 1700);
     } else {
       setLevel1Mistakes((n) => n + 1);
       setLevel1Feedback(
         currentItem.category === 'fix'
           ? 'Falsch: Das bleibt unabhängig von der Bestellmenge meist konstant.'
           : 'Falsch: Das steigt oder fällt mit jeder Bestellung.'
+      );
+      requestMentorError(
+        `KLR Level 1: ${currentItem.label}`,
+        currentItem.category === 'fix' ? 'Fixkosten' : 'Variable Kosten',
+        choice === 'fix' ? 'Fixkosten' : 'Variable Kosten'
       );
     }
 
@@ -330,6 +397,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     const bonusXp = Math.max(0, level1Correct * 6 - level1Mistakes * 2);
     grantXp(baseXp + bonusXp);
     if (level1ScorePct >= 75) unlockLevel(2);
+    setMentorTransient('success', 'Level 1 abgeschlossen. Kostenarten sitzen.', 2200);
     setScreen('home');
   };
 
@@ -379,6 +447,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     if (allOkNow) {
       setLevel2Status('success');
       setLevel2Feedback('Perfekt verteilt. Genau richtig!');
+      setMentorTransient('success', 'Betriebsabrechnungsbogen sauber verteilt.', 2200);
     } else if (showFieldFeedback) {
       if (ok) {
         setLevel2Status('idle');
@@ -386,6 +455,11 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
       } else {
         setLevel2Status('error');
         setLevel2Feedback(`${fieldLabel} noch nicht korrekt.`);
+        requestMentorError(
+          `KLR Level 2: Anteil ${fieldLabel}`,
+          `${level2Math.allocations[fieldKey]} €`,
+          Number.isFinite(value) ? String(value) : level2Inputs[fieldKey]
+        );
       }
     }
 
@@ -459,6 +533,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
       });
       setLevel3Status('success');
       setLevel3Feedback('Stark. Zuschlagskalkulation korrekt abgeschlossen.');
+      setMentorTransient('success', 'Perfekt. Dein Kalkulationsmodell ist stimmig.', 2200);
       return;
     }
 
@@ -474,10 +549,13 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     });
     if (!ratesCorrect && !selfCostCorrect) {
       setLevel3Feedback('Noch nicht korrekt: Prüfe die Zuschlagssätze und die Selbstkosten.');
+      requestMentorError('KLR Level 3: Zuschlagskalkulation', `${level3Scenario.selfCost} €`, level3SelfCostInput);
     } else if (!ratesCorrect) {
       setLevel3Feedback('Die Zuschlagssätze passen noch nicht komplett.');
+      requestMentorError('KLR Level 3: Zuschlagssätze', `MGK ${level3Scenario.mgkPct} / FGK ${level3Scenario.fgkPct} / VwGK ${level3Scenario.vwgkPct} / VtGK ${level3Scenario.vtgkPct}`, JSON.stringify(level3Rates));
     } else {
       setLevel3Feedback('Die Selbstkosten sind noch nicht korrekt.');
+      requestMentorError('KLR Level 3: Selbstkosten', `${level3Scenario.selfCost} €`, level3SelfCostInput);
     }
   };
 
@@ -503,6 +581,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
       });
       setLevel4Status('error');
       setLevel4Feedback('Bitte einen erlaubten Preis aus der Liste wählen.');
+      requestMentorError('KLR Level 4: Preiswahl', `Erlaubte Preise: ${math.allowedPrices.join(', ')}`, String(selectedPrice));
       return;
     }
 
@@ -524,6 +603,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
       });
       setLevel4Status('error');
       setLevel4Feedback(`Die Break-Even-Menge passt noch nicht. Rechne: Fixkosten / Deckungsbeitrag.`);
+      requestMentorError('KLR Level 4: Break-Even-Menge', `${expectedUnits} Stück`, level4BreakEvenInput);
       return;
     }
 
@@ -539,6 +619,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
       });
       setLevel4Status('error');
       setLevel4Feedback(`Rechnung korrekt, aber Ziel verfehlt: ${expectedUnits} Stück sind mehr als die Monatskapazität (${level4Mission.capacity}). Wähle einen besseren Preis.`);
+      requestMentorError('KLR Level 4: Kapazität', `<= ${level4Mission.capacity} Stück`, `${expectedUnits} Stück`);
       return;
     }
 
@@ -553,6 +634,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     });
     setLevel4Status('success');
     setLevel4Feedback(`Stark. Break-Even bei ${expectedUnits} Stück und damit innerhalb der Kapazität.`);
+    setMentorTransient('success', 'Mission erfüllt. Dein Startup überlebt diesen Monat.', 2400);
   };
 
   const finishLevel4 = () => {
@@ -593,92 +675,14 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
       };
     }
 
-  if (screen === 'level4') {
-    const math = level4Mission.math;
-    const selectedPrice = Number(level4Price || 0);
-    const db = selectedPrice - math.variableCostPerUnit;
-    const breakEvenUnits = db > 0 ? (math.fixedCost / db) : 0;
-    const targetReached = breakEvenUnits > 0 && breakEvenUnits <= level4Mission.capacity;
-
-    return (
-      <div style={{ ...shellStyle, maxWidth: '840px' }}>
-        {renderActionBar()}
-        {renderSupportPanels()}
-
-        <div style={sectionStyle}>
-          <h2 style={{ margin: '0 0 0.3rem 0' }}>Level 4: Survival-Modus</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '0.8rem' }}>
-            Finale Mission: Dein Startup darf diesen Monat maximal <strong>{level4Mission.capacity}</strong> Stück verkaufen. Erreiche Break-Even innerhalb dieser Kapazität.
-          </p>
-
-          <div style={{ border: '1px solid var(--glass-border)', borderRadius: '14px', padding: '0.85rem', background: 'rgba(2,6,23,0.45)' }}>
-            <p style={{ margin: '0 0 0.25rem 0' }}>Fixkosten (Kf): <strong>{euro(math.fixedCost)}</strong></p>
-            <p style={{ margin: '0 0 0.75rem 0' }}>Variable Kosten pro Stück (kv): <strong>{euro(math.variableCostPerUnit)}</strong></p>
-
-            <div style={{ marginBottom: '0.8rem', padding: '0.65rem', borderRadius: '12px', border: '1px dashed var(--glass-border)' }}>
-              <p style={{ margin: '0 0 0.25rem 0', fontWeight: 700 }}>Formel:</p>
-              <p style={{ margin: 0, color: 'var(--text-muted)' }}>
-                Break-Even-Menge x = Kf / (p - kv)
-              </p>
-            </div>
-
-            <label style={{ display: 'grid', gap: '0.35rem', textAlign: 'left', marginBottom: '0.8rem' }}>
-              <span style={{ fontWeight: 700 }}>Verkaufspreis p wählen (nur glatte, erlaubte Werte)</span>
-              <select
-                className="wisor-input"
-                value={level4Price}
-                onChange={(e) => {
-                  setLevel4Price(Number(e.target.value));
-                  setLevel4Status('idle');
-                }}
-                style={{ maxWidth: '280px' }}
-              >
-                {math.allowedPrices.map((price) => (
-                  <option key={price} value={price}>{euro(price)}</option>
-                ))}
-              </select>
-            </label>
-
-            <div style={{ marginBottom: '0.9rem', padding: '0.65rem', borderRadius: '12px', border: `1px solid ${targetReached ? 'rgba(34,197,94,0.45)' : 'var(--glass-border)'}` }}>
-              <p style={{ margin: '0 0 0.2rem 0' }}>Deckungsbeitrag pro Stück: <strong>{euro(Math.max(db, 0))}</strong></p>
-              <p style={{ margin: 0, color: targetReached ? '#86efac' : 'var(--text-muted)' }}>
-                Rechnerisch benötigte Break-Even-Menge: <strong>{Number.isFinite(breakEvenUnits) ? breakEvenUnits : 0}</strong> Stück
-              </p>
-            </div>
-
-            <label style={{ display: 'grid', gap: '0.3rem', textAlign: 'left' }}>
-              <span>Break-Even-Menge x eingeben (Stück)</span>
-              <input
-                className="wisor-input"
-                inputMode="numeric"
-                value={level4BreakEvenInput}
-                onChange={(e) => {
-                  setLevel4BreakEvenInput(e.target.value.replace(/\D/g, ''));
-                  setLevel4Status('idle');
-                }}
-                onKeyDown={(e) => {
-                  if (e.key !== 'Enter' && e.key !== 'NumpadEnter') return;
-                  e.preventDefault();
-                  checkLevel4();
-                }}
-                style={{ maxWidth: '240px' }}
-              />
-            </label>
-
-            <div style={{ marginTop: '0.85rem', display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
-              <button className="btn-primary" onClick={checkLevel4}>Prüfen</button>
-              <button className="btn-secondary" onClick={startLevel4}>Neue Mission</button>
-              {level4Status === 'success' && <button className="btn-primary" onClick={finishLevel4}>Finale abschließen</button>}
-            </div>
-
-            {!!level4Feedback && (
-              <p style={{ marginTop: '0.7rem', color: level4Status === 'success' ? '#86efac' : '#fca5a5' }}>{level4Feedback}</p>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
+    if (screen === 'level4') {
+      const math = level4Mission.math;
+      return {
+        youtubeQuery: 'Break-Even-Analyse E-Commerce einfach erklärt',
+        contextQuestion: 'KLR Level 4: Survival-Modus Break-Even',
+        contextAnswer: `Fixkosten ${math.fixedCost} €, variable Kosten ${math.variableCostPerUnit} €, Zielkapazität ${level4Mission.capacity} Stück.`
+      };
+    }
     if (screen === 'pending') {
       const lvl = LEVELS.find((x) => x.id === pendingLevelId);
       return {
@@ -725,12 +729,16 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     if (!geminiQuery.trim()) return;
     setGeminiLoading(true);
     setGeminiResponse('');
+    setMentorState('speaking');
+    setMentorMessage('Denkmatrix aktiv... ich formuliere es kurz.');
     try {
       const { contextQuestion, contextAnswer } = getSupportContext();
       const response = await askGemini(geminiQuery, contextQuestion, contextAnswer);
       setGeminiResponse(response);
+      setMentorTransient('speaking', response, 3800);
     } catch {
       setGeminiResponse('Die KI-Antwort konnte gerade nicht geladen werden.');
+      setMentorTransient('error', 'Signalstörung. Versuche die Frage gleich erneut.', 2800);
     } finally {
       setGeminiLoading(false);
     }
@@ -759,7 +767,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
       </div>
 
       {videoOpen && (
-        <div className="fade-in" style={{ marginBottom: '1.2rem', width: '100%' }}>
+        <div className="fade-in klr-wire" style={{ marginBottom: '1.2rem', width: '100%', borderRadius: '16px', padding: '0.65rem' }}>
           {!selectedVideo ? (
             <>
               {videoLoading ? (
@@ -807,7 +815,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
       )}
 
       {geminiVisible && (
-        <div className="fade-in" style={{ marginBottom: '1.2rem', width: '100%', borderRadius: '16px', padding: '1.2rem', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
+        <div className="fade-in klr-wire" style={{ marginBottom: '1.2rem', width: '100%', borderRadius: '16px', padding: '1.2rem', backdropFilter: 'blur(16px)' }}>
           <p style={{ color: 'var(--text-light)', marginBottom: '0.8rem', fontSize: '1rem', fontWeight: 'bold' }}>Frage an deinen KI-Tutor</p>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             <input
@@ -840,26 +848,26 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
   );
 
   const renderActionBar = (leftText = '← Levelauswahl', leftAction = () => setScreen('home')) => (
-    <div style={topBarStyle}>
+    <div className="klr-wire" style={topBarStyle}>
       <button className="btn-secondary" onClick={leftAction}>{leftText}</button>
       <button className="btn-secondary" onClick={() => onBack?.()}>✕ Menü</button>
     </div>
   );
 
   if (screen === 'level1') {
-    return (
-      <div style={{ ...shellStyle, maxWidth: '760px' }}>
+    return renderScreen(
+      <>
         {renderActionBar()}
         {renderSupportPanels()}
 
-        <div style={sectionStyle}>
+        <div className="klr-wire" style={sectionStyle}>
           <h2 style={{ margin: '0 0 0.25rem 0' }}>Level 1: Rechnungs-Tinder</h2>
           <p style={{ color: 'var(--text-muted)', marginTop: '0.45rem' }}>
             Entscheide pro Karte: <strong>Fixkosten</strong> oder <strong>Variable Kosten</strong>.
           </p>
 
           {!level1Done ? (
-            <div style={{ marginTop: '0.55rem', border: '1px solid var(--glass-border)', borderRadius: '16px', padding: '0.85rem', background: 'rgba(2,6,23,0.45)' }}>
+            <div className="klr-wire" style={{ marginTop: '0.55rem', borderRadius: '16px', padding: '0.85rem' }}>
               <div style={{ color: 'var(--text-muted)', fontSize: '0.86rem', marginBottom: '0.5rem' }}>
                 Aufgabe {level1Index + 1} von {level1Items.length}
               </div>
@@ -908,7 +916,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
               )}
             </div>
           ) : (
-            <div style={{ marginTop: '0.55rem', border: '1px solid var(--glass-border)', borderRadius: '16px', padding: '0.85rem', background: 'rgba(2,6,23,0.45)' }}>
+            <div className="klr-wire" style={{ marginTop: '0.55rem', borderRadius: '16px', padding: '0.85rem' }}>
               <h3 style={{ marginTop: 0 }}>Level abgeschlossen</h3>
               <p style={{ marginBottom: '0.5rem' }}>Treffer: <strong>{level1Correct}</strong> / {level1Items.length}</p>
               <p style={{ marginTop: 0, marginBottom: '0.8rem' }}>Fehler: <strong>{level1Mistakes}</strong> · Score: <strong>{level1ScorePct}%</strong></p>
@@ -920,23 +928,24 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
             </div>
           )}
         </div>
-      </div>
+      </>,
+      '760px'
     );
   }
 
   if (screen === 'level2') {
-    return (
-      <div style={{ ...shellStyle, maxWidth: '760px' }}>
+    return renderScreen(
+      <>
         {renderActionBar()}
         {renderSupportPanels()}
 
-        <div style={sectionStyle}>
+        <div className="klr-wire" style={sectionStyle}>
           <h2 style={{ margin: '0 0 0.3rem 0' }}>Level 2: Betriebsabrechnungsbogen</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
             Verteile die Gemeinkosten korrekt auf Lager, Packstation und Büro.
           </p>
 
-          <div style={{ border: '1px solid var(--glass-border)', borderRadius: '14px', padding: '0.8rem', background: 'rgba(2,6,23,0.45)' }}>
+          <div className="klr-wire" style={{ borderRadius: '14px', padding: '0.8rem' }}>
             <p style={{ margin: '0 0 0.3rem 0' }}>Gesamtkosten: <strong>{euro(level2Math.baseCost)}</strong></p>
             <p style={{ margin: '0 0 0.6rem 0' }}>Verteilerschlüssel (m²): Lager <strong>{level2Math.key.lager}</strong> · Packstation <strong>{level2Math.key.packstation}</strong> · Büro <strong>{level2Math.key.buero}</strong></p>
 
@@ -1037,18 +1046,107 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
             )}
           </div>
         </div>
-      </div>
+      </>,
+      '760px'
+    );
+  }
+
+  if (screen === 'level4') {
+    const math = level4Mission.math;
+    const selectedPrice = Number(level4Price || 0);
+    const db = selectedPrice - math.variableCostPerUnit;
+    const breakEvenUnits = db > 0 ? (math.fixedCost / db) : 0;
+    const targetReached = breakEvenUnits > 0 && breakEvenUnits <= level4Mission.capacity;
+
+    return renderScreen(
+      <>
+        {renderActionBar()}
+        {renderSupportPanels()}
+
+        <div className="klr-wire" style={sectionStyle}>
+          <h2 style={{ margin: '0 0 0.3rem 0' }}>Level 4: Survival-Modus</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '0.8rem' }}>
+            Finale Mission: Dein Startup darf diesen Monat maximal <strong>{level4Mission.capacity}</strong> Stück verkaufen. Erreiche Break-Even innerhalb dieser Kapazität.
+          </p>
+
+          <div className="klr-wire" style={{ borderRadius: '14px', padding: '0.85rem' }}>
+            <p style={{ margin: '0 0 0.25rem 0' }}>Fixkosten (Kf): <strong>{euro(math.fixedCost)}</strong></p>
+            <p style={{ margin: '0 0 0.75rem 0' }}>Variable Kosten pro Stück (kv): <strong>{euro(math.variableCostPerUnit)}</strong></p>
+
+            <div className="klr-wire" style={{ marginBottom: '0.8rem', padding: '0.65rem', borderRadius: '12px' }}>
+              <p style={{ margin: '0 0 0.25rem 0', fontWeight: 700 }}>Formel:</p>
+              <p style={{ margin: 0, color: 'var(--text-muted)' }}>
+                Break-Even-Menge x = Kf / (p - kv)
+              </p>
+            </div>
+
+            <label style={{ display: 'grid', gap: '0.35rem', textAlign: 'left', marginBottom: '0.8rem' }}>
+              <span style={{ fontWeight: 700 }}>Verkaufspreis p wählen (nur glatte, erlaubte Werte)</span>
+              <select
+                className="wisor-input"
+                value={level4Price}
+                onChange={(e) => {
+                  setLevel4Price(Number(e.target.value));
+                  setLevel4Status('idle');
+                }}
+                style={{ maxWidth: '280px' }}
+              >
+                {math.allowedPrices.map((price) => (
+                  <option key={price} value={price}>{euro(price)}</option>
+                ))}
+              </select>
+            </label>
+
+            <div className="klr-wire" style={{ marginBottom: '0.9rem', padding: '0.65rem', borderRadius: '12px', borderColor: targetReached ? 'rgba(255,212,103,0.58)' : 'var(--glass-border)' }}>
+              <p style={{ margin: '0 0 0.2rem 0' }}>Deckungsbeitrag pro Stück: <strong>{euro(Math.max(db, 0))}</strong></p>
+              <p style={{ margin: 0, color: targetReached ? '#fef08a' : 'var(--text-muted)' }}>
+                Rechnerisch benötigte Break-Even-Menge: <strong>{Number.isFinite(breakEvenUnits) ? breakEvenUnits : 0}</strong> Stück
+              </p>
+            </div>
+
+            <label style={{ display: 'grid', gap: '0.3rem', textAlign: 'left' }}>
+              <span>Break-Even-Menge x eingeben (Stück)</span>
+              <input
+                className="wisor-input"
+                inputMode="numeric"
+                value={level4BreakEvenInput}
+                onChange={(e) => {
+                  setLevel4BreakEvenInput(e.target.value.replace(/\D/g, ''));
+                  setLevel4Status('idle');
+                }}
+                onKeyDown={(e) => {
+                  if (e.key !== 'Enter' && e.key !== 'NumpadEnter') return;
+                  e.preventDefault();
+                  checkLevel4();
+                }}
+                style={{ maxWidth: '240px' }}
+              />
+            </label>
+
+            <div style={{ marginTop: '0.85rem', display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+              <button className="btn-primary" onClick={checkLevel4}>Prüfen</button>
+              <button className="btn-secondary" onClick={startLevel4}>Neue Mission</button>
+              {level4Status === 'success' && <button className="btn-primary" onClick={finishLevel4}>Finale abschließen</button>}
+            </div>
+
+            {!!level4Feedback && (
+              <p style={{ marginTop: '0.7rem', color: level4Status === 'success' ? '#fef08a' : '#fca5a5' }}>{level4Feedback}</p>
+            )}
+          </div>
+        </div>
+      </>,
+      '840px'
     );
   }
 
   if (screen === 'pending') {
     const level = LEVELS.find((x) => x.id === pendingLevelId);
-    return (
-      <div style={{ ...shellStyle, maxWidth: '760px' }}>
+    return renderScreen(
+      <>
         {renderActionBar()}
         {renderSupportPanels()}
 
-        <div style={sectionStyle}>
+        <div className="klr-wire" style={sectionStyle}>
           <h2 style={{ marginTop: 0 }}>{level?.title}</h2>
           <p style={{ color: 'var(--text-muted)' }}>{level?.objective}</p>
           <h3 style={{ marginTop: 0 }}>Nächster Build-Schritt</h3>
@@ -1056,7 +1154,8 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
             Dieses Level ist als nächstes dran und wird als echte Spielansicht umgesetzt.
           </p>
         </div>
-      </div>
+      </>,
+      '760px'
     );
   }
 
@@ -1071,24 +1170,24 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     const selectedSalesOverhead = Math.round((selectedProductionCost * level3Rates.vtgkPct) / 100);
     const selectedSelfCost = selectedProductionCost + selectedAdminOverhead + selectedSalesOverhead;
 
-    return (
-      <div style={{ ...shellStyle, maxWidth: '820px' }}>
+    return renderScreen(
+      <>
         {renderActionBar()}
         {renderSupportPanels()}
 
-        <div style={sectionStyle}>
+        <div className="klr-wire" style={sectionStyle}>
           <h2 style={{ margin: '0 0 0.3rem 0' }}>Level 3: Produkt-Kalkulator</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '0.7rem' }}>
             Kontext: Du bist im Controlling eines Streetwear-Startups und kalkulierst den Preis für den neuen Hoodie.
           </p>
 
-          <div style={{ border: '1px solid var(--glass-border)', borderRadius: '14px', padding: '0.85rem', background: 'rgba(2,6,23,0.45)' }}>
+          <div className="klr-wire" style={{ borderRadius: '14px', padding: '0.85rem' }}>
             <p style={{ margin: '0 0 0.35rem 0' }}><strong>Mission:</strong> Ermittle die korrekten Zuschlagssätze und berechne die Selbstkosten pro Stück.</p>
             <p style={{ margin: '0 0 0.25rem 0' }}>Produkt: <strong>Hoodie Pro</strong></p>
             <p style={{ margin: '0 0 0.25rem 0' }}>Materialeinzelkosten (MEK): <strong>{euro(level3Scenario.materialDirect)}</strong></p>
             <p style={{ margin: '0 0 0.6rem 0' }}>Fertigungseinzelkosten (FEK): <strong>{euro(level3Scenario.laborDirect)}</strong></p>
 
-            <div style={{ marginBottom: '0.8rem', padding: '0.65rem', borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'rgba(15,23,42,0.28)' }}>
+            <div className="klr-wire" style={{ marginBottom: '0.8rem', padding: '0.65rem', borderRadius: '12px' }}>
               <p style={{ margin: '0 0 0.35rem 0', fontWeight: 700 }}>Gegeben aus dem Monatsreport:</p>
               <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>Materialgemeinkosten absolut: <strong style={{ color: 'var(--text-light)' }}>{euro(level3Scenario.materialOverhead)}</strong></p>
               <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>Fertigungsgemeinkosten absolut: <strong style={{ color: 'var(--text-light)' }}>{euro(level3Scenario.laborOverhead)}</strong></p>
@@ -1106,7 +1205,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
                 {level3HelpOpen ? '❓ Hilfe schließen' : '❓ Hilfe: Begriffe & Rechenweg'}
               </button>
               {level3HelpOpen && (
-                <div style={{ marginTop: '0.55rem', padding: '0.65rem', borderRadius: '12px', border: '1px dashed var(--glass-border)' }}>
+                <div className="klr-wire" style={{ marginTop: '0.55rem', padding: '0.65rem', borderRadius: '12px' }}>
                   <p style={{ margin: '0 0 0.35rem 0', fontWeight: 700 }}>Begriffe:</p>
                   <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>MEK = Materialeinzelkosten</p>
                   <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>FEK = Fertigungseinzelkosten</p>
@@ -1151,7 +1250,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
               })}
             </div>
 
-            <div style={{ marginTop: '0.9rem', padding: '0.7rem', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
+            <div className="klr-wire" style={{ marginTop: '0.9rem', padding: '0.7rem', borderRadius: '12px' }}>
               <p style={{ margin: '0 0 0.4rem 0' }}>Deine aktuelle Selbstkosten-Rechnung: <strong>{euro(selectedSelfCost)}</strong></p>
               <label style={{ display: 'grid', gap: '0.3rem', textAlign: 'left' }}>
                 <span>Selbstkosten eingeben (€)</span>
@@ -1184,17 +1283,18 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
             )}
           </div>
         </div>
-      </div>
+      </>,
+      '820px'
     );
   }
 
-  return (
-    <div style={shellStyle}>
-      <div style={{ ...topBarStyle, marginBottom: '0.1rem' }}>
+  return renderScreen(
+    <>
+      <div className="klr-wire" style={{ ...topBarStyle, marginBottom: '0.1rem' }}>
         <button className="btn-secondary" onClick={() => onBack?.()}>← Menü</button>
       </div>
 
-      <div style={sectionStyle}>
+      <div className="klr-wire" style={sectionStyle}>
         <h2 style={{ marginTop: 0 }}>KLR Startup Survival</h2>
         <p style={{ color: 'var(--text-muted)' }}>
           Du rettest ein E-Commerce-Startup vor der Pleite. Jedes Level trainiert einen KLR-Baustein.
@@ -1230,7 +1330,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
           </div>
         </div>
 
-        <div style={{ ...sectionStyle, margin: '0 0 0.2rem 0', padding: '0.8rem 0.9rem', borderRadius: '14px' }}>
+        <div className="klr-wire" style={{ ...sectionStyle, margin: '0 0 0.2rem 0', padding: '0.8rem 0.9rem', borderRadius: '14px' }}>
           <button
             type="button"
             onClick={() => setHowToOpen((v) => !v)}
@@ -1267,6 +1367,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
           return (
             <div
               key={lvl.id}
+              className="klr-wire"
               style={{
                 ...sectionStyle,
                 opacity: unlocked ? 1 : 0.78,
@@ -1313,6 +1414,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
           );
         })}
       </div>
-    </div>
+    </>,
+    '980px'
   );
 }

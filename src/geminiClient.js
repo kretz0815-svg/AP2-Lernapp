@@ -41,6 +41,35 @@ Bitte antworte ermutigend, kurz, prägnant und fachlich korrekt in einem leicht 
     }
 }
 
+export async function askCyberEinstein({ userPrompt, contextQuestion, contextAnswer }) {
+    if (!genAI) {
+        return 'Mentor-System offline: Gemini-Key fehlt.';
+    }
+
+    try {
+        const prompt = `Du bist ein geniales, aber leicht schrulliges Einstein-Hologramm-Mentor-System.
+Du erklärst KLR-Fehler praxisnah anhand von E-Commerce-Beispielen.
+Wenn es passt, nutze einen humorvollen Einstein-Ton.
+Maximal 2 Sätze. Kurz, direkt, bestimmt.
+
+Kontext-Aufgabe:
+"${contextQuestion || 'KLR-Aufgabe'}"
+Korrekte Referenz:
+"${contextAnswer || 'Keine Referenz'}"
+Nutzer-Eingabe:
+"${userPrompt || 'Keine Eingabe'}"
+
+Antworte auf Deutsch.`;
+
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+        const result = await model.generateContent(prompt);
+        return result.response.text();
+    } catch (error) {
+        console.error('askCyberEinstein error:', error);
+        return 'Mein Freund, dein Rechenweg hat ein Glitch. Prüfe Basiswert und Formel noch einmal.';
+    }
+}
+
 export async function extractFocusTopics(wrongQuestions) {
     if (!genAI || !wrongQuestions || wrongQuestions.length === 0) {
         return { topics: [] };
