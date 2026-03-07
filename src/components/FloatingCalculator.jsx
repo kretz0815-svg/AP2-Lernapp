@@ -109,6 +109,27 @@ export default function FloatingCalculator() {
         };
     }, [isMobile]);
 
+    useEffect(() => {
+        if (!isMobile || !isOpen) return;
+
+        const isExternalFormField = (el) => {
+            if (!el) return false;
+            if (el.closest('.floating-notes-window')) return false;
+            return Boolean(el.closest('input, textarea, [contenteditable="true"]'));
+        };
+
+        const handleFocusIn = (e) => {
+            if (isExternalFormField(e.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('focusin', handleFocusIn);
+        return () => {
+            document.removeEventListener('focusin', handleFocusIn);
+        };
+    }, [isMobile, isOpen]);
+
     const onDragStart = (e) => {
         if (isMobile || e.target.closest('.floating-notes-close') || e.target.closest('.calc-btn')) return;
         dragRef.current = true;
