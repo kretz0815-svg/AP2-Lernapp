@@ -19,6 +19,7 @@ const touchMidpoint = (a, b) => ({
 export default function FloatingCalculator() {
     const [isOpen, setIsOpen] = useState(false);
     const [avoidInput, setAvoidInput] = useState(false);
+    const [hasCalcActivity, setHasCalcActivity] = useState(false);
 
     // Calculator State
     const [currentValue, setCurrentValue] = useState('0');
@@ -370,6 +371,7 @@ export default function FloatingCalculator() {
     };
 
     const handleDigit = (digit) => {
+        setHasCalcActivity(true);
         if (waitingForNewValue) {
             setCurrentValue(digit);
             setWaitingForNewValue(false);
@@ -379,6 +381,7 @@ export default function FloatingCalculator() {
     };
 
     const handleOperator = (nextOperator) => {
+        setHasCalcActivity(true);
         const inputValue = parseFloat(currentValue);
         if (operator && !waitingForNewValue) {
             const result = calculate(prevValue, inputValue, operator);
@@ -392,6 +395,7 @@ export default function FloatingCalculator() {
     };
 
     const handleEquals = () => {
+        setHasCalcActivity(true);
         if (!operator) return;
         const inputValue = parseFloat(currentValue);
         const result = calculate(prevValue, inputValue, operator);
@@ -402,6 +406,7 @@ export default function FloatingCalculator() {
     };
 
     const handleClear = () => {
+        setHasCalcActivity(true);
         setCurrentValue('0');
         setPrevValue(null);
         setOperator(null);
@@ -409,6 +414,7 @@ export default function FloatingCalculator() {
     };
 
     const handleBackspace = () => {
+        setHasCalcActivity(true);
         if (waitingForNewValue) {
             setWaitingForNewValue(false);
             setCurrentValue('0');
@@ -425,14 +431,17 @@ export default function FloatingCalculator() {
     };
 
     const handleToggleSign = () => {
+        setHasCalcActivity(true);
         setCurrentValue(String(parseFloat(currentValue) * -1));
     };
 
     const handlePercent = () => {
+        setHasCalcActivity(true);
         setCurrentValue(String(parseFloat(currentValue) / 100));
     };
 
     const handleDot = () => {
+        setHasCalcActivity(true);
         if (waitingForNewValue) {
             setCurrentValue('0.');
             setWaitingForNewValue(false);
@@ -477,6 +486,9 @@ export default function FloatingCalculator() {
             top: `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
             zIndex: 1000
         };
+    const helperValue = String(currentValue ?? '').replace('.', ',');
+    const helperText = helperValue.length > 14 ? `${helperValue.slice(0, 14)}…` : helperValue;
+    const showMobileResultHelper = isMobile && !isOpen && avoidInput && hasCalcActivity;
 
     return (
         <>
@@ -573,6 +585,7 @@ export default function FloatingCalculator() {
                         style={{ fontSize, border: 'none', outline: 'none', width: '100%', textAlign: 'right', background: 'transparent', color: 'inherit', fontFamily: 'inherit', fontWeight: 'inherit', caretColor: 'rgba(255,255,255,0.6)' }}
                         value={currentValue}
                         onChange={(e) => {
+                            setHasCalcActivity(true);
                             const raw = e.target.value.replace(',', '.').replace(/[^0-9.-]/g, '');
                             if (raw === '' || raw === '-') { setCurrentValue(raw || '0'); return; }
                             // Prevent multiple dots
@@ -583,6 +596,7 @@ export default function FloatingCalculator() {
                         }}
                         onPaste={(e) => {
                             e.preventDefault();
+                            setHasCalcActivity(true);
                             const pasted = (e.clipboardData.getData('text') || '').replace(',', '.').replace(/[^0-9.-]/g, '');
                             if (pasted) {
                                 setCurrentValue(pasted);
@@ -645,6 +659,29 @@ export default function FloatingCalculator() {
                             }} />
                         </>
                     )}
+                </div>
+            )}
+            {showMobileResultHelper && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        right: '12px',
+                        top: 'calc(env(safe-area-inset-top, 0px) + 12px)',
+                        zIndex: 1001,
+                        padding: '8px 12px',
+                        borderRadius: '12px',
+                        background: 'rgba(0,0,0,0.88)',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        color: '#fff',
+                        fontWeight: 700,
+                        fontSize: '0.95rem',
+                        lineHeight: 1,
+                        pointerEvents: 'none',
+                        boxShadow: '0 6px 18px rgba(0,0,0,0.4)'
+                    }}
+                    aria-hidden="true"
+                >
+                    {helperText}
                 </div>
             )}
         </>
