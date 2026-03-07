@@ -219,6 +219,7 @@ function App() {
     typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)').matches : true
   );
   const isLightMode = themePreference === 'light' || (themePreference === 'system' && !systemPrefersDark);
+  const [authUser, setAuthUser] = useState(null);
 
   // Listen for real-time OS theme changes
   useEffect(() => {
@@ -481,7 +482,7 @@ function App() {
   const [authLoading, setAuthLoading] = useState(false);
   const [authMsg, setAuthMsg] = useState('');
   const [captchaError, setCaptchaError] = useState('');
-  const [authUser, setAuthUser] = useState(null);
+
   const [captchaToken, setCaptchaToken] = useState(null);
   const captchaRef = useRef(null);
   const SECRET_PIN = '261115'; // Das Passwort, das du später ändern kannst
@@ -710,7 +711,7 @@ function App() {
             orientationGranted = true;
             window.addEventListener('deviceorientation', handleOrientation);
           }
-        }).catch(() => {});
+        }).catch(() => { });
       } else if ('DeviceOrientationEvent' in window) {
         orientationGranted = true;
         window.addEventListener('deviceorientation', handleOrientation);
