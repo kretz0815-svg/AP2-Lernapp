@@ -291,17 +291,23 @@ export default function FloatingCalculator() {
     }[activeResizeHandle];
 
     const mobileHeight = Math.min(400, vvState.height * 0.7);
+    const visibleTop = vvState.offsetTop;
+    const visibleHeight = vvState.height;
+    const preferredTop = visibleTop + Math.round(visibleHeight * 0.22);
+    const minTop = visibleTop + 72;
+    const maxTop = visibleTop + Math.max(92, visibleHeight - 180);
+    const mobileTop = Math.max(minTop, Math.min(preferredTop, maxTop));
     const mobileToggleStyle = avoidInput
         ? {
             position: 'fixed',
             left: '12px',
-            top: 'calc(env(safe-area-inset-top, 0px) + 88px)',
+            top: `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
             zIndex: 1000
         }
         : {
             position: 'fixed',
             right: '12px',
-            top: 'calc(env(safe-area-inset-top, 0px) + 88px)',
+            top: `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
             zIndex: 1000
         };
 
