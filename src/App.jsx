@@ -1573,11 +1573,12 @@ ${feynmanInput}`;
   // --- GLOBAL STATS + BURGER MENU (available in ALL modes) ---
   const allQuizQuestions = getAllQuizQuestions();
   const quizProg = quizProgressView || {};
+  const nowTs = Date.now();
   const quizLearnedCount = allQuizQuestions.reduce((count, question) => {
     const questionId = question.id || generateId(question.question);
     const progress = quizProg[questionId];
     if (!progress) return count;
-    return count + ((progress.rep || 0) > 0 ? 1 : 0);
+    return count + ((progress.nextReview || 0) > nowTs ? 1 : 0);
   }, 0);
   const wisorQuestions = wisor1.questions || [];
   const wisorEcoQuestions = wisorEco.questions || [];
