@@ -1996,20 +1996,24 @@ ${feynmanInput}`;
 
   if (appMode === 'klr') {
     return (
-      <div className="app-container" style={{ zIndex: 10 }}>
-        {pomodoroPortal}
-        {burgerMenuPortal}
-        <div className="blob blob-1"></div>
-        <div className="blob blob-2"></div>
-        <header style={{ width: '100%', maxWidth: '920px' }}>
-          <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '0.8rem' }}>
-            <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
-          </div>
-          <h1 style={{ margin: 0, fontSize: '2.2rem', color: 'var(--text-light)' }}>KLR Startup Survival</h1>
-          <p className="subtitle" style={{ marginTop: '0.5rem' }}>Architektur-, State- und Mathe-Basis für das neue KLR-Spiel.</p>
-        </header>
-        <KLRGameHub onBack={() => setAppMode('dashboard')} />
-      </div>
+      <>
+        <div className="app-container" style={{ zIndex: 10 }}>
+          {pomodoroPortal}
+          {burgerMenuPortal}
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <header style={{ width: '100%', maxWidth: '920px' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '0.8rem' }}>
+              <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
+            </div>
+            <h1 style={{ margin: 0, fontSize: '2.2rem', color: 'var(--text-light)' }}>KLR Startup Survival</h1>
+            <p className="subtitle" style={{ marginTop: '0.5rem' }}>Architektur-, State- und Mathe-Basis für das neue KLR-Spiel.</p>
+          </header>
+          <KLRGameHub onBack={() => setAppMode('dashboard')} />
+        </div>
+        <FloatingNotes questionId="klr_game" questionText="KLR Startup Survival" />
+        <FloatingCalculator />
+      </>
     );
   }
 

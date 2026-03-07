@@ -10,14 +10,18 @@ const MOBILE_CALC_MIN_HEIGHT = 300;
 const MOBILE_VIEWPORT_MARGIN = 8;
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-const getMobileWindowDimensions = (vvState, isLarge) => {
+const getMobileWindowDimensions = (vvState, sizeMode) => {
     const maxWidth = Math.max(MOBILE_CALC_MIN_WIDTH, vvState.width - (MOBILE_VIEWPORT_MARGIN * 2));
     const maxHeight = Math.max(MOBILE_CALC_MIN_HEIGHT, vvState.height - (MOBILE_VIEWPORT_MARGIN * 2));
-    const widthTarget = isLarge ? vvState.width - 12 : vvState.width - 20;
-    const heightTarget = isLarge ? vvState.height * 0.8 : vvState.height * 0.62;
+    const presets = {
+        small: { widthTarget: vvState.width - 28, heightTarget: vvState.height * 0.5 },
+        medium: { widthTarget: vvState.width - 20, heightTarget: vvState.height * 0.62 },
+        large: { widthTarget: vvState.width - 12, heightTarget: vvState.height * 0.8 }
+    };
+    const preset = presets[sizeMode] || presets.medium;
     return {
-        width: clamp(widthTarget, MOBILE_CALC_MIN_WIDTH, Math.min(CALC_MAX_WIDTH, maxWidth)),
-        height: clamp(heightTarget, MOBILE_CALC_MIN_HEIGHT, Math.min(560, maxHeight))
+        width: clamp(preset.widthTarget, MOBILE_CALC_MIN_WIDTH, Math.min(CALC_MAX_WIDTH, maxWidth)),
+        height: clamp(preset.heightTarget, MOBILE_CALC_MIN_HEIGHT, Math.min(560, maxHeight))
     };
 };
 
@@ -45,7 +49,7 @@ export default function FloatingCalculator() {
         offsetTop: 0
     });
     const [mobileWindow, setMobileWindow] = useState({ x: 12, y: 120, width: 340, height: 420 });
-    const [mobileIsLarge, setMobileIsLarge] = useState(false);
+    const [mobileSizeMode, setMobileSizeMode] = useState('medium');
 
     const dragRef = useRef(false);
     const resizeRef = useRef(null);
@@ -157,7 +161,7 @@ export default function FloatingCalculator() {
 
     useEffect(() => {
         if (!isMobile || !isOpen) return;
-        const { width, height } = getMobileWindowDimensions(vvState, mobileIsLarge);
+        const { width, height } = getMobileWindowDimensions(vvState, mobileSizeMode);
         const x = clamp((vvState.width - width) / 2, MOBILE_VIEWPORT_MARGIN, vvState.width - width - MOBILE_VIEWPORT_MARGIN);
         const y = clamp(
             vvState.offsetTop + vvState.height - height - 18,
@@ -165,7 +169,7 @@ export default function FloatingCalculator() {
             vvState.offsetTop + vvState.height - height - MOBILE_VIEWPORT_MARGIN
         );
         setMobileWindow({ x, y, width, height });
-    }, [isMobile, isOpen, mobileIsLarge, vvState]);
+    }, [isMobile, isOpen, mobileSizeMode, vvState]);
 
     useEffect(() => {
         if (!isMobile || !isOpen) return;
@@ -229,9 +233,11 @@ export default function FloatingCalculator() {
 
     const handleToggleMobileSize = () => {
         if (!isMobile) return;
-        const nextIsLarge = !mobileIsLarge;
-        setMobileIsLarge(nextIsLarge);
-        const { width: nextWidth, height: nextHeight } = getMobileWindowDimensions(vvState, nextIsLarge);
+        const order = ['large', 'medium', 'small'];
+        const currentIdx = order.indexOf(mobileSizeMode);
+        const nextMode = order[(currentIdx + 1) % order.length];
+        setMobileSizeMode(nextMode);
+        const { width: nextWidth, height: nextHeight } = getMobileWindowDimensions(vvState, nextMode);
 
         setMobileWindow((prev) => {
             const centerX = prev.x + (prev.width / 2);
@@ -536,9 +542,9 @@ export default function FloatingCalculator() {
                                         padding: 0,
                                         cursor: 'pointer'
                                     }}
-                                    title={mobileIsLarge ? 'Rechner kleiner' : 'Rechner größer'}
+                                    title={`Rechnergröße wechseln (${mobileSizeMode === 'large' ? 'groß' : mobileSizeMode === 'medium' ? 'mittel' : 'klein'})`}
                                 >
-                                    {mobileIsLarge ? '⤡' : '⤢'}
+                                    {mobileSizeMode === 'large' ? 'L' : mobileSizeMode === 'medium' ? 'M' : 'S'}
                                 </button>
                             )}
                             <button
