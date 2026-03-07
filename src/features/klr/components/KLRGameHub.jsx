@@ -128,6 +128,7 @@ export default function KLRGameHub({ onBack }) {
   const [level2Math, setLevel2Math] = useState(() => generateLevel2Math());
   const [level2Inputs, setLevel2Inputs] = useState({ lager: '', packstation: '', buero: '' });
   const [level2FieldOk, setLevel2FieldOk] = useState({ lager: null, packstation: null, buero: null });
+  const [level2Attempts, setLevel2Attempts] = useState({ lager: 0, packstation: 0, buero: 0 });
   const [level2Status, setLevel2Status] = useState('idle');
   const [level2Feedback, setLevel2Feedback] = useState('');
 
@@ -182,6 +183,7 @@ export default function KLRGameHub({ onBack }) {
     setLevel2Math(generateLevel2Math());
     setLevel2Inputs({ lager: '', packstation: '', buero: '' });
     setLevel2FieldOk({ lager: null, packstation: null, buero: null });
+    setLevel2Attempts({ lager: 0, packstation: 0, buero: 0 });
     setLevel2Status('idle');
     setLevel2Feedback('');
     setScreen('level2');
@@ -239,6 +241,11 @@ export default function KLRGameHub({ onBack }) {
       buero: Number.isFinite(parsed.buero) && centsEqual(parsed.buero, expected.buero)
     };
     setLevel2FieldOk(fieldStatus);
+    setLevel2Attempts((prev) => ({
+      lager: fieldStatus.lager ? prev.lager : prev.lager + 1,
+      packstation: fieldStatus.packstation ? prev.packstation : prev.packstation + 1,
+      buero: fieldStatus.buero ? prev.buero : prev.buero + 1
+    }));
 
     const correct =
       fieldStatus.lager &&
@@ -375,12 +382,21 @@ export default function KLRGameHub({ onBack }) {
                     value={level2Inputs.lager}
                     onChange={(e) => setLevel2Inputs((p) => ({ ...p, lager: e.target.value.replace(/[^0-9.,]/g, '') }))}
                     onKeyDown={(e) => { if (e.key === 'Enter') validateLevel2(); }}
-                    style={level2FieldOk.lager === true ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)' } : undefined}
+                    style={
+                      level2FieldOk.lager === true
+                        ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)' }
+                        : level2FieldOk.lager === false
+                          ? { borderColor: '#ef4444', boxShadow: '0 0 0 1px rgba(239,68,68,0.35)' }
+                          : undefined
+                    }
                   />
                   {level2FieldOk.lager === true && (
                     <span style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', color: '#22c55e', fontWeight: 800 }}>✓</span>
                   )}
                 </div>
+                {level2FieldOk.lager === false && level2Attempts.lager >= 2 && (
+                  <small style={{ color: '#fca5a5' }}>Hinweis: Kosten pro m² × Lagerfläche ({level2Math.key.lager}) rechnen.</small>
+                )}
               </label>
               <label style={{ display: 'grid', gap: '0.25rem', textAlign: 'left' }}>
                 <span>Packstation (€)</span>
@@ -391,12 +407,21 @@ export default function KLRGameHub({ onBack }) {
                     value={level2Inputs.packstation}
                     onChange={(e) => setLevel2Inputs((p) => ({ ...p, packstation: e.target.value.replace(/[^0-9.,]/g, '') }))}
                     onKeyDown={(e) => { if (e.key === 'Enter') validateLevel2(); }}
-                    style={level2FieldOk.packstation === true ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)' } : undefined}
+                    style={
+                      level2FieldOk.packstation === true
+                        ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)' }
+                        : level2FieldOk.packstation === false
+                          ? { borderColor: '#ef4444', boxShadow: '0 0 0 1px rgba(239,68,68,0.35)' }
+                          : undefined
+                    }
                   />
                   {level2FieldOk.packstation === true && (
                     <span style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', color: '#22c55e', fontWeight: 800 }}>✓</span>
                   )}
                 </div>
+                {level2FieldOk.packstation === false && level2Attempts.packstation >= 2 && (
+                  <small style={{ color: '#fca5a5' }}>Hinweis: Kosten pro m² × Packstationfläche ({level2Math.key.packstation}) rechnen.</small>
+                )}
               </label>
               <label style={{ display: 'grid', gap: '0.25rem', textAlign: 'left' }}>
                 <span>Büro (€)</span>
@@ -407,12 +432,21 @@ export default function KLRGameHub({ onBack }) {
                     value={level2Inputs.buero}
                     onChange={(e) => setLevel2Inputs((p) => ({ ...p, buero: e.target.value.replace(/[^0-9.,]/g, '') }))}
                     onKeyDown={(e) => { if (e.key === 'Enter') validateLevel2(); }}
-                    style={level2FieldOk.buero === true ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)' } : undefined}
+                    style={
+                      level2FieldOk.buero === true
+                        ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)' }
+                        : level2FieldOk.buero === false
+                          ? { borderColor: '#ef4444', boxShadow: '0 0 0 1px rgba(239,68,68,0.35)' }
+                          : undefined
+                    }
                   />
                   {level2FieldOk.buero === true && (
                     <span style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', color: '#22c55e', fontWeight: 800 }}>✓</span>
                   )}
                 </div>
+                {level2FieldOk.buero === false && level2Attempts.buero >= 2 && (
+                  <small style={{ color: '#fca5a5' }}>Hinweis: Kosten pro m² × Bürofläche ({level2Math.key.buero}) rechnen.</small>
+                )}
               </label>
             </div>
 
