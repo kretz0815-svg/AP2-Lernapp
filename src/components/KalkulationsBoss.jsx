@@ -13,6 +13,7 @@ const toCents = (n) => Math.round((Number(n) + Number.EPSILON) * 100);
 
 // ── Kaufmännische Rundung (Source of Truth) ──────────────────
 const commercialRound = (v) => Math.round(v * 100) / 100;
+const FLAWLESS_COMPLETED_STORAGE_KEY = 'kalk_boss_completed_flawless';
 
 // ── Zufällige glatte Zahl in einem Bereich ──────────────────
 const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
@@ -307,6 +308,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
     const [completed, setCompleted] = useState(false);
     const [score, setScore] = useState(0);
     const [attempts, setAttempts] = useState({});
+    const [levelHadErrors, setLevelHadErrors] = useState(false);
 
     // Boss-Modus Gamification
     const [lives, setLives] = useState(3);
@@ -328,12 +330,12 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
 
     // Completed levels persistent
     const [completedLevels, setCompletedLevels] = useState(() => {
-        try { return JSON.parse(localStorage.getItem('kalk_boss_completed') || '[]'); }
+        try { return JSON.parse(localStorage.getItem(FLAWLESS_COMPLETED_STORAGE_KEY) || '[]'); }
         catch { return []; }
     });
 
     useEffect(() => {
-        localStorage.setItem('kalk_boss_completed', JSON.stringify(completedLevels));
+        localStorage.setItem(FLAWLESS_COMPLETED_STORAGE_KEY, JSON.stringify(completedLevels));
     }, [completedLevels]);
 
     const startLevel = (config) => {
@@ -348,6 +350,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
         setCompleted(false);
         setScore(0);
         setAttempts({});
+        setLevelHadErrors(false);
         // Boss-Modus reset
         setLives(3);
         setStreak(0);
@@ -430,7 +433,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
             } else {
                 // All done!
                 setCompleted(true);
-                if (!completedLevels.includes(selectedLevel.id)) {
+                if (!levelHadErrors && !completedLevels.includes(selectedLevel.id)) {
                     setCompletedLevels(prev => [...prev, selectedLevel.id]);
                 }
             }
@@ -440,6 +443,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
             setShaking(prev => ({ ...prev, [idx]: true }));
             setAttempts(prev => ({ ...prev, [idx]: (prev[idx] || 0) + 1 }));
             setWrongSteps(prev => ({ ...prev, [idx]: true }));
+            setLevelHadErrors(true);
             setTimeout(() => setShaking(prev => ({ ...prev, [idx]: false })), 600);
 
             if (isBoss) {
