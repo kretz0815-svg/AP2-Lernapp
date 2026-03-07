@@ -195,6 +195,9 @@ function App() {
 
   useEffect(() => {
     if (appMode !== 'dashboard' && appMode !== 'learning_dashboard') return;
+    const prefersCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    let orientationEnabled = false;
+
     const handleMouseMove = (e) => {
       if (!einsteinRef.current) return;
       const rect = einsteinRef.current.getBoundingClientRect();
@@ -205,34 +208,51 @@ function App() {
       const maxTilt = 18;
       setEinsteinTilt({ rotateY: dx * maxTilt, rotateX: -dy * maxTilt * 0.6 });
     };
-    window.addEventListener('mousemove', handleMouseMove);
 
-    let orientationGranted = false;
     const handleOrientation = (e) => {
       const gamma = Math.max(-45, Math.min(45, e.gamma || 0));
       const beta = Math.max(-45, Math.min(45, (e.beta || 0) - 45));
       setEinsteinTilt({ rotateY: (gamma / 45) * 20, rotateX: -(beta / 45) * 12 });
     };
+
+    const enableOrientationTracking = () => {
+      if (orientationEnabled) return;
+      orientationEnabled = true;
+      window.addEventListener('deviceorientation', handleOrientation);
+    };
+
     const requestGyro = () => {
-      if (orientationGranted) return;
-      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-        DeviceOrientationEvent.requestPermission().then(state => {
-          if (state === 'granted') {
-            orientationGranted = true;
-            window.addEventListener('deviceorientation', handleOrientation);
-          }
-        }).catch(() => { });
-      } else if ('DeviceOrientationEvent' in window) {
-        orientationGranted = true;
-        window.addEventListener('deviceorientation', handleOrientation);
+      if (!prefersCoarsePointer || orientationEnabled) return;
+      if (
+        typeof window.DeviceOrientationEvent !== 'undefined' &&
+        typeof window.DeviceOrientationEvent.requestPermission === 'function'
+      ) {
+        window.DeviceOrientationEvent.requestPermission()
+          .then((state) => {
+            if (state === 'granted') enableOrientationTracking();
+          })
+          .catch(() => { });
+        return;
+      }
+      if (typeof window.DeviceOrientationEvent !== 'undefined') {
+        enableOrientationTracking();
       }
     };
-    window.addEventListener('touchstart', requestGyro, { once: true });
+
+    if (prefersCoarsePointer) {
+      // Mobile: compass-like movement from device orientation, no tap/mouse based head movement.
+      window.addEventListener('touchstart', requestGyro, { once: true });
+      window.addEventListener('click', requestGyro, { once: true });
+      requestGyro();
+    } else {
+      window.addEventListener('mousemove', handleMouseMove);
+    }
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('deviceorientation', handleOrientation);
       window.removeEventListener('touchstart', requestGyro);
+      window.removeEventListener('click', requestGyro);
     };
   }, [appMode]);
 
