@@ -10,11 +10,16 @@ const MOBILE_CALC_MIN_HEIGHT = 300;
 const MOBILE_VIEWPORT_MARGIN = 8;
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-const touchDistance = (a, b) => Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
-const touchMidpoint = (a, b) => ({
-    x: (a.clientX + b.clientX) / 2,
-    y: (a.clientY + b.clientY) / 2
-});
+const getMobileWindowDimensions = (vvState, isLarge) => {
+    const maxWidth = Math.max(MOBILE_CALC_MIN_WIDTH, vvState.width - (MOBILE_VIEWPORT_MARGIN * 2));
+    const maxHeight = Math.max(MOBILE_CALC_MIN_HEIGHT, vvState.height - (MOBILE_VIEWPORT_MARGIN * 2));
+    const widthTarget = isLarge ? vvState.width - 12 : vvState.width - 20;
+    const heightTarget = isLarge ? vvState.height * 0.8 : vvState.height * 0.62;
+    return {
+        width: clamp(widthTarget, MOBILE_CALC_MIN_WIDTH, Math.min(CALC_MAX_WIDTH, maxWidth)),
+        height: clamp(heightTarget, MOBILE_CALC_MIN_HEIGHT, Math.min(560, maxHeight))
+    };
+};
 
 export default function FloatingCalculator() {
     const [isOpen, setIsOpen] = useState(false);
@@ -40,6 +45,7 @@ export default function FloatingCalculator() {
         offsetTop: 0
     });
     const [mobileWindow, setMobileWindow] = useState({ x: 12, y: 120, width: 340, height: 420 });
+    const [mobileIsLarge, setMobileIsLarge] = useState(false);
 
     const dragRef = useRef(false);
     const resizeRef = useRef(null);
@@ -47,10 +53,8 @@ export default function FloatingCalculator() {
     const startSizeRef = useRef({ w: 0, h: 0 });
     const startMouseRef = useRef({ x: 0, y: 0 });
     const mobileGestureRef = useRef({
-        mode: null,
+        isDragging: false,
         startTouch: null,
-        startDistance: 0,
-        startMidpoint: null,
         startWindow: null
     });
 
@@ -152,11 +156,8 @@ export default function FloatingCalculator() {
     }, [isMobile, isOpen]);
 
     useEffect(() => {
-        if (!isMobile) return;
-        const maxWidth = Math.max(MOBILE_CALC_MIN_WIDTH, vvState.width - (MOBILE_VIEWPORT_MARGIN * 2));
-        const width = clamp(vvState.width - 20, MOBILE_CALC_MIN_WIDTH, Math.min(CALC_MAX_WIDTH, maxWidth));
-        const maxHeight = Math.max(MOBILE_CALC_MIN_HEIGHT, vvState.height - (MOBILE_VIEWPORT_MARGIN * 2));
-        const height = clamp(vvState.height * 0.62, MOBILE_CALC_MIN_HEIGHT, Math.min(500, maxHeight));
+        if (!isMobile || !isOpen) return;
+        const { width, height } = getMobileWindowDimensions(vvState, mobileIsLarge);
         const x = clamp((vvState.width - width) / 2, MOBILE_VIEWPORT_MARGIN, vvState.width - width - MOBILE_VIEWPORT_MARGIN);
         const y = clamp(
             vvState.offsetTop + vvState.height - height - 18,
@@ -164,7 +165,7 @@ export default function FloatingCalculator() {
             vvState.offsetTop + vvState.height - height - MOBILE_VIEWPORT_MARGIN
         );
         setMobileWindow({ x, y, width, height });
-    }, [isMobile, isOpen]);
+    }, [isMobile, isOpen, mobileIsLarge, vvState]);
 
     useEffect(() => {
         if (!isMobile || !isOpen) return;
@@ -186,26 +187,13 @@ export default function FloatingCalculator() {
 
     const handleMobileWindowTouchStart = (e) => {
         if (!isMobile) return;
-
-        if (e.touches.length >= 2) {
-            const [a, b] = e.touches;
-            mobileGestureRef.current = {
-                mode: 'pinch',
-                startTouch: null,
-                startDistance: touchDistance(a, b),
-                startMidpoint: touchMidpoint(a, b),
-                startWindow: mobileWindow
-            };
-            return;
-        }
+        if (e.target.closest('button')) return;
 
         const touch = e.touches[0];
         if (!touch) return;
         mobileGestureRef.current = {
-            mode: 'drag',
+            isDragging: true,
             startTouch: { x: touch.clientX, y: touch.clientY },
-            startDistance: 0,
-            startMidpoint: null,
             startWindow: mobileWindow
         };
     };
@@ -213,69 +201,49 @@ export default function FloatingCalculator() {
     const handleMobileWindowTouchMove = (e) => {
         if (!isMobile) return;
         const gesture = mobileGestureRef.current;
-        if (!gesture.mode || !gesture.startWindow) return;
+        if (!gesture.isDragging || !gesture.startWindow || !gesture.startTouch || e.touches.length !== 1) return;
         if (e.cancelable) e.preventDefault();
-
-        if (gesture.mode === 'drag' && e.touches.length === 1 && gesture.startTouch) {
-            const touch = e.touches[0];
-            const dx = touch.clientX - gesture.startTouch.x;
-            const dy = touch.clientY - gesture.startTouch.y;
-            const nextX = clamp(
-                gesture.startWindow.x + dx,
-                MOBILE_VIEWPORT_MARGIN,
-                vvState.width - gesture.startWindow.width - MOBILE_VIEWPORT_MARGIN
-            );
-            const nextY = clamp(
-                gesture.startWindow.y + dy,
-                vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
-                vvState.offsetTop + vvState.height - gesture.startWindow.height - MOBILE_VIEWPORT_MARGIN
-            );
-            setMobileWindow(prev => ({ ...prev, x: nextX, y: nextY }));
-            return;
-        }
-
-        if (e.touches.length >= 2) {
-            const [a, b] = e.touches;
-            const currentDistance = touchDistance(a, b);
-            const currentMid = touchMidpoint(a, b);
-            const scale = currentDistance / (gesture.startDistance || currentDistance);
-            const maxWidth = Math.max(MOBILE_CALC_MIN_WIDTH, vvState.width - (MOBILE_VIEWPORT_MARGIN * 2));
-            const maxHeight = Math.max(MOBILE_CALC_MIN_HEIGHT, vvState.height - (MOBILE_VIEWPORT_MARGIN * 2));
-            const nextWidth = clamp(
-                gesture.startWindow.width * scale,
-                MOBILE_CALC_MIN_WIDTH,
-                Math.min(CALC_MAX_WIDTH, maxWidth)
-            );
-            const nextHeight = clamp(
-                gesture.startWindow.height * scale,
-                MOBILE_CALC_MIN_HEIGHT,
-                Math.min(500, maxHeight)
-            );
-            const anchorX = gesture.startMidpoint ? gesture.startMidpoint.x : currentMid.x;
-            const anchorY = gesture.startMidpoint ? gesture.startMidpoint.y : currentMid.y;
-            const relX = (anchorX - gesture.startWindow.x) / gesture.startWindow.width;
-            const relY = (anchorY - gesture.startWindow.y) / gesture.startWindow.height;
-            const rawX = currentMid.x - (relX * nextWidth);
-            const rawY = currentMid.y - (relY * nextHeight);
-            const nextX = clamp(rawX, MOBILE_VIEWPORT_MARGIN, vvState.width - nextWidth - MOBILE_VIEWPORT_MARGIN);
-            const nextY = clamp(
-                rawY,
-                vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
-                vvState.offsetTop + vvState.height - nextHeight - MOBILE_VIEWPORT_MARGIN
-            );
-
-            setMobileWindow({ x: nextX, y: nextY, width: nextWidth, height: nextHeight });
-        }
+        const touch = e.touches[0];
+        const dx = touch.clientX - gesture.startTouch.x;
+        const dy = touch.clientY - gesture.startTouch.y;
+        const nextX = clamp(
+            gesture.startWindow.x + dx,
+            MOBILE_VIEWPORT_MARGIN,
+            vvState.width - gesture.startWindow.width - MOBILE_VIEWPORT_MARGIN
+        );
+        const nextY = clamp(
+            gesture.startWindow.y + dy,
+            vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
+            vvState.offsetTop + vvState.height - gesture.startWindow.height - MOBILE_VIEWPORT_MARGIN
+        );
+        setMobileWindow(prev => ({ ...prev, x: nextX, y: nextY }));
     };
 
     const handleMobileWindowTouchEnd = () => {
         mobileGestureRef.current = {
-            mode: null,
+            isDragging: false,
             startTouch: null,
-            startDistance: 0,
-            startMidpoint: null,
             startWindow: null
         };
+    };
+
+    const handleToggleMobileSize = () => {
+        if (!isMobile) return;
+        const nextIsLarge = !mobileIsLarge;
+        setMobileIsLarge(nextIsLarge);
+        const { width: nextWidth, height: nextHeight } = getMobileWindowDimensions(vvState, nextIsLarge);
+
+        setMobileWindow((prev) => {
+            const centerX = prev.x + (prev.width / 2);
+            const centerY = prev.y + (prev.height / 2);
+            const nextX = clamp(centerX - (nextWidth / 2), MOBILE_VIEWPORT_MARGIN, vvState.width - nextWidth - MOBILE_VIEWPORT_MARGIN);
+            const nextY = clamp(
+                centerY - (nextHeight / 2),
+                vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
+                vvState.offsetTop + vvState.height - nextHeight - MOBILE_VIEWPORT_MARGIN
+            );
+            return { x: nextX, y: nextY, width: nextWidth, height: nextHeight };
+        });
     };
 
     const onDragStart = (e) => {
@@ -527,7 +495,7 @@ export default function FloatingCalculator() {
                         display: 'flex', flexDirection: 'column',
                         borderRadius: '18px', border: '1px solid var(--glass-border)',
                         boxShadow: '0 8px 30px rgba(0,0,0,0.55)', background: 'rgba(0, 0, 0, 0.96)',
-                        touchAction: 'none'
+                        touchAction: 'auto'
                     } : {
                         position: 'fixed',
                         left: `${position.x}px`, top: `${position.y}px`,
@@ -548,15 +516,13 @@ export default function FloatingCalculator() {
                     >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <h3 style={{ margin: 0, fontSize: '1.05rem', color: 'white' }}>Rechner</h3>
-                            {isMobile && (
-                                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.65)' }} title="Ziehen mit 1 Finger, Pinch mit 2 Fingern">
-                                    ↕︎ ziehen / 🤏 zoom
-                                </span>
-                            )}
+                            {isMobile && <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.65)' }}>↕︎ ziehen</span>}
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                             {isMobile && (
-                                <span
+                                <button
+                                    type="button"
+                                    onClick={handleToggleMobileSize}
                                     style={{
                                         width: '22px',
                                         height: '22px',
@@ -565,12 +531,15 @@ export default function FloatingCalculator() {
                                         display: 'grid',
                                         placeItems: 'center',
                                         fontSize: '0.85rem',
-                                        color: 'rgba(255,255,255,0.75)'
+                                        color: 'rgba(255,255,255,0.75)',
+                                        background: 'transparent',
+                                        padding: 0,
+                                        cursor: 'pointer'
                                     }}
-                                    title="Mit zwei Fingern im Header zoomen"
+                                    title={mobileIsLarge ? 'Rechner kleiner' : 'Rechner größer'}
                                 >
-                                    ⤢
-                                </span>
+                                    {mobileIsLarge ? '⤡' : '⤢'}
+                                </button>
                             )}
                             <button
                                 className="floating-notes-close"
