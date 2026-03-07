@@ -259,11 +259,17 @@ export default function FloatingCalculator() {
     }[activeResizeHandle];
 
     const mobileHeight = Math.min(400, vvState.height * 0.7);
+    const mobileToggleStyle = {
+        position: 'fixed',
+        right: '12px',
+        top: 'calc(env(safe-area-inset-top, 0px) + 88px)',
+        zIndex: 1000
+    };
 
     return (
         <>
             {!isOpen ? (
-                <div style={isMobile ? { position: 'fixed', right: '15px', bottom: '90px', zIndex: 1000 } : { position: 'fixed', right: '20px', top: 'calc(50% + 70px)', transform: 'translateY(-50%)', zIndex: 1000 }}>
+                <div style={isMobile ? mobileToggleStyle : { position: 'fixed', right: '20px', top: 'calc(50% + 70px)', transform: 'translateY(-50%)', zIndex: 1000 }}>
                     <button
                         className="floating-notes-toggle"
                         onClick={() => setIsOpen(true)}

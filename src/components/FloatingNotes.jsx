@@ -282,11 +282,17 @@ export default function FloatingNotes({ questionId, questionText }) {
 
     // Mobile Styling Konstanten
     const mobileHeight = Math.min(220, vvState.height * 0.45);
+    const mobileToggleStyle = {
+        position: 'fixed',
+        right: '12px',
+        top: 'calc(env(safe-area-inset-top, 0px) + 158px)',
+        zIndex: 1000
+    };
 
     return (
         <>
             {!isOpen ? (
-                <div style={isMobile ? { position: 'fixed', right: '15px', bottom: '20px', zIndex: 1000 } : { position: 'fixed', right: '20px', top: '50%', transform: 'translateY(-50%)', zIndex: 1000 }}>
+                <div style={isMobile ? mobileToggleStyle : { position: 'fixed', right: '20px', top: '50%', transform: 'translateY(-50%)', zIndex: 1000 }}>
                     <button
                         className="floating-notes-toggle"
                         onClick={() => setIsOpen(true)}
