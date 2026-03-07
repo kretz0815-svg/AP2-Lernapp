@@ -10,15 +10,10 @@ const MOBILE_CALC_MIN_HEIGHT = 220;
 const MOBILE_VIEWPORT_MARGIN = 8;
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-const getMobileWindowDimensions = (vvState, sizeMode) => {
+const getMobileWindowDimensions = (vvState) => {
     const maxWidth = Math.max(MOBILE_CALC_MIN_WIDTH, vvState.width - (MOBILE_VIEWPORT_MARGIN * 2));
     const maxHeight = Math.max(MOBILE_CALC_MIN_HEIGHT, vvState.height - (MOBILE_VIEWPORT_MARGIN * 2));
-    const presets = {
-        small: { widthTarget: vvState.width * 0.52, heightTarget: vvState.height * 0.45 },
-        medium: { widthTarget: vvState.width - 20, heightTarget: vvState.height * 0.62 },
-        large: { widthTarget: vvState.width - 12, heightTarget: vvState.height * 0.8 }
-    };
-    const preset = presets[sizeMode] || presets.medium;
+    const preset = { widthTarget: vvState.width * 0.52, heightTarget: vvState.height * 0.45 };
     return {
         width: clamp(preset.widthTarget, MOBILE_CALC_MIN_WIDTH, Math.min(CALC_MAX_WIDTH, maxWidth)),
         height: clamp(preset.heightTarget, MOBILE_CALC_MIN_HEIGHT, Math.min(560, maxHeight))
@@ -49,7 +44,6 @@ export default function FloatingCalculator() {
         offsetTop: 0
     });
     const [mobileWindow, setMobileWindow] = useState({ x: 12, y: 120, width: 340, height: 420 });
-    const [mobileSizeMode, setMobileSizeMode] = useState('medium');
 
     const dragRef = useRef(false);
     const resizeRef = useRef(null);
@@ -161,7 +155,7 @@ export default function FloatingCalculator() {
 
     useEffect(() => {
         if (!isMobile || !isOpen) return;
-        const { width, height } = getMobileWindowDimensions(vvState, mobileSizeMode);
+        const { width, height } = getMobileWindowDimensions(vvState);
         const x = clamp((vvState.width - width) / 2, MOBILE_VIEWPORT_MARGIN, vvState.width - width - MOBILE_VIEWPORT_MARGIN);
         const y = clamp(
             vvState.offsetTop + vvState.height - height - 18,
@@ -169,7 +163,7 @@ export default function FloatingCalculator() {
             vvState.offsetTop + vvState.height - height - MOBILE_VIEWPORT_MARGIN
         );
         setMobileWindow({ x, y, width, height });
-    }, [isMobile, isOpen, mobileSizeMode, vvState]);
+    }, [isMobile, isOpen, vvState]);
 
     useEffect(() => {
         if (!isMobile || !isOpen) return;
@@ -229,27 +223,6 @@ export default function FloatingCalculator() {
             startTouch: null,
             startWindow: null
         };
-    };
-
-    const handleToggleMobileSize = () => {
-        if (!isMobile) return;
-        const order = ['large', 'medium', 'small'];
-        const currentIdx = order.indexOf(mobileSizeMode);
-        const nextMode = order[(currentIdx + 1) % order.length];
-        setMobileSizeMode(nextMode);
-        const { width: nextWidth, height: nextHeight } = getMobileWindowDimensions(vvState, nextMode);
-
-        setMobileWindow((prev) => {
-            const centerX = prev.x + (prev.width / 2);
-            const centerY = prev.y + (prev.height / 2);
-            const nextX = clamp(centerX - (nextWidth / 2), MOBILE_VIEWPORT_MARGIN, vvState.width - nextWidth - MOBILE_VIEWPORT_MARGIN);
-            const nextY = clamp(
-                centerY - (nextHeight / 2),
-                vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
-                vvState.offsetTop + vvState.height - nextHeight - MOBILE_VIEWPORT_MARGIN
-            );
-            return { x: nextX, y: nextY, width: nextWidth, height: nextHeight };
-        });
     };
 
     const onDragStart = (e) => {
@@ -525,28 +498,6 @@ export default function FloatingCalculator() {
                             {isMobile && <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.65)' }}>↕︎ ziehen</span>}
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            {isMobile && (
-                                <button
-                                    type="button"
-                                    onClick={handleToggleMobileSize}
-                                    style={{
-                                        width: '22px',
-                                        height: '22px',
-                                        borderRadius: '6px',
-                                        border: '1px solid rgba(255,255,255,0.25)',
-                                        display: 'grid',
-                                        placeItems: 'center',
-                                        fontSize: '0.85rem',
-                                        color: 'rgba(255,255,255,0.75)',
-                                        background: 'transparent',
-                                        padding: 0,
-                                        cursor: 'pointer'
-                                    }}
-                                    title={`Rechnergröße wechseln (${mobileSizeMode === 'large' ? 'groß' : mobileSizeMode === 'medium' ? 'mittel' : 'klein'})`}
-                                >
-                                    {mobileSizeMode === 'large' ? 'L' : mobileSizeMode === 'medium' ? 'M' : 'S'}
-                                </button>
-                            )}
                             <button
                                 className="floating-notes-close"
                                 onClick={() => setIsOpen(false)}
