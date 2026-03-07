@@ -90,6 +90,7 @@ const randStepValue = (min, max, step) => {
 };
 
 const euro = (n) => `${Number(n).toLocaleString('de-DE')} €`;
+const euroInput = (n) => Number(n).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 const sampleWithoutReplacement = (arr, count) => {
   const pool = [...arr];
@@ -238,6 +239,9 @@ export default function KLRGameHub({ onBack }) {
     const ok = isLevel2FieldCorrect(fieldKey, value);
 
     setLevel2FieldOk((prev) => ({ ...prev, [fieldKey]: ok }));
+    if (ok && Number.isFinite(value)) {
+      setLevel2Inputs((prev) => ({ ...prev, [fieldKey]: euroInput(value) }));
+    }
     if (!ok) {
       setLevel2Attempts((prev) => ({ ...prev, [fieldKey]: prev[fieldKey] + 1 }));
     }
@@ -252,15 +256,20 @@ export default function KLRGameHub({ onBack }) {
       setLevel2Feedback('Perfekt verteilt. Genau richtig!');
     } else if (showFieldFeedback) {
       const label = fieldKey === 'lager' ? 'Lager' : fieldKey === 'packstation' ? 'Packstation' : 'Büro';
-      setLevel2Status('error');
-      setLevel2Feedback(ok ? `${label} korrekt ✓` : `${label} noch nicht korrekt.`);
+      if (ok) {
+        setLevel2Status('idle');
+        setLevel2Feedback(`${label} korrekt ✓`);
+      } else {
+        setLevel2Status('error');
+        setLevel2Feedback(`${label} noch nicht korrekt.`);
+      }
     }
 
     return ok;
   };
 
   const handleLevel2Enter = (e, fieldKey, nextFieldKey) => {
-    if (e.key !== 'Enter') return;
+    if (e.key !== 'Enter' && e.key !== 'NumpadEnter') return;
     e.preventDefault();
     validateLevel2Field(fieldKey, true);
     if (nextFieldKey && level2InputRefs.current[nextFieldKey]) {
@@ -406,6 +415,7 @@ export default function KLRGameHub({ onBack }) {
                     value={level2Inputs.lager}
                     onChange={(e) => setLevel2Inputs((p) => ({ ...p, lager: e.target.value.replace(/[^0-9.,]/g, '') }))}
                     onKeyDown={(e) => handleLevel2Enter(e, 'lager', 'packstation')}
+                    onBlur={() => validateLevel2Field('lager', true)}
                     style={
                       level2FieldOk.lager === true
                         ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)', paddingRight: '3.2rem' }
@@ -433,6 +443,7 @@ export default function KLRGameHub({ onBack }) {
                     value={level2Inputs.packstation}
                     onChange={(e) => setLevel2Inputs((p) => ({ ...p, packstation: e.target.value.replace(/[^0-9.,]/g, '') }))}
                     onKeyDown={(e) => handleLevel2Enter(e, 'packstation', 'buero')}
+                    onBlur={() => validateLevel2Field('packstation', true)}
                     style={
                       level2FieldOk.packstation === true
                         ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)', paddingRight: '3.2rem' }
@@ -460,6 +471,7 @@ export default function KLRGameHub({ onBack }) {
                     value={level2Inputs.buero}
                     onChange={(e) => setLevel2Inputs((p) => ({ ...p, buero: e.target.value.replace(/[^0-9.,]/g, '') }))}
                     onKeyDown={(e) => handleLevel2Enter(e, 'buero', null)}
+                    onBlur={() => validateLevel2Field('buero', true)}
                     style={
                       level2FieldOk.buero === true
                         ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)', paddingRight: '3.2rem' }

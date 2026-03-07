@@ -5,8 +5,8 @@ const CALC_MIN_WIDTH = 220;
 const CALC_MIN_HEIGHT = 320;
 const CALC_MAX_WIDTH = 420;
 const CALC_MAX_HEIGHT = 560;
-const MOBILE_CALC_MIN_WIDTH = 260;
-const MOBILE_CALC_MIN_HEIGHT = 300;
+const MOBILE_CALC_MIN_WIDTH = 180;
+const MOBILE_CALC_MIN_HEIGHT = 220;
 const MOBILE_VIEWPORT_MARGIN = 8;
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -14,7 +14,7 @@ const getMobileWindowDimensions = (vvState, sizeMode) => {
     const maxWidth = Math.max(MOBILE_CALC_MIN_WIDTH, vvState.width - (MOBILE_VIEWPORT_MARGIN * 2));
     const maxHeight = Math.max(MOBILE_CALC_MIN_HEIGHT, vvState.height - (MOBILE_VIEWPORT_MARGIN * 2));
     const presets = {
-        small: { widthTarget: vvState.width - 28, heightTarget: vvState.height * 0.5 },
+        small: { widthTarget: vvState.width * 0.52, heightTarget: vvState.height * 0.45 },
         medium: { widthTarget: vvState.width - 20, heightTarget: vvState.height * 0.62 },
         large: { widthTarget: vvState.width - 12, heightTarget: vvState.height * 0.8 }
     };
