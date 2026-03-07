@@ -296,7 +296,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     width: '100%',
     maxWidth: '980px',
     margin: '0 auto',
-    padding: 'calc(env(safe-area-inset-top, 0px) + 74px) 0 1.2rem 0',
+    padding: 'calc(env(safe-area-inset-top, 0px) + 132px) 0 1.2rem 0',
     display: 'grid',
     gap: '0.9rem'
   };
