@@ -666,22 +666,27 @@ export default function FloatingCalculator() {
                     style={{
                         position: 'fixed',
                         right: '12px',
-                        top: 'calc(env(safe-area-inset-top, 0px) + 12px)',
+                        top: 'calc(env(safe-area-inset-top, 0px) + 10px)',
                         zIndex: 1001,
-                        padding: '8px 12px',
+                        minWidth: '120px',
+                        maxWidth: '170px',
+                        padding: '8px 10px 9px 10px',
                         borderRadius: '12px',
-                        background: 'rgba(0,0,0,0.88)',
-                        border: '1px solid rgba(255,255,255,0.2)',
+                        background: 'rgba(0, 0, 0, 0.92)',
+                        border: '1.8px solid #9CFF00',
                         color: '#fff',
-                        fontWeight: 700,
-                        fontSize: '0.95rem',
                         lineHeight: 1,
                         pointerEvents: 'none',
-                        boxShadow: '0 6px 18px rgba(0,0,0,0.4)'
+                        boxShadow: '0 0 0 1px rgba(156,255,0,0.25), 0 10px 22px rgba(0,0,0,0.48), 0 0 14px rgba(156,255,0,0.28)'
                     }}
                     aria-hidden="true"
                 >
-                    {helperText}
+                    <div style={{ fontSize: '0.64rem', fontWeight: 700, letterSpacing: '0.06em', color: '#C7FF63', marginBottom: '4px', textTransform: 'uppercase' }}>
+                        Kalk
+                    </div>
+                    <div style={{ fontWeight: 800, fontSize: '1.05rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {helperText}
+                    </div>
                 </div>
             )}
         </>
