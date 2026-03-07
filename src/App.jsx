@@ -2008,7 +2008,7 @@ ${feynmanInput}`;
           <h1 style={{ margin: 0, fontSize: '2.2rem', color: 'var(--text-light)' }}>KLR Startup Survival</h1>
           <p className="subtitle" style={{ marginTop: '0.5rem' }}>Architektur-, State- und Mathe-Basis für das neue KLR-Spiel.</p>
         </header>
-        <KLRGameHub />
+        <KLRGameHub onBack={() => setAppMode('dashboard')} />
       </div>
     );
   }

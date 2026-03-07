@@ -57,7 +57,7 @@ const generateLevel1Run = () => {
     }));
 };
 
-export default function KLRGameHub() {
+export default function KLRGameHub({ onBack }) {
     const { progress, setStartupName, grantXp, unlockLevel } = useKLRGame();
     const [nameInput, setNameInput] = useState(progress.startupName);
     const [screen, setScreen] = useState('home'); // home | level1 | pending
@@ -120,10 +120,13 @@ export default function KLRGameHub() {
 
     if (screen === 'level1') {
         return (
-            <div className="card-face" style={{ width: '100%', maxWidth: '760px', margin: '0 auto', padding: '1rem' }}>
+            <div className="card-face" style={{ width: '100%', maxWidth: '760px', margin: '0 auto', padding: '1rem', paddingTop: 'max(1rem, env(safe-area-inset-top, 0px))' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.7rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
+                    <button className="btn-secondary" onClick={() => setScreen('home')}>← Levelauswahl</button>
+                    <button className="btn-secondary" onClick={() => onBack?.()}>✕ Menü</button>
+                </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.7rem', flexWrap: 'wrap' }}>
                     <h2 style={{ margin: 0 }}>Level 1: Rechnungs-Tinder</h2>
-                    <button className="btn-secondary" onClick={() => setScreen('home')}>Abbrechen</button>
                 </div>
                 <p style={{ color: 'var(--text-muted)', marginTop: '0.45rem' }}>
                     Entscheide für jede Karte: links = <strong>Fixkosten</strong>, rechts = <strong>Variable Kosten</strong>.
@@ -149,7 +152,9 @@ export default function KLRGameHub() {
                                     borderRadius: '14px',
                                     padding: '0.85rem',
                                     fontWeight: 800,
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
+                                    minHeight: '56px',
+                                    boxShadow: '0 6px 18px rgba(239,68,68,0.18)'
                                 }}
                             >
                                 ⬅️ Fixkosten
@@ -164,7 +169,9 @@ export default function KLRGameHub() {
                                     borderRadius: '14px',
                                     padding: '0.85rem',
                                     fontWeight: 800,
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
+                                    minHeight: '56px',
+                                    boxShadow: '0 6px 18px rgba(34,197,94,0.18)'
                                 }}
                             >
                                 Variable Kosten ➡️
@@ -198,8 +205,12 @@ export default function KLRGameHub() {
 
     if (screen === 'pending') {
         const level = LEVELS.find((x) => x.id === pendingLevelId);
-        return (
-            <div className="card-face" style={{ width: '100%', maxWidth: '760px', margin: '0 auto', padding: '1rem' }}>
+            return (
+            <div className="card-face" style={{ width: '100%', maxWidth: '760px', margin: '0 auto', padding: '1rem', paddingTop: 'max(1rem, env(safe-area-inset-top, 0px))' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.7rem', flexWrap: 'wrap', marginBottom: '0.6rem' }}>
+                    <button className="btn-secondary" onClick={() => setScreen('home')}>← Levelauswahl</button>
+                    <button className="btn-secondary" onClick={() => onBack?.()}>✕ Menü</button>
+                </div>
                 <h2 style={{ marginTop: 0 }}>{level?.title}</h2>
                 <p style={{ color: 'var(--text-muted)' }}>{level?.objective}</p>
                 <div className="note-card" style={{ margin: 0 }}>
@@ -217,7 +228,10 @@ export default function KLRGameHub() {
     }
 
     return (
-        <div className="card-face" style={{ width: '100%', maxWidth: '980px', margin: '0 auto', padding: '1rem 1rem 1.2rem 1rem' }}>
+        <div className="card-face" style={{ width: '100%', maxWidth: '980px', margin: '0 auto', padding: '1rem 1rem 1.2rem 1rem', paddingTop: 'max(1rem, env(safe-area-inset-top, 0px))' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.7rem', flexWrap: 'wrap', marginBottom: '0.35rem' }}>
+                <button className="btn-secondary" onClick={() => onBack?.()}>← Menü</button>
+            </div>
             <h2 style={{ marginTop: 0 }}>KLR Startup Survival</h2>
             <p style={{ color: 'var(--text-muted)' }}>
                 Du rettest ein E-Commerce-Startup vor der Pleite. Jedes Level trainiert einen KLR-Baustein.
@@ -287,7 +301,7 @@ export default function KLRGameHub() {
                 {LEVELS.map((lvl) => {
                     const unlocked = progress.unlockedLevels.includes(lvl.id);
                     return (
-                        <div key={lvl.id} className="note-card" style={{ margin: 0, opacity: unlocked ? 1 : 0.78, display: 'flex', flexDirection: 'column', minHeight: '220px' }}>
+                        <div key={lvl.id} className="note-card" style={{ margin: 0, opacity: unlocked ? 1 : 0.78, display: 'flex', flexDirection: 'column', minHeight: '240px', padding: '0.95rem' }}>
                             <h3 style={{ marginTop: 0, marginBottom: '0.35rem' }}>Level {lvl.id}: {lvl.title}</h3>
                             <p style={{ margin: '0 0 0.25rem 0', color: 'var(--text-muted)', fontSize: '0.85rem' }}>{lvl.subtitle}</p>
                             <p style={{ marginTop: 0, marginBottom: '0.9rem' }}>{lvl.objective}</p>
