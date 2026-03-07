@@ -29,184 +29,23 @@ import BreakEvenPoint from './components/BreakEvenPoint';
 import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
 import { reviewTaskWithDSR, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
 
-const ANALYTICS_STORAGE_PREFIX = 'ap2_learning_analytics_';
-const CUSTOM_QUIZ_STORAGE_PREFIX = 'ap2_custom_quiz_questions_';
-const MEMBER_SYNC_PENDING_PREFIX = 'ap2_member_pending_sync_';
-const ACCESS_MODE_KEY = 'masterpat_access_mode';
-const CUSTOM_BACKGROUND_COLOR_KEY = 'masterpat_custom_background_color';
-const BACKGROUND_SETTINGS_KEY = 'masterpat_background_settings';
-
-const BACKGROUND_PRESETS = [
-  { id: 'ocean', name: 'Ocean', color: '#0b2239', glow1: 'rgba(34, 211, 238, 0.2)', glow2: 'rgba(59, 130, 246, 0.18)' },
-  { id: 'forest', name: 'Forest', color: '#0f2f27', glow1: 'rgba(34, 197, 94, 0.22)', glow2: 'rgba(16, 185, 129, 0.16)' },
-  { id: 'sunset', name: 'Sunset', color: '#3b1f2d', glow1: 'rgba(251, 146, 60, 0.24)', glow2: 'rgba(244, 63, 94, 0.16)' },
-  { id: 'sand', name: 'Sand', color: '#2a241f', glow1: 'rgba(245, 158, 11, 0.2)', glow2: 'rgba(251, 191, 36, 0.16)' },
-  { id: 'graphite', name: 'Graphite', color: '#111827', glow1: 'rgba(148, 163, 184, 0.2)', glow2: 'rgba(99, 102, 241, 0.14)' }
-];
-
-const createEmptyAnalytics = () => ({
-  events: [],
-  mistakes: {},
-  lastRefreshedAt: null
-});
-
-const normalizeAnalyticsIdentity = (identity) => {
-  return String(identity || 'guest')
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9@._-]+/g, '_');
-};
-
-const getAppearanceKey = (user) => {
-  const identity = normalizeAnalyticsIdentity(user?.email || 'guest');
-  return `masterpat_appearance_${identity}`;
-};
-const getThemeKey = (user) => {
-  const identity = normalizeAnalyticsIdentity(user?.email || 'guest');
-  return `masterpat_theme_${identity}`;
-};
-
-const getAnalyticsStorageKey = (user) => {
-  const identity = user?.email || 'guest';
-  return `${ANALYTICS_STORAGE_PREFIX}${normalizeAnalyticsIdentity(identity)}`;
-};
-
-const getCustomQuizStorageKey = (user) => {
-  const identity = user?.email || 'guest';
-  return `${CUSTOM_QUIZ_STORAGE_PREFIX}${normalizeAnalyticsIdentity(identity)}`;
-};
-
-const loadAnalyticsForUser = (user) => {
-  try {
-    return JSON.parse(localStorage.getItem(getAnalyticsStorageKey(user))) || createEmptyAnalytics();
-  } catch {
-    return createEmptyAnalytics();
-  }
-};
-
-const loadCustomQuizForUser = (user) => {
-  try {
-    const raw = JSON.parse(localStorage.getItem(getCustomQuizStorageKey(user)) || '[]');
-    return Array.isArray(raw) ? raw : [];
-  } catch {
-    return [];
-  }
-};
-
-const createEmptyMemberProgressData = () => ({
-  wisor_progress: {},
-  wisor_eco_progress: {},
-  saved_notes: {},
-  learning_analytics: createEmptyAnalytics(),
-  custom_quiz_questions: []
-});
-
-const generateId = (text) => {
-  let hash = 0;
-  for (let i = 0; i < text.length; i++) {
-    const char = text.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash;
-  }
-  return `card_${Math.abs(hash)}`;
-};
-
-const isValidHexColor = (value) => /^#([A-Fa-f0-9]{6})$/.test(String(value || '').trim());
-
-const hexToRgb = (hexColor) => {
-  const clean = hexColor.replace('#', '');
-  return {
-    r: parseInt(clean.slice(0, 2), 16),
-    g: parseInt(clean.slice(2, 4), 16),
-    b: parseInt(clean.slice(4, 6), 16)
-  };
-};
-
-const clearBackgroundLayers = () => {
-  document.body.style.removeProperty('--app-bg-image');
-  document.body.style.removeProperty('--app-bg-image-overlay');
-};
-
-const clampEffectStrength = (value) => {
-  const numeric = Number(value);
-  if (Number.isNaN(numeric)) return 100;
-  return Math.min(100, Math.max(0, Math.round(numeric)));
-};
-
-const withScaledAlpha = (r, g, b, alpha, strength = 100) => {
-  const factor = clampEffectStrength(strength) / 100;
-  const scaledAlpha = Math.max(0, Math.min(1, alpha * factor));
-  return `rgba(${r}, ${g}, ${b}, ${scaledAlpha.toFixed(3)})`;
-};
-
-const scaleRgbaAlpha = (rgbaValue, strength = 100) => {
-  const match = String(rgbaValue).match(/^rgba\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([\d.]+)\)$/i);
-  if (!match) return rgbaValue;
-  const [, r, g, b, a] = match;
-  return withScaledAlpha(Number(r), Number(g), Number(b), Number(a), strength);
-};
-
-const applyEffectStrength = (strength = 100) => {
-  const normalized = clampEffectStrength(strength);
-  document.body.style.setProperty('--app-effect-strength', String(normalized));
-  document.body.style.setProperty('--blob-opacity', (0.3 * (normalized / 100)).toFixed(3));
-};
-
-const applyBackgroundEffectsVisibility = (enabled) => {
-  if (enabled) {
-    document.body.classList.remove('no-bg-effects');
-  } else {
-    document.body.classList.add('no-bg-effects');
-  }
-};
-
-const applyCustomBackgroundColor = (hexColor, strength = 100) => {
-  clearBackgroundLayers();
-
-  if (!isValidHexColor(hexColor)) {
-    document.body.style.removeProperty('--app-bg-color');
-    document.body.style.removeProperty('--app-glow-1');
-    document.body.style.removeProperty('--app-glow-2');
-    return;
-  }
-
-  const { r, g, b } = hexToRgb(hexColor);
-  document.body.style.setProperty('--app-bg-color', hexColor);
-  document.body.style.setProperty('--app-glow-1', withScaledAlpha(r, g, b, 0.22, strength));
-  document.body.style.setProperty('--app-glow-2', withScaledAlpha(r, g, b, 0.12, strength));
-};
-
-const applyPresetBackground = (presetId, strength = 100) => {
-  const preset = BACKGROUND_PRESETS.find((item) => item.id === presetId);
-  if (!preset) {
-    document.body.style.removeProperty('--app-bg-color');
-    document.body.style.removeProperty('--app-glow-1');
-    document.body.style.removeProperty('--app-glow-2');
-    clearBackgroundLayers();
-    return;
-  }
-
-  clearBackgroundLayers();
-  document.body.style.setProperty('--app-bg-color', preset.color);
-  document.body.style.setProperty('--app-glow-1', scaleRgbaAlpha(preset.glow1, strength));
-  document.body.style.setProperty('--app-glow-2', scaleRgbaAlpha(preset.glow2, strength));
-};
-
-const applyUploadedBackground = (imageData, fallbackColor, strength = 100) => {
-  if (!imageData) {
-    clearBackgroundLayers();
-    return;
-  }
-
-  const color = isValidHexColor(fallbackColor) ? fallbackColor : '#0f172a';
-  const { r, g, b } = hexToRgb(color);
-
-  document.body.style.setProperty('--app-bg-color', color);
-  document.body.style.setProperty('--app-glow-1', withScaledAlpha(r, g, b, 0.24, strength));
-  document.body.style.setProperty('--app-glow-2', withScaledAlpha(r, g, b, 0.14, strength));
-  document.body.style.setProperty('--app-bg-image', `url("${imageData}")`);
-  document.body.style.setProperty('--app-bg-image-overlay', 'linear-gradient(135deg, rgba(2, 6, 23, 0.65), rgba(2, 6, 23, 0.35))');
-};
+// ─── Extracted Utils ────────────────────────────────────────────
+import {
+  ANALYTICS_STORAGE_PREFIX, CUSTOM_QUIZ_STORAGE_PREFIX, MEMBER_SYNC_PENDING_PREFIX,
+  ACCESS_MODE_KEY, CUSTOM_BACKGROUND_COLOR_KEY, BACKGROUND_SETTINGS_KEY,
+  BACKGROUND_PRESETS, createEmptyAnalytics, createEmptyMemberProgressData, generateId
+} from './utils/constants';
+import {
+  normalizeAnalyticsIdentity, getAppearanceKey, getThemeKey,
+  getAnalyticsStorageKey, getCustomQuizStorageKey,
+  loadAnalyticsForUser, loadCustomQuizForUser
+} from './utils/analytics';
+import {
+  isValidHexColor, applyEffectStrength, applyBackgroundEffectsVisibility,
+  applyCustomBackgroundColor, applyPresetBackground, applyUploadedBackground, clearBackgroundLayers
+} from './utils/appearance';
+import { formatLatex } from './utils/formatting';
+import { detectQuizTopic, getQuizTopicGroup } from './utils/quizTopics';
 
 function App() {
   const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'dashboard' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor'
@@ -800,11 +639,7 @@ function App() {
     setGeminiResponse('');
   }, [currentWisorIndex, currentQuizIndex]);
 
-  const formatLatex = (text) => {
-    if (typeof text !== 'string') return text;
-    // Removes the wrapping $ signs and any backslash \ escapes (e.g., \$ -> $, \% -> %)
-    return text.replace(/\$([^$]+)\$/g, (match, inner) => inner.replace(/\\/g, '').trim());
-  };
+  // formatLatex imported from utils/formatting.js
 
   const toggleAnalyticsPanel = (panelKey) => {
     setAnalyticsExpanded(prev => ({
@@ -996,37 +831,7 @@ function App() {
     });
   };
 
-  const detectQuizTopic = (quiz) => {
-    if (quiz?.topic) return quiz.topic;
-
-    const topicSource = `${quiz?.question || ''} ${quiz?.hint || ''} ${quiz?.youtubeQuery || ''}`.toLowerCase();
-
-    if (/(a\/b|landingpage|konversion|conversion|metrik)/i.test(topicSource)) return 'A/B-Testing';
-    if (/(eye|heatmap|usability|nulltreffer|suchfeld|navigation)/i.test(topicSource)) return 'Usability & UX';
-    if (/(dropshipping|amazon|fba)/i.test(topicSource)) return 'Geschäftsmodelle';
-    if (/(k[iï]|künstliche intelligenz|markttrend|budgetallokation|garbage in)/i.test(topicSource)) return 'KI im Vertrieb';
-    if (/(sortiment|marge|eigenmarke|warenkorb|bundle|cross[- ]selling|rabatt)/i.test(topicSource)) return 'Sortiment & Ertrag';
-    if (/(influencer|pay-per|affiliate|likes)/i.test(topicSource)) return 'Influencer Marketing';
-    if (/(uwg|wettbewerb|abmahnung|unterlassung)/i.test(topicSource)) return 'Recht (UWG)';
-    if (/(online-shop|wartungsmodus|checkout|zahlungsart|impressum|seo)/i.test(topicSource)) return 'Shop-Einrichtung & Checkout';
-    if (/(soziale ziele|sachliche ziele|unternehmensziele|betriebswirtschaft|wiso)/i.test(topicSource)) return 'WiSo Grundlagen';
-
-    return 'Allgemein';
-  };
-
-  const getQuizTopicGroup = (topic) => {
-    const rawTopic = String(topic || '').trim();
-    if (!rawTopic) return 'Allgemein';
-
-    if (/auswahlkriterium/i.test(rawTopic)) return 'Auswahlkriterium';
-    if (/\bki\b|künstliche intelligenz/i.test(rawTopic)) return 'KI';
-
-    if (/(social media|social-media|instagram|facebook|whatsapp|youtube|pinterest|linkedin|xing|tiktok|kanal-strategie|content-formate|b2b vs)/i.test(rawTopic)) {
-      return 'Social Media';
-    }
-
-    return rawTopic;
-  };
+  // detectQuizTopic and getQuizTopicGroup imported from utils/quizTopics.js
 
   const getAllQuizQuestions = () => [
     ...(quiz1.questions || []),
