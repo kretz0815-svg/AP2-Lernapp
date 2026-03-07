@@ -296,7 +296,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     width: '100%',
     maxWidth: '980px',
     margin: '0 auto',
-    padding: 'max(0.9rem, env(safe-area-inset-top, 0px)) 0 1.2rem 0',
+    padding: 'calc(env(safe-area-inset-top, 0px) + 74px) 0 1.2rem 0',
     display: 'grid',
     gap: '0.9rem'
   };
@@ -312,6 +312,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
 
   const topBarStyle = {
     ...sectionStyle,
+    minHeight: '58px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -322,7 +323,6 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
   const renderScreen = (content, maxWidth = '980px') => (
     <div className={`klr-cyber-theme ${mentorState === 'success' ? 'klr-cyber-theme--success' : ''}`}>
       <div style={{ ...shellStyle, maxWidth }}>
-        <div style={{ height: '88px' }} aria-hidden="true" />
         {content}
       </div>
       <CyberEinsteinMentor state={mentorState} message={mentorMessage} visible />
@@ -1288,7 +1288,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
 
   return renderScreen(
     <>
-      <div className="klr-wire" style={{ ...topBarStyle, marginBottom: '0.1rem' }}>
+      <div className="klr-wire klr-fixed-topbar" style={{ ...topBarStyle, marginBottom: '0.1rem' }}>
         <button className="btn-secondary" onClick={() => onBack?.()}>← Menü</button>
       </div>
 

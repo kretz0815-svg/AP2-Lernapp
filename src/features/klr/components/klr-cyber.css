@@ -48,10 +48,10 @@
 
 .klr-fixed-topbar {
   position: fixed !important;
-  top: calc(env(safe-area-inset-top, 0px) + 8px) !important;
+  top: calc(env(safe-area-inset-top, 0px) + 56px) !important;
   left: 50%;
   transform: translateX(-50%);
-  width: min(980px, calc(100vw - 16px));
+  width: min(980px, calc(100vw - 24px));
   z-index: 80 !important;
 }
 
@@ -207,6 +207,11 @@
 }
 
 @media (max-width: 900px) {
+  .klr-fixed-topbar {
+    top: calc(env(safe-area-inset-top, 0px) + 60px) !important;
+    width: calc(100vw - 20px);
+  }
+
   .cyber-mentor {
     left: auto;
     right: max(10px, env(safe-area-inset-right, 0px) + 10px);
