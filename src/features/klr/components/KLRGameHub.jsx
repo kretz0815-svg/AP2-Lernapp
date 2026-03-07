@@ -225,6 +225,7 @@ export default function KLRGameHub({ onBack }) {
   const [level3SelfCostInput, setLevel3SelfCostInput] = useState('');
   const [level3Status, setLevel3Status] = useState('idle');
   const [level3Feedback, setLevel3Feedback] = useState('');
+  const [level3HelpOpen, setLevel3HelpOpen] = useState(false);
   const [level4Mission, setLevel4Mission] = useState(() => generateLevel4Mission());
   const [level4Price, setLevel4Price] = useState(level4Mission.math.allowedPrices[0] || 0);
   const [level4BreakEvenInput, setLevel4BreakEvenInput] = useState('');
@@ -400,6 +401,7 @@ export default function KLRGameHub({ onBack }) {
     setLevel3SelfCostInput('');
     setLevel3Status('idle');
     setLevel3Feedback('');
+    setLevel3HelpOpen(false);
     setScreen('level3');
   };
 
@@ -1022,20 +1024,39 @@ export default function KLRGameHub({ onBack }) {
               <p style={{ margin: 0, color: 'var(--text-muted)' }}>Vertriebsgemeinkosten absolut: <strong style={{ color: 'var(--text-light)' }}>{euro(level3Scenario.salesOverhead)}</strong> (bezogen auf Herstellkosten)</p>
             </div>
 
-            <div style={{ marginBottom: '0.9rem', padding: '0.65rem', borderRadius: '12px', border: '1px dashed var(--glass-border)' }}>
-              <p style={{ margin: '0 0 0.25rem 0', fontWeight: 700 }}>So rechnest du:</p>
-              <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>MGK% = MGK absolut / MEK × 100</p>
-              <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>FGK% = FGK absolut / FEK × 100</p>
-              <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>VwGK% = VwGK absolut / Herstellkosten × 100</p>
-              <p style={{ margin: 0, color: 'var(--text-muted)' }}>VtGK% = VtGK absolut / Herstellkosten × 100</p>
+            <div style={{ marginBottom: '0.9rem' }}>
+              <button
+                type="button"
+                className="btn-secondary"
+                onClick={() => setLevel3HelpOpen((v) => !v)}
+                style={{ padding: '0.55rem 0.9rem', borderRadius: '12px' }}
+              >
+                {level3HelpOpen ? '❓ Hilfe schließen' : '❓ Hilfe: Begriffe & Rechenweg'}
+              </button>
+              {level3HelpOpen && (
+                <div style={{ marginTop: '0.55rem', padding: '0.65rem', borderRadius: '12px', border: '1px dashed var(--glass-border)' }}>
+                  <p style={{ margin: '0 0 0.35rem 0', fontWeight: 700 }}>Begriffe:</p>
+                  <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>MEK = Materialeinzelkosten</p>
+                  <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>FEK = Fertigungseinzelkosten</p>
+                  <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>MGK = Materialgemeinkosten</p>
+                  <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>FGK = Fertigungsgemeinkosten</p>
+                  <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>VwGK = Verwaltungsgemeinkosten</p>
+                  <p style={{ margin: '0 0 0.45rem 0', color: 'var(--text-muted)' }}>VtGK = Vertriebsgemeinkosten</p>
+                  <p style={{ margin: '0 0 0.25rem 0', fontWeight: 700 }}>So rechnest du die Sätze:</p>
+                  <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>MGK% = MGK absolut / MEK × 100</p>
+                  <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>FGK% = FGK absolut / FEK × 100</p>
+                  <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>VwGK% = VwGK absolut / Herstellkosten × 100</p>
+                  <p style={{ margin: 0, color: 'var(--text-muted)' }}>VtGK% = VtGK absolut / Herstellkosten × 100</p>
+                </div>
+              )}
             </div>
 
             <div style={{ display: 'grid', gap: '0.9rem' }}>
               {[
-                { key: 'mgkPct', label: 'MGK-Satz', target: level3Scenario.mgkPct, value: level3Rates.mgkPct },
-                { key: 'fgkPct', label: 'FGK-Satz', target: level3Scenario.fgkPct, value: level3Rates.fgkPct },
-                { key: 'vwgkPct', label: 'VwGK-Satz', target: level3Scenario.vwgkPct, value: level3Rates.vwgkPct },
-                { key: 'vtgkPct', label: 'VtGK-Satz', target: level3Scenario.vtgkPct, value: level3Rates.vtgkPct }
+                { key: 'mgkPct', label: 'MGK-Satz (Materialgemeinkosten)', target: level3Scenario.mgkPct, value: level3Rates.mgkPct },
+                { key: 'fgkPct', label: 'FGK-Satz (Fertigungsgemeinkosten)', target: level3Scenario.fgkPct, value: level3Rates.fgkPct },
+                { key: 'vwgkPct', label: 'VwGK-Satz (Verwaltungsgemeinkosten)', target: level3Scenario.vwgkPct, value: level3Rates.vwgkPct },
+                { key: 'vtgkPct', label: 'VtGK-Satz (Vertriebsgemeinkosten)', target: level3Scenario.vtgkPct, value: level3Rates.vtgkPct }
               ].map((row) => {
                 const isCorrect = row.value === row.target;
                 return (
