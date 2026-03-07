@@ -631,13 +631,30 @@ export default function KLRGameHub({ onBack }) {
         <div style={sectionStyle}>
           <h2 style={{ margin: '0 0 0.3rem 0' }}>Level 3: Produkt-Kalkulator</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '0.7rem' }}>
-            Stelle die Zuschlagssätze so ein, dass die Selbstkosten exakt stimmen.
+            Kontext: Du bist im Controlling eines Streetwear-Startups und kalkulierst den Preis für den neuen Hoodie.
           </p>
 
           <div style={{ border: '1px solid var(--glass-border)', borderRadius: '14px', padding: '0.85rem', background: 'rgba(2,6,23,0.45)' }}>
-            <p style={{ margin: '0 0 0.35rem 0' }}>Produkt: <strong>Hoodie Pro</strong></p>
+            <p style={{ margin: '0 0 0.35rem 0' }}><strong>Mission:</strong> Ermittle die korrekten Zuschlagssätze und berechne die Selbstkosten pro Stück.</p>
+            <p style={{ margin: '0 0 0.25rem 0' }}>Produkt: <strong>Hoodie Pro</strong></p>
             <p style={{ margin: '0 0 0.25rem 0' }}>Materialeinzelkosten (MEK): <strong>{euro(level3Scenario.materialDirect)}</strong></p>
-            <p style={{ margin: '0 0 0.8rem 0' }}>Fertigungseinzelkosten (FEK): <strong>{euro(level3Scenario.laborDirect)}</strong></p>
+            <p style={{ margin: '0 0 0.6rem 0' }}>Fertigungseinzelkosten (FEK): <strong>{euro(level3Scenario.laborDirect)}</strong></p>
+
+            <div style={{ marginBottom: '0.8rem', padding: '0.65rem', borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'rgba(15,23,42,0.28)' }}>
+              <p style={{ margin: '0 0 0.35rem 0', fontWeight: 700 }}>Gegeben aus dem Monatsreport:</p>
+              <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>Materialgemeinkosten absolut: <strong style={{ color: 'var(--text-light)' }}>{euro(level3Scenario.materialOverhead)}</strong></p>
+              <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>Fertigungsgemeinkosten absolut: <strong style={{ color: 'var(--text-light)' }}>{euro(level3Scenario.laborOverhead)}</strong></p>
+              <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>Verwaltungsgemeinkosten absolut: <strong style={{ color: 'var(--text-light)' }}>{euro(level3Scenario.adminOverhead)}</strong> (bezogen auf Herstellkosten)</p>
+              <p style={{ margin: 0, color: 'var(--text-muted)' }}>Vertriebsgemeinkosten absolut: <strong style={{ color: 'var(--text-light)' }}>{euro(level3Scenario.salesOverhead)}</strong> (bezogen auf Herstellkosten)</p>
+            </div>
+
+            <div style={{ marginBottom: '0.9rem', padding: '0.65rem', borderRadius: '12px', border: '1px dashed var(--glass-border)' }}>
+              <p style={{ margin: '0 0 0.25rem 0', fontWeight: 700 }}>So rechnest du:</p>
+              <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>MGK% = MGK absolut / MEK × 100</p>
+              <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>FGK% = FGK absolut / FEK × 100</p>
+              <p style={{ margin: '0 0 0.2rem 0', color: 'var(--text-muted)' }}>VwGK% = VwGK absolut / Herstellkosten × 100</p>
+              <p style={{ margin: 0, color: 'var(--text-muted)' }}>VtGK% = VtGK absolut / Herstellkosten × 100</p>
+            </div>
 
             <div style={{ display: 'grid', gap: '0.9rem' }}>
               {[
@@ -678,6 +695,11 @@ export default function KLRGameHub({ onBack }) {
                   onChange={(e) => {
                     setLevel3SelfCostInput(e.target.value.replace(/[^0-9.,]/g, ''));
                     setLevel3Status('idle');
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key !== 'Enter' && e.key !== 'NumpadEnter') return;
+                    e.preventDefault();
+                    checkLevel3();
                   }}
                   style={{ maxWidth: '240px' }}
                 />
