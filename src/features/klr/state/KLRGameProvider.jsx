@@ -15,10 +15,12 @@ const readInitialProgress = () => {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return DEFAULT_PROGRESS;
         const parsed = JSON.parse(raw);
+        const xpNum = Number(parsed.xp);
+        const levelNum = Number(parsed.currentLevel);
         return {
             startupName: typeof parsed.startupName === 'string' && parsed.startupName.trim() ? parsed.startupName.trim() : DEFAULT_PROGRESS.startupName,
-            xp: Number.isFinite(parsed.xp) && parsed.xp >= 0 ? Math.floor(parsed.xp) : DEFAULT_PROGRESS.xp,
-            currentLevel: Number.isFinite(parsed.currentLevel) && parsed.currentLevel >= 1 ? Math.floor(parsed.currentLevel) : DEFAULT_PROGRESS.currentLevel,
+            xp: Number.isFinite(xpNum) && xpNum >= 0 ? Math.floor(xpNum) : DEFAULT_PROGRESS.xp,
+            currentLevel: Number.isFinite(levelNum) && levelNum >= 1 ? Math.floor(levelNum) : DEFAULT_PROGRESS.currentLevel,
             unlockedLevels: Array.isArray(parsed.unlockedLevels) && parsed.unlockedLevels.length
                 ? [...new Set(parsed.unlockedLevels.map((n) => Math.floor(Number(n))).filter((n) => n >= 1))].sort((a, b) => a - b)
                 : DEFAULT_PROGRESS.unlockedLevels
@@ -33,36 +35,45 @@ const KLRGameContext = createContext(null);
 export function KLRGameProvider({ children }) {
     const [progress, setProgress] = useState(readInitialProgress);
 
-    const persist = (next) => {
-        setProgress(next);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    const persist = (updater) => {
+        setProgress((prev) => {
+            const next = typeof updater === 'function' ? updater(prev) : updater;
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+            } catch {
+                // z. B. Privater Modus oder Quota – State trotzdem aktualisieren
+            }
+            return next;
+        });
     };
 
     const setStartupName = (startupName) => {
-        persist({
-            ...progress,
+        persist((prev) => ({
+            ...prev,
             startupName: startupName?.trim() || DEFAULT_PROGRESS.startupName
-        });
+        }));
     };
 
     const grantXp = (amount) => {
         const gain = Math.max(0, Math.floor(Number(amount) || 0));
-        const nextXp = progress.xp + gain;
-        const levelFromXp = Math.max(1, Math.floor(nextXp / XP_PER_LEVEL) + 1);
-        persist({
-            ...progress,
-            xp: nextXp,
-            currentLevel: Math.max(progress.currentLevel, levelFromXp)
+        persist((prev) => {
+            const nextXp = prev.xp + gain;
+            const levelFromXp = Math.max(1, Math.floor(nextXp / XP_PER_LEVEL) + 1);
+            return {
+                ...prev,
+                xp: nextXp,
+                currentLevel: Math.max(prev.currentLevel, levelFromXp)
+            };
         });
     };
 
     const unlockLevel = (levelId) => {
         const level = Math.max(1, Math.floor(Number(levelId) || 1));
-        persist({
-            ...progress,
-            unlockedLevels: [...new Set([...progress.unlockedLevels, level])].sort((a, b) => a - b),
-            currentLevel: Math.max(progress.currentLevel, level)
-        });
+        persist((prev) => ({
+            ...prev,
+            unlockedLevels: [...new Set([...prev.unlockedLevels, level])].sort((a, b) => a - b),
+            currentLevel: Math.max(prev.currentLevel, level)
+        }));
     };
 
     const resetProgress = () => {

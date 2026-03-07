@@ -245,6 +245,10 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     return Math.round((level1Correct / level1Items.length) * 100);
   }, [level1Correct, level1Items.length]);
 
+  const level2CorrectCount = useMemo(() => {
+    return ['lager', 'packstation', 'buero'].filter((k) => level2FieldOk[k] === true).length;
+  }, [level2FieldOk]);
+
   useEffect(() => {
     const t = setTimeout(() => {
       setMentorState('idle');
@@ -296,7 +300,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     width: '100%',
     maxWidth: '980px',
     margin: '0 auto',
-    padding: 'calc(env(safe-area-inset-top, 0px) + 132px) 0 1.2rem 0',
+    padding: 'max(0.9rem, env(safe-area-inset-top, 0px)) 0 1.2rem 0',
     display: 'grid',
     gap: '0.9rem'
   };
@@ -312,6 +316,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
 
   const topBarStyle = {
     ...sectionStyle,
+    position: 'relative',
     minHeight: '58px',
     display: 'flex',
     justifyContent: 'space-between',
@@ -396,7 +401,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     grantXp(baseXp + bonusXp);
     if (level1ScorePct >= 75) unlockLevel(2);
     setMentorTransient('success', 'Level 1 abgeschlossen. Kostenarten sitzen.', 2200);
-    setScreen('home');
+    requestAnimationFrame(() => setScreen('home'));
   };
 
   const parseMoneyInput = (raw) => {
@@ -478,7 +483,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     if (level2Status !== 'success') return;
     grantXp(90);
     unlockLevel(3);
-    setScreen('home');
+    requestAnimationFrame(() => setScreen('home'));
   };
 
   const startLevel3 = () => {
@@ -561,7 +566,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     if (level3Status !== 'success') return;
     grantXp(120);
     unlockLevel(4);
-    setScreen('home');
+    requestAnimationFrame(() => setScreen('home'));
   };
 
   const checkLevel4 = () => {
@@ -638,7 +643,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
   const finishLevel4 = () => {
     if (level4Status !== 'success') return;
     grantXp(160);
-    setScreen('home');
+    requestAnimationFrame(() => setScreen('home'));
   };
 
   const openPendingLevel = (levelId) => {
@@ -846,7 +851,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
   );
 
   const renderActionBar = (leftText = '← Levelauswahl', leftAction = () => setScreen('home')) => (
-    <div className="klr-wire klr-fixed-topbar" style={topBarStyle}>
+    <div className="klr-wire" style={topBarStyle}>
       <button className="btn-secondary" onClick={leftAction}>{leftText}</button>
       <button className="btn-secondary" onClick={() => onBack?.()}>✕ Menü</button>
     </div>
@@ -942,6 +947,16 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
           <p style={{ color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
             Verteile die Gemeinkosten korrekt auf Lager, Packstation und Büro.
           </p>
+
+          <div style={{ marginBottom: '0.6rem', fontSize: '0.86rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span>Fortschritt:</span>
+            <span style={{ fontWeight: 700, color: level2CorrectCount === 3 ? '#86efac' : 'var(--text-light)' }}>
+              {level2CorrectCount}/3 Felder korrekt
+            </span>
+            <div style={{ flex: 1, maxWidth: '120px', height: '6px', background: 'var(--glass-bg)', borderRadius: '999px', overflow: 'hidden' }}>
+              <div style={{ width: `${(level2CorrectCount / 3) * 100}%`, height: '100%', background: 'linear-gradient(90deg, #22c55e, #86efac)', borderRadius: '999px', transition: 'width 0.25s ease' }} />
+            </div>
+          </div>
 
           <div className="klr-wire" style={{ borderRadius: '14px', padding: '0.8rem' }}>
             <p style={{ margin: '0 0 0.3rem 0' }}>Gesamtkosten: <strong>{euro(level2Math.baseCost)}</strong></p>
@@ -1288,7 +1303,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
 
   return renderScreen(
     <>
-      <div className="klr-wire klr-fixed-topbar" style={{ ...topBarStyle, marginBottom: '0.1rem' }}>
+      <div className="klr-wire" style={{ ...topBarStyle, marginBottom: '0.1rem' }}>
         <button className="btn-secondary" onClick={() => onBack?.()}>← Menü</button>
       </div>
 

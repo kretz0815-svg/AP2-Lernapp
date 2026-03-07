@@ -46,14 +46,7 @@
   box-shadow: 0 0 0 1px rgba(120, 255, 145, 0.2), 0 0 28px rgba(72, 255, 106, 0.18);
 }
 
-.klr-fixed-topbar {
-  position: fixed !important;
-  top: calc(env(safe-area-inset-top, 0px) + 56px) !important;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(980px, calc(100vw - 24px));
-  z-index: 80 !important;
-}
+/* Obere Leiste scrollt mit dem Inhalt mit (nicht fixiert) – keine .klr-fixed-topbar mehr */
 
 .klr-cyber-theme .btn-primary,
 .klr-cyber-theme .btn-secondary {
@@ -207,11 +200,6 @@
 }
 
 @media (max-width: 900px) {
-  .klr-fixed-topbar {
-    top: calc(env(safe-area-inset-top, 0px) + 60px) !important;
-    width: calc(100vw - 20px);
-  }
-
   .cyber-mentor {
     left: auto;
     right: max(10px, env(safe-area-inset-right, 0px) + 10px);
