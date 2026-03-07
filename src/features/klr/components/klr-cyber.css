@@ -46,6 +46,15 @@
   box-shadow: 0 0 0 1px rgba(120, 255, 145, 0.2), 0 0 28px rgba(72, 255, 106, 0.18);
 }
 
+.klr-fixed-topbar {
+  position: fixed !important;
+  top: calc(env(safe-area-inset-top, 0px) + 8px) !important;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(980px, calc(100vw - 16px));
+  z-index: 80 !important;
+}
+
 .klr-cyber-theme .btn-primary,
 .klr-cyber-theme .btn-secondary {
   border-color: rgba(112, 255, 123, 0.5) !important;
