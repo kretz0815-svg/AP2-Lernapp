@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import '../index.css';
 
 const CALC_MIN_WIDTH = 220;
@@ -435,7 +436,7 @@ export default function FloatingCalculator() {
         };
     const helperValue = String(currentValue ?? '').replace('.', ',');
     const helperText = helperValue.length > 14 ? `${helperValue.slice(0, 14)}…` : helperValue;
-    const showMobileResultHelper = isMobile && !isOpen && hasCalcActivity;
+    const showResultHelper = !isOpen && hasCalcActivity;
 
     return (
         <>
@@ -587,13 +588,13 @@ export default function FloatingCalculator() {
                     )}
                 </div>
             )}
-            {showMobileResultHelper && (
+            {showResultHelper && typeof document !== 'undefined' && createPortal(
                 <div
                     style={{
                         position: 'fixed',
-                        right: '12px',
+                        right: isMobile ? '12px' : '16px',
                         top: 'calc(env(safe-area-inset-top, 0px) + 10px)',
-                        zIndex: 1001,
+                        zIndex: 100000,
                         minWidth: '120px',
                         maxWidth: '170px',
                         padding: '8px 10px 9px 10px',
@@ -613,7 +614,8 @@ export default function FloatingCalculator() {
                     <div style={{ fontWeight: 800, fontSize: '1.05rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {helperText}
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
         </>
     );
