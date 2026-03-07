@@ -2661,9 +2661,22 @@ Die JSON muss exakt diese Struktur haben:
                     {radarTopics.map((row, idx) => {
                       const a = (360 / radarTopics.length) * idx;
                       const edge = polarToCartesian(a, 100);
+                      const badge = polarToCartesian(a, 116);
                       return (
                         <g key={`ax_${row.topic}`}>
                           <line x1={radarCenter} y1={radarCenter} x2={edge.x} y2={edge.y} stroke="rgba(148,163,184,0.35)" strokeWidth="1" />
+                          <circle cx={badge.x} cy={badge.y} r="9" fill="rgba(99,102,241,0.22)" stroke="rgba(99,102,241,0.55)" strokeWidth="1.2" />
+                          <text
+                            x={badge.x}
+                            y={badge.y}
+                            textAnchor="middle"
+                            dominantBaseline="central"
+                            fontSize="9"
+                            fontWeight="700"
+                            fill="var(--text-light)"
+                          >
+                            {idx + 1}
+                          </text>
                         </g>
                       );
                     })}
@@ -2676,9 +2689,9 @@ Die JSON muss exakt diese Struktur haben:
                   </svg>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.3rem' }}>
-                  {radarTopics.map(row => (
+                  {radarTopics.map((row, idx) => (
                     <div key={`lgnd_${row.topic}`} style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between', gap: '0.6rem' }}>
-                      <span>{row.topic}</span>
+                      <span>{idx + 1}. {row.topic}</span>
                       <strong style={{ color: row.accuracy >= 75 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)' }}>{row.accuracy}%</strong>
                     </div>
                   ))}
