@@ -94,3 +94,68 @@ ${questionList}`;
         return { topics: [] };
     }
 }
+
+export async function extractCalculationInsights(wrongCalculationEvents) {
+    if (!genAI || !Array.isArray(wrongCalculationEvents) || wrongCalculationEvents.length === 0) {
+        return { insights: [] };
+    }
+
+    try {
+        const eventList = wrongCalculationEvents
+            .slice(0, 30)
+            .map((entry, i) => {
+                const mode = entry.mode === 'breakEven' ? 'Break-Even' : 'Kalkulation';
+                const question = entry.questionText || entry.question || 'Unbekannt';
+                const expected = entry.expectedAnswer || '';
+                const userAnswer = entry.userAnswer || entry.lastUserAnswer || '';
+                return `${i + 1}. Modus: ${mode} | Aufgabe: ${question} | Nutzerantwort: ${userAnswer} | Erwartet: ${expected}`;
+            })
+            .join('\n');
+
+        if (!eventList.trim()) return { insights: [] };
+
+        const prompt = `Du bist ein präziser Lerncoach für kaufmännische Rechenaufgaben (Kalkulation, Break-Even).
+Analysiere die Fehlerliste und gib maximal 3 konkrete, wiederkehrende Fehlerbilder zurück.
+
+Regeln:
+1. Fokus nur auf RECHENFEHLER / Denkmuster (nicht auf Motivation).
+2. Jedes Fehlerbild muss klar sagen:
+   - error: Welcher Fehler passiert?
+   - why: Warum passiert er typischerweise?
+   - nextTime: Worauf soll der Nutzer beim nächsten Mal konkret achten?
+3. Kurze, klare Sätze in einfachem Deutsch.
+4. Antworte NUR als valides JSON:
+{
+  "insights": [
+    { "error": "...", "why": "...", "nextTime": "...", "focus": "..." }
+  ]
+}
+
+Fehlerdaten:
+${eventList}`;
+
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+        const result = await model.generateContent(prompt);
+        const text = result.response.text().trim();
+        const jsonMatch = text.match(/\{[\s\S]*"insights"[\s\S]*\}/);
+        if (!jsonMatch) return { insights: [] };
+
+        const parsed = JSON.parse(jsonMatch[0]);
+        if (!Array.isArray(parsed.insights)) return { insights: [] };
+
+        const insights = parsed.insights
+            .map((item) => ({
+                error: String(item?.error || '').trim(),
+                why: String(item?.why || '').trim(),
+                nextTime: String(item?.nextTime || '').trim(),
+                focus: String(item?.focus || '').trim()
+            }))
+            .filter((item) => item.error && item.nextTime)
+            .slice(0, 3);
+
+        return { insights };
+    } catch (error) {
+        console.error('extractCalculationInsights error:', error);
+        return { insights: [] };
+    }
+}

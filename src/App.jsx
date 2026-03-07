@@ -16,7 +16,7 @@ import wisor1 from './data/wisor_1.json';
 import wisorEco from './data/wisor_eco.json';
 
 import { supabase } from './supabaseClient';
-import { askGemini, extractFocusTopics } from './geminiClient';
+import { askGemini, extractFocusTopics, extractCalculationInsights } from './geminiClient';
 import { fetchYouTubeVideos } from './youtubeClient';
 import FloatingNotes from './components/FloatingNotes';
 import FloatingCalculator from './components/FloatingCalculator';
@@ -187,6 +187,8 @@ function App() {
   const [pomodoroForceStop, setPomodoroForceStop] = useState(0);
   const [dashboardAiTopics, setDashboardAiTopics] = useState([]);
   const [dashboardAiLoading, setDashboardAiLoading] = useState(false);
+  const [calcAiInsights, setCalcAiInsights] = useState([]);
+  const [calcAiLoading, setCalcAiLoading] = useState(false);
   const wisorInputRef = useRef(null);
   const einsteinRef = useRef(null);
   const [einsteinTilt, setEinsteinTilt] = useState({ rotateX: 0, rotateY: 0 });
@@ -260,9 +262,34 @@ function App() {
         });
       } else {
         setDashboardAiTopics([]);
+        setDashboardAiLoading(false);
       }
     }
-  }, [appMode, authUser?.email]);
+  }, [appMode, authUser?.email, learningAnalytics?.mistakes]);
+
+  useEffect(() => {
+    if (appMode !== 'learning_dashboard' || !authUser?.email) return;
+
+    const events = learningAnalytics?.events || [];
+    const wrongCalcEvents = events
+      .filter((event) => (event.mode === 'kalkulation' || event.mode === 'breakEven') && !event.correct)
+      .slice(-30);
+
+    if (wrongCalcEvents.length === 0) {
+      setCalcAiInsights([]);
+      setCalcAiLoading(false);
+      return;
+    }
+
+    setCalcAiLoading(true);
+    extractCalculationInsights(wrongCalcEvents)
+      .then((result) => {
+        setCalcAiInsights(result?.insights || []);
+      })
+      .finally(() => {
+        setCalcAiLoading(false);
+      });
+  }, [appMode, authUser?.email, learningAnalytics?.events]);
 
   useEffect(() => {
     if (appMode === 'wisor' && !wisorEvaluated && wisorInputRef.current) {
@@ -2724,26 +2751,49 @@ Die JSON muss exakt diese Struktur haben:
           {calcTotal === 0 ? (
             <p style={{ color: 'var(--text-muted)', textAlign: 'center', margin: 0, fontSize: '0.88rem' }}>Noch keine Rechenaufgaben bearbeitet. Starte den Kalkulations-Boss oder Break-Even-Point!</p>
           ) : (
-            <div className="analytics-calc-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.7rem' }}>
-              {calcStats.filter(c => c.total > 0).map(cat => (
-                <div key={cat.key} style={{ padding: '0.8rem', borderRadius: '12px', border: `1px solid ${cat.color}33`, background: `${cat.color}08` }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.5rem' }}>
-                    <span style={{ fontSize: '1.1rem' }}>{cat.icon}</span>
-                    <span style={{ color: 'var(--text-light)', fontSize: '0.84rem', fontWeight: 700 }}>{cat.label}</span>
+            <>
+              <div className="analytics-calc-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.7rem' }}>
+                {calcStats.filter(c => c.total > 0).map(cat => (
+                  <div key={cat.key} style={{ padding: '0.8rem', borderRadius: '12px', border: `1px solid ${cat.color}33`, background: `${cat.color}08` }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.5rem' }}>
+                      <span style={{ fontSize: '1.1rem' }}>{cat.icon}</span>
+                      <span style={{ color: 'var(--text-light)', fontSize: '0.84rem', fontWeight: 700 }}>{cat.label}</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem', marginBottom: '0.4rem' }}>
+                      <span style={{ fontSize: '1.8rem', fontWeight: 900, color: cat.accuracy >= 75 ? 'var(--success)' : cat.accuracy >= 50 ? '#f59e0b' : 'var(--error)', lineHeight: 1 }}>{cat.accuracy}%</span>
+                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Trefferquote</span>
+                    </div>
+                    <div style={{ height: '5px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)', marginBottom: '0.35rem' }}>
+                      <div style={{ width: `${cat.accuracy}%`, height: '100%', background: cat.accuracy >= 75 ? 'var(--success)' : cat.accuracy >= 50 ? '#f59e0b' : 'var(--error)', borderRadius: '999px', transition: 'width 0.5s ease' }} />
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                      <span style={{ color: 'var(--success)' }}>{cat.correct} ✓</span> · <span style={{ color: 'var(--error)' }}>{cat.wrong} ✗</span> · {cat.total} gesamt
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem', marginBottom: '0.4rem' }}>
-                    <span style={{ fontSize: '1.8rem', fontWeight: 900, color: cat.accuracy >= 75 ? 'var(--success)' : cat.accuracy >= 50 ? '#f59e0b' : 'var(--error)', lineHeight: 1 }}>{cat.accuracy}%</span>
-                    <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Trefferquote</span>
+                ))}
+              </div>
+
+              <div style={{ marginTop: '1rem', borderRadius: '12px', border: '1px solid rgba(99,102,241,0.25)', background: 'rgba(99,102,241,0.07)', padding: '0.9rem' }}>
+                <h4 style={{ margin: '0 0 0.6rem 0', color: '#a5b4fc', fontSize: '0.9rem' }}>🤖 KI-Rechenfehleranalyse</h4>
+                {calcAiLoading ? (
+                  <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.84rem' }}>KI analysiert deine Rechenfehler…</p>
+                ) : calcAiInsights.length > 0 ? (
+                  <div style={{ display: 'grid', gap: '0.55rem' }}>
+                    {calcAiInsights.map((insight, idx) => (
+                      <div key={`calc_ai_${idx}`} style={{ borderRadius: '10px', border: '1px solid rgba(255,255,255,0.14)', background: 'rgba(255,255,255,0.03)', padding: '0.7rem' }}>
+                        <p style={{ margin: '0 0 0.35rem 0', color: 'var(--text-light)', fontSize: '0.84rem' }}><strong>Fehler:</strong> {insight.error}</p>
+                        {insight.why && <p style={{ margin: '0 0 0.35rem 0', color: 'var(--text-muted)', fontSize: '0.8rem' }}><strong>Warum:</strong> {insight.why}</p>}
+                        <p style={{ margin: 0, color: '#c7d2fe', fontSize: '0.8rem' }}><strong>Nächstes Mal:</strong> {insight.nextTime}{insight.focus ? ` (Fokus: ${insight.focus})` : ''}</p>
+                      </div>
+                    ))}
                   </div>
-                  <div style={{ height: '5px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.08)', marginBottom: '0.35rem' }}>
-                    <div style={{ width: `${cat.accuracy}%`, height: '100%', background: cat.accuracy >= 75 ? 'var(--success)' : cat.accuracy >= 50 ? '#f59e0b' : 'var(--error)', borderRadius: '999px', transition: 'width 0.5s ease' }} />
-                  </div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                    <span style={{ color: 'var(--success)' }}>{cat.correct} ✓</span> · <span style={{ color: 'var(--error)' }}>{cat.wrong} ✗</span> · {cat.total} gesamt
-                  </div>
-                </div>
-              ))}
-            </div>
+                ) : (
+                  <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.84rem' }}>
+                    Noch nicht genug Rechenfehler für eine KI-Auswertung. Bearbeite einige Kalkulations- oder Break-Even-Aufgaben.
+                  </p>
+                )}
+              </div>
+            </>
           )}
         </section>
 
