@@ -2645,7 +2645,12 @@ Die JSON muss exakt diese Struktur haben:
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <svg style={{ width: '100%', maxWidth: '280px', height: 'auto' }} viewBox={`0 0 ${radarSize} ${radarSize}`} role="img" aria-label="Radar">
+                  <svg
+                    style={{ width: '100%', maxWidth: '320px', height: 'auto', overflow: 'visible' }}
+                    viewBox={`${-28} ${-28} ${radarSize + 56} ${radarSize + 56}`}
+                    role="img"
+                    aria-label="Radar"
+                  >
                     {radarRings.map(ring => (
                       <polygon key={`ring_${ring}`} points={radarTopics.map((_, idx) => {
                         const a = (360 / radarTopics.length) * idx;
@@ -2656,12 +2661,28 @@ Die JSON muss exakt diese Struktur haben:
                     {radarTopics.map((row, idx) => {
                       const a = (360 / radarTopics.length) * idx;
                       const edge = polarToCartesian(a, 100);
-                      const lbl = polarToCartesian(a, 115);
+                      const lbl = polarToCartesian(a, 122);
+                      const textAnchor = lbl.x < radarCenter - 8 ? 'end' : lbl.x > radarCenter + 8 ? 'start' : 'middle';
+                      const dx = textAnchor === 'start' ? 4 : textAnchor === 'end' ? -4 : 0;
+                      const dy = lbl.y < radarCenter - 56 ? -6 : lbl.y > radarCenter + 56 ? 6 : 0;
+                      const labelText = row.topic.length > 20 ? `${row.topic.slice(0, 20)}\u2026` : row.topic;
                       return (
                         <g key={`ax_${row.topic}`}>
                           <line x1={radarCenter} y1={radarCenter} x2={edge.x} y2={edge.y} stroke="rgba(148,163,184,0.35)" strokeWidth="1" />
-                          <text x={lbl.x} y={lbl.y} textAnchor="middle" dominantBaseline="middle" fontSize="9" fill="var(--text-muted)">
-                            {row.topic.length > 14 ? `${row.topic.slice(0, 14)}\u2026` : row.topic}
+                          <text
+                            x={lbl.x}
+                            y={lbl.y}
+                            dx={dx}
+                            dy={dy}
+                            textAnchor={textAnchor}
+                            dominantBaseline="middle"
+                            fontSize="9.5"
+                            fill="var(--text-light)"
+                            stroke="rgba(15,23,42,0.95)"
+                            strokeWidth="3"
+                            paintOrder="stroke"
+                          >
+                            {labelText}
                           </text>
                         </g>
                       );
