@@ -26,6 +26,9 @@ import QuestionManager from './components/QuestionManager';
 import PomodoroTimer from './components/PomodoroTimer';
 import KalkulationsBoss from './components/KalkulationsBoss';
 import BreakEvenPoint from './components/BreakEvenPoint';
+import ResetModal from './components/ResetModal';
+import VideoPanel from './components/VideoPanel';
+import GeminiPanel from './components/GeminiPanel';
 import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
 import { reviewTaskWithDSR, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
 
@@ -508,7 +511,6 @@ function App() {
   const [activeWisorMode, setActiveWisorMode] = useState('wisor1');
   const [resetModalVisible, setResetModalVisible] = useState(false);
   const [resetTarget, setResetTarget] = useState('wisor');
-  const [resetMath, setResetMath] = useState({ a: 0, b: 0, input: '' });
   const [questionManagerCategory, setQuestionManagerCategory] = useState(null);
   const [learningAnalytics, setLearningAnalytics] = useState(createEmptyAnalytics());
   const [customQuizQuestions, setCustomQuizQuestions] = useState([]);
@@ -1539,100 +1541,93 @@ ${feynmanInput}`;
   const openResetModal = (e, target = 'wisor') => {
     e.stopPropagation();
     setResetTarget(target);
-    setResetMath({ a: Math.floor(Math.random() * 10) + 1, b: Math.floor(Math.random() * 20) + 1, input: '' });
     setResetModalVisible(true);
   };
 
-  const handleResetConfirm = (e) => {
-    e.preventDefault();
-    if (parseInt(resetMath.input) === resetMath.a + resetMath.b) {
-      if (resetTarget === 'wisor') {
-        setCompletedWisors({});
-        localStorage.removeItem('ap2_wisor_progress');
+  const handleResetExecute = () => {
+    if (resetTarget === 'wisor') {
+      setCompletedWisors({});
+      localStorage.removeItem('ap2_wisor_progress');
 
-        if (authUser?.id) {
-          syncProgressToSupabase({ wisor_progress: {} }).catch(() => { });
-        }
-
-        setResetModalVisible(false);
-
-        const rawWisors = [...wisor1.questions];
-        setAllWisors(rawWisors.sort(() => Math.random() - 0.5));
-        setCurrentWisorIndex(0);
-        setWisorScore({ correct: 0, total: 0 });
-        setWisorInput('');
-        setWisorEvaluated(false);
-        setWisorIsCorrect(false);
-        setWisorVideoOpen(false);
-        if (appMode === 'wisor') setAppMode('wisor');
-      } else if (resetTarget === 'wisorEco') {
-        setCompletedWisorsEco({});
-        localStorage.removeItem('ap2_wisor_eco_progress');
-
-        if (authUser?.id) {
-          syncProgressToSupabase({ wisor_eco_progress: {} }).catch(() => { });
-        }
-
-        setResetModalVisible(false);
-
-        const rawWisors = [...(wisorEco.questions || [])];
-        setAllWisors(rawWisors);
-        setCurrentWisorIndex(0);
-        setWisorScore({ correct: 0, total: 0 });
-        setWisorInput('');
-        setWisorEvaluated(false);
-        setWisorIsCorrect(false);
-        setWisorVideoOpen(false);
-        if (appMode === 'wisor') setAppMode('wisor');
-      } else if (resetTarget === 'quiz') {
-        localStorage.removeItem('ap2_quiz_progress');
-        setQuizProgressView({});
-        const resetTasks = [];
-
-        if (authUser?.id) {
-          resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'quiz'));
-        }
-
-        setResetModalVisible(false);
-        setAllQuizzes([]);
-
-        Promise.allSettled(resetTasks)
-          .then(() => refreshQuizDuePool())
-          .catch(() => refreshQuizDuePool());
-
-        if (appMode === 'quiz' || appMode === 'quiz_setup') setAppMode('dashboard');
-      } else if (resetTarget === 'fullAccount') {
-        // Clear progress localStorage (keep custom quiz questions)
-        localStorage.removeItem('ap2_srs_progress');
-        localStorage.removeItem('ap2_quiz_progress');
-        localStorage.removeItem('ap2_wisor_progress');
-        localStorage.removeItem('ap2_wisor_eco_progress');
-        localStorage.removeItem('ap2_saved_notes');
-        localStorage.removeItem(getAnalyticsStorageKey(authUser));
-
-        // Reset progress state (keep customQuizQuestions intact)
-        setCompletedWisors({});
-        setCompletedWisorsEco({});
-        setQuizProgressView({});
-        setAllQuizzes([]);
-        setLearningAnalytics(createEmptyAnalytics());
-        setStats({ learnedToday: 0, totalDue: 0 });
-
-        // Clear Supabase progress but preserve custom questions
-        const resetTasks = [];
-        if (authUser?.id) {
-          const preservedData = { ...createEmptyMemberProgressData(), custom_quiz_questions: customQuizQuestions };
-          resetTasks.push(syncProgressToSupabase(preservedData, { queueOnFail: false }));
-          resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'quiz'));
-        }
-
-        setResetModalVisible(false);
-        Promise.allSettled(resetTasks).then(() => refreshQuizDuePool());
-        setAppMode('dashboard');
+      if (authUser?.id) {
+        syncProgressToSupabase({ wisor_progress: {} }).catch(() => { });
       }
-    } else {
-      alert("Falsches Ergebnis! Reset abgebrochen.");
+
       setResetModalVisible(false);
+
+      const rawWisors = [...wisor1.questions];
+      setAllWisors(rawWisors.sort(() => Math.random() - 0.5));
+      setCurrentWisorIndex(0);
+      setWisorScore({ correct: 0, total: 0 });
+      setWisorInput('');
+      setWisorEvaluated(false);
+      setWisorIsCorrect(false);
+      setWisorVideoOpen(false);
+      if (appMode === 'wisor') setAppMode('wisor');
+    } else if (resetTarget === 'wisorEco') {
+      setCompletedWisorsEco({});
+      localStorage.removeItem('ap2_wisor_eco_progress');
+
+      if (authUser?.id) {
+        syncProgressToSupabase({ wisor_eco_progress: {} }).catch(() => { });
+      }
+
+      setResetModalVisible(false);
+
+      const rawWisors = [...(wisorEco.questions || [])];
+      setAllWisors(rawWisors);
+      setCurrentWisorIndex(0);
+      setWisorScore({ correct: 0, total: 0 });
+      setWisorInput('');
+      setWisorEvaluated(false);
+      setWisorIsCorrect(false);
+      setWisorVideoOpen(false);
+      if (appMode === 'wisor') setAppMode('wisor');
+    } else if (resetTarget === 'quiz') {
+      localStorage.removeItem('ap2_quiz_progress');
+      setQuizProgressView({});
+      const resetTasks = [];
+
+      if (authUser?.id) {
+        resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'quiz'));
+      }
+
+      setResetModalVisible(false);
+      setAllQuizzes([]);
+
+      Promise.allSettled(resetTasks)
+        .then(() => refreshQuizDuePool())
+        .catch(() => refreshQuizDuePool());
+
+      if (appMode === 'quiz' || appMode === 'quiz_setup') setAppMode('dashboard');
+    } else if (resetTarget === 'fullAccount') {
+      // Clear progress localStorage (keep custom quiz questions)
+      localStorage.removeItem('ap2_srs_progress');
+      localStorage.removeItem('ap2_quiz_progress');
+      localStorage.removeItem('ap2_wisor_progress');
+      localStorage.removeItem('ap2_wisor_eco_progress');
+      localStorage.removeItem('ap2_saved_notes');
+      localStorage.removeItem(getAnalyticsStorageKey(authUser));
+
+      // Reset progress state (keep customQuizQuestions intact)
+      setCompletedWisors({});
+      setCompletedWisorsEco({});
+      setQuizProgressView({});
+      setAllQuizzes([]);
+      setLearningAnalytics(createEmptyAnalytics());
+      setStats({ learnedToday: 0, totalDue: 0 });
+
+      // Clear Supabase progress but preserve custom questions
+      const resetTasks = [];
+      if (authUser?.id) {
+        const preservedData = { ...createEmptyMemberProgressData(), custom_quiz_questions: customQuizQuestions };
+        resetTasks.push(syncProgressToSupabase(preservedData, { queueOnFail: false }));
+        resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'quiz'));
+      }
+
+      setResetModalVisible(false);
+      Promise.allSettled(resetTasks).then(() => refreshQuizDuePool());
+      setAppMode('dashboard');
     }
   };
 
@@ -2125,30 +2120,11 @@ ${feynmanInput}`;
           </div>
         </div>
 
-        {resetModalVisible && (
-          <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <div className="card-face fade-in" style={{ padding: '2rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center', maxWidth: '350px' }}>
-              <h3 style={{ color: 'var(--text-light)', marginBottom: '1rem' }}>Fortschritt zurücksetzen?</h3>
-              <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>Bitte löse folgende Aufgabe, um ein versehentliches Löschen zu verhindern:</p>
-              <form onSubmit={handleResetConfirm}>
-                <p style={{ fontSize: '1.5rem', color: 'var(--text-light)', marginBottom: '1rem' }}>{resetMath.a} + {resetMath.b} = ?</p>
-                <input
-                  type="number"
-                  className="wisor-input"
-                  style={{ textAlign: 'center', marginBottom: '1rem' }}
-                  value={resetMath.input}
-                  onChange={(e) => setResetMath(s => ({ ...s, input: e.target.value }))}
-                  required
-                  autoFocus
-                />
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <button type="button" className="btn-secondary" onClick={() => setResetModalVisible(false)} style={{ flex: 1 }}>Abbrechen</button>
-                  <button type="submit" className="btn-primary" style={{ flex: 1, background: 'var(--color-error)' }}>Löschen</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
+        <ResetModal
+          isOpen={resetModalVisible}
+          onClose={() => setResetModalVisible(false)}
+          onConfirm={handleResetExecute}
+        />
       </div>
     );
   }
@@ -2289,30 +2265,13 @@ ${feynmanInput}`;
           </div>
         </section>
 
-        {resetModalVisible && (
-          <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <div className="card-face fade-in" style={{ padding: '2rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center', maxWidth: '350px' }}>
-              <h3 style={{ color: 'var(--error, #ef4444)', marginBottom: '0.7rem' }}>Bist du dir sicher?</h3>
-              <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>Dein gesamter Lernstand wird unwiderruflich auf Null zurückgesetzt. Löse die Aufgabe, um fortzufahren:</p>
-              <form onSubmit={handleResetConfirm}>
-                <p style={{ fontSize: '1.5rem', color: 'var(--text-light)', marginBottom: '1rem' }}>{resetMath.a} + {resetMath.b} = ?</p>
-                <input
-                  type="number"
-                  className="wisor-input"
-                  style={{ textAlign: 'center', marginBottom: '1rem' }}
-                  value={resetMath.input}
-                  onChange={(e) => setResetMath(s => ({ ...s, input: e.target.value }))}
-                  required
-                  autoFocus
-                />
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <button type="button" className="btn-secondary" onClick={() => setResetModalVisible(false)} style={{ flex: 1 }}>Abbrechen</button>
-                  <button type="submit" className="btn-primary" style={{ flex: 1, background: 'var(--error, #ef4444)' }}>Alles löschen</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
+        <ResetModal
+          isOpen={resetModalVisible}
+          onClose={() => setResetModalVisible(false)}
+          onConfirm={handleResetExecute}
+          title="Bist du dir sicher?"
+          description="Dein gesamter Lernstand wird unwiderruflich auf Null zurückgesetzt. Löse die Aufgabe, um fortzufahren:"
+        />
       </div>
     );
   }
@@ -3344,85 +3303,24 @@ Die JSON muss exakt diese Struktur haben:
             </button>
           </div>
 
-          {wisorVideoOpen && (
-            <div className="fade-in" style={{ marginBottom: '1.5rem', width: '100%' }}>
-              {!selectedWisorVideo ? (
-                <>
-                  {wisorVideoLoading ? (
-                    <div style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '2rem', background: 'var(--glass-bg)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>Suche passende Videos... ⏳</div>
-                  ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                      {wisorVideos.length > 0 ? wisorVideos.map((video) => (
-                        <div
-                          key={video.id}
-                          className="video-thumbnail-card"
-                          onClick={() => setSelectedWisorVideo(video)}
-                          style={{ background: 'var(--glass-bg)', borderRadius: '12px', overflow: 'hidden', cursor: 'pointer', border: '1px solid var(--glass-border)', transition: 'all 0.2s', display: 'flex', flexDirection: 'column' }}
-                        >
-                          <img src={video.thumbnail} alt={video.title} style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
-                          <div style={{ padding: '0.8rem' }}>
-                            <div style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'white', marginBottom: '0.4rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{video.title}</div>
-                            <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>{video.channelTitle}</span>
-                          </div>
-                        </div>
-                      )) : (
-                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'var(--text-muted)', padding: '1rem' }}>
-                          {wisorVideoError || 'Keine Videos gefunden.'}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div style={{ background: 'black', borderRadius: '16px', overflow: 'hidden', position: 'relative', paddingTop: '56.25%' }}>
-                  <iframe
-                    src={`https://www.youtube.com/embed/${selectedWisorVideo.id.replace('predefined_', '')}?autoplay=1`}
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                  ></iframe>
-                  <button
-                    onClick={() => setSelectedWisorVideo(null)}
-                    style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(0,0,0,0.6)', color: 'white', border: 'none', borderRadius: '50%', width: '30px', height: '30px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                  >
-                    X
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
+          <VideoPanel
+            isOpen={wisorVideoOpen}
+            isLoading={wisorVideoLoading}
+            videos={wisorVideos}
+            error={wisorVideoError}
+            selectedVideo={selectedWisorVideo}
+            onSelectVideo={setSelectedWisorVideo}
+            onCloseVideo={() => setSelectedWisorVideo(null)}
+          />
 
-          {geminiVisible && (
-            <div className="fade-in" style={{ marginBottom: '1.5rem', width: '100%', background: 'var(--glass-bg)', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>
-              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-                <input
-                  type="text"
-                  className="wisor-input"
-                  style={{ flex: 1, padding: '0.8rem', fontSize: '0.95rem' }}
-                  placeholder="Frag die KI nach einer Erklärung..."
-                  value={geminiQuery}
-                  onChange={e => setGeminiQuery(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && handleGeminiAsk()}
-                />
-                <button
-                  className="btn-primary"
-                  onClick={handleGeminiAsk}
-                  disabled={geminiLoading || !geminiQuery.trim()}
-                  style={{ padding: '0 1.5rem' }}
-                >
-                  {geminiLoading ? '...' : 'Fragen'}
-                </button>
-              </div>
-
-              {geminiResponse && (
-                <div style={{ textAlign: 'left', lineHeight: '1.6', fontSize: '0.95rem', color: '#f8fafc', background: 'rgba(0,0,0,0.2)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', whiteSpace: 'pre-wrap' }}>
-                  {geminiResponse}
-                </div>
-              )}
-            </div>
-          )}
+          <GeminiPanel
+            isOpen={geminiVisible}
+            query={geminiQuery}
+            onQueryChange={setGeminiQuery}
+            onAsk={handleGeminiAsk}
+            isLoading={geminiLoading}
+            response={geminiResponse}
+          />
 
           <div className="quiz-question">
             {formatLatex(q.question)}
@@ -3566,21 +3464,11 @@ Die JSON muss exakt diese Struktur haben:
             <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
             <button className="btn-primary" onClick={(e) => openResetModal(e, activeWisorMode === 'wisor1' ? 'wisor' : 'wisorEco')} style={{ marginLeft: '1rem' }}>Fortschritt zurücksetzen</button>
           </div>
-          {resetModalVisible && (
-            <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <div className="card-face fade-in" style={{ padding: '2rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center', maxWidth: '350px' }}>
-                <h3 style={{ color: 'var(--text-light)', marginBottom: '1rem' }}>Fortschritt zurücksetzen?</h3>
-                <form onSubmit={handleResetConfirm}>
-                  <p style={{ fontSize: '1.5rem', color: 'var(--text-light)', marginBottom: '1rem' }}>{resetMath.a} + {resetMath.b} = ?</p>
-                  <input type="number" className="wisor-input" style={{ textAlign: 'center', marginBottom: '1rem' }} value={resetMath.input} onChange={(e) => setResetMath(s => ({ ...s, input: e.target.value }))} required autoFocus />
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button type="button" className="btn-secondary" onClick={() => setResetModalVisible(false)} style={{ flex: 1 }}>Abbrechen</button>
-                    <button type="submit" className="btn-primary" style={{ flex: 1, background: 'var(--color-error)' }}>Löschen</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          )}
+          <ResetModal
+            isOpen={resetModalVisible}
+            onClose={() => setResetModalVisible(false)}
+            onConfirm={handleResetExecute}
+          />
         </div>
       );
     }
@@ -3640,87 +3528,26 @@ Die JSON muss exakt diese Struktur haben:
             </button>
           </div>
 
-          {wisorVideoOpen && (
-            <div className="fade-in" style={{ marginBottom: '1.5rem', width: '100%' }}>
-              {!selectedWisorVideo ? (
-                <>
-                  {wisorVideoLoading ? (
-                    <div style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '2rem', background: 'var(--glass-bg)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>Suche passende Videos... ⏳</div>
-                  ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                      {wisorVideos.length > 0 ? wisorVideos.map((video) => (
-                        <div
-                          key={video.id}
-                          className="video-thumbnail-card"
-                          onClick={() => setSelectedWisorVideo(video.url)}
-                          style={{ cursor: 'pointer', background: 'var(--glass-bg)', padding: '0.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)', transition: 'transform 0.2s' }}
-                        >
-                          <img src={video.thumbnail} alt={video.title} style={{ width: '100%', borderRadius: '12px', marginBottom: '0.5rem', border: '1px solid rgba(255,255,255,0.1)' }} />
-                          <h4 style={{ color: 'white', fontSize: '0.9rem', lineHeight: '1.2', marginBottom: '0.2rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{video.title}</h4>
-                          <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>{video.channelTitle}</span>
-                        </div>
-                      )) : (
-                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'var(--text-muted)', padding: '1rem' }}>Keine Videos gefunden oder API-Key fehlt.</div>
-                      )}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--glass-border)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 1rem', background: 'black', alignItems: 'center' }}>
-                    <span style={{ color: 'white', fontSize: '0.9rem' }}>Video-Player</span>
-                    <button className="btn-secondary" style={{ padding: '0.2rem 0.6rem', fontSize: '0.8rem', borderRadius: '8px' }} onClick={() => setSelectedWisorVideo(null)}>← Andere Videos</button>
-                  </div>
-                  <iframe
-                    width="100%"
-                    height="280"
-                    src={selectedWisorVideo}
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    style={{ display: 'block' }}
-                  ></iframe>
-                </div>
-              )}
-            </div>
-          )}
+          <VideoPanel
+            isOpen={wisorVideoOpen}
+            isLoading={wisorVideoLoading}
+            videos={wisorVideos}
+            error={wisorVideoError}
+            selectedVideo={selectedWisorVideo}
+            onSelectVideo={setSelectedWisorVideo}
+            onCloseVideo={() => setSelectedWisorVideo(null)}
+          />
 
-          {geminiVisible && (
-            <div className="fade-in" style={{ marginBottom: '1.5rem', width: '100%', borderRadius: '16px', padding: '1.5rem', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
-              <p style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '1.1rem', fontWeight: 'bold' }}>Frage an deinen KI-Tutor</p>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <input
-                  type="text"
-                  className="wisor-input"
-                  placeholder="Was genau verstehst du hier nicht?"
-                  value={geminiQuery}
-                  onChange={(e) => setGeminiQuery(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault();
-                      handleGeminiAsk();
-                    }
-                  }}
-                  style={{ flex: 1, padding: '0.8rem', margin: 0 }}
-                />
-                <button
-                  type="button"
-                  className="btn-primary"
-                  onClick={handleGeminiAsk}
-                  disabled={geminiLoading || !geminiQuery.trim()}
-                  style={{ padding: '0 1.5rem' }}
-                >
-                  {geminiLoading ? '⏳ Lädt...' : 'Fragen'}
-                </button>
-              </div>
-              {geminiResponse && (
-                <div className="fade-in" style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', color: '#e2e8f0', textAlign: 'left', lineHeight: '1.6' }}>
-                  <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', margin: 0 }}>{geminiResponse}</pre>
-                </div>
-              )}
-            </div>
-          )}
+          <GeminiPanel
+            isOpen={geminiVisible}
+            title="Frage an deinen KI-Tutor"
+            placeholder="Was genau verstehst du hier nicht?"
+            query={geminiQuery}
+            onQueryChange={setGeminiQuery}
+            onAsk={handleGeminiAsk}
+            isLoading={geminiLoading}
+            response={geminiResponse}
+          />
 
           {/* svgCode now handled by FloatingImage */}
           <div className="quiz-question">
