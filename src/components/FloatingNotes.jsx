@@ -5,6 +5,7 @@ import '../index.css';
 export default function FloatingNotes({ questionId, questionText }) {
     const [isOpen, setIsOpen] = useState(false);
     const [notes, setNotes] = useState('');
+    const [avoidInput, setAvoidInput] = useState(false);
 
     const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
 
@@ -170,6 +171,37 @@ export default function FloatingNotes({ questionId, questionText }) {
         };
     }, [isMobile]);
 
+    useEffect(() => {
+        if (!isMobile) {
+            setAvoidInput(false);
+            return;
+        }
+
+        const shouldAvoid = (el) => {
+            if (!el) return false;
+            if (el.closest('.floating-notes-window')) return false;
+            return Boolean(el.closest('input, textarea, [contenteditable="true"]'));
+        };
+
+        const handleFocusIn = (e) => {
+            setAvoidInput(shouldAvoid(e.target));
+        };
+
+        const handleFocusOut = () => {
+            requestAnimationFrame(() => {
+                setAvoidInput(shouldAvoid(document.activeElement));
+            });
+        };
+
+        document.addEventListener('focusin', handleFocusIn);
+        document.addEventListener('focusout', handleFocusOut);
+
+        return () => {
+            document.removeEventListener('focusin', handleFocusIn);
+            document.removeEventListener('focusout', handleFocusOut);
+        };
+    }, [isMobile]);
+
     const onDragStart = (e) => {
         if (isMobile || e.target.closest('.floating-notes-close') || e.target.closest('textarea')) return;
         dragRef.current = true;
@@ -282,12 +314,19 @@ export default function FloatingNotes({ questionId, questionText }) {
 
     // Mobile Styling Konstanten
     const mobileHeight = Math.min(220, vvState.height * 0.45);
-    const mobileToggleStyle = {
-        position: 'fixed',
-        right: '12px',
-        top: 'calc(env(safe-area-inset-top, 0px) + 158px)',
-        zIndex: 1000
-    };
+    const mobileToggleStyle = avoidInput
+        ? {
+            position: 'fixed',
+            left: '12px',
+            top: 'calc(env(safe-area-inset-top, 0px) + 158px)',
+            zIndex: 1000
+        }
+        : {
+            position: 'fixed',
+            right: '12px',
+            top: 'calc(env(safe-area-inset-top, 0px) + 158px)',
+            zIndex: 1000
+        };
 
     return (
         <>

@@ -8,6 +8,7 @@ const CALC_MAX_HEIGHT = 560;
 
 export default function FloatingCalculator() {
     const [isOpen, setIsOpen] = useState(false);
+    const [avoidInput, setAvoidInput] = useState(false);
 
     // Calculator State
     const [currentValue, setCurrentValue] = useState('0');
@@ -74,6 +75,37 @@ export default function FloatingCalculator() {
             } else {
                 window.removeEventListener('resize', updateVv);
             }
+        };
+    }, [isMobile]);
+
+    useEffect(() => {
+        if (!isMobile) {
+            setAvoidInput(false);
+            return;
+        }
+
+        const shouldAvoid = (el) => {
+            if (!el) return false;
+            if (el.closest('.floating-notes-window')) return false;
+            return Boolean(el.closest('input, textarea, [contenteditable="true"]'));
+        };
+
+        const handleFocusIn = (e) => {
+            setAvoidInput(shouldAvoid(e.target));
+        };
+
+        const handleFocusOut = () => {
+            requestAnimationFrame(() => {
+                setAvoidInput(shouldAvoid(document.activeElement));
+            });
+        };
+
+        document.addEventListener('focusin', handleFocusIn);
+        document.addEventListener('focusout', handleFocusOut);
+
+        return () => {
+            document.removeEventListener('focusin', handleFocusIn);
+            document.removeEventListener('focusout', handleFocusOut);
         };
     }, [isMobile]);
 
@@ -259,12 +291,19 @@ export default function FloatingCalculator() {
     }[activeResizeHandle];
 
     const mobileHeight = Math.min(400, vvState.height * 0.7);
-    const mobileToggleStyle = {
-        position: 'fixed',
-        right: '12px',
-        top: 'calc(env(safe-area-inset-top, 0px) + 88px)',
-        zIndex: 1000
-    };
+    const mobileToggleStyle = avoidInput
+        ? {
+            position: 'fixed',
+            left: '12px',
+            top: 'calc(env(safe-area-inset-top, 0px) + 88px)',
+            zIndex: 1000
+        }
+        : {
+            position: 'fixed',
+            right: '12px',
+            top: 'calc(env(safe-area-inset-top, 0px) + 88px)',
+            zIndex: 1000
+        };
 
     return (
         <>
