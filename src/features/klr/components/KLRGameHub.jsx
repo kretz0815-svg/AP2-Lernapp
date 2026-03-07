@@ -278,21 +278,6 @@ export default function KLRGameHub({ onBack }) {
     }
   };
 
-  const validateLevel2 = () => {
-    const correctLager = validateLevel2Field('lager', false);
-    const correctPack = validateLevel2Field('packstation', false);
-    const correctBuero = validateLevel2Field('buero', false);
-    const correct = correctLager && correctPack && correctBuero;
-
-    if (correct) {
-      setLevel2Status('success');
-      setLevel2Feedback('Perfekt verteilt. Genau richtig!');
-    } else {
-      setLevel2Status('error');
-      setLevel2Feedback('Noch nicht korrekt. Rechne mit Kosten pro m² und prüfe jede Kostenstelle einzeln.');
-    }
-  };
-
   const finishLevel2 = () => {
     if (level2Status !== 'success') return;
     grantXp(90);
@@ -492,7 +477,6 @@ export default function KLRGameHub({ onBack }) {
             </div>
 
             <div style={{ marginTop: '0.75rem', display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
-              <button className="btn-primary" onClick={validateLevel2}>Prüfen</button>
               <button className="btn-secondary" onClick={startLevel2}>Neue Aufgabe</button>
               {level2Status === 'success' && <button className="btn-primary" onClick={finishLevel2}>Level abschließen</button>}
             </div>

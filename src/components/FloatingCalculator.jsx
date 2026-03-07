@@ -435,7 +435,7 @@ export default function FloatingCalculator() {
         };
     const helperValue = String(currentValue ?? '').replace('.', ',');
     const helperText = helperValue.length > 14 ? `${helperValue.slice(0, 14)}…` : helperValue;
-    const showMobileResultHelper = isMobile && !isOpen && avoidInput && hasCalcActivity;
+    const showMobileResultHelper = isMobile && !isOpen && hasCalcActivity;
 
     return (
         <>
