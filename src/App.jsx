@@ -29,6 +29,7 @@ import BreakEvenPoint from './components/BreakEvenPoint';
 import ResetModal from './components/ResetModal';
 import VideoPanel from './components/VideoPanel';
 import GeminiPanel from './components/GeminiPanel';
+import { KLRGameHub } from './features/klr';
 import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
 import { reviewTaskWithDSR, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
 
@@ -1829,6 +1830,22 @@ ${feynmanInput}`;
             <p>Trainiere Deckungsbeitrag, Gewinnschwelle in Stück und kritischen Umsatz.</p>
             <div className="chip">Neuer Raum</div>
           </div>
+
+          <div className="dash-card" onClick={() => setAppMode('klr')}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
+              <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2.5" />
+                <line x1="7" y1="9" x2="17" y2="9" />
+                <line x1="7" y1="13" x2="12" y2="13" />
+                <line x1="7" y1="17" x2="10" y2="17" />
+                <line x1="16" y1="13" x2="16" y2="18" />
+                <line x1="14" y1="15.5" x2="18" y2="15.5" />
+              </svg>
+            </div>
+            <h2>KLR Startup<br />Survival</h2>
+            <p>Gamifizierte Kosten- und Leistungsrechnung im E-Commerce-Setting.</p>
+            <div className="chip">Neu: Phase 1</div>
+          </div>
         </div>
 
         <ResetModal
@@ -1973,6 +1990,25 @@ ${feynmanInput}`;
           title="Bist du dir sicher?"
           description="Dein gesamter Lernstand wird unwiderruflich auf Null zurückgesetzt. Löse die Aufgabe, um fortzufahren:"
         />
+      </div>
+    );
+  }
+
+  if (appMode === 'klr') {
+    return (
+      <div className="app-container" style={{ zIndex: 10 }}>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <header style={{ width: '100%', maxWidth: '920px' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%', marginBottom: '0.8rem' }}>
+            <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
+          </div>
+          <h1 style={{ margin: 0, fontSize: '2.2rem', color: 'var(--text-light)' }}>KLR Startup Survival</h1>
+          <p className="subtitle" style={{ marginTop: '0.5rem' }}>Architektur-, State- und Mathe-Basis für das neue KLR-Spiel.</p>
+        </header>
+        <KLRGameHub />
       </div>
     );
   }
