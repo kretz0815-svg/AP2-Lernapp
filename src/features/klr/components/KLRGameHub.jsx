@@ -1,6 +1,8 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { useKLRGame } from '../state/KLRGameProvider';
 import { generateLevel2Math } from '../utils/generateLevelMath';
+import { fetchYouTubeVideos } from '../../../youtubeClient';
+import { askGemini } from '../../../geminiClient';
 
 const LEVELS = [
   {
@@ -177,6 +179,15 @@ export default function KLRGameHub({ onBack }) {
   const [screen, setScreen] = useState('home');
   const [pendingLevelId, setPendingLevelId] = useState(null);
   const [howToOpen, setHowToOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [videoLoading, setVideoLoading] = useState(false);
+  const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [videoError, setVideoError] = useState('');
+  const [geminiVisible, setGeminiVisible] = useState(false);
+  const [geminiQuery, setGeminiQuery] = useState('');
+  const [geminiLoading, setGeminiLoading] = useState(false);
+  const [geminiResponse, setGeminiResponse] = useState('');
 
   const [level1Items, setLevel1Items] = useState(() => generateLevel1Run());
   const [level1Index, setLevel1Index] = useState(0);
@@ -236,6 +247,10 @@ export default function KLRGameHub({ onBack }) {
   };
 
   const startLevel1 = () => {
+    setVideoOpen(false);
+    setGeminiVisible(false);
+    setGeminiResponse('');
+    setSelectedVideo(null);
     setLevel1Items(generateLevel1Run());
     setLevel1Index(0);
     setLevel1Correct(0);
@@ -245,6 +260,10 @@ export default function KLRGameHub({ onBack }) {
   };
 
   const startLevel2 = () => {
+    setVideoOpen(false);
+    setGeminiVisible(false);
+    setGeminiResponse('');
+    setSelectedVideo(null);
     setLevel2Math(generateLevel2Math());
     setLevel2Inputs({ lager: '', packstation: '', buero: '' });
     setLevel2FieldOk({ lager: null, packstation: null, buero: null });
@@ -349,6 +368,10 @@ export default function KLRGameHub({ onBack }) {
   };
 
   const startLevel3 = () => {
+    setVideoOpen(false);
+    setGeminiVisible(false);
+    setGeminiResponse('');
+    setSelectedVideo(null);
     setLevel3Scenario(generateLevel3Scenario());
     setLevel3Rates({ mgkPct: 0, fgkPct: 0, vwgkPct: 0, vtgkPct: 0 });
     setLevel3SelfCostInput('');
@@ -391,9 +414,195 @@ export default function KLRGameHub({ onBack }) {
   };
 
   const openPendingLevel = (levelId) => {
+    setVideoOpen(false);
+    setGeminiVisible(false);
+    setGeminiResponse('');
+    setSelectedVideo(null);
     setPendingLevelId(levelId);
     setScreen('pending');
   };
+
+  const getSupportContext = () => {
+    if (screen === 'level1') {
+      return {
+        youtubeQuery: 'Fixkosten variable Kosten einfach erklärt',
+        contextQuestion: `KLR Level 1: ${currentItem?.label || 'Kosten unterscheiden'}`,
+        contextAnswer: 'Fixkosten bleiben meist konstant. Variable Kosten steigen mit Menge/Bestellungen.'
+      };
+    }
+    if (screen === 'level2') {
+      return {
+        youtubeQuery: 'Betriebsabrechnungsbogen Kostenstellenrechnung einfach',
+        contextQuestion: 'KLR Level 2: Gemeinkostenverteilung im Betriebsabrechnungsbogen',
+        contextAnswer: `Gesamtkosten ${level2Math.baseCost} €, Schlüssel: Lager ${level2Math.key.lager}, Packstation ${level2Math.key.packstation}, Büro ${level2Math.key.buero}.`
+      };
+    }
+    if (screen === 'level3') {
+      return {
+        youtubeQuery: 'Zuschlagskalkulation Selbstkosten einfach erklärt',
+        contextQuestion: 'KLR Level 3: Zuschlagskalkulation für Hoodie',
+        contextAnswer: `MEK ${level3Scenario.materialDirect} €, FEK ${level3Scenario.laborDirect} €, MGK ${level3Scenario.materialOverhead} €, FGK ${level3Scenario.laborOverhead} €, VwGK ${level3Scenario.adminOverhead} €, VtGK ${level3Scenario.salesOverhead} €.`
+      };
+    }
+    if (screen === 'pending') {
+      const lvl = LEVELS.find((x) => x.id === pendingLevelId);
+      return {
+        youtubeQuery: `${lvl?.title || 'KLR'} ${lvl?.subtitle || 'Lernvideo'}`,
+        contextQuestion: `KLR Level ${lvl?.id || ''}: ${lvl?.title || 'Nächstes Level'}`,
+        contextAnswer: lvl?.objective || 'Lernhilfe für das nächste Level.'
+      };
+    }
+    return {
+      youtubeQuery: 'KLR Grundlagen einfach erklärt',
+      contextQuestion: 'KLR Hilfe',
+      contextAnswer: 'Kosten- und Leistungsrechnung im Startup-Kontext.'
+    };
+  };
+
+  const handleToggleVideos = async () => {
+    if (videoOpen) {
+      setVideoOpen(false);
+      setSelectedVideo(null);
+      return;
+    }
+    setVideoError('');
+    setVideoOpen(true);
+    if (videos.length > 0) return;
+    setVideoLoading(true);
+    const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+    if (!apiKey) {
+      setVideoError('Kein YouTube API-Key gefunden.');
+      setVideoLoading(false);
+      return;
+    }
+    try {
+      const { youtubeQuery } = getSupportContext();
+      const fetched = await fetchYouTubeVideos(youtubeQuery, apiKey, 4);
+      setVideos(fetched || []);
+    } catch {
+      setVideoError('Videos konnten gerade nicht geladen werden.');
+    } finally {
+      setVideoLoading(false);
+    }
+  };
+
+  const handleGeminiAsk = async () => {
+    if (!geminiQuery.trim()) return;
+    setGeminiLoading(true);
+    setGeminiResponse('');
+    try {
+      const { contextQuestion, contextAnswer } = getSupportContext();
+      const response = await askGemini(geminiQuery, contextQuestion, contextAnswer);
+      setGeminiResponse(response);
+    } catch {
+      setGeminiResponse('Die KI-Antwort konnte gerade nicht geladen werden.');
+    } finally {
+      setGeminiLoading(false);
+    }
+  };
+
+  const renderSupportPanels = () => (
+    <>
+      <div style={{ marginBottom: '1.2rem', textAlign: 'center', display: 'flex', gap: '0.8rem', justifyContent: 'center', flexWrap: 'wrap', width: '100%' }}>
+        <button
+          className={`btn-secondary fade-in ${videoLoading ? 'loading' : ''}`}
+          onClick={handleToggleVideos}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', padding: '0.55rem 1rem', borderRadius: '12px', background: videoOpen ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
+        >
+          <span>{videoOpen ? '🙈' : '📺'}</span>
+          {videoOpen ? 'Videos ausblenden' : 'Lernvideos ansehen'}
+        </button>
+
+        <button
+          className="btn-secondary fade-in"
+          onClick={() => { setGeminiVisible(!geminiVisible); setGeminiResponse(''); }}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', padding: '0.55rem 1rem', borderRadius: '12px', background: geminiVisible ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
+        >
+          <span>✨</span>
+          {geminiVisible ? 'KI schließen' : 'KI um Hilfe bitten'}
+        </button>
+      </div>
+
+      {videoOpen && (
+        <div className="fade-in" style={{ marginBottom: '1.2rem', width: '100%' }}>
+          {!selectedVideo ? (
+            <>
+              {videoLoading ? (
+                <div style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '2rem', background: 'var(--glass-bg)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>Suche passende Videos... ⏳</div>
+              ) : (
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem' }}>
+                  {videos.length > 0 ? videos.map((video) => (
+                    <div
+                      key={video.id}
+                      className="video-thumbnail-card"
+                      onClick={() => setSelectedVideo(video)}
+                      style={{ background: 'var(--glass-bg)', borderRadius: '12px', overflow: 'hidden', cursor: 'pointer', border: '1px solid var(--glass-border)', transition: 'all 0.2s', display: 'flex', flexDirection: 'column' }}
+                    >
+                      <img src={video.thumbnail} alt={video.title} style={{ width: '100%', height: '100px', objectFit: 'cover' }} />
+                      <div style={{ padding: '0.6rem' }}>
+                        <div style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'white', marginBottom: '0.3rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{video.title}</div>
+                        <span style={{ color: 'var(--text-muted)', fontSize: '0.7rem' }}>{video.channelTitle}</span>
+                      </div>
+                    </div>
+                  )) : (
+                    <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'var(--text-muted)', padding: '1rem' }}>{videoError || 'Keine Videos gefunden.'}</div>
+                  )}
+                </div>
+              )}
+            </>
+          ) : (
+            <div style={{ background: 'black', borderRadius: '16px', overflow: 'hidden', position: 'relative', paddingTop: '56.25%' }}>
+              <iframe
+                src={`https://www.youtube.com/embed/${selectedVideo.id}?autoplay=1`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+              ></iframe>
+              <button
+                onClick={() => setSelectedVideo(null)}
+                style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(0,0,0,0.6)', color: 'white', border: 'none', borderRadius: '50%', width: '30px', height: '30px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}
+              >
+                ✕
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {geminiVisible && (
+        <div className="fade-in" style={{ marginBottom: '1.2rem', width: '100%', borderRadius: '16px', padding: '1.2rem', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
+          <p style={{ color: 'var(--text-light)', marginBottom: '0.8rem', fontSize: '1rem', fontWeight: 'bold' }}>Frage an deinen KI-Tutor</p>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <input
+              type="text"
+              className="wisor-input"
+              placeholder="Was verstehst du nicht?"
+              value={geminiQuery}
+              onChange={(e) => setGeminiQuery(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleGeminiAsk(); } }}
+              style={{ flex: 1, padding: '0.8rem', margin: 0 }}
+            />
+            <button
+              type="button"
+              className="btn-primary"
+              onClick={handleGeminiAsk}
+              disabled={geminiLoading || !geminiQuery.trim()}
+              style={{ padding: '0 1.2rem' }}
+            >
+              {geminiLoading ? '⏳' : 'Fragen'}
+            </button>
+          </div>
+          {geminiResponse && (
+            <div className="fade-in" style={{ marginTop: '0.8rem', padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', color: '#e2e8f0', textAlign: 'left', lineHeight: '1.6' }}>
+              <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', margin: 0, fontSize: '0.9rem' }}>{geminiResponse}</pre>
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
 
   const renderActionBar = (leftText = '← Levelauswahl', leftAction = () => setScreen('home')) => (
     <div style={topBarStyle}>
@@ -406,6 +615,7 @@ export default function KLRGameHub({ onBack }) {
     return (
       <div style={{ ...shellStyle, maxWidth: '760px' }}>
         {renderActionBar()}
+        {renderSupportPanels()}
 
         <div style={sectionStyle}>
           <h2 style={{ margin: '0 0 0.25rem 0' }}>Level 1: Rechnungs-Tinder</h2>
@@ -483,6 +693,7 @@ export default function KLRGameHub({ onBack }) {
     return (
       <div style={{ ...shellStyle, maxWidth: '760px' }}>
         {renderActionBar()}
+        {renderSupportPanels()}
 
         <div style={sectionStyle}>
           <h2 style={{ margin: '0 0 0.3rem 0' }}>Level 2: Betriebsabrechnungsbogen</h2>
@@ -600,6 +811,7 @@ export default function KLRGameHub({ onBack }) {
     return (
       <div style={{ ...shellStyle, maxWidth: '760px' }}>
         {renderActionBar()}
+        {renderSupportPanels()}
 
         <div style={sectionStyle}>
           <h2 style={{ marginTop: 0 }}>{level?.title}</h2>
@@ -627,6 +839,7 @@ export default function KLRGameHub({ onBack }) {
     return (
       <div style={{ ...shellStyle, maxWidth: '820px' }}>
         {renderActionBar()}
+        {renderSupportPanels()}
 
         <div style={sectionStyle}>
           <h2 style={{ margin: '0 0 0.3rem 0' }}>Level 3: Produkt-Kalkulator</h2>
