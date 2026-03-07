@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useKLRGame } from '../state/KLRGameProvider';
+import { generateLevel2Math } from '../utils/generateLevelMath';
 
 const LEVELS = [
   {
@@ -29,14 +30,57 @@ const LEVELS = [
 ];
 
 const COST_ITEM_POOL = [
-  { label: 'Shopify-Abo', amountMin: 20, amountMax: 50, step: 5, category: 'fix' },
-  { label: 'Lager-Miete', amountMin: 500, amountMax: 1500, step: 50, category: 'fix' },
-  { label: 'Cloud-Server', amountMin: 100, amountMax: 500, step: 10, category: 'fix' },
-  { label: 'Steuerberater-Flatrate', amountMin: 120, amountMax: 300, step: 10, category: 'fix' },
-  { label: 'Versandkarton pro Bestellung', amountMin: 1, amountMax: 4, step: 1, category: 'variable' },
-  { label: 'Wareneinsatz pro Hoodie', amountMin: 10, amountMax: 24, step: 2, category: 'variable' },
-  { label: 'Payment-Gebühr pro Sale', amountMin: 1, amountMax: 6, step: 1, category: 'variable' },
-  { label: 'Retourenlabel pro Rücksendung', amountMin: 3, amountMax: 8, step: 1, category: 'variable' }
+  { label: 'Shopify-Abo', amountMin: 20, amountMax: 59, step: 1, category: 'fix' },
+  { label: 'WooCommerce Hosting', amountMin: 30, amountMax: 99, step: 1, category: 'fix' },
+  { label: 'Lager-Miete', amountMin: 500, amountMax: 1800, step: 50, category: 'fix' },
+  { label: 'Büro-Miete', amountMin: 300, amountMax: 1200, step: 50, category: 'fix' },
+  { label: 'Cloud-Server Flat', amountMin: 80, amountMax: 400, step: 10, category: 'fix' },
+  { label: 'CDN Grundgebühr', amountMin: 20, amountMax: 120, step: 5, category: 'fix' },
+  { label: 'Buchhaltungssoftware', amountMin: 15, amountMax: 80, step: 5, category: 'fix' },
+  { label: 'ERP-Lizenz', amountMin: 60, amountMax: 250, step: 10, category: 'fix' },
+  { label: 'Team-Chat Lizenz', amountMin: 10, amountMax: 60, step: 5, category: 'fix' },
+  { label: 'Projektmanagement Tool', amountMin: 8, amountMax: 40, step: 2, category: 'fix' },
+  { label: 'Steuerberater Pauschale', amountMin: 120, amountMax: 350, step: 10, category: 'fix' },
+  { label: 'Rechtsberatung Retainer', amountMin: 100, amountMax: 400, step: 10, category: 'fix' },
+  { label: 'Versicherung Betriebshaftpflicht', amountMin: 40, amountMax: 180, step: 5, category: 'fix' },
+  { label: 'D&O Versicherung', amountMin: 30, amountMax: 150, step: 5, category: 'fix' },
+  { label: 'Internetanschluss', amountMin: 25, amountMax: 70, step: 5, category: 'fix' },
+  { label: 'Telefonanlage', amountMin: 15, amountMax: 60, step: 5, category: 'fix' },
+  { label: 'Abschreibung Regalsystem', amountMin: 80, amountMax: 260, step: 10, category: 'fix' },
+  { label: 'Abschreibung Packtische', amountMin: 40, amountMax: 160, step: 10, category: 'fix' },
+  { label: 'Sicherheitsdienst Lager', amountMin: 120, amountMax: 360, step: 20, category: 'fix' },
+  { label: 'Alarmanlage Wartung', amountMin: 20, amountMax: 90, step: 5, category: 'fix' },
+  { label: 'Abo KI-Tool', amountMin: 15, amountMax: 120, step: 5, category: 'fix' },
+  { label: 'Abo Design-Tool', amountMin: 12, amountMax: 60, step: 2, category: 'fix' },
+  { label: 'Abo Video-Tool', amountMin: 10, amountMax: 55, step: 5, category: 'fix' },
+  { label: 'HR-Software', amountMin: 20, amountMax: 110, step: 5, category: 'fix' },
+  { label: 'Monitoring-Tool', amountMin: 25, amountMax: 130, step: 5, category: 'fix' },
+
+  { label: 'Wareneinsatz Hoodie pro Stück', amountMin: 10, amountMax: 28, step: 2, category: 'variable' },
+  { label: 'Wareneinsatz Gadget pro Stück', amountMin: 8, amountMax: 24, step: 2, category: 'variable' },
+  { label: 'Verpackungskarton pro Bestellung', amountMin: 1, amountMax: 4, step: 1, category: 'variable' },
+  { label: 'Seidenpapier pro Bestellung', amountMin: 1, amountMax: 3, step: 1, category: 'variable' },
+  { label: 'Sticker-Beilage pro Bestellung', amountMin: 1, amountMax: 2, step: 1, category: 'variable' },
+  { label: 'Versandlabel pro Paket', amountMin: 3, amountMax: 8, step: 1, category: 'variable' },
+  { label: 'Pick-&-Pack Kosten pro Order', amountMin: 2, amountMax: 6, step: 1, category: 'variable' },
+  { label: 'Payment Fee pro Transaktion', amountMin: 1, amountMax: 5, step: 1, category: 'variable' },
+  { label: 'Zahlungsanbieter %-Gebühr je Verkauf', amountMin: 1, amountMax: 4, step: 1, category: 'variable' },
+  { label: 'Retourenlabel pro Retoure', amountMin: 3, amountMax: 9, step: 1, category: 'variable' },
+  { label: 'Reinigungsaufwand pro Rückläufer', amountMin: 1, amountMax: 4, step: 1, category: 'variable' },
+  { label: 'Neuverpackung pro Rückläufer', amountMin: 1, amountMax: 3, step: 1, category: 'variable' },
+  { label: 'Kommission für Marktplatzverkauf', amountMin: 2, amountMax: 9, step: 1, category: 'variable' },
+  { label: 'Affiliate-Provision je Sale', amountMin: 2, amountMax: 10, step: 1, category: 'variable' },
+  { label: 'Influencer-Provision je Code-Sale', amountMin: 3, amountMax: 12, step: 1, category: 'variable' },
+  { label: 'Klarna-Gebühr je Bestellung', amountMin: 1, amountMax: 5, step: 1, category: 'variable' },
+  { label: 'Kreditkarten-Processing je Kauf', amountMin: 1, amountMax: 4, step: 1, category: 'variable' },
+  { label: 'Customs Handling je Auslandssendung', amountMin: 2, amountMax: 9, step: 1, category: 'variable' },
+  { label: 'Einlagekarte pro Premium-Box', amountMin: 1, amountMax: 2, step: 1, category: 'variable' },
+  { label: 'Schutzfolie pro Gadget', amountMin: 1, amountMax: 3, step: 1, category: 'variable' },
+  { label: 'Batterie-Beilage pro Bundle', amountMin: 1, amountMax: 4, step: 1, category: 'variable' },
+  { label: 'Montage-Minuten pro Spezialprodukt', amountMin: 2, amountMax: 8, step: 1, category: 'variable' },
+  { label: 'Lagerpick pro Position', amountMin: 1, amountMax: 3, step: 1, category: 'variable' },
+  { label: 'Kundensupport pro Bestellung (variabel)', amountMin: 1, amountMax: 5, step: 1, category: 'variable' },
+  { label: 'E-Mail Versandkosten je Kampagnenkontakt', amountMin: 1, amountMax: 2, step: 1, category: 'variable' }
 ];
 
 const randStepValue = (min, max, step) => {
@@ -47,9 +91,20 @@ const randStepValue = (min, max, step) => {
 
 const euro = (n) => `${Number(n).toLocaleString('de-DE')} €`;
 
+const sampleWithoutReplacement = (arr, count) => {
+  const pool = [...arr];
+  const out = [];
+  while (out.length < count && pool.length > 0) {
+    const idx = Math.floor(Math.random() * pool.length);
+    out.push(pool.splice(idx, 1)[0]);
+  }
+  return out;
+};
+
 const generateLevel1Run = () => {
-  const shuffled = [...COST_ITEM_POOL].sort(() => Math.random() - 0.5);
-  return shuffled.map((item, idx) => ({
+  const questionCount = 12;
+  const sampled = sampleWithoutReplacement(COST_ITEM_POOL, questionCount);
+  return sampled.map((item, idx) => ({
     id: `${item.label}-${idx}-${Date.now()}`,
     label: item.label,
     amount: randStepValue(item.amountMin, item.amountMax, item.step),
@@ -69,6 +124,11 @@ export default function KLRGameHub({ onBack }) {
   const [level1Correct, setLevel1Correct] = useState(0);
   const [level1Mistakes, setLevel1Mistakes] = useState(0);
   const [level1Feedback, setLevel1Feedback] = useState('');
+
+  const [level2Math, setLevel2Math] = useState(() => generateLevel2Math());
+  const [level2Inputs, setLevel2Inputs] = useState({ lager: '', packstation: '', buero: '' });
+  const [level2Status, setLevel2Status] = useState('idle');
+  const [level2Feedback, setLevel2Feedback] = useState('');
 
   const level1Done = level1Index >= level1Items.length;
   const currentItem = level1Items[level1Index];
@@ -117,6 +177,14 @@ export default function KLRGameHub({ onBack }) {
     setScreen('level1');
   };
 
+  const startLevel2 = () => {
+    setLevel2Math(generateLevel2Math());
+    setLevel2Inputs({ lager: '', packstation: '', buero: '' });
+    setLevel2Status('idle');
+    setLevel2Feedback('');
+    setScreen('level2');
+  };
+
   const submitLevel1Choice = (choice) => {
     if (level1Done || !currentItem) return;
 
@@ -141,6 +209,38 @@ export default function KLRGameHub({ onBack }) {
     const bonusXp = Math.max(0, level1Correct * 6 - level1Mistakes * 2);
     grantXp(baseXp + bonusXp);
     if (level1ScorePct >= 75) unlockLevel(2);
+    setScreen('home');
+  };
+
+  const validateLevel2 = () => {
+    const expected = level2Math.allocations;
+    const parsed = {
+      lager: Number(level2Inputs.lager),
+      packstation: Number(level2Inputs.packstation),
+      buero: Number(level2Inputs.buero)
+    };
+
+    const correct =
+      Number.isInteger(parsed.lager) &&
+      Number.isInteger(parsed.packstation) &&
+      Number.isInteger(parsed.buero) &&
+      parsed.lager === expected.lager &&
+      parsed.packstation === expected.packstation &&
+      parsed.buero === expected.buero;
+
+    if (correct) {
+      setLevel2Status('success');
+      setLevel2Feedback('Perfekt verteilt. Genau richtig!');
+    } else {
+      setLevel2Status('error');
+      setLevel2Feedback('Noch nicht korrekt. Rechne mit Kosten pro m² und prüfe jede Kostenstelle einzeln.');
+    }
+  };
+
+  const finishLevel2 = () => {
+    if (level2Status !== 'success') return;
+    grantXp(90);
+    unlockLevel(3);
     setScreen('home');
   };
 
@@ -228,6 +328,51 @@ export default function KLRGameHub({ onBack }) {
               </div>
             </div>
           )}
+        </div>
+      </div>
+    );
+  }
+
+  if (screen === 'level2') {
+    return (
+      <div style={{ ...shellStyle, maxWidth: '760px' }}>
+        {renderActionBar()}
+
+        <div style={sectionStyle}>
+          <h2 style={{ margin: '0 0 0.3rem 0' }}>Level 2: Betriebsabrechnungsbogen</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
+            Verteile die Gemeinkosten korrekt auf Lager, Packstation und Büro.
+          </p>
+
+          <div style={{ border: '1px solid var(--glass-border)', borderRadius: '14px', padding: '0.8rem', background: 'rgba(2,6,23,0.45)' }}>
+            <p style={{ margin: '0 0 0.3rem 0' }}>Gesamtkosten: <strong>{euro(level2Math.baseCost)}</strong></p>
+            <p style={{ margin: '0 0 0.6rem 0' }}>Verteilerschlüssel (m²): Lager <strong>{level2Math.key.lager}</strong> · Packstation <strong>{level2Math.key.packstation}</strong> · Büro <strong>{level2Math.key.buero}</strong></p>
+
+            <div style={{ display: 'grid', gap: '0.6rem' }}>
+              <label style={{ display: 'grid', gap: '0.25rem', textAlign: 'left' }}>
+                <span>Lager (€)</span>
+                <input className="wisor-input" inputMode="numeric" value={level2Inputs.lager} onChange={(e) => setLevel2Inputs((p) => ({ ...p, lager: e.target.value.replace(/[^0-9]/g, '') }))} />
+              </label>
+              <label style={{ display: 'grid', gap: '0.25rem', textAlign: 'left' }}>
+                <span>Packstation (€)</span>
+                <input className="wisor-input" inputMode="numeric" value={level2Inputs.packstation} onChange={(e) => setLevel2Inputs((p) => ({ ...p, packstation: e.target.value.replace(/[^0-9]/g, '') }))} />
+              </label>
+              <label style={{ display: 'grid', gap: '0.25rem', textAlign: 'left' }}>
+                <span>Büro (€)</span>
+                <input className="wisor-input" inputMode="numeric" value={level2Inputs.buero} onChange={(e) => setLevel2Inputs((p) => ({ ...p, buero: e.target.value.replace(/[^0-9]/g, '') }))} />
+              </label>
+            </div>
+
+            <div style={{ marginTop: '0.75rem', display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+              <button className="btn-primary" onClick={validateLevel2}>Prüfen</button>
+              <button className="btn-secondary" onClick={startLevel2}>Neue Aufgabe</button>
+              {level2Status === 'success' && <button className="btn-primary" onClick={finishLevel2}>Level abschließen</button>}
+            </div>
+
+            {!!level2Feedback && (
+              <p style={{ marginTop: '0.7rem', color: level2Status === 'success' ? '#86efac' : '#fca5a5' }}>{level2Feedback}</p>
+            )}
+          </div>
         </div>
       </div>
     );
@@ -346,6 +491,8 @@ export default function KLRGameHub({ onBack }) {
               <div style={{ marginTop: 'auto' }}>
                 {lvl.id === 1 ? (
                   <button className="btn-primary" style={{ width: '100%' }} onClick={startLevel1}>Jetzt starten</button>
+                ) : lvl.id === 2 && unlocked ? (
+                  <button className="btn-secondary" style={{ width: '100%' }} onClick={startLevel2}>Level öffnen</button>
                 ) : unlocked ? (
                   <button className="btn-secondary" style={{ width: '100%' }} onClick={() => openPendingLevel(lvl.id)}>Level öffnen</button>
                 ) : (
