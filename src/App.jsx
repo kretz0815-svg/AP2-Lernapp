@@ -2929,9 +2929,7 @@ Die JSON muss exakt diese Struktur haben:
     const canProceedToNextQuizQuestion = !requireFeynmanCompletion
       || quizExplanationRevealed
       || !!feynmanFeedback;
-    const liveDueCount = selectedQuizTopic === 'all'
-      ? getDueQuizzesByTopic('all').length
-      : getDueQuizzesByTopic(selectedQuizTopic).length;
+    const remainingInSession = Math.max(allQuizzes.length - currentQuizIndex, 0);
 
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
@@ -2942,7 +2940,7 @@ Die JSON muss exakt diese Struktur haben:
         <header>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
             <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
-            <p className="subtitle">Frage {currentQuizIndex + 1} · {liveDueCount} fällig</p>
+            <p className="subtitle">Frage {currentQuizIndex + 1} · {remainingInSession} offen</p>
             <div className="score-badge">Score: {quizScore.correct}</div>
           </div>
         </header>
