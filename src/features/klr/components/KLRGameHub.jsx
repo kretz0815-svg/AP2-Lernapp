@@ -127,6 +127,7 @@ export default function KLRGameHub({ onBack }) {
 
   const [level2Math, setLevel2Math] = useState(() => generateLevel2Math());
   const [level2Inputs, setLevel2Inputs] = useState({ lager: '', packstation: '', buero: '' });
+  const [level2FieldOk, setLevel2FieldOk] = useState({ lager: null, packstation: null, buero: null });
   const [level2Status, setLevel2Status] = useState('idle');
   const [level2Feedback, setLevel2Feedback] = useState('');
 
@@ -180,6 +181,7 @@ export default function KLRGameHub({ onBack }) {
   const startLevel2 = () => {
     setLevel2Math(generateLevel2Math());
     setLevel2Inputs({ lager: '', packstation: '', buero: '' });
+    setLevel2FieldOk({ lager: null, packstation: null, buero: null });
     setLevel2Status('idle');
     setLevel2Feedback('');
     setScreen('level2');
@@ -212,21 +214,36 @@ export default function KLRGameHub({ onBack }) {
     setScreen('home');
   };
 
+  const parseMoneyInput = (raw) => {
+    if (raw == null) return Number.NaN;
+    const cleaned = String(raw).trim().replace(/\s/g, '').replace(/€/g, '');
+    if (!cleaned) return Number.NaN;
+    const normalized = cleaned.includes(',')
+      ? cleaned.replace(/\./g, '').replace(',', '.')
+      : cleaned;
+    return Number(normalized);
+  };
+
   const validateLevel2 = () => {
     const expected = level2Math.allocations;
     const parsed = {
-      lager: Number(level2Inputs.lager),
-      packstation: Number(level2Inputs.packstation),
-      buero: Number(level2Inputs.buero)
+      lager: parseMoneyInput(level2Inputs.lager),
+      packstation: parseMoneyInput(level2Inputs.packstation),
+      buero: parseMoneyInput(level2Inputs.buero)
     };
 
+    const centsEqual = (a, b) => Math.round(a * 100) === Math.round(b * 100);
+    const fieldStatus = {
+      lager: Number.isFinite(parsed.lager) && centsEqual(parsed.lager, expected.lager),
+      packstation: Number.isFinite(parsed.packstation) && centsEqual(parsed.packstation, expected.packstation),
+      buero: Number.isFinite(parsed.buero) && centsEqual(parsed.buero, expected.buero)
+    };
+    setLevel2FieldOk(fieldStatus);
+
     const correct =
-      Number.isInteger(parsed.lager) &&
-      Number.isInteger(parsed.packstation) &&
-      Number.isInteger(parsed.buero) &&
-      parsed.lager === expected.lager &&
-      parsed.packstation === expected.packstation &&
-      parsed.buero === expected.buero;
+      fieldStatus.lager &&
+      fieldStatus.packstation &&
+      fieldStatus.buero;
 
     if (correct) {
       setLevel2Status('success');
@@ -351,15 +368,51 @@ export default function KLRGameHub({ onBack }) {
             <div style={{ display: 'grid', gap: '0.6rem' }}>
               <label style={{ display: 'grid', gap: '0.25rem', textAlign: 'left' }}>
                 <span>Lager (€)</span>
-                <input className="wisor-input" inputMode="numeric" value={level2Inputs.lager} onChange={(e) => setLevel2Inputs((p) => ({ ...p, lager: e.target.value.replace(/[^0-9]/g, '') }))} />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    className="wisor-input"
+                    inputMode="decimal"
+                    value={level2Inputs.lager}
+                    onChange={(e) => setLevel2Inputs((p) => ({ ...p, lager: e.target.value.replace(/[^0-9.,]/g, '') }))}
+                    onKeyDown={(e) => { if (e.key === 'Enter') validateLevel2(); }}
+                    style={level2FieldOk.lager === true ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)' } : undefined}
+                  />
+                  {level2FieldOk.lager === true && (
+                    <span style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', color: '#22c55e', fontWeight: 800 }}>✓</span>
+                  )}
+                </div>
               </label>
               <label style={{ display: 'grid', gap: '0.25rem', textAlign: 'left' }}>
                 <span>Packstation (€)</span>
-                <input className="wisor-input" inputMode="numeric" value={level2Inputs.packstation} onChange={(e) => setLevel2Inputs((p) => ({ ...p, packstation: e.target.value.replace(/[^0-9]/g, '') }))} />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    className="wisor-input"
+                    inputMode="decimal"
+                    value={level2Inputs.packstation}
+                    onChange={(e) => setLevel2Inputs((p) => ({ ...p, packstation: e.target.value.replace(/[^0-9.,]/g, '') }))}
+                    onKeyDown={(e) => { if (e.key === 'Enter') validateLevel2(); }}
+                    style={level2FieldOk.packstation === true ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)' } : undefined}
+                  />
+                  {level2FieldOk.packstation === true && (
+                    <span style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', color: '#22c55e', fontWeight: 800 }}>✓</span>
+                  )}
+                </div>
               </label>
               <label style={{ display: 'grid', gap: '0.25rem', textAlign: 'left' }}>
                 <span>Büro (€)</span>
-                <input className="wisor-input" inputMode="numeric" value={level2Inputs.buero} onChange={(e) => setLevel2Inputs((p) => ({ ...p, buero: e.target.value.replace(/[^0-9]/g, '') }))} />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    className="wisor-input"
+                    inputMode="decimal"
+                    value={level2Inputs.buero}
+                    onChange={(e) => setLevel2Inputs((p) => ({ ...p, buero: e.target.value.replace(/[^0-9.,]/g, '') }))}
+                    onKeyDown={(e) => { if (e.key === 'Enter') validateLevel2(); }}
+                    style={level2FieldOk.buero === true ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)' } : undefined}
+                  />
+                  {level2FieldOk.buero === true && (
+                    <span style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', color: '#22c55e', fontWeight: 800 }}>✓</span>
+                  )}
+                </div>
               </label>
             </div>
 
