@@ -39,9 +39,9 @@ import {
   BACKGROUND_PRESETS, createEmptyAnalytics, createEmptyMemberProgressData, generateId
 } from './utils/constants';
 import {
-  normalizeAnalyticsIdentity, getAppearanceKey, getThemeKey,
+  getAppearanceKey, getThemeKey,
   getAnalyticsStorageKey, getCustomQuizStorageKey,
-  loadAnalyticsForUser, loadCustomQuizForUser
+  loadAnalyticsForUser, loadCustomQuizForUser, getLearningEventKey
 } from './utils/analytics';
 import {
   isValidHexColor, applyEffectStrength, applyBackgroundEffectsVisibility,
@@ -49,6 +49,7 @@ import {
 } from './utils/appearance';
 import { formatLatex } from './utils/formatting';
 import { detectQuizTopic, getQuizTopicGroup } from './utils/quizTopics';
+import { computeNextQuizProgress, filterDueQuizzes } from './utils/quizDue';
 import { useAuth } from './hooks/useAuth';
 import { useAppearance } from './hooks/useAppearance';
 
@@ -431,7 +432,7 @@ function App() {
 
   const appendLearningEvent = ({ mode, questionId, questionText, correct, userAnswer = '', expectedAnswer = '', topic = '' }) => {
     const now = Date.now();
-    const keyBase = `${mode}::${questionId || (questionText || '').slice(0, 120).toLowerCase()}`;
+    const keyBase = getLearningEventKey({ mode, questionId, questionText });
 
     setLearningAnalytics(prev => {
       const safePrev = prev && Array.isArray(prev.events) ? prev : createEmptyAnalytics();
@@ -475,7 +476,11 @@ function App() {
 
       for (const event of safePrev.events) {
         if (event.correct) continue;
-        const key = `${event.mode}::${event.questionId || (event.questionText || '').slice(0, 120).toLowerCase()}`;
+        const key = getLearningEventKey({
+          mode: event.mode,
+          questionId: event.questionId,
+          questionText: event.questionText
+        });
         rebuiltMistakes[key] = {
           mode: event.mode,
           questionId: event.questionId || null,
@@ -483,7 +488,8 @@ function App() {
           count: (rebuiltMistakes[key]?.count || 0) + 1,
           lastAt: event.ts,
           lastUserAnswer: event.userAnswer || '',
-          expectedAnswer: event.expectedAnswer || ''
+          expectedAnswer: event.expectedAnswer || '',
+          topic: event.topic || rebuiltMistakes[key]?.topic || ''
         };
       }
 
@@ -535,7 +541,7 @@ function App() {
     const now = Date.now();
 
     if (!authUser?.id) {
-      const localDue = prepared.filter(q => q.progress.nextReview <= now);
+      const localDue = filterDueQuizzes(prepared, quizProg, now);
       setQuizProgressView(quizProg);
       setQuizDuePool(localDue);
       return localDue;
@@ -559,18 +565,19 @@ function App() {
         }
       });
 
-      const due = prepared.filter(q => {
-        const row = byTaskId.get(`quiz:${q.id}`);
-        if (!row?.due_date) return true;
-        return new Date(row.due_date).getTime() <= now;
-      });
+      const preparedWithEffectiveProgress = prepared.map(q => ({
+        ...q,
+        progress: effectiveProgress[q.id] || q.progress
+      }));
+
+      const due = filterDueQuizzes(preparedWithEffectiveProgress, effectiveProgress, now);
 
       setQuizProgressView(effectiveProgress);
       setQuizDuePool(due);
       return due;
     } catch (err) {
       console.error('Failed loading quiz due pool from user_task_progress:', err);
-      const fallbackDue = prepared.filter(q => q.progress.nextReview <= now);
+      const fallbackDue = filterDueQuizzes(prepared, quizProg, now);
       setQuizProgressView(quizProg);
       setQuizDuePool(fallbackDue);
       return fallbackDue;
@@ -1102,29 +1109,18 @@ ${feynmanInput}`;
       setPomodoroSessionLog(prev => [...prev, { correct: isCorrect, questionText, topic: topicLabel }]);
     }
 
-    if (!authUser?.id) {
-      // Guest fallback only
+    const applyLocalQuizProgress = () => {
       const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
-      let { rep, ef, interval } = q.progress;
-
-      if (isCorrect) {
-        if (rep === 0) {
-          interval = 1;
-        } else if (rep === 1) {
-          interval = 6;
-        } else {
-          interval = Math.round(interval * ef);
-        }
-        rep += 1;
-      } else {
-        rep = 0;
-        interval = 1 / (24 * 60); // 1 minute
-      }
-      const nextReview = Date.now() + interval * 24 * 60 * 60 * 1000;
-      quizProg[q.id] = { rep, ef, interval, nextReview };
+      const previous = quizProg[q.id] || q.progress || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 };
+      quizProg[q.id] = computeNextQuizProgress(previous, isCorrect);
       localStorage.setItem('ap2_quiz_progress', JSON.stringify(quizProg));
       setQuizProgressView(quizProg);
-    }
+    };
+
+    // Always keep a local mirror so quiz availability updates immediately,
+    // even if remote sync is delayed or temporarily unavailable.
+    applyLocalQuizProgress();
+    refreshQuizDuePool().catch(() => { });
 
     appendLearningEvent({
       mode: 'quiz',
@@ -1151,9 +1147,10 @@ ${feynmanInput}`;
         }
       })
         .then(() => refreshQuizDuePool())
-        .catch(err => console.error('DSR quiz review failed:', err));
-    } else {
-      refreshQuizDuePool().catch(() => { });
+        .catch(err => {
+          console.error('DSR quiz review failed:', err);
+          refreshQuizDuePool().catch(() => { });
+        });
     }
   };
 
@@ -2243,7 +2240,11 @@ Die JSON muss exakt diese Struktur haben:
     // Unique richtig beantwortete Fragen (letzte Antwort pro questionId zählt)
     const latestByQuestion = {};
     for (const ev of events) {
-      const key = ev.questionId || `${ev.mode}::${(ev.questionText || '').slice(0, 80)}`;
+      const key = getLearningEventKey({
+        mode: ev.mode,
+        questionId: ev.questionId,
+        questionText: ev.questionText
+      });
       if (!latestByQuestion[key] || ev.ts > latestByQuestion[key].ts) {
         latestByQuestion[key] = ev;
       }
@@ -2257,7 +2258,12 @@ Die JSON muss exakt diese Struktur haben:
       ? Math.round((events.filter(e => e.ts >= periodStart.week && e.correct).length / recentWeekAnswers) * 100)
       : 0;
 
-    const quizTopicById = new Map((allQuizzes || []).map(q => [String(q.id), getQuizTopicGroup(q.topic || detectQuizTopic(q))]));
+    const quizTopicById = new Map(
+      getAllQuizQuestions().map((q) => {
+        const id = String(q.id || generateId(q.question));
+        return [id, getQuizTopicGroup(q.topic || detectQuizTopic(q))];
+      })
+    );
 
     const resolveTopic = (event) => {
       if (!event) return 'Allgemein';

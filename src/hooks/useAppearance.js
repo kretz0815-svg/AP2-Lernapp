@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BACKGROUND_PRESETS, BACKGROUND_SETTINGS_KEY, CUSTOM_BACKGROUND_COLOR_KEY } from '../utils/constants';
+import { BACKGROUND_PRESETS, CUSTOM_BACKGROUND_COLOR_KEY } from '../utils/constants';
 import { getThemeKey, getAppearanceKey } from '../utils/analytics';
 import {
     clampEffectStrength, applyEffectStrength, applyBackgroundEffectsVisibility,
@@ -92,10 +92,9 @@ export const useAppearance = (authUser, appMode) => {
 
     const persistBackgroundSettings = (settings) => {
         try {
+            if (!authUser) return false;
             const key = getAppearanceKey(authUser);
             localStorage.setItem(key, JSON.stringify(settings));
-            // Also keep global key for initial load before auth resolves
-            localStorage.setItem(BACKGROUND_SETTINGS_KEY, JSON.stringify(settings));
             localStorage.removeItem(CUSTOM_BACKGROUND_COLOR_KEY);
             return true;
         } catch {
@@ -115,6 +114,12 @@ export const useAppearance = (authUser, appMode) => {
     };
 
     const loadAppearanceForUser = (user) => {
+        if (!user) {
+            setThemePreference('system');
+            applyAppearanceDefaults();
+            return;
+        }
+
         // Try per-user key first, then global fallback
         const userKey = getAppearanceKey(user);
         const themeKey = getThemeKey(user);
@@ -127,7 +132,7 @@ export const useAppearance = (authUser, appMode) => {
         }
 
         try {
-            const savedSettingsRaw = localStorage.getItem(userKey) || localStorage.getItem(BACKGROUND_SETTINGS_KEY);
+            const savedSettingsRaw = localStorage.getItem(userKey);
             if (savedSettingsRaw) {
                 const savedSettings = JSON.parse(savedSettingsRaw);
                 const savedMode = savedSettings?.mode || 'default';
@@ -313,8 +318,9 @@ export const useAppearance = (authUser, appMode) => {
         setBackgroundPresetId('');
         setBackgroundImageData('');
         setAppearanceNotice('Standard-Hintergrund wieder aktiv.');
-        localStorage.removeItem(getAppearanceKey(authUser));
-        localStorage.removeItem(BACKGROUND_SETTINGS_KEY);
+        if (authUser) {
+            localStorage.removeItem(getAppearanceKey(authUser));
+        }
         localStorage.removeItem(CUSTOM_BACKGROUND_COLOR_KEY);
         applyEffectStrength(100);
         applyBackgroundEffectsVisibility(true);
