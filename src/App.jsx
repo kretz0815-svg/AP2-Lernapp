@@ -2661,29 +2661,9 @@ Die JSON muss exakt diese Struktur haben:
                     {radarTopics.map((row, idx) => {
                       const a = (360 / radarTopics.length) * idx;
                       const edge = polarToCartesian(a, 100);
-                      const lbl = polarToCartesian(a, 122);
-                      const textAnchor = lbl.x < radarCenter - 8 ? 'end' : lbl.x > radarCenter + 8 ? 'start' : 'middle';
-                      const dx = textAnchor === 'start' ? 4 : textAnchor === 'end' ? -4 : 0;
-                      const dy = lbl.y < radarCenter - 56 ? -6 : lbl.y > radarCenter + 56 ? 6 : 0;
-                      const labelText = row.topic.length > 20 ? `${row.topic.slice(0, 20)}\u2026` : row.topic;
                       return (
                         <g key={`ax_${row.topic}`}>
                           <line x1={radarCenter} y1={radarCenter} x2={edge.x} y2={edge.y} stroke="rgba(148,163,184,0.35)" strokeWidth="1" />
-                          <text
-                            x={lbl.x}
-                            y={lbl.y}
-                            dx={dx}
-                            dy={dy}
-                            textAnchor={textAnchor}
-                            dominantBaseline="middle"
-                            fontSize="9.5"
-                            fill="var(--text-light)"
-                            stroke="rgba(15,23,42,0.95)"
-                            strokeWidth="3"
-                            paintOrder="stroke"
-                          >
-                            {labelText}
-                          </text>
                         </g>
                       );
                     })}
