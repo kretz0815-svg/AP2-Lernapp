@@ -76,30 +76,68 @@ function generateLevel(config) {
     const rabatt_pct = randInt(5, 15);
 
     if (config.direction === 'forward') {
-        // ── Vorwärtskalkulation: Top → Down ──
-        const ep = randPrice(100, 500);
-        const hk = commercialRound(ep / 100 * hk_pct);
-        const sk = commercialRound(ep + hk);
+        // ── Vorwärtskalkulation: Vollständig Top → Down ──
+        const lieferrabatt_pct = randInt(5, 20);
+        const lieferskonto_pct = randInt(1, 3);
+        const provision_pct = randInt(2, 8);
+
+        // Einkaufsseite
+        const lep = randPrice(200, 800);
+        const lieferrabatt = commercialRound(lep / 100 * lieferrabatt_pct);
+        const zep = commercialRound(lep - lieferrabatt);
+        const lieferskonto = commercialRound(zep / 100 * lieferskonto_pct);
+        const bep = commercialRound(zep - lieferskonto);
+        const bezugskosten = randPrice(10, 80);
+        const bezugspreis = commercialRound(bep + bezugskosten);
+
+        // Verkaufsseite
+        const hk = commercialRound(bezugspreis / 100 * hk_pct);
+        const sk = commercialRound(bezugspreis + hk);
         const gewinn = commercialRound(sk / 100 * gewinn_pct);
         const bvp = commercialRound(sk + gewinn);
-        // Im Hundert: BVP = (100 - skonto_pct)% des ZVP
-        const skonto = commercialRound(bvp / (100 - skonto_pct) * skonto_pct);
-        const zvp = commercialRound(bvp + skonto);
+
+        // Im Hundert: BVP = (100 - skonto_pct - provision_pct)% des ZVP
+        const combined_pct = skonto_pct + provision_pct;
+        const provision = commercialRound(bvp / (100 - combined_pct) * provision_pct);
+        const skonto = commercialRound(bvp / (100 - combined_pct) * skonto_pct);
+        const zvp = commercialRound(bvp + provision + skonto);
+
         // Im Hundert: ZVP = (100 - rabatt_pct)% des LVP
         const rabatt = commercialRound(zvp / (100 - rabatt_pct) * rabatt_pct);
         const lvp = commercialRound(zvp + rabatt);
 
         return {
-            ...config, given: { ep, hk_pct, gewinn_pct, skonto_pct, rabatt_pct },
+            ...config, given: { lep, lieferrabatt_pct, lieferskonto_pct, bezugskosten, hk_pct, gewinn_pct, provision_pct, skonto_pct, rabatt_pct },
             steps: [
-                { key: 'ep', label: 'Einstandspreis', value: ep, given: true },
+                { key: 'lep', label: 'Listeneinkaufspreis', value: lep, given: true },
                 {
-                    key: 'hk', label: 'Handlungskosten', sublabel: `${hk_pct} % vom EP`, value: hk, given: false,
-                    hint: `${fmt(ep)} ÷ 100 × ${hk_pct} = ${fmt(hk)} €\n(Vom Hundert: Basis = Einstandspreis)`
+                    key: 'lieferrabatt', label: 'Lieferrabatt', sublabel: `${lieferrabatt_pct} % vom LEP`, value: lieferrabatt, given: false,
+                    hint: `${fmt(lep)} ÷ 100 × ${lieferrabatt_pct} = ${fmt(lieferrabatt)} €\n(Vom Hundert: Basis = Listeneinkaufspreis)`
+                },
+                {
+                    key: 'zep', label: '= Zieleinkaufspreis', value: zep, given: false, isSum: true,
+                    hint: `${fmt(lep)} − ${fmt(lieferrabatt)} = ${fmt(zep)} €`
+                },
+                {
+                    key: 'lieferskonto', label: 'Lieferskonto', sublabel: `${lieferskonto_pct} % vom ZEP`, value: lieferskonto, given: false,
+                    hint: `${fmt(zep)} ÷ 100 × ${lieferskonto_pct} = ${fmt(lieferskonto)} €\n(Vom Hundert: Basis = Zieleinkaufspreis)`
+                },
+                {
+                    key: 'bep', label: '= Bareinkaufspreis', value: bep, given: false, isSum: true,
+                    hint: `${fmt(zep)} − ${fmt(lieferskonto)} = ${fmt(bep)} €`
+                },
+                { key: 'bezugskosten', label: 'Bezugskosten', value: bezugskosten, given: true },
+                {
+                    key: 'bezugspreis', label: '= Bezugspreis (Einstandspreis)', value: bezugspreis, given: false, isSum: true,
+                    hint: `${fmt(bep)} + ${fmt(bezugskosten)} = ${fmt(bezugspreis)} €`
+                },
+                {
+                    key: 'hk', label: 'Handlungskosten', sublabel: `${hk_pct} % vom Bezugspreis`, value: hk, given: false,
+                    hint: `${fmt(bezugspreis)} ÷ 100 × ${hk_pct} = ${fmt(hk)} €\n(Vom Hundert: Basis = Bezugspreis)`
                 },
                 {
                     key: 'sk', label: '= Selbstkosten', value: sk, given: false, isSum: true,
-                    hint: `${fmt(ep)} + ${fmt(hk)} = ${fmt(sk)} €`
+                    hint: `${fmt(bezugspreis)} + ${fmt(hk)} = ${fmt(sk)} €`
                 },
                 {
                     key: 'gewinn', label: 'Gewinn', sublabel: `${gewinn_pct} % der SK`, value: gewinn, given: false,
@@ -110,12 +148,16 @@ function generateLevel(config) {
                     hint: `${fmt(sk)} + ${fmt(gewinn)} = ${fmt(bvp)} €`
                 },
                 {
+                    key: 'provision', label: 'Vertreterprovision', sublabel: `${provision_pct} %`, value: provision, given: false, danger: true,
+                    hint: `⚠️ Im Hundert rechnen!\n${fmt(bvp)} ÷ ${100 - combined_pct} × ${provision_pct} = ${fmt(provision)} €\n(BVP = ${100 - combined_pct}% des ZVP)`
+                },
+                {
                     key: 'skonto', label: 'Kundenskonto', sublabel: `${skonto_pct} %`, value: skonto, given: false, danger: true,
-                    hint: `⚠️ Im Hundert rechnen!\n${fmt(bvp)} ÷ ${100 - skonto_pct} × ${skonto_pct} = ${fmt(skonto)} €\n(BVP = ${100 - skonto_pct}% des ZVP)`
+                    hint: `⚠️ Im Hundert rechnen!\n${fmt(bvp)} ÷ ${100 - combined_pct} × ${skonto_pct} = ${fmt(skonto)} €\n(BVP = ${100 - combined_pct}% des ZVP)`
                 },
                 {
                     key: 'zvp', label: '= Zielverkaufspreis', value: zvp, given: false, isSum: true,
-                    hint: `${fmt(bvp)} + ${fmt(skonto)} = ${fmt(zvp)} €`
+                    hint: `${fmt(bvp)} + ${fmt(provision)} + ${fmt(skonto)} = ${fmt(zvp)} €`
                 },
                 {
                     key: 'rabatt', label: 'Kundenrabatt', sublabel: `${rabatt_pct} %`, value: rabatt, given: false, danger: true,
