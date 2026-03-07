@@ -295,14 +295,14 @@ export default function FloatingCalculator() {
                         zIndex: 1000, margin: 0, padding: '10px 15px',
                         display: 'flex', flexDirection: 'column',
                         borderRadius: '24px 24px 0 0', border: '1px solid var(--glass-border)',
-                        borderBottom: 'none', boxShadow: '0 -5px 25px rgba(0,0,0,0.5)', background: 'rgba(15, 23, 42, 0.95)'
+                        borderBottom: 'none', boxShadow: '0 -5px 25px rgba(0,0,0,0.5)', background: 'rgba(0, 0, 0, 0.96)'
                     } : {
                         position: 'fixed',
                         left: `${position.x}px`, top: `${position.y}px`,
                         width: `${size.width}px`, height: `${size.height}px`,
                         maxWidth: `${CALC_MAX_WIDTH}px`, maxHeight: `${CALC_MAX_HEIGHT}px`,
                         zIndex: 1000, resize: 'none', margin: 0, transform: 'none',
-                        padding: '10px 0', display: 'flex', flexDirection: 'column', background: 'rgba(15, 23, 42, 0.95)'
+                        padding: '10px 0', display: 'flex', flexDirection: 'column', background: 'rgba(0, 0, 0, 0.96)'
                     }}
                 >
                     <div
