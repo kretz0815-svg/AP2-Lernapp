@@ -62,6 +62,7 @@ export default function KLRGameHub() {
     const [nameInput, setNameInput] = useState(progress.startupName);
     const [screen, setScreen] = useState('home'); // home | level1 | pending
     const [pendingLevelId, setPendingLevelId] = useState(null);
+    const [howToOpen, setHowToOpen] = useState(false);
 
     const [level1Items, setLevel1Items] = useState(() => generateLevel1Run());
     const [level1Index, setLevel1Index] = useState(0);
@@ -137,11 +138,35 @@ export default function KLRGameHub() {
                         <p style={{ marginTop: 0, marginBottom: '0.9rem', fontSize: '1.25rem', fontWeight: 800 }}>
                             {euro(currentItem.amount)}
                         </p>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
-                            <button className="btn-secondary" onClick={() => submitLevel1Choice('fix')}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '0.6rem' }}>
+                            <button
+                                type="button"
+                                onClick={() => submitLevel1Choice('fix')}
+                                style={{
+                                    border: '1px solid rgba(239,68,68,0.5)',
+                                    background: 'linear-gradient(135deg, rgba(239,68,68,0.28), rgba(239,68,68,0.14))',
+                                    color: '#fecaca',
+                                    borderRadius: '14px',
+                                    padding: '0.85rem',
+                                    fontWeight: 800,
+                                    cursor: 'pointer'
+                                }}
+                            >
                                 ⬅️ Fixkosten
                             </button>
-                            <button className="btn-primary" onClick={() => submitLevel1Choice('variable')}>
+                            <button
+                                type="button"
+                                onClick={() => submitLevel1Choice('variable')}
+                                style={{
+                                    border: '1px solid rgba(34,197,94,0.55)',
+                                    background: 'linear-gradient(135deg, rgba(34,197,94,0.28), rgba(34,197,94,0.15))',
+                                    color: '#bbf7d0',
+                                    borderRadius: '14px',
+                                    padding: '0.85rem',
+                                    fontWeight: 800,
+                                    cursor: 'pointer'
+                                }}
+                            >
                                 Variable Kosten ➡️
                             </button>
                         </div>
@@ -192,7 +217,7 @@ export default function KLRGameHub() {
     }
 
     return (
-        <div className="card-face" style={{ width: '100%', maxWidth: '900px', margin: '0 auto', padding: '1rem' }}>
+        <div className="card-face" style={{ width: '100%', maxWidth: '980px', margin: '0 auto', padding: '1rem 1rem 1.2rem 1rem' }}>
             <h2 style={{ marginTop: 0 }}>KLR Startup Survival</h2>
             <p style={{ color: 'var(--text-muted)' }}>
                 Du rettest ein E-Commerce-Startup vor der Pleite. Jedes Level trainiert einen KLR-Baustein.
@@ -228,28 +253,67 @@ export default function KLRGameHub() {
                 </div>
             </div>
 
-            <div className="note-card" style={{ margin: '0 0 1rem 0' }}>
-                <h3 style={{ marginTop: 0, marginBottom: '0.5rem' }}>So spielst du</h3>
-                <p style={{ margin: '0 0 0.35rem 0' }}>1. Wähle ein freigeschaltetes Level.</p>
-                <p style={{ margin: '0 0 0.35rem 0' }}>2. Löse die Aufgaben ohne Taschenrechner-Fehlerkette.</p>
-                <p style={{ margin: 0 }}>3. Sammle XP und schalte das nächste Level frei.</p>
+            <div className="note-card" style={{ margin: '0 0 1rem 0', padding: '0.8rem 0.9rem' }}>
+                <button
+                    type="button"
+                    onClick={() => setHowToOpen((v) => !v)}
+                    style={{
+                        width: '100%',
+                        background: 'transparent',
+                        border: 'none',
+                        color: 'var(--text-light)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        fontWeight: 800,
+                        fontSize: '1.05rem',
+                        cursor: 'pointer',
+                        padding: 0
+                    }}
+                >
+                    <span>So spielst du</span>
+                    <span style={{ color: 'var(--text-muted)' }}>{howToOpen ? '▾' : '▸'}</span>
+                </button>
+                {howToOpen && (
+                    <div style={{ marginTop: '0.65rem' }}>
+                        <p style={{ margin: '0 0 0.35rem 0' }}>1. Wähle ein freigeschaltetes Level.</p>
+                        <p style={{ margin: '0 0 0.35rem 0' }}>2. Löse die Aufgaben Schritt für Schritt.</p>
+                        <p style={{ margin: 0 }}>3. Sammle XP und schalte das nächste Level frei.</p>
+                    </div>
+                )}
             </div>
 
-            <div style={{ display: 'grid', gap: '0.9rem', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}>
+            <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', alignItems: 'stretch' }}>
                 {LEVELS.map((lvl) => {
                     const unlocked = progress.unlockedLevels.includes(lvl.id);
                     return (
-                        <div key={lvl.id} className="note-card" style={{ margin: 0, opacity: unlocked ? 1 : 0.6 }}>
+                        <div key={lvl.id} className="note-card" style={{ margin: 0, opacity: unlocked ? 1 : 0.78, display: 'flex', flexDirection: 'column', minHeight: '220px' }}>
                             <h3 style={{ marginTop: 0, marginBottom: '0.35rem' }}>Level {lvl.id}: {lvl.title}</h3>
                             <p style={{ margin: '0 0 0.25rem 0', color: 'var(--text-muted)', fontSize: '0.85rem' }}>{lvl.subtitle}</p>
-                            <p style={{ marginTop: 0 }}>{lvl.objective}</p>
-                            {lvl.id === 1 ? (
-                                <button className="btn-primary" onClick={startLevel1}>Jetzt starten</button>
-                            ) : unlocked ? (
-                                <button className="btn-secondary" onClick={() => openPendingLevel(lvl.id)}>Öffnen</button>
-                            ) : (
-                                <div className="chip">🔒 Erst Level {lvl.id - 1} abschließen</div>
-                            )}
+                            <p style={{ marginTop: 0, marginBottom: '0.9rem' }}>{lvl.objective}</p>
+                            <div style={{ marginTop: 'auto' }}>
+                                {lvl.id === 1 ? (
+                                    <button className="btn-primary" style={{ width: '100%' }} onClick={startLevel1}>Jetzt starten</button>
+                                ) : unlocked ? (
+                                    <button className="btn-secondary" style={{ width: '100%' }} onClick={() => openPendingLevel(lvl.id)}>Level öffnen</button>
+                                ) : (
+                                    <button
+                                        type="button"
+                                        disabled
+                                        style={{
+                                            width: '100%',
+                                            border: '1px solid var(--glass-border)',
+                                            borderRadius: '999px',
+                                            padding: '0.65rem 0.8rem',
+                                            background: 'rgba(15,23,42,0.35)',
+                                            color: 'var(--text-muted)',
+                                            fontWeight: 700
+                                        }}
+                                    >
+                                        🔒 Erst Level {lvl.id - 1} abschließen
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     );
                 })}
