@@ -22,13 +22,145 @@
 
 body.light-theme {
   --primary: #4f46e5;
-  --secondary: #9333ea;
+  --secondary: #7c3aed;
   --accent: #db2777;
-  --bg-dark: #f8fafc;
+  --bg-dark: #f1f5f9;
   --text-light: #0f172a;
-  --text-muted: #64748b;
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(0, 0, 0, 0.1);
+  --text-muted: #475569;
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(15, 23, 42, 0.12);
+  --success: #16a34a;
+  --error: #dc2626;
+  --app-bg-color: #f1f5f9;
+  --app-glow-1: rgba(79, 70, 229, 0.08);
+  --app-glow-2: rgba(124, 58, 237, 0.06);
+  --blob-opacity: 0.12;
+}
+
+body.light-theme .dash-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+body.light-theme .dash-card:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1), 0 0 16px rgba(79, 70, 229, 0.12);
+}
+
+body.light-theme .quiz-btn {
+  background: rgba(15, 23, 42, 0.03);
+  border-color: rgba(15, 23, 42, 0.12);
+}
+body.light-theme .quiz-btn:hover:not(:disabled) {
+  background: rgba(15, 23, 42, 0.06);
+  border-color: rgba(15, 23, 42, 0.2);
+}
+body.light-theme .quiz-btn.correct {
+  background: rgba(22, 163, 74, 0.1);
+}
+body.light-theme .quiz-btn.wrong {
+  background: rgba(220, 38, 38, 0.1);
+}
+
+body.light-theme .quiz-rationale {
+  background: rgba(15, 23, 42, 0.03);
+}
+body.light-theme .quiz-rationale.correct-rationale {
+  background: rgba(22, 163, 74, 0.06);
+}
+body.light-theme .quiz-rationale.wrong-rationale {
+  background: rgba(220, 38, 38, 0.06);
+}
+
+body.light-theme .wisor-input {
+  background: rgba(15, 23, 42, 0.03);
+  border-color: rgba(15, 23, 42, 0.15);
+}
+body.light-theme .wisor-input:focus {
+  background: rgba(15, 23, 42, 0.05);
+  border-color: var(--secondary);
+  box-shadow: 0 0 8px rgba(124, 58, 237, 0.18);
+}
+
+body.light-theme .card-face {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+body.light-theme .card-back {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(124, 58, 237, 0.25);
+}
+body.light-theme .card-label {
+  color: #475569;
+  background: rgba(15, 23, 42, 0.06);
+}
+body.light-theme .card-back .card-content {
+  color: #1e293b;
+}
+
+body.light-theme .chip {
+  background: rgba(79, 70, 229, 0.1);
+  color: #4f46e5;
+}
+
+body.light-theme .btn-rating {
+  background: rgba(15, 23, 42, 0.03);
+  color: #0f172a;
+}
+
+body.light-theme .score-badge {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+body.light-theme .video-thumbnail-card:hover {
+  background: rgba(15, 23, 42, 0.04) !important;
+}
+
+body.light-theme .btn-nav {
+  border-color: rgba(15, 23, 42, 0.15);
+}
+body.light-theme .btn-nav:hover {
+  background: rgba(15, 23, 42, 0.05);
+}
+
+body.light-theme .btn-secondary {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(15, 23, 42, 0.12);
+}
+body.light-theme .btn-secondary:hover {
+  background: rgba(15, 23, 42, 0.06);
+}
+
+body.light-theme .floating-notes-window {
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+body.light-theme .note-card {
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .appearance-panel {
+  background: rgba(255, 255, 255, 0.72);
+}
+body.light-theme .appearance-toggle-row {
+  background: rgba(15, 23, 42, 0.03);
+}
+body.light-theme .appearance-slider-row {
+  background: rgba(15, 23, 42, 0.02);
+}
+body.light-theme .appearance-preset-card {
+  background: rgba(15, 23, 42, 0.03);
+}
+body.light-theme .appearance-preset-card:hover {
+  background: rgba(15, 23, 42, 0.06);
+}
+body.light-theme .appearance-upload-label {
+  background: rgba(15, 23, 42, 0.04);
+}
+body.light-theme .appearance-upload-label:hover {
+  background: rgba(15, 23, 42, 0.07);
+}
+body.light-theme .background-color-input {
+  background: rgba(15, 23, 42, 0.03);
 }
 
 * {
@@ -367,6 +499,15 @@ h1 {
 
 body.light-theme .settings-popover {
   background: rgba(248, 250, 252, 0.96);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.12);
+}
+
+body.light-theme .settings-popover-item:hover {
+  background: rgba(79, 70, 229, 0.1);
+}
+
+body.light-theme .burger-sidebar {
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.1) !important;
 }
 
 .settings-popover-item {

@@ -214,7 +214,34 @@ function App() {
   const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || import.meta.env.VITE_HCAPTCHA_SITEKEY || '';
 
   // --- THEME STATE ---
-  const [isLightMode, setIsLightMode] = useState(false);
+  const [themePreference, setThemePreference] = useState('system'); // 'system' | 'light' | 'dark'
+  const [systemPrefersDark, setSystemPrefersDark] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)').matches : true
+  );
+  const isLightMode = themePreference === 'light' || (themePreference === 'system' && !systemPrefersDark);
+
+  // Listen for real-time OS theme changes
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = (e) => setSystemPrefersDark(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  // Apply light-theme class whenever derived isLightMode changes
+  useEffect(() => {
+    // Don't apply light mode for guests or auth screen
+    if (!authUser || appMode === 'auth') {
+      document.body.classList.remove('light-theme');
+      return;
+    }
+    if (isLightMode) {
+      document.body.classList.add('light-theme');
+    } else {
+      document.body.classList.remove('light-theme');
+    }
+  }, [isLightMode, authUser, appMode]);
+
   const [customBackgroundColor, setCustomBackgroundColor] = useState('#000000');
   const [backgroundMode, setBackgroundMode] = useState('color');
   const [backgroundPresetId, setBackgroundPresetId] = useState('');
@@ -255,12 +282,11 @@ function App() {
     const userKey = getAppearanceKey(user);
     const themeKey = getThemeKey(user);
     const savedTheme = localStorage.getItem(themeKey);
-    if (savedTheme === 'light') {
-      setIsLightMode(true);
-      document.body.classList.add('light-theme');
+    // Support 'system', 'light', 'dark' – legacy 'light'/'dark' still work
+    if (savedTheme === 'system' || savedTheme === 'light' || savedTheme === 'dark') {
+      setThemePreference(savedTheme);
     } else {
-      setIsLightMode(false);
-      document.body.classList.remove('light-theme');
+      setThemePreference('system');
     }
 
     try {
@@ -302,31 +328,30 @@ function App() {
   };
 
 
-  const toggleTheme = () => {
+  const setThemePref = (pref) => {
     // Guests are locked to dark mode
     if (!authUser) return;
-    setIsLightMode(prev => {
-      const newVal = !prev;
-      const themeKey = getThemeKey(authUser);
-      if (newVal) {
-        document.body.classList.add('light-theme');
-        localStorage.setItem(themeKey, 'light');
-      } else {
-        document.body.classList.remove('light-theme');
-        localStorage.setItem(themeKey, 'dark');
-      }
-      // Apply default colors per theme when no custom settings are saved
-      const userKey = getAppearanceKey(authUser);
-      const hasSavedSettings = localStorage.getItem(userKey);
-      if (!hasSavedSettings) {
-        const defaultColor = newVal ? '#ffffff' : '#000000';
-        setCustomBackgroundColor(defaultColor);
-        setBackgroundEffectsEnabled(false);
-        applyCustomBackgroundColor(defaultColor, 100);
-        applyBackgroundEffectsVisibility(false);
-      }
-      return newVal;
-    });
+    setThemePreference(pref);
+    const themeKey = getThemeKey(authUser);
+    localStorage.setItem(themeKey, pref);
+    // Apply default colors when no custom settings are saved
+    const userKey = getAppearanceKey(authUser);
+    const hasSavedSettings = localStorage.getItem(userKey);
+    if (!hasSavedSettings) {
+      const willBeLight = pref === 'light' || (pref === 'system' && !systemPrefersDark);
+      const defaultColor = willBeLight ? '#ffffff' : '#000000';
+      setCustomBackgroundColor(defaultColor);
+      setBackgroundEffectsEnabled(false);
+      applyCustomBackgroundColor(defaultColor, 100);
+      applyBackgroundEffectsVisibility(false);
+    }
+  };
+
+  // Legacy compat: toggleTheme cycles system→light→dark for the burger menu toggle
+  const toggleTheme = () => {
+    if (!authUser) return;
+    const next = themePreference === 'system' ? 'light' : themePreference === 'light' ? 'dark' : 'system';
+    setThemePref(next);
   };
 
   const activeBackgroundColor = customBackgroundColor || (isLightMode ? '#ffffff' : '#000000');
@@ -597,11 +622,9 @@ function App() {
     }
   }, [authUser]);
 
-  // Force dark mode on auth screen and for guests on all screens
+  // Force dark mode appearance for auth screen and guests
   useEffect(() => {
-    const isGuest = !authUser;
-    if (appMode === 'auth' || isGuest) {
-      document.body.classList.remove('light-theme');
+    if (appMode === 'auth' || !authUser) {
       document.body.style.setProperty('--app-bg-color', '#000000');
       document.body.style.removeProperty('--app-glow-1');
       document.body.style.removeProperty('--app-glow-2');
@@ -2064,6 +2087,8 @@ ${feynmanInput}`;
         stats={globalStats}
         isLightMode={isLightMode}
         toggleTheme={toggleTheme}
+        themePreference={themePreference}
+        setThemePref={setThemePref}
         onOpenQuestionManager={(cat) => setQuestionManagerCategory(cat)}
         onOpenLearningDashboard={() => setAppMode('learning_dashboard')}
         onStartPomodoro={() => { setPomodoroActive(true); setPomodoroSessionLog([]); }}
