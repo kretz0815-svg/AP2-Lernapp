@@ -37,6 +37,17 @@
   100% { opacity: 0; }
 }
 
+@keyframes klrConfettiFall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+
 .klr-wire {
   border: 1px solid var(--glass-border) !important;
   background:

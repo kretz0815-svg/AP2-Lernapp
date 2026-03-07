@@ -79,8 +79,8 @@ export function generateLevel2Math(rng = Math.random) {
 }
 
 export function generateLevel4Math(rng = Math.random) {
-    const fixedCost = pick([5000, 6000, 7200, 8000, 9000, 10000, 12000, 15000], rng);
-    const variableCostPerUnit = pick([15, 20, 24, 25, 30, 35, 40], rng);
+    const fixedCost = pick([4000, 5000, 6000, 7200, 8000, 9000, 10000, 11000, 12000, 13500, 15000, 18000], rng);
+    const variableCostPerUnit = pick([12, 15, 18, 20, 22, 24, 25, 28, 30, 32, 35, 38, 40], rng);
 
     const allowedDeckungsbeitraege = divisors(fixedCost)
         .filter((db) => db > 0 && db <= 120)

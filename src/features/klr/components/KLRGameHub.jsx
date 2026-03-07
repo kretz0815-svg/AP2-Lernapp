@@ -228,11 +228,14 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
   const [level3Status, setLevel3Status] = useState('idle');
   const [level3Feedback, setLevel3Feedback] = useState('');
   const [level3HelpOpen, setLevel3HelpOpen] = useState(false);
+  const LEVEL4_MISSIONS_PER_RUN = 3;
+  const [level4MissionIndex, setLevel4MissionIndex] = useState(0);
   const [level4Mission, setLevel4Mission] = useState(() => generateLevel4Mission());
   const [level4Price, setLevel4Price] = useState(level4Mission.math.allowedPrices[0] || 0);
   const [level4BreakEvenInput, setLevel4BreakEvenInput] = useState('');
   const [level4Status, setLevel4Status] = useState('idle');
   const [level4Feedback, setLevel4Feedback] = useState('');
+  const [level4CompleteScreen, setLevel4CompleteScreen] = useState(false);
   const [mentorState, setMentorState] = useState('booting');
   const [mentorMessage, setMentorMessage] = useState('Hologramm-System fährt hoch...');
   const mentorTimeoutRef = useRef(null);
@@ -248,6 +251,19 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
   const level2CorrectCount = useMemo(() => {
     return ['lager', 'packstation', 'buero'].filter((k) => level2FieldOk[k] === true).length;
   }, [level2FieldOk]);
+
+  const level4ConfettiPieces = useMemo(() => {
+    const colors = ['#6dff73', '#22c55e', '#fef08a', '#f59e0b', '#86efac', '#fbbf24'];
+    return Array.from({ length: 55 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      delay: Math.random() * 1.2,
+      duration: 2.2 + Math.random() * 1.5,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      size: 6 + Math.floor(Math.random() * 6),
+      rotation: Math.random() * 360
+    }));
+  }, []);
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -300,7 +316,8 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     width: '100%',
     maxWidth: '980px',
     margin: '0 auto',
-    padding: 'max(0.9rem, env(safe-area-inset-top, 0px)) 0 1.2rem 0',
+    padding: '0 0 1.2rem 0',
+    paddingTop: 'max(0.25rem, env(safe-area-inset-top, 0px))',
     display: 'grid',
     gap: '0.9rem'
   };
@@ -505,6 +522,8 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     setGeminiVisible(false);
     setGeminiResponse('');
     setSelectedVideo(null);
+    setLevel4CompleteScreen(false);
+    setLevel4MissionIndex(0);
     const mission = generateLevel4Mission();
     setLevel4Mission(mission);
     setLevel4Price(mission.math.allowedPrices[0] || 0);
@@ -640,9 +659,25 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     setMentorTransient('success', 'Mission erfüllt. Dein Startup überlebt diesen Monat.', 2400);
   };
 
-  const finishLevel4 = () => {
+  const finishLevel4Mission = () => {
     if (level4Status !== 'success') return;
-    grantXp(160);
+    if (level4MissionIndex >= LEVEL4_MISSIONS_PER_RUN - 1) {
+      grantXp(160);
+      setLevel4CompleteScreen(true);
+    } else {
+      const nextMission = generateLevel4Mission();
+      setLevel4MissionIndex((i) => i + 1);
+      setLevel4Mission(nextMission);
+      setLevel4Price(nextMission.math.allowedPrices[0] || 0);
+      setLevel4BreakEvenInput('');
+      setLevel4Status('idle');
+      setLevel4Feedback('');
+    }
+  };
+
+  const finishLevel4Run = () => {
+    setLevel4CompleteScreen(false);
+    setLevel4MissionIndex(0);
     requestAnimationFrame(() => setScreen('home'));
   };
 
@@ -1064,6 +1099,46 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     );
   }
 
+  if (screen === 'level4' && level4CompleteScreen) {
+    return (
+      <div className="klr-cyber-theme" style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
+        {level4ConfettiPieces.map((p) => (
+          <div
+            key={p.id}
+            className="klr-confetti-piece"
+            style={{
+              position: 'fixed',
+              left: `${p.left}%`,
+              top: '-20px',
+              width: p.size,
+              height: p.size,
+              background: p.color,
+              borderRadius: p.id % 3 === 0 ? '50%' : '2px',
+              transform: `rotate(${p.rotation}deg)`,
+              animation: `klrConfettiFall ${p.duration}s ease-in ${p.delay}s forwards`,
+              opacity: 0,
+              zIndex: 100,
+              pointerEvents: 'none'
+            }}
+          />
+        ))}
+        <div style={{ ...shellStyle, maxWidth: '520px', margin: '0 auto', padding: '2rem 1rem', textAlign: 'center', position: 'relative', zIndex: 10 }}>
+          <div className="klr-wire" style={{ ...sectionStyle, padding: '2rem' }}>
+            <div style={{ fontSize: '4rem', marginBottom: '0.5rem' }}>🎉</div>
+            <h2 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-light)' }}>Survival-Modus gemeistert!</h2>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>
+              Du hast alle {LEVEL4_MISSIONS_PER_RUN} Break-Even-Missionen bestanden. Dein Startup überlebt.
+            </p>
+            <p style={{ color: '#86efac', fontWeight: 800, marginBottom: '1.5rem' }}>+160 XP</p>
+            <button type="button" className="btn-primary" style={{ width: '100%', padding: '0.9rem' }} onClick={finishLevel4Run}>
+              Zur Levelübersicht
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (screen === 'level4') {
     const math = level4Mission.math;
     const selectedPrice = Number(level4Price || 0);
@@ -1078,8 +1153,11 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
 
         <div className="klr-wire" style={sectionStyle}>
           <h2 style={{ margin: '0 0 0.3rem 0' }}>Level 4: Survival-Modus</h2>
+          <div style={{ marginBottom: '0.5rem', fontSize: '0.86rem', color: 'var(--text-muted)' }}>
+            Mission {level4MissionIndex + 1} von {LEVEL4_MISSIONS_PER_RUN}
+          </div>
           <p style={{ color: 'var(--text-muted)', marginBottom: '0.8rem' }}>
-            Finale Mission: Dein Startup darf diesen Monat maximal <strong>{level4Mission.capacity}</strong> Stück verkaufen. Erreiche Break-Even innerhalb dieser Kapazität.
+            Dein Startup darf diesen Monat maximal <strong>{level4Mission.capacity}</strong> Stück verkaufen. Erreiche Break-Even innerhalb dieser Kapazität.
           </p>
 
           <div className="klr-wire" style={{ borderRadius: '14px', padding: '0.85rem' }}>
@@ -1138,8 +1216,12 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
 
             <div style={{ marginTop: '0.85rem', display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
               <button className="btn-primary" onClick={checkLevel4}>Prüfen</button>
-              <button className="btn-secondary" onClick={startLevel4}>Neue Mission</button>
-              {level4Status === 'success' && <button className="btn-primary" onClick={finishLevel4}>Finale abschließen</button>}
+              <button className="btn-secondary" onClick={startLevel4}>Durchlauf beenden</button>
+              {level4Status === 'success' && (
+                <button className="btn-primary" onClick={finishLevel4Mission}>
+                  {level4MissionIndex < LEVEL4_MISSIONS_PER_RUN - 1 ? 'Nächste Mission' : 'Abschließen'}
+                </button>
+              )}
             </div>
 
             {!!level4Feedback && (
