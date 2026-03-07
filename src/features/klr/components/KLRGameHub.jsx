@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useKLRGame } from '../state/KLRGameProvider';
 import { generateLevel2Math } from '../utils/generateLevelMath';
 
@@ -131,6 +131,7 @@ export default function KLRGameHub({ onBack }) {
   const [level2Attempts, setLevel2Attempts] = useState({ lager: 0, packstation: 0, buero: 0 });
   const [level2Status, setLevel2Status] = useState('idle');
   const [level2Feedback, setLevel2Feedback] = useState('');
+  const level2InputRefs = useRef({ lager: null, packstation: null, buero: null });
 
   const level1Done = level1Index >= level1Items.length;
   const currentItem = level1Items[level1Index];
@@ -226,31 +227,53 @@ export default function KLRGameHub({ onBack }) {
     return Number(normalized);
   };
 
+  const isLevel2FieldCorrect = (fieldKey, value) => {
+    if (!Number.isFinite(value)) return false;
+    const expected = level2Math.allocations[fieldKey];
+    return Math.round(value * 100) === Math.round(expected * 100);
+  };
+
+  const validateLevel2Field = (fieldKey, showFieldFeedback = true) => {
+    const value = parseMoneyInput(level2Inputs[fieldKey]);
+    const ok = isLevel2FieldCorrect(fieldKey, value);
+
+    setLevel2FieldOk((prev) => ({ ...prev, [fieldKey]: ok }));
+    if (!ok) {
+      setLevel2Attempts((prev) => ({ ...prev, [fieldKey]: prev[fieldKey] + 1 }));
+    }
+
+    const allOkNow = ['lager', 'packstation', 'buero'].every((key) => {
+      const parsed = key === fieldKey ? value : parseMoneyInput(level2Inputs[key]);
+      return isLevel2FieldCorrect(key, parsed);
+    });
+
+    if (allOkNow) {
+      setLevel2Status('success');
+      setLevel2Feedback('Perfekt verteilt. Genau richtig!');
+    } else if (showFieldFeedback) {
+      const label = fieldKey === 'lager' ? 'Lager' : fieldKey === 'packstation' ? 'Packstation' : 'Büro';
+      setLevel2Status('error');
+      setLevel2Feedback(ok ? `${label} korrekt ✓` : `${label} noch nicht korrekt.`);
+    }
+
+    return ok;
+  };
+
+  const handleLevel2Enter = (e, fieldKey, nextFieldKey) => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    validateLevel2Field(fieldKey, true);
+    if (nextFieldKey && level2InputRefs.current[nextFieldKey]) {
+      level2InputRefs.current[nextFieldKey].focus();
+      level2InputRefs.current[nextFieldKey].select?.();
+    }
+  };
+
   const validateLevel2 = () => {
-    const expected = level2Math.allocations;
-    const parsed = {
-      lager: parseMoneyInput(level2Inputs.lager),
-      packstation: parseMoneyInput(level2Inputs.packstation),
-      buero: parseMoneyInput(level2Inputs.buero)
-    };
-
-    const centsEqual = (a, b) => Math.round(a * 100) === Math.round(b * 100);
-    const fieldStatus = {
-      lager: Number.isFinite(parsed.lager) && centsEqual(parsed.lager, expected.lager),
-      packstation: Number.isFinite(parsed.packstation) && centsEqual(parsed.packstation, expected.packstation),
-      buero: Number.isFinite(parsed.buero) && centsEqual(parsed.buero, expected.buero)
-    };
-    setLevel2FieldOk(fieldStatus);
-    setLevel2Attempts((prev) => ({
-      lager: fieldStatus.lager ? prev.lager : prev.lager + 1,
-      packstation: fieldStatus.packstation ? prev.packstation : prev.packstation + 1,
-      buero: fieldStatus.buero ? prev.buero : prev.buero + 1
-    }));
-
-    const correct =
-      fieldStatus.lager &&
-      fieldStatus.packstation &&
-      fieldStatus.buero;
+    const correctLager = validateLevel2Field('lager', false);
+    const correctPack = validateLevel2Field('packstation', false);
+    const correctBuero = validateLevel2Field('buero', false);
+    const correct = correctLager && correctPack && correctBuero;
 
     if (correct) {
       setLevel2Status('success');
@@ -379,19 +402,21 @@ export default function KLRGameHub({ onBack }) {
                   <input
                     className="wisor-input"
                     inputMode="decimal"
+                    ref={(el) => { level2InputRefs.current.lager = el; }}
                     value={level2Inputs.lager}
                     onChange={(e) => setLevel2Inputs((p) => ({ ...p, lager: e.target.value.replace(/[^0-9.,]/g, '') }))}
-                    onKeyDown={(e) => { if (e.key === 'Enter') validateLevel2(); }}
+                    onKeyDown={(e) => handleLevel2Enter(e, 'lager', 'packstation')}
                     style={
                       level2FieldOk.lager === true
-                        ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)' }
+                        ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)', paddingRight: '3.2rem' }
                         : level2FieldOk.lager === false
-                          ? { borderColor: '#ef4444', boxShadow: '0 0 0 1px rgba(239,68,68,0.35)' }
-                          : undefined
+                          ? { borderColor: '#ef4444', boxShadow: '0 0 0 1px rgba(239,68,68,0.35)', paddingRight: '3.2rem' }
+                          : { paddingRight: '3.2rem' }
                     }
                   />
+                  <span style={{ position: 'absolute', right: '11px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', fontWeight: 700 }}>€</span>
                   {level2FieldOk.lager === true && (
-                    <span style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', color: '#22c55e', fontWeight: 800 }}>✓</span>
+                    <span style={{ position: 'absolute', right: '30px', top: '50%', transform: 'translateY(-50%)', color: '#22c55e', fontWeight: 800 }}>✓</span>
                   )}
                 </div>
                 {level2FieldOk.lager === false && level2Attempts.lager >= 2 && (
@@ -404,19 +429,21 @@ export default function KLRGameHub({ onBack }) {
                   <input
                     className="wisor-input"
                     inputMode="decimal"
+                    ref={(el) => { level2InputRefs.current.packstation = el; }}
                     value={level2Inputs.packstation}
                     onChange={(e) => setLevel2Inputs((p) => ({ ...p, packstation: e.target.value.replace(/[^0-9.,]/g, '') }))}
-                    onKeyDown={(e) => { if (e.key === 'Enter') validateLevel2(); }}
+                    onKeyDown={(e) => handleLevel2Enter(e, 'packstation', 'buero')}
                     style={
                       level2FieldOk.packstation === true
-                        ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)' }
+                        ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)', paddingRight: '3.2rem' }
                         : level2FieldOk.packstation === false
-                          ? { borderColor: '#ef4444', boxShadow: '0 0 0 1px rgba(239,68,68,0.35)' }
-                          : undefined
+                          ? { borderColor: '#ef4444', boxShadow: '0 0 0 1px rgba(239,68,68,0.35)', paddingRight: '3.2rem' }
+                          : { paddingRight: '3.2rem' }
                     }
                   />
+                  <span style={{ position: 'absolute', right: '11px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', fontWeight: 700 }}>€</span>
                   {level2FieldOk.packstation === true && (
-                    <span style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', color: '#22c55e', fontWeight: 800 }}>✓</span>
+                    <span style={{ position: 'absolute', right: '30px', top: '50%', transform: 'translateY(-50%)', color: '#22c55e', fontWeight: 800 }}>✓</span>
                   )}
                 </div>
                 {level2FieldOk.packstation === false && level2Attempts.packstation >= 2 && (
@@ -429,19 +456,21 @@ export default function KLRGameHub({ onBack }) {
                   <input
                     className="wisor-input"
                     inputMode="decimal"
+                    ref={(el) => { level2InputRefs.current.buero = el; }}
                     value={level2Inputs.buero}
                     onChange={(e) => setLevel2Inputs((p) => ({ ...p, buero: e.target.value.replace(/[^0-9.,]/g, '') }))}
-                    onKeyDown={(e) => { if (e.key === 'Enter') validateLevel2(); }}
+                    onKeyDown={(e) => handleLevel2Enter(e, 'buero', null)}
                     style={
                       level2FieldOk.buero === true
-                        ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)' }
+                        ? { borderColor: '#22c55e', boxShadow: '0 0 0 1px rgba(34,197,94,0.45)', paddingRight: '3.2rem' }
                         : level2FieldOk.buero === false
-                          ? { borderColor: '#ef4444', boxShadow: '0 0 0 1px rgba(239,68,68,0.35)' }
-                          : undefined
+                          ? { borderColor: '#ef4444', boxShadow: '0 0 0 1px rgba(239,68,68,0.35)', paddingRight: '3.2rem' }
+                          : { paddingRight: '3.2rem' }
                     }
                   />
+                  <span style={{ position: 'absolute', right: '11px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', fontWeight: 700 }}>€</span>
                   {level2FieldOk.buero === true && (
-                    <span style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', color: '#22c55e', fontWeight: 800 }}>✓</span>
+                    <span style={{ position: 'absolute', right: '30px', top: '50%', transform: 'translateY(-50%)', color: '#22c55e', fontWeight: 800 }}>✓</span>
                   )}
                 </div>
                 {level2FieldOk.buero === false && level2Attempts.buero >= 2 && (
@@ -579,7 +608,7 @@ export default function KLRGameHub({ onBack }) {
                 {lvl.id === 1 ? (
                   <button className="btn-primary" style={{ width: '100%' }} onClick={startLevel1}>Jetzt starten</button>
                 ) : lvl.id === 2 && unlocked ? (
-                  <button className="btn-secondary" style={{ width: '100%' }} onClick={startLevel2}>Level öffnen</button>
+                  <button className="btn-primary" style={{ width: '100%' }} onClick={startLevel2}>Level öffnen</button>
                 ) : unlocked ? (
                   <button className="btn-secondary" style={{ width: '100%' }} onClick={() => openPendingLevel(lvl.id)}>Level öffnen</button>
                 ) : (
