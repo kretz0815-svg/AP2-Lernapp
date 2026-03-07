@@ -11,9 +11,15 @@ export const useAppearance = (authUser, appMode) => {
     const [systemPrefersDark, setSystemPrefersDark] = useState(() =>
         typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)').matches : true
     );
-    const isLightMode = themePreference === 'light' || (themePreference === 'system' && !systemPrefersDark);
+    const [isDayTime, setIsDayTime] = useState(() => {
+        const hr = new Date().getHours();
+        return hr >= 6 && hr < 20; // 6 AM to 8 PM is day
+    });
 
-    const [customBackgroundColor, setCustomBackgroundColor] = useState('#000000');
+    // Derived light mode combining user preference, system preference and time
+    const isLightMode = themePreference === 'light' || (themePreference === 'system' && (!systemPrefersDark || isDayTime));
+
+    const [customBackgroundColor, setCustomBackgroundColor] = useState('');
     const [backgroundMode, setBackgroundMode] = useState('color');
     const [backgroundPresetId, setBackgroundPresetId] = useState('');
     const [backgroundImageData, setBackgroundImageData] = useState('');
@@ -21,37 +27,68 @@ export const useAppearance = (authUser, appMode) => {
     const [backgroundEffectsIntensity, setBackgroundEffectsIntensity] = useState(100);
     const [appearanceNotice, setAppearanceNotice] = useState('');
 
-    // Listen for real-time OS theme changes
+    // Listen for real-time OS theme changes and check time hourly
     useEffect(() => {
         const mq = window.matchMedia('(prefers-color-scheme: dark)');
         const handler = (e) => setSystemPrefersDark(e.matches);
         mq.addEventListener('change', handler);
-        return () => mq.removeEventListener('change', handler);
+
+        // Update dayTime state every hour
+        const timer = setInterval(() => {
+            const hr = new Date().getHours();
+            setIsDayTime(hr >= 6 && hr < 20);
+        }, 3600000);
+
+        return () => {
+            mq.removeEventListener('change', handler);
+            clearInterval(timer);
+        };
     }, []);
 
-    // Apply light-theme class whenever derived isLightMode changes
+    // Unified effect to apply all appearance states to the DOM
     useEffect(() => {
-        // Don't apply light mode for guests or auth screen
-        if (!authUser || appMode === 'auth') {
-            document.body.classList.remove('light-theme');
-            return;
-        }
+        // Theme class application
         if (isLightMode) {
             document.body.classList.add('light-theme');
         } else {
             document.body.classList.remove('light-theme');
         }
-    }, [isLightMode, authUser, appMode]);
 
-    // Force dark mode appearance for auth screen and guests
-    useEffect(() => {
-        if (appMode === 'auth' || !authUser) {
-            document.body.style.setProperty('--app-bg-color', '#000000');
+        // Auth screen adjustments (keep it slightly darker but follow theme)
+        if (appMode === 'auth') {
+            if (!isLightMode) {
+                document.body.style.setProperty('--app-bg-color', '#000000');
+            } else {
+                document.body.style.removeProperty('--app-bg-color');
+            }
             document.body.style.removeProperty('--app-glow-1');
             document.body.style.removeProperty('--app-glow-2');
             document.body.classList.add('no-bg-effects');
+            return;
         }
-    }, [appMode, authUser]);
+
+        // Normal app behavior (not auth)
+        document.body.classList.remove('no-bg-effects');
+
+        // Apply background settings
+        if (backgroundMode === 'preset' && backgroundPresetId) {
+            applyPresetBackground(backgroundPresetId, backgroundEffectsIntensity);
+        } else if (backgroundMode === 'upload' && backgroundImageData) {
+            applyUploadedBackground(backgroundImageData, customBackgroundColor, backgroundEffectsIntensity);
+        } else if (backgroundMode === 'color' && isValidHexColor(customBackgroundColor)) {
+            applyCustomBackgroundColor(customBackgroundColor, backgroundEffectsIntensity);
+        } else {
+            // Default or empty color: let CSS handle it via .light-theme class
+            applyCustomBackgroundColor('', backgroundEffectsIntensity);
+        }
+
+        applyBackgroundEffectsVisibility(backgroundEffectsEnabled);
+        applyEffectStrength(backgroundEffectsIntensity);
+    }, [
+        appMode, isLightMode, backgroundMode, backgroundPresetId,
+        backgroundImageData, customBackgroundColor, backgroundEffectsEnabled,
+        backgroundEffectsIntensity
+    ]);
 
     const persistBackgroundSettings = (settings) => {
         try {
@@ -67,17 +104,14 @@ export const useAppearance = (authUser, appMode) => {
     };
 
     const applyAppearanceDefaults = () => {
-        const defaultColor = isLightMode ? '#ffffff' : '#000000';
         setBackgroundMode('color');
-        setCustomBackgroundColor(defaultColor);
+        // Setting to empty string allows CSS to handle the background color
+        // based on the .light-theme class on the body.
+        setCustomBackgroundColor('');
         setBackgroundEffectsEnabled(false);
         setBackgroundEffectsIntensity(100);
         setBackgroundPresetId('');
         setBackgroundImageData('');
-        applyEffectStrength(100);
-        applyBackgroundEffectsVisibility(false);
-        applyCustomBackgroundColor(defaultColor, 100);
-        clearBackgroundLayers();
     };
 
     const loadAppearanceForUser = (user) => {
@@ -112,13 +146,9 @@ export const useAppearance = (authUser, appMode) => {
                 applyEffectStrength(savedEffectsIntensity);
                 applyBackgroundEffectsVisibility(savedEffectsEnabled);
 
-                if (savedMode === 'preset' && savedPreset) {
-                    applyPresetBackground(savedPreset, savedEffectsIntensity);
-                } else if (savedMode === 'upload' && savedImage) {
-                    applyUploadedBackground(savedImage, savedColor, savedEffectsIntensity);
-                } else if (savedMode === 'color' && isValidHexColor(savedColor)) {
-                    applyCustomBackgroundColor(savedColor, savedEffectsIntensity);
-                } else {
+                if (!(savedMode === 'preset' && savedPreset) &&
+                    !(savedMode === 'upload' && savedImage) &&
+                    !(savedMode === 'color' && isValidHexColor(savedColor))) {
                     applyAppearanceDefaults();
                 }
                 return;
@@ -130,19 +160,11 @@ export const useAppearance = (authUser, appMode) => {
         applyAppearanceDefaults();
     };
 
-    // Initial appearance load
+    // Load appearance settings from storage when user or system changes
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        loadAppearanceForUser(null);
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-    // Reload appearance when user logs in/out
-    useEffect(() => {
-        if (authUser) {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
-            loadAppearanceForUser(authUser);
-        }
-    }, [authUser]); // eslint-disable-line react-hooks/exhaustive-deps
+        loadAppearanceForUser(authUser);
+    }, [authUser, isLightMode]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const setThemePref = (pref) => {
         // Guests are locked to dark mode

@@ -24,14 +24,14 @@ body.light-theme {
   --primary: #4f46e5;
   --secondary: #7c3aed;
   --accent: #db2777;
-  --bg-dark: #f1f5f9;
+  --bg-dark: #ffffff;
   --text-light: #0f172a;
   --text-muted: #475569;
   --glass-bg: rgba(255, 255, 255, 0.72);
   --glass-border: rgba(15, 23, 42, 0.12);
   --success: #16a34a;
   --error: #dc2626;
-  --app-bg-color: #f1f5f9;
+  --app-bg-color: #ffffff;
   --app-glow-1: rgba(79, 70, 229, 0.08);
   --app-glow-2: rgba(124, 58, 237, 0.06);
   --blob-opacity: 0.12;
