@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { useKLRGame } from '../state/KLRGameProvider';
-import { generateLevel2Math } from '../utils/generateLevelMath';
+import { generateLevel2Math, generateLevel4Math } from '../utils/generateLevelMath';
 import { fetchYouTubeVideos } from '../../../youtubeClient';
 import { askGemini } from '../../../geminiClient';
 
@@ -173,6 +173,24 @@ const generateLevel3Scenario = () => {
   };
 };
 
+const generateLevel4Mission = () => {
+  const math = generateLevel4Math();
+  const unitsByPrice = math.allowedPrices
+    .map((price) => ({ price, units: math.fixedCost / (price - math.variableCostPerUnit) }))
+    .sort((a, b) => a.units - b.units);
+
+  const feasibleCaps = unitsByPrice
+    .map((entry) => entry.units)
+    .filter((units) => Number.isInteger(units) && units >= 120 && units <= 1200);
+
+  const fallbackCap = Math.max(150, Math.min(1200, unitsByPrice[Math.floor(unitsByPrice.length / 2)]?.units || 300));
+  const capacity = feasibleCaps.length > 0
+    ? feasibleCaps[Math.floor(Math.random() * feasibleCaps.length)]
+    : fallbackCap;
+
+  return { math, capacity };
+};
+
 export default function KLRGameHub({ onBack }) {
   const { progress, setStartupName, grantXp, unlockLevel } = useKLRGame();
   const [nameInput, setNameInput] = useState(progress.startupName);
@@ -207,6 +225,11 @@ export default function KLRGameHub({ onBack }) {
   const [level3SelfCostInput, setLevel3SelfCostInput] = useState('');
   const [level3Status, setLevel3Status] = useState('idle');
   const [level3Feedback, setLevel3Feedback] = useState('');
+  const [level4Mission, setLevel4Mission] = useState(() => generateLevel4Mission());
+  const [level4Price, setLevel4Price] = useState(level4Mission.math.allowedPrices[0] || 0);
+  const [level4BreakEvenInput, setLevel4BreakEvenInput] = useState('');
+  const [level4Status, setLevel4Status] = useState('idle');
+  const [level4Feedback, setLevel4Feedback] = useState('');
 
   const level1Done = level1Index >= level1Items.length;
   const currentItem = level1Items[level1Index];
@@ -380,6 +403,20 @@ export default function KLRGameHub({ onBack }) {
     setScreen('level3');
   };
 
+  const startLevel4 = () => {
+    setVideoOpen(false);
+    setGeminiVisible(false);
+    setGeminiResponse('');
+    setSelectedVideo(null);
+    const mission = generateLevel4Mission();
+    setLevel4Mission(mission);
+    setLevel4Price(mission.math.allowedPrices[0] || 0);
+    setLevel4BreakEvenInput('');
+    setLevel4Status('idle');
+    setLevel4Feedback('');
+    setScreen('level4');
+  };
+
   const checkLevel3 = () => {
     const ratesCorrect = (
       level3Rates.mgkPct === level3Scenario.mgkPct
@@ -410,6 +447,43 @@ export default function KLRGameHub({ onBack }) {
     if (level3Status !== 'success') return;
     grantXp(120);
     unlockLevel(4);
+    setScreen('home');
+  };
+
+  const checkLevel4 = () => {
+    const selectedPrice = Number(level4Price);
+    const math = level4Mission.math;
+    if (!math.allowedPrices.includes(selectedPrice)) {
+      setLevel4Status('error');
+      setLevel4Feedback('Bitte einen erlaubten Preis aus der Liste wählen.');
+      return;
+    }
+
+    const db = selectedPrice - math.variableCostPerUnit;
+    const expectedUnits = math.fixedCost / db;
+    const enteredUnits = Number.parseInt(String(level4BreakEvenInput).replace(/\D/g, ''), 10);
+    const unitsCorrect = Number.isFinite(enteredUnits) && enteredUnits === expectedUnits;
+    const goalReached = expectedUnits <= level4Mission.capacity;
+
+    if (!unitsCorrect) {
+      setLevel4Status('error');
+      setLevel4Feedback(`Die Break-Even-Menge passt noch nicht. Rechne: Fixkosten / Deckungsbeitrag.`);
+      return;
+    }
+
+    if (!goalReached) {
+      setLevel4Status('error');
+      setLevel4Feedback(`Rechnung korrekt, aber Ziel verfehlt: ${expectedUnits} Stück sind mehr als die Monatskapazität (${level4Mission.capacity}). Wähle einen besseren Preis.`);
+      return;
+    }
+
+    setLevel4Status('success');
+    setLevel4Feedback(`Stark. Break-Even bei ${expectedUnits} Stück und damit innerhalb der Kapazität.`);
+  };
+
+  const finishLevel4 = () => {
+    if (level4Status !== 'success') return;
+    grantXp(160);
     setScreen('home');
   };
 
@@ -444,6 +518,93 @@ export default function KLRGameHub({ onBack }) {
         contextAnswer: `MEK ${level3Scenario.materialDirect} €, FEK ${level3Scenario.laborDirect} €, MGK ${level3Scenario.materialOverhead} €, FGK ${level3Scenario.laborOverhead} €, VwGK ${level3Scenario.adminOverhead} €, VtGK ${level3Scenario.salesOverhead} €.`
       };
     }
+
+  if (screen === 'level4') {
+    const math = level4Mission.math;
+    const selectedPrice = Number(level4Price || 0);
+    const db = selectedPrice - math.variableCostPerUnit;
+    const breakEvenUnits = db > 0 ? (math.fixedCost / db) : 0;
+    const targetReached = breakEvenUnits > 0 && breakEvenUnits <= level4Mission.capacity;
+
+    return (
+      <div style={{ ...shellStyle, maxWidth: '840px' }}>
+        {renderActionBar()}
+        {renderSupportPanels()}
+
+        <div style={sectionStyle}>
+          <h2 style={{ margin: '0 0 0.3rem 0' }}>Level 4: Survival-Modus</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '0.8rem' }}>
+            Finale Mission: Dein Startup darf diesen Monat maximal <strong>{level4Mission.capacity}</strong> Stück verkaufen. Erreiche Break-Even innerhalb dieser Kapazität.
+          </p>
+
+          <div style={{ border: '1px solid var(--glass-border)', borderRadius: '14px', padding: '0.85rem', background: 'rgba(2,6,23,0.45)' }}>
+            <p style={{ margin: '0 0 0.25rem 0' }}>Fixkosten (Kf): <strong>{euro(math.fixedCost)}</strong></p>
+            <p style={{ margin: '0 0 0.75rem 0' }}>Variable Kosten pro Stück (kv): <strong>{euro(math.variableCostPerUnit)}</strong></p>
+
+            <div style={{ marginBottom: '0.8rem', padding: '0.65rem', borderRadius: '12px', border: '1px dashed var(--glass-border)' }}>
+              <p style={{ margin: '0 0 0.25rem 0', fontWeight: 700 }}>Formel:</p>
+              <p style={{ margin: 0, color: 'var(--text-muted)' }}>
+                Break-Even-Menge x = Kf / (p - kv)
+              </p>
+            </div>
+
+            <label style={{ display: 'grid', gap: '0.35rem', textAlign: 'left', marginBottom: '0.8rem' }}>
+              <span style={{ fontWeight: 700 }}>Verkaufspreis p wählen (nur glatte, erlaubte Werte)</span>
+              <select
+                className="wisor-input"
+                value={level4Price}
+                onChange={(e) => {
+                  setLevel4Price(Number(e.target.value));
+                  setLevel4Status('idle');
+                }}
+                style={{ maxWidth: '280px' }}
+              >
+                {math.allowedPrices.map((price) => (
+                  <option key={price} value={price}>{euro(price)}</option>
+                ))}
+              </select>
+            </label>
+
+            <div style={{ marginBottom: '0.9rem', padding: '0.65rem', borderRadius: '12px', border: `1px solid ${targetReached ? 'rgba(34,197,94,0.45)' : 'var(--glass-border)'}` }}>
+              <p style={{ margin: '0 0 0.2rem 0' }}>Deckungsbeitrag pro Stück: <strong>{euro(Math.max(db, 0))}</strong></p>
+              <p style={{ margin: 0, color: targetReached ? '#86efac' : 'var(--text-muted)' }}>
+                Rechnerisch benötigte Break-Even-Menge: <strong>{Number.isFinite(breakEvenUnits) ? breakEvenUnits : 0}</strong> Stück
+              </p>
+            </div>
+
+            <label style={{ display: 'grid', gap: '0.3rem', textAlign: 'left' }}>
+              <span>Break-Even-Menge x eingeben (Stück)</span>
+              <input
+                className="wisor-input"
+                inputMode="numeric"
+                value={level4BreakEvenInput}
+                onChange={(e) => {
+                  setLevel4BreakEvenInput(e.target.value.replace(/\D/g, ''));
+                  setLevel4Status('idle');
+                }}
+                onKeyDown={(e) => {
+                  if (e.key !== 'Enter' && e.key !== 'NumpadEnter') return;
+                  e.preventDefault();
+                  checkLevel4();
+                }}
+                style={{ maxWidth: '240px' }}
+              />
+            </label>
+
+            <div style={{ marginTop: '0.85rem', display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+              <button className="btn-primary" onClick={checkLevel4}>Prüfen</button>
+              <button className="btn-secondary" onClick={startLevel4}>Neue Mission</button>
+              {level4Status === 'success' && <button className="btn-primary" onClick={finishLevel4}>Finale abschließen</button>}
+            </div>
+
+            {!!level4Feedback && (
+              <p style={{ marginTop: '0.7rem', color: level4Status === 'success' ? '#86efac' : '#fca5a5' }}>{level4Feedback}</p>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
     if (screen === 'pending') {
       const lvl = LEVELS.find((x) => x.id === pendingLevelId);
       return {
@@ -1033,6 +1194,8 @@ export default function KLRGameHub({ onBack }) {
                   <button className="btn-primary" style={{ width: '100%' }} onClick={startLevel2}>Level öffnen</button>
                 ) : lvl.id === 3 && unlocked ? (
                   <button className="btn-primary" style={{ width: '100%' }} onClick={startLevel3}>Level öffnen</button>
+                ) : lvl.id === 4 && unlocked ? (
+                  <button className="btn-primary" style={{ width: '100%' }} onClick={startLevel4}>Level öffnen</button>
                 ) : unlocked ? (
                   <button className="btn-secondary" style={{ width: '100%' }} onClick={() => openPendingLevel(lvl.id)}>Level öffnen</button>
                 ) : (
