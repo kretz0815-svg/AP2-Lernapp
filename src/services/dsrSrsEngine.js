@@ -4,13 +4,15 @@ const dayMs = 24 * 60 * 60 * 1000;
 
 export const defaultDSRConfig = {
   desiredRetention: 0.9,
-  minStabilityDays: 0.08,
+  minStabilityDays: 1.0,
   maxStabilityDays: 36500,
   minDifficulty: 1,
   maxDifficulty: 10,
   initialDifficulty: 5.2,
-  initialStabilityDays: 0.6,
+  initialStabilityDays: 4.0,
   maxFuzzPercent: 0.06,
+  // Minimum Intervall: 1 Tag (24h) damit Fragen nicht zu schnell wiederkommen
+  minIntervalDays: 1.0,
 };
 
 export function calculateRetrievability(stabilityDays, elapsedDays) {
@@ -129,7 +131,16 @@ export function reviewDSRState(previousState, {
 
   const intervalBeforeFuzz = calculateIntervalDays(stability, mergedConfig.desiredRetention);
   const reviewCount = (prior.reviewCount || 0) + 1;
-  const intervalDays = applyFuzz(intervalBeforeFuzz, taskId, reviewCount, mergedConfig.maxFuzzPercent);
+  let intervalDays = applyFuzz(intervalBeforeFuzz, taskId, reviewCount, mergedConfig.maxFuzzPercent);
+
+  // Enforce minimum interval: Fragen dürfen nicht vor 24h wiederkommen
+  const minInterval = mergedConfig.minIntervalDays || 1.0;
+  if (intervalDays < minInterval) intervalDays = minInterval;
+
+  // Nach dem 2. erfolgreichen Review: min. 180 Tage (effektiv "raus aus Pool")
+  if (normalizedRating >= 3 && reviewCount >= 2) {
+    intervalDays = Math.max(intervalDays, 180);
+  }
 
   const dueDate = new Date(reviewedAtDate.getTime() + intervalDays * dayMs);
 
