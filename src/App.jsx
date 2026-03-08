@@ -601,15 +601,34 @@ function App() {
       const effectiveProgress = {};
       prepared.forEach(q => {
         const row = byTaskId.get(`quiz:${q.id}`);
+        const localProg = quizProg[q.id] || null;
+
         if (row) {
-          effectiveProgress[q.id] = {
-            rep: row.review_count || 0,
-            ef: q.progress?.ef || 2.5,
-            interval: row.scheduled_days || 0,
-            nextReview: row.due_date ? new Date(row.due_date).getTime() : 0
-          };
+          const supabaseNextReview = row.due_date ? new Date(row.due_date).getTime() : 0;
+          const localNextReview = localProg?.nextReview || 0;
+
+          // Immer den SPÄTEREN nextReview nehmen (strengerer Cooldown gewinnt).
+          // Das verhindert, dass alte Supabase-Einträge mit zu kurzen Intervallen
+          // den korrekten lokalen 24h-Cooldown überschreiben.
+          const useLocal = localProg && localNextReview > supabaseNextReview;
+
+          if (useLocal) {
+            effectiveProgress[q.id] = {
+              rep: Math.max(localProg.rep || 0, row.review_count || 0),
+              ef: localProg.ef || 2.5,
+              interval: localProg.interval || 0,
+              nextReview: localNextReview
+            };
+          } else {
+            effectiveProgress[q.id] = {
+              rep: row.review_count || 0,
+              ef: q.progress?.ef || 2.5,
+              interval: row.scheduled_days || 0,
+              nextReview: supabaseNextReview
+            };
+          }
         } else {
-          effectiveProgress[q.id] = quizProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 };
+          effectiveProgress[q.id] = localProg || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 };
         }
       });
 
