@@ -196,6 +196,11 @@ function App() {
   const wisorInputRef = useRef(null);
   const einsteinRef = useRef(null);
   const [einsteinTilt, setEinsteinTilt] = useState({ rotateX: 0, rotateY: 0 });
+  const [showConfetti, setShowConfetti] = useState(false);
+  const triggerConfetti = () => {
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 5500);
+  };
 
   useEffect(() => {
     if (appMode !== 'dashboard' && appMode !== 'learning_dashboard') return;
@@ -1170,9 +1175,13 @@ ${feynmanInput}`;
     const expectedOption = q.answerOptions.find(opt => opt.isCorrect);
 
     if (isCorrect) {
-      setQuizScore(s => ({ ...s, correct: s.correct + 1 }));
+      setQuizScore(s => ({ correct: s.correct + 1, total: s.total + 1 }));
       setLastQuizCorrect(true);
+      if (currentQuizIndex === allQuizzes.length - 1) {
+        triggerConfetti();
+      }
     } else {
+      setQuizScore(s => ({ ...s, total: s.total + 1 }));
       setLastQuizCorrect(false);
     }
 
@@ -1433,7 +1442,11 @@ ${feynmanInput}`;
     }
 
     if (correct) {
-      setWisorScore(s => ({ ...s, correct: s.correct + 1 }));
+      setWisorScore(s => ({ correct: s.correct + 1, total: s.total + 1 }));
+      setLastWisorCorrect(true);
+      if (currentWisorIndex === allWisors.length - 1) {
+        triggerConfetti();
+      }
 
       const updateProg = prev => {
         const next = { ...prev, [q.id]: true };
@@ -1452,6 +1465,9 @@ ${feynmanInput}`;
       } else {
         setCompletedWisorsEco(updateProg);
       }
+    } else {
+      setWisorScore(s => ({ ...s, total: s.total + 1 }));
+      setLastWisorCorrect(false);
     }
 
     if (authUser?.id) {
@@ -1469,7 +1485,6 @@ ${feynmanInput}`;
   };
 
   const nextWisorQuestion = () => {
-    setWisorScore(s => ({ ...s, total: s.total + 1 }));
     setWisorInput('');
     setWisorEvaluated(false);
     setWisorIsCorrect(false);
@@ -3127,7 +3142,7 @@ Die JSON muss exakt diese Struktur haben:
           <div className="blob blob-1"></div>
           <div className="blob blob-2"></div>
           <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-            {((quizScore.correct === quizScore.total && quizScore.total > 0) || (quizDuePool.length === 0 && lastQuizCorrect)) && <Confetti />}
+            {(showConfetti || ((quizScore.correct === quizScore.total && quizScore.total > 0) || (quizDuePool.length === 0 && lastQuizCorrect))) && <Confetti />}
             <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Quiz Beendet!</h2>
             <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {quizScore.correct} / {quizScore.total}</p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
@@ -3408,240 +3423,239 @@ Die JSON muss exakt diese Struktur haben:
         </div>
       );
     }
+
+    const q = allWisors[currentWisorIndex];
+
+    return (
+      <div className="app-container" style={{ zIndex: 10 }}>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <header>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+            <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
+            <p className="subtitle">Frage {currentWisorIndex + 1} von {allWisors.length}</p>
+            <div className="score-badge">Score: {wisorScore.correct}</div>
+          </div>
+        </header>
+
+        <div className="quiz-container">
+          <div style={{ marginBottom: '1.5rem', textAlign: 'center', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button
+              className={`btn-secondary fade-in ${wisorVideoLoading ? 'loading' : ''}`}
+              onClick={() => handleToggleVideos(q)}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: wisorVideoOpen ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
+            >
+              <span>{wisorVideoOpen ? '🙈' : '📺'}</span>
+              {wisorVideoOpen ? 'Videos ausblenden' : 'Lernvideos ansehen'}
+            </button>
+
+            <button
+              className="btn-secondary fade-in"
+              onClick={() => setGeminiVisible(!geminiVisible)}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: geminiVisible ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
+            >
+              <span>✨</span>
+              {geminiVisible ? 'KI Assistent schließen' : 'KI um Hilfe bitten'}
+            </button>
+          </div>
+
+          <VideoPanel
+            isOpen={wisorVideoOpen}
+            isLoading={wisorVideoLoading}
+            videos={wisorVideos}
+            error={wisorVideoError}
+            selectedVideo={selectedWisorVideo}
+            onSelectVideo={setSelectedWisorVideo}
+            onCloseVideo={() => setSelectedWisorVideo(null)}
+          />
+
+          <GeminiPanel
+            isOpen={geminiVisible}
+            title="Frage an deinen KI-Tutor"
+            placeholder="Was genau verstehst du hier nicht?"
+            query={geminiQuery}
+            onQueryChange={setGeminiQuery}
+            onAsk={handleGeminiAsk}
+            isLoading={geminiLoading}
+            response={geminiResponse}
+          />
+
+          {/* svgCode now handled by FloatingImage */}
+          <div className="quiz-question">
+            {formatLatex(q.question)}
+          </div>
+
+          <form className="wisor-form" onSubmit={handleWisorSubmit}>
+            <input
+              type={q.inputType === 'number' ? 'number' : 'text'}
+              className="wisor-input"
+              value={wisorInput}
+              onChange={(e) => setWisorInput(e.target.value)}
+              disabled={wisorEvaluated}
+              placeholder="Antwort eingeben..."
+              ref={wisorInputRef}
+            />
+            {!wisorEvaluated && (
+              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem', width: '100%' }}>
+                <button
+                  type="button"
+                  className="btn-secondary fade-in"
+                  onClick={() => navigateWisorUnanswered(-1)}
+                  disabled={currentWisorIndex === 0}
+                  style={{ flex: '1', padding: '0.8rem 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                  title="Vorherige Frage"
+                >
+                  &larr;
+                </button>
+                <button type="submit" className="btn-primary" style={{ flex: '3' }} disabled={!wisorInput.trim()}>
+                  Antworten
+                </button>
+                <button
+                  type="button"
+                  className="btn-secondary fade-in"
+                  onClick={() => navigateWisorUnanswered(1)}
+                  disabled={currentWisorIndex === allWisors.length - 1}
+                  style={{ flex: '1', padding: '0.8rem 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                  title="Nächste Frage überspringen"
+                >
+                  &rarr;
+                </button>
+              </div>
+            )}
+            <FloatingImage svgCode={q.svgCode} isLightMode={isLightMode} />
+          </form>
+
+          {wisorEvaluated && (
+            <div className={`quiz-rationale fade-in ${wisorIsCorrect ? 'correct-rationale' : 'wrong-rationale'}`}>
+              <h3 style={{ color: wisorIsCorrect ? 'var(--color-success)' : 'var(--color-error)' }}>
+                {wisorIsCorrect ? 'Richtig!' : 'Leider Falsch!'}
+              </h3>
+              {!wisorIsCorrect && (
+                <p style={{ marginBottom: '0.5rem' }}><strong>Richtige Antwort(en):</strong> {q.expectedAnswers.join(' oder ')}</p>
+              )}
+              <p><strong>Erklärung:</strong> {q.rationale}</p>
+
+              {q.videoUrl && (
+                <div style={{ marginTop: '1rem', width: '100%', borderRadius: '12px', overflow: 'hidden' }}>
+                  <iframe
+                    width="100%"
+                    height="315"
+                    src={q.videoUrl}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              )}
+
+              <button className="btn-primary" style={{ marginTop: '1rem', width: '100%' }} onClick={nextWisorQuestion} autoFocus>Nächste Frage &rarr;</button>
+            </div>
+          )}
+        </div>
+        <FloatingNotes questionId={`${activeWisorMode === 'wisor1' ? 'wisor' : 'wisoreco'}_${q.id}`} questionText={q.question || 'Wisor Frage'} />
+        <FloatingCalculator />
+      </div>
+    );
   }
 
-  const q = allWisors[currentWisorIndex];
+  // --- FLASHCARDS RENDERER ---
+  if (learningQueue.length === 0) {
+    return (
+      <div className="app-container" style={{ textAlign: 'center', marginTop: '10vh', zIndex: 10 }}>
+        {burgerMenuPortal}
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <header>
+          <button className="btn-nav" style={{ marginBottom: '2rem' }} onClick={() => setAppMode('dashboard')}>&larr; Zum Menü</button>
+          <h1 style={{ fontFamily: '"Anton", sans-serif', textTransform: 'uppercase', letterSpacing: '0px', fontSize: '3rem', transform: 'scaleY(1.2)', transformOrigin: 'bottom', color: 'var(--text-light)', textShadow: '0 4px 10px rgba(0,0,0,0.3)', margin: '0' }}>MASTERPAT APP</h1>
+        </header>
+        <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)' }}>
+          <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>🎉 Glückwunsch! 🎉</h2>
+          <p style={{ margin: '1rem 0', color: 'var(--text-muted)', fontSize: '1.2rem' }}>Du hast alle fälligen Karten für heute gelernt.</p>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Dein Gehirn baut jetzt die neuronalen Verbindungen aus. Komm später wieder!</p>
+          <button className="btn-primary" onClick={forceReloadAll}>
+            Trotzdem alle Karten neu laden
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const currentCard = learningQueue[0];
+  const progressPercentage = (stats.learnedToday / (stats.totalDue || 1)) * 100;
 
   return (
-    <div className="app-container" style={{ zIndex: 10 }}>
-      {pomodoroPortal}
+    <>
       {burgerMenuPortal}
       <div className="blob blob-1"></div>
       <div className="blob blob-2"></div>
-      <header>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-          <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
-          <p className="subtitle">Frage {currentWisorIndex + 1} von {allWisors.length}</p>
-          <div className="score-badge">Score: {wisorScore.correct}</div>
-        </div>
-      </header>
 
-      <div className="quiz-container">
-        <div style={{ marginBottom: '1.5rem', textAlign: 'center', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <button
-            className={`btn-secondary fade-in ${wisorVideoLoading ? 'loading' : ''}`}
-            onClick={() => handleToggleVideos(q)}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: wisorVideoOpen ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
-          >
-            <span>{wisorVideoOpen ? '🙈' : '📺'}</span>
-            {wisorVideoOpen ? 'Videos ausblenden' : 'Lernvideos ansehen'}
-          </button>
+      <div className="app-container" style={{ zIndex: 10 }}>
+        <header>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
+            <h1 style={{ margin: 0, fontSize: '2rem' }}>Spaced Repetition</h1>
+            <div style={{ width: '80px' }}></div> {/* spacer */}
+          </div>
+        </header>
 
-          <button
-            className="btn-secondary fade-in"
-            onClick={() => setGeminiVisible(!geminiVisible)}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: geminiVisible ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
-          >
-            <span>✨</span>
-            {geminiVisible ? 'KI Assistent schließen' : 'KI um Hilfe bitten'}
-          </button>
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div className="progress-container">
+            <div className="progress-bar" style={{ width: `${progressPercentage}%` }}></div>
+          </div>
+          <p className="progress-text">{stats.learnedToday} gelernt / {stats.totalDue} ausstehend</p>
         </div>
 
-        <VideoPanel
-          isOpen={wisorVideoOpen}
-          isLoading={wisorVideoLoading}
-          videos={wisorVideos}
-          error={wisorVideoError}
-          selectedVideo={selectedWisorVideo}
-          onSelectVideo={setSelectedWisorVideo}
-          onCloseVideo={() => setSelectedWisorVideo(null)}
-        />
+        <div className="flashcard-wrapper" onClick={() => !isFlipped && setIsFlipped(true)}>
+          <div className={`flashcard ${isFlipped ? 'flipped' : ''}`}>
 
-        <GeminiPanel
-          isOpen={geminiVisible}
-          title="Frage an deinen KI-Tutor"
-          placeholder="Was genau verstehst du hier nicht?"
-          query={geminiQuery}
-          onQueryChange={setGeminiQuery}
-          onAsk={handleGeminiAsk}
-          isLoading={geminiLoading}
-          response={geminiResponse}
-        />
+            <div className="card-face card-front">
+              <span className="card-label">Frage</span>
+              <p className="card-content">{currentCard.front}</p>
+              {!isFlipped && <p style={{ position: 'absolute', bottom: '1.5rem', fontSize: '0.9rem', color: 'var(--text-muted)', animation: 'pulse 2s infinite' }}>Tippe zum Umdrehen</p>}
+            </div>
 
-        {/* svgCode now handled by FloatingImage */}
-        <div className="quiz-question">
-          {formatLatex(q.question)}
+            <div className="card-face card-back">
+              <span className="card-label">Antwort</span>
+              <p className="card-content">{currentCard.back}</p>
+            </div>
+
+          </div>
         </div>
 
-        <form className="wisor-form" onSubmit={handleWisorSubmit}>
-          <input
-            type={q.inputType === 'number' ? 'number' : 'text'}
-            className="wisor-input"
-            value={wisorInput}
-            onChange={(e) => setWisorInput(e.target.value)}
-            disabled={wisorEvaluated}
-            placeholder="Antwort eingeben..."
-            ref={wisorInputRef}
-          />
-          {!wisorEvaluated && (
-            <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem', width: '100%' }}>
-              <button
-                type="button"
-                className="btn-secondary fade-in"
-                onClick={() => navigateWisorUnanswered(-1)}
-                disabled={currentWisorIndex === 0}
-                style={{ flex: '1', padding: '0.8rem 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                title="Vorherige Frage"
-              >
-                &larr;
+        <div className="controls">
+          {!isFlipped ? (
+            <button className="btn-primary" onClick={(e) => { e.stopPropagation(); setIsFlipped(true); }} style={{ width: '200px' }}>
+              Antwort zeigen
+            </button>
+          ) : (
+            <div className="rating-controls fade-in">
+              <button className="btn-rating btn-bad" onClick={(e) => handleRating(1, e)}>
+                <span className="emoji">🔴</span>
+                <span>Kann ich nicht</span>
+                <span className="time-hint">&lt; 1 Min</span>
               </button>
-              <button type="submit" className="btn-primary" style={{ flex: '3' }} disabled={!wisorInput.trim()}>
-                Antworten
+              <button className="btn-rating btn-ok" onClick={(e) => handleRating(3, e)}>
+                <span className="emoji">🟡</span>
+                <span>Kann ich etwas</span>
+                <span className="time-hint">10 Min</span>
               </button>
-              <button
-                type="button"
-                className="btn-secondary fade-in"
-                onClick={() => navigateWisorUnanswered(1)}
-                disabled={currentWisorIndex === allWisors.length - 1}
-                style={{ flex: '1', padding: '0.8rem 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                title="Nächste Frage überspringen"
-              >
-                &rarr;
+              <button className="btn-rating btn-good" onClick={(e) => handleRating(5, e)}>
+                <span className="emoji">🟢</span>
+                <span>Kann ich</span>
+                <span className="time-hint">&gt; 1 Tag</span>
               </button>
             </div>
           )}
-          <FloatingImage svgCode={q.svgCode} isLightMode={isLightMode} />
-        </form>
-
-        {wisorEvaluated && (
-          <div className={`quiz-rationale fade-in ${wisorIsCorrect ? 'correct-rationale' : 'wrong-rationale'}`}>
-            <h3 style={{ color: wisorIsCorrect ? 'var(--color-success)' : 'var(--color-error)' }}>
-              {wisorIsCorrect ? 'Richtig!' : 'Leider Falsch!'}
-            </h3>
-            {!wisorIsCorrect && (
-              <p style={{ marginBottom: '0.5rem' }}><strong>Richtige Antwort(en):</strong> {q.expectedAnswers.join(' oder ')}</p>
-            )}
-            <p><strong>Erklärung:</strong> {q.rationale}</p>
-
-            {q.videoUrl && (
-              <div style={{ marginTop: '1rem', width: '100%', borderRadius: '12px', overflow: 'hidden' }}>
-                <iframe
-                  width="100%"
-                  height="315"
-                  src={q.videoUrl}
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            )}
-
-            <button className="btn-primary" style={{ marginTop: '1rem', width: '100%' }} onClick={nextWisorQuestion} autoFocus>Nächste Frage &rarr;</button>
-          </div>
-        )}
+        </div>
+        <FloatingNotes questionId={`flashcard_${currentCard.id}`} questionText={currentCard.front || 'Lernkarte'} />
+        <FloatingCalculator />
       </div>
-      <FloatingNotes questionId={`${activeWisorMode === 'wisor1' ? 'wisor' : 'wisoreco'}_${q.id}`} questionText={q.question || 'Wisor Frage'} />
-      <FloatingCalculator />
-    </div>
+    </>
   );
-}
-
-// --- FLASHCARDS RENDERER ---
-if (learningQueue.length === 0) {
-  return (
-    <div className="app-container" style={{ textAlign: 'center', marginTop: '10vh', zIndex: 10 }}>
-      {burgerMenuPortal}
-      <div className="blob blob-1"></div>
-      <div className="blob blob-2"></div>
-      <header>
-        <button className="btn-nav" style={{ marginBottom: '2rem' }} onClick={() => setAppMode('dashboard')}>&larr; Zum Menü</button>
-        <h1 style={{ fontFamily: '"Anton", sans-serif', textTransform: 'uppercase', letterSpacing: '0px', fontSize: '3rem', transform: 'scaleY(1.2)', transformOrigin: 'bottom', color: 'var(--text-light)', textShadow: '0 4px 10px rgba(0,0,0,0.3)', margin: '0' }}>MASTERPAT APP</h1>
-      </header>
-      <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)' }}>
-        <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>🎉 Glückwunsch! 🎉</h2>
-        <p style={{ margin: '1rem 0', color: 'var(--text-muted)', fontSize: '1.2rem' }}>Du hast alle fälligen Karten für heute gelernt.</p>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Dein Gehirn baut jetzt die neuronalen Verbindungen aus. Komm später wieder!</p>
-        <button className="btn-primary" onClick={forceReloadAll}>
-          Trotzdem alle Karten neu laden
-        </button>
-      </div>
-    </div>
-  );
-}
-
-const currentCard = learningQueue[0];
-const progressPercentage = (stats.learnedToday / (stats.totalDue || 1)) * 100;
-
-return (
-  <>
-    {burgerMenuPortal}
-    <div className="blob blob-1"></div>
-    <div className="blob blob-2"></div>
-
-    <div className="app-container" style={{ zIndex: 10 }}>
-      <header>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-          <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
-          <h1 style={{ margin: 0, fontSize: '2rem' }}>Spaced Repetition</h1>
-          <div style={{ width: '80px' }}></div> {/* spacer */}
-        </div>
-      </header>
-
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div className="progress-container">
-          <div className="progress-bar" style={{ width: `${progressPercentage}%` }}></div>
-        </div>
-        <p className="progress-text">{stats.learnedToday} gelernt / {stats.totalDue} ausstehend</p>
-      </div>
-
-      <div className="flashcard-wrapper" onClick={() => !isFlipped && setIsFlipped(true)}>
-        <div className={`flashcard ${isFlipped ? 'flipped' : ''}`}>
-
-          <div className="card-face card-front">
-            <span className="card-label">Frage</span>
-            <p className="card-content">{currentCard.front}</p>
-            {!isFlipped && <p style={{ position: 'absolute', bottom: '1.5rem', fontSize: '0.9rem', color: 'var(--text-muted)', animation: 'pulse 2s infinite' }}>Tippe zum Umdrehen</p>}
-          </div>
-
-          <div className="card-face card-back">
-            <span className="card-label">Antwort</span>
-            <p className="card-content">{currentCard.back}</p>
-          </div>
-
-        </div>
-      </div>
-
-      <div className="controls">
-        {!isFlipped ? (
-          <button className="btn-primary" onClick={(e) => { e.stopPropagation(); setIsFlipped(true); }} style={{ width: '200px' }}>
-            Antwort zeigen
-          </button>
-        ) : (
-          <div className="rating-controls fade-in">
-            <button className="btn-rating btn-bad" onClick={(e) => handleRating(1, e)}>
-              <span className="emoji">🔴</span>
-              <span>Kann ich nicht</span>
-              <span className="time-hint">&lt; 1 Min</span>
-            </button>
-            <button className="btn-rating btn-ok" onClick={(e) => handleRating(3, e)}>
-              <span className="emoji">🟡</span>
-              <span>Kann ich etwas</span>
-              <span className="time-hint">10 Min</span>
-            </button>
-            <button className="btn-rating btn-good" onClick={(e) => handleRating(5, e)}>
-              <span className="emoji">🟢</span>
-              <span>Kann ich</span>
-              <span className="time-hint">&gt; 1 Tag</span>
-            </button>
-          </div>
-        )}
-      </div>
-      <FloatingNotes questionId={`flashcard_${currentCard.id}`} questionText={currentCard.front || 'Lernkarte'} />
-      <FloatingCalculator />
-    </div>
-  </>
-);
 }
 
 export default App;
