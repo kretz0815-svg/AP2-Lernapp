@@ -108,94 +108,91 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, t
                                     );
                                 })}
                             </div>
-                            <button
-                                onClick={isGuest ? undefined : () => { if (onStartPomodoro) onStartPomodoro(); setIsOpen(false); }}
-                                disabled={pomodoroRunning || isGuest}
-                                style={{
-                                    background: pomodoroRunning ? 'rgba(239,68,68,0.15)' : 'transparent',
-                                    border: pomodoroRunning ? '1px solid rgba(239,68,68,0.3)' : 'none',
-                                    cursor: (pomodoroRunning || isGuest) ? 'not-allowed' : 'pointer',
-                                    padding: '0.2rem 0.4rem',
-                                    borderRadius: '8px',
-                                    transition: 'transform 0.2s',
-                                    opacity: (pomodoroRunning || isGuest) ? 0.35 : 1
-                                }}
-                                title={isGuest ? 'Nur für registrierte Nutzer' : (pomodoroRunning ? 'Pomodoro läuft bereits' : 'Pomodoro Timer starten (25 Min)')}
-                                onMouseOver={(e) => { if (!pomodoroRunning) e.currentTarget.style.transform = 'scale(1.15)'; }}
-                                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                            >
-                                <svg viewBox="0 0 100 100" width="1.8em" height="1.8em" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--text-light)' }}>
-                                    {/* Tomato body */}
-                                    <ellipse cx="50" cy="56" rx="38" ry="34" strokeWidth="6" />
-                                    {/* Stem/leaves */}
-                                    <path d="M50 22 C50 16, 46 12, 42 14" strokeWidth="4" />
-                                    <path d="M42 28 C36 20, 30 22, 32 28" strokeWidth="3.5" fill="currentColor" />
-                                    <path d="M46 26 C44 18, 38 16, 36 22" strokeWidth="3.5" fill="currentColor" />
-                                    <path d="M50 25 C50 17, 46 14, 44 20" strokeWidth="3.5" fill="currentColor" />
-                                    <path d="M54 26 C56 18, 60 16, 62 22" strokeWidth="3.5" fill="currentColor" />
-                                    <path d="M58 28 C62 20, 68 22, 66 28" strokeWidth="3.5" fill="currentColor" />
-                                    {/* Clock circle (dashed right half) */}
-                                    <circle cx="55" cy="55" r="16" strokeWidth="3.5" strokeDasharray="0 25.1 50.2" />
-                                    <path d="M55 55 L55 55" strokeWidth="0" />
-                                    <circle cx="55" cy="55" r="16" strokeWidth="3.5" strokeDasharray="3 5" strokeDashoffset="-25" />
-                                    {/* Clock hands */}
-                                    <line x1="55" y1="55" x2="55" y2="44" strokeWidth="3.5" />
-                                    <line x1="55" y1="55" x2="63" y2="60" strokeWidth="3.5" />
-                                    {/* Arrow on clock */}
-                                    <path d="M40 44 C36 38, 42 34, 48 38" strokeWidth="3" />
-                                    <path d="M40 44 L42 39 L37 41" strokeWidth="2.5" fill="currentColor" />
-                                    {/* Hourglass */}
-                                    <path d="M28 62 L28 74 L36 74 L36 62 Z" strokeWidth="3" fill="none" />
-                                    <line x1="28" y1="68" x2="36" y2="68" strokeWidth="2" />
-                                    <path d="M30 62 L34 66 L30 66 Z" fill="currentColor" stroke="none" />
-                                </svg>
-                            </button>
-                            <button
-                                onClick={isGuest ? undefined : () => { if (onOpenAppearanceSettings) onOpenAppearanceSettings(); setIsOpen(false); }}
-                                style={{
-                                    background: 'transparent',
-                                    border: 'none',
-                                    cursor: isGuest ? 'not-allowed' : 'pointer',
-                                    padding: '0.2rem 0.4rem',
-                                    borderRadius: '8px',
-                                    transition: 'transform 0.2s',
-                                    opacity: isGuest ? 0.35 : 1
-                                }}
-                                title={isGuest ? 'Nur für registrierte Nutzer' : 'Darstellung anpassen'}
-                                onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.15)'; }}
-                                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                            >
-                                <svg width="1.8em" height="1.8em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--text-light)' }}>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                                </svg>
-                            </button>
-                            <a
-                                href="/Beschreibung.pdf"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    background: 'transparent',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    padding: '0.2rem 0.4rem',
-                                    borderRadius: '8px',
-                                    transition: 'transform 0.2s',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    textDecoration: 'none'
-                                }}
-                                title="App-Beschreibung (PDF) öffnen"
-                                onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.15)'; }}
-                                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                            >
-                                <svg width="1.8em" height="1.8em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--text-light)' }}>
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                </svg>
-                            </a>
+                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                <button
+                                    onClick={isGuest ? undefined : () => { if (onStartPomodoro) onStartPomodoro(); setIsOpen(false); }}
+                                    disabled={pomodoroRunning || isGuest}
+                                    style={{
+                                        background: pomodoroRunning ? 'rgba(239,68,68,0.15)' : 'transparent',
+                                        border: pomodoroRunning ? '1px solid rgba(239,68,68,0.3)' : 'none',
+                                        cursor: (pomodoroRunning || isGuest) ? 'not-allowed' : 'pointer',
+                                        padding: '4px',
+                                        borderRadius: '8px',
+                                        transition: 'transform 0.2s',
+                                        opacity: (pomodoroRunning || isGuest) ? 0.35 : 1,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}
+                                    title={isGuest ? 'Nur für registrierte Nutzer' : (pomodoroRunning ? 'Pomodoro läuft bereits' : 'Pomodoro Timer starten (25 Min)')}
+                                    onMouseOver={(e) => { if (!pomodoroRunning) e.currentTarget.style.transform = 'scale(1.15)'; }}
+                                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                >
+                                    <svg viewBox="0 0 100 100" width="1.4em" height="1.4em" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--text-light)' }}>
+                                        <ellipse cx="50" cy="56" rx="38" ry="34" strokeWidth="6" />
+                                        <path d="M50 22 C50 16, 46 12, 42 14" strokeWidth="4" />
+                                        <path d="M42 28 C36 20, 30 22, 32 28" strokeWidth="3.5" fill="currentColor" />
+                                        <path d="M46 26 C44 18, 38 16, 36 22" strokeWidth="3.5" fill="currentColor" />
+                                        <path d="M50 25 C50 17, 46 14, 44 20" strokeWidth="3.5" fill="currentColor" />
+                                        <path d="M54 26 C56 18, 60 16, 62 22" strokeWidth="3.5" fill="currentColor" />
+                                        <path d="M58 28 C62 20, 68 22, 66 28" strokeWidth="3.5" fill="currentColor" />
+                                        <circle cx="55" cy="55" r="16" strokeWidth="3.5" strokeDasharray="0 25.1 50.2" />
+                                        <circle cx="55" cy="55" r="16" strokeWidth="3.5" strokeDasharray="3 5" strokeDashoffset="-25" />
+                                        <line x1="55" y1="55" x2="55" y2="44" strokeWidth="3.5" />
+                                        <line x1="55" y1="55" x2="63" y2="60" strokeWidth="3.5" />
+                                    </svg>
+                                </button>
+                                <button
+                                    onClick={isGuest ? undefined : () => { if (onOpenAppearanceSettings) onOpenAppearanceSettings(); setIsOpen(false); }}
+                                    style={{
+                                        background: 'transparent',
+                                        border: 'none',
+                                        cursor: isGuest ? 'not-allowed' : 'pointer',
+                                        padding: '4px',
+                                        borderRadius: '8px',
+                                        transition: 'transform 0.2s',
+                                        opacity: isGuest ? 0.35 : 1,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}
+                                    title={isGuest ? 'Nur für registrierte Nutzer' : 'Darstellung anpassen'}
+                                    onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.15)'; }}
+                                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                >
+                                    <svg width="1.4em" height="1.4em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--text-light)' }}>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                                    </svg>
+                                </button>
+                                <a
+                                    href="/Beschreibung.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        background: 'transparent',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        padding: '4px',
+                                        borderRadius: '8px',
+                                        transition: 'transform 0.2s',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        textDecoration: 'none'
+                                    }}
+                                    title="App-Beschreibung (PDF) öffnen"
+                                    onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.15)'; }}
+                                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                >
+                                    <svg width="1.4em" height="1.4em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--text-light)' }}>
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                    </svg>
+                                </a>
+                            </div>
+
                             {pomodoroRunning && (
                                 <div style={
                                     { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.2rem' }
@@ -225,18 +222,13 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, t
                                     >
                                         Beenden
                                     </button>
-                                    <style>{`
-                                        @keyframes pomoPulse {
-                                            0%, 100% { opacity: 1; }
-                                            50% { opacity: 0.5; }
-                                        }
-                                    `}</style>
                                 </div>
                             )}
+
                             <button
                                 onClick={() => setIsOpen(false)}
                                 style={{
-                                    background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '1.5rem', cursor: 'pointer'
+                                    background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '1.25rem', cursor: 'pointer', marginLeft: 'auto'
                                 }}
                             >
                                 ✕
