@@ -3191,19 +3191,44 @@ Die JSON muss exakt diese Struktur haben:
                         {feynmanFeedbackLevel === 'good' ? 'Gut verstanden' : 'Teilweise richtig / Ergänzung nötig'}
                       </strong>
                       <div style={{ whiteSpace: 'pre-wrap', lineHeight: '1.45' }}>{feynmanFeedback}</div>
+
+                      <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem' }}>
+                        <button
+                          className="btn-secondary"
+                          style={{ flex: 1 }}
+                          onClick={() => {
+                            setFeynmanFeedback('');
+                            setFeynmanFeedbackLevel(null);
+                            setFeynmanInput('');
+                          }}
+                        >
+                          🔄 Nochmal?
+                        </button>
+                        <button
+                          className="btn-primary"
+                          style={{ flex: 1 }}
+                          onClick={nextQuizQuestion}
+                          disabled={feynmanLoading}
+                        >
+                          Weiter &rarr;
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
               )}
 
-              <button
-                className="btn-primary"
-                style={{ marginTop: '1rem' }}
-                onClick={nextQuizQuestion}
-                disabled={!canProceedToNextQuizQuestion || feynmanLoading}
-              >
-                Nächste Frage &rarr;
-              </button>
+              {/* Nächste Frage Button – nur wenn KEIN Feynman-Feedback aktiv ist */}
+              {!(feynmanModeEnabled && q.answerOptions[selectedAnswer]?.isCorrect && feynmanFeedback) && (
+                <button
+                  className="btn-primary"
+                  style={{ marginTop: '1rem' }}
+                  onClick={nextQuizQuestion}
+                  disabled={!canProceedToNextQuizQuestion || feynmanLoading}
+                >
+                  Nächste Frage &rarr;
+                </button>
+              )}
               {!canProceedToNextQuizQuestion && (
                 <p style={{ marginTop: '0.55rem', marginBottom: 0, fontSize: '0.82rem', color: 'var(--text-muted)' }}>
                   Für die nächste Frage: erst Feynman-Check absenden oder Erklärung bewusst aufklappen.
