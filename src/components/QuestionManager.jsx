@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { supabase } from '../supabaseClient';
 
 const generateId = (text) => {
@@ -269,11 +270,11 @@ export default function QuestionManager({ category, questions, progress, formatL
         })
         .filter(Boolean);
 
-    return (
+    const managerContent = (
         <div style={{
             position: 'fixed',
             top: 0, left: 0, right: 0, bottom: 0,
-            zIndex: 10000,
+            zIndex: 100000,
             background: 'var(--bg-dark)',
             display: 'flex',
             flexDirection: 'column',
@@ -1030,4 +1031,7 @@ export default function QuestionManager({ category, questions, progress, formatL
             </div>
         </div>
     );
+
+    if (typeof document === 'undefined') return null;
+    return createPortal(managerContent, document.body);
 }

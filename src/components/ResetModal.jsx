@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 const ResetModal = ({ isOpen, onClose, onConfirm, title = "Fortschritt zurücksetzen?", description = "Bitte löse folgende Aufgabe, um ein versehentliches Löschen zu verhindern:" }) => {
     const [resetMath, setResetMath] = useState({ a: 0, b: 0, input: '' });
@@ -25,8 +26,8 @@ const ResetModal = ({ isOpen, onClose, onConfirm, title = "Fortschritt zurückse
         }
     };
 
-    return (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    const modalContent = (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 999999, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div className="card-face fade-in" style={{ padding: '2rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center', maxWidth: '350px' }}>
                 <h3 style={{ color: 'var(--text-light)', marginBottom: '1rem' }}>{title}</h3>
                 <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>{description}</p>
@@ -49,6 +50,9 @@ const ResetModal = ({ isOpen, onClose, onConfirm, title = "Fortschritt zurückse
             </div>
         </div>
     );
+
+    if (typeof document === 'undefined') return null;
+    return createPortal(modalContent, document.body);
 };
 
 export default ResetModal;

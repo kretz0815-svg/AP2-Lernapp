@@ -29,7 +29,7 @@ import BreakEvenPoint from './components/BreakEvenPoint';
 import ResetModal from './components/ResetModal';
 import VideoPanel from './components/VideoPanel';
 import GeminiPanel from './components/GeminiPanel';
-import { KLRGameHub } from './features/klr';
+import { KLRGameHub, useKLRGame } from './features/klr';
 import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
 import { reviewTaskWithDSR, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
 
@@ -58,6 +58,7 @@ function App() {
   const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'dashboard' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor'
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
   const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || import.meta.env.VITE_HCAPTCHA_SITEKEY || '';
+  const { progress: klrProgress } = useKLRGame() || { progress: { xp: 0 } };
 
   // Set up auth first
 
@@ -1275,9 +1276,19 @@ ${feynmanInput}`;
   };
 
   const handleResetExecute = () => {
+    const clearAnalyticsByMode = (modeName) => {
+      setLearningAnalytics(prev => {
+        const remainingEvents = prev.events.filter(e => e.mode !== modeName);
+        const next = { ...prev, events: remainingEvents, updatedAt: new Date().toISOString() };
+        localStorage.setItem(getAnalyticsStorageKey(authUser), JSON.stringify(next));
+        return next;
+      });
+    };
+
     if (resetTarget === 'wisor') {
       setCompletedWisors({});
       localStorage.removeItem('ap2_wisor_progress');
+      clearAnalyticsByMode('wisor');
 
       if (authUser?.id) {
         syncProgressToSupabase({ wisor_progress: {} }).catch(() => { });
@@ -1297,6 +1308,7 @@ ${feynmanInput}`;
     } else if (resetTarget === 'wisorEco') {
       setCompletedWisorsEco({});
       localStorage.removeItem('ap2_wisor_eco_progress');
+      clearAnalyticsByMode('wisorEco');
 
       if (authUser?.id) {
         syncProgressToSupabase({ wisor_eco_progress: {} }).catch(() => { });
@@ -1316,6 +1328,7 @@ ${feynmanInput}`;
     } else if (resetTarget === 'quiz') {
       localStorage.removeItem('ap2_quiz_progress');
       setQuizProgressView({});
+      clearAnalyticsByMode('quiz');
       const resetTasks = [];
 
       if (authUser?.id) {
@@ -1330,6 +1343,21 @@ ${feynmanInput}`;
         .catch(() => refreshQuizDuePool());
 
       if (appMode === 'quiz' || appMode === 'quiz_setup') setAppMode('dashboard');
+    } else if (resetTarget === 'klr') {
+      localStorage.removeItem('klr_game_progress_v1');
+      clearAnalyticsByMode('klr');
+      setResetModalVisible(false);
+      window.location.reload();
+    } else if (resetTarget === 'kalkulation') {
+      localStorage.removeItem('kalk_boss_completed_flawless');
+      clearAnalyticsByMode('kalkulation');
+      setResetModalVisible(false);
+      window.location.reload();
+    } else if (resetTarget === 'breakEven') {
+      localStorage.removeItem('break_even_completed_flawless');
+      clearAnalyticsByMode('breakEven');
+      setResetModalVisible(false);
+      window.location.reload();
     } else if (resetTarget === 'fullAccount') {
       // Clear progress localStorage (keep custom quiz questions)
       localStorage.removeItem('ap2_srs_progress');
@@ -1337,6 +1365,7 @@ ${feynmanInput}`;
       localStorage.removeItem('ap2_wisor_progress');
       localStorage.removeItem('ap2_wisor_eco_progress');
       localStorage.removeItem('ap2_saved_notes');
+      localStorage.removeItem('klr_game_progress_v1');
       localStorage.removeItem(getAnalyticsStorageKey(authUser));
 
       // Reset progress state (keep customQuizQuestions intact)
@@ -1356,8 +1385,9 @@ ${feynmanInput}`;
       }
 
       setResetModalVisible(false);
-      Promise.allSettled(resetTasks).then(() => refreshQuizDuePool());
-      setAppMode('dashboard');
+      Promise.allSettled(resetTasks).then(() => {
+        window.location.reload();
+      });
     }
   };
 
@@ -1831,6 +1861,13 @@ ${feynmanInput}`;
             ) : (
               <div className="chip">3 Level</div>
             )}
+            <button
+              className="btn-secondary"
+              style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
+              onClick={(e) => { e.stopPropagation(); openResetModal(e, 'kalkulation'); }}
+            >
+              🔄 Lernfortschritt zurücksetzen
+            </button>
           </div>
 
           <div className="dash-card" onClick={() => setAppMode('break_even')}>
@@ -1848,6 +1885,13 @@ ${feynmanInput}`;
             <h2>Break Even<br />Point</h2>
             <p>Trainiere Deckungsbeitrag, Gewinnschwelle in Stück und kritischen Umsatz.</p>
             <div className="chip">Neuer Raum</div>
+            <button
+              className="btn-secondary"
+              style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
+              onClick={(e) => { e.stopPropagation(); openResetModal(e, 'breakEven'); }}
+            >
+              🔄 Lernfortschritt zurücksetzen
+            </button>
           </div>
 
           <div className="dash-card" onClick={() => setAppMode('klr')}>
@@ -1864,6 +1908,13 @@ ${feynmanInput}`;
             <h2>KLR Startup<br />Survival</h2>
             <p>Gamifizierte Kosten- und Leistungsrechnung im E-Commerce-Setting.</p>
             <div className="chip">Neu: Phase 1</div>
+            <button
+              className="btn-secondary"
+              style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
+              onClick={(e) => { e.stopPropagation(); openResetModal(e, 'klr'); }}
+            >
+              🔄 Lernfortschritt zurücksetzen
+            </button>
           </div>
         </div>
 
@@ -2395,8 +2446,23 @@ Die JSON muss exakt diese Struktur haben:
         return { topic, ...stats, accuracy };
       })
       .sort((a, b) => b.total - a.total);
+    const radarTopicTotals = questionEvents.reduce((acc, event) => {
+      let topic = resolveTopic(event);
+      if (topic.startsWith('KLR')) topic = 'KLR';
+      if (!acc[topic]) acc[topic] = { correct: 0, wrong: 0, total: 0 };
+      if (event.correct) acc[topic].correct += 1;
+      else acc[topic].wrong += 1;
+      acc[topic].total += 1;
+      return acc;
+    }, {});
 
-    const radarTopics = topicRows.slice(0, 6);
+    const radarTopics = Object.entries(radarTopicTotals)
+      .map(([topic, stats]) => {
+        const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
+        return { topic, ...stats, accuracy };
+      })
+      .sort((a, b) => b.total - a.total)
+      .slice(0, 6);
     const radarSize = 270;
     const radarCenter = radarSize / 2;
     const radarRadius = 96;
@@ -3256,8 +3322,8 @@ Die JSON muss exakt diese Struktur haben:
             </div>
           )}
 
-          {quizRevealConfirmVisible && (
-            <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.72)', zIndex: 120, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          {quizRevealConfirmVisible && typeof document !== 'undefined' && createPortal(
+            <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.72)', zIndex: 999999, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <div className="fade-in" style={{ width: 'min(420px, calc(100% - 2rem))', maxHeight: 'calc(100dvh - 2rem)', overflowY: 'auto', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)', textAlign: 'center', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', boxShadow: '0 18px 45px rgba(0,0,0,0.4)' }}>
                 <h3 style={{ marginTop: 0, marginBottom: '0.6rem', color: 'var(--text-light)' }}>Sicher?</h3>
                 <p style={{ marginTop: 0, marginBottom: '1rem', color: 'var(--text-muted)', lineHeight: 1.45 }}>
@@ -3277,7 +3343,8 @@ Die JSON muss exakt diese Struktur haben:
                   </button>
                 </div>
               </div>
-            </div>
+            </div>,
+            document.body
           )}
         </div>
         <FloatingNotes questionId={`quiz_${currentQuizIndex}`} questionText={q.question || 'Quiz Frage'} />
