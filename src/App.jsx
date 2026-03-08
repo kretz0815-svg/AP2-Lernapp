@@ -3195,14 +3195,14 @@ Die JSON muss exakt diese Struktur haben:
                       <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem' }}>
                         <button
                           className="btn-secondary"
-                          style={{ flex: 1 }}
+                          style={{ flex: 1, lineHeight: 1.3 }}
                           onClick={() => {
                             setFeynmanFeedback('');
                             setFeynmanFeedbackLevel(null);
                             setFeynmanInput('');
                           }}
                         >
-                          🔄 Nochmal?
+                          🔄 Nochmal<br /><span style={{ fontSize: '0.8em', opacity: 0.85 }}>erklären</span>
                         </button>
                         <button
                           className="btn-primary"
