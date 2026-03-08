@@ -819,17 +819,17 @@
         {
           "text": "Die Conversion-Rate und der Deckungsbeitrag je Artikel.",
           "isCorrect": false,
-          "rationale": "Diese Kennzahlen sind relevant, messen aber nicht direkt Lagerverweildaür und Kapitalbindung im Bestand."
+          "rationale": "Diese Kennzahlen sind relevant, messen aber nicht direkt Lagerverweildauer und Kapitalbindung im Bestand."
         },
         {
-          "text": "Die Lagerumschlagshäufigkeit und die durchschnittliche Lagerdaür.",
+          "text": "Die Lagerumschlagshäufigkeit und die durchschnittliche Lagerdauer.",
           "isCorrect": true,
           "rationale": "Richtig: Diese beiden KPI zeigen direkt, wie schnell Ware abverkauft wird und wie lange Kapital im Lager gebunden bleibt."
         },
         {
           "text": "Die Abschriftenquote und die Retourenquote.",
           "isCorrect": false,
-          "rationale": "Wichtige Kennzahlen, aber nicht das engste KPI-Paar zur Messung von Umschlag und Lagerdaür."
+          "rationale": "Wichtige Kennzahlen, aber nicht das engste KPI-Paar zur Messung von Umschlag und Lagerdauer."
         },
         {
           "text": "Die Click-Through-Rate und die Forecast-Genauigkeit.",
@@ -838,7 +838,7 @@
         }
       ],
       "hint": "Gesucht sind die Kernkennzahlen für Lagerdynamik und Kapitalbindung.",
-      "youtubeQuery": "Lagerumschlagshäufigkeit durchschnittliche Lagerdaür KPI Controlling",
+      "youtubeQuery": "Lagerumschlagshäufigkeit durchschnittliche Lagerdauer KPI Controlling",
       "topic": "KI Erfolgsmessung"
     },
     {
@@ -1005,7 +1005,7 @@
           "rationale": "Externe Links sind grundsätzlich möglich."
         }
       ],
-      "hint": "Achte auf Content-Lebensdaür und E-Commerce-Visualisierung.",
+      "hint": "Achte auf Content-Lebensdauer und E-Commerce-Visualisierung.",
       "youtubeQuery": "X Twitter E-Commerce Eignung kurzlebiger Content",
       "topic": "Social Media Kanal - X"
     },
@@ -1058,7 +1058,7 @@
         {
           "text": "Weil YouTube-Videos nach 24 Stunden automatisch gelöscht werden, was Exklusivität schafft.",
           "isCorrect": false,
-          "rationale": "YouTube-Inhalte sind in der Regel daürhaft verfügbar."
+          "rationale": "YouTube-Inhalte sind in der Regel dauerhaft verfügbar."
         }
       ],
       "hint": "Für erklärungsbedürftige Produkte zählt visuelle Tiefe.",
@@ -1237,7 +1237,7 @@
       "question": "Ein Social-Media-Manager bereitet ein Briefing für die Content-Erstellung vor. Er muss den Auszubildenden die grundlegenden Unterschiede in den Content-Anforderungen zwischen Instagram und X (ehemals Twitter) erklären. Worin besteht der zentrale funktionale Unterschied?",
       "answerOptions": [
         {
-          "text": "Auf Instagram dominieren visuelle Inhalte (Bilder) und Hashtags, während X primär auf textbasierte Kurzmeldungen mit geringer Lebensdaür ausgelegt ist.",
+          "text": "Auf Instagram dominieren visuelle Inhalte (Bilder) und Hashtags, während X primär auf textbasierte Kurzmeldungen mit geringer Lebensdauer ausgelegt ist.",
           "isCorrect": true,
           "rationale": "Richtig: Instagram ist stark visuell geprägt, X ist feed-dynamisch und kurztext-orientierter."
         },
@@ -1252,12 +1252,12 @@
           "rationale": "Beide Plattformcharakterisierungen sind unzutreffend."
         },
         {
-          "text": "Auf X (Twitter) ist die Lebensdaür eines Beitrags extrem lang (mehrere Monate), während Instagram-Posts zwingend nach 24 Stunden gelöscht werden.",
+          "text": "Auf X (Twitter) ist die Lebensdauer eines Beitrags extrem lang (mehrere Monate), während Instagram-Posts zwingend nach 24 Stunden gelöscht werden.",
           "isCorrect": false,
           "rationale": "X-Beiträge sind eher kurzlebig; Instagram-Feed-Posts werden nicht automatisch nach 24h gelöscht."
         }
       ],
-      "hint": "Vergleiche Kernformat und Content-Lebensdaür.",
+      "hint": "Vergleiche Kernformat und Content-Lebensdauer.",
       "youtubeQuery": "Instagram vs X Content Formate Kurzlebigkeit",
       "topic": "Content-Formate (Instagram vs. X)"
     },
