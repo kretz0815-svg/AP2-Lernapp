@@ -354,7 +354,6 @@ export default function FloatingCalculator() {
     };
 
     const handleClear = () => {
-        setHasCalcActivity(true);
         setCurrentValue('0');
         setPrevValue(null);
         setOperator(null);
@@ -436,7 +435,7 @@ export default function FloatingCalculator() {
         };
     const helperValue = String(currentValue ?? '').replace('.', ',');
     const helperText = helperValue.length > 14 ? `${helperValue.slice(0, 14)}…` : helperValue;
-    const showResultHelper = !isOpen && String(currentValue ?? '').trim() !== '';
+    const showResultHelper = !isOpen && hasCalcActivity && currentValue !== '0';
 
     return (
         <>
