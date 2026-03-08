@@ -27,8 +27,8 @@ const ResetModal = ({ isOpen, onClose, onConfirm, title = "Fortschritt zurückse
     };
 
     const modalContent = (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 999999, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <div className="card-face fade-in" style={{ padding: '2rem', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center', maxWidth: '350px' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', zIndex: 999999, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '1rem' }}>
+            <div className="fade-in" style={{ padding: '2rem', background: 'var(--glass-bg, #1a1a2e)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border, #333)', textAlign: 'center', width: '100%', maxWidth: '350px', height: 'auto', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
                 <h3 style={{ color: 'var(--text-light)', marginBottom: '1rem' }}>{title}</h3>
                 <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>{description}</p>
                 <form onSubmit={handleSubmit}>
