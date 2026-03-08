@@ -1,53 +1,136 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+const deepSeekKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
 
 let genAI = null;
 if (apiKey) {
     genAI = new GoogleGenerativeAI(apiKey);
 }
 
-export async function askGemini(question, contextQuestion, contextAnswer) {
-    if (!genAI) {
-        return "Fehler: Der Gemini API-Key (VITE_GEMINI_API_KEY) ist nicht gesetzt. Bitte füge in deiner .env-Datei den Key hinzu oder setze ihn in Vercel als Environment Variable.";
-    }
+const GEMINI_MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash'];
+const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
 
+function extractTextFromResult(result) {
     try {
-        const prompt = `Du bist ein hilfreicher Lern-Assistent für einen Lehrling in der Ausbildung, wahrscheinlich im IT-Bereich (Fachinformatiker o.ä.). 
-Der Azubi übt gerade Lernkarten und diese spezielle Frage aus einem Lernkatalog:
-"${contextQuestion}"
-Die erwartete korrekte Antwort lautet: "${contextAnswer}"
-
-Hier ist die konkrete Rückfrage / das Problem des Auszubildenden dazu:
-"${question}"
-
-Bitte antworte ermutigend, kurz, prägnant und fachlich korrekt in einem leicht verständlichen Deutsch. Fasse dich kurz, es soll direkt helfen, ohne abzulenken.`;
-
-        // Wir nutzen zur Sicherheit das stabilere Generative-AI SDK von Google
-        // Zurück auf gemini-2.5-flash gesetzt, da das Pro Modell ein Tarif / Quota Limit auf deinem Account verursacht
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
-
-        const result = await model.generateContent(prompt);
-        return result.response.text();
-    } catch (error) {
-        console.error("Gemini API Error details:", error);
-
-        // Prüfen ob es ein API Key Limit Fehler ist oder so
-        if (error.message && error.message.includes('API key')) {
-            return "Fehler: Es scheint ein Problem mit dem API Key zu geben. Ist er korrekt hinterlegt?";
+        if (!result?.response) return null;
+        return result.response.text?.()?.trim() || null;
+    } catch {
+        try {
+            const candidates = result?.response?.candidates || [];
+            const c = candidates[0];
+            if (!c || (c.finishReason && ['SAFETY', 'RECITATION'].includes(c.finishReason))) return null;
+            return (c.content?.parts?.[0]?.text || '').trim() || null;
+        } catch {
+            return null;
         }
-
-        return "Entschuldigung, leider gab es ein Problem bei der Verbindung zu Gemini. Bitte überprüfe die Entwicklerkonsole.";
     }
 }
 
-export async function askCyberEinstein({ userPrompt, contextQuestion, contextAnswer }) {
-    if (!genAI) {
-        return 'Mentor-System offline: Gemini-Key fehlt.';
-    }
+// --- DeepSeek Fallback (OpenAI-kompatible API) ---
+async function askDeepSeek(prompt) {
+    if (!deepSeekKey) return null;
 
     try {
-        const prompt = `Du bist ein geniales, aber leicht schrulliges Einstein-Hologramm-Mentor-System.
+        const res = await fetch(DEEPSEEK_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${deepSeekKey}`
+            },
+            body: JSON.stringify({
+                model: 'deepseek-chat',
+                messages: [
+                    { role: 'system', content: 'Du bist ein hilfreicher Lern-Assistent für Azubis. Antworte auf Deutsch, kurz und prägnant.' },
+                    { role: 'user', content: prompt }
+                ],
+                max_tokens: 1024,
+                temperature: 0.7
+            })
+        });
+
+        if (!res.ok) {
+            console.warn(`DeepSeek API returned ${res.status}`);
+            return null;
+        }
+
+        const data = await res.json();
+        const text = data?.choices?.[0]?.message?.content?.trim();
+        return text && text.length > 0 ? text : null;
+    } catch (error) {
+        console.warn('DeepSeek fallback failed:', error?.message || error);
+        return null;
+    }
+}
+
+export async function askGemini(question, contextQuestion, contextAnswer) {
+    const safeQuestion = String(question ?? '').slice(0, 8000);
+    const safeContextQ = String(contextQuestion ?? '').slice(0, 4000);
+    const safeContextA = String(contextAnswer ?? '').slice(0, 4000);
+
+    // Zuerst über serverseitige API (Vercel) aufrufen – vermeidet CORS und schützt den API-Key
+    try {
+        const res = await fetch('/api/ask-gemini', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                question: safeQuestion,
+                contextQuestion: safeContextQ,
+                contextAnswer: safeContextA
+            })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data?.text) return data.text;
+        if (data?.error) {
+            // Bei Vercel-API-Fehler nicht sofort abbrechen – DeepSeek-Fallback versuchen
+            console.warn('Vercel API returned error:', data.error);
+        }
+    } catch (e) {
+        console.warn('API-Proxy nicht erreichbar, Fallback auf direkten Aufruf:', e?.message);
+    }
+
+    // Fallback 1: direkter Gemini-Aufruf (z. B. lokale Entwicklung)
+    const prompt = `Du bist ein hilfreicher Lern-Assistent für einen Lehrling in der Ausbildung, wahrscheinlich im IT-Bereich (Fachinformatiker o.ä.). 
+Der Azubi übt gerade Lernkarten und diese spezielle Frage aus einem Lernkatalog:
+"${safeContextQ}"
+Die erwartete korrekte Antwort lautet: "${safeContextA}"
+
+Hier ist die konkrete Rückfrage / das Problem des Auszubildenden dazu:
+"${safeQuestion}"
+
+Bitte antworte ermutigend, kurz, prägnant und fachlich korrekt in einem leicht verständlichen Deutsch. Fasse dich kurz, es soll direkt helfen, ohne abzulenken.`;
+
+    if (genAI) {
+        let lastError = null;
+        for (const modelId of GEMINI_MODELS) {
+            try {
+                const model = genAI.getGenerativeModel({ model: modelId });
+                const result = await model.generateContent(prompt);
+                const text = extractTextFromResult(result);
+                if (text && text.length > 0) return text;
+            } catch (error) {
+                lastError = error;
+                console.warn(`Gemini ${modelId} failed:`, error?.message || error);
+            }
+        }
+        console.error("Gemini API Error (all models failed):", lastError);
+    }
+
+    // Fallback 2: DeepSeek
+    console.info('Versuche DeepSeek-Fallback…');
+    const deepSeekResult = await askDeepSeek(prompt);
+    if (deepSeekResult) return deepSeekResult;
+
+    // Alle Modelle fehlgeschlagen
+    if (!genAI && !deepSeekKey) {
+        return "Fehler: Kein API-Key gesetzt (weder Gemini noch DeepSeek). Bitte in .env.local oder Vercel konfigurieren.";
+    }
+
+    return "Entschuldigung, leider gab es ein Problem bei der Verbindung zur KI. Bitte versuche es in einer Minute erneut.";
+}
+
+export async function askCyberEinstein({ userPrompt, contextQuestion, contextAnswer }) {
+    const prompt = `Du bist ein geniales, aber leicht schrulliges Einstein-Hologramm-Mentor-System.
 Du erklärst KLR-Fehler praxisnah anhand von E-Commerce-Beispielen.
 Wenn es passt, nutze einen humorvollen Einstein-Ton.
 Maximal 2 Sätze. Kurz, direkt, bestimmt.
@@ -61,19 +144,32 @@ Nutzer-Eingabe:
 
 Antworte auf Deutsch.`;
 
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
-        const result = await model.generateContent(prompt);
-        return result.response.text();
-    } catch (error) {
-        console.error('askCyberEinstein error:', error);
-        return 'Mein Freund, dein Rechenweg hat ein Glitch. Prüfe Basiswert und Formel noch einmal.';
+    // Gemini zuerst
+    if (genAI) {
+        try {
+            const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+            const result = await model.generateContent(prompt);
+            return result.response.text();
+        } catch (error) {
+            console.warn('askCyberEinstein Gemini error:', error?.message);
+        }
     }
+
+    // DeepSeek Fallback
+    const deepSeekResult = await askDeepSeek(prompt);
+    if (deepSeekResult) return deepSeekResult;
+
+    return 'Mein Freund, dein Rechenweg hat ein Glitch. Prüfe Basiswert und Formel noch einmal.';
 }
 
 export async function extractFocusTopics(wrongQuestions) {
-    if (!genAI || !wrongQuestions || wrongQuestions.length === 0) {
+    if (!wrongQuestions || wrongQuestions.length === 0) {
         return { topics: [] };
     }
+    if (!genAI && !deepSeekKey) {
+        return { topics: [] };
+    }
+
     try {
         const questionList = wrongQuestions
             .map((q, i) => {
@@ -107,16 +203,36 @@ Regeln:
 Hier sind die falsch beantworteten Fragen:
 ${questionList}`;
 
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
-        const result = await model.generateContent(prompt);
-        const text = result.response.text().trim();
-        const jsonMatch = text.match(/\{[\s\S]*"topics"[\s\S]*\}/);
-        if (jsonMatch) {
-            const parsed = JSON.parse(jsonMatch[0]);
-            if (Array.isArray(parsed.topics)) {
-                return { topics: parsed.topics.slice(0, 3) };
+        // Gemini zuerst
+        if (genAI) {
+            try {
+                const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+                const result = await model.generateContent(prompt);
+                const text = result.response.text().trim();
+                const jsonMatch = text.match(/\{[\s\S]*"topics"[\s\S]*\}/);
+                if (jsonMatch) {
+                    const parsed = JSON.parse(jsonMatch[0]);
+                    if (Array.isArray(parsed.topics)) {
+                        return { topics: parsed.topics.slice(0, 3) };
+                    }
+                }
+            } catch (error) {
+                console.warn('extractFocusTopics Gemini error:', error?.message);
             }
         }
+
+        // DeepSeek Fallback
+        const deepSeekResult = await askDeepSeek(prompt);
+        if (deepSeekResult) {
+            const jsonMatch = deepSeekResult.match(/\{[\s\S]*"topics"[\s\S]*\}/);
+            if (jsonMatch) {
+                const parsed = JSON.parse(jsonMatch[0]);
+                if (Array.isArray(parsed.topics)) {
+                    return { topics: parsed.topics.slice(0, 3) };
+                }
+            }
+        }
+
         return { topics: [] };
     } catch (error) {
         console.error('extractFocusTopics error:', error);
@@ -125,7 +241,10 @@ ${questionList}`;
 }
 
 export async function extractCalculationInsights(wrongCalculationEvents) {
-    if (!genAI || !Array.isArray(wrongCalculationEvents) || wrongCalculationEvents.length === 0) {
+    if (!Array.isArray(wrongCalculationEvents) || wrongCalculationEvents.length === 0) {
+        return { insights: [] };
+    }
+    if (!genAI && !deepSeekKey) {
         return { insights: [] };
     }
 
@@ -163,26 +282,43 @@ Regeln:
 Fehlerdaten:
 ${eventList}`;
 
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
-        const result = await model.generateContent(prompt);
-        const text = result.response.text().trim();
-        const jsonMatch = text.match(/\{[\s\S]*"insights"[\s\S]*\}/);
-        if (!jsonMatch) return { insights: [] };
+        const parseInsights = (text) => {
+            const jsonMatch = text.match(/\{[\s\S]*"insights"[\s\S]*\}/);
+            if (!jsonMatch) return null;
+            const parsed = JSON.parse(jsonMatch[0]);
+            if (!Array.isArray(parsed.insights)) return null;
+            return parsed.insights
+                .map((item) => ({
+                    error: String(item?.error || '').trim(),
+                    why: String(item?.why || '').trim(),
+                    nextTime: String(item?.nextTime || '').trim(),
+                    focus: String(item?.focus || '').trim()
+                }))
+                .filter((item) => item.error && item.nextTime)
+                .slice(0, 3);
+        };
 
-        const parsed = JSON.parse(jsonMatch[0]);
-        if (!Array.isArray(parsed.insights)) return { insights: [] };
+        // Gemini zuerst
+        if (genAI) {
+            try {
+                const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+                const result = await model.generateContent(prompt);
+                const text = result.response.text().trim();
+                const insights = parseInsights(text);
+                if (insights) return { insights };
+            } catch (error) {
+                console.warn('extractCalculationInsights Gemini error:', error?.message);
+            }
+        }
 
-        const insights = parsed.insights
-            .map((item) => ({
-                error: String(item?.error || '').trim(),
-                why: String(item?.why || '').trim(),
-                nextTime: String(item?.nextTime || '').trim(),
-                focus: String(item?.focus || '').trim()
-            }))
-            .filter((item) => item.error && item.nextTime)
-            .slice(0, 3);
+        // DeepSeek Fallback
+        const deepSeekResult = await askDeepSeek(prompt);
+        if (deepSeekResult) {
+            const insights = parseInsights(deepSeekResult);
+            if (insights) return { insights };
+        }
 
-        return { insights };
+        return { insights: [] };
     } catch (error) {
         console.error('extractCalculationInsights error:', error);
         return { insights: [] };
