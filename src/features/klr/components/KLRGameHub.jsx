@@ -4,6 +4,7 @@ import { generateLevel2Math, generateLevel4Math } from '../utils/generateLevelMa
 import { fetchYouTubeVideos } from '../../../youtubeClient';
 import { askCyberEinstein, askGemini } from '../../../geminiClient';
 import CyberEinsteinMentor from './CyberEinsteinMentor';
+import Confetti from '../../../components/Confetti';
 import './klr-cyber.css';
 
 const LEVELS = [
@@ -239,6 +240,12 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
   const [mentorState, setMentorState] = useState('booting');
   const [mentorMessage, setMentorMessage] = useState('Hologramm-System fährt hoch...');
   const mentorTimeoutRef = useRef(null);
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  const triggerConfetti = () => {
+    setShowConfetti(true);
+    setTimeout(() => setShowConfetti(false), 5000);
+  };
 
   const level1Done = level1Index >= level1Items.length;
   const currentItem = level1Items[level1Index];
@@ -251,19 +258,6 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
   const level2CorrectCount = useMemo(() => {
     return ['lager', 'packstation', 'buero'].filter((k) => level2FieldOk[k] === true).length;
   }, [level2FieldOk]);
-
-  const level4ConfettiPieces = useMemo(() => {
-    const colors = ['#6dff73', '#22c55e', '#fef08a', '#f59e0b', '#86efac', '#fbbf24'];
-    return Array.from({ length: 55 }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      delay: Math.random() * 1.2,
-      duration: 2.2 + Math.random() * 1.5,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      size: 6 + Math.floor(Math.random() * 6),
-      rotation: Math.random() * 360
-    }));
-  }, []);
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -344,6 +338,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
 
   const renderScreen = (content, maxWidth = '980px') => (
     <div className={`klr-cyber-theme ${mentorState === 'success' ? 'klr-cyber-theme--success' : ''}`}>
+      {showConfetti && <Confetti />}
       <div style={{ ...shellStyle, maxWidth }}>
         {content}
       </div>
@@ -417,6 +412,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     const bonusXp = Math.max(0, level1Correct * 6 - level1Mistakes * 2);
     grantXp(baseXp + bonusXp);
     if (level1ScorePct >= 75) unlockLevel(2);
+    if (level1Correct === level1Items.length) triggerConfetti();
     setMentorTransient('success', 'Level 1 abgeschlossen. Kostenarten sitzen.', 2200);
     requestAnimationFrame(() => setScreen('home'));
   };
@@ -500,6 +496,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     if (level2Status !== 'success') return;
     grantXp(90);
     unlockLevel(3);
+    triggerConfetti(); // Added confetti trigger
     requestAnimationFrame(() => setScreen('home'));
   };
 
@@ -585,6 +582,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     if (level3Status !== 'success') return;
     grantXp(120);
     unlockLevel(4);
+    triggerConfetti(); // Added confetti trigger
     requestAnimationFrame(() => setScreen('home'));
   };
 
@@ -663,6 +661,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     if (level4Status !== 'success') return;
     if (level4MissionIndex >= LEVEL4_MISSIONS_PER_RUN - 1) {
       grantXp(160);
+      triggerConfetti(); // Added confetti trigger
       setLevel4CompleteScreen(true);
     } else {
       const nextMission = generateLevel4Mission();
@@ -1102,26 +1101,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
   if (screen === 'level4' && level4CompleteScreen) {
     return (
       <div className="klr-cyber-theme" style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
-        {level4ConfettiPieces.map((p) => (
-          <div
-            key={p.id}
-            className="klr-confetti-piece"
-            style={{
-              position: 'fixed',
-              left: `${p.left}%`,
-              top: '-20px',
-              width: p.size,
-              height: p.size,
-              background: p.color,
-              borderRadius: p.id % 3 === 0 ? '50%' : '2px',
-              transform: `rotate(${p.rotation}deg)`,
-              animation: `klrConfettiFall ${p.duration}s ease-in ${p.delay}s forwards`,
-              opacity: 0,
-              zIndex: 100,
-              pointerEvents: 'none'
-            }}
-          />
-        ))}
+        {showConfetti && <Confetti />}
         <div style={{ ...shellStyle, maxWidth: '520px', margin: '0 auto', padding: '2rem 1rem', textAlign: 'center', position: 'relative', zIndex: 10 }}>
           <div className="klr-wire" style={{ ...sectionStyle, padding: '2rem' }}>
             <div style={{ fontSize: '4rem', marginBottom: '0.5rem' }}>🎉</div>

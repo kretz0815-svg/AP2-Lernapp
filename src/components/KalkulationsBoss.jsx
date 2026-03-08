@@ -3,6 +3,7 @@ import { fetchYouTubeVideos } from '../youtubeClient';
 import { askGemini } from '../geminiClient';
 import FloatingNotes from './FloatingNotes';
 import FloatingCalculator from './FloatingCalculator';
+import Confetti from './Confetti';
 
 // ═══════════════════════════════════════════════════════════════
 // KALKULATIONS-BOSS – Interaktives Lernspiel für Handelskalkulation

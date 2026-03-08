@@ -178,6 +178,7 @@ export default function BreakEvenPoint({ onBack, onLearningEvent }) {
 
   return (
     <div className="app-container" style={{ zIndex: 10, maxWidth: '850px' }}>
+      {allCorrect && <Confetti />}
       <div className="blob blob-1"></div>
       <div className="blob blob-2"></div>
 
