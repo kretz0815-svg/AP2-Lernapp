@@ -114,7 +114,7 @@
       "topic": "Geschäftsmodelle"
     },
     {
-      "question": "Die \"Mountain-Gear GmbH\" plant den Einsatz eines KI-gestützten Analyse- und Steurungssystems zur Budgetoptimierung ihrer Online-Vertriebskanäle. Welche fundamentale Grenze (Risiko) des KI-Einsatzes muss das Projektteam dabei unbedingt beachten?",
+      "question": "Die \"Mountain-Gear GmbH\" plant den Einsatz eines KI-gestützten Analyse- und Steuerungssystems zur Budgetoptimierung ihrer Online-Vertriebskanäle. Welche fundamentale Grenze (Risiko) des KI-Einsatzes muss das Projektteam dabei unbedingt beachten?",
       "answerOptions": [
         {
           "text": "KI-Systeme können grundsätzlich keine Webtracking-Daten auswerten.",
@@ -162,7 +162,7 @@
         {
           "text": "Das ständige Aufnehmen aktueller, aber oft unprofitabler Trendprodukte, um die Kundenbindung zu erhöhen.",
           "isCorrect": false,
-          "rationale": "Unprofitable Trendprodukte widersprechen einer konsequnt ertragsorientierten Sortimentspolitik."
+          "rationale": "Unprofitable Trendprodukte widersprechen einer konsequent ertragsorientierten Sortimentspolitik."
         }
       ],
       "hint": "Im Fokus stehen Marge, Profitabilität und Lagerentlastung.",
@@ -320,7 +320,7 @@
         {
           "text": "Die Entwicklung und Einführung von Eigenmarken in den margenstärksten Kategorien.",
           "isCorrect": true,
-          "rationale": "Richtig: Eigenmarken ermöglichen oft höhere Margen und bessere Steurung der Rentabilität."
+          "rationale": "Richtig: Eigenmarken ermöglichen oft höhere Margen und bessere Steuerung der Rentabilität."
         },
         {
           "text": "Das Anbieten von kostenlosem Premium-Versand ohne Mindestbestellwert für alle Artikel.",
@@ -468,7 +468,7 @@
           "rationale": "FBA ist ein Logistik- und Service-Modell, keine Produktionsleistung."
         },
         {
-          "text": "Die automatische Steurerklärung für den Händler am Jahresende.",
+          "text": "Die automatische Steuererklärung für den Händler am Jahresende.",
           "isCorrect": false,
           "rationale": "Steurliche Pflichten verbleiben beim Unternehmen bzw. dessen Steurberatung."
         }
@@ -534,7 +534,7 @@
       "topic": "Influencer Marketing"
     },
     {
-      "question": "Ein Online-Shop mit einem hohen sechsstelligen Marketingbudget entscheidet sich, ein KI-gestütztes Steurungssystem einzuführen. In welchem der folgenden Bereiche kann eine KI im Bereich des Vertriebs und Marketings den größten Mehrwert durch Automatisierung liefern?",
+      "question": "Ein Online-Shop mit einem hohen sechsstelligen Marketingbudget entscheidet sich, ein KI-gestütztes Steuerungssystem einzuführen. In welchem der folgenden Bereiche kann eine KI im Bereich des Vertriebs und Marketings den größten Mehrwert durch Automatisierung liefern?",
       "answerOptions": [
         {
           "text": "Bei der physischen Endmontage der Produkte in der Lagerhalle.",
@@ -552,9 +552,9 @@
           "rationale": "Das ist kein typischer Einsatzbereich für Vertriebs-/Marketing-KI."
         },
         {
-          "text": "Bei der Erstellung der jährlichen Gewerbesteurerklärung für das Finanzamt.",
+          "text": "Bei der Erstellung der jährlichen Gewerbesteuererklärung für das Finanzamt.",
           "isCorrect": false,
-          "rationale": "Steurerklärungen liegen außerhalb des beschriebenen Marketing-Optimierungskontexts."
+          "rationale": "Steuererklärungen liegen außerhalb des beschriebenen Marketing-Optimierungskontexts."
         }
       ],
       "hint": "Gesucht ist ein Einsatzgebiet mit direktem Hebel auf Kanalperformance und Budgeteffizienz.",
@@ -590,7 +590,7 @@
       "topic": "KI in Disposition"
     },
     {
-      "question": "Die Alpha-Electronics GmbH wirbt wider besseres Wissen intensiv mit dem irreführenden Slogan Niedrigster Preis in Europa, obwohl die Produkte bei der Konkurrenz nachweislich billiger sind. Dies stellt einen klaren Verstoß gegen das UWG dar. Mit welchen direkten Konsequnzen muss das Unternehmen primär rechnen?",
+      "question": "Die Alpha-Electronics GmbH wirbt wider besseres Wissen intensiv mit dem irreführenden Slogan Niedrigster Preis in Europa, obwohl die Produkte bei der Konkurrenz nachweislich billiger sind. Dies stellt einen klaren Verstoß gegen das UWG dar. Mit welchen direkten Konsequenzen muss das Unternehmen primär rechnen?",
       "answerOptions": [
         {
           "text": "Mit der sofortigen Zwangsenteignung der Lagerbestände durch die IHK.",
@@ -605,10 +605,10 @@
         {
           "text": "Mit einer mehrjährigen Gefängnisstrafe für alle Angestellten der Marketingabteilung.",
           "isCorrect": false,
-          "rationale": "Diese pauschale strafrechtliche Folge ist in diesem Kontext nicht die typische Primärkonsequnz."
+          "rationale": "Diese pauschale strafrechtliche Folge ist in diesem Kontext nicht die typische Primärkonsequenz."
         },
         {
-          "text": "Es gibt keine Konsequnzen, da das UWG im Internet nicht gilt.",
+          "text": "Es gibt keine Konsequenzen, da das UWG im Internet nicht gilt.",
           "isCorrect": false,
           "rationale": "Das UWG gilt selbstverständlich auch im Online-Handel."
         }
@@ -646,12 +646,12 @@
       "topic": "Usability & UX"
     },
     {
-      "question": "Die Mountain-Peak Ausrüstung GmbH implementiert eine KI. Das Ziel ist es, in der operativen Bestandssteurung die Verfügbarkeit der Waren zu optimieren. Welche der folgenden Aufgaben übernimmt die KI in diesem spezifischen Anwendungsbereich primär?",
+      "question": "Die Mountain-Peak Ausrüstung GmbH implementiert eine KI. Das Ziel ist es, in der operativen Bestandssteuerung die Verfügbarkeit der Waren zu optimieren. Welche der folgenden Aufgaben übernimmt die KI in diesem spezifischen Anwendungsbereich primär?",
       "answerOptions": [
         {
           "text": "Die Identifikation von sogenannten Low-Performern im Sortiment.",
           "isCorrect": false,
-          "rationale": "Die Identifikation von Low-Performern gehört primär zur Sortimentsoptimierung, nicht zur operativen Bestandssteurung."
+          "rationale": "Die Identifikation von Low-Performern gehört primär zur Sortimentsoptimierung, nicht zur operativen Bestandssteuerung."
         },
         {
           "text": "Die Analyse von Social-Media-Daten und Suchvolumen zur Trendforschung.",
@@ -661,16 +661,16 @@
         {
           "text": "Die automatische Generierung von Nachbestellvorschlägen und die Berechnung des Sicherheitsbestands.",
           "isCorrect": true,
-          "rationale": "Richtig: Nachbestellvorschläge, Sicherheitsbestand und Out-of-Stock-Vermeidung sind Kernaufgaben der KI in der Bestandssteurung."
+          "rationale": "Richtig: Nachbestellvorschläge, Sicherheitsbestand und Out-of-Stock-Vermeidung sind Kernaufgaben der KI in der Bestandssteuerung."
         },
         {
           "text": "Die Überwachung der saisonalen Schwankungen im vergangenen Kalenderjahr.",
           "isCorrect": false,
-          "rationale": "Die reine historische Beobachtung ist kein primärer operativer Steurungshebel wie automatische Dispositionsvorschläge."
+          "rationale": "Die reine historische Beobachtung ist kein primärer operativer Steuerungshebel wie automatische Dispositionsvorschläge."
         }
       ],
       "hint": "Denke an operative Disposition: Wann und wie viel soll automatisch nachbestellt werden?",
-      "youtubeQuery": "KI Bestandssteurung Nachbestellvorschlag Sicherheitsbestand Out of Stock",
+      "youtubeQuery": "KI Bestandssteuerung Nachbestellvorschlag Sicherheitsbestand Out of Stock",
       "topic": "KI in Disposition"
     },
     {
@@ -702,12 +702,12 @@
       "topic": "KI in Disposition"
     },
     {
-      "question": "Damit eine KI zuverlässige Trend- und Wettbewerbsanalysen durchführen kann, muss sie mit externen Datenströmen abseits der reinen Unternehmenszahlen gefüttert werden. Welche Datenqulle ist hierfür unabdingbar?",
+      "question": "Damit eine KI zuverlässige Trend- und Wettbewerbsanalysen durchführen kann, muss sie mit externen Datenströmen abseits der reinen Unternehmenszahlen gefüttert werden. Welche Datenquelle ist hierfür unabdingbar?",
       "answerOptions": [
         {
           "text": "Die Daten aus der internen Finanzbuchhaltung.",
           "isCorrect": false,
-          "rationale": "Finanzbuchhaltung ist eine interne Datenqulle und liefert keinen vollständigen externen Marktblick."
+          "rationale": "Finanzbuchhaltung ist eine interne Datenquelle und liefert keinen vollständigen externen Marktblick."
         },
         {
           "text": "Die historischen Verkaufsdaten aus dem ERP-System der letzten drei Jahre.",
@@ -750,7 +750,7 @@
         {
           "text": "Der juristischen Perspektive (Datenschutz).",
           "isCorrect": false,
-          "rationale": "Juristische Risiken beziehen sich vor allem auf Datenschutz und Compliance, nicht primär auf strategische Steurungslogik."
+          "rationale": "Juristische Risiken beziehen sich vor allem auf Datenschutz und Compliance, nicht primär auf strategische Steuerungslogik."
         }
       ],
       "hint": "Frage dich: Geht es um kurzfristige Kennzahlen vs. langfristige Unternehmensausrichtung?",
@@ -814,7 +814,7 @@
       "topic": "KI Erfolgsmessung"
     },
     {
-      "question": "Die Geschäftsführung möchte durch den Einsatz der KI-gestützten Sortimentssteurung sicherstellen, dass Ware nicht unnötig lange im Lager liegt und somit finanzielle Mittel blockiert. Welche beiden eng verwandten KPIs müssen hierfür primär im Controlling-Reporting betrachtet werden?",
+      "question": "Die Geschäftsführung möchte durch den Einsatz der KI-gestützten Sortimentssteuerung sicherstellen, dass Ware nicht unnötig lange im Lager liegt und somit finanzielle Mittel blockiert. Welche beiden eng verwandten KPIs müssen hierfür primär im Controlling-Reporting betrachtet werden?",
       "answerOptions": [
         {
           "text": "Die Conversion-Rate und der Deckungsbeitrag je Artikel.",
