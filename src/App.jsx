@@ -2965,7 +2965,7 @@ Die JSON muss exakt diese Struktur haben:
           <h3 style={{ margin: '0 0 1rem 0', color: 'var(--text-light)', fontSize: '1.1rem', textAlign: 'center' }}>Pr&uuml;fungsprognose</h3>
           {/* Gauge */}
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.2rem' }}>
-            <svg width="220" height="130" viewBox="0 0 220 130" style={{ maxWidth: '100%', height: 'auto' }}>
+            <svg width="220" height="150" viewBox="0 0 220 150" style={{ maxWidth: '100%', height: 'auto' }}>
               <path d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="14" strokeLinecap="round" />
               <path d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke={einsteinNeonColor} strokeWidth="14" strokeLinecap="round"
                 strokeDasharray={`${Math.PI * 90}`} strokeDashoffset={Math.PI * 90 * (1 - overallAccuracy / 100)}
@@ -2978,8 +2978,8 @@ Die JSON muss exakt diese Struktur haben:
               <text x="20" y="126" textAnchor="middle" fontSize="11" fill="var(--text-muted)">0%</text>
               <text x="110" y="14" textAnchor="middle" fontSize="11" fill="var(--text-muted)">50%</text>
               <text x="200" y="126" textAnchor="middle" fontSize="11" fill="var(--text-muted)">100%</text>
-              <text x="110" y="95" textAnchor="middle" fontSize="26" fontWeight="900" fill={einsteinNeonColor}>{overallAccuracy}%</text>
-              <text x="110" y="112" textAnchor="middle" fontSize="10" fill="var(--text-muted)">Gesamtfortschritt</text>
+              <text x="110" y="98" textAnchor="middle" fontSize="26" fontWeight="900" fill={einsteinNeonColor}>{overallAccuracy}%</text>
+              <text x="110" y="124" textAnchor="middle" fontSize="11" fontWeight="600" fill="var(--text-muted)">Gesamtfortschritt</text>
             </svg>
           </div>
           {/* Mode breakdown */}
