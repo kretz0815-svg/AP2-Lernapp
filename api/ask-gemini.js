@@ -60,7 +60,7 @@ export async function POST(request) {
 
     if (!apiKey && !deepSeekKey) {
         return new Response(JSON.stringify({
-            error: 'Fehler: Kein API-Key gesetzt (weder Gemini noch DeepSeek). Füge GEMINI_API_KEY oder DEEPSEEK_API_KEY in den Vercel-Projekteinstellungen hinzu.'
+            error: 'Fehler: Kein API-Key für den KI-Assistenten gesetzt. Bitte in den Vercel-Projekteinstellungen konfigurieren.'
         }), { status: 500, headers: { 'Content-Type': 'application/json' } });
     }
 

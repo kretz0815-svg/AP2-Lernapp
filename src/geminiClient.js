@@ -123,7 +123,7 @@ Bitte antworte ermutigend, kurz, prägnant und fachlich korrekt in einem leicht 
 
     // Alle Modelle fehlgeschlagen
     if (!genAI && !deepSeekKey) {
-        return "Fehler: Kein API-Key gesetzt (weder Gemini noch DeepSeek). Bitte in .env.local oder Vercel konfigurieren.";
+        return "Fehler: Kein API-Key für den KI-Assistenten gesetzt. Bitte in .env.local oder Vercel konfigurieren.";
     }
 
     return "Entschuldigung, leider gab es ein Problem bei der Verbindung zur KI. Bitte versuche es in einer Minute erneut.";

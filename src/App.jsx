@@ -1953,7 +1953,7 @@ ${feynmanInput}`;
               onChange={(e) => handleBackgroundUpload(e.target.files?.[0])}
             />
           </label>
-          <p style={{ marginTop: '0.45rem', color: 'var(--text-muted)', fontSize: '0.82rem' }}>Empfehlung: max. 2.5 MB, Querformat fuer bestes Ergebnis.</p>
+          <p style={{ marginTop: '0.45rem', color: 'var(--text-muted)', fontSize: '0.82rem' }}>Empfehlung: max. 2.5 MB, Querformat für bestes Ergebnis.</p>
           {backgroundMode === 'upload' && backgroundImageData ? (
             <p style={{ marginTop: '0.35rem', color: 'var(--success)', fontSize: '0.84rem' }}>Eigenes Bild ist aktiv.</p>
           ) : null}
@@ -3090,7 +3090,7 @@ Die JSON muss exakt diese Struktur haben:
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: geminiVisible ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
             >
               <span>✨</span>
-              {geminiVisible ? 'Gemini schließen' : 'KI um Hilfe bitten'}
+              {geminiVisible ? 'KI Assistent schließen' : 'KI um Hilfe bitten'}
             </button>
           </div>
 
@@ -3315,7 +3315,7 @@ Die JSON muss exakt diese Struktur haben:
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: geminiVisible ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
             >
               <span>✨</span>
-              {geminiVisible ? 'Gemini schließen' : 'KI um Hilfe bitten'}
+              {geminiVisible ? 'KI Assistent schließen' : 'KI um Hilfe bitten'}
             </button>
           </div>
 
