@@ -1,308 +1,308 @@
 {
-    "questions": [
-        {
-            "id": "1.01",
-            "question": "1.01 Bedürfnis – Bedarf – Nachfrage\n\nDer Auszubildende Lukas Schlitt verlässt in der Mittagspause mit knurrendem Magen den Betrieb und steuert zielstrebig den nächsten Schnellimbiss an, um seinen Hunger durch einen Döner-Teller mit Kalbfleisch zu stillen. Das nötige Kleingeld dafür hat er morgens extra eingesteckt. Angekommen gibt er die Bestellung, inklusive einer Cola, zum Preis von 8 € auf.\n\nOrdnen Sie die Begriffe\n\n1. Nachfrage     2. Bedarf     3. Bedürfnis\n\nden folgenden Auszügen aus der Situationsbeschreibung zu. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern von links nach rechts in den Lösungsbogen.\n\na) ... mit knurrendem Magen ...\nb) ... seinen Hunger durch einen Döner-Teller zu stillen.\nc) ... gibt er die Bestellung auf.",
-            "expectedAnswers": [
-                "321"
-            ],
-            "inputType": "number",
-            "rationale": "a) 3 (Bedürfnis): Ein knurrender Magen drückt ein allgemeines Mangelempfinden aus.\nb) 2 (Bedarf): Das konkrete Verlangen nach einem Döner-Teller, gepaart mit der Kaufkraft (ihm steht Kleingeld zur Verfügung), ist der Bedarf.\nc) 1 (Nachfrage): Durch die tatsächliche Bestellung wird der Bedarf zur Nachfrage am Markt.",
-            "videoUrl": "https://www.youtube.com/embed/OZglFWJ_QAs"
-        },
-        {
-            "id": "1.02",
-            "question": "1.02 Güterbeziehungen\n\nGüter besitzen die Eigenschaft, sich gegenseitig ersetzen oder im Güterverbund sinnvoll ergänzen zu können. Man spricht dann von Substitutions- bzw. Komplementärgütern.\n\nOrdnen Sie zu, indem Sie die Kennziffern der 2 Güterbeziehungen in die Kästchen neben den Güterarten eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nGüterbeziehungen\n1. Substitutionsgüter      2. Komplementärgüter\n\nGüterarten\n\na) Füllfederhalter/Tintenkiller\nb) Glasflasche/Plastikflasche\nc) Butter/Margarine\nd) Auto/Benzin\ne) Elektrogeräte/Strom\nf) Holzrahmen/Kunststoffrahmen\ng) Zugmaschine/Anhänger\nh) Pfeife/Tabak\ni) Ölheizung/Gasheizung\n\n(Bitte geben Sie die 9 Lösungsziffern von a) bis i) direkt hintereinander ein, z.B. 121212...)",
-            "expectedAnswers": [
-                "211221221"
-            ],
-            "inputType": "number",
-            "rationale": "a) 2: Tintenkiller werden für Füllfederhalter benutzt, sie ergänzen sich.\nb) 1: Glas- und Plastikflaschen erfüllen den gleichen Zweck und ersetzen sich.\nc) 1: Butter und Margarine sind Ersatzprodukte füreinander.\nd) 2: Ein Auto braucht Benzin.\ne) 2: Elektrogeräte brauchen Strom.\nf) 1: Man wählt entweder Holz oder Kunststoff.\ng) 2: Eine Zugmaschine zieht einen Anhänger.\nh) 2: Eine Pfeife wird mit Tabak geraucht.\ni) 1: Öl- und Gasheizung sind alternative Heizsysteme.",
-            "videoUrl": "https://www.youtube.com/embed/ZtPgplQxxWk"
-        },
-        {
-            "id": "1.03",
-            "question": "1.03 Güterarten\n\nOrdnen Sie zu, indem Sie die Kennziffern der nachfolgend genannten Gütereinteilungsmerkmale in die Kästchen hinter den unten stehenden Beispielen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern von links nach rechts in den Lösungsbogen.\n\nGütereinteilungsmerkmale\n1. Konsum- und Verbrauchsgut\n2. Konsum- und Gebrauchsgut\n3. Produktions- und Verbrauchsgut\n4. Produktions- und Gebrauchsgut\n\nBeispiele\na) Die Tonerkartuschen des Laserdruckers im Vertrieb werden erneuert.\nb) Jasmin Hauser, Geschäftsführerin der Office Experten, kauft einen Schreibtisch für das Zimmer ihres Sohnes.\nc) Prokurist Alexandrakis Mostakis erwirbt für sein Ferienhäuschen in Griechenland eine Einbauküche.\nd) Nadja Lopez aus der Abteilung Rechnungswesen bucht für ihren Jahresurlaub eine 7-tägige Kreuzfahrt durch das Mittelmeer.\ne) Die Office Experten ordern 30 Kartons Druckerpapier zu je 2.500 Blatt.\nf) Benjamin Klein, Gesellschafter der Office Experten, lässt sich wegen eines Rechtsstreits mit seinem Nachbarn von einem Fachanwalt kostenpflichtig beraten.\ng) Alexandrakis Mostakis kauft für die Office Experten einen neuen Gabelstapler für das Auslieferungslager.\nh) Die Office Experten schließen mit einem Regionalstromanbieter einen Vertrag über die Mindestabnahme eines Stromkontingents.\ni) Geschäftsführerin Jasmin Hauser tankt Benzin für eine Geschäftsreise mit dem Firmen-PKW.\nj) Nadine Esser, Mitarbeiterin der IT-Abteilung, kauft Tintenpatronen für ihren Drucker im häuslichen Arbeitszimmer, den sie auch für private Ausdrucke nutzt.\n\n(Bitte geben Sie die 10 Lösungsziffern von a) bis j) direkt hintereinander ein, z.B. 123412...)",
-            "expectedAnswers": [
-                "3221314331"
-            ],
-            "inputType": "number",
-            "rationale": "a) 3 (Toner = Verbrauchsgut, Einsatz im Betrieb = Produktion)\nb) 2 (Schreibtisch = Gebrauchsgut, privat = Konsum)\nc) 2 (Einbauküche = Gebrauchsgut, privat = Konsum)\nd) 1 (Urlaub/Dienstleistung = Verbrauchsgut logisch betrachtet, privat = Konsum)\ne) 3 (Papier = Verbrauchsgut, Betrieb = Produktion)\nf) 1 (Beratung/Dienstleistung = Verbrauchsgut, privat wegen Nachbarschaftsstreit = Konsum)\ng) 4 (Gabelstapler = Gebrauchsgut, Betrieb = Produktion)\nh) 3 (Strom = Verbrauchsgut, Betrieb = Produktion)\ni) 3 (Benzin = Verbrauchsgut, Geschäftsreise/Betrieb = Produktion)\nj) 1 (Tintenpatrone = Verbrauchsgut, da \"auch privat\" = dominanter Privatnutzen im Modellfall = Konsum)",
-            "videoUrl": "https://www.youtube.com/embed/uGvMP0tnneA"
-        },
-        {
-            "id": "1.04",
-            "question": "1.04 Ziele des Betriebes\n\nDie Office Experten verfolgen\n\n1. sachliche Ziele\n2. ökonomische Ziele\n3. ökologische Ziele\n4. soziale Ziele\n\nOrdnen Sie zu, indem Sie die Kennziffern der Ziele in die Kästchen hinter den Beispielen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nBeispiele\na) Zukünftig soll verstärkt auf die Verwendung von recycelten Stoffen geachtet werden. Deren Anteil soll in den nächsten fünf Jahren auf 30 % ansteigen.\n\nb) Durch gezielte innerbetriebliche Fortbildung sollen den Mitarbeitern Aufstiegschancen eröffnet und die Zufriedenheit gesteigert werden.\n\nc) Durch flexible Arbeitszeitmodelle sollen den Mitarbeitern mehr eigene Gestaltungsmöglichkeiten gegeben werden.\n\nd) Durch die Beschränkung auf wenige Zulieferer bei den Materialien sollen die Konditionen verbessert werden.\n\ne) In den kommenden Jahren soll ein besonderer Fokus auf die Ausweitung der Auslandsmärkte gelegt werden.\n\nf) Die Eigenkapitalrentabilität soll durch die neuen Auslandskunden langfristig verdoppelt werden.\n\n(Bitte geben Sie die 6 Lösungsziffern von a) bis f) direkt hintereinander ein, z.B. 123412)",
-            "expectedAnswers": [
-                "344212"
-            ],
-            "inputType": "number",
-            "rationale": "a) 3 (Ökologisches Ziel: Umweltschutz/Recycling)\nb) 4 (Soziales Ziel: Mitarbeiterförderung und Zufriedenheit)\nc) 4 (Soziales Ziel: Gute Arbeitsbedingungen / Flexibilität)\nd) 2 (Ökonomisches Ziel: Kosten-/Konditionenverbesserung)\ne) 1 (Sachliches Ziel: Ausweitung der Auslandsmärkte beschreibt eine konkrete Handlung/Marktpräsenz)\nf) 2 (Ökonomisches Ziel: Gewinn/Rentabilität)",
-            "videoUrl": "https://www.youtube.com/embed/EkUfudhTusI"
-        },
-        {
-            "id": "1.05",
-            "question": "1.05 Zielbeziehungen\n\nBei den Zielen des Betriebes kann es sich um\n\n1. komplementäre Ziele\n2. konkurrierende Ziele\n3. indifferente Ziele\n\nhandeln.\n\nOrdnen Sie zu, indem Sie die Kennziffern der Zielbeziehungen in die Kästchen hinter den Beispielen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nBeispiele\n\na) Ziel 1: Die Kosten sollen im folgenden Jahr um 7 % gesenkt werden.\nZiel 2: Die Gesamtkapitalrentabilität soll um 2 % erhöht werden.\n\nb) Ziel 1: Die Ausschussquote soll auf 3 % abgesenkt werden.\nZiel 2: Der Jahresabschluss soll zukünftig bereits Ende Januar fertiggestellt sein.\n\nc) Ziel 1: Der durchschnittliche Lagerbestand bei den Waren soll um 20 % gesenkt werden.\nZiel 2: Die Lieferfähigkeit soll um 10 % erhöht werden.\n\nd) Ziel 1: Erhöhung der Kundenzufriedenheit auf 90 %.\nZiel 2: Absenkung der Rückläuferquote auf 5 %.\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1231)",
-            "expectedAnswers": [
-                "1321"
-            ],
-            "inputType": "number",
-            "rationale": "a) 1 (Komplementär: Niedrigere Kosten führen automatisch zu höherem Gewinn/Rentabilität)\nb) 3 (Indifferent: Produktionsausschuss und Buchhaltungstermine beeinflussen sich nicht gegenseitig)\nc) 2 (Konkurrierend: Geringerer Lagerbestand bedeutet weniger Ware auf Abruf bereit, was der Lieferfähigkeit schaden kann)\nd) 1 (Komplementär: Weniger fehlerhafte Rückläuferprodukte = glücklichere Kunden)",
-            "videoUrl": "https://www.youtube.com/embed/Igv8l6UW4LE"
-        },
-        {
-            "id": "1.06",
-            "question": "1.06 Betriebswirtschaftliche Funktionen\n\nBei den Office Experten werden die folgenden betriebswirtschaftlichen Funktionen wahrgenommen:\n1. Absatz      2. Beschaffung      3. Leitung      4. Finanzierung      5. Produktion\n\nOrdnen Sie zu, indem Sie die Kennziffern der Funktionen in die Kästchen hinter den Einzelaufgaben eintragen. Übertragen Sie anschließend die senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nEinzelaufgaben\na) Der Lieferant von Aluminiumprofilen für die Regalsysteme wird in Lieferungsverzug gesetzt.\nb) Die Schreibtischstühle werden vor dem Versand auf ihre Funktionsfähigkeit überprüft.\nc) Der Bedarf an Buchenholz für die nächsten drei Monate wird disponiert.\nd) Aktualisierung der Verkaufspreise im Internetshop.\ne) Bezahlung der fälligen Lieferantenverbindlichkeiten.\nf) Testen einer neuen Hydraulik für Schreibtischstühle.\ng) Entscheidung über die Schaffung einer Stabsstelle für Rechtsfragen wird getroffen.\n\n(Bitte geben Sie die 7 Lösungsziffern von a) bis g) direkt hintereinander ein, z.B. 1234512)",
-            "expectedAnswers": [
-                "2521453"
-            ],
-            "inputType": "number",
-            "rationale": "a) 2 (Beschaffung regelt die Lieferantenbeziehungen)\nb) 5 (Produktion: Endkontrolle/Warenausgangsprüfung gehört zum Fertigungs- und Qualitätsprozess)\nc) 2 (Beschaffung umfasst die Materialdisposition)\nd) 1 (Absatz regelt das Marketing und den Vertrieb, zu dem auch die Preispolitik gehört)\ne) 4 (Finanzierung kümmert sich um den Zahlungsverkehr)\nf) 5 (Produktion: Forschung & Entwicklung bzw. Qualitätsmanagement fällt in den operativen Leistungserstellungsprozess)\ng) 3 (Leitung: Strategische Organisationsentscheidungen obliegen der Führungsebene)",
-            "videoUrl": "https://www.youtube.com/embed/TqoaeL7blOk"
-        },
-        {
-            "id": "1.07",
-            "question": "1.07 Betriebswirtschaftliche Produktionsfaktoren\n\nDie Office Experten verfügen u.a. über folgende Vermögensgegenstände:\n1. Betriebs- und Geschäftsausstattung\n2. Warenvorräte\n\nund haben folgende Beschäftigte:\n3. Geschäftsführerin u. leitende Angestellte\n4. weisungsgebundene Angestellte u. Auszubildende\n\nOrdnen Sie die zutreffenden Kennziffern der vorstehenden Angaben den unten aufgeführten Produktionsfaktoren zu. Übertragen Sie anschließend die senkrecht angeordneten Lösungsziffern von links nach rechts in den Lösungsbogen.\n\nProduktionsfaktoren (aus betrieblicher Sicht)\na) Dispositiver Faktor\nb) Werkstoffe\nc) Betriebsmittel\nd) (ausführende) Arbeit\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1234)",
-            "expectedAnswers": [
-                "3214"
-            ],
-            "inputType": "number",
-            "rationale": "a) 3 (Der dispositive Faktor ist die menschliche Planungs- und Organisationsarbeit, also die Führung/Leitung)\nb) 2 (Werkstoffe sind Materialien, die ins Produkt eingehen, was hier den im Lager liegenden Warenvorräten entspricht)\nc) 1 (Betriebsmittel sind Gegenstände, die nicht ins Produkt eingehen, sondern der Erstellung dienen, wie die BGA)\nd) 4 (Ausführende Arbeit ist die menschliche körperliche oder geistige Arbeit nach Anweisung)",
-            "videoUrl": "https://www.youtube.com/embed/v0-xBUm6gio"
-        },
-        {
-            "id": "1.08",
-            "question": "1.08 Betriebswirtschaftliche Produktionsfaktoren\n\nZur Herstellung eines Holzschrankes benötigen die Office Experten folgende Produktionsfaktoren:\n\n1. Rohstoffe\n2. Hilfsstoffe\n3. Betriebsstoffe\n4. Betriebsmittel\n\nOrdnen Sie zu, indem Sie die Kennziffer des jeweiligen Produktionsfaktors in die Kästchen neben den Beispielen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nBeispiele\n\na) Tischkreissäge\nb) Nägel\nc) Gummipuffer\nd) Holz\ne) Bohrmaschine\nf) Öl zum Versiegeln der Holzporen\ng) Leim\nh) Schmierfett der Tischkreissäge\n\n(Bitte geben Sie die 8 Lösungsziffern von a) bis h) direkt hintereinander ein, z.B. 12341234)",
-            "expectedAnswers": [
-                "42214223"
-            ],
-            "inputType": "number",
-            "rationale": "a) 4 (Tischkreissäge: Anlage/Maschine = Betriebsmittel)\nb) 2 (Nägel: Gehen als Nebenbestandteil direkt in das Produkt ein = Hilfsstoffe)\nc) 2 (Gummipuffer: Gehen als Nebenbestandteil in das Produkt ein = Hilfsstoffe)\nd) 1 (Holz: Hauptbestandteil des Produkts = Rohstoff)\ne) 4 (Bohrmaschine: Werkzeug/Maschine = Betriebsmittel)\nf) 2 (Öl zum Versiegeln: Geht als Nebenbestandteil direkt in die Poren des Möbelstücks ein = Hilfsstoffe)\ng) 2 (Leim: Geht als Nebenbestandteil in das Produkt ein = Hilfsstoffe)\nh) 3 (Schmierfett: Wird bei der Produktion verbraucht, geht aber nicht in das Endprodukt (Holzschrank) ein = Betriebsstoffe)",
-            "videoUrl": "https://www.youtube.com/embed/QYQUJR10x_Q"
-        },
-        {
-            "id": "1.09",
-            "question": "1.09 Austausch von Produktionsfaktoren\n\nIn welchen der unten beschriebenen Fällen handelt es sich um eine\n\na) Ersatzinvestition innerhalb desselben Produktionsfaktors?\nb) Investition, bei der ein Produktionsfaktor durch einen anderen ersetzt wird?\n\nFälle\n\n1. Heinz Knecht, Mitarbeiter der Personalabteilung bei den Office Experten, scheidet zum Quartalsende aus Altersgründen aus; als Nachfolgerin wird die 22-jährige Ann-Kathrin Weber eingestellt.\n2. Der Auszubildende Lukas Schlitt soll nach Ende der Ausbildung eine Stelle im Einkauf übernehmen.\n3. Die frei werdende Teilzeitstelle für Registraturtätigkeiten soll nicht neu besetzt werden.\n4. Die Office Experten wollen ihre Hard- und Software stärker ausbauen, um den Verkauf über ihren Online-Shop weiter voranzutreiben. Eine zu einem Mitbewerber gewechselte Vertriebsmitarbeiterin soll deswegen nicht ersetzt werden.\n\n(Bitte geben Sie die 2 Lösungsziffern für a) und b) direkt hintereinander ein, z.B. 12)",
-            "expectedAnswers": [
-                "14"
-            ],
-            "inputType": "number",
-            "rationale": "a) 1 (Mensch durch Mensch: Ein ausscheidender Mitarbeiter wird durch eine neue Mitarbeiterin ersetzt. Der Produktionsfaktor Arbeit wird durch den gleichen Faktor Arbeit substituiert = Ersatzinvestition).\nb) 4 (Mensch durch Maschine: Eine Vertriebsmitarbeiterin wird nicht ersetzt, stattdessen wird auf Hard-/Software gesetzt. Der Produktionsfaktor Arbeit wird durch Kapital/Betriebsmittel ersetzt = Substitutionsinvestition / Rationalisierung).",
-            "videoUrl": "https://www.youtube.com/embed/gxgvGed73r4"
-        },
-        {
-            "id": "1.10",
-            "question": "1.10 Arbeitsteilung\n\nBei welchem der folgenden Sachverhalte bei den Office Experten handelt es sich um eine betriebliche Arbeitsteilung?\n\n1. Einige tropische Holzsorten werden aus Wiederaufforstungen aus Indonesien bezogen.\n2. Bürostühle durchlaufen die Abteilungen Metallbearbeitung, Polsterei und Montage.\n3. Die Hydraulik für höhenverstellbare Schreibtische wird bei einem Hersteller im Hunsrück gekauft.\n4. Der Verkauf ins Ausland erfolgt über selbstständige Importgesellschaften des jeweiligen Landes.\n5. Die Implementierung einer neuen Software in ein vorhandenes Netzwerk wird durch ein spezialisiertes Softwarehaus vorgenommen.\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
-            "expectedAnswers": [
-                "2"
-            ],
-            "inputType": "number",
-            "rationale": "Lösung: 2. Die betriebliche (bzw. innerbetriebliche) Arbeitsteilung beschreibt die Zerlegung eines Arbeitsablaufs in Teilverrichtungen innerhalb eines (!) Unternehmens. In diesem Fall wird die Herstellung der Bürostühle in die Abteilungen Metallbearbeitung, Polsterei und Montage unterteilt. \n\nDie anderen Antworten stellen (inter)nationale oder überbetriebliche Arbeitsteilung dar.",
-            "videoUrl": "https://www.youtube.com/embed/VR_aw_lhnnw"
-        },
-        {
-            "id": "1.11",
-            "question": "1.11 Arbeitsteilung\n\nDurch Arbeitsteilung lässt sich die Effizienz des Produktionsfaktors Arbeit wesentlich verbessern. Je nach Arbeitsbereich unterscheidet man folgende\n\nArten der Arbeitsteilung\n\n1. Berufsbildung\n2. Berufsspaltung\n3. Produktionsteilung\n4. Arbeitszerlegung\n\nOrdnen Sie zu, indem Sie die Kennziffern der Arbeitsteilungsarten in die Kästchen neben den nachstehenden Aussagen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nAussagen\n\na) Die Arbeit eines Tischlers zur Herstellung eines Büromöbels (z. B. Schreibtisch) kann zum Zwecke der industriellen Fertigung in folgende Teilleistungen aufgeteilt werden: Holzzuschnitt, Holzfeinschnitt, Hobeln, Schleifen, Leimen, Furnieren, Lackieren, Beschlagen etc.\n\nb) Aufgrund individueller Fähigkeiten und Neigungen entstanden Grundberufe wie Bäcker, Mechaniker, Kaufmann oder akademische Berufe wie Lehrer, Ärzte, Juristen.\n\nc) Mit zunehmender Technisierung und Spezialisierung sind dann später kaufmännische Ausbildungsberufe wie Informatikkaufleute oder Kaufleute für Büromanagement bzw. gewerbliche wie Mechatroniker und Industriemechaniker oder freie Berufe wie Augenärzte und Zahnärzte oder Rechtsanwälte und Notare entstanden.\n\nd) Ein Montagebetrieb der Automobilindustrie bezieht Reifen, Elektronikteile und Schrauben von verschiedenen Zulieferbetrieben; ein Schraubenproduzent beliefert Automobilbauer, Baumärkte und Küchenhersteller.\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1234)",
-            "expectedAnswers": [
-                "4123"
-            ],
-            "inputType": "number",
-            "rationale": "a) 4 (Arbeitszerlegung: Aufteilung des gesamten Arbeitsablaufs in elementare Teilarbeitsschritte innerhalb eines Betriebs).\nb) 1 (Berufsbildung: Es entwickeln sich aufgrund von Neigungen allgemeine Hauptberufe wie Bäcker, Kaufmann).\nc) 2 (Berufsspaltung: Die Grundberufe spalten sich in spezialisierte Teilberufe auf, wie Informatikkaufmann, Zahnarzt).\nd) 3 (Produktionsteilung: Ein Produkt wird über mehrere, voneinander getrennte Spezial-Betriebe bzw. Wertschöpfungsstufen hinweg hergestellt = überbetriebliche Arbeitsteilung).",
-            "videoUrl": "https://www.youtube.com/embed/IBAASGjCRyw"
-        },
-        {
-            "id": "1.12",
-            "question": "1.12 Volkswirtschaftliche Produktionsfaktoren\n\nBoden – Arbeit – Kapital heißen die drei volkswirtschaftlichen Produktionsfaktoren.\n\nWelches der folgenden Beispiele bezeichnet eine Vorstufe zu einem dieser Faktoren?\n\nBeispiele\n\n1. Bebaute Grundstücke\n2. Unbebaute Grundstücke\n3. Werkzeuge\n4. Maschinen\n5. Verkaufspersonal\n6. Personalchef\n7. Bankguthaben\n8. Warenvorräte\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
-            "expectedAnswers": [
-                "7"
-            ],
-            "inputType": "number",
-            "rationale": "Lösung: 7 (Bankguthaben). Bankguthaben stellt *Geldkapital* dar. Das Geldkapital ist volkswirtschaftlich gesehen noch kein unmittelbarer Produktionsfaktor. Es bildet lediglich die Vorstufe, weil mit ihm erst *Realkapital* (Werkzeuge, Maschinen) erworben werden muss, um tatsächlich produzieren zu können. Die Faktoren Boden (1, 2), Arbeit (5, 6) und Realkapital (3, 4, 8) sind hingegen originäre bzw. direkte Faktoren.",
-            "videoUrl": "https://www.youtube.com/embed/kD6KE0hrJgc"
-        },
-        {
-            "id": "1.14",
-            "question": "1.14 Finanzierungsarten\n\nOrdnen Sie die Kennziffern für die fehlenden Begriffe den nachfolgenden Finanzierungsarten zu. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\na) Außenfinanzierung\nb) Fremdfinanzierung\nc) Eigenfinanzierung\nd) Innenfinanzierung\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1234)",
-            "svgCode": "<svg viewBox=\"0 0 600 170\" xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color: transparent;\"><rect x=\"10\" y=\"10\" width=\"580\" height=\"150\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" /><line x1=\"10\" y1=\"40\" x2=\"590\" y2=\"40\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><line x1=\"10\" y1=\"130\" x2=\"590\" y2=\"130\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><line x1=\"155\" y1=\"40\" x2=\"155\" y2=\"130\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><line x1=\"300\" y1=\"40\" x2=\"300\" y2=\"130\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><line x1=\"445\" y1=\"40\" x2=\"445\" y2=\"130\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><line x1=\"445\" y1=\"10\" x2=\"445\" y2=\"40\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><line x1=\"300\" y1=\"130\" x2=\"300\" y2=\"160\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><text x=\"20\" y=\"65\" fill=\"#e2e8f0\" font-size=\"14\">Finanzierung aus</text><text x=\"20\" y=\"85\" fill=\"#e2e8f0\" font-size=\"14\">Abschreibungen</text><text x=\"165\" y=\"65\" fill=\"#e2e8f0\" font-size=\"14\">Finanzierung aus</text><text x=\"165\" y=\"85\" fill=\"#e2e8f0\" font-size=\"14\">nicht entnommenen</text><text x=\"165\" y=\"105\" fill=\"#e2e8f0\" font-size=\"14\">Gewinnen</text><text x=\"310\" y=\"65\" fill=\"#e2e8f0\" font-size=\"14\">Finanzierung</text><text x=\"310\" y=\"85\" fill=\"#e2e8f0\" font-size=\"14\">über Einlagen</text><text x=\"455\" y=\"65\" fill=\"#e2e8f0\" font-size=\"14\">Finanzierung</text><text x=\"455\" y=\"85\" fill=\"#e2e8f0\" font-size=\"14\">über Kredite</text><text x=\"227.5\" y=\"30\" fill=\"#e2e8f0\" font-size=\"16\" font-weight=\"bold\" text-anchor=\"middle\">1</text><text x=\"517.5\" y=\"30\" fill=\"#e2e8f0\" font-size=\"16\" font-weight=\"bold\" text-anchor=\"middle\">2</text><text x=\"155\" y=\"150\" fill=\"#e2e8f0\" font-size=\"16\" font-weight=\"bold\" text-anchor=\"middle\">3</text><text x=\"445\" y=\"150\" fill=\"#e2e8f0\" font-size=\"16\" font-weight=\"bold\" text-anchor=\"middle\">4</text></svg>",
-            "expectedAnswers": [
-                "4213",
-                "4 2 1 3"
-            ],
-            "inputType": "text",
-            "rationale": "Die obige Grafik stellt eine Matrix dar:\n1 = Eigenfinanzierung (beinhaltet Finanzierung z.B. aus Gewinnen und Einlagen)\n2 = Fremdfinanzierung (beinhaltet Kredite)\n3 = Innenfinanzierung (Finanzierung aus eigener betrieblicher Tätigkeit, wie Abschreibungen und einbehaltene Gewinne)\n4 = Außenfinanzierung (Geldmittel fließen von außen zu, z.B. Einlagen oder Kredite)\n\nDaraus folgt die Zuordnung:\na) Außenfinanzierung = 4\nb) Fremdfinanzierung = 2\nc) Eigenfinanzierung = 1\nd) Innenfinanzierung = 3",
-            "videoUrl": "https://www.youtube.com/embed/A5H83qyqBcY"
-        },
-        {
-            "id": "1.15",
-            "question": "1.15 Einlagenfinanzierung\n\nDie Office Experten überprüfen verschiedene Möglichkeiten der Teilfinanzierung einer vollautomatischen Fertigungsstraße für Regalteile.\n\nBei welchen 2 Alternativen handelt es sich um eine Einlagenfinanzierung?\n\n1. Bei der Commerzbank Langenfeld soll ein Darlehen über 150.000 € aufgenommen werden.\n2. Ein neuer Gesellschafter würde 180.000 € ins Unternehmen einbringen.\n3. Jasmin Hauser und Benjamin Klein könnten ihre Beteiligungen um 45.000 € und 120.000 € erhöhen.\n4. Auf die Gewinnausschüttung soll verzichtet werden und stattdessen 145.000 € den Gewinnrücklagen zugeführt werden.\n5. Die über die Umsätze zurückgeflossenen Abschreibungen in Höhe von 196.000 € sollen in die Fertigungsstraße investiert werden.\n\n(Bitte geben Sie die 2 zutreffenden Lösungsziffern aufsteigend direkt hintereinander ein, z.B. 12)",
-            "expectedAnswers": [
-                "23"
-            ],
-            "inputType": "number",
-            "rationale": "Lösung: 2 und 3. Bei der Einlagen- bzw. Beteiligungsfinanzierung wird dem Unternehmen von den Eigentümern/Gesellschaftern von außen Eigenkapital zugeführt (Alternativen 2 und 3). Ein Darlehen (1) ist Fremdfinanzierung von außen. Gewinnrücklagen (4) und Abschreibungen (5) stammen von innen (Innenfinanzierung).",
-            "videoUrl": "https://www.youtube.com/embed/EEGrP1O7tiw"
-        },
-        {
-            "id": "1.16",
-            "question": "1.16 Finanzierungsarten\n\nFür ihre Kapitalbeschaffung haben die Unternehmen verschiedene Möglichkeiten der Finanzierung.\nWelche der folgenden Maßnahmen stellt eine der vorgenannten Finanzierungsarten dar?\n\nOrdnen Sie zu, indem Sie die Kennziffer der jeweils zutreffenden Finanzierungsart in das Kästchen neben der Maßnahme eintragen. Übertragen Sie anschließend Ihre Lösungsziffern von links nach rechts in den Lösungsbogen.\n\nMögliche Finanzierungsarten\n\n1. Außenfinanzierung\n2. Innenfinanzierung\n\nFinanzierungsmaßnahmen\n\na) Die Gesellschafter einer GmbH nehmen gegen Leistung einer Kapitaleinlage von 100.000,00 € den Diplom-Ingenieur Jörg Haetzold als Teilhaber auf.\nb) Mit einer qualifizierten Mehrheit von 75 % beschließt die Hauptversammlung der Bruckner AG die Erhöhung des Grundkapitals durch Ausgabe neuer Aktien.\nc) Der von einer OHG erwirtschaftete Gewinn wird gemäß Gesellschafterbeschluss nur zu 40 % an die Gesellschafter ausgezahlt. Der nicht entnommene Gewinn wird den Kapitalkonten der Gesellschafter zugeschlagen.\nd) Der Einzelhändler Julius Liebig bezieht für insgesamt 80.000,00 € Ware. Das Zahlungsziel von 60 Tagen nutzt er dabei voll aus.\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1221)",
-            "expectedAnswers": [
-                "1121"
-            ],
-            "inputType": "number",
-            "rationale": "a) 1 (Außenfinanzierung: Durch Aufnahme eines Teilhabers fließt Eigenkapital von außen in die GmbH = Beteiligungsfinanzierung).\nb) 1 (Außenfinanzierung: Durch Aktienausgabe fließt Eigenkapital von außen in die AG = Beteiligungsfinanzierung).\nc) 2 (Innenfinanzierung: Erwirtschafteter Gewinn wird im Unternehmen einbehalten = Selbstfinanzierung als Form der Innenfinanzierung).\nd) 1 (Außenfinanzierung: Nutzung eines Lieferantenkredits = Das Unternehmen nimmt Fremdkapital von außen in Anspruch).",
-            "videoUrl": "https://www.youtube.com/embed/tSYSzWVvdEA"
-        },
-        {
-            "id": "1.17",
-            "question": "1.17 Insolvenzvoraussetzungen\n\nEin Lieferant der Office-Experten, die Helmich GmbH, muss Insolvenz anmelden.\n\nWelcher der folgenden Gründe stellt eine allgemeine Voraussetzung für die Eröffnung eines Insolvenzverfahrens dar?\n\nGründe\n\n1. Zahlungsunwilligkeit\n2. Kreditunwürdigkeit\n3. Geschäftsunfähigkeit\n4. Zahlungsunfähigkeit\n5. Kreditunfähigkeit\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
-            "expectedAnswers": [
-                "4"
-            ],
-            "inputType": "number",
-            "rationale": "Lösung: 4 (Zahlungsunfähigkeit). Gemäß Insolvenzordnung (InsO) ist die tatsächliche *Zahlungsunfähigkeit* (der Schuldner kann fälligen Zahlungspflichten nicht nachkommen) der allgemeine Eröffnungsgrund für ein Insolvenzverfahren. Daneben gibt es für juristische Personen noch die \"Überschuldung\" sowie allgemein die \"drohende Zahlungsunfähigkeit\". Alle anderen genannten Gründe (wie Geschäftsunfähigkeit oder Zahlungsunwilligkeit) sind keine insolvenzrechtlichen Eröffnungsgründe.",
-            "videoUrl": "https://www.youtube.com/embed/jmED9ptgHNE"
-        },
-        {
-            "id": "1.18",
-            "question": "1.18 Insolvenzantrag\n\nBei welchem der folgenden Gerichte muss die Helmich GmbH Antrag auf Eröffnung eines Insolvenzverfahrens stellen?\n\nGericht\n\n1. Finanzgericht\n2. Arbeitsgericht\n3. Sozialgericht\n4. Amtsgericht\n5. Verwaltungsgericht\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
-            "expectedAnswers": [
-                "4"
-            ],
-            "inputType": "number",
-            "rationale": "Lösung: 4 (Amtsgericht). Der Antrag auf Eröffnung eines Insolvenzverfahrens ist beim zuständigen Insolvenzgericht zu stellen. Gemäß § 2 InsO (Insolvenzordnung) sind ausschließlich die Amtsgerichte als Insolvenzgerichte zuständig.",
-            "videoUrl": "https://www.youtube.com/embed/cSe1-F09pc4"
-        },
-        {
-            "id": "1.19",
-            "question": "1.19 Insolvenz\n\nDie Folgen falscher Finanzierungsentscheidungen können eine freiwillige Auflösung, zwangsweise Auflösung oder Sanierung eines Unternehmens zur Folge haben. Ordnen Sie zu, indem Sie die nachstehenden Maßnahmen in die Kästchen neben den unten stehenden Aussagen eintragen. Übertragen Sie anschließend Ihre Lösungsziffern von links nach rechts in den Lösungsbogen.\n\nMaßnahmen\n\n1. freiwillige Auflösung\n2. zwangsweise Auflösung\n3. Sanierung\n\nAussagen\n\na) Die Firmenbezeichnung trägt den Zusatz \"i. L.\"\nb) Durch Kapitalherabsetzung wird das Grundkapital einer AG vermindert (Herabstempelung von Aktiennennwerten).\nc) Ein vom Insolvenzgericht bestellter Insolvenzverwalter übernimmt die Verwaltung des Schuldnervermögens.\nd) Um eine Insolvenzquote zu ermitteln, müssen vorher bestimmte Vermögensgegenstände aus- und abgesondert werden.\ne) Gemäß § 146 HGB muss ein sog. Liquidator bestellt werden.\n\n(Bitte geben Sie die 5 Lösungsziffern von a) bis e) direkt hintereinander ein, z.B. 12312)",
-            "expectedAnswers": [
-                "13221"
-            ],
-            "inputType": "number",
-            "rationale": "a) 1 (freiwillige Auflösung: \"i. L.\" steht für \"in Liquidation\", was die Abwicklung des Unternehmens bezeichnet).\nb) 3 (Sanierung: Die nominelle Herabsetzung des Kapitals (z.B. Kapitalschnitt) dient der Verlustabdeckung und Rettung der Gesellschaft).\nc) 2 (zwangsweise Auflösung: Ein Insolvenzverwalter wird im Rahmen eines Insolvenzverfahrens vom Gericht bestellt).\nd) 2 (zwangsweise Auflösung: Aussonderung (z.B. Eigentumsvorbehalt) und Absonderung (z.B. Pfandrechte) sind Kernbegriffe aus dem Insolvenzverfahren bei der Verteilung der Masse).\ne) 1 (freiwillige Auflösung: Liquidatoren wickeln die Gesellschaft außergerichtlich (freiwillig) ab).",
-            "videoUrl": "https://www.youtube.com/embed/iq41XtLXr8U"
-        },
-        {
-            "id": "1.20",
-            "question": "1.20 Finanzierungsarten und Leverage-Effekt\n\nDie Wagenknecht & Weyer OHG hat ihr Unternehmen ausschließlich aus Eigenkapital finanziert. Mit 1 Mio. € erzielt die OHG eine Rendite von 20 %.\n\nDie Gesellschafter überlegen, wie es sich auf die Rentabilität des Eigenkapitals auswirkt, wenn sie 50 % des Eigenkapitals durch Fremdkapital ersetzen würden. Für Fremdmittel müssten derzeit 10 % Zinsen gezahlt werden.\n\na) Berechnen Sie die Rentabilität des Eigenkapitals unter der Annahme, dass 50 % des Eigenkapitals durch Fremdmittel zu 10 % Schuldzins ersetzt und die gleiche Gewinnsituation gelten würde.\n\nb) Berechnen Sie die Rentabilität des Eigenkapitals auch für den Fall, dass 250.000 € Eigenkapital und 750.000 € Fremdkapital unter den gleichen Bedingungen wie oben im Unternehmen eingesetzt werden.\n\nc) Bei welcher der unten genannten Aussagen erhöht sich beim Ersatz von Eigen- durch Fremdkapital die Rentabilität des Eigenkapitals?\n\nAussagen\n1. Gesamtkapitalrendite ist niedriger als der Fremdkapitalzins\n2. Fremdkapitalzins ist niedriger als die Gesamtkapitalrendite\n3. Fremdkapitalzins entspricht der Gesamtkapitalrendite\n\n(Bitte geben Sie die berechneten Prozentsätze für a) und b) (ohne Kommastellen) sowie die Lösungsziffer für c) direkt hintereinander ein, z.B. 30502)",
-            "expectedAnswers": [
-                "30502"
-            ],
-            "inputType": "number",
-            "rationale": "Ausgangslage: EK = 1.000.000 €, Gewinn-Rendite 20 % = 200.000 € (Dies ist auch der Gewinn vor Zinsen).\n\na) 500.000 € EK, 500.000 € FK. Zinsen = 10 % von 500.000 = 50.000 €. Reingewinn = 200.000 (Vor-Zins-Gewinn) - 50.000 = 150.000 €. \nEK-Rentabilität = (150.000 / 500.000) * 100 = 30 %.\n\nb) 250.000 € EK, 750.000 € FK. Zinsen = 10 % von 750.000 = 75.000 €. Reingewinn = 200.000 - 75.000 = 125.000 €.\nEK-Rentabilität = (125.000 / 250.000) * 100 = 50 %.\n\nc) 2: Die EK-Rentabilität steigt durch FK nur dann an, wenn die Kosten für das Fremdkapital (Fremdkapitalzins) niedriger sind als die mit dem Gesamtkapital erwirtschaftete Rendite (Gesamtkapitalrendite). Das nennt man den positiven Leverage-Effekt.",
-            "videoUrl": "https://www.youtube.com/embed/PdgGuOGXMTI"
-        },
-        {
-            "id": "1.21",
-            "question": "1.21 Finanzierung und Kreditsicherung\n\nOrdnen Sie folgende Begriffe aus der Finanzierung und Kreditsicherung den unten aufgeführten Aussagen zu. Übertragen Sie anschließend Ihre Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\n1. Leasing\n2. Globalzession\n3. Besitzkonstitut\n4. Factoring\n5. Akzessorietät\n6. Einrede der Vorausklage\n7. Annuität\n\nAussagen\n\na) Die Barwerte kurzfristiger Forderungen aus Lieferungen und Leistungen werden vom Kreditgeber angekauft.\nb) Einem Unternehmen werden bewegliche oder unbewegliche Wirtschaftsgüter des Anlagevermögens zur Nutzung gegen Entgelt überlassen.\nc) Der Kreditgeber übernimmt neben der Delkredere- und Finanzierungsfunktion auch eine Dienstleistungsfunktion.\nd) Die jährliche Belastung, bestehend aus Tilgung und Zinsen, ist für die gesamte Laufzeit des Darlehens konstant.\ne) Es besteht ein untrennbarer rechtlicher Zusammenhang zwischen dem persönlichen Anspruch aus einer Darlehensgewährung und dem dinglichen Anspruch aus einer Hypothek.\nf) Die Übergabe des Sicherungsgutes wird durch einen Vertrag ersetzt, der den Kreditnehmer weiterhin zum unmittelbaren Besitz berechtigt.\ng) Hierauf verzichtet der Bürge im Rahmen einer selbstschuldnerischen Bürgschaft.\nh) Die Sicherungsabtretung der Forderung geschieht bereits zum Zeitpunkt der Forderungsentstehung. Die Debitorenliste hat lediglich deklaratorischen Charakter.\n\n(Bitte geben Sie die 8 Lösungsziffern von a) bis h) direkt hintereinander ein, z.B. 12345671)",
-            "expectedAnswers": [
-                "41475362"
-            ],
-            "inputType": "number",
-            "rationale": "a) 4 (Factoring: Ankauf kurzfristiger Forderungen durch eine Factoring-Gesellschaft)\nb) 1 (Leasing: Nutzungsüberlassung gegen Entgelt)\nc) 4 (Factoring: Der Factor übernimmt Finanzierung, Delkredere und Dienstleistung)\nd) 7 (Annuität: Gleichbleibende jährliche Ratenbelastung bestehend aus Zins und Tilgung)\ne) 5 (Akzessorietät: Abhängigkeit eines Sicherungsrechts vom Bestehen der Forderung)\nf) 3 (Besitzkonstitut: ersetzt die physische Übergabe z.B. bei der Sicherungsübereignung, Schuldner bleibt Besitzer)\ng) 6 (Einrede der Vorausklage: Auf diese verzichtet der Bürge bei der selbstschuldnerischen Bürgschaft, wodurch er sofort in Anspruch genommen werden kann)\nh) 2 (Globalzession: Zukünftige und gegenwärtige Forderungen werden pauschal abgetreten, Debitorenliste dient nur der Deklaration)",
-            "videoUrl": ""
-        },
-        {
-            "id": "1.22",
-            "question": "1.22 Leasing\n\nDie Geschäftsleitung überlegt, die Firmenwagen zukünftig nicht mehr zu kaufen, sondern zu leasen.\nWelche 2 Vorteile verspricht sie sich davon?\n\n1. Gleichmäßige monatliche Liquiditätsbelastung.\n2. Leasing ist in jedem Falle kostengünstiger als ein Kauf.\n3. Leasingverträge können jederzeit gekündigt werden, um den Fuhrpark immer mit den neuesten Modellen auszustatten.\n4. Volle steuerliche Absetzbarkeit der Leasingraten.\n5. Am Ende der Grundmietzeit geht das Auto in das Eigentum der Firma über.\n\n(Bitte geben Sie die 2 zutreffenden Lösungsziffern aufsteigend direkt hintereinander ein, z.B. 12)",
-            "expectedAnswers": [
-                "14"
-            ],
-            "inputType": "number",
-            "rationale": "1 (Richtig): Leasingraten sind gleichbleibend und schonen die Liquidität im Vergleich zu einer hohen Einmalzahlung beim Kauf.\n2 (Falsch): Leasing ist in der Summe meist teurer als ein Kauf.\n3 (Falsch): Leasingverträge haben in der Regel feste Grundmietzeiten und können nicht \"jederzeit\" gekündigt werden.\n4 (Richtig): Leasingraten können in voller Höhe als Betriebsausgabe abgesetzt werden.\n5 (Falsch): Am Ende der Grundmietzeit erfolgt die Rückgabe (Eigentumsübergang wäre Mietkauf).",
-            "videoUrl": ""
-        },
-        {
-            "id": "1.23",
-            "question": "1.23 Kreditarten\n\nIm Einkauf verfolgt der Auszubildende Lukas Schlitt eine Diskussion über verschiedene Arten der Kreditfinanzierung. Dabei fallen die Begriffe\n\n1. Darlehen\n2. Lieferantenkredit\n3. Kontokorrentkredit\n\nOrdnen Sie zu, indem Sie die Kennziffern der Kreditarten in die Kästchen hinter den Umschreibungen eintragen. Übertragen Sie anschließend die Kennziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\na) Es handelt sich um einen kurzfristigen Kredit, der den Office Experten von ihrem Holzgroßhändler im Zusammenhang mit dem Einkauf von Material gewährt wird.\nb) Diesen kurzfristigen Kredit gewährt die Postbank Köln den Office Experten für die Überziehung des Geschäftskontos.\nc) Mit diesem langfristigen Kredit der Commerzbank Langenfeld wurde eine neue Drehbank finanziert. Die Rückzahlung erfolgt monatlich in gleichbleibenden Raten.\n\n(Bitte geben Sie die 3 Lösungsziffern von a) bis c) direkt hintereinander ein, z.B. 123)",
-            "expectedAnswers": [
-                "231"
-            ],
-            "inputType": "number",
-            "rationale": "a) 2 (Lieferantenkredit: Kurzkredit des Lieferanten durch Gewährung eines Zahlungsziels nach Wareneingang).\nb) 3 (Kontokorrentkredit: Kreditrahmen zur Überziehung auf dem laufenden Bankkonto).\nc) 1 (Darlehen: Langfristiger Kreditvertrag für Investitionen, typischerweise mit festen Laufzeiten und Raten).",
-            "videoUrl": ""
-        },
-        {
-            "id": "1.24",
-            "question": "1.24 Factoring\n\nDie Office Experten überlegen, ob sie einen Vertrag mit einem Factor abschließen sollen.\n\nWelche Funktion wird dieser nicht übernehmen?\n\n1. Liquiditätsplanung\n2. Delkrederefunktion\n3. Finanzierungsfunktion\n4. Dienstleistungsfunktion\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
-            "expectedAnswers": [
-                "1"
-            ],
-            "inputType": "number",
-            "rationale": "Lösung: 1 (Liquiditätsplanung). Ein Factor übernimmt drei Hauptfunktionen: Die Delkrederefunktion (Übernahme des Ausfallrisikos), die Finanzierungsfunktion (Wegen Forderungskauf sofortige Begleichung) und die Dienstleistungsfunktion (Übernahme des Forderungsmanagements/Mahnwesen). Die Liquiditätsplanung bleibt weiterhin Aufgabe des Unternehmens selbst.",
-            "videoUrl": ""
-        },
-        {
-            "id": "1.25",
-            "question": "1.25 Kreditsicherungen\n\nZur Absicherung von Krediten stehen folgende Möglichkeiten zur Verfügung:\n\n1. Ausfallbürgschaft\n2. Eigentumsvorbehalt\n3. Sicherungsübereignung\n4. Lombardkredit\n5. Grundpfandrecht\n6. Selbstschuldnerische Bürgschaft\n7. Zessionskredit\n\nOrdnen Sie zu, indem Sie die Kennziffern von 3 der 7 Kreditsicherungen in die Kästchen hinter den Auszügen aus den Vertragsbedingungen eintragen. Übertragen Sie anschließend die Kennziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nAuszüge aus den Vertragsbedingungen\n\na) ... wird auf das Recht zur Einrede der Vorausklage verzichtet ...\nb) ... ist der Kreditnehmer Besitzer, der Kreditgeber Eigentümer der beweglichen Sache ...\nc) ... werden die Wertpapiere zur Sicherheit bei der Bank hinterlegt ...\n\n(Bitte geben Sie die 3 Lösungsziffern von a) bis c) direkt hintereinander ein, z.B. 123)",
-            "expectedAnswers": [
-                "634"
-            ],
-            "inputType": "number",
-            "rationale": "a) 6 (Selbstschuldnerische Bürgschaft: Der Bürge verzichtet auf die Einrede der Vorausklage nach § 771 BGB).\nb) 3 (Sicherungsübereignung: Das rechtliche Eigentum an der Sicherung (z.B. LKW oder Maschine) geht an die Bank über. Der Kreditnehmer behält aber den Besitz, um damit weiter arbeiten zu können).\nc) 4 (Lombardkredit: Darlehen gegen die Verpfändung von Wertpapieren, Bankguthaben oder sonstigen leicht verwertbaren und beweglichen Sachen (Faustpfandkredit)).",
-            "videoUrl": ""
-        },
-        {
-            "id": "1.26",
-            "question": "1.26 Akkreditiv\n\nEine auch von den Office Experten genutzte Zahlungsform im internationalen Handel ist die Zahlung mittels Akkreditiv.\n\nDie folgende Grafik skizziert den üblichen Ablauf eines unbestätigten Akkreditivs:\n\nOrdnen Sie zu, indem Sie die Kennziffern der dargestellten Schritte des Verfahrens (Ziffern 01 bis 11) hinter den folgenden Umschreibungen eintragen. Übertragen Sie anschließend die Kennziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nUmschreibungen\n\na) Anlass für die Eröffnung eines Akkreditivs bildet der Abschluss eines Kaufvertrages.\nb) Die sog. Akkreditivbank belastet das Konto ihres Kunden und händigt ihm die Dokumente (z. B. ein Konnossement) aus, um sie bei Ankunft der Ware vorlegen zu können.\nc) Die sog. Akkreditivstelle avisiert ihrem Kunden, dass das Akkreditiv eröffnet wurde und sendet ihm eine Kopie zu.\nd) Der Käufer beantragt bei seiner Bank die Eröffnung eines Akkreditivs.\ne) Nachdem der Verkäufer die Akkreditivbedingungen geprüft hat, beauftragt er einen Spediteur mit dem Versand der Ware und übergibt ihm eine Kopie des Akkreditivs.\nf) Nachdem der Käufer die Ware erhalten hat, händigt er dem Verfrachter (ggf. Kapitän der Reederei) die Dokumente aus.\n\n(Bitte geben Sie die 12 Lösungsziffern (6x2) von a) bis f) direkt hintereinander ein, z.B. 010203040506)",
-            "svgCode": "<svg viewBox=\"0 0 600 400\" xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color: transparent;\"><defs><marker id=\"arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"rgba(255,255,255,0.8)\" /></marker></defs><rect x=\"20\" y=\"40\" width=\"130\" height=\"60\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" rx=\"8\" /><text x=\"85\" y=\"65\" fill=\"#e2e8f0\" font-size=\"14\" text-anchor=\"middle\">Hausbank</text><text x=\"85\" y=\"85\" fill=\"#e2e8f0\" font-size=\"14\" text-anchor=\"middle\">des Exporteurs</text><rect x=\"350\" y=\"40\" width=\"130\" height=\"60\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" rx=\"8\" /><text x=\"415\" y=\"65\" fill=\"#e2e8f0\" font-size=\"14\" text-anchor=\"middle\">Hausbank</text><text x=\"415\" y=\"85\" fill=\"#e2e8f0\" font-size=\"14\" text-anchor=\"middle\">des Importeurs</text><rect x=\"20\" y=\"200\" width=\"130\" height=\"60\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" rx=\"8\" /><text x=\"85\" y=\"235\" fill=\"#e2e8f0\" font-size=\"14\" text-anchor=\"middle\">Exporteur</text><rect x=\"350\" y=\"200\" width=\"130\" height=\"60\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" rx=\"8\" /><text x=\"415\" y=\"235\" fill=\"#e2e8f0\" font-size=\"14\" text-anchor=\"middle\">Importeur</text><ellipse cx=\"215\" cy=\"330\" rx=\"80\" ry=\"40\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" /><text x=\"215\" y=\"315\" fill=\"#e2e8f0\" font-size=\"12\" text-anchor=\"middle\">Spediteur</text><text x=\"215\" y=\"335\" fill=\"#e2e8f0\" font-size=\"12\" text-anchor=\"middle\">Frachtführer</text><text x=\"215\" y=\"355\" fill=\"#e2e8f0\" font-size=\"12\" text-anchor=\"middle\">Verfrachter</text><line x1=\"150\" y1=\"230\" x2=\"350\" y2=\"230\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-start=\"url(#arrow)\" marker-end=\"url(#arrow)\" /><rect x=\"240\" y=\"215\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"252\" y=\"227\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">01</text><line x1=\"415\" y1=\"200\" x2=\"415\" y2=\"100\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"418\" y=\"142\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"430\" y=\"154\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">02</text><line x1=\"350\" y1=\"60\" x2=\"150\" y2=\"60\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"240\" y=\"45\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"252\" y=\"57\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">03</text><line x1=\"50\" y1=\"100\" x2=\"50\" y2=\"200\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"23\" y=\"142\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"35\" y=\"154\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">04</text><line x1=\"110\" y1=\"260\" x2=\"170\" y2=\"300\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"130\" y=\"260\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"142\" y=\"272\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">05</text><line x1=\"135\" y1=\"320\" x2=\"85\" y2=\"260\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"92\" y=\"295\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"104\" y=\"307\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">06</text><line x1=\"120\" y1=\"200\" x2=\"120\" y2=\"100\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"93\" y=\"142\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"105\" y=\"154\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">07</text><line x1=\"150\" y1=\"80\" x2=\"350\" y2=\"80\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"240\" y=\"65\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"252\" y=\"77\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">08</text><line x1=\"150\" y1=\"215\" x2=\"350\" y2=\"100\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"200\" y=\"145\" width=\"55\" height=\"16\" fill=\"var(--color-bg)\" transform=\"rotate(-30 227 153)\" /><text x=\"227\" y=\"157\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\" transform=\"rotate(-30 227 157)\">Zahlung</text><line x1=\"380\" y1=\"100\" x2=\"380\" y2=\"200\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"353\" y=\"142\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"365\" y=\"154\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">09</text><line x1=\"295\" y1=\"320\" x2=\"350\" y2=\"260\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"310\" y=\"270\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"322\" y=\"282\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">10</text><line x1=\"415\" y1=\"260\" x2=\"415\" y2=\"320\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" /><line x1=\"415\" y1=\"320\" x2=\"295\" y2=\"320\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"420\" y=\"282\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"432\" y=\"294\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">11</text></svg>",
-            "expectedAnswers": [
-                "010904020511"
-            ],
-            "inputType": "number",
-            "rationale": "a) 01 (Abschluss des Kaufvertrags zwischen Importeur und Exporteur ist der Ausgangspunkt).\nb) 09 (Die Akkreditivbank des Importeurs belastet dessen Konto und gibt ihm die Dokumente, mit denen er die Ware in Empfang nehmen kann).\nc) 04 (Die Akkreditivstelle = Hausbank des Exporteurs avisiert ihrem Kunden das eröffnete Akkreditiv).\nd) 02 (Der Importeur beantragt bei seiner Bank die Eröffnung).\ne) 05 (Warenübergabe an den Spediteur nach Prüfung der Akkreditivbedingungen durch den Exporteur).\nf) 11 (Der Importeur übergibt die original Dokumente (z.B. Konnossement/Bill of Lading) an den Verfrachter, um die importierte Ware zu erhalten).",
-            "videoUrl": ""
-        },
-        {
-            "id": "1.27",
-            "question": "1.27 Akkreditiv\n\nWelche 2 Aussagen zum Dokumenten-Akkreditiv sind falsch?\n\n1. Ein Dokumenten-Akkreditiv ist von dem Kaufvertrag, auf dem es wirtschaftlich beruht, völlig getrennt.\n2. Das sicherste und zugleich teuerste Akkreditiv ist das bestätigte, unwiderrufliche und befristete Akkreditiv.\n3. Rechtliche Grundlage für die Abwicklung eines Dokumentenakkreditivs bilden die sog. ERI, die von der für den Exporteur zuständigen Industrie- und Handelskammer (IHK) verfasst wurden.\n4. Im Gegensatz zum Dokumenteninkasso wird die Eröffnung des Dokumentenakkreditivs vom Verkäufer beantragt.\n5. Die am Akkreditivverfahren teilnehmende Bank des Importeurs heißt Akkreditivbank.\n6. Bei einem bestätigten Akkreditiv gibt die Akkreditivstelle (i. d. R. die Hausbank des Exporteurs) ein zusätzliches abstraktes Schuldversprechen.\n\n(Bitte geben Sie die 2 zutreffenden Lösungsziffern aufsteigend direkt hintereinander ein, z.B. 12)",
-            "expectedAnswers": [
-                "34"
-            ],
-            "inputType": "number",
-            "rationale": "3 (Falsch): Rechtliche Grundlage sind die Einheitlichen Richtlinien und Gebräuche für Dokumenten-Akkreditive (ERA), verfasst von der Internationalen Handelskammer (ICC) in Paris.\n4 (Falsch): Die Eröffnung eines Dokumentenakkreditivs wird stets vom Käufer (=Importeur) bei seiner Hausbank beantragt.\nAlle anderen Aussagen (1, 2, 5, 6) sind richtig.",
-            "videoUrl": ""
-        },
-        {
-            "id": "1.28",
-            "question": "1.28 Lieferantenkredit\n\nDie Wuttke OHG aus Aachen erhält folgende Rechnung (Auszug):\n\na) Die Rechnung wird am 06.04. durch Banküberweisung beglichen. Über wie viel Euro lautet der Überweisungsbetrag?\n\nb) Die Rechnung soll vorzeitig am 19.03. beglichen werden. Über welchen Betrag lautet die Überweisung jetzt?\n\nc) Um die Rechnung skontieren zu können, müsste die Wuttke OHG vorübergehend ihren Kontokorrentkredit in Anspruch nehmen. Die Hausbank berechnet 11 % Sollzinsen.\nKlären Sie, ob die Wuttke OHG den Bankkredit zu 11 % Zinsen in Anspruch nehmen soll, um 3 % Skonto auszunutzen, indem Sie folgende Beträge ermitteln:\n\nca) Höhe der Kreditkosten (Bankzinsen)\ncb) Höhe des Finanzierungserfolges (Differenz zwischen Skontoertrag und Kreditkosten)\ncc) Höhe der Effektivverzinsung (Finanzierungserfolg als Jahreszinssatz, einfache Lösung)\n\n(Bitte geben Sie die 5 errechneten Zahlenwerte als Text, mit Leerzeichen getrennt, direkt hintereinander ein, z.B. 95200 92344 564,32 2291,68 54)",
-            "svgCode": "<svg viewBox=\"0 0 600 450\" xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color: transparent;\"><rect x=\"10\" y=\"10\" width=\"580\" height=\"430\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" /><text x=\"30\" y=\"40\" fill=\"#e2e8f0\" font-size=\"12\" text-decoration=\"underline\">Office Experten GmbH, Leibnizstr. 14, 40764 Langenfeld</text><text x=\"30\" y=\"80\" fill=\"#e2e8f0\" font-size=\"14\">Wuttke OHG</text><text x=\"30\" y=\"100\" fill=\"#e2e8f0\" font-size=\"14\">Debeystr. 233</text><text x=\"30\" y=\"120\" fill=\"#e2e8f0\" font-size=\"14\">D-52078 Aachen</text><text x=\"350\" y=\"80\" fill=\"#a0aec0\" font-size=\"12\">Telefon: 02173 612-0</text><text x=\"350\" y=\"100\" fill=\"#a0aec0\" font-size=\"12\">Telefax: 02173 612-106</text><text x=\"350\" y=\"120\" fill=\"#a0aec0\" font-size=\"12\">Mail: info@office-experten-gmbh.de</text><text x=\"350\" y=\"160\" fill=\"#e2e8f0\" font-size=\"14\" font-weight=\"bold\">Kundennummer: 1487</text><text x=\"350\" y=\"180\" fill=\"#e2e8f0\" font-size=\"14\" font-weight=\"bold\">Datum: 20..-03-09</text><text x=\"30\" y=\"210\" fill=\"#e2e8f0\" font-size=\"16\" font-weight=\"bold\">Rechnung Nr. 556/88</text><text x=\"30\" y=\"240\" fill=\"#e2e8f0\" font-size=\"12\">Wir lieferten Ihnen 200 Spezialcontainer der Bauart XC 3000 mit den Maßen:</text><text x=\"30\" y=\"255\" fill=\"#e2e8f0\" font-size=\"12\">450 mm x 446 mm x 1755 mm á 400,00 € zuzüglich 19 % MwSt.</text><line x1=\"30\" y1=\"270\" x2=\"570\" y2=\"270\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><text x=\"35\" y=\"285\" fill=\"#e2e8f0\" font-size=\"12\">Menge</text><text x=\"100\" y=\"285\" fill=\"#e2e8f0\" font-size=\"12\">Artikelbezeichnung</text><text x=\"280\" y=\"285\" fill=\"#e2e8f0\" font-size=\"12\">Stückpreis (netto)</text><text x=\"420\" y=\"285\" fill=\"#e2e8f0\" font-size=\"12\">Gesamtpreis (netto)</text><line x1=\"30\" y1=\"295\" x2=\"570\" y2=\"295\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><text x=\"35\" y=\"315\" fill=\"#e2e8f0\" font-size=\"12\">200</text><text x=\"100\" y=\"315\" fill=\"#e2e8f0\" font-size=\"12\">S-Cont. XC 3000</text><text x=\"280\" y=\"315\" fill=\"#e2e8f0\" font-size=\"12\">400,00</text><text x=\"420\" y=\"315\" fill=\"#e2e8f0\" font-size=\"12\">80.000,00</text><text x=\"280\" y=\"335\" fill=\"#e2e8f0\" font-size=\"12\">zuzüglich 19 % MwSt</text><text x=\"420\" y=\"335\" fill=\"#e2e8f0\" font-size=\"12\">15.200,00</text><text x=\"280\" y=\"355\" fill=\"#e2e8f0\" font-size=\"12\" font-weight=\"bold\">Rechnungsbetrag:</text><text x=\"420\" y=\"355\" fill=\"#e2e8f0\" font-size=\"12\" font-weight=\"bold\">95.200,00</text><line x1=\"30\" y1=\"365\" x2=\"570\" y2=\"365\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><text x=\"30\" y=\"390\" fill=\"#e2e8f0\" font-size=\"12\">Die Rechnung ist zahlbar binnen 30 Tagen netto Kasse oder binnen 10 Tagen unter Abzug von</text><text x=\"30\" y=\"405\" fill=\"#e2e8f0\" font-size=\"12\">3 % Skonto. Der Betrag ist auf eines der unten aufgeführten Konten zu überweisen.</text></svg>",
-            "expectedAnswers": [
-                "95200 92344 564,32 2291,68 54",
-                "95200 92344 564.32 2291.68 54",
-                "9520092344564,322291,6854",
-                "95200923445643222916854",
-                "95200-92344-564,32-2291,68-54",
-                "95200-92344-564.32-2291.68-54"
-            ],
-            "inputType": "text",
-            "rationale": "a) Überweisung am 06.04. (nach 10 Tagen Skontofrist): voller Rechnungsbetrag = 95.200 €.\nb) Überweisung am 19.03. (innerhalb von 10 Tagen): 3% Skonto (2.856 €) abziehen = 92.344 € Überweisungsbetrag.\nc) Es werden 92.344 € finanziert. Der Kreditzeitraum beträgt 20 Tage (30 Tage Zahlungsziel - 10 Tage Skontofrist).\nca) Kreditkosten = (92.344 € * 11 * 20) / (100 * 360) = 564,32 €.\ncb) Finanzierungserfolg = 2.856 € (Skontoersparnis) - 564,32 € (Bankzinsen) = 2.291,68 €.\ncc) Effektivverzinsung als einfacher Jahreszinssatz = (Skontosatz * 360) / Laufzeit = (3 * 360) / 20 = 54 %.",
-            "videoUrl": ""
-        },
-        {
-            "id": "1.29",
-            "question": "1.29 Kreditgewährung\n\nWelche 2 der folgenden Aussagen sind falsch?\n\nAussagen\n\n1. Grundvoraussetzung jeder Kreditgewährung ist das Vertrauen in die Kreditwürdigkeit und die Leistungsfähigkeit eines Unternehmens.\n2. Kredite zur Finanzierung des Anlagevermögens müssen kurzfristige Laufzeiten haben.\n3. Die Frage der Rentabilität eines Kredites sollte in jedem Fall bereits vor Kreditaufnahme geprüft werden.\n4. Die Kreditgewährung darf beim Kreditgeber auf keinen Fall dazu führen, dass seine eigene Zahlungsbereitschaft (Liquidität) gefährdet wird.\n5. Nicht jeder Kreditwürdige ist auch kreditfähig. Dies gilt auch umgekehrt.\n6. Der Kreditgeber ist der Kreditor (= Gläubiger), der Kreditnehmer der Debitor (= Schuldner).\n7. Zu den verstärkten Personalkrediten zählen neben den Zessionskrediten auch die Bürgschaftskredite.\n8. Realkredite, also dinglich gesicherte Kredite, sind dadurch gekennzeichnet, dass neben der Person des Kreditnehmers noch mindestens eine weitere Person für die Rückzahlung des Kredites haftet.\n9. Beim Kontokorrentkredit gestattet die Bank ihrem Kunden, sein laufendes Geschäftskonto einmalig für einen bestimmten Zweck oder auch laufend bis auf Widerruf zu überziehen.\n10. Bei Krediten, die in gleichbleibenden Jahresleistungen zurückgezahlt werden, sinkt im Laufe der Rückzahlungsjahre der Zinsanteil zugunsten eines verstärkten Tilgungsanteils.\n\n(Bitte geben Sie die 2 zutreffenden Lösungsziffern aufsteigend direkt hintereinander ein, z.B. 12)",
-            "expectedAnswers": [
-                "28"
-            ],
-            "inputType": "number",
-            "rationale": "2 (Falsch): Anlagevermögen bindet Kapital langfristig. Nach der goldenen Finanzierungsregel (Fristenkongruenz) müssen Kredite zur Finanzierung des Anlagevermögens daher langfristige Laufzeiten haben.\n8 (Falsch): Die genannte Definition beschreibt den verstärkten Personalkredit (insb. die Bürgschaft). Ein Realkredit ist durch Sachen (z.B. Grundstücke) oder Rechte besichert, nicht durch eine weitere Person.\nAlle anderen Aussagen (1, 3, 4, 5, 6, 7, 9, 10) sind richtig.",
-            "videoUrl": ""
-        },
-        {
-            "id": "1.30",
-            "question": "1.30 Darlehen\n\nDie Office Experten GmbH plant den Bau einer neuen Lagerhalle. Mit der Bauunternehmung wurde ein Bauträgervertrag geschlossen, wonach die Halle mit sämtlichen Innenausbauten und Einrichtungen gemäß Baubeschreibung schlüsselfertig zu übergeben ist. Die Vorkalkulation ergibt ein Finanzierungsvolumen von insgesamt 605.000,00 € (einschließlich aller Anschaffungsnebenkosten). Die Finanzierung soll nach folgendem Plan durchgeführt werden:\n\n- Erhöhung der Stammeinlagen um insgesamt 120.000,00 € Barmittel\n- Veräußerung von Wertpapieren des Umlaufvermögens, Reinerlös 95.000,00 €\n- Auflösung diverser Festgeldkonten bei der Commerzbank Langenfeld, Gesamtbetrag 155.000,00 €\n- Darlehen bei der Commerzbank Langenfeld zu folgenden Konditionen:\n\nKonditionen Darlehen:\nAufnahme am 30. Juni d. J.\nKreditsicherung durch Grundschuld\nZinsfuß: 2,75 % p. a.\nTilgung: 1,5 % p. a.\nZinsen und Tilgung sind halbjährlich zahlbar\n\na) Welche der folgenden Positionen zählt nicht zu den Anschaffungsnebenkosten der Lagerhalle?\n1. Grunderwerbsteuer\n2. Kosten der Grundbucheintragung\n3. Notargebühren\n4. Grundsteuer\n5. Erschließungskosten\n\nb) Ermitteln Sie die Höhe des benötigten Darlehensbetrages!\n\nc) Mit wie viel Euro wird die Office Experten GmbH am 31.12. d. J. für Zinsen und Tilgung von der Commerzbank belastet?\n\nd) Welche der folgenden Aussagen trifft nicht auf die Art der vereinbarten Kreditsicherung zu?\n1. Die Grundschuld zählt zu den Grundpfandrechten.\n2. Die Grundschuld wird in Abteilung II des Grundbuches eingetragen.\n3. Die Grundschuld ist nicht vom Bestand des Darlehens abhängig.\n4. Die Grundschuld wird verzinst.\n5. Die Grundschuld kann als Brief- oder Buchgrundschuld eingetragen werden.\n\n(Bitte geben Sie die 4 Lösungen für a, b, c und d mit Leerzeichen getrennt ein, z.B. 1 150000 1200.50 3)",
-            "expectedAnswers": [
-                "4 235000 4993,75 2",
-                "4 235000 4993.75 2",
-                "42350004993,752",
-                "42350004993752",
-                "4-235000-4993,75-2",
-                "4-235000-4993.75-2"
-            ],
-            "inputType": "text",
-            "rationale": "a) 4 (Die Grundsteuer ist eine laufende Aufwendung/Steuer und gehört nicht zu den aktivierungspflichtigen Anschaffungsnebenkosten).\nb) Finanzierungsbedarf: 605.000 € - 120.000 € - 95.000 € - 155.000 € = 235.000 €.\nc) Belastung am 31.12. (für 6 Monate bzw. 180 Tage):\n- Zinsen (halbjährlich): 235.000 € * 2,75% / 2 = 3.231,25 €\n- Tilgung (halbjährlich): 235.000 € * 1,5% / 2 = 1.762,50 €\n- Gesamte Belastung: 3.231,25 € + 1.762,50 € = 4.993,75 €.\nd) 2 (Falsch: Grundpfandrechte wie Grundschuld oder Hypothek werden in Abteilung III des Grundbuches eingetragen, nicht in Abteilung II).",
-            "videoUrl": ""
-        }
-    ]
+  "questions": [
+    {
+      "id": "1.01",
+      "question": "1.01 Bedürfnis – Bedarf – Nachfrage\n\nDer Auszubildende Lukas Schlitt verlässt in der Mittagspause mit knurrendem Magen den Betrieb und steuert zielstrebig den nächsten Schnellimbiss an, um seinen Hunger durch einen Döner-Teller mit Kalbfleisch zu stillen. Das nötige Kleingeld dafür hat er morgens extra eingesteckt. Angekommen gibt er die Bestellung, inklusive einer Cola, zum Preis von 8 € auf.\n\nOrdnen Sie die Begriffe\n\n1. Nachfrage     2. Bedarf     3. Bedürfnis\n\nden folgenden Auszügen aus der Situationsbeschreibung zu. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern von links nach rechts in den Lösungsbogen.\n\na) ... mit knurrendem Magen ...\nb) ... seinen Hunger durch einen Döner-Teller zu stillen.\nc) ... gibt er die Bestellung auf.",
+      "expectedAnswers": [
+        "321"
+      ],
+      "inputType": "number",
+      "rationale": "a) 3 (Bedürfnis): Ein knurrender Magen drückt ein allgemeines Mangelempfinden aus.\nb) 2 (Bedarf): Das konkrete Verlangen nach einem Döner-Teller, gepaart mit der Kaufkraft (ihm steht Kleingeld zur Verfügung), ist der Bedarf.\nc) 1 (Nachfrage): Durch die tatsächliche Bestellung wird der Bedarf zur Nachfrage am Markt.",
+      "videoUrl": "https://www.youtube.com/embed/OZglFWJ_QAs"
+    },
+    {
+      "id": "1.02",
+      "question": "1.02 Güterbeziehungen\n\nGüter besitzen die Eigenschaft, sich gegenseitig ersetzen oder im Güterverbund sinnvoll ergänzen zu können. Man spricht dann von Substitutions- bzw. Komplementärgütern.\n\nOrdnen Sie zu, indem Sie die Kennziffern der 2 Güterbeziehungen in die Kästchen neben den Güterarten eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nGüterbeziehungen\n1. Substitutionsgüter      2. Komplementärgüter\n\nGüterarten\n\na) Füllfederhalter/Tintenkiller\nb) Glasflasche/Plastikflasche\nc) Butter/Margarine\nd) Auto/Benzin\ne) Elektrogeräte/Strom\nf) Holzrahmen/Kunststoffrahmen\ng) Zugmaschine/Anhänger\nh) Pfeife/Tabak\ni) Ölheizung/Gasheizung\n\n(Bitte geben Sie die 9 Lösungsziffern von a) bis i) direkt hintereinander ein, z.B. 121212...)",
+      "expectedAnswers": [
+        "211221221"
+      ],
+      "inputType": "number",
+      "rationale": "a) 2: Tintenkiller werden für Füllfederhalter benutzt, sie ergänzen sich.\nb) 1: Glas- und Plastikflaschen erfüllen den gleichen Zweck und ersetzen sich.\nc) 1: Butter und Margarine sind Ersatzprodukte füreinander.\nd) 2: Ein Auto braucht Benzin.\ne) 2: Elektrogeräte brauchen Strom.\nf) 1: Man wählt entweder Holz oder Kunststoff.\ng) 2: Eine Zugmaschine zieht einen Anhänger.\nh) 2: Eine Pfeife wird mit Tabak geraucht.\ni) 1: Öl- und Gasheizung sind alternative Heizsysteme.",
+      "videoUrl": "https://www.youtube.com/embed/ZtPgplQxxWk"
+    },
+    {
+      "id": "1.03",
+      "question": "1.03 Güterarten\n\nOrdnen Sie zu, indem Sie die Kennziffern der nachfolgend genannten Gütereinteilungsmerkmale in die Kästchen hinter den unten stehenden Beispielen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern von links nach rechts in den Lösungsbogen.\n\nGütereinteilungsmerkmale\n1. Konsum- und Verbrauchsgut\n2. Konsum- und Gebrauchsgut\n3. Produktions- und Verbrauchsgut\n4. Produktions- und Gebrauchsgut\n\nBeispiele\na) Die Tonerkartuschen des Laserdruckers im Vertrieb werden erneuert.\nb) Jasmin Hauser, Geschäftsführerin der Office Experten, kauft einen Schreibtisch für das Zimmer ihres Sohnes.\nc) Prokurist Alexandrakis Mostakis erwirbt für sein Ferienhäuschen in Griechenland eine Einbauküche.\nd) Nadja Lopez aus der Abteilung Rechnungswesen bucht für ihren Jahresurlaub eine 7-tägige Kreuzfahrt durch das Mittelmeer.\ne) Die Office Experten ordern 30 Kartons Druckerpapier zu je 2.500 Blatt.\nf) Benjamin Klein, Gesellschafter der Office Experten, lässt sich wegen eines Rechtsstreits mit seinem Nachbarn von einem Fachanwalt kostenpflichtig beraten.\ng) Alexandrakis Mostakis kauft für die Office Experten einen neuen Gabelstapler für das Auslieferungslager.\nh) Die Office Experten schließen mit einem Regionalstromanbieter einen Vertrag über die Mindestabnahme eines Stromkontingents.\ni) Geschäftsführerin Jasmin Hauser tankt Benzin für eine Geschäftsreise mit dem Firmen-PKW.\nj) Nadine Esser, Mitarbeiterin der IT-Abteilung, kauft Tintenpatronen für ihren Drucker im häuslichen Arbeitszimmer, den sie auch für private Ausdrucke nutzt.\n\n(Bitte geben Sie die 10 Lösungsziffern von a) bis j) direkt hintereinander ein, z.B. 123412...)",
+      "expectedAnswers": [
+        "3221314331"
+      ],
+      "inputType": "number",
+      "rationale": "a) 3 (Toner = Verbrauchsgut, Einsatz im Betrieb = Produktion)\nb) 2 (Schreibtisch = Gebrauchsgut, privat = Konsum)\nc) 2 (Einbauküche = Gebrauchsgut, privat = Konsum)\nd) 1 (Urlaub/Dienstleistung = Verbrauchsgut logisch betrachtet, privat = Konsum)\ne) 3 (Papier = Verbrauchsgut, Betrieb = Produktion)\nf) 1 (Beratung/Dienstleistung = Verbrauchsgut, privat wegen Nachbarschaftsstreit = Konsum)\ng) 4 (Gabelstapler = Gebrauchsgut, Betrieb = Produktion)\nh) 3 (Strom = Verbrauchsgut, Betrieb = Produktion)\ni) 3 (Benzin = Verbrauchsgut, Geschäftsreise/Betrieb = Produktion)\nj) 1 (Tintenpatrone = Verbrauchsgut, da \"auch privat\" = dominanter Privatnutzen im Modellfall = Konsum)",
+      "videoUrl": "https://www.youtube.com/embed/uGvMP0tnneA"
+    },
+    {
+      "id": "1.04",
+      "question": "1.04 Ziele des Betriebes\n\nDie Office Experten verfolgen\n\n1. sachliche Ziele\n2. ökonomische Ziele\n3. ökologische Ziele\n4. soziale Ziele\n\nOrdnen Sie zu, indem Sie die Kennziffern der Ziele in die Kästchen hinter den Beispielen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nBeispiele\na) Zukünftig soll verstärkt auf die Verwendung von recycelten Stoffen geachtet werden. Deren Anteil soll in den nächsten fünf Jahren auf 30 % ansteigen.\n\nb) Durch gezielte innerbetriebliche Fortbildung sollen den Mitarbeitern Aufstiegschancen eröffnet und die Zufriedenheit gesteigert werden.\n\nc) Durch flexible Arbeitszeitmodelle sollen den Mitarbeitern mehr eigene Gestaltungsmöglichkeiten gegeben werden.\n\nd) Durch die Beschränkung auf wenige Zulieferer bei den Materialien sollen die Konditionen verbessert werden.\n\ne) In den kommenden Jahren soll ein besonderer Fokus auf die Ausweitung der Auslandsmärkte gelegt werden.\n\nf) Die Eigenkapitalrentabilität soll durch die neuen Auslandskunden langfristig verdoppelt werden.\n\n(Bitte geben Sie die 6 Lösungsziffern von a) bis f) direkt hintereinander ein, z.B. 123412)",
+      "expectedAnswers": [
+        "344212"
+      ],
+      "inputType": "number",
+      "rationale": "a) 3 (Ökologisches Ziel: Umweltschutz/Recycling)\nb) 4 (Soziales Ziel: Mitarbeiterförderung und Zufriedenheit)\nc) 4 (Soziales Ziel: Gute Arbeitsbedingungen / Flexibilität)\nd) 2 (Ökonomisches Ziel: Kosten-/Konditionenverbesserung)\ne) 1 (Sachliches Ziel: Ausweitung der Auslandsmärkte beschreibt eine konkrete Handlung/Marktpräsenz)\nf) 2 (Ökonomisches Ziel: Gewinn/Rentabilität)",
+      "videoUrl": "https://www.youtube.com/embed/EkUfudhTusI"
+    },
+    {
+      "id": "1.05",
+      "question": "1.05 Zielbeziehungen\n\nBei den Zielen des Betriebes kann es sich um\n\n1. komplementäre Ziele\n2. konkurrierende Ziele\n3. indifferente Ziele\n\nhandeln.\n\nOrdnen Sie zu, indem Sie die Kennziffern der Zielbeziehungen in die Kästchen hinter den Beispielen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nBeispiele\n\na) Ziel 1: Die Kosten sollen im folgenden Jahr um 7 % gesenkt werden.\nZiel 2: Die Gesamtkapitalrentabilität soll um 2 % erhöht werden.\n\nb) Ziel 1: Die Ausschussquote soll auf 3 % abgesenkt werden.\nZiel 2: Der Jahresabschluss soll zukünftig bereits Ende Januar fertiggestellt sein.\n\nc) Ziel 1: Der durchschnittliche Lagerbestand bei den Waren soll um 20 % gesenkt werden.\nZiel 2: Die Lieferfähigkeit soll um 10 % erhöht werden.\n\nd) Ziel 1: Erhöhung der Kundenzufriedenheit auf 90 %.\nZiel 2: Absenkung der Rückläuferquote auf 5 %.\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1231)",
+      "expectedAnswers": [
+        "1321"
+      ],
+      "inputType": "number",
+      "rationale": "a) 1 (Komplementär: Niedrigere Kosten führen automatisch zu höherem Gewinn/Rentabilität)\nb) 3 (Indifferent: Produktionsausschuss und Buchhaltungstermine beeinflussen sich nicht gegenseitig)\nc) 2 (Konkurrierend: Geringerer Lagerbestand bedeutet weniger Ware auf Abruf bereit, was der Lieferfähigkeit schaden kann)\nd) 1 (Komplementär: Weniger fehlerhafte Rückläuferprodukte = glücklichere Kunden)",
+      "videoUrl": "https://www.youtube.com/embed/Igv8l6UW4LE"
+    },
+    {
+      "id": "1.06",
+      "question": "1.06 Betriebswirtschaftliche Funktionen\n\nBei den Office Experten werden die folgenden betriebswirtschaftlichen Funktionen wahrgenommen:\n1. Absatz      2. Beschaffung      3. Leitung      4. Finanzierung      5. Produktion\n\nOrdnen Sie zu, indem Sie die Kennziffern der Funktionen in die Kästchen hinter den Einzelaufgaben eintragen. Übertragen Sie anschließend die senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nEinzelaufgaben\na) Der Lieferant von Aluminiumprofilen für die Regalsysteme wird in Lieferungsverzug gesetzt.\nb) Die Schreibtischstühle werden vor dem Versand auf ihre Funktionsfähigkeit überprüft.\nc) Der Bedarf an Buchenholz für die nächsten drei Monate wird disponiert.\nd) Aktualisierung der Verkaufspreise im Internetshop.\ne) Bezahlung der fälligen Lieferantenverbindlichkeiten.\nf) Testen einer neuen Hydraulik für Schreibtischstühle.\ng) Entscheidung über die Schaffung einer Stabsstelle für Rechtsfragen wird getroffen.\n\n(Bitte geben Sie die 7 Lösungsziffern von a) bis g) direkt hintereinander ein, z.B. 1234512)",
+      "expectedAnswers": [
+        "2521453"
+      ],
+      "inputType": "number",
+      "rationale": "a) 2 (Beschaffung regelt die Lieferantenbeziehungen)\nb) 5 (Produktion: Endkontrolle/Warenausgangsprüfung gehört zum Fertigungs- und Qualitätsprozess)\nc) 2 (Beschaffung umfasst die Materialdisposition)\nd) 1 (Absatz regelt das Marketing und den Vertrieb, zu dem auch die Preispolitik gehört)\ne) 4 (Finanzierung kümmert sich um den Zahlungsverkehr)\nf) 5 (Produktion: Forschung & Entwicklung bzw. Qualitätsmanagement fällt in den operativen Leistungserstellungsprozess)\ng) 3 (Leitung: Strategische Organisationsentscheidungen obliegen der Führungsebene)",
+      "videoUrl": "https://www.youtube.com/embed/TqoäL7blOk"
+    },
+    {
+      "id": "1.07",
+      "question": "1.07 Betriebswirtschaftliche Produktionsfaktoren\n\nDie Office Experten verfügen u.a. über folgende Vermögensgegenstände:\n1. Betriebs- und Geschäftsausstattung\n2. Warenvorräte\n\nund haben folgende Beschäftigte:\n3. Geschäftsführerin u. leitende Angestellte\n4. weisungsgebundene Angestellte u. Auszubildende\n\nOrdnen Sie die zutreffenden Kennziffern der vorstehenden Angaben den unten aufgeführten Produktionsfaktoren zu. Übertragen Sie anschließend die senkrecht angeordneten Lösungsziffern von links nach rechts in den Lösungsbogen.\n\nProduktionsfaktoren (aus betrieblicher Sicht)\na) Dispositiver Faktor\nb) Werkstoffe\nc) Betriebsmittel\nd) (ausführende) Arbeit\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1234)",
+      "expectedAnswers": [
+        "3214"
+      ],
+      "inputType": "number",
+      "rationale": "a) 3 (Der dispositive Faktor ist die menschliche Planungs- und Organisationsarbeit, also die Führung/Leitung)\nb) 2 (Werkstoffe sind Materialien, die ins Produkt eingehen, was hier den im Lager liegenden Warenvorräten entspricht)\nc) 1 (Betriebsmittel sind Gegenstände, die nicht ins Produkt eingehen, sondern der Erstellung dienen, wie die BGA)\nd) 4 (Ausführende Arbeit ist die menschliche körperliche oder geistige Arbeit nach Anweisung)",
+      "videoUrl": "https://www.youtube.com/embed/v0-xBUm6gio"
+    },
+    {
+      "id": "1.08",
+      "question": "1.08 Betriebswirtschaftliche Produktionsfaktoren\n\nZur Herstellung eines Holzschrankes benötigen die Office Experten folgende Produktionsfaktoren:\n\n1. Rohstoffe\n2. Hilfsstoffe\n3. Betriebsstoffe\n4. Betriebsmittel\n\nOrdnen Sie zu, indem Sie die Kennziffer des jeweiligen Produktionsfaktors in die Kästchen neben den Beispielen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nBeispiele\n\na) Tischkreissäge\nb) Nägel\nc) Gummipuffer\nd) Holz\ne) Bohrmaschine\nf) Öl zum Versiegeln der Holzporen\ng) Leim\nh) Schmierfett der Tischkreissäge\n\n(Bitte geben Sie die 8 Lösungsziffern von a) bis h) direkt hintereinander ein, z.B. 12341234)",
+      "expectedAnswers": [
+        "42214223"
+      ],
+      "inputType": "number",
+      "rationale": "a) 4 (Tischkreissäge: Anlage/Maschine = Betriebsmittel)\nb) 2 (Nägel: Gehen als Nebenbestandteil direkt in das Produkt ein = Hilfsstoffe)\nc) 2 (Gummipuffer: Gehen als Nebenbestandteil in das Produkt ein = Hilfsstoffe)\nd) 1 (Holz: Hauptbestandteil des Produkts = Rohstoff)\ne) 4 (Bohrmaschine: Werkzeug/Maschine = Betriebsmittel)\nf) 2 (Öl zum Versiegeln: Geht als Nebenbestandteil direkt in die Poren des Möbelstücks ein = Hilfsstoffe)\ng) 2 (Leim: Geht als Nebenbestandteil in das Produkt ein = Hilfsstoffe)\nh) 3 (Schmierfett: Wird bei der Produktion verbraucht, geht aber nicht in das Endprodukt (Holzschrank) ein = Betriebsstoffe)",
+      "videoUrl": "https://www.youtube.com/embed/QYQUJR10x_Q"
+    },
+    {
+      "id": "1.09",
+      "question": "1.09 Austausch von Produktionsfaktoren\n\nIn welchen der unten beschriebenen Fällen handelt es sich um eine\n\na) Ersatzinvestition innerhalb desselben Produktionsfaktors?\nb) Investition, bei der ein Produktionsfaktor durch einen anderen ersetzt wird?\n\nFälle\n\n1. Heinz Knecht, Mitarbeiter der Personalabteilung bei den Office Experten, scheidet zum Quartalsende aus Altersgründen aus; als Nachfolgerin wird die 22-jährige Ann-Kathrin Weber eingestellt.\n2. Der Auszubildende Lukas Schlitt soll nach Ende der Ausbildung eine Stelle im Einkauf übernehmen.\n3. Die frei werdende Teilzeitstelle für Registraturtätigkeiten soll nicht neu besetzt werden.\n4. Die Office Experten wollen ihre Hard- und Software stärker ausbaün, um den Verkauf über ihren Online-Shop weiter voranzutreiben. Eine zu einem Mitbewerber gewechselte Vertriebsmitarbeiterin soll deswegen nicht ersetzt werden.\n\n(Bitte geben Sie die 2 Lösungsziffern für a) und b) direkt hintereinander ein, z.B. 12)",
+      "expectedAnswers": [
+        "14"
+      ],
+      "inputType": "number",
+      "rationale": "a) 1 (Mensch durch Mensch: Ein ausscheidender Mitarbeiter wird durch eine neue Mitarbeiterin ersetzt. Der Produktionsfaktor Arbeit wird durch den gleichen Faktor Arbeit substituiert = Ersatzinvestition).\nb) 4 (Mensch durch Maschine: Eine Vertriebsmitarbeiterin wird nicht ersetzt, stattdessen wird auf Hard-/Software gesetzt. Der Produktionsfaktor Arbeit wird durch Kapital/Betriebsmittel ersetzt = Substitutionsinvestition / Rationalisierung).",
+      "videoUrl": "https://www.youtube.com/embed/gxgvGed73r4"
+    },
+    {
+      "id": "1.10",
+      "question": "1.10 Arbeitsteilung\n\nBei welchem der folgenden Sachverhalte bei den Office Experten handelt es sich um eine betriebliche Arbeitsteilung?\n\n1. Einige tropische Holzsorten werden aus Wiederaufforstungen aus Indonesien bezogen.\n2. Bürostühle durchlaufen die Abteilungen Metallbearbeitung, Polsterei und Montage.\n3. Die Hydraulik für höhenverstellbare Schreibtische wird bei einem Hersteller im Hunsrück gekauft.\n4. Der Verkauf ins Ausland erfolgt über selbstständige Importgesellschaften des jeweiligen Landes.\n5. Die Implementierung einer neuen Software in ein vorhandenes Netzwerk wird durch ein spezialisiertes Softwarehaus vorgenommen.\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+      "expectedAnswers": [
+        "2"
+      ],
+      "inputType": "number",
+      "rationale": "Lösung: 2. Die betriebliche (bzw. innerbetriebliche) Arbeitsteilung beschreibt die Zerlegung eines Arbeitsablaufs in Teilverrichtungen innerhalb eines (!) Unternehmens. In diesem Fall wird die Herstellung der Bürostühle in die Abteilungen Metallbearbeitung, Polsterei und Montage unterteilt. \n\nDie anderen Antworten stellen (inter)nationale oder überbetriebliche Arbeitsteilung dar.",
+      "videoUrl": "https://www.youtube.com/embed/VR_aw_lhnnw"
+    },
+    {
+      "id": "1.11",
+      "question": "1.11 Arbeitsteilung\n\nDurch Arbeitsteilung lässt sich die Effizienz des Produktionsfaktors Arbeit wesentlich verbessern. Je nach Arbeitsbereich unterscheidet man folgende\n\nArten der Arbeitsteilung\n\n1. Berufsbildung\n2. Berufsspaltung\n3. Produktionsteilung\n4. Arbeitszerlegung\n\nOrdnen Sie zu, indem Sie die Kennziffern der Arbeitsteilungsarten in die Kästchen neben den nachstehenden Aussagen eintragen. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nAussagen\n\na) Die Arbeit eines Tischlers zur Herstellung eines Büromöbels (z. B. Schreibtisch) kann zum Zwecke der industriellen Fertigung in folgende Teilleistungen aufgeteilt werden: Holzzuschnitt, Holzfeinschnitt, Hobeln, Schleifen, Leimen, Furnieren, Lackieren, Beschlagen etc.\n\nb) Aufgrund individüller Fähigkeiten und Neigungen entstanden Grundberufe wie Bäcker, Mechaniker, Kaufmann oder akademische Berufe wie Lehrer, Ärzte, Juristen.\n\nc) Mit zunehmender Technisierung und Spezialisierung sind dann später kaufmännische Ausbildungsberufe wie Informatikkaufleute oder Kaufleute für Büromanagement bzw. gewerbliche wie Mechatroniker und Industriemechaniker oder freie Berufe wie Augenärzte und Zahnärzte oder Rechtsanwälte und Notare entstanden.\n\nd) Ein Montagebetrieb der Automobilindustrie bezieht Reifen, Elektronikteile und Schrauben von verschiedenen Zulieferbetrieben; ein Schraubenproduzent beliefert Automobilbaür, Baumärkte und Küchenhersteller.\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1234)",
+      "expectedAnswers": [
+        "4123"
+      ],
+      "inputType": "number",
+      "rationale": "a) 4 (Arbeitszerlegung: Aufteilung des gesamten Arbeitsablaufs in elementare Teilarbeitsschritte innerhalb eines Betriebs).\nb) 1 (Berufsbildung: Es entwickeln sich aufgrund von Neigungen allgemeine Hauptberufe wie Bäcker, Kaufmann).\nc) 2 (Berufsspaltung: Die Grundberufe spalten sich in spezialisierte Teilberufe auf, wie Informatikkaufmann, Zahnarzt).\nd) 3 (Produktionsteilung: Ein Produkt wird über mehrere, voneinander getrennte Spezial-Betriebe bzw. Wertschöpfungsstufen hinweg hergestellt = überbetriebliche Arbeitsteilung).",
+      "videoUrl": "https://www.youtube.com/embed/IBAASGjCRyw"
+    },
+    {
+      "id": "1.12",
+      "question": "1.12 Volkswirtschaftliche Produktionsfaktoren\n\nBoden – Arbeit – Kapital heißen die drei volkswirtschaftlichen Produktionsfaktoren.\n\nWelches der folgenden Beispiele bezeichnet eine Vorstufe zu einem dieser Faktoren?\n\nBeispiele\n\n1. Bebaute Grundstücke\n2. Unbebaute Grundstücke\n3. Werkzeuge\n4. Maschinen\n5. Verkaufspersonal\n6. Personalchef\n7. Bankguthaben\n8. Warenvorräte\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+      "expectedAnswers": [
+        "7"
+      ],
+      "inputType": "number",
+      "rationale": "Lösung: 7 (Bankguthaben). Bankguthaben stellt *Geldkapital* dar. Das Geldkapital ist volkswirtschaftlich gesehen noch kein unmittelbarer Produktionsfaktor. Es bildet lediglich die Vorstufe, weil mit ihm erst *Realkapital* (Werkzeuge, Maschinen) erworben werden muss, um tatsächlich produzieren zu können. Die Faktoren Boden (1, 2), Arbeit (5, 6) und Realkapital (3, 4, 8) sind hingegen originäre bzw. direkte Faktoren.",
+      "videoUrl": "https://www.youtube.com/embed/kD6KE0hrJgc"
+    },
+    {
+      "id": "1.14",
+      "question": "1.14 Finanzierungsarten\n\nOrdnen Sie die Kennziffern für die fehlenden Begriffe den nachfolgenden Finanzierungsarten zu. Übertragen Sie anschließend Ihre senkrecht angeordneten Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\na) Außenfinanzierung\nb) Fremdfinanzierung\nc) Eigenfinanzierung\nd) Innenfinanzierung\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1234)",
+      "svgCode": "<svg viewBox=\"0 0 600 170\" xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color: transparent;\"><rect x=\"10\" y=\"10\" width=\"580\" height=\"150\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" /><line x1=\"10\" y1=\"40\" x2=\"590\" y2=\"40\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><line x1=\"10\" y1=\"130\" x2=\"590\" y2=\"130\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><line x1=\"155\" y1=\"40\" x2=\"155\" y2=\"130\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><line x1=\"300\" y1=\"40\" x2=\"300\" y2=\"130\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><line x1=\"445\" y1=\"40\" x2=\"445\" y2=\"130\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><line x1=\"445\" y1=\"10\" x2=\"445\" y2=\"40\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><line x1=\"300\" y1=\"130\" x2=\"300\" y2=\"160\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><text x=\"20\" y=\"65\" fill=\"#e2e8f0\" font-size=\"14\">Finanzierung aus</text><text x=\"20\" y=\"85\" fill=\"#e2e8f0\" font-size=\"14\">Abschreibungen</text><text x=\"165\" y=\"65\" fill=\"#e2e8f0\" font-size=\"14\">Finanzierung aus</text><text x=\"165\" y=\"85\" fill=\"#e2e8f0\" font-size=\"14\">nicht entnommenen</text><text x=\"165\" y=\"105\" fill=\"#e2e8f0\" font-size=\"14\">Gewinnen</text><text x=\"310\" y=\"65\" fill=\"#e2e8f0\" font-size=\"14\">Finanzierung</text><text x=\"310\" y=\"85\" fill=\"#e2e8f0\" font-size=\"14\">über Einlagen</text><text x=\"455\" y=\"65\" fill=\"#e2e8f0\" font-size=\"14\">Finanzierung</text><text x=\"455\" y=\"85\" fill=\"#e2e8f0\" font-size=\"14\">über Kredite</text><text x=\"227.5\" y=\"30\" fill=\"#e2e8f0\" font-size=\"16\" font-weight=\"bold\" text-anchor=\"middle\">1</text><text x=\"517.5\" y=\"30\" fill=\"#e2e8f0\" font-size=\"16\" font-weight=\"bold\" text-anchor=\"middle\">2</text><text x=\"155\" y=\"150\" fill=\"#e2e8f0\" font-size=\"16\" font-weight=\"bold\" text-anchor=\"middle\">3</text><text x=\"445\" y=\"150\" fill=\"#e2e8f0\" font-size=\"16\" font-weight=\"bold\" text-anchor=\"middle\">4</text></svg>",
+      "expectedAnswers": [
+        "4213",
+        "4 2 1 3"
+      ],
+      "inputType": "text",
+      "rationale": "Die obige Grafik stellt eine Matrix dar:\n1 = Eigenfinanzierung (beinhaltet Finanzierung z.B. aus Gewinnen und Einlagen)\n2 = Fremdfinanzierung (beinhaltet Kredite)\n3 = Innenfinanzierung (Finanzierung aus eigener betrieblicher Tätigkeit, wie Abschreibungen und einbehaltene Gewinne)\n4 = Außenfinanzierung (Geldmittel fließen von außen zu, z.B. Einlagen oder Kredite)\n\nDaraus folgt die Zuordnung:\na) Außenfinanzierung = 4\nb) Fremdfinanzierung = 2\nc) Eigenfinanzierung = 1\nd) Innenfinanzierung = 3",
+      "videoUrl": "https://www.youtube.com/embed/A5H83qyqBcY"
+    },
+    {
+      "id": "1.15",
+      "question": "1.15 Einlagenfinanzierung\n\nDie Office Experten überprüfen verschiedene Möglichkeiten der Teilfinanzierung einer vollautomatischen Fertigungsstraße für Regalteile.\n\nBei welchen 2 Alternativen handelt es sich um eine Einlagenfinanzierung?\n\n1. Bei der Commerzbank Langenfeld soll ein Darlehen über 150.000 € aufgenommen werden.\n2. Ein neuer Gesellschafter würde 180.000 € ins Unternehmen einbringen.\n3. Jasmin Hauser und Benjamin Klein könnten ihre Beteiligungen um 45.000 € und 120.000 € erhöhen.\n4. Auf die Gewinnausschüttung soll verzichtet werden und stattdessen 145.000 € den Gewinnrücklagen zugeführt werden.\n5. Die über die Umsätze zurückgeflossenen Abschreibungen in Höhe von 196.000 € sollen in die Fertigungsstraße investiert werden.\n\n(Bitte geben Sie die 2 zutreffenden Lösungsziffern aufsteigend direkt hintereinander ein, z.B. 12)",
+      "expectedAnswers": [
+        "23"
+      ],
+      "inputType": "number",
+      "rationale": "Lösung: 2 und 3. Bei der Einlagen- bzw. Beteiligungsfinanzierung wird dem Unternehmen von den Eigentümern/Gesellschaftern von außen Eigenkapital zugeführt (Alternativen 2 und 3). Ein Darlehen (1) ist Fremdfinanzierung von außen. Gewinnrücklagen (4) und Abschreibungen (5) stammen von innen (Innenfinanzierung).",
+      "videoUrl": "https://www.youtube.com/embed/EEGrP1O7tiw"
+    },
+    {
+      "id": "1.16",
+      "question": "1.16 Finanzierungsarten\n\nFür ihre Kapitalbeschaffung haben die Unternehmen verschiedene Möglichkeiten der Finanzierung.\nWelche der folgenden Maßnahmen stellt eine der vorgenannten Finanzierungsarten dar?\n\nOrdnen Sie zu, indem Sie die Kennziffer der jeweils zutreffenden Finanzierungsart in das Kästchen neben der Maßnahme eintragen. Übertragen Sie anschließend Ihre Lösungsziffern von links nach rechts in den Lösungsbogen.\n\nMögliche Finanzierungsarten\n\n1. Außenfinanzierung\n2. Innenfinanzierung\n\nFinanzierungsmaßnahmen\n\na) Die Gesellschafter einer GmbH nehmen gegen Leistung einer Kapitaleinlage von 100.000,00 € den Diplom-Ingenieur Jörg Hätzold als Teilhaber auf.\nb) Mit einer qualifizierten Mehrheit von 75 % beschließt die Hauptversammlung der Bruckner AG die Erhöhung des Grundkapitals durch Ausgabe neuer Aktien.\nc) Der von einer OHG erwirtschaftete Gewinn wird gemäß Gesellschafterbeschluss nur zu 40 % an die Gesellschafter ausgezahlt. Der nicht entnommene Gewinn wird den Kapitalkonten der Gesellschafter zugeschlagen.\nd) Der Einzelhändler Julius Liebig bezieht für insgesamt 80.000,00 € Ware. Das Zahlungsziel von 60 Tagen nutzt er dabei voll aus.\n\n(Bitte geben Sie die 4 Lösungsziffern von a) bis d) direkt hintereinander ein, z.B. 1221)",
+      "expectedAnswers": [
+        "1121"
+      ],
+      "inputType": "number",
+      "rationale": "a) 1 (Außenfinanzierung: Durch Aufnahme eines Teilhabers fließt Eigenkapital von außen in die GmbH = Beteiligungsfinanzierung).\nb) 1 (Außenfinanzierung: Durch Aktienausgabe fließt Eigenkapital von außen in die AG = Beteiligungsfinanzierung).\nc) 2 (Innenfinanzierung: Erwirtschafteter Gewinn wird im Unternehmen einbehalten = Selbstfinanzierung als Form der Innenfinanzierung).\nd) 1 (Außenfinanzierung: Nutzung eines Lieferantenkredits = Das Unternehmen nimmt Fremdkapital von außen in Anspruch).",
+      "videoUrl": "https://www.youtube.com/embed/tSYSzWVvdEA"
+    },
+    {
+      "id": "1.17",
+      "question": "1.17 Insolvenzvoraussetzungen\n\nEin Lieferant der Office-Experten, die Helmich GmbH, muss Insolvenz anmelden.\n\nWelcher der folgenden Gründe stellt eine allgemeine Voraussetzung für die Eröffnung eines Insolvenzverfahrens dar?\n\nGründe\n\n1. Zahlungsunwilligkeit\n2. Kreditunwürdigkeit\n3. Geschäftsunfähigkeit\n4. Zahlungsunfähigkeit\n5. Kreditunfähigkeit\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+      "expectedAnswers": [
+        "4"
+      ],
+      "inputType": "number",
+      "rationale": "Lösung: 4 (Zahlungsunfähigkeit). Gemäß Insolvenzordnung (InsO) ist die tatsächliche *Zahlungsunfähigkeit* (der Schuldner kann fälligen Zahlungspflichten nicht nachkommen) der allgemeine Eröffnungsgrund für ein Insolvenzverfahren. Daneben gibt es für juristische Personen noch die \"Überschuldung\" sowie allgemein die \"drohende Zahlungsunfähigkeit\". Alle anderen genannten Gründe (wie Geschäftsunfähigkeit oder Zahlungsunwilligkeit) sind keine insolvenzrechtlichen Eröffnungsgründe.",
+      "videoUrl": "https://www.youtube.com/embed/jmED9ptgHNE"
+    },
+    {
+      "id": "1.18",
+      "question": "1.18 Insolvenzantrag\n\nBei welchem der folgenden Gerichte muss die Helmich GmbH Antrag auf Eröffnung eines Insolvenzverfahrens stellen?\n\nGericht\n\n1. Finanzgericht\n2. Arbeitsgericht\n3. Sozialgericht\n4. Amtsgericht\n5. Verwaltungsgericht\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+      "expectedAnswers": [
+        "4"
+      ],
+      "inputType": "number",
+      "rationale": "Lösung: 4 (Amtsgericht). Der Antrag auf Eröffnung eines Insolvenzverfahrens ist beim zuständigen Insolvenzgericht zu stellen. Gemäß § 2 InsO (Insolvenzordnung) sind ausschließlich die Amtsgerichte als Insolvenzgerichte zuständig.",
+      "videoUrl": "https://www.youtube.com/embed/cSe1-F09pc4"
+    },
+    {
+      "id": "1.19",
+      "question": "1.19 Insolvenz\n\nDie Folgen falscher Finanzierungsentscheidungen können eine freiwillige Auflösung, zwangsweise Auflösung oder Sanierung eines Unternehmens zur Folge haben. Ordnen Sie zu, indem Sie die nachstehenden Maßnahmen in die Kästchen neben den unten stehenden Aussagen eintragen. Übertragen Sie anschließend Ihre Lösungsziffern von links nach rechts in den Lösungsbogen.\n\nMaßnahmen\n\n1. freiwillige Auflösung\n2. zwangsweise Auflösung\n3. Sanierung\n\nAussagen\n\na) Die Firmenbezeichnung trägt den Zusatz \"i. L.\"\nb) Durch Kapitalherabsetzung wird das Grundkapital einer AG vermindert (Herabstempelung von Aktiennennwerten).\nc) Ein vom Insolvenzgericht bestellter Insolvenzverwalter übernimmt die Verwaltung des Schuldnervermögens.\nd) Um eine Insolvenzquote zu ermitteln, müssen vorher bestimmte Vermögensgegenstände aus- und abgesondert werden.\ne) Gemäß § 146 HGB muss ein sog. Liquidator bestellt werden.\n\n(Bitte geben Sie die 5 Lösungsziffern von a) bis e) direkt hintereinander ein, z.B. 12312)",
+      "expectedAnswers": [
+        "13221"
+      ],
+      "inputType": "number",
+      "rationale": "a) 1 (freiwillige Auflösung: \"i. L.\" steht für \"in Liquidation\", was die Abwicklung des Unternehmens bezeichnet).\nb) 3 (Sanierung: Die nominelle Herabsetzung des Kapitals (z.B. Kapitalschnitt) dient der Verlustabdeckung und Rettung der Gesellschaft).\nc) 2 (zwangsweise Auflösung: Ein Insolvenzverwalter wird im Rahmen eines Insolvenzverfahrens vom Gericht bestellt).\nd) 2 (zwangsweise Auflösung: Aussonderung (z.B. Eigentumsvorbehalt) und Absonderung (z.B. Pfandrechte) sind Kernbegriffe aus dem Insolvenzverfahren bei der Verteilung der Masse).\ne) 1 (freiwillige Auflösung: Liquidatoren wickeln die Gesellschaft außergerichtlich (freiwillig) ab).",
+      "videoUrl": "https://www.youtube.com/embed/iq41XtLXr8U"
+    },
+    {
+      "id": "1.20",
+      "question": "1.20 Finanzierungsarten und Leverage-Effekt\n\nDie Wagenknecht & Weyer OHG hat ihr Unternehmen ausschließlich aus Eigenkapital finanziert. Mit 1 Mio. € erzielt die OHG eine Rendite von 20 %.\n\nDie Gesellschafter überlegen, wie es sich auf die Rentabilität des Eigenkapitals auswirkt, wenn sie 50 % des Eigenkapitals durch Fremdkapital ersetzen würden. Für Fremdmittel müssten derzeit 10 % Zinsen gezahlt werden.\n\na) Berechnen Sie die Rentabilität des Eigenkapitals unter der Annahme, dass 50 % des Eigenkapitals durch Fremdmittel zu 10 % Schuldzins ersetzt und die gleiche Gewinnsituation gelten würde.\n\nb) Berechnen Sie die Rentabilität des Eigenkapitals auch für den Fall, dass 250.000 € Eigenkapital und 750.000 € Fremdkapital unter den gleichen Bedingungen wie oben im Unternehmen eingesetzt werden.\n\nc) Bei welcher der unten genannten Aussagen erhöht sich beim Ersatz von Eigen- durch Fremdkapital die Rentabilität des Eigenkapitals?\n\nAussagen\n1. Gesamtkapitalrendite ist niedriger als der Fremdkapitalzins\n2. Fremdkapitalzins ist niedriger als die Gesamtkapitalrendite\n3. Fremdkapitalzins entspricht der Gesamtkapitalrendite\n\n(Bitte geben Sie die berechneten Prozentsätze für a) und b) (ohne Kommastellen) sowie die Lösungsziffer für c) direkt hintereinander ein, z.B. 30502)",
+      "expectedAnswers": [
+        "30502"
+      ],
+      "inputType": "number",
+      "rationale": "Ausgangslage: EK = 1.000.000 €, Gewinn-Rendite 20 % = 200.000 € (Dies ist auch der Gewinn vor Zinsen).\n\na) 500.000 € EK, 500.000 € FK. Zinsen = 10 % von 500.000 = 50.000 €. Reingewinn = 200.000 (Vor-Zins-Gewinn) - 50.000 = 150.000 €. \nEK-Rentabilität = (150.000 / 500.000) * 100 = 30 %.\n\nb) 250.000 € EK, 750.000 € FK. Zinsen = 10 % von 750.000 = 75.000 €. Reingewinn = 200.000 - 75.000 = 125.000 €.\nEK-Rentabilität = (125.000 / 250.000) * 100 = 50 %.\n\nc) 2: Die EK-Rentabilität steigt durch FK nur dann an, wenn die Kosten für das Fremdkapital (Fremdkapitalzins) niedriger sind als die mit dem Gesamtkapital erwirtschaftete Rendite (Gesamtkapitalrendite). Das nennt man den positiven Leverage-Effekt.",
+      "videoUrl": "https://www.youtube.com/embed/PdgGuOGXMTI"
+    },
+    {
+      "id": "1.21",
+      "question": "1.21 Finanzierung und Kreditsicherung\n\nOrdnen Sie folgende Begriffe aus der Finanzierung und Kreditsicherung den unten aufgeführten Aussagen zu. Übertragen Sie anschließend Ihre Lösungsziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\n1. Leasing\n2. Globalzession\n3. Besitzkonstitut\n4. Factoring\n5. Akzessorietät\n6. Einrede der Vorausklage\n7. Annuität\n\nAussagen\n\na) Die Barwerte kurzfristiger Forderungen aus Lieferungen und Leistungen werden vom Kreditgeber angekauft.\nb) Einem Unternehmen werden bewegliche oder unbewegliche Wirtschaftsgüter des Anlagevermögens zur Nutzung gegen Entgelt überlassen.\nc) Der Kreditgeber übernimmt neben der Delkredere- und Finanzierungsfunktion auch eine Dienstleistungsfunktion.\nd) Die jährliche Belastung, bestehend aus Tilgung und Zinsen, ist für die gesamte Laufzeit des Darlehens konstant.\ne) Es besteht ein untrennbarer rechtlicher Zusammenhang zwischen dem persönlichen Anspruch aus einer Darlehensgewährung und dem dinglichen Anspruch aus einer Hypothek.\nf) Die Übergabe des Sicherungsgutes wird durch einen Vertrag ersetzt, der den Kreditnehmer weiterhin zum unmittelbaren Besitz berechtigt.\ng) Hierauf verzichtet der Bürge im Rahmen einer selbstschuldnerischen Bürgschaft.\nh) Die Sicherungsabtretung der Forderung geschieht bereits zum Zeitpunkt der Forderungsentstehung. Die Debitorenliste hat lediglich deklaratorischen Charakter.\n\n(Bitte geben Sie die 8 Lösungsziffern von a) bis h) direkt hintereinander ein, z.B. 12345671)",
+      "expectedAnswers": [
+        "41475362"
+      ],
+      "inputType": "number",
+      "rationale": "a) 4 (Factoring: Ankauf kurzfristiger Forderungen durch eine Factoring-Gesellschaft)\nb) 1 (Leasing: Nutzungsüberlassung gegen Entgelt)\nc) 4 (Factoring: Der Factor übernimmt Finanzierung, Delkredere und Dienstleistung)\nd) 7 (Annuität: Gleichbleibende jährliche Ratenbelastung bestehend aus Zins und Tilgung)\ne) 5 (Akzessorietät: Abhängigkeit eines Sicherungsrechts vom Bestehen der Forderung)\nf) 3 (Besitzkonstitut: ersetzt die physische Übergabe z.B. bei der Sicherungsübereignung, Schuldner bleibt Besitzer)\ng) 6 (Einrede der Vorausklage: Auf diese verzichtet der Bürge bei der selbstschuldnerischen Bürgschaft, wodurch er sofort in Anspruch genommen werden kann)\nh) 2 (Globalzession: Zukünftige und gegenwärtige Forderungen werden pauschal abgetreten, Debitorenliste dient nur der Deklaration)",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.22",
+      "question": "1.22 Leasing\n\nDie Geschäftsleitung überlegt, die Firmenwagen zukünftig nicht mehr zu kaufen, sondern zu leasen.\nWelche 2 Vorteile verspricht sie sich davon?\n\n1. Gleichmäßige monatliche Liquiditätsbelastung.\n2. Leasing ist in jedem Falle kostengünstiger als ein Kauf.\n3. Leasingverträge können jederzeit gekündigt werden, um den Fuhrpark immer mit den neuesten Modellen auszustatten.\n4. Volle steurliche Absetzbarkeit der Leasingraten.\n5. Am Ende der Grundmietzeit geht das Auto in das Eigentum der Firma über.\n\n(Bitte geben Sie die 2 zutreffenden Lösungsziffern aufsteigend direkt hintereinander ein, z.B. 12)",
+      "expectedAnswers": [
+        "14"
+      ],
+      "inputType": "number",
+      "rationale": "1 (Richtig): Leasingraten sind gleichbleibend und schonen die Liquidität im Vergleich zu einer hohen Einmalzahlung beim Kauf.\n2 (Falsch): Leasing ist in der Summe meist teurer als ein Kauf.\n3 (Falsch): Leasingverträge haben in der Regel feste Grundmietzeiten und können nicht \"jederzeit\" gekündigt werden.\n4 (Richtig): Leasingraten können in voller Höhe als Betriebsausgabe abgesetzt werden.\n5 (Falsch): Am Ende der Grundmietzeit erfolgt die Rückgabe (Eigentumsübergang wäre Mietkauf).",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.23",
+      "question": "1.23 Kreditarten\n\nIm Einkauf verfolgt der Auszubildende Lukas Schlitt eine Diskussion über verschiedene Arten der Kreditfinanzierung. Dabei fallen die Begriffe\n\n1. Darlehen\n2. Lieferantenkredit\n3. Kontokorrentkredit\n\nOrdnen Sie zu, indem Sie die Kennziffern der Kreditarten in die Kästchen hinter den Umschreibungen eintragen. Übertragen Sie anschließend die Kennziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\na) Es handelt sich um einen kurzfristigen Kredit, der den Office Experten von ihrem Holzgroßhändler im Zusammenhang mit dem Einkauf von Material gewährt wird.\nb) Diesen kurzfristigen Kredit gewährt die Postbank Köln den Office Experten für die Überziehung des Geschäftskontos.\nc) Mit diesem langfristigen Kredit der Commerzbank Langenfeld wurde eine neue Drehbank finanziert. Die Rückzahlung erfolgt monatlich in gleichbleibenden Raten.\n\n(Bitte geben Sie die 3 Lösungsziffern von a) bis c) direkt hintereinander ein, z.B. 123)",
+      "expectedAnswers": [
+        "231"
+      ],
+      "inputType": "number",
+      "rationale": "a) 2 (Lieferantenkredit: Kurzkredit des Lieferanten durch Gewährung eines Zahlungsziels nach Wareneingang).\nb) 3 (Kontokorrentkredit: Kreditrahmen zur Überziehung auf dem laufenden Bankkonto).\nc) 1 (Darlehen: Langfristiger Kreditvertrag für Investitionen, typischerweise mit festen Laufzeiten und Raten).",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.24",
+      "question": "1.24 Factoring\n\nDie Office Experten überlegen, ob sie einen Vertrag mit einem Factor abschließen sollen.\n\nWelche Funktion wird dieser nicht übernehmen?\n\n1. Liquiditätsplanung\n2. Delkrederefunktion\n3. Finanzierungsfunktion\n4. Dienstleistungsfunktion\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+      "expectedAnswers": [
+        "1"
+      ],
+      "inputType": "number",
+      "rationale": "Lösung: 1 (Liquiditätsplanung). Ein Factor übernimmt drei Hauptfunktionen: Die Delkrederefunktion (Übernahme des Ausfallrisikos), die Finanzierungsfunktion (Wegen Forderungskauf sofortige Begleichung) und die Dienstleistungsfunktion (Übernahme des Forderungsmanagements/Mahnwesen). Die Liquiditätsplanung bleibt weiterhin Aufgabe des Unternehmens selbst.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.25",
+      "question": "1.25 Kreditsicherungen\n\nZur Absicherung von Krediten stehen folgende Möglichkeiten zur Verfügung:\n\n1. Ausfallbürgschaft\n2. Eigentumsvorbehalt\n3. Sicherungsübereignung\n4. Lombardkredit\n5. Grundpfandrecht\n6. Selbstschuldnerische Bürgschaft\n7. Zessionskredit\n\nOrdnen Sie zu, indem Sie die Kennziffern von 3 der 7 Kreditsicherungen in die Kästchen hinter den Auszügen aus den Vertragsbedingungen eintragen. Übertragen Sie anschließend die Kennziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nAuszüge aus den Vertragsbedingungen\n\na) ... wird auf das Recht zur Einrede der Vorausklage verzichtet ...\nb) ... ist der Kreditnehmer Besitzer, der Kreditgeber Eigentümer der beweglichen Sache ...\nc) ... werden die Wertpapiere zur Sicherheit bei der Bank hinterlegt ...\n\n(Bitte geben Sie die 3 Lösungsziffern von a) bis c) direkt hintereinander ein, z.B. 123)",
+      "expectedAnswers": [
+        "634"
+      ],
+      "inputType": "number",
+      "rationale": "a) 6 (Selbstschuldnerische Bürgschaft: Der Bürge verzichtet auf die Einrede der Vorausklage nach § 771 BGB).\nb) 3 (Sicherungsübereignung: Das rechtliche Eigentum an der Sicherung (z.B. LKW oder Maschine) geht an die Bank über. Der Kreditnehmer behält aber den Besitz, um damit weiter arbeiten zu können).\nc) 4 (Lombardkredit: Darlehen gegen die Verpfändung von Wertpapieren, Bankguthaben oder sonstigen leicht verwertbaren und beweglichen Sachen (Faustpfandkredit)).",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.26",
+      "question": "1.26 Akkreditiv\n\nEine auch von den Office Experten genutzte Zahlungsform im internationalen Handel ist die Zahlung mittels Akkreditiv.\n\nDie folgende Grafik skizziert den üblichen Ablauf eines unbestätigten Akkreditivs:\n\nOrdnen Sie zu, indem Sie die Kennziffern der dargestellten Schritte des Verfahrens (Ziffern 01 bis 11) hinter den folgenden Umschreibungen eintragen. Übertragen Sie anschließend die Kennziffern in dieser Reihenfolge von links nach rechts in den Lösungsbogen.\n\nUmschreibungen\n\na) Anlass für die Eröffnung eines Akkreditivs bildet der Abschluss eines Kaufvertrages.\nb) Die sog. Akkreditivbank belastet das Konto ihres Kunden und händigt ihm die Dokumente (z. B. ein Konnossement) aus, um sie bei Ankunft der Ware vorlegen zu können.\nc) Die sog. Akkreditivstelle avisiert ihrem Kunden, dass das Akkreditiv eröffnet wurde und sendet ihm eine Kopie zu.\nd) Der Käufer beantragt bei seiner Bank die Eröffnung eines Akkreditivs.\ne) Nachdem der Verkäufer die Akkreditivbedingungen geprüft hat, beauftragt er einen Spediteur mit dem Versand der Ware und übergibt ihm eine Kopie des Akkreditivs.\nf) Nachdem der Käufer die Ware erhalten hat, händigt er dem Verfrachter (ggf. Kapitän der Reederei) die Dokumente aus.\n\n(Bitte geben Sie die 12 Lösungsziffern (6x2) von a) bis f) direkt hintereinander ein, z.B. 010203040506)",
+      "svgCode": "<svg viewBox=\"0 0 600 400\" xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color: transparent;\"><defs><marker id=\"arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"rgba(255,255,255,0.8)\" /></marker></defs><rect x=\"20\" y=\"40\" width=\"130\" height=\"60\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" rx=\"8\" /><text x=\"85\" y=\"65\" fill=\"#e2e8f0\" font-size=\"14\" text-anchor=\"middle\">Hausbank</text><text x=\"85\" y=\"85\" fill=\"#e2e8f0\" font-size=\"14\" text-anchor=\"middle\">des Exporteurs</text><rect x=\"350\" y=\"40\" width=\"130\" height=\"60\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" rx=\"8\" /><text x=\"415\" y=\"65\" fill=\"#e2e8f0\" font-size=\"14\" text-anchor=\"middle\">Hausbank</text><text x=\"415\" y=\"85\" fill=\"#e2e8f0\" font-size=\"14\" text-anchor=\"middle\">des Importeurs</text><rect x=\"20\" y=\"200\" width=\"130\" height=\"60\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" rx=\"8\" /><text x=\"85\" y=\"235\" fill=\"#e2e8f0\" font-size=\"14\" text-anchor=\"middle\">Exporteur</text><rect x=\"350\" y=\"200\" width=\"130\" height=\"60\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" rx=\"8\" /><text x=\"415\" y=\"235\" fill=\"#e2e8f0\" font-size=\"14\" text-anchor=\"middle\">Importeur</text><ellipse cx=\"215\" cy=\"330\" rx=\"80\" ry=\"40\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" /><text x=\"215\" y=\"315\" fill=\"#e2e8f0\" font-size=\"12\" text-anchor=\"middle\">Spediteur</text><text x=\"215\" y=\"335\" fill=\"#e2e8f0\" font-size=\"12\" text-anchor=\"middle\">Frachtführer</text><text x=\"215\" y=\"355\" fill=\"#e2e8f0\" font-size=\"12\" text-anchor=\"middle\">Verfrachter</text><line x1=\"150\" y1=\"230\" x2=\"350\" y2=\"230\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-start=\"url(#arrow)\" marker-end=\"url(#arrow)\" /><rect x=\"240\" y=\"215\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"252\" y=\"227\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">01</text><line x1=\"415\" y1=\"200\" x2=\"415\" y2=\"100\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"418\" y=\"142\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"430\" y=\"154\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">02</text><line x1=\"350\" y1=\"60\" x2=\"150\" y2=\"60\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"240\" y=\"45\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"252\" y=\"57\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">03</text><line x1=\"50\" y1=\"100\" x2=\"50\" y2=\"200\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"23\" y=\"142\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"35\" y=\"154\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">04</text><line x1=\"110\" y1=\"260\" x2=\"170\" y2=\"300\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"130\" y=\"260\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"142\" y=\"272\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">05</text><line x1=\"135\" y1=\"320\" x2=\"85\" y2=\"260\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"92\" y=\"295\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"104\" y=\"307\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">06</text><line x1=\"120\" y1=\"200\" x2=\"120\" y2=\"100\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"93\" y=\"142\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"105\" y=\"154\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">07</text><line x1=\"150\" y1=\"80\" x2=\"350\" y2=\"80\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"240\" y=\"65\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"252\" y=\"77\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">08</text><line x1=\"150\" y1=\"215\" x2=\"350\" y2=\"100\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"200\" y=\"145\" width=\"55\" height=\"16\" fill=\"var(--color-bg)\" transform=\"rotate(-30 227 153)\" /><text x=\"227\" y=\"157\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\" transform=\"rotate(-30 227 157)\">Zahlung</text><line x1=\"380\" y1=\"100\" x2=\"380\" y2=\"200\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"353\" y=\"142\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"365\" y=\"154\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">09</text><line x1=\"295\" y1=\"320\" x2=\"350\" y2=\"260\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"310\" y=\"270\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"322\" y=\"282\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">10</text><line x1=\"415\" y1=\"260\" x2=\"415\" y2=\"320\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" /><line x1=\"415\" y1=\"320\" x2=\"295\" y2=\"320\" stroke=\"rgba(255,255,255,0.8)\" stroke-width=\"1.5\" marker-end=\"url(#arrow)\" /><rect x=\"420\" y=\"282\" width=\"24\" height=\"16\" fill=\"var(--color-bg)\" /><text x=\"432\" y=\"294\" fill=\"#94a3b8\" font-size=\"12\" text-anchor=\"middle\">11</text></svg>",
+      "expectedAnswers": [
+        "010904020511"
+      ],
+      "inputType": "number",
+      "rationale": "a) 01 (Abschluss des Kaufvertrags zwischen Importeur und Exporteur ist der Ausgangspunkt).\nb) 09 (Die Akkreditivbank des Importeurs belastet dessen Konto und gibt ihm die Dokumente, mit denen er die Ware in Empfang nehmen kann).\nc) 04 (Die Akkreditivstelle = Hausbank des Exporteurs avisiert ihrem Kunden das eröffnete Akkreditiv).\nd) 02 (Der Importeur beantragt bei seiner Bank die Eröffnung).\ne) 05 (Warenübergabe an den Spediteur nach Prüfung der Akkreditivbedingungen durch den Exporteur).\nf) 11 (Der Importeur übergibt die original Dokumente (z.B. Konnossement/Bill of Lading) an den Verfrachter, um die importierte Ware zu erhalten).",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.27",
+      "question": "1.27 Akkreditiv\n\nWelche 2 Aussagen zum Dokumenten-Akkreditiv sind falsch?\n\n1. Ein Dokumenten-Akkreditiv ist von dem Kaufvertrag, auf dem es wirtschaftlich beruht, völlig getrennt.\n2. Das sicherste und zugleich teurste Akkreditiv ist das bestätigte, unwiderrufliche und befristete Akkreditiv.\n3. Rechtliche Grundlage für die Abwicklung eines Dokumentenakkreditivs bilden die sog. ERI, die von der für den Exporteur zuständigen Industrie- und Handelskammer (IHK) verfasst wurden.\n4. Im Gegensatz zum Dokumenteninkasso wird die Eröffnung des Dokumentenakkreditivs vom Verkäufer beantragt.\n5. Die am Akkreditivverfahren teilnehmende Bank des Importeurs heißt Akkreditivbank.\n6. Bei einem bestätigten Akkreditiv gibt die Akkreditivstelle (i. d. R. die Hausbank des Exporteurs) ein zusätzliches abstraktes Schuldversprechen.\n\n(Bitte geben Sie die 2 zutreffenden Lösungsziffern aufsteigend direkt hintereinander ein, z.B. 12)",
+      "expectedAnswers": [
+        "34"
+      ],
+      "inputType": "number",
+      "rationale": "3 (Falsch): Rechtliche Grundlage sind die Einheitlichen Richtlinien und Gebräuche für Dokumenten-Akkreditive (ERA), verfasst von der Internationalen Handelskammer (ICC) in Paris.\n4 (Falsch): Die Eröffnung eines Dokumentenakkreditivs wird stets vom Käufer (=Importeur) bei seiner Hausbank beantragt.\nAlle anderen Aussagen (1, 2, 5, 6) sind richtig.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.28",
+      "question": "1.28 Lieferantenkredit\n\nDie Wuttke OHG aus Aachen erhält folgende Rechnung (Auszug):\n\na) Die Rechnung wird am 06.04. durch Banküberweisung beglichen. Über wie viel Euro lautet der Überweisungsbetrag?\n\nb) Die Rechnung soll vorzeitig am 19.03. beglichen werden. Über welchen Betrag lautet die Überweisung jetzt?\n\nc) Um die Rechnung skontieren zu können, müsste die Wuttke OHG vorübergehend ihren Kontokorrentkredit in Anspruch nehmen. Die Hausbank berechnet 11 % Sollzinsen.\nKlären Sie, ob die Wuttke OHG den Bankkredit zu 11 % Zinsen in Anspruch nehmen soll, um 3 % Skonto auszunutzen, indem Sie folgende Beträge ermitteln:\n\nca) Höhe der Kreditkosten (Bankzinsen)\ncb) Höhe des Finanzierungserfolges (Differenz zwischen Skontörtrag und Kreditkosten)\ncc) Höhe der Effektivverzinsung (Finanzierungserfolg als Jahreszinssatz, einfache Lösung)\n\n(Bitte geben Sie die 5 errechneten Zahlenwerte als Text, mit Leerzeichen getrennt, direkt hintereinander ein, z.B. 95200 92344 564,32 2291,68 54)",
+      "svgCode": "<svg viewBox=\"0 0 600 450\" xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color: transparent;\"><rect x=\"10\" y=\"10\" width=\"580\" height=\"430\" fill=\"var(--glass-bg)\" stroke=\"var(--glass-border)\" /><text x=\"30\" y=\"40\" fill=\"#e2e8f0\" font-size=\"12\" text-decoration=\"underline\">Office Experten GmbH, Leibnizstr. 14, 40764 Langenfeld</text><text x=\"30\" y=\"80\" fill=\"#e2e8f0\" font-size=\"14\">Wuttke OHG</text><text x=\"30\" y=\"100\" fill=\"#e2e8f0\" font-size=\"14\">Debeystr. 233</text><text x=\"30\" y=\"120\" fill=\"#e2e8f0\" font-size=\"14\">D-52078 Aachen</text><text x=\"350\" y=\"80\" fill=\"#a0äc0\" font-size=\"12\">Telefon: 02173 612-0</text><text x=\"350\" y=\"100\" fill=\"#a0äc0\" font-size=\"12\">Telefax: 02173 612-106</text><text x=\"350\" y=\"120\" fill=\"#a0äc0\" font-size=\"12\">Mail: info@office-experten-gmbh.de</text><text x=\"350\" y=\"160\" fill=\"#e2e8f0\" font-size=\"14\" font-weight=\"bold\">Kundennummer: 1487</text><text x=\"350\" y=\"180\" fill=\"#e2e8f0\" font-size=\"14\" font-weight=\"bold\">Datum: 20..-03-09</text><text x=\"30\" y=\"210\" fill=\"#e2e8f0\" font-size=\"16\" font-weight=\"bold\">Rechnung Nr. 556/88</text><text x=\"30\" y=\"240\" fill=\"#e2e8f0\" font-size=\"12\">Wir lieferten Ihnen 200 Spezialcontainer der Bauart XC 3000 mit den Maßen:</text><text x=\"30\" y=\"255\" fill=\"#e2e8f0\" font-size=\"12\">450 mm x 446 mm x 1755 mm á 400,00 € zuzüglich 19 % MwSt.</text><line x1=\"30\" y1=\"270\" x2=\"570\" y2=\"270\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><text x=\"35\" y=\"285\" fill=\"#e2e8f0\" font-size=\"12\">Menge</text><text x=\"100\" y=\"285\" fill=\"#e2e8f0\" font-size=\"12\">Artikelbezeichnung</text><text x=\"280\" y=\"285\" fill=\"#e2e8f0\" font-size=\"12\">Stückpreis (netto)</text><text x=\"420\" y=\"285\" fill=\"#e2e8f0\" font-size=\"12\">Gesamtpreis (netto)</text><line x1=\"30\" y1=\"295\" x2=\"570\" y2=\"295\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><text x=\"35\" y=\"315\" fill=\"#e2e8f0\" font-size=\"12\">200</text><text x=\"100\" y=\"315\" fill=\"#e2e8f0\" font-size=\"12\">S-Cont. XC 3000</text><text x=\"280\" y=\"315\" fill=\"#e2e8f0\" font-size=\"12\">400,00</text><text x=\"420\" y=\"315\" fill=\"#e2e8f0\" font-size=\"12\">80.000,00</text><text x=\"280\" y=\"335\" fill=\"#e2e8f0\" font-size=\"12\">zuzüglich 19 % MwSt</text><text x=\"420\" y=\"335\" fill=\"#e2e8f0\" font-size=\"12\">15.200,00</text><text x=\"280\" y=\"355\" fill=\"#e2e8f0\" font-size=\"12\" font-weight=\"bold\">Rechnungsbetrag:</text><text x=\"420\" y=\"355\" fill=\"#e2e8f0\" font-size=\"12\" font-weight=\"bold\">95.200,00</text><line x1=\"30\" y1=\"365\" x2=\"570\" y2=\"365\" stroke=\"var(--glass-border)\" stroke-width=\"1\" /><text x=\"30\" y=\"390\" fill=\"#e2e8f0\" font-size=\"12\">Die Rechnung ist zahlbar binnen 30 Tagen netto Kasse oder binnen 10 Tagen unter Abzug von</text><text x=\"30\" y=\"405\" fill=\"#e2e8f0\" font-size=\"12\">3 % Skonto. Der Betrag ist auf eines der unten aufgeführten Konten zu überweisen.</text></svg>",
+      "expectedAnswers": [
+        "95200 92344 564,32 2291,68 54",
+        "95200 92344 564.32 2291.68 54",
+        "9520092344564,322291,6854",
+        "95200923445643222916854",
+        "95200-92344-564,32-2291,68-54",
+        "95200-92344-564.32-2291.68-54"
+      ],
+      "inputType": "text",
+      "rationale": "a) Überweisung am 06.04. (nach 10 Tagen Skontofrist): voller Rechnungsbetrag = 95.200 €.\nb) Überweisung am 19.03. (innerhalb von 10 Tagen): 3% Skonto (2.856 €) abziehen = 92.344 € Überweisungsbetrag.\nc) Es werden 92.344 € finanziert. Der Kreditzeitraum beträgt 20 Tage (30 Tage Zahlungsziel - 10 Tage Skontofrist).\nca) Kreditkosten = (92.344 € * 11 * 20) / (100 * 360) = 564,32 €.\ncb) Finanzierungserfolg = 2.856 € (Skontörsparnis) - 564,32 € (Bankzinsen) = 2.291,68 €.\ncc) Effektivverzinsung als einfacher Jahreszinssatz = (Skontosatz * 360) / Laufzeit = (3 * 360) / 20 = 54 %.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.29",
+      "question": "1.29 Kreditgewährung\n\nWelche 2 der folgenden Aussagen sind falsch?\n\nAussagen\n\n1. Grundvoraussetzung jeder Kreditgewährung ist das Vertraün in die Kreditwürdigkeit und die Leistungsfähigkeit eines Unternehmens.\n2. Kredite zur Finanzierung des Anlagevermögens müssen kurzfristige Laufzeiten haben.\n3. Die Frage der Rentabilität eines Kredites sollte in jedem Fall bereits vor Kreditaufnahme geprüft werden.\n4. Die Kreditgewährung darf beim Kreditgeber auf keinen Fall dazu führen, dass seine eigene Zahlungsbereitschaft (Liquidität) gefährdet wird.\n5. Nicht jeder Kreditwürdige ist auch kreditfähig. Dies gilt auch umgekehrt.\n6. Der Kreditgeber ist der Kreditor (= Gläubiger), der Kreditnehmer der Debitor (= Schuldner).\n7. Zu den verstärkten Personalkrediten zählen neben den Zessionskrediten auch die Bürgschaftskredite.\n8. Realkredite, also dinglich gesicherte Kredite, sind dadurch gekennzeichnet, dass neben der Person des Kreditnehmers noch mindestens eine weitere Person für die Rückzahlung des Kredites haftet.\n9. Beim Kontokorrentkredit gestattet die Bank ihrem Kunden, sein laufendes Geschäftskonto einmalig für einen bestimmten Zweck oder auch laufend bis auf Widerruf zu überziehen.\n10. Bei Krediten, die in gleichbleibenden Jahresleistungen zurückgezahlt werden, sinkt im Laufe der Rückzahlungsjahre der Zinsanteil zugunsten eines verstärkten Tilgungsanteils.\n\n(Bitte geben Sie die 2 zutreffenden Lösungsziffern aufsteigend direkt hintereinander ein, z.B. 12)",
+      "expectedAnswers": [
+        "28"
+      ],
+      "inputType": "number",
+      "rationale": "2 (Falsch): Anlagevermögen bindet Kapital langfristig. Nach der goldenen Finanzierungsregel (Fristenkongrünz) müssen Kredite zur Finanzierung des Anlagevermögens daher langfristige Laufzeiten haben.\n8 (Falsch): Die genannte Definition beschreibt den verstärkten Personalkredit (insb. die Bürgschaft). Ein Realkredit ist durch Sachen (z.B. Grundstücke) oder Rechte besichert, nicht durch eine weitere Person.\nAlle anderen Aussagen (1, 3, 4, 5, 6, 7, 9, 10) sind richtig.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.30",
+      "question": "1.30 Darlehen\n\nDie Office Experten GmbH plant den Bau einer neuen Lagerhalle. Mit der Bauunternehmung wurde ein Bauträgervertrag geschlossen, wonach die Halle mit sämtlichen Innenausbauten und Einrichtungen gemäß Baubeschreibung schlüsselfertig zu übergeben ist. Die Vorkalkulation ergibt ein Finanzierungsvolumen von insgesamt 605.000,00 € (einschließlich aller Anschaffungsnebenkosten). Die Finanzierung soll nach folgendem Plan durchgeführt werden:\n\n- Erhöhung der Stammeinlagen um insgesamt 120.000,00 € Barmittel\n- Veräußerung von Wertpapieren des Umlaufvermögens, Reinerlös 95.000,00 €\n- Auflösung diverser Festgeldkonten bei der Commerzbank Langenfeld, Gesamtbetrag 155.000,00 €\n- Darlehen bei der Commerzbank Langenfeld zu folgenden Konditionen:\n\nKonditionen Darlehen:\nAufnahme am 30. Juni d. J.\nKreditsicherung durch Grundschuld\nZinsfuß: 2,75 % p. a.\nTilgung: 1,5 % p. a.\nZinsen und Tilgung sind halbjährlich zahlbar\n\na) Welche der folgenden Positionen zählt nicht zu den Anschaffungsnebenkosten der Lagerhalle?\n1. Grunderwerbsteur\n2. Kosten der Grundbucheintragung\n3. Notargebühren\n4. Grundsteur\n5. Erschließungskosten\n\nb) Ermitteln Sie die Höhe des benötigten Darlehensbetrages!\n\nc) Mit wie viel Euro wird die Office Experten GmbH am 31.12. d. J. für Zinsen und Tilgung von der Commerzbank belastet?\n\nd) Welche der folgenden Aussagen trifft nicht auf die Art der vereinbarten Kreditsicherung zu?\n1. Die Grundschuld zählt zu den Grundpfandrechten.\n2. Die Grundschuld wird in Abteilung II des Grundbuches eingetragen.\n3. Die Grundschuld ist nicht vom Bestand des Darlehens abhängig.\n4. Die Grundschuld wird verzinst.\n5. Die Grundschuld kann als Brief- oder Buchgrundschuld eingetragen werden.\n\n(Bitte geben Sie die 4 Lösungen für a, b, c und d mit Leerzeichen getrennt ein, z.B. 1 150000 1200.50 3)",
+      "expectedAnswers": [
+        "4 235000 4993,75 2",
+        "4 235000 4993.75 2",
+        "42350004993,752",
+        "42350004993752",
+        "4-235000-4993,75-2",
+        "4-235000-4993.75-2"
+      ],
+      "inputType": "text",
+      "rationale": "a) 4 (Die Grundsteur ist eine laufende Aufwendung/Steur und gehört nicht zu den aktivierungspflichtigen Anschaffungsnebenkosten).\nb) Finanzierungsbedarf: 605.000 € - 120.000 € - 95.000 € - 155.000 € = 235.000 €.\nc) Belastung am 31.12. (für 6 Monate bzw. 180 Tage):\n- Zinsen (halbjährlich): 235.000 € * 2,75% / 2 = 3.231,25 €\n- Tilgung (halbjährlich): 235.000 € * 1,5% / 2 = 1.762,50 €\n- Gesamte Belastung: 3.231,25 € + 1.762,50 € = 4.993,75 €.\nd) 2 (Falsch: Grundpfandrechte wie Grundschuld oder Hypothek werden in Abteilung III des Grundbuches eingetragen, nicht in Abteilung II).",
+      "videoUrl": ""
+    }
+  ]
 }

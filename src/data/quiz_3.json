@@ -81,7 +81,7 @@
           "rationale": "Social-Icons am Preis verbessern die Produktdarstellung nicht direkt und können eher ablenken."
         }
       ],
-      "hint": "Optimiere zuerst die Elemente mit der höchsten visuellen Aufmerksamkeit.",
+      "hint": "Optimiere zürst die Elemente mit der höchsten visuellen Aufmerksamkeit.",
       "youtubeQuery": "Eye Tracking E Commerce Produktbild Preis Usability Optimierung",
       "topic": "Usability & UX"
     },
@@ -114,7 +114,7 @@
       "topic": "Geschäftsmodelle"
     },
     {
-      "question": "Die \"Mountain-Gear GmbH\" plant den Einsatz eines KI-gestützten Analyse- und Steuerungssystems zur Budgetoptimierung ihrer Online-Vertriebskanäle. Welche fundamentale Grenze (Risiko) des KI-Einsatzes muss das Projektteam dabei unbedingt beachten?",
+      "question": "Die \"Mountain-Gear GmbH\" plant den Einsatz eines KI-gestützten Analyse- und Steurungssystems zur Budgetoptimierung ihrer Online-Vertriebskanäle. Welche fundamentale Grenze (Risiko) des KI-Einsatzes muss das Projektteam dabei unbedingt beachten?",
       "answerOptions": [
         {
           "text": "KI-Systeme können grundsätzlich keine Webtracking-Daten auswerten.",
@@ -162,7 +162,7 @@
         {
           "text": "Das ständige Aufnehmen aktueller, aber oft unprofitabler Trendprodukte, um die Kundenbindung zu erhöhen.",
           "isCorrect": false,
-          "rationale": "Unprofitable Trendprodukte widersprechen einer konsequent ertragsorientierten Sortimentspolitik."
+          "rationale": "Unprofitable Trendprodukte widersprechen einer konsequnt ertragsorientierten Sortimentspolitik."
         }
       ],
       "hint": "Im Fokus stehen Marge, Profitabilität und Lagerentlastung.",
@@ -185,16 +185,16 @@
         {
           "text": "Die Einführung von \"Produktbundles\", bei denen zusammenhängende Artikel (z. B. Zelt + Schlafsack) zu einem leicht reduzierten Gesamtpreis angeboten werden.",
           "isCorrect": true,
-          "rationale": "Richtig: Bundles fördern Zusatzkäufe in einem Vorgang und erhöhen den Average Order Value direkt."
+          "rationale": "Richtig: Bundles fördern Zusatzkäufe in einem Vorgang und erhöhen den Average Order Valü direkt."
         },
         {
           "text": "Das Ausblenden von Kundenbewertungen im Checkout-Prozess.",
           "isCorrect": false,
-          "rationale": "Das beeinflusst den Warenkorbwert nicht zielgerichtet und kann Vertrauen reduzieren."
+          "rationale": "Das beeinflusst den Warenkorbwert nicht zielgerichtet und kann Vertraün reduzieren."
         }
       ],
       "hint": "Gesucht ist ein Hebel, der die Warenkorbgröße pro Kauf erhöht.",
-      "youtubeQuery": "Warenkorbwert steigern Produktbundles Cross Selling Average Order Value",
+      "youtubeQuery": "Warenkorbwert steigern Produktbundles Cross Selling Average Order Valü",
       "topic": "A/B-Testing"
     },
     {
@@ -297,7 +297,7 @@
         {
           "text": "Die Einführung von Schlafsäcken mit integrierten technologischen Features (z. B. Powerbanks, beheizbare Elemente).",
           "isCorrect": true,
-          "rationale": "Richtig: Neue technologische Features sind echte Sortimentsinnovation mit neuem Kundennutzen."
+          "rationale": "Richtig: Neü technologische Features sind echte Sortimentsinnovation mit neuem Kundennutzen."
         },
         {
           "text": "Die Auslagerung des gesamten Versands an Amazon FBA.",
@@ -320,7 +320,7 @@
         {
           "text": "Die Entwicklung und Einführung von Eigenmarken in den margenstärksten Kategorien.",
           "isCorrect": true,
-          "rationale": "Richtig: Eigenmarken ermöglichen oft höhere Margen und bessere Steuerung der Rentabilität."
+          "rationale": "Richtig: Eigenmarken ermöglichen oft höhere Margen und bessere Steurung der Rentabilität."
         },
         {
           "text": "Das Anbieten von kostenlosem Premium-Versand ohne Mindestbestellwert für alle Artikel.",
@@ -333,7 +333,7 @@
           "rationale": "Das bindet Kapital und Lagerfläche, häufig ohne ausreichenden Ertrag."
         }
       ],
-      "hint": "Ertragsorientierung bedeutet: Marge und Profitabilität zuerst.",
+      "hint": "Ertragsorientierung bedeutet: Marge und Profitabilität zürst.",
       "youtubeQuery": "Eigenmarke höhere Marge Sortimentsstrategie ertragsorientiert",
       "topic": "Sortiment & Ertrag"
     },
@@ -384,7 +384,7 @@
           "rationale": "Aus den Daten folgt nicht automatisch ein reines Farbproblem."
         },
         {
-          "text": "Die Produkte im Shop sind generell zu teuer, weshalb die Nutzer sofort abspringen.",
+          "text": "Die Produkte im Shop sind generell zu teur, weshalb die Nutzer sofort abspringen.",
           "isCorrect": false,
           "rationale": "Preisprobleme erklären die starke Suchfeldnutzung nicht unmittelbar."
         }
@@ -468,9 +468,9 @@
           "rationale": "FBA ist ein Logistik- und Service-Modell, keine Produktionsleistung."
         },
         {
-          "text": "Die automatische Steuererklärung für den Händler am Jahresende.",
+          "text": "Die automatische Steurerklärung für den Händler am Jahresende.",
           "isCorrect": false,
-          "rationale": "Steuerliche Pflichten verbleiben beim Unternehmen bzw. dessen Steuerberatung."
+          "rationale": "Steurliche Pflichten verbleiben beim Unternehmen bzw. dessen Steurberatung."
         }
       ],
       "hint": "Denke an Aufgaben nach dem Kaufprozess: Support, Retouren, Erstattungen.",
@@ -486,7 +486,7 @@
           "rationale": "Das ist keine direkte wirtschaftliche Erfolgsmetrik für die Kampagnenentscheidung."
         },
         {
-          "text": "Die Anzahl der verwendeten HTML-Zeichen im Quellcode.",
+          "text": "Die Anzahl der verwendeten HTML-Zeichen im Qüllcode.",
           "isCorrect": false,
           "rationale": "Code-Länge ist kein valider KPI für Umsatzwirksamkeit einer Landingpage."
         },
@@ -496,7 +496,7 @@
           "rationale": "Richtig: Mehr Verkäufe allein reichen nicht; mit AOV ergibt sich erst die echte Umsatzwirkung pro Variante."
         },
         {
-          "text": "Die genaue Uhrzeit, zu der die Programmierer den Test gestartet haben.",
+          "text": "Die genaü Uhrzeit, zu der die Programmierer den Test gestartet haben.",
           "isCorrect": false,
           "rationale": "Zeitpunktdetails sind nicht die zentrale wirtschaftliche Vergleichsgröße zwischen Varianten."
         }
@@ -534,7 +534,7 @@
       "topic": "Influencer Marketing"
     },
     {
-      "question": "Ein Online-Shop mit einem hohen sechsstelligen Marketingbudget entscheidet sich, ein KI-gestütztes Steuerungssystem einzuführen. In welchem der folgenden Bereiche kann eine KI im Bereich des Vertriebs und Marketings den größten Mehrwert durch Automatisierung liefern?",
+      "question": "Ein Online-Shop mit einem hohen sechsstelligen Marketingbudget entscheidet sich, ein KI-gestütztes Steurungssystem einzuführen. In welchem der folgenden Bereiche kann eine KI im Bereich des Vertriebs und Marketings den größten Mehrwert durch Automatisierung liefern?",
       "answerOptions": [
         {
           "text": "Bei der physischen Endmontage der Produkte in der Lagerhalle.",
@@ -552,9 +552,9 @@
           "rationale": "Das ist kein typischer Einsatzbereich für Vertriebs-/Marketing-KI."
         },
         {
-          "text": "Bei der Erstellung der jährlichen Gewerbesteuererklärung für das Finanzamt.",
+          "text": "Bei der Erstellung der jährlichen Gewerbesteurerklärung für das Finanzamt.",
           "isCorrect": false,
-          "rationale": "Steuererklärungen liegen außerhalb des beschriebenen Marketing-Optimierungskontexts."
+          "rationale": "Steurerklärungen liegen außerhalb des beschriebenen Marketing-Optimierungskontexts."
         }
       ],
       "hint": "Gesucht ist ein Einsatzgebiet mit direktem Hebel auf Kanalperformance und Budgeteffizienz.",
@@ -562,7 +562,7 @@
       "topic": "KI in Disposition"
     },
     {
-      "question": "Die Implementierung von KI-Systemen ist teuer und komplex. Dennoch nehmen viele Handelsunternehmen diese Hürde auf sich, um sich aus strategischer Perspektive im Wettbewerb zu behaupten. Was ist eine zentrale strategische Chance beim Einsatz von KI-Analysetools?",
+      "question": "Die Implementierung von KI-Systemen ist teur und komplex. Dennoch nehmen viele Handelsunternehmen diese Hürde auf sich, um sich aus strategischer Perspektive im Wettbewerb zu behaupten. Was ist eine zentrale strategische Chance beim Einsatz von KI-Analysetools?",
       "answerOptions": [
         {
           "text": "Die KI übernimmt die rechtliche Haftung bei Datenschutzverstößen, sodass der Geschäftsführer entlastet wird.",
@@ -590,7 +590,7 @@
       "topic": "KI in Disposition"
     },
     {
-      "question": "Die Alpha-Electronics GmbH wirbt wider besseres Wissen intensiv mit dem irreführenden Slogan Niedrigster Preis in Europa, obwohl die Produkte bei der Konkurrenz nachweislich billiger sind. Dies stellt einen klaren Verstoß gegen das UWG dar. Mit welchen direkten Konsequenzen muss das Unternehmen primär rechnen?",
+      "question": "Die Alpha-Electronics GmbH wirbt wider besseres Wissen intensiv mit dem irreführenden Slogan Niedrigster Preis in Europa, obwohl die Produkte bei der Konkurrenz nachweislich billiger sind. Dies stellt einen klaren Verstoß gegen das UWG dar. Mit welchen direkten Konsequnzen muss das Unternehmen primär rechnen?",
       "answerOptions": [
         {
           "text": "Mit der sofortigen Zwangsenteignung der Lagerbestände durch die IHK.",
@@ -605,10 +605,10 @@
         {
           "text": "Mit einer mehrjährigen Gefängnisstrafe für alle Angestellten der Marketingabteilung.",
           "isCorrect": false,
-          "rationale": "Diese pauschale strafrechtliche Folge ist in diesem Kontext nicht die typische Primärkonsequenz."
+          "rationale": "Diese pauschale strafrechtliche Folge ist in diesem Kontext nicht die typische Primärkonsequnz."
         },
         {
-          "text": "Es gibt keine Konsequenzen, da das UWG im Internet nicht gilt.",
+          "text": "Es gibt keine Konsequnzen, da das UWG im Internet nicht gilt.",
           "isCorrect": false,
           "rationale": "Das UWG gilt selbstverständlich auch im Online-Handel."
         }
@@ -642,16 +642,16 @@
         }
       ],
       "hint": "Nulltreffer sollten immer einen hilfreichen nächsten Schritt anbieten.",
-      "youtubeQuery": "Nulltreffer Online Shop Usability Alternativvorschlaege Suchergebnisse",
+      "youtubeQuery": "Nulltreffer Online Shop Usability Alternativvorschläge Suchergebnisse",
       "topic": "Usability & UX"
     },
     {
-      "question": "Die Mountain-Peak Ausrüstung GmbH implementiert eine KI. Das Ziel ist es, in der operativen Bestandssteuerung die Verfügbarkeit der Waren zu optimieren. Welche der folgenden Aufgaben übernimmt die KI in diesem spezifischen Anwendungsbereich primär?",
+      "question": "Die Mountain-Peak Ausrüstung GmbH implementiert eine KI. Das Ziel ist es, in der operativen Bestandssteurung die Verfügbarkeit der Waren zu optimieren. Welche der folgenden Aufgaben übernimmt die KI in diesem spezifischen Anwendungsbereich primär?",
       "answerOptions": [
         {
           "text": "Die Identifikation von sogenannten Low-Performern im Sortiment.",
           "isCorrect": false,
-          "rationale": "Die Identifikation von Low-Performern gehört primär zur Sortimentsoptimierung, nicht zur operativen Bestandssteuerung."
+          "rationale": "Die Identifikation von Low-Performern gehört primär zur Sortimentsoptimierung, nicht zur operativen Bestandssteurung."
         },
         {
           "text": "Die Analyse von Social-Media-Daten und Suchvolumen zur Trendforschung.",
@@ -661,16 +661,16 @@
         {
           "text": "Die automatische Generierung von Nachbestellvorschlägen und die Berechnung des Sicherheitsbestands.",
           "isCorrect": true,
-          "rationale": "Richtig: Nachbestellvorschläge, Sicherheitsbestand und Out-of-Stock-Vermeidung sind Kernaufgaben der KI in der Bestandssteuerung."
+          "rationale": "Richtig: Nachbestellvorschläge, Sicherheitsbestand und Out-of-Stock-Vermeidung sind Kernaufgaben der KI in der Bestandssteurung."
         },
         {
           "text": "Die Überwachung der saisonalen Schwankungen im vergangenen Kalenderjahr.",
           "isCorrect": false,
-          "rationale": "Die reine historische Beobachtung ist kein primärer operativer Steuerungshebel wie automatische Dispositionsvorschläge."
+          "rationale": "Die reine historische Beobachtung ist kein primärer operativer Steurungshebel wie automatische Dispositionsvorschläge."
         }
       ],
       "hint": "Denke an operative Disposition: Wann und wie viel soll automatisch nachbestellt werden?",
-      "youtubeQuery": "KI Bestandssteuerung Nachbestellvorschlag Sicherheitsbestand Out of Stock",
+      "youtubeQuery": "KI Bestandssteurung Nachbestellvorschlag Sicherheitsbestand Out of Stock",
       "topic": "KI in Disposition"
     },
     {
@@ -702,12 +702,12 @@
       "topic": "KI in Disposition"
     },
     {
-      "question": "Damit eine KI zuverlässige Trend- und Wettbewerbsanalysen durchführen kann, muss sie mit externen Datenströmen abseits der reinen Unternehmenszahlen gefüttert werden. Welche Datenquelle ist hierfür unabdingbar?",
+      "question": "Damit eine KI zuverlässige Trend- und Wettbewerbsanalysen durchführen kann, muss sie mit externen Datenströmen abseits der reinen Unternehmenszahlen gefüttert werden. Welche Datenqulle ist hierfür unabdingbar?",
       "answerOptions": [
         {
           "text": "Die Daten aus der internen Finanzbuchhaltung.",
           "isCorrect": false,
-          "rationale": "Finanzbuchhaltung ist eine interne Datenquelle und liefert keinen vollständigen externen Marktblick."
+          "rationale": "Finanzbuchhaltung ist eine interne Datenqulle und liefert keinen vollständigen externen Marktblick."
         },
         {
           "text": "Die historischen Verkaufsdaten aus dem ERP-System der letzten drei Jahre.",
@@ -717,7 +717,7 @@
         {
           "text": "Das Customer-Relationship-Management-System (CRM).",
           "isCorrect": false,
-          "rationale": "CRM ist ebenfalls eine interne Quelle mit Fokus auf Kundenbeziehungen, nicht auf externe Marktbewegungen."
+          "rationale": "CRM ist ebenfalls eine interne Qülle mit Fokus auf Kundenbeziehungen, nicht auf externe Marktbewegungen."
         },
         {
           "text": "Die Daten aus Social-Media-Plattformen und allgemeinen Suchvolumen-Analysen.",
@@ -750,7 +750,7 @@
         {
           "text": "Der juristischen Perspektive (Datenschutz).",
           "isCorrect": false,
-          "rationale": "Juristische Risiken beziehen sich vor allem auf Datenschutz und Compliance, nicht primär auf strategische Steuerungslogik."
+          "rationale": "Juristische Risiken beziehen sich vor allem auf Datenschutz und Compliance, nicht primär auf strategische Steurungslogik."
         }
       ],
       "hint": "Frage dich: Geht es um kurzfristige Kennzahlen vs. langfristige Unternehmensausrichtung?",
@@ -814,22 +814,22 @@
       "topic": "KI Erfolgsmessung"
     },
     {
-      "question": "Die Geschäftsführung möchte durch den Einsatz der KI-gestützten Sortimentssteuerung sicherstellen, dass Ware nicht unnötig lange im Lager liegt und somit finanzielle Mittel blockiert. Welche beiden eng verwandten KPIs müssen hierfür primär im Controlling-Reporting betrachtet werden?",
+      "question": "Die Geschäftsführung möchte durch den Einsatz der KI-gestützten Sortimentssteurung sicherstellen, dass Ware nicht unnötig lange im Lager liegt und somit finanzielle Mittel blockiert. Welche beiden eng verwandten KPIs müssen hierfür primär im Controlling-Reporting betrachtet werden?",
       "answerOptions": [
         {
           "text": "Die Conversion-Rate und der Deckungsbeitrag je Artikel.",
           "isCorrect": false,
-          "rationale": "Diese Kennzahlen sind relevant, messen aber nicht direkt Lagerverweildauer und Kapitalbindung im Bestand."
+          "rationale": "Diese Kennzahlen sind relevant, messen aber nicht direkt Lagerverweildaür und Kapitalbindung im Bestand."
         },
         {
-          "text": "Die Lagerumschlagshäufigkeit und die durchschnittliche Lagerdauer.",
+          "text": "Die Lagerumschlagshäufigkeit und die durchschnittliche Lagerdaür.",
           "isCorrect": true,
           "rationale": "Richtig: Diese beiden KPI zeigen direkt, wie schnell Ware abverkauft wird und wie lange Kapital im Lager gebunden bleibt."
         },
         {
           "text": "Die Abschriftenquote und die Retourenquote.",
           "isCorrect": false,
-          "rationale": "Wichtige Kennzahlen, aber nicht das engste KPI-Paar zur Messung von Umschlag und Lagerdauer."
+          "rationale": "Wichtige Kennzahlen, aber nicht das engste KPI-Paar zur Messung von Umschlag und Lagerdaür."
         },
         {
           "text": "Die Click-Through-Rate und die Forecast-Genauigkeit.",
@@ -838,7 +838,7 @@
         }
       ],
       "hint": "Gesucht sind die Kernkennzahlen für Lagerdynamik und Kapitalbindung.",
-      "youtubeQuery": "Lagerumschlagshäufigkeit durchschnittliche Lagerdauer KPI Controlling",
+      "youtubeQuery": "Lagerumschlagshäufigkeit durchschnittliche Lagerdaür KPI Controlling",
       "topic": "KI Erfolgsmessung"
     },
     {
@@ -865,7 +865,7 @@
           "rationale": "Historische Daten sind zentral für Prognosequalität; ihre Löschung verschlechtert die KI-Leistung."
         }
       ],
-      "hint": "Bei risikoreichen Einführungen zuerst klein und kontrolliert testen.",
+      "hint": "Bei risikoreichen Einführungen zürst klein und kontrolliert testen.",
       "youtubeQuery": "KI Einführung Pilotphase Disposition Rollout Warengruppe",
       "topic": "KI Integration"
     },
@@ -1005,7 +1005,7 @@
           "rationale": "Externe Links sind grundsätzlich möglich."
         }
       ],
-      "hint": "Achte auf Content-Lebensdauer und E-Commerce-Visualisierung.",
+      "hint": "Achte auf Content-Lebensdaür und E-Commerce-Visualisierung.",
       "youtubeQuery": "X Twitter E-Commerce Eignung kurzlebiger Content",
       "topic": "Social Media Kanal - X"
     },
@@ -1058,7 +1058,7 @@
         {
           "text": "Weil YouTube-Videos nach 24 Stunden automatisch gelöscht werden, was Exklusivität schafft.",
           "isCorrect": false,
-          "rationale": "YouTube-Inhalte sind in der Regel dauerhaft verfügbar."
+          "rationale": "YouTube-Inhalte sind in der Regel daürhaft verfügbar."
         }
       ],
       "hint": "Für erklärungsbedürftige Produkte zählt visuelle Tiefe.",
@@ -1188,7 +1188,7 @@
         {
           "text": "Ob das Netzwerk und die dort übliche Tonalität überhaupt zum seriösen Image des Unternehmens passt.",
           "isCorrect": true,
-          "rationale": "Richtig: Image- und Marken-Passung ist entscheidend, besonders in vertrauenssensiblen Branchen."
+          "rationale": "Richtig: Image- und Marken-Passung ist entscheidend, besonders in vertraünssensiblen Branchen."
         },
         {
           "text": "Ob auf dem Netzwerk überwiegend Text- oder Videoinhalte konsumiert werden.",
@@ -1237,7 +1237,7 @@
       "question": "Ein Social-Media-Manager bereitet ein Briefing für die Content-Erstellung vor. Er muss den Auszubildenden die grundlegenden Unterschiede in den Content-Anforderungen zwischen Instagram und X (ehemals Twitter) erklären. Worin besteht der zentrale funktionale Unterschied?",
       "answerOptions": [
         {
-          "text": "Auf Instagram dominieren visuelle Inhalte (Bilder) und Hashtags, während X primär auf textbasierte Kurzmeldungen mit geringer Lebensdauer ausgelegt ist.",
+          "text": "Auf Instagram dominieren visuelle Inhalte (Bilder) und Hashtags, während X primär auf textbasierte Kurzmeldungen mit geringer Lebensdaür ausgelegt ist.",
           "isCorrect": true,
           "rationale": "Richtig: Instagram ist stark visuell geprägt, X ist feed-dynamisch und kurztext-orientierter."
         },
@@ -1252,12 +1252,12 @@
           "rationale": "Beide Plattformcharakterisierungen sind unzutreffend."
         },
         {
-          "text": "Auf X (Twitter) ist die Lebensdauer eines Beitrags extrem lang (mehrere Monate), während Instagram-Posts zwingend nach 24 Stunden gelöscht werden.",
+          "text": "Auf X (Twitter) ist die Lebensdaür eines Beitrags extrem lang (mehrere Monate), während Instagram-Posts zwingend nach 24 Stunden gelöscht werden.",
           "isCorrect": false,
           "rationale": "X-Beiträge sind eher kurzlebig; Instagram-Feed-Posts werden nicht automatisch nach 24h gelöscht."
         }
       ],
-      "hint": "Vergleiche Kernformat und Content-Lebensdauer.",
+      "hint": "Vergleiche Kernformat und Content-Lebensdaür.",
       "youtubeQuery": "Instagram vs X Content Formate Kurzlebigkeit",
       "topic": "Content-Formate (Instagram vs. X)"
     },
@@ -1293,7 +1293,7 @@
       "question": "Ein traditionsreicher Online-Shop evaluiert die Nutzung von TikTok als neuen Marketingkanal. Obwohl die organische Reichweite verlockend ist, rät die Compliance-Abteilung (Rechtsabteilung) von einer unternehmerischen Präsenz ab. Welche fachliche Begründung führt – neben der sehr jungen Zielgruppe – häufig zur Ablehnung von TikTok auf Unternehmensebene?",
       "answerOptions": [
         {
-          "text": "Die Plattform ist für Unternehmen in der Basisnutzung extrem teuer.",
+          "text": "Die Plattform ist für Unternehmen in der Basisnutzung extrem teur.",
           "isCorrect": false,
           "rationale": "Kosten sind nicht der zentrale fachliche Ablehnungsgrund im beschriebenen Kontext."
         },
@@ -1333,7 +1333,7 @@
         {
           "text": "Instagram ist eng mit Facebook gekoppelt, was die gemeinsame Nutzung der Werbe-Infrastruktur und eine extrem hohe Reichweite ermöglicht.",
           "isCorrect": true,
-          "rationale": "Richtig: Über das Meta-Ads-Ökosystem lassen sich beide Plattformen zentral steuern und skalieren."
+          "rationale": "Richtig: Über das Meta-Ads-Ökosystem lassen sich beide Plattformen zentral steurn und skalieren."
         },
         {
           "text": "Instagram gehört zu Google und integriert alle Foto-Anzeigen automatisch ganz oben in den Google-Suchergebnissen.",
@@ -1473,38 +1473,38 @@
         {
           "text": "Moderat, sofern die Videos aufwendig produziert und mit klassischen Texten untertitelt werden.",
           "isCorrect": false,
-          "rationale": "Falsch: Produktionsqualität kompensiert keine fehlende Zielgruppenpraesenz auf dem Kanal."
+          "rationale": "Falsch: Produktionsqualität kompensiert keine fehlende Zielgruppenpräsenz auf dem Kanal."
         },
         {
           "text": "Hoch, da diese Altersgruppe generell keine Social-Media-Plattformen nutzt und daher besonders sensibel auf TikTok-Werbung reagiert.",
           "isCorrect": false,
-          "rationale": "Falsch: Die Aussage ist widerspruechlich und nicht datenbasiert."
+          "rationale": "Falsch: Die Aussage ist widersprüchlich und nicht datenbasiert."
         }
       ],
-      "hint": "Pruefe zuerst, ob die Zielgruppe auf den gewaelten Plattformen ueberhaupt erreichbar ist.",
+      "hint": "Prüfe zürst, ob die Zielgruppe auf den gewälten Plattformen überhaupt erreichbar ist.",
       "youtubeQuery": "Kampagnenplanung Plattform Eignung TikTok Snapchat Zielgruppe 31 bis 50",
       "topic": "Kampagnenplanung und Plattform-Eignung (Snapchat und TikTok)"
     },
     {
-      "question": "Das Marketing-Team analysiert die Social-Media-Nutzung der Altersgruppe 41 bis 60 Jahre. Bei Business-Netzwerken zeigt sich: XING lag bei den 21- bis 30-Jährigen bei 21 %, stuerzt bei den 41- bis 50-Jährigen auf 5 % ab und ist bei den 51- bis 60-Jährigen nicht mehr messbar (0 %). LinkedIn hat in dieser Altersgruppe ebenfalls keine messbare Relevanz. Was ist die logischste betriebswirtschaftliche Erklaerung fuer diesen Einbruch?",
+      "question": "Das Marketing-Team analysiert die Social-Media-Nutzung der Altersgruppe 41 bis 60 Jahre. Bei Business-Netzwerken zeigt sich: XING lag bei den 21- bis 30-Jährigen bei 21 %, stürzt bei den 41- bis 50-Jährigen auf 5 % ab und ist bei den 51- bis 60-Jährigen nicht mehr messbar (0 %). LinkedIn hat in dieser Altersgruppe ebenfalls keine messbare Relevanz. Was ist die logischste betriebswirtschaftliche Erklärung für diesen Einbruch?",
       "answerOptions": [
         {
-          "text": "Business-Netzwerke sind gesetzlich nur fuer Personen unter 40 Jahren zugelassen.",
+          "text": "Business-Netzwerke sind gesetzlich nur für Personen unter 40 Jahren zugelassen.",
           "isCorrect": false,
-          "rationale": "Falsch: Es gibt keine solche gesetzliche Altersgrenze fuer Business-Netzwerke."
+          "rationale": "Falsch: Es gibt keine solche gesetzliche Altersgrenze für Business-Netzwerke."
         },
         {
-          "text": "Die Plattformen erfordern ein extrem hohes technisches Verstaendnis, welches in der Altersgruppe ab 41 Jahren grundsaetzlich nicht vorhanden ist.",
+          "text": "Die Plattformen erfordern ein extrem hohes technisches Verständnis, welches in der Altersgruppe ab 41 Jahren grundsätzlich nicht vorhanden ist.",
           "isCorrect": false,
           "rationale": "Falsch: Diese pauschale Annahme ist fachlich nicht haltbar."
         },
         {
-          "text": "Personen in dieser Altersgruppe sind meist beruflich etabliert, haben feste Netzwerke oder naehern sich dem Rentenalter, wodurch der Bedarf an aktiver digitaler Karriereplanung und Jobsuche stark abnimmt.",
+          "text": "Personen in dieser Altersgruppe sind meist beruflich etabliert, haben feste Netzwerke oder nähern sich dem Rentenalter, wodurch der Bedarf an aktiver digitaler Karriereplanung und Jobsuche stark abnimmt.",
           "isCorrect": true,
           "rationale": "Richtig: Mit steigender beruflicher Etablierung sinkt oft der Bedarf an aktiver Karriere-Netzwerk-Nutzung."
         },
         {
-          "text": "Die Altersgruppe ueber 40 nutzt fuer geschaeftliche Kontakte ausschliesslich die Plattform Snapchat.",
+          "text": "Die Altersgruppe über 40 nutzt für geschäftliche Kontakte ausschließlich die Plattform Snapchat.",
           "isCorrect": false,
           "rationale": "Falsch: Diese Aussage ist weder datenbasiert noch plausibel."
         }
@@ -1514,30 +1514,30 @@
       "topic": "Demografisches Nutzerverhalten (Business-Netzwerke)"
     },
     {
-      "question": "Ein Online-Shop mit Zielgruppe 15 bis 60 Jahre sucht einen Basis-Kanal mit hoher Reichweite ueber alle Generationen. Interne Daten zeigen, dass Plattformen wie TikTok nach dem 30. Lebensjahr stark einbrechen. Welche zwei Kanaele weisen ueber alle Altersgruppen hinweg die stabilste und hoechste Durchdringung auf und eignen sich daher als generationenuebergreifende Basis-Kanaele?",
+      "question": "Ein Online-Shop mit Zielgruppe 15 bis 60 Jahre sucht einen Basis-Kanal mit hoher Reichweite über alle Generationen. Interne Daten zeigen, dass Plattformen wie TikTok nach dem 30. Lebensjahr stark einbrechen. Welche zwei Kanäle weisen über alle Altersgruppen hinweg die stabilste und höchste Durchdringung auf und eignen sich daher als generationenübergreifende Basis-Kanäle?",
       "answerOptions": [
         {
           "text": "WhatsApp und YouTube",
           "isCorrect": true,
-          "rationale": "Richtig: Diese Kanaele zeigen ueber Altersgruppen hinweg die stabilste Reichweite und eignen sich als breite Basis."
+          "rationale": "Richtig: Diese Kanäle zeigen über Altersgruppen hinweg die stabilste Reichweite und eignen sich als breite Basis."
         },
         {
           "text": "X (Twitter) und XING",
           "isCorrect": false,
-          "rationale": "Falsch: Beide Kanaele sind nicht die stabilsten Reichweitenkanaele ueber alle Altersklassen."
+          "rationale": "Falsch: Beide Kanäle sind nicht die stabilsten Reichweitenkanäle über alle Altersklassen."
         },
         {
           "text": "Snapchat und Instagram",
           "isCorrect": false,
-          "rationale": "Falsch: Snapchat ist stark altersabhaengig und bricht bei aelteren Zielgruppen deutlich ein."
+          "rationale": "Falsch: Snapchat ist stark altersabhängig und bricht bei älteren Zielgruppen deutlich ein."
         },
         {
           "text": "LinkedIn und TikTok",
           "isCorrect": false,
-          "rationale": "Falsch: Diese Kombination ist nicht generationenuebergreifend stabil genug."
+          "rationale": "Falsch: Diese Kombination ist nicht generationenübergreifend stabil genug."
         }
       ],
-      "hint": "Suche die Kanaele mit moeglichst hoher und stabiler Nutzung von jung bis aelter.",
+      "hint": "Suche die Kanäle mit möglichst hoher und stabiler Nutzung von jung bis älter.",
       "youtubeQuery": "Cross generationale Plattform Strategie WhatsApp YouTube Reichweite 15 bis 60",
       "topic": "Cross-Generationale Plattform-Strategie (Meta-Analyse)"
     },
@@ -1713,7 +1713,7 @@
       "question": "Bevor die Marketingkampagne startet, definiert das Team verbindliche Messgrößen: Die Conversion Rate (Kaufrate), den Return on Investment (ROI) und die Cost per Acquisition (CPA). Unter welchem englischen Fachbegriff fasst man diese Leistungskennzahlen in der Erfolgskontrolle zusammen?",
       "answerOptions": [
         {
-          "text": "Unique Selling Propositions (USPs)",
+          "text": "Uniqü Selling Propositions (USPs)",
           "isCorrect": false,
           "rationale": "Falsch: USPs beschreiben Alleinstellungsmerkmale eines Produkts, keine Leistungskennzahlen."
         },
@@ -1766,7 +1766,7 @@
       "topic": "Erfolgskontrolle (Monitoring-Instrumente)"
     },
     {
-      "question": "Die 'Outdoor-Fun GmbH' moechte erstmals eine strukturierte E-Mail-Marketing-Kampagne starten. Bevor Zielgruppen definiert oder Newsletter-Texte verfasst werden, muss der allererste und strategisch wichtigste Schritt erfolgen. Welcher ist das?",
+      "question": "Die 'Outdoor-Fun GmbH' möchte erstmals eine strukturierte E-Mail-Marketing-Kampagne starten. Bevor Zielgruppen definiert oder Newsletter-Texte verfasst werden, muss der allererste und strategisch wichtigste Schritt erfolgen. Welcher ist das?",
       "answerOptions": [
         {
           "text": "Das Design der E-Mail-Vorlagen an das Corporate Design anpassen.",
@@ -1774,27 +1774,27 @@
           "rationale": "Falsch: Das Design wird erst erstellt, nachdem die Ziele und die Zielgruppe feststehen."
         },
         {
-          "text": "Die Definition von klaren Zielen fuer die Kampagne (z. B. Kundenbindung oder Umsatzsteigerung).",
+          "text": "Die Definition von klaren Zielen für die Kampagne (z. B. Kundenbindung oder Umsatzsteigerung).",
           "isCorrect": true,
-          "rationale": "Richtig: Der allererste Schritt jeder Kampagne ist immer die Zielsetzung. Erst wenn klar definierte Ziele (wie Umsatzsteigerung, Kundengewinnung oder Kundenbindung) feststehen, koennen die Zielgruppe, der Inhalt und das Design sinnvoll darauf abgestimmt werden."
+          "rationale": "Richtig: Der allererste Schritt jeder Kampagne ist immer die Zielsetzung. Erst wenn klar definierte Ziele (wie Umsatzsteigerung, Kundengewinnung oder Kundenbindung) feststehen, können die Zielgruppe, der Inhalt und das Design sinnvoll darauf abgestimmt werden."
         },
         {
           "text": "Die Festlegung des optimalen Versandzeitpunkts (z. B. sonntags um 18 Uhr).",
           "isCorrect": false,
-          "rationale": "Falsch: Der Versandzeitpunkt ist ein spaeterer operativer Schritt, nicht der strategische Ausgangspunkt."
+          "rationale": "Falsch: Der Versandzeitpunkt ist ein späterer operativer Schritt, nicht der strategische Ausgangspunkt."
         },
         {
-          "text": "Die Auswahl der Tracking-Software fuer die spaetere Erfolgskontrolle.",
+          "text": "Die Auswahl der Tracking-Software für die spätere Erfolgskontrolle.",
           "isCorrect": false,
           "rationale": "Falsch: Tracking-Tools werden erst relevant, wenn die Kampagne bereits geplant und versendet wird."
         }
       ],
-      "hint": "Was muss immer zuerst feststehen, bevor alle anderen Schritte sinnvoll geplant werden koennen?",
+      "hint": "Was muss immer zürst feststehen, bevor alle anderen Schritte sinnvoll geplant werden können?",
       "youtubeQuery": "E-Mail Marketing Kampagne erster Schritt Zielsetzung Strategie",
       "topic": "E-Mail-Marketing (Zielsetzung)"
     },
     {
-      "question": "Das Marketing-Team moechte den neuen E-Mail-Newsletter an moeglichst viele Kontakte versenden. Ein Mitarbeiter schlaegt vor, einfach alle E-Mail-Adressen von alten Rechnungen der letzten 10 Jahre ungefragt in den Verteiler aufzunehmen, um die Reichweite zu maximieren. Warum ist dieses Vorgehen beim Aufbau von E-Mail-Listen fachlich und rechtlich unzulaessig?",
+      "question": "Das Marketing-Team möchte den neuen E-Mail-Newsletter an möglichst viele Kontakte versenden. Ein Mitarbeiter schlägt vor, einfach alle E-Mail-Adressen von alten Rechnungen der letzten 10 Jahre ungefragt in den Verteiler aufzunehmen, um die Reichweite zu maximieren. Warum ist dieses Vorgehen beim Aufbau von E-Mail-Listen fachlich und rechtlich unzulässig?",
       "answerOptions": [
         {
           "text": "Weil E-Mails an zu alte Kunden automatisch im Spam-Ordner des Unternehmens landen und den eigenen Server blockieren.",
@@ -1802,37 +1802,37 @@
           "rationale": "Falsch: Das ist technisch nicht korrekt und nicht der eigentliche Grund."
         },
         {
-          "text": "Weil E-Mail-Marketing-Systeme technisch maximal 500 Empfaenger pro Liste verarbeiten koennen.",
+          "text": "Weil E-Mail-Marketing-Systeme technisch maximal 500 Empfänger pro Liste verarbeiten können.",
           "isCorrect": false,
           "rationale": "Falsch: Es gibt keine solche technische Begrenzung bei professionellen E-Mail-Marketing-Systemen."
         },
         {
           "text": "Weil alte Rechnungen keine demografischen Merkmale zur Zielgruppensegmentierung enthalten.",
           "isCorrect": false,
-          "rationale": "Falsch: Das Fehlen von Segmentierungsdaten ist nicht der Hauptgrund fuer die Unzulaessigkeit."
+          "rationale": "Falsch: Das Fehlen von Segmentierungsdaten ist nicht der Hauptgrund für die Unzulässigkeit."
         },
         {
-          "text": "Weil die Erstellung von E-Mail-Listen zwingend die ausdrueckliche Einwilligung der Empfaenger (z. B. durch ein Opt-in-Verfahren) voraussetzt.",
+          "text": "Weil die Erstellung von E-Mail-Listen zwingend die ausdrückliche Einwilligung der Empfänger (z. B. durch ein Opt-in-Verfahren) voraussetzt.",
           "isCorrect": true,
-          "rationale": "Richtig: Qualitativ hochwertige und rechtssichere E-Mail-Listen duerfen ausschliesslich mit der ausdruecklichen Einwilligung der Empfaenger erstellt werden. Dies geschieht in der Praxis meist ueber Newsletter-Anmeldungen im sogenannten Double-Opt-in-Verfahren."
+          "rationale": "Richtig: Qualitativ hochwertige und rechtssichere E-Mail-Listen dürfen ausschließlich mit der ausdrücklichen Einwilligung der Empfänger erstellt werden. Dies geschieht in der Praxis meist über Newsletter-Anmeldungen im sogenannten Double-Opt-in-Verfahren."
         }
       ],
-      "hint": "Denke an die DSGVO und die rechtlichen Voraussetzungen fuer den Versand von Werbe-E-Mails.",
+      "hint": "Denke an die DSGVO und die rechtlichen Voraussetzungen für den Versand von Werbe-E-Mails.",
       "youtubeQuery": "E-Mail Marketing Listenaufbau Opt-in Verfahren DSGVO Einwilligung rechtlich",
       "topic": "E-Mail-Marketing (Rechtliche Vorgaben / Listenaufbau)"
     },
     {
-      "question": "Ein Online-Shop fuer Sportartikel plant eine Newsletter-Kampagne speziell fuer hochwertiges Golf-Zubehoer. Anstatt die E-Mail an den gesamten Verteiler zu senden, wird der Empfaengerkreis auf Kunden reduziert, die in der Vergangenheit bereits nach Golfartikeln gesucht oder diese gekauft haben. Welcher strategische Schritt der E-Mail-Kampagnenplanung wird hier angewandt?",
+      "question": "Ein Online-Shop für Sportartikel plant eine Newsletter-Kampagne speziell für hochwertiges Golf-Zubehör. Anstatt die E-Mail an den gesamten Verteiler zu senden, wird der Empfängerkreis auf Kunden reduziert, die in der Vergangenheit bereits nach Golfartikeln gesucht oder diese gekauft haben. Welcher strategische Schritt der E-Mail-Kampagnenplanung wird hier angewandt?",
       "answerOptions": [
         {
           "text": "Die Zielgruppenauswahl basierend auf Kundendaten wie Interessen und Kaufverhalten.",
           "isCorrect": true,
-          "rationale": "Richtig: Bei der Zielgruppenauswahl (Segmentierung) werden Zielgruppen basierend auf vorhandenen Kundendaten identifiziert. Faktoren wie bisheriges Kaufverhalten, Interessen oder demografische Merkmale sorgen dafuer, dass Kunden nur fuer sie relevante Angebote erhalten."
+          "rationale": "Richtig: Bei der Zielgruppenauswahl (Segmentierung) werden Zielgruppen basierend auf vorhandenen Kundendaten identifiziert. Faktoren wie bisheriges Kaufverhalten, Interessen oder demografische Merkmale sorgen dafür, dass Kunden nur für sie relevante Angebote erhalten."
         },
         {
           "text": "Das A/B-Testing von verschiedenen E-Mail-Vorlagen.",
           "isCorrect": false,
-          "rationale": "Falsch: A/B-Testing vergleicht verschiedene E-Mail-Varianten, nicht die Auswahl der Empfaenger."
+          "rationale": "Falsch: A/B-Testing vergleicht verschiedene E-Mail-Varianten, nicht die Auswahl der Empfänger."
         },
         {
           "text": "Die Definition des optimalen Versandzeitpunkts.",
@@ -1840,17 +1840,17 @@
           "rationale": "Falsch: Der Versandzeitpunkt bestimmt wann, nicht an wen gesendet wird."
         },
         {
-          "text": "Das Tracking der Oeffnungsrate.",
+          "text": "Das Tracking der Öffnungsrate.",
           "isCorrect": false,
-          "rationale": "Falsch: Das Tracking erfolgt nach dem Versand und hat nichts mit der Empfaengerauswahl zu tun."
+          "rationale": "Falsch: Das Tracking erfolgt nach dem Versand und hat nichts mit der Empfängerauswahl zu tun."
         }
       ],
-      "hint": "Wie nennt man es, wenn der Empfaengerkreis gezielt nach Interessen und Kaufverhalten eingegrenzt wird?",
+      "hint": "Wie nennt man es, wenn der Empfängerkreis gezielt nach Interessen und Kaufverhalten eingegrenzt wird?",
       "youtubeQuery": "E-Mail Marketing Zielgruppenauswahl Segmentierung Kundendaten Personalisierung",
       "topic": "E-Mail-Marketing (Zielgruppenauswahl & Personalisierung)"
     },
     {
-      "question": "Eine E-Commerce-Agentur beraet einen Online-Shop bezueglich der Versandfrequenz des neuen Newsletters. Warum ist die strategische Wahl von Frequenz (Wie oft?) und Versandzeitpunkt (Wann?) ein so extrem kritischer Erfolgsfaktor im E-Mail-Marketing?",
+      "question": "Eine E-Commerce-Agentur berät einen Online-Shop bezüglich der Versandfrequenz des neuen Newsletters. Warum ist die strategische Wahl von Frequenz (Wie oft?) und Versandzeitpunkt (Wann?) ein so extrem kritischer Erfolgsfaktor im E-Mail-Marketing?",
       "answerOptions": [
         {
           "text": "Um zu verhindern, dass die Konkurrenz die E-Mail-Inhalte rechtzeitig kopieren und selbst posten kann.",
@@ -1858,14 +1858,14 @@
           "rationale": "Falsch: Das ist kein relevanter Faktor bei der Wahl von Frequenz und Zeitpunkt."
         },
         {
-          "text": "Um die Serverkosten fuer den Mail-Versand, die am Wochenende am hoechsten sind, zu reduzieren.",
+          "text": "Um die Serverkosten für den Mail-Versand, die am Wochenende am höchsten sind, zu reduzieren.",
           "isCorrect": false,
           "rationale": "Falsch: Serverkosten variieren nicht nach Wochentag und sind kein Entscheidungskriterium."
         },
         {
-          "text": "Um eine maximale Oeffnungs- und Klickrate zu erzielen, ohne die Empfaenger durch zu viele Mails zu ueberlasten (und Abmeldungen zu provozieren).",
+          "text": "Um eine maximale Öffnungs- und Klickrate zu erzielen, ohne die Empfänger durch zu viele Mails zu überlasten (und Abmeldungen zu provozieren).",
           "isCorrect": true,
-          "rationale": "Richtig: Die Wahl des optimalen Zeitpunkts und der richtigen Frequenz zielt genau darauf ab, eine maximale Oeffnungs- und Klickrate zu erreichen. Wird die Frequenz zu hoch angesetzt, fuehlen sich die Empfaenger ueberlastet (Spam-Gefuehl), was zu hohen Abmelderaten fuehrt."
+          "rationale": "Richtig: Die Wahl des optimalen Zeitpunkts und der richtigen Frequenz zielt genau darauf ab, eine maximale Öffnungs- und Klickrate zu erreichen. Wird die Frequenz zu hoch angesetzt, fühlen sich die Empfänger überlastet (Spam-Gefühl), was zu hohen Abmelderaten führt."
         },
         {
           "text": "Um sicherzustellen, dass die E-Mails nicht durch die allgemeine Suchmaschinenoptimierung (SEO) abgewertet werden.",
@@ -1874,39 +1874,39 @@
         }
       ],
       "hint": "Was passiert, wenn Newsletter zu oft oder zum falschen Zeitpunkt versendet werden?",
-      "youtubeQuery": "E-Mail Marketing Versandzeitpunkt Frequenz Oeffnungsrate Abmelderate optimal",
+      "youtubeQuery": "E-Mail Marketing Versandzeitpunkt Frequenz Öffnungsrate Abmelderate optimal",
       "topic": "E-Mail-Marketing (Versandzeitpunkt & Frequenz)"
     },
     {
-      "question": "Ein E-Commerce-Unternehmen laesst neue E-Mail-Vorlagen (Templates) fuer den regelmaessigen Newsletter-Versand programmieren. Welches Kriterium muss bei der visuellen Gestaltung der Layouts neben der reinen Lesbarkeit zwingend im Fokus stehen?",
+      "question": "Ein E-Commerce-Unternehmen lässt neue E-Mail-Vorlagen (Templates) für den regelmäßigen Newsletter-Versand programmieren. Welches Kriterium muss bei der visuellen Gestaltung der Layouts neben der reinen Lesbarkeit zwingend im Fokus stehen?",
       "answerOptions": [
         {
-          "text": "Die Gestaltung der E-Mail-Vorlagen muss zwingend zur Markenidentitaet (Corporate Design) und zum Erscheinungsbild des eigenen Online-Shops passen.",
+          "text": "Die Gestaltung der E-Mail-Vorlagen muss zwingend zur Markenidentität (Corporate Design) und zum Erscheinungsbild des eigenen Online-Shops passen.",
           "isCorrect": true,
-          "rationale": "Richtig: Ein Newsletter ist eine direkte Verlaengerung des Shops. Daher ist die Gestaltung von ansprechenden Layouts, die exakt zur Markenidentitaet und zum Erscheinungsbild des Online-Shops passen, ein essenzieller Schritt bei der Kampagnenplanung."
+          "rationale": "Richtig: Ein Newsletter ist eine direkte Verlängerung des Shops. Daher ist die Gestaltung von ansprechenden Layouts, die exakt zur Markenidentität und zum Erscheinungsbild des Online-Shops passen, ein essenzieller Schritt bei der Kampagnenplanung."
         },
         {
-          "text": "Das Layout darf ausschliesslich aus reinem Text bestehen, um die Ladezeiten beim Empfaenger auf null zu reduzieren.",
+          "text": "Das Layout darf ausschließlich aus reinem Text bestehen, um die Ladezeiten beim Empfänger auf null zu reduzieren.",
           "isCorrect": false,
-          "rationale": "Falsch: Reine Text-Mails sind nicht der Standard und schraenken die Markenkommunikation stark ein."
+          "rationale": "Falsch: Reine Text-Mails sind nicht der Standard und schränken die Markenkommunikation stark ein."
         },
         {
-          "text": "Das Layout muss sich bei jedem einzelnen Versand komplett aendern, um die Kunden optisch immer wieder neu zu ueberraschen.",
+          "text": "Das Layout muss sich bei jedem einzelnen Versand komplett ändern, um die Kunden optisch immer wieder neu zu überraschen.",
           "isCorrect": false,
-          "rationale": "Falsch: Staendige Layout-Wechsel schaden der Wiedererkennbarkeit und dem Branding."
+          "rationale": "Falsch: Ständige Layout-Wechsel schaden der Wiedererkennbarkeit und dem Branding."
         },
         {
-          "text": "Die Vorlagen muessen so programmiert sein, dass sie von der Google-Bildersuche als Landingpage indiziert werden.",
+          "text": "Die Vorlagen müssen so programmiert sein, dass sie von der Google-Bildersuche als Landingpage indiziert werden.",
           "isCorrect": false,
           "rationale": "Falsch: E-Mails werden nicht von Suchmaschinen indiziert."
         }
       ],
-      "hint": "Was ist neben der Lesbarkeit das wichtigste visuelle Kriterium fuer einen professionellen Newsletter?",
-      "youtubeQuery": "E-Mail Marketing Template Design Corporate Design Markenidentitaet Newsletter Layout",
+      "hint": "Was ist neben der Lesbarkeit das wichtigste visuelle Kriterium für einen professionellen Newsletter?",
+      "youtubeQuery": "E-Mail Marketing Template Design Corporate Design Markenidentität Newsletter Layout",
       "topic": "E-Mail-Marketing (Vorlagen & Layout)"
     },
     {
-      "question": "Der Newsletter fuer die Sommer-Aktion wurde erfolgreich an 10.000 Kunden versendet. Nun geht das E-Commerce-Team in die finale Phase des E-Mail-Trackings. Welche spezifischen Kennzahlen werden in dieser abschliessenden Phase primaer ausgewertet, um den direkten Erfolg dieser E-Mail zu messen?",
+      "question": "Der Newsletter für die Sommer-Aktion wurde erfolgreich an 10.000 Kunden versendet. Nun geht das E-Commerce-Team in die finale Phase des E-Mail-Trackings. Welche spezifischen Kennzahlen werden in dieser abschliessenden Phase primär ausgewertet, um den direkten Erfolg dieser E-Mail zu messen?",
       "answerOptions": [
         {
           "text": "Die Ladezeit der Shop-Startseite und die Serverauslastung.",
@@ -1914,9 +1914,9 @@
           "rationale": "Falsch: Ladezeit und Serverauslastung sind technische Metriken, keine E-Mail-Erfolgskennzahlen."
         },
         {
-          "text": "Die Oeffnungsrate der versendeten E-Mails und die Klickrate auf die enthaltenen Links.",
+          "text": "Die Öffnungsrate der versendeten E-Mails und die Klickrate auf die enthaltenen Links.",
           "isCorrect": true,
-          "rationale": "Richtig: Im letzten Schritt, dem Tracking, geht es um die direkte Verfolgung der E-Mail-Ergebnisse. Hierfuer sind spezifische Newsletter-KPIs wie die Oeffnungsrate (Wie viele Empfaenger haben die E-Mail gelesen?) und die Klickrate (Wie viele haben auf ein Angebot geklickt?) massgeblich."
+          "rationale": "Richtig: Im letzten Schritt, dem Tracking, geht es um die direkte Verfolgung der E-Mail-Ergebnisse. Hierfür sind spezifische Newsletter-KPIs wie die Öffnungsrate (Wie viele Empfänger haben die E-Mail gelesen?) und die Klickrate (Wie viele haben auf ein Angebot geklickt?) massgeblich."
         },
         {
           "text": "Die Anzahl der neu gewonnenen Social-Media-Follower auf Instagram.",
@@ -1930,7 +1930,7 @@
         }
       ],
       "hint": "Welche Kennzahlen messen direkt, ob eine E-Mail gelesen und ob darin geklickt wurde?",
-      "youtubeQuery": "E-Mail Marketing Tracking Oeffnungsrate Klickrate Newsletter KPIs Erfolgsmessung",
+      "youtubeQuery": "E-Mail Marketing Tracking Öffnungsrate Klickrate Newsletter KPIs Erfolgsmessung",
       "topic": "E-Mail-Marketing (Versand & Tracking)"
     }
   ]
