@@ -150,20 +150,20 @@ function generateLevel(config) {
                     hint: `${fmt(sk)} + ${fmt(gewinn)} = ${fmt(bvp)} €`
                 },
                 {
-                    key: 'provision', label: 'Vertreterprovision', sublabel: `${provision_pct} %`, value: provision, given: false, danger: true,
-                    hint: `⚠️ Im Hundert rechnen!\n${fmt(bvp)} ÷ ${100 - combined_pct} × ${provision_pct} = ${fmt(provision)} €\n(BVP = ${100 - combined_pct}% des ZVP)`
+                    key: 'provision', label: 'Vertreterprovision', sublabel: `${provision_pct} %`, value: provision, given: false,
+                    hint: ` Im Hundert rechnen!\n${fmt(bvp)} ÷ ${100 - combined_pct} × ${provision_pct} = ${fmt(provision)} €\n(BVP = ${100 - combined_pct}% des ZVP)`
                 },
                 {
-                    key: 'skonto', label: 'Kundenskonto', sublabel: `${skonto_pct} %`, value: skonto, given: false, danger: true,
-                    hint: `⚠️ Im Hundert rechnen!\n${fmt(bvp)} ÷ ${100 - combined_pct} × ${skonto_pct} = ${fmt(skonto)} €\n(BVP = ${100 - combined_pct}% des ZVP)`
+                    key: 'skonto', label: 'Kundenskonto', sublabel: `${skonto_pct} %`, value: skonto, given: false,
+                    hint: ` Im Hundert rechnen!\n${fmt(bvp)} ÷ ${100 - combined_pct} × ${skonto_pct} = ${fmt(skonto)} €\n(BVP = ${100 - combined_pct}% des ZVP)`
                 },
                 {
                     key: 'zvp', label: '= Zielverkaufspreis', value: zvp, given: false, isSum: true,
                     hint: `${fmt(bvp)} + ${fmt(provision)} + ${fmt(skonto)} = ${fmt(zvp)} €`
                 },
                 {
-                    key: 'rabatt', label: 'Kundenrabatt', sublabel: `${rabatt_pct} %`, value: rabatt, given: false, danger: true,
-                    hint: `⚠️ Im Hundert rechnen!\n${fmt(zvp)} ÷ ${100 - rabatt_pct} × ${rabatt_pct} = ${fmt(rabatt)} €\n(ZVP = ${100 - rabatt_pct}% des LVP)`
+                    key: 'rabatt', label: 'Kundenrabatt', sublabel: `${rabatt_pct} %`, value: rabatt, given: false,
+                    hint: ` Im Hundert rechnen!\n${fmt(zvp)} ÷ ${100 - rabatt_pct} × ${rabatt_pct} = ${fmt(rabatt)} €\n(ZVP = ${100 - rabatt_pct}% des LVP)`
                 },
                 {
                     key: 'lvp', label: '= Listenverkaufspreis', value: lvp, given: false, isSum: true,
@@ -189,8 +189,20 @@ function generateLevel(config) {
         const hk = commercialRound(sk / (100 + hk_pct) * hk_pct);
         const ep = commercialRound(sk - hk);
 
+        const bezugskosten = randPrice(10, 80);
+        const lieferskonto_pct = randInt(1, 3);
+        const lieferrabatt_pct = randInt(5, 20);
+
+        const bep = commercialRound(ep - bezugskosten);
+        // Im Hundert: BEP = (100 - lieferskonto_pct)% des ZEP
+        const lieferskonto = commercialRound(bep / (100 - lieferskonto_pct) * lieferskonto_pct);
+        const zep = commercialRound(bep + lieferskonto);
+        // Im Hundert: ZEP = (100 - lieferrabatt_pct)% des LEP
+        const lieferrabatt = commercialRound(zep / (100 - lieferrabatt_pct) * lieferrabatt_pct);
+        const lep = commercialRound(zep + lieferrabatt);
+
         return {
-            ...config, given: { lvp, hk_pct, gewinn_pct, skonto_pct, rabatt_pct },
+            ...config, given: { lvp, hk_pct, gewinn_pct, skonto_pct, rabatt_pct, bezugskosten, lieferskonto_pct, lieferrabatt_pct },
             steps: [
                 { key: 'lvp', label: 'Listenverkaufspreis', value: lvp, given: true },
                 {
@@ -210,21 +222,42 @@ function generateLevel(config) {
                     hint: `${fmt(zvp)} − ${fmt(skonto)} = ${fmt(bvp)} €`
                 },
                 {
-                    key: 'gewinn', label: 'Gewinn', sublabel: `${gewinn_pct} %`, value: gewinn, given: false, danger: true,
-                    hint: `⚠️ Auf Hundert rechnen!\n${fmt(bvp)} ÷ ${100 + gewinn_pct} × ${gewinn_pct} = ${fmt(gewinn)} €\n(BVP = ${100 + gewinn_pct}% der SK)`
+                    key: 'gewinn', label: 'Gewinn', sublabel: `${gewinn_pct} %`, value: gewinn, given: false,
+                    hint: ` Auf Hundert rechnen!\n${fmt(bvp)} ÷ ${100 + gewinn_pct} × ${gewinn_pct} = ${fmt(gewinn)} €\n(BVP = ${100 + gewinn_pct}% der SK)`
                 },
                 {
                     key: 'sk', label: '= Selbstkosten', value: sk, given: false, isSum: true,
                     hint: `${fmt(bvp)} − ${fmt(gewinn)} = ${fmt(sk)} €`
                 },
                 {
-                    key: 'hk', label: 'Handlungskosten', sublabel: `${hk_pct} %`, value: hk, given: false, danger: true,
-                    hint: `⚠️ Auf Hundert rechnen!\n${fmt(sk)} ÷ ${100 + hk_pct} × ${hk_pct} = ${fmt(hk)} €\n(SK = ${100 + hk_pct}% des EP)`
+                    key: 'hk', label: 'Handlungskosten', sublabel: `${hk_pct} %`, value: hk, given: false,
+                    hint: ` Auf Hundert rechnen!\n${fmt(sk)} ÷ ${100 + hk_pct} × ${hk_pct} = ${fmt(hk)} €\n(SK = ${100 + hk_pct}% des EP)`
                 },
                 {
-                    key: 'ep', label: '= Einstandspreis', value: ep, given: false, isSum: true,
+                    key: 'ep', label: '= Einstandspreis (Bezugspreis)', value: ep, given: false, isSum: true,
                     hint: `${fmt(sk)} − ${fmt(hk)} = ${fmt(ep)} €`
                 },
+                { key: 'bezugskosten', label: 'Bezugskosten', value: bezugskosten, given: true },
+                {
+                    key: 'bep', label: '= Bareinkaufspreis', value: bep, given: false, isSum: true,
+                    hint: `${fmt(ep)} − ${fmt(bezugskosten)} = ${fmt(bep)} €`
+                },
+                {
+                    key: 'lieferskonto', label: 'Lieferskonto', sublabel: `${lieferskonto_pct} %`, value: lieferskonto, given: false,
+                    hint: ` Im Hundert rechnen!\n${fmt(bep)} ÷ ${100 - lieferskonto_pct} × ${lieferskonto_pct} = ${fmt(lieferskonto)} €\n(BEP = ${100 - lieferskonto_pct}% des ZEP)`
+                },
+                {
+                    key: 'zep', label: '= Zieleinkaufspreis', value: zep, given: false, isSum: true,
+                    hint: `${fmt(bep)} + ${fmt(lieferskonto)} = ${fmt(zep)} €`
+                },
+                {
+                    key: 'lieferrabatt', label: 'Lieferrabatt', sublabel: `${lieferrabatt_pct} %`, value: lieferrabatt, given: false,
+                    hint: ` Im Hundert rechnen!\n${fmt(zep)} ÷ ${100 - lieferrabatt_pct} × ${lieferrabatt_pct} = ${fmt(lieferrabatt)} €\n(ZEP = ${100 - lieferrabatt_pct}% des LEP)`
+                },
+                {
+                    key: 'lep', label: '= Listeneinkaufspreis', value: lep, given: false, isSum: true,
+                    hint: `${fmt(zep)} + ${fmt(lieferrabatt)} = ${fmt(lep)} €`
+                }
             ]
         };
     }
@@ -923,7 +956,6 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                                         )}
                                         {step.label}
                                         {step.sublabel && <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginLeft: '0.4rem' }}>({step.sublabel})</span>}
-                                        {step.danger && !isDone && <span style={{ marginLeft: '0.3rem', fontSize: '0.7rem' }}>⚠️</span>}
                                     </div>
                                 </div>
 
