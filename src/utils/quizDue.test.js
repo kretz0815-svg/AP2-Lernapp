@@ -12,12 +12,12 @@ test('first correct answer schedules quiz for 1 day and is not due immediately',
   assert.equal(isQuizDue(next, now + 24 * 60 * 60 * 1000), true);
 });
 
-test('second correct answer schedules quiz for 6 days', () => {
+test('second correct answer schedules quiz for 365 days', () => {
   const now = Date.UTC(2026, 2, 7, 12, 0, 0);
   const next = computeNextQuizProgress({ rep: 1, ef: 2.5, interval: 1, nextReview: now }, true, now);
 
   assert.equal(next.rep, 2);
-  assert.equal(next.interval, 6);
+  assert.equal(next.interval, 365);
 });
 
 test('wrong answer resets repetition and schedules quick retry (~1 minute)', () => {
