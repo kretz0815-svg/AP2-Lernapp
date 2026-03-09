@@ -54,7 +54,7 @@ const GeminiPanel = ({
             </div>
 
             {response && (
-                <div style={{ textAlign: 'left', lineHeight: '1.6', fontSize: '0.95rem', color: '#f8fafc', background: 'rgba(0,0,0,0.2)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', whiteSpace: 'pre-wrap' }}>
+                <div style={{ textAlign: 'left', lineHeight: '1.6', fontSize: '0.95rem', color: 'var(--text-light)', background: 'var(--glass-bg)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--glass-border)', whiteSpace: 'pre-wrap' }}>
                     {response}
                 </div>
             )}
