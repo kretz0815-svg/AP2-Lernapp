@@ -37,6 +37,7 @@ const LocalConfetti = ({ amount = 60 }) => {
     </div>
   );
 };
+const Confetti = LocalConfetti;
 
 const toEuro = (cents) => (cents / 100).toFixed(2).replace('.', ',');
 const parseEuroToCents = (raw) => {

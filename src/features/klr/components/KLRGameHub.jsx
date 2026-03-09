@@ -43,6 +43,7 @@ const LocalConfetti = ({ amount = 60 }) => {
     </div>
   );
 };
+const Confetti = LocalConfetti;
 
 const LEVELS = [
   {

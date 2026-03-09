@@ -42,6 +42,7 @@ const LocalConfetti = ({ amount = 60 }) => {
     </div>
   );
 };
+const Confetti = LocalConfetti;
 import { formatLatex } from '../utils/formatting';
 import { detectQuizTopic, getQuizTopicGroup } from '../utils/quizTopics';
 import { computeNextQuizProgress } from '../utils/quizDue';

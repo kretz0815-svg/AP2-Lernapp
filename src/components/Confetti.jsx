@@ -2,20 +2,27 @@ import React, { useMemo } from 'react';
 
 /**
  * Reusable Confetti component that renders a burst of confetti.
- * It uses the animation defined in index.css (klrConfettiFall).
+ * Enhanced with more safety checks.
  */
 const Confetti = ({ amount = 55, colors = ['#6dff73', '#22c55e', '#fef08a', '#f59e0b', '#86efac', '#fbbf24'] }) => {
     const pieces = useMemo(() => {
-        return Array.from({ length: amount }, (_, i) => ({
-            id: i,
-            left: Math.random() * 100,
-            delay: Math.random() * 1.5,
-            duration: 2.2 + Math.random() * 1.5,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            size: 6 + Math.floor(Math.random() * 8),
-            rotation: Math.random() * 360,
-        }));
+        try {
+            return Array.from({ length: amount }, (_, i) => ({
+                id: i,
+                left: Math.random() * 100,
+                delay: Math.random() * 1.5,
+                duration: 2.2 + Math.random() * 1.5,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                size: 6 + Math.floor(Math.random() * 8),
+                rotation: Math.random() * 360,
+            }));
+        } catch (e) {
+            console.error('Confetti pieces generation failed', e);
+            return [];
+        }
     }, [amount, colors]);
+
+    if (!pieces || pieces.length === 0) return null;
 
     return (
         <div style={{

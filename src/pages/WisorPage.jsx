@@ -41,6 +41,7 @@ const LocalConfetti = ({ amount = 60 }) => {
         </div>
     );
 };
+const Confetti = LocalConfetti;
 import wisor1 from '../data/wisor_1.json';
 import wisorEco from '../data/wisor_eco.json';
 import { formatLatex } from '../utils/formatting';
