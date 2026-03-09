@@ -1675,6 +1675,7 @@ ${feynmanInput}`;
           src="/intro.mp4"
           autoPlay
           playsInline
+          muted
           onEnded={() => setAppMode('dashboard')}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
