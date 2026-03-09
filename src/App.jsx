@@ -52,11 +52,22 @@ import {
 import { formatLatex } from './utils/formatting';
 import { detectQuizTopic, getQuizTopicGroup } from './utils/quizTopics';
 import { computeNextQuizProgress, filterDueQuizzes } from './utils/quizDue';
+import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { useAppearance } from './hooks/useAppearance';
+import AuthPage from './pages/AuthPage';
+import IntroPage from './pages/IntroPage';
 
 function App() {
-  const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'intro' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor', 'intro'
+  const navigate = useNavigate();
+  const location = useLocation();
+  const rawPath = location.pathname.substring(1);
+  const appMode = rawPath ? rawPath.replace('-', '_') : (localStorage.getItem('masterpat_auth') === 'true' ? 'intro' : 'auth');
+
+  const setAppMode = (mode) => {
+    navigate(`/${mode.replace('_', '-')}`);
+  };
+
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
   const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || import.meta.env.VITE_HCAPTCHA_SITEKEY || '';
   const { progress: klrProgress } = useKLRGame() || { progress: { xp: 0 } };
@@ -1474,109 +1485,19 @@ ${feynmanInput}`;
 
   if (appMode === 'auth') {
     return (
-      <div className="app-container" style={{ zIndex: 10 }}>
-        <div className="blob blob-1"></div>
-        <div className="blob blob-2"></div>
-
-        <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '400px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-          <h2 style={{ color: 'var(--text-light)', marginBottom: '1.5rem', fontSize: '2rem' }}>Login / Account</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.95rem' }}>Erstelle einen Account oder logge dich ein, um deinen Lernfortschritt auf all deinen Geräten ("Cloud") synchron zu halten.</p>
-          <form autoComplete="on" onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
-            <input
-              type="email"
-              id="login-email"
-              name="email"
-              autoComplete="email"
-              className="wisor-input"
-              placeholder="E-Mail Adresse"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={{ fontSize: '1rem', padding: '1rem' }}
-            />
-            <input
-              type="password"
-              id="login-password"
-              name="password"
-              autoComplete="current-password"
-              className="wisor-input"
-              placeholder="Passwort"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              style={{ fontSize: '1rem', padding: '1rem' }}
-            />
-            <div style={{ display: 'flex', justifyContent: 'center', margin: '0.5rem 0' }}>
-              {captchaSiteKey ? (
-                <HCaptcha
-                  ref={captchaRef}
-                  sitekey={captchaSiteKey}
-                  theme="dark"
-                  onLoad={() => setCaptchaError('')}
-                  onVerify={(token) => {
-                    setCaptchaToken(token);
-                    setCaptchaError('');
-                  }}
-                  onExpire={() => setCaptchaToken(null)}
-                  onError={() => {
-                    setCaptchaToken(null);
-                    setCaptchaError(`hCaptcha konnte nicht geladen werden. Prüfe die Domain-Freigabe für "${currentHost}" im hCaptcha-Dashboard und den Sitekey.`);
-                  }}
-                />
-              ) : (
-                <p style={{ color: 'var(--error)', fontWeight: 'bold', margin: 0 }}>
-                  hCaptcha Sitekey fehlt (VITE_HCAPTCHA_SITE_KEY).
-                </p>
-              )}
-            </div>
-            {captchaError && <p style={{ color: 'var(--error)', marginBottom: '0.75rem', fontWeight: 'bold' }}>{captchaError}</p>}
-            <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
-              <button type="submit" className="btn-primary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading || !captchaToken}>Login</button>
-              <button type="button" onClick={handleRegister} className="btn-secondary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading || !captchaToken}>Registrieren</button>
-            </div>
-
-            <button
-              id="google-login-btn"
-              type="button"
-              className="btn-secondary"
-              onClick={handleGoogleLogin}
-              disabled={authLoading}
-              style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}
-            >
-              Mit Google anmelden
-            </button>
-          </form>
-
-          {authMsg && <p style={{ color: authMsg.includes('Erfolg') || authMsg.includes('erstellt') ? 'var(--success)' : 'var(--error)', marginBottom: '1rem', fontWeight: 'bold' }}>{authMsg}</p>}
-
-          <hr style={{ margin: '1.5rem 0', borderColor: 'var(--glass-border)' }} />
-
-          <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '0.8rem' }}>Alternativ: Lokaler Gast Zugang (Nur auf diesem Gerät)</p>
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            if (pinInput === SECRET_PIN) {
-              setAuthError(false);
-              localStorage.setItem(ACCESS_MODE_KEY, 'guest');
-              clearGuestProgressData();
-              localStorage.setItem('masterpat_auth', 'true');
-              setAppMode('intro');
-              window.location.reload(); // Zum Laden der User Data vom Device
-            } else {
-              setAuthError(true);
-              setPinInput('');
-            }
-          }}>
-            <input
-              type="password"
-              className="wisor-input"
-              placeholder="App-PIN"
-              value={pinInput}
-              onChange={(e) => setPinInput(e.target.value)}
-              style={{ textAlign: 'center', letterSpacing: '0.2rem', marginBottom: '1rem', padding: '0.7rem', fontSize: '1rem' }}
-            />
-            {authError && <p style={{ color: 'var(--error)', marginBottom: '1rem', fontWeight: 'bold' }}>Falsche PIN!</p>}
-            <button type="submit" className="btn-secondary" style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}>Als Gast (Lokal) fortfahren</button>
-          </form>
-        </div>
-      </div>
+      <AuthPage
+        email={email} setEmail={setEmail}
+        password={password} setPassword={setPassword}
+        handleLogin={handleLogin} handleRegister={handleRegister} handleGoogleLogin={handleGoogleLogin}
+        authLoading={authLoading} authMsg={authMsg}
+        captchaRef={captchaRef} captchaSiteKey={captchaSiteKey} currentHost={currentHost}
+        captchaToken={captchaToken} setCaptchaToken={setCaptchaToken}
+        captchaError={captchaError} setCaptchaError={setCaptchaError}
+        pinInput={pinInput} setPinInput={setPinInput} SECRET_PIN={SECRET_PIN}
+        authError={authError} setAuthError={setAuthError}
+        clearGuestProgressData={clearGuestProgressData}
+        setAppMode={setAppMode}
+      />
     );
   }
 
@@ -1669,24 +1590,7 @@ ${feynmanInput}`;
   );
 
   if (appMode === 'intro') {
-    return (
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 9999, backgroundColor: '#000' }}>
-        <video
-          src="/intro.mp4"
-          autoPlay
-          playsInline
-          muted
-          onEnded={() => setAppMode('dashboard')}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-        <button
-          onClick={() => setAppMode('dashboard')}
-          style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(0,0,0,0.5)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer', zIndex: 10000, backdropFilter: 'blur(4px)', fontFamily: 'inherit' }}
-        >
-          Überspringen
-        </button>
-      </div>
-    );
+    return <IntroPage setAppMode={setAppMode} />;
   }
 
   if (appMode === 'dashboard') {

@@ -36,7 +36,12 @@ export const useAuth = (setAppMode) => {
                 setAuthUser(session.user);
                 localStorage.setItem('masterpat_auth', 'true');
                 localStorage.setItem(ACCESS_MODE_KEY, 'member');
-                if (setAppMode) setAppMode(prev => prev === 'auth' ? 'intro' : prev);
+                if (setAppMode) {
+                    const currentPath = window.location.pathname;
+                    if (currentPath === '/auth' || currentPath === '/') {
+                        setAppMode('intro');
+                    }
+                }
             } else {
                 setAuthUser(null);
                 localStorage.removeItem('masterpat_auth');
