@@ -1932,6 +1932,482 @@
       "hint": "Welche Kennzahlen messen direkt, ob eine E-Mail gelesen und ob darin geklickt wurde?",
       "youtubeQuery": "E-Mail Marketing Tracking Öffnungsrate Klickrate Newsletter KPIs Erfolgsmessung",
       "topic": "E-Mail-Marketing (Versand & Tracking)"
+    },
+    {
+      "question": "Die Geschäftsführung eines reinen Online-Shops (Pure-Player ohne Filialen) bittet dich, ein neues KPI-Dashboard aufzubauen. Du erhältst eine Liste mit möglichen Kennzahlen. Welche dieser Kennzahlen ergibt in diesem spezifischen E-Commerce-Szenario absolut keinen Sinn und gilt nicht als gängiger E-Commerce KPI?",
+      "answerOptions": [
+        {
+          "text": "Durchschnittlicher Bestellwert (Average Order Value, AOV)",
+          "isCorrect": false,
+          "rationale": "Falsch: Der AOV ist eine zentrale Kennzahl im E-Commerce."
+        },
+        {
+          "text": "Warenkorbabbruchrate (Cart Abandonment Rate)",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Warenkorbabbruchrate ist eine sehr wichtige E-Commerce Kennzahl."
+        },
+        {
+          "text": "Jahresumsatz von Offline-Verkäufen",
+          "isCorrect": true,
+          "rationale": "Richtig: Da es sich um einen reinen Online-Shop handelt, existieren keine Offline-Verkäufe. Eine solche Kennzahl ist daher kein gängiger E-Commerce KPI. Die Kennzahlen AOV, Warenkorbabbruchrate und CPA sind hingegen zentrale und unverzichtbare Metriken im E-Commerce."
+        },
+        {
+          "text": "Kosten pro Akquisition (Cost per Acquisition, CPA)",
+          "isCorrect": false,
+          "rationale": "Falsch: Der CPA ist eine wichtige Kennzahl zur Messung der Marketingeffizienz."
+        }
+      ],
+      "hint": "Welche Art von Verkäufen kann in einem reinen Online-Shop gar nicht stattfinden?",
+      "youtubeQuery": "Online Shop KPIs E-Commerce Grundlagen",
+      "topic": "E-Commerce KPIs (Identifikation)"
+    },
+    {
+      "question": "Die Marketing-Abteilung hat im letzten Quartal das Budget für bezahlte Werbeanzeigen verdoppelt. Nun soll im Controlling ausgewertet werden, wie effizient dieses Geld wirklich eingesetzt wurde. Welcher der folgenden Indikatoren misst direkt die Effektivität dieser Marketing-Ausgaben im E-Commerce?",
+      "answerOptions": [
+        {
+          "text": "Durchschnittlicher Bestellwert (Average Order Value, AOV)",
+          "isCorrect": false,
+          "rationale": "Falsch: Der AOV misst den Umsatz pro Bestellung, nicht die Marketingeffizienz an sich."
+        },
+        {
+          "text": "Gesamte monatliche Website-Besuche (Traffic)",
+          "isCorrect": false,
+          "rationale": "Falsch: Traffic allein sagt nichts über die Kosten-Nutzen-Relation der Kampagne aus."
+        },
+        {
+          "text": "Kosten pro Akquisition (Cost per Acquisition, CPA)",
+          "isCorrect": true,
+          "rationale": "Richtig: Die \"Cost per Acquisition\" (CPA) – also die Kosten pro Akquisition – zeigt exakt an, wie viel Marketing-Budget ausgegeben werden musste, um einen neuen Kunden oder Kauf zu generieren. Reine Website-Besuche oder der AOV sagen isoliert nichts über die Kosteneffizienz der Werbemaßnahme aus."
+        },
+        {
+          "text": "Lagerumschlagshäufigkeit",
+          "isCorrect": false,
+          "rationale": "Falsch: Dies ist eine logistische Kennzahl, keine Marketingkennzahl."
+        }
+      ],
+      "hint": "Welche Kennzahl setzt die Kosten direkt ins Verhältnis zur gewünschten Kundenaktion (dem Kauf)?",
+      "youtubeQuery": "CPA Cost per Acquisition E-Commerce Marketing KPIs Return on Investment",
+      "topic": "E-Commerce KPIs (Marketing-Effektivität)"
+    },
+    {
+      "question": "Im Monatsbericht des Online-Shops wird der sogenannte \"Average Order Value (AOV)\" hervorgehoben. Das Management bittet dich um eine kurze Definition. Was misst dieser spezifische E-Commerce-Indikator?",
+      "answerOptions": [
+        {
+          "text": "Den durchschnittlichen Umsatz, den ein Nutzer pro getätigter Bestellung im Shop generiert.",
+          "isCorrect": true,
+          "rationale": "Richtig: Der Average Order Value (AOV) steht für den durchschnittlichen Bestellwert. Er misst also den durchschnittlichen Umsatz, der pro einzelner Bestellung generiert wird."
+        },
+        {
+          "text": "Die prozentuale Anzahl der Besucher, die den Shop ohne einen Kauf wieder verlassen.",
+          "isCorrect": false,
+          "rationale": "Falsch: Dies beschreibt die Bounce Rate oder Cart Abandonment Rate (bei Abbruch)."
+        },
+        {
+          "text": "Die durchschnittlichen Marketingkosten, die anfallen, um einen Nutzer in den Shop zu lotsen.",
+          "isCorrect": false,
+          "rationale": "Falsch: Dies beschreibt die Cost per Click (CPC) oder Cost per Acquisition (CPA)."
+        },
+        {
+          "text": "Die Anzahl der aktiven Nutzer, die den Shop mindestens einmal im Monat besuchen (MAU).",
+          "isCorrect": false,
+          "rationale": "Falsch: Dies beschreibt die Monthly Active Users (MAU)."
+        }
+      ],
+      "hint": "Wofür stehen die Wörter 'Average', 'Order' und 'Value' zusammen übersetzt?",
+      "youtubeQuery": "Average Order Value AOV E-Commerce KPI durchschnittlicher Bestellwert",
+      "topic": "E-Commerce KPIs (Umsatz-Metriken)"
+    },
+    {
+      "question": "Ein Shop-Betreiber stellt bei der Analyse seiner Daten fest, dass sehr viele Kunden mühsam ausgewählte Produkte in den Warenkorb legen, den Kaufvorgang an der Kasse dann aber plötzlich abbrechen und den Shop verlassen. Welche E-Commerce-Kennzahl macht genau dieses spezifische Problem sichtbar?",
+      "answerOptions": [
+        {
+          "text": "Monthly Active Users (MAU)",
+          "isCorrect": false,
+          "rationale": "Falsch: MAU ist eine allgemeine Metrik zur Nutzeraktivität."
+        },
+        {
+          "text": "Cart Abandonment Rate (Warenkorbabbruchrate)",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Cart Abandonment Rate (Warenkorbabbruchrate) misst exakt dieses Verhalten: Sie zeigt den prozentualen Anteil der Nutzer an, die den Checkout-Prozess abbrechen, obwohl sie bereits Artikel in den Warenkorb gelegt haben. Andere Kennzahlen messen Nutzeraktivitäten oder Werbekosten, aber nicht den Abbruch an der virtuellen Kasse."
+        },
+        {
+          "text": "Cost per Acquisition (CPA)",
+          "isCorrect": false,
+          "rationale": "Falsch: CPA misst, wie teuer die Gewinnung eines Kunden ist."
+        },
+        {
+          "text": "Average Order Value (AOV)",
+          "isCorrect": false,
+          "rationale": "Falsch: AOV misst den durchschnittlichen Bestellwert bei erfolgreichen Verkäufen."
+        }
+      ],
+      "hint": "Suche nach dem englischen Begriff für 'Warenkorb' und 'Aufgeben/Abbrechen'.",
+      "youtubeQuery": "Cart Abandonment Rate Warenkorbabbruchrate Checkout Optimierung E-Commerce KPI",
+      "topic": "E-Commerce KPIs (Checkout-Optimierung)"
+    },
+    {
+      "question": "Die Marketingabteilung der „Outdoor-Fun GmbH“ legt in einem Dokument fest, dass exakt 20 % des gesamten Marketingbudgets für gesponserte Beiträge auf Instagram ausgegeben werden sollen. Welcher konkrete Aspekt eines Mediaplans wird hier angewendet?",
+      "answerOptions": [
+        {
+          "text": "Die Zielgruppenansprache",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Zielgruppenansprache regelt, an wen sich die Werbung richtet."
+        },
+        {
+          "text": "Die Budgetierung",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Festlegung, wie viel Geld (Budget) für welche spezifischen Maßnahmen oder Kanäle eingesetzt wird, fällt unter den Aspekt der Budgetierung im Mediaplan."
+        },
+        {
+          "text": "Die Erfolgskontrolle",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Erfolgskontrolle prüft die Zielerreichung im Nachhinein."
+        },
+        {
+          "text": "Die Integration",
+          "isCorrect": false,
+          "rationale": "Falsch: Integration beschreibt die Abstimmung von Maßnahmen."
+        }
+      ],
+      "hint": "Welcher Begriff steht für die finanzielle Planung und Verteilung von Geldmitteln?",
+      "youtubeQuery": "Mediaplanung Budgetierung Marketingbudget",
+      "topic": "Mediaplanung (Budgetierung)"
+    },
+    {
+      "question": "Ein neues Zelt-Modell soll auf den Markt gebracht werden. Der Marketing-Manager stellt durch den Mediaplan sicher, dass der Produktlaunch zeitgleich über den E-Mail-Newsletter, einen Banner auf der Webseite und über alle Social-Media-Kanäle koordiniert beworben wird. Welcher Aspekt der Mediaplanung ist das?",
+      "answerOptions": [
+        {
+          "text": "Integration",
+          "isCorrect": true,
+          "rationale": "Richtig: Die \"Integration\" in einem Mediaplan stellt sicher, dass Social-Media-Aktivitäten nicht isoliert stattfinden, sondern nahtlos in die gesamte Marketingstrategie (Webseite, Newsletter) des Unternehmens integriert und koordiniert werden."
+        },
+        {
+          "text": "Krisenmanagement",
+          "isCorrect": false,
+          "rationale": "Falsch: Krisenmanagement bereitet auf Notfälle (wie Shitstorms) vor."
+        },
+        {
+          "text": "Wettbewerbsanalyse",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Wettbewerbsanalyse beschäftigt sich mit der Konkurrenz."
+        },
+        {
+          "text": "Konsistenz",
+          "isCorrect": false,
+          "rationale": "Falsch: Konsistenz beschreibt die Einheitlichkeit von Aussagen, Integration hingegen die Koordination der Kanäle."
+        }
+      ],
+      "hint": "Das koordinierte Zusammenwirken verschiedener Kommunikationskanäle wird mit welchem Fachbegriff beschrieben?",
+      "youtubeQuery": "Mediaplanung Integration Crossmedial",
+      "topic": "Mediaplanung (Integration)"
+    },
+    {
+      "question": "Während der Weihnachtszeit plant ein Online-Shop, täglich statt wöchentlich neue Angebote auf Facebook zu posten. Da dies mehr Arbeit bedeutet, werden für die Monate November und Dezember temporär zwei zusätzliche Werkstudenten für Social Media eingestellt. Welcher Aspekt des Mediaplans greift hier?",
+      "answerOptions": [
+        {
+          "text": "Content-Planung",
+          "isCorrect": false,
+          "rationale": "Falsch: Content-Planung betrifft die Inhalte."
+        },
+        {
+          "text": "Erfolgskontrolle",
+          "isCorrect": false,
+          "rationale": "Falsch: Hier geht es nicht um Auswertung."
+        },
+        {
+          "text": "Ressourcenplanung",
+          "isCorrect": true,
+          "rationale": "Richtig: Mit der Ressourcenplanung wird sichergestellt, dass das Unternehmen die für die geplanten Maßnahmen notwendigen Ressourcen (Mitarbeiter, Technik, Zeit) passend zuordnet und zur Verfügung hat."
+        },
+        {
+          "text": "Zielgruppenansprache",
+          "isCorrect": false,
+          "rationale": "Falsch: Hierbei wurden Personalentscheidungen getroffen, keine Zielgruppendefinition."
+        }
+      ],
+      "hint": "Wie nennt man die Planung von benötigtem Personal und Zeit für eine Kampagne?",
+      "youtubeQuery": "Mediaplanung Ressourcenplanung Personalplanung Marketing",
+      "topic": "Mediaplanung (Ressourcenplanung)"
+    },
+    {
+      "question": "Ein Kunde postet eine extrem negative und falsche Bewertung auf der Facebook-Seite des Unternehmens, die plötzlich viral geht (ein sogenannter Shitstorm). Das Social-Media-Team schaut in den Mediaplan, um zu prüfen, welche Richtlinien für Reaktionen in einem solchen Fall festgelegt wurden. Welcher Aspekt wird hier genutzt?",
+      "answerOptions": [
+        {
+          "text": "Wettbewerbsanalyse",
+          "isCorrect": false,
+          "rationale": "Falsch: Es geht hier nicht um die Konkurrenz."
+        },
+        {
+          "text": "Krisenmanagement",
+          "isCorrect": true,
+          "rationale": "Richtig: Ein guter Mediaplan enthält Vorgaben zum Krisenmanagement, um auf unvorhergesehene Situationen (wie negatives Feedback oder Shitstorms) schnell, professionell und nach festen Richtlinien reagieren zu können."
+        },
+        {
+          "text": "Budgetierung",
+          "isCorrect": false,
+          "rationale": "Falsch: Finanzen sind hier nicht das Problem."
+        },
+        {
+          "text": "Konsistenz",
+          "isCorrect": false,
+          "rationale": "Falsch: Es geht um die akute Notfallreaktion."
+        }
+      ],
+      "hint": "Unter welchem Begriff fasst man den systematischen Umgang mit Notfällen und negativen Ereignissen zusammen?",
+      "youtubeQuery": "Mediaplanung Krisenmanagement Shitstorm",
+      "topic": "Mediaplanung (Krisenmanagement)"
+    },
+    {
+      "question": "Ein Unternehmen hat sich das Ziel gesetzt, die Engagement-Rate (Interaktionen) auf X (ehemals Twitter) um 15 % zu steigern. Nach drei Monaten wertet das Team die Daten aus, um zu prüfen, ob dieses Ziel erreicht wurde. Welchem Aspekt des Mediaplans ist dieses Vorgehen zuzuordnen?",
+      "answerOptions": [
+        {
+          "text": "Konsistenz",
+          "isCorrect": false,
+          "rationale": "Falsch: Konsistenz meint Einheitlichkeit der Botschaft."
+        },
+        {
+          "text": "Erfolgskontrolle",
+          "isCorrect": true,
+          "rationale": "Richtig: Durch die Erfolgskontrolle im Mediaplan werden vorher festgelegte Ziele und Maßnahmen nachträglich anhand von Daten überprüft, um den Erfolg der Kampagne zu messen."
+        },
+        {
+          "text": "Zielgruppenansprache",
+          "isCorrect": false,
+          "rationale": "Falsch: Hier wird nicht die Zielgruppe definiert, sondern ausgewertet."
+        },
+        {
+          "text": "Content-Planung",
+          "isCorrect": false,
+          "rationale": "Falsch: Content-Planung geschieht vor der Kampagne."
+        }
+      ],
+      "hint": "Wie bezeichnet man die nachträgliche Überprüfung von Zielen und Messergebnissen?",
+      "youtubeQuery": "Mediaplanung Erfolgskontrolle KPI Auswertung",
+      "topic": "Mediaplanung (Erfolgskontrolle)"
+    },
+    {
+      "question": "Die „Outdoor-Fun GmbH“ bucht für eine neue Werbekampagne teure Werbespots im landesweiten Fernsehen und schaltet Anzeigen in großen Print-Magazinen. Wie wird diese breit gestreute, wenig zielgerichtete Form der Massenkommunikation im Marketing-Fachjargon genannt?",
+      "answerOptions": [
+        {
+          "text": "Below-the-Line Kommunikation (BTL)",
+          "isCorrect": false,
+          "rationale": "Falsch: BTL bezeichnet zielgerichtete, oft unkonventionelle Kommunikationsmaßnahmen."
+        },
+        {
+          "text": "Above-the-Line Kommunikation (ATL)",
+          "isCorrect": true,
+          "rationale": "Richtig: \"Above-the-Line\" (ATL) bezieht sich auf breit gestreute Werbeaktivitäten in Massenmedien (Fernsehen, Radio, Kino, Print), die darauf abzielen, eine große Zielgruppe anzusprechen, und meist weniger spitz zielgerichtet sind als Online-Anzeigen."
+        },
+        {
+          "text": "Pixel Tracking",
+          "isCorrect": false,
+          "rationale": "Falsch: Pixel Tracking ist eine technische Messmethode."
+        },
+        {
+          "text": "Session Tracking",
+          "isCorrect": false,
+          "rationale": "Falsch: Session Tracking analysiert das Nutzerverhalten auf einer Website."
+        }
+      ],
+      "hint": "Denke an traditionelle Massenmedien wie TV und Print.",
+      "youtubeQuery": "Above the Line ATL Below the Line BTL Marketing",
+      "topic": "Marketing-Schlagworte (Kommunikationstypen ATL)"
+    },
+    {
+      "question": "Ein Nutzer sieht ein Plakat für einen Rucksack, sucht am nächsten Tag bei Google danach, liest einen Blogbeitrag, klickt auf eine Instagram-Ad und kauft den Rucksack schließlich im Online-Shop. Wie nennt man diesen gesamten Prozess der Interaktionen mit einer Marke?",
+      "answerOptions": [
+        {
+          "text": "Deeplink",
+          "isCorrect": false,
+          "rationale": "Falsch: Ein Deeplink ist ein direkter Link zu einer Unterseite."
+        },
+        {
+          "text": "Ad Impression",
+          "isCorrect": false,
+          "rationale": "Falsch: Ad Impression ist eine Anzeigeneinblendung."
+        },
+        {
+          "text": "Customer Journey",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Customer Journey (Kundenreise) beschreibt den kompletten Weg und alle Interaktionen, die ein Kunde von der ersten Berührung mit einer Marke bis zum finalen Kauf (und darüber hinaus) zurücklegt."
+        },
+        {
+          "text": "Lead-Generierung",
+          "isCorrect": false,
+          "rationale": "Falsch: Lead-Generierung meint die Gewinnung von Interessentenkontakten."
+        }
+      ],
+      "hint": "Wie nennt man die 'Reise' des Kunden vom Erstkontakt bis zum Kauf?",
+      "youtubeQuery": "Customer Journey Kundenreise Marketing",
+      "topic": "Marketing-Schlagworte (Customer Journey)"
+    },
+    {
+      "question": "Ein Nutzer klickt auf eine Google-Anzeige für Wanderschuhe. Anstatt ihn auf die allgemeine Startseite des Shops zu leiten, führt der Klick auf eine speziell gestaltete Seite, auf der nur diese Schuhe beworben werden und ein großer \"Jetzt kaufen\"-Button zu sehen ist. Wie nennt man diese spezielle Seite?",
+      "answerOptions": [
+        {
+          "text": "Landingpage",
+          "isCorrect": true,
+          "rationale": "Richtig: Eine Landingpage (Zielseite) ist eine speziell gestaltete Webseite, auf die ein Nutzer nach einem Klick auf eine Anzeige geleitet wird. Ihr Hauptziel ist es, den Besucher ohne Ablenkung zu einer ganz bestimmten Aktion (z. B. Kauf oder Anmeldung) zu veranlassen."
+        },
+        {
+          "text": "Impression-Page",
+          "isCorrect": false,
+          "rationale": "Falsch: Diesen Begriff gibt es im Standard-Marketing so nicht."
+        },
+        {
+          "text": "Lead-Page",
+          "isCorrect": false,
+          "rationale": "Falsch: Der Fokus liegt hier oft allein auf der Datensammlung."
+        },
+        {
+          "text": "Pixel-Page",
+          "isCorrect": false,
+          "rationale": "Falsch: Das hat nichts mit Zielseiten zu tun."
+        }
+      ],
+      "hint": "Auf welcher Seite 'landet' der Nutzer nach einem Klick?",
+      "youtubeQuery": "Landingpage Zielseite Marketing Funktion",
+      "topic": "Marketing-Schlagworte (Landingpage)"
+    },
+    {
+      "question": "Ein Besucher eines B2B-Shops lädt sich ein kostenloses E-Book zum Thema \"Outdoor-Ausrüstung\" herunter und hinterlässt im Gegenzug seinen Namen und seine E-Mail-Adresse im Kontaktformular. Zu was ist dieser Besucher aus Sicht des Marketings in diesem Moment geworden?",
+      "answerOptions": [
+        {
+          "text": "Zu einer Ad Impression",
+          "isCorrect": false,
+          "rationale": "Falsch: Ad Impression ist eine reine Anzeigeneinblendung."
+        },
+        {
+          "text": "Zu einem Deeplink",
+          "isCorrect": false,
+          "rationale": "Falsch: Ein Deeplink ist ein Link."
+        },
+        {
+          "text": "Zu einem Lead",
+          "isCorrect": true,
+          "rationale": "Richtig: Ein \"Lead\" ist ein potenzieller Kunde oder Interessent, der aktiv Interesse an einem Unternehmen zeigt, indem er freiwillig seine Kontaktdaten (z. B. durch Ausfüllen eines Formulars) hinterlässt."
+        },
+        {
+          "text": "Zu einer Customer Journey",
+          "isCorrect": false,
+          "rationale": "Falsch: Die Customer Journey ist der Gesamtprozess, nicht die Person."
+        }
+      ],
+      "hint": "Wie nennt man einen qualifizierten Interessentenkontakt im Marketing?",
+      "youtubeQuery": "Lead Leadgenerierung B2B Marketing",
+      "topic": "Marketing-Schlagworte (Lead)"
+    },
+    {
+      "question": "In einem E-Mail-Newsletter wird das neue \"Survival-Messer X1\" beworben. Der Link im Newsletter führt den Kunden nicht auf www.outdoor-fun.de (die Startseite), sondern direkt auf www.outdoor-fun.de/produkte/messer-x1. Wie nennt man diese Art der tiefen Verlinkung?",
+      "answerOptions": [
+        {
+          "text": "Session-Link",
+          "isCorrect": false,
+          "rationale": "Falsch: Es gibt Session Tracking, aber keinen Session-Link in diesem Sinne."
+        },
+        {
+          "text": "Pixel-Link",
+          "isCorrect": false,
+          "rationale": "Falsch: Pixel dienen dem Tracking, nicht als direkte sichtbare Links."
+        },
+        {
+          "text": "Deeplink",
+          "isCorrect": true,
+          "rationale": "Richtig: Ein Deeplink ist ein Hyperlink, der direkt auf eine spezifische, tiefere Unterseite (z. B. eine konkrete Produktdetailseite) einer Website verweist, anstatt den Nutzer umständlich auf die allgemeine Startseite zu schicken."
+        },
+        {
+          "text": "Impression-Link",
+          "isCorrect": false,
+          "rationale": "Falsch: Das gibt es im Standard-Marketing so nicht."
+        }
+      ],
+      "hint": "Welcher Begriff beschreibt einen 'tiefen' Link in die Struktur der Website?",
+      "youtubeQuery": "Deeplink tiefe Verlinkung Marketing",
+      "topic": "Technisches Tracking & Kennzahlen (Deeplink)"
+    },
+    {
+      "question": "Eine Werbeanzeige (Banner) der Outdoor-Fun GmbH wird auf einer Nachrichten-Website geladen und auf dem Bildschirm eines Nutzers angezeigt. Der Nutzer scrollt jedoch einfach weiter, ohne die Anzeige bewusst anzusehen oder darauf zu klicken. Zählt dieser Vorgang trotzdem als \"Ad Impression\"?",
+      "answerOptions": [
+        {
+          "text": "Ja, denn eine Ad Impression zählt rein die Tatsache, dass die Anzeige geladen und auf dem Bildschirm eingeblendet wurde, unabhängig von Klicks oder bewusster Wahrnehmung.",
+          "isCorrect": true,
+          "rationale": "Richtig: Eine Ad Impression (Anzeigeneinblendung) tritt auf, sobald eine Werbung geladen und angezeigt wird. Es ist für diese spezielle Kennzahl völlig irrelevant, ob der Nutzer sie bemerkt oder klickt."
+        },
+        {
+          "text": "Nein, eine Impression wird erst gezählt, wenn der Nutzer mindestens 5 Sekunden auf dem Banner verweilt.",
+          "isCorrect": false,
+          "rationale": "Falsch: Eine reine Impression erfordert keine Mindestverweildauer."
+        },
+        {
+          "text": "Nein, ohne einen physischen Klick auf die Anzeige entsteht niemals eine Impression.",
+          "isCorrect": false,
+          "rationale": "Falsch: Ein Klick ist separat und wird auch als Klick gezählt."
+        },
+        {
+          "text": "Ja, aber nur, wenn es sich um ein bewegtes Video-Banner handelt.",
+          "isCorrect": false,
+          "rationale": "Falsch: Das gilt auch für statische Banner (Bilder)."
+        }
+      ],
+      "hint": "Was bedeutet 'Impression' im Zusammenhang mit Anzeigen?",
+      "youtubeQuery": "Ad Impression Online Marketing KPI",
+      "topic": "Technisches Tracking & Kennzahlen (Ad Impressions)"
+    },
+    {
+      "question": "Das Web-Analyse-Team möchte herausfinden, welche Unterseiten ein Kunde während seines aktuellen, ununterbrochenen Besuchs auf der Website angesehen hat und wie viele Minuten er jeweils auf den Seiten geblieben ist. Welche Methode wird hier angewandt?",
+      "answerOptions": [
+        {
+          "text": "Deeplink-Tracking",
+          "isCorrect": false,
+          "rationale": "Falsch: Das trackt nur bestimmte Links."
+        },
+        {
+          "text": "Session Tracking",
+          "isCorrect": true,
+          "rationale": "Richtig: Mit dem \"Session Tracking\" wird das Verhalten eines Nutzers während eines einzelnen Website-Besuchs (Sitzung/Session) verfolgt. So lässt sich analysieren, welche Seiten er wie lange besucht hat."
+        },
+        {
+          "text": "Above-the-Line Tracking",
+          "isCorrect": false,
+          "rationale": "Falsch: ATL ist eine Kommunikationsform, kein Tracking."
+        },
+        {
+          "text": "Lead Tracking",
+          "isCorrect": false,
+          "rationale": "Falsch: Lead Tracking bezieht sich auf die Nachverfolgung von Interessenten."
+        }
+      ],
+      "hint": "Unter welchem englischen Begriff fasst man einen zusammenhängenden Website-Besuch zusammen?",
+      "youtubeQuery": "Session Tracking Webanalyse Metriken",
+      "topic": "Technisches Tracking & Kennzahlen (Session Tracking)"
+    },
+    {
+      "question": "Um zu messen, ob die Empfänger den monatlichen E-Mail-Newsletter auch wirklich öffnen, baut die Marketing-Abteilung ein winziges, unsichtbares (1x1 großes) Bildchen in den HTML-Code der E-Mail ein. Wird die Mail geöffnet, lädt dieses Bild und meldet die Öffnung an den Server. Wie heißt diese Technik?",
+      "answerOptions": [
+        {
+          "text": "Session Tracking",
+          "isCorrect": false,
+          "rationale": "Falsch: Session Tracking analysiert Webseiten-Besuche, nicht das Öffnen von E-Mails."
+        },
+        {
+          "text": "Deeplink Tracking",
+          "isCorrect": false,
+          "rationale": "Falsch: Deeplink Tracking verfolgt Klicks auf spezifische Links."
+        },
+        {
+          "text": "Customer Journey Mapping",
+          "isCorrect": false,
+          "rationale": "Falsch: Customer Journey Mapping visualisiert die gesamte Kundenreise."
+        },
+        {
+          "text": "Pixel Tracking",
+          "isCorrect": true,
+          "rationale": "Richtig: Pixel Tracking (auch Zählpixel genannt) ist ein unsichtbares Bild, das in Webseiten oder E-Mails eingefügt wird. Wird die Seite geladen oder die Mail geöffnet, wird das Pixel vom Server abgerufen, wodurch die Aktion (z. B. \"Mail wurde geöffnet\") exakt aufgezeichnet werden kann."
+        }
+      ],
+      "hint": "Welcher Begriff bezeichnet einen winzigen Bildpunkt auf einem Bildschirm?",
+      "youtubeQuery": "Pixel Tracking Zählpixel Newsletter Tracking",
+      "topic": "Technisches Tracking & Kennzahlen (Pixel Tracking)"
     }
   ]
 }
