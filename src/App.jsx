@@ -56,7 +56,7 @@ import { useAuth } from './hooks/useAuth';
 import { useAppearance } from './hooks/useAppearance';
 
 function App() {
-  const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'dashboard' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor'
+  const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'intro' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor', 'intro'
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
   const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || import.meta.env.VITE_HCAPTCHA_SITEKEY || '';
   const { progress: klrProgress } = useKLRGame() || { progress: { xp: 0 } };
@@ -205,7 +205,6 @@ function App() {
   useEffect(() => {
     if (appMode !== 'dashboard' && appMode !== 'learning_dashboard') return;
     const prefersCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
-    let orientationEnabled = false;
 
     const handleMouseMove = (e) => {
       if (!einsteinRef.current) return;
@@ -218,50 +217,12 @@ function App() {
       setEinsteinTilt({ rotateY: dx * maxTilt, rotateX: -dy * maxTilt * 0.6 });
     };
 
-    const handleOrientation = (e) => {
-      const gamma = Math.max(-45, Math.min(45, e.gamma || 0));
-      const beta = Math.max(-45, Math.min(45, (e.beta || 0) - 45));
-      setEinsteinTilt({ rotateY: (gamma / 45) * 20, rotateX: -(beta / 45) * 12 });
-    };
-
-    const enableOrientationTracking = () => {
-      if (orientationEnabled) return;
-      orientationEnabled = true;
-      window.addEventListener('deviceorientation', handleOrientation);
-    };
-
-    const requestGyro = () => {
-      if (!prefersCoarsePointer || orientationEnabled) return;
-      if (
-        typeof window.DeviceOrientationEvent !== 'undefined' &&
-        typeof window.DeviceOrientationEvent.requestPermission === 'function'
-      ) {
-        window.DeviceOrientationEvent.requestPermission()
-          .then((state) => {
-            if (state === 'granted') enableOrientationTracking();
-          })
-          .catch(() => { });
-        return;
-      }
-      if (typeof window.DeviceOrientationEvent !== 'undefined') {
-        enableOrientationTracking();
-      }
-    };
-
-    if (prefersCoarsePointer) {
-      // Mobile: compass-like movement from device orientation, no tap/mouse based head movement.
-      window.addEventListener('touchstart', requestGyro, { once: true });
-      window.addEventListener('click', requestGyro, { once: true });
-      requestGyro();
-    } else {
+    if (!prefersCoarsePointer) {
       window.addEventListener('mousemove', handleMouseMove);
     }
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('deviceorientation', handleOrientation);
-      window.removeEventListener('touchstart', requestGyro);
-      window.removeEventListener('click', requestGyro);
     };
   }, [appMode]);
 
@@ -1596,7 +1557,7 @@ ${feynmanInput}`;
               localStorage.setItem(ACCESS_MODE_KEY, 'guest');
               clearGuestProgressData();
               localStorage.setItem('masterpat_auth', 'true');
-              setAppMode('dashboard');
+              setAppMode('intro');
               window.location.reload(); // Zum Laden der User Data vom Device
             } else {
               setAuthError(true);
@@ -1706,6 +1667,26 @@ ${feynmanInput}`;
     </>,
     document.body
   );
+
+  if (appMode === 'intro') {
+    return (
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 9999, backgroundColor: '#000' }}>
+        <video
+          src="/intro.mp4"
+          autoPlay
+          playsInline
+          onEnded={() => setAppMode('dashboard')}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+        <button
+          onClick={() => setAppMode('dashboard')}
+          style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(0,0,0,0.5)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer', zIndex: 10000, backdropFilter: 'blur(4px)', fontFamily: 'inherit' }}
+        >
+          Überspringen
+        </button>
+      </div>
+    );
+  }
 
   if (appMode === 'dashboard') {
     return (

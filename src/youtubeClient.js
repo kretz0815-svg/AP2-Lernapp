@@ -16,10 +16,10 @@ export async function fetchYouTubeVideos(query, apiKey, maxResults = 4) {
         const dedupe = (arr) => [...new Set(arr.filter(Boolean))];
         const compactBase = normalizedQuery.split(' ').slice(0, 5).join(' ');
         const queryVariants = dedupe([
-            normalizedQuery,
-            `${normalizedQuery} einfach erklärt`,
+            `${normalizedQuery} auf deutsch`,
+            `${normalizedQuery} deutsch erklärt`,
             `${normalizedQuery} tutorial deutsch`,
-            compactBase && `${compactBase} einfach erklärt`
+            compactBase && `${compactBase} einfach erklärt deutsch`
         ]);
 
         const fetchSize = Math.min(Math.max(maxResults * 3, 8), 20);
@@ -27,7 +27,7 @@ export async function fetchYouTubeVideos(query, apiKey, maxResults = 4) {
 
         for (const variant of queryVariants) {
             const safeQuery = encodeURIComponent(variant);
-            const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${safeQuery}&maxResults=${fetchSize}&key=${apiKey}&relevanceLanguage=de`);
+            const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${safeQuery}&maxResults=${fetchSize}&key=${apiKey}&relevanceLanguage=de&regionCode=DE`);
 
             if (!response.ok) {
                 const errorData = await response.json();
