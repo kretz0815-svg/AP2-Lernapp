@@ -1,44 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react';
 
-// --- Safety: Inlined Confetti to avoid ANY import issues causing a black screen ---
-const LocalConfetti = ({ amount = 60 }) => {
-  const pieces = useMemo(() => {
-    const colors = ['#6dff73', '#22c55e', '#fef08a', '#f59e0b', '#86efac', '#fbbf24'];
-    return Array.from({ length: amount }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      delay: Math.random() * 1.5,
-      duration: 2.2 + Math.random() * 1.5,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      size: 6 + Math.floor(Math.random() * 8),
-      rotation: Math.random() * 360,
-    }));
-  }, [amount]);
-
-  return (
-    <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 9999, overflow: 'hidden' }}>
-      {pieces.map((p) => (
-        <div
-          key={p.id}
-          style={{
-            position: 'absolute',
-            top: '-20px',
-            left: `${p.left}%`,
-            width: `${p.size}px`,
-            height: `${p.size * 1.2}px`,
-            backgroundColor: p.color,
-            borderRadius: p.id % 2 === 0 ? '2px' : '50%',
-            opacity: 0,
-            transform: `rotate(${p.rotation}deg)`,
-            animation: `klrConfettiFall ${p.duration}s ease-in ${p.delay}s forwards`,
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-const Confetti = LocalConfetti;
-
 const toEuro = (cents) => (cents / 100).toFixed(2).replace('.', ',');
 const parseEuroToCents = (raw) => {
   const cleaned = String(raw ?? '').trim().replace(',', '.').replace(/[^0-9.-]/g, '');
@@ -231,7 +192,6 @@ export default function BreakEvenPoint({ onBack, onLearningEvent }) {
 
   return (
     <div className="app-container" style={{ zIndex: 10, maxWidth: '850px' }}>
-      {allCorrect && <LocalConfetti />}
       <div className="blob blob-1"></div>
       <div className="blob blob-2"></div>
 

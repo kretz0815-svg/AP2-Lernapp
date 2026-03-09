@@ -162,11 +162,6 @@ function App() {
   const [pomodoroTimeUpSignal, setPomodoroTimeUpSignal] = useState(0);
   const einsteinRef = useRef(null);
   const [einsteinTilt, setEinsteinTilt] = useState({ rotateX: 0, rotateY: 0 });
-  const [showConfetti, setShowConfetti] = useState(false);
-  const triggerConfetti = () => {
-    setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 5500);
-  };
 
   useEffect(() => {
     if (appMode !== 'dashboard') return;
@@ -1115,8 +1110,6 @@ function App() {
           quizDuePool={quizDuePool}
           setQuizProgressView={setQuizProgressView}
           refreshQuizDuePool={refreshQuizDuePool}
-          triggerConfetti={triggerConfetti}
-          showConfetti={showConfetti}
           wisorVideoOpen={wisorVideoOpen}
           setWisorVideoOpen={setWisorVideoOpen}
           wisorVideoLoading={wisorVideoLoading}
@@ -1176,8 +1169,6 @@ function App() {
           geminiLoading={geminiLoading}
           geminiResponse={geminiResponse}
           handleGeminiAsk={handleGeminiAsk}
-          triggerConfetti={triggerConfetti}
-          showConfetti={showConfetti}
           authUser={authUser}
         />
       </Suspense>
