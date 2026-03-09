@@ -1,4 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react';
+import Confetti from './Confetti';
 
 const toEuro = (cents) => (cents / 100).toFixed(2).replace('.', ',');
 const parseEuroToCents = (raw) => {
@@ -115,6 +116,18 @@ export default function BreakEvenPoint({ onBack, onLearningEvent }) {
 
     setFieldState((prev) => ({ ...prev, [key]: isCorrect ? 'correct' : 'wrong' }));
 
+    if (onLearningEvent) {
+      const fieldLabels = { db: 'Deckungsbeitrag', totalDb: 'Gesamt-DB', bepUnits: 'Break-Even-Menge', profitLoss: 'Gewinn/Verlust' };
+      onLearningEvent({
+        mode: 'breakEven',
+        questionId: `bep_${key}`,
+        questionText: `Break-Even: ${fieldLabels[key]}`,
+        correct: isCorrect,
+        userAnswer: raw,
+        expectedAnswer: String(expected)
+      });
+    }
+
     if (isCorrect) {
       lastWrongFingerprintRef.current[key] = null;
       return true;
@@ -158,10 +171,8 @@ export default function BreakEvenPoint({ onBack, onLearningEvent }) {
     setEvaluated(true);
 
     if (onLearningEvent) {
-      const fieldLabels = { db: 'Deckungsbeitrag', totalDb: 'Gesamt-DB', bepUnits: 'Break-Even-Menge', profitLoss: 'Gewinn/Verlust' };
-      for (const [key, state] of Object.entries(nextState)) {
-        onLearningEvent({ mode: 'breakEven', questionId: `bep_${key}`, questionText: `Break-Even: ${fieldLabels[key]}`, correct: state === 'correct', userAnswer: String(inputs[key] || ''), expectedAnswer: String(challenge.values[key]) });
-      }
+      // Actually covered by validateSingleField calls now when input is changed, 
+      // but keep for one final 'audit' of current state if user clicks deliberately.
     }
 
     const allOk = Object.values(nextState).every((state) => state === 'correct');
