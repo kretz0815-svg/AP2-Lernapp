@@ -1,0 +1,45 @@
+.appearance-header {
+    width: 100%;
+    max-width: 760px;
+}
+
+.appearance-main-panel {
+    width: 100%;
+    max-width: 760px;
+}
+
+.appearance-section-title {
+    margin-top: 0;
+    margin-bottom: 0.9rem;
+    color: var(--text-light);
+}
+
+.appearance-presets {
+    margin-top: 1.1rem;
+    margin-bottom: 0.7rem;
+}
+
+.reset-account-section {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.reset-account-title {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--error, #ef4444);
+}
+
+.reset-account-desc {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin-bottom: 1rem;
+}
+
+.btn-reset-account {
+    background: rgba(239, 68, 68, 0.12) !important;
+    border-color: var(--error, #ef4444) !important;
+    color: var(--error, #ef4444) !important;
+    font-weight: 700 !important;
+}

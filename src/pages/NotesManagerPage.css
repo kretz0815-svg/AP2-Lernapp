@@ -1,0 +1,138 @@
+.notes-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.notes-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.notes-header-title {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 2.5rem;
+    text-align: center;
+    width: 100%;
+}
+
+.notes-list-container {
+    width: 100%;
+}
+
+.printable-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-bottom: 3rem;
+}
+
+.note-card-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    marginBottom: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.note-card-delete-btn {
+    background: transparent;
+    border: none;
+    color: var(--error);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.note-card-context {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.note-card-text {
+    color: var(--text-light);
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.deep-learning-panel {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--glass-bg);
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+    color: var(--text-light);
+}
+
+.deep-learning-panel h3 {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.deep-learning-quiz-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.deep-learning-quiz-item {
+    background: var(--glass-bg);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.deep-learning-quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.deep-learning-quiz-btn {
+    text-align: left;
+    padding: 0.8rem !important;
+    font-size: 0.9rem !important;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: none !important;
+    transition: all 0.2s;
+    color: var(--text-light);
+}
+
+.deep-learning-write-action {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(56, 189, 248, 0.1);
+    border-left: 3px solid #38bdf8;
+    border-radius: 4px;
+}
+
+.deep-learning-write-action h4 {
+    color: #38bdf8;
+    margin: 0 0 0.5rem 0;
+}
+
+.btn-generate-quiz {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    width: 100%;
+    background: linear-gradient(90deg, #66295c, #2c3170);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@media print {
+    .printable-notes {
+        padding-bottom: 0;
+    }
+}

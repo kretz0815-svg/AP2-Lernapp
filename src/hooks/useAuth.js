@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { CONFIG } from '../config';
 import { supabase } from '../supabaseClient';
 import { getAnalyticsStorageKey, getCustomQuizStorageKey } from '../utils/analytics';
 import { ACCESS_MODE_KEY } from '../utils/constants';
@@ -98,7 +99,7 @@ export const useAuth = (setAppMode) => {
         setAuthMsg('');
         setAuthLoading(true);
 
-        const redirectTo = import.meta.env.VITE_OAUTH_REDIRECT_TO || window.location.origin;
+        const redirectTo = CONFIG.auth.oauthRedirectTo || window.location.origin;
 
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',

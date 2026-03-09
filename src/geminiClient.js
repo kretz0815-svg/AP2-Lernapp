@@ -1,15 +1,12 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { CONFIG } from './config';
 
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-const deepSeekKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
+const { geminiApiKey: apiKey, deepseekApiKey: deepSeekKey, deepseekUrl: DEEPSEEK_API_URL, geminiModels: GEMINI_MODELS } = CONFIG.ai;
 
 let genAI = null;
 if (apiKey) {
     genAI = new GoogleGenerativeAI(apiKey);
 }
-
-const GEMINI_MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash'];
-const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
 
 function extractTextFromResult(result) {
     try {

@@ -1,0 +1,53 @@
+.wisor-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.wisor-nav-controls {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    marginBottom: 1.5rem;
+}
+
+.wisor-nav-btn {
+    padding: 0.6rem;
+    border-radius: 50%;
+}
+
+.wisor-form {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.wisor-answer-input {
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+    fontSize: 1.2rem;
+    padding: 0.8rem 1rem;
+}
+
+.wisor-submit-btn {
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 300px;
+}
+
+.wisor-feedback-box {
+    border-style: solid;
+    border-width: 1px;
+}
+
+.wisor-feedback-title {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+}

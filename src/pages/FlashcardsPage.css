@@ -1,0 +1,71 @@
+.flashcards-empty-container {
+    text-align: center;
+    margin-top: 10vh;
+}
+
+.flashcards-empty-title {
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    font-size: 3rem;
+    transform: scaleY(1.2);
+    transform-origin: bottom;
+    color: var(--text-light);
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin: 0;
+}
+
+.flashcards-congrats-card {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    padding: 3rem;
+    margin: 0 auto;
+}
+
+.flashcards-congrats-title {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.flashcards-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.flashcards-progress-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flashcards-tip {
+    position: absolute;
+    bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    animation: pulse 2s infinite;
+}
+
+.btn-show-answer {
+    width: 200px;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

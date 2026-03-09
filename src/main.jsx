@@ -5,12 +5,16 @@ import './index.css'
 import App from './App.jsx'
 import { KLRGameProvider } from './features/klr'
 
+import { AppProvider } from './contexts/AppContext'
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <KLRGameProvider>
-        <App />
-      </KLRGameProvider>
+      <AppProvider>
+        <KLRGameProvider>
+          <App />
+        </KLRGameProvider>
+      </AppProvider>
     </BrowserRouter>
   </StrictMode>,
 )
