@@ -1,9 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import Confetti from '../components/Confetti';
 import VideoPanel from '../components/VideoPanel';
 import GeminiPanel from '../components/GeminiPanel';
 import FloatingCalculator from '../components/FloatingCalculator';
 import FloatingNotes from '../components/FloatingNotes';
+
+// --- Safety: Inlined Confetti to avoid ANY import issues causing a black screen ---
+const LocalConfetti = ({ amount = 60 }) => {
+    const pieces = React.useMemo(() => {
+        const colors = ['#6dff73', '#22c55e', '#fef08a', '#f59e0b', '#86efac', '#fbbf24'];
+        return Array.from({ length: amount }, (_, i) => ({
+            id: i,
+            left: Math.random() * 100,
+            delay: Math.random() * 1.5,
+            duration: 2.2 + Math.random() * 1.5,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            size: 6 + Math.floor(Math.random() * 8),
+            rotation: Math.random() * 360,
+        }));
+    }, [amount]);
+
+    return (
+        <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 9999, overflow: 'hidden' }}>
+            {pieces.map((p) => (
+                <div
+                    key={p.id}
+                    style={{
+                        position: 'absolute',
+                        top: '-20px',
+                        left: `${p.left}%`,
+                        width: `${p.size}px`,
+                        height: `${p.size * 1.2}px`,
+                        backgroundColor: p.color,
+                        borderRadius: p.id % 2 === 0 ? '2px' : '50%',
+                        opacity: 0,
+                        transform: `rotate(${p.rotation}deg)`,
+                        animation: `klrConfettiFall ${p.duration}s ease-in ${p.delay}s forwards`,
+                    }}
+                />
+            ))}
+        </div>
+    );
+};
 import wisor1 from '../data/wisor_1.json';
 import wisorEco from '../data/wisor_eco.json';
 import { formatLatex } from '../utils/formatting';
@@ -200,7 +237,7 @@ function WisorPage({
                 <div className="blob blob-1"></div>
                 <div className="blob blob-2"></div>
                 <div className="card-face quiz-setup-card">
-                    {wisorDueMastered && <Confetti />}
+                    {wisorDueMastered && <LocalConfetti />}
                     <h2 style={{ color: 'var(--text-light)', marginBottom: '0.8rem', fontSize: '1.8rem' }}>Alles gemeistert!</h2>
                     <p style={{ color: 'var(--text-muted)', marginBottom: '1.8rem' }}>Du hast alle Fragen in diesem Modus erfolgreich abgerechnet.</p>
                     <button className="btn-primary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
@@ -216,7 +253,7 @@ function WisorPage({
                 <div className="blob blob-1"></div>
                 <div className="blob blob-2"></div>
                 <div className="card-face quiz-setup-card">
-                    {((wisorScore.correct === wisorScore.total && wisorScore.total > 0) || (wisorDueMastered && lastWisorCorrect)) && <Confetti />}
+                    {((wisorScore.correct === wisorScore.total && wisorScore.total > 0) || (wisorDueMastered && lastWisorCorrect)) && <LocalConfetti />}
                     <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>WisoR Beendet!</h2>
                     <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {wisorScore.correct} / {wisorScore.total}</p>
                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>

@@ -30,7 +30,6 @@ import BreakEvenPoint from './components/BreakEvenPoint';
 import ResetModal from './components/ResetModal';
 import VideoPanel from './components/VideoPanel';
 import GeminiPanel from './components/GeminiPanel';
-import Confetti from './components/Confetti';
 import { KLRGameHub, useKLRGame } from './features/klr';
 import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
 import { reviewTaskWithDSR, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
