@@ -2884,6 +2884,482 @@
       "topic": "Konsequenzen aus irreführender Werbung",
       "youtubeQuery": "Abmahnung Mitbewerber UWG",
       "hint": "Wer klagt normalerweise wegen unfairem Wettbewerb?"
+    },
+    {
+      "question": "Die „Summit-Gear AG“ möchte die Online-Marketing-Aktivitäten ihrer direkten Konkurrenten analysieren. Ein Auszubildender fragt, wie man die E-Mail-Marketing-Strategie der Wettbewerber am besten und effektivsten beobachten kann. Welche Methode ist hierfür branchenüblich?",
+      "answerOptions": [
+        {
+          "text": "Das Hacken der gegnerischen Server-Infrastruktur.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die aktive Anmeldung (Abonnement) für die Newsletter der Wettbewerber.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die einfachste und effektivste Methode, um die E-Mail-Marketing-Strategien, Taktungen und Inhalte der Konkurrenz zu analysieren, ist die direkte Anmeldung für deren Newsletter."
+        },
+        {
+          "text": "Das Auslesen von Google Analytics Daten des Konkurrenten.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Befragung von Kunden vor dem Ladengeschäft des Konkurrenten.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "Wettbewerbsbeobachtung (Methoden)",
+      "youtubeQuery": "Wettbewerbsbeobachtung Online Marketing Methoden",
+      "hint": "Denke an den einfachsten Weg, um die E-Mails der Konkurrenz zu erhalten."
+    },
+    {
+      "question": "Das Marketing-Team nutzt spezielle Website- und SEO-Analyse-Tools, um die Domain des größten Mitbewerbers zu untersuchen. Welche spezifischen Informationen können mit diesen Tools in der Regel ausgelesen werden?",
+      "answerOptions": [
+        {
+          "text": "Die exakten Gehälter der gegnerischen Marketing-Mitarbeiter.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Verwendete Keywords, das Ranking der Website und Backlink-Strategien.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. SEO-Tools (Search Engine Optimization) liefern wertvolle Einblicke in die Sichtbarkeit einer Website, die meistgesuchten Keywords und die Qualität der Backlinks des Wettbewerbers."
+        },
+        {
+          "text": "Die vollständigen Namen und Adressen aller Käufer des Konkurrenten.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Der genaue Einkaufspreis der Produkte beim Hersteller.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "Informationsgewinnung (SEO-Tools)",
+      "youtubeQuery": "SEO Wettbewerbsanalyse Tools",
+      "hint": "SEO bezieht sich auf Suchergebnisseiten und Verlinkungen."
+    },
+    {
+      "question": "Ein übereifriger Mitarbeiter schlägt vor, auf Facebook und Instagram „Fake-Accounts“ unter falschem Namen zu erstellen, um Zugang zu geschlossenen Kundengruppen der Konkurrenz zu erhalten. Gegen welche ethische Grundregel der Wettbewerbsbeobachtung verstößt dies?",
+      "answerOptions": [
+        {
+          "text": "Gegen die Regel des Umweltschutzes (Green IT).",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Gegen die Regel des Respekts vor geistigem Eigentum.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Gegen das Prinzip der Transparenz und Ehrlichkeit (Vermeidung von Täuschung).",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Unternehmen sollten bei der Wettbewerbsanalyse ethisch handeln. Die Erstellung von Fake-Accounts ist eine bewusste Täuschung und verstößt gegen das Prinzip der Transparenz und Ehrlichkeit."
+        },
+        {
+          "text": "Gegen das Prinzip der Preisbindung.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "Ethik in der Wettbewerbsanalyse (Transparenz)",
+      "youtubeQuery": "Ethik im Online Marketing Fake Accounts",
+      "hint": "Die Erstellung falscher Identitäten ist eine Form der Täuschung."
+    },
+    {
+      "question": "Die „Urban-Styles GmbH“ findet die aktuelle Social-Media-Kampagne eines Konkurrenten so gut, dass das Team beschließt, die Werbetexte und Bilder 1:1 zu kopieren und für den eigenen Shop zu verwenden. Welcher ethische Aspekt wird hier massiv verletzt?",
+      "answerOptions": [
+        {
+          "text": "Der Datenschutz (DSGVO).",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Respektierung von geistigem Eigentum.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Marketingmaterialien und Werbestrategien von Wettbewerbern sind geistiges Eigentum. Sie dürfen analysiert, aber niemals direkt kopiert oder imitiert werden (Verletzung des Urheberrechts)."
+        },
+        {
+          "text": "Die Transparenz gegenüber den eigenen Mitarbeitern.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Barrierefreiheit der Website.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "Ethik in der Wettbewerbsanalyse (Geistiges Eigentum)",
+      "youtubeQuery": "Urheberrecht geistiges Eigentum Marketingkampagne",
+      "hint": "Bilder und Texte einer Kampagne sind geschützt."
+    },
+    {
+      "question": "Die „Peak-Performance AG“ gibt monatlich 70.000 € für Werbeanzeigen bei Google aus (SEA). Das Team möchte den Prozess automatisieren. Welche spezifische Aufgabe kann ein KI-System im Bereich des Performance-Marketings am besten übernehmen?",
+      "answerOptions": [
+        {
+          "text": "Das physische Verpacken der beworbenen Produkte im Lager.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die automatische Steuerung von Gebotsstrategien und die Echtzeit-Optimierung der Budgets.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. KI-Systeme im Performance Marketing glänzen vor allem bei der automatischen Gebotssteuerung, der Verteilung von Marketingbudgets in Echtzeit und der Echtzeit-Optimierung von Kampagnen."
+        },
+        {
+          "text": "Das Führen von Kündigungsgesprächen mit Mitarbeitern der Marketingabteilung.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die eigenständige rechtliche Überprüfung aller geschlossenen Kaufverträge.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "KI im Performance Marketing (Gebotsstrategien)",
+      "youtubeQuery": "KI künstliche Intelligenz Performance Marketing",
+      "hint": "KI kann in Echtzeit Daten auswerten und Preise dynamisch anpassen."
+    },
+    {
+      "question": "Ein Online-Shop möchte Neukunden gewinnen, die in ihrem Kaufverhalten den bisher besten Stammkunden extrem ähnlich sind. Das KI-System analysiert die Stammkunden und sucht im Netz nach identischen Profilen. Wie wird diese von der KI erstellte Zielgruppe in der Fachsprache genannt?",
+      "answerOptions": [
+        {
+          "text": "Cold Audiences",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Fake Profiles",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Lookalike Audiences",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. „Lookalike Audiences“ (Zwillingszielgruppen) werden von KI-Algorithmen gebildet, indem das Kauf- und Klickverhalten bestehender Kunden analysiert und auf neue, ähnliche Nutzer übertragen wird."
+        },
+        {
+          "text": "Offline Audiences",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "KI in der Zielgruppensegmentierung",
+      "youtubeQuery": "Lookalike Audiences KI Zielgruppen",
+      "hint": "Wie nennt man Zielgruppen, die den bestehenden 'ähnlich sehen'?"
+    },
+    {
+      "question": "Damit eine KI im Online-Marketing personalisierte Werbeanzeigen ausspielen kann, muss sie mit großen Datenmengen trainiert werden. Welche der folgenden Quellen gehört zu den wichtigsten internen Datenlieferanten für ein solches System?",
+      "answerOptions": [
+        {
+          "text": "Die Geburtsurkunden der eigenen Mitarbeiter.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "CRM-Daten, Kaufhistorie und Webanalyse-Daten (Tracking).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Eine KI im Marketing ist auf hochwertige interne und externe Daten angewiesen. Dazu zählen Webanalyse-Daten, CRM-Systeme (Customer Relationship Management), die Kaufhistorie der Nutzer und bisherige Kampagnendaten."
+        },
+        {
+          "text": "Die aktuellen Wetterdaten der Konkurrenz-Standorte.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die internen Stromrechnungen des Rechenzentrums.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "Notwendige Datenquellen für KI",
+      "youtubeQuery": "KI Marketing Datenquellen CRM",
+      "hint": "Welche Daten sammeln Informationen über Kundenverhalten?"
+    },
+    {
+      "question": "Das neue KI-System der „Next-Gen Sports GmbH“ steuert die Werbebudgets plötzlich völlig falsch und verbrennt tausende Euro für irrelevante Zielgruppen. Der Algorithmus selbst weist keinen Programmierfehler auf. Was ist die häufigste und logischste Grenze (Fehlerquelle) beim KI-Einsatz in so einem Fall?",
+      "answerOptions": [
+        {
+          "text": "Die KI hat ein eigenes Bewusstsein entwickelt und sabotiert das Unternehmen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Eine starke Abhängigkeit von der Datenqualität: Wenn die eingespeisten Tracking-Daten falsch oder lückenhaft sind, trifft die KI falsche Entscheidungen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die größte Grenze und Fehlerquelle von KI-Systemen ist die Abhängigkeit von der Datenqualität (Prinzip: \"Garbage In, Garbage Out\"). Falsche Daten führen unweigerlich zu algorithmischen Fehlsteuerungen."
+        },
+        {
+          "text": "Der Serverraum war nicht ausreichend beleuchtet.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die KI kann grundsätzlich keine Budgets über 10.000 € verwalten.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "Grenzen der KI-Nutzung (Datenqualität)",
+      "youtubeQuery": "KI Grenzen Datenqualität Garbage In Garbage Out",
+      "hint": "Ein Modell ist nur so gut wie die Daten, mit denen es trainiert wird."
+    },
+    {
+      "question": "Warum raten Marketing-Experten davon ab, die komplette Markenidentität und die emotionale Markenführung (Corporate Identity) zu 100 % automatisiert von einer KI steuern zu lassen?",
+      "answerOptions": [
+        {
+          "text": "Weil kreative Markenführung, Emotionen und strategische Intuition nur sehr eingeschränkt automatisierbar sind.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Während KIs bei datengetriebenen Aufgaben (Gebote, Zielgruppen) extrem stark sind, stoßen sie bei kreativer Markenführung, echter Empathie und langfristiger Markenidentität an ihre Grenzen."
+        },
+        {
+          "text": "Weil KI-Systeme keine Bilder in Farbe generieren können.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Weil es laut DSGVO verboten ist, Marken-Logos von KIs erstellen zu lassen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Weil KIs nur in der Sprache Englisch funktionieren.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "Grenzen der KI-Nutzung (Kreativität)",
+      "youtubeQuery": "KI Kreativität Grenzen Markenführung",
+      "hint": "Maschinen können nur schwer echte menschliche Emotionen simulieren."
+    },
+    {
+      "question": "Die Geschäftsführung bewertet den neuen KI-Marketing-Plan aus rein betriebswirtschaftlicher (finanzieller) Perspektive. Welches Argument ist hierbei eine klassische Chance für das Unternehmen?",
+      "answerOptions": [
+        {
+          "text": "Die Stärkung des langfristigen Markenimages.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Eine schnellere Reaktion auf allgemeine Marktveränderungen.",
+          "isCorrect": false,
+          "rationale": "Das ist strategisch, nicht in erster Linie rein finanziell."
+        },
+        {
+          "text": "Die Senkung der Customer Acquisition Cost (CAC) und die Verbesserung des ROAS durch effizientere Budgetallokation.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Die Senkung der Akquisitionskosten (CAC), die Verbesserung der Werberendite (ROAS), Automatisierung (Personalersparnis) und Skalierbarkeit sind direkte betriebswirtschaftliche (finanzielle/operative) Chancen."
+        },
+        {
+          "text": "Der komplette Verlust der strategischen Intuition.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "KI-Einsatz – Betriebswirtschaftliche Chancen",
+      "youtubeQuery": "Marketing Automation ROAS Customer Acquisition Cost",
+      "hint": "Achte auf finanzielle Kennzahlen wie Kosten (CAC) und Rendite (ROAS)."
+    },
+    {
+      "question": "Vor der Unterzeichnung des Vertrags mit dem KI-Software-Anbieter warnt der Finanzchef vor den betriebswirtschaftlichen Risiken. Welches Risiko fällt in diese Kategorie?",
+      "answerOptions": [
+        {
+          "text": "Hohe Lizenz- und Implementierungskosten sowie die Abhängigkeit vom Systemanbieter.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Lizenzkosten, Implementierungskosten, Schulungsaufwand und ein drohender \"Vendor-Lock-in\" (Abhängigkeit vom Anbieter) sind klassische betriebswirtschaftliche Risiken bei der Anschaffung neuer Software-Systeme."
+        },
+        {
+          "text": "Die Vernachlässigung der emotionalen Markenidentität.",
+          "isCorrect": false,
+          "rationale": "Das ist ein strategisches, kein primär betriebswirtschaftlich/finanzielles Risiko."
+        },
+        {
+          "text": "Die Verbesserung der Customer Journey.",
+          "isCorrect": false,
+          "rationale": "Falsch, das ist eine Chance."
+        },
+        {
+          "text": "Eine mögliche algorithmische Bevorzugung von Neukunden.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "KI-Einsatz – Betriebswirtschaftliche Risiken",
+      "youtubeQuery": "Vendor Lock in Software Risiken",
+      "hint": "Betriebswirtschaftliche Risiken beziehen sich auf Kosten und Abhängigkeiten."
+    },
+    {
+      "question": "Eine Agentur warnt: \"Wenn Sie das KI-System unbeaufsichtigt lassen, wird es die Werbeanzeigen nur noch aggressiv auf schnelle Klicks optimieren, was Ihre Marke langfristig wie einen Billig-Discounter wirken lässt.\" Welches strategische Risiko wird hier beschrieben?",
+      "answerOptions": [
+        {
+          "text": "Der Wegfall von Serverkapazitäten.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die kurzfristige KPI-Orientierung und die damit einhergehende Vernachlässigung der langfristigen Markenidentität.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. KIs neigen dazu, stur auf kurzfristige, messbare Kennzahlen (wie Klicks) zu optimieren. Dies birgt das enorme strategische Risiko, dass die langfristige, qualitative Markenidentität verloren geht, wenn der Mensch nicht gegensteuert."
+        },
+        {
+          "text": "Die Einsparung von Personalkosten im Controlling.",
+          "isCorrect": false,
+          "rationale": "Einsparungen sind eher eine Change."
+        },
+        {
+          "text": "Ein Verstoß gegen das Urheberrecht.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "KI-Einsatz – Strategische Risiken",
+      "youtubeQuery": "KI Marketing Probleme und Risiken Marke",
+      "hint": "Die KI zielt oft nur auf rasche Erfolge (\"Klicks\") statt auf das Image ab."
+    },
+    {
+      "question": "Ein Software-Verkäufer rät der „Summit-Gear AG“: „Schalten Sie die KI an und entlassen Sie Ihr gesamtes Marketing-Management. Die KI regelt ab sofort alles vollautomatisch zu 100 %.“ Wie ist diese Empfehlung fachlich zu bewerten?",
+      "answerOptions": [
+        {
+          "text": "Absolut richtig, KI ersetzt heute jedes strategische Marketing-Management fehlerfrei.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Falsch. Eine vollständige Automatisierung ohne strategische Steuerung ist gefährlich. KI ist nur sinnvoll, wenn sie als Entscheidungsunterstützung dient und die menschliche Kontrolle erhalten bleibt.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das Gesamturteil für den KI-Einsatz lautet immer: Es ist ein mächtiges Tool, aber der Mensch muss die Kontrolle, die strategische Steuerung und die Überwachung der Markenqualität zwingend in der Hand behalten."
+        },
+        {
+          "text": "Richtig, da KIs niemals Fehler machen und keine Lizenzkosten verursachen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Falsch, da KI gesetzlich verboten ist.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "KI-Einsatz – Gesamturteil",
+      "youtubeQuery": "KI im Marketing ersetzt es den Menschen",
+      "hint": "Die Entscheidungskompetenz und Endkontrolle muss beim Menschen bleiben."
+    },
+    {
+      "question": "Die Entscheidung ist gefallen: Ein KI-System soll die Marketing-Kampagnen der „Summit-Gear AG“ steuern. Um finanzielle Katastrophen zu Beginn zu vermeiden, sollte welche Maßnahme zur Integration als allererstes ergriffen werden?",
+      "answerOptions": [
+        {
+          "text": "Die sofortige Aktivierung der KI für 100 % aller bestehenden Kampagnen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Ein Pilotprojekt, bei dem das System zunächst nur auf einen einzelnen, ausgewählten Marketingkanal angewendet wird.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Ein \"Big Bang\"-Rollout ist riskant. Die erfolgreiche Integration startet meist mit einem Pilotprojekt in einem abgegrenzten Bereich (z.B. nur für Google SEA), um das System zu testen und Fehler im kleinen Rahmen zu beheben."
+        },
+        {
+          "text": "Das Löschen aller bisherigen Kundendaten, um der KI einen \"frischen\" Start zu geben.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Auslagerung der Buchhaltung nach Asien.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "Integration – Der Start (Pilotprojekt)",
+      "youtubeQuery": "Agiles Projektmanagement Pilotprojekt",
+      "hint": "Testen im kleinen, geschützten Rahmen."
+    },
+    {
+      "question": "Bei den ersten Tests der KI gibt es Streit im Team. Der Algorithmus erhöht eigenmächtig das Werbebudget für eine Kampagne, während der Marketing-Manager es gleichzeitig manuell wieder senkt. Welche zwingende Integrationsmaßnahme wurde hier vergessen?",
+      "answerOptions": [
+        {
+          "text": "Die Installation eines schnelleren Routers.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Definition von klaren Freigabeprozessen und Budgetrichtlinien (Wer darf was?).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Um Konflikte zwischen Mensch und Maschine zu vermeiden, müssen bei der Integration von KI klare Richtlinien, Kontrollmechanismen und Freigabeprozesse im Team etabliert werden."
+        },
+        {
+          "text": "Das Etablieren einer neuen Kleiderordnung im Büro.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Einholen der Zustimmung der Gewerkschaft für Software-Käufe.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "Integration – Organisatorische Maßnahmen",
+      "youtubeQuery": "Change Management KI Integration Prozesse",
+      "hint": "Es braucht eindeutige Regeln, wer die letzte Entscheidungsbefugnis hat."
+    },
+    {
+      "question": "Die KI hat den Auftrag, das monatliche Werbebudget von 70.000 € so zu verteilen, dass der maximale Umsatz erzielt wird. Mit welcher betriebswirtschaftlichen Kennzahl misst das Controlling anschließend am besten, wie viel Umsatz jeder einzeln investierte Werbe-Euro zurückgebracht hat?",
+      "answerOptions": [
+        {
+          "text": "Mit der Conversion Rate (CR)",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Mit der Click-Through-Rate (CTR)",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Mit dem Return on Advertising Spend (ROAS)",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Der ROAS (Return on Advertising Spend) setzt den erzielten Werbeumsatz direkt ins Verhältnis zu den eingesetzten Werbekosten. Ein ROAS von 3,5 bedeutet: Für jeden eingesetzten Euro Werbebudget wurden 3,50 € Umsatz generiert."
+        },
+        {
+          "text": "Mit der Abbruchquote im Warenkorb",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "Kennzahlen – Werbeeffizienz (ROAS)",
+      "youtubeQuery": "Return on Advertising Spend ROAS einfach erklärt",
+      "hint": "Verhältnis von Werbekosten zum erzielten Umsatz."
+    },
+    {
+      "question": "Die KI schaltet personalisierte Anzeigen auf Facebook, um neue Zielgruppen zu erschließen. Nach einem Monat möchte der Geschäftsführer wissen, wie viel Marketing-Geld im Durchschnitt ausgegeben werden musste, um genau EINEN neuen Käufer zu gewinnen. Welche KPI liefert diese exakte Information?",
+      "answerOptions": [
+        {
+          "text": "Der Customer Lifetime Value (CLV)",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Customer Acquisition Cost (CAC)",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die CAC (Customer Acquisition Cost) misst die durchschnittlichen Kosten (Marketing und Vertrieb), die aufgewendet werden müssen, um einen einzigen neuen, zahlenden Kunden zu gewinnen."
+        },
+        {
+          "text": "Der Deckungsbeitrag (DB)",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Der Cost per Click (CPC)",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "topic": "Kennzahlen – Kundenakquisition (CAC)",
+      "youtubeQuery": "Customer Acquisition Cost CAC KPIs",
+      "hint": "Was kostet es, einen Kunden (Customer) zu 'akquirieren' (Acquisition)?"
     }
   ]
 }
