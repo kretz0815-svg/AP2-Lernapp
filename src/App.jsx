@@ -1672,7 +1672,7 @@ ${feynmanInput}`;
     return (
       <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 9999, backgroundColor: '#000' }}>
         <video
-          src="/intro.mp4"
+          src={window.innerWidth <= 768 ? "/INTROMOBILE.mp4" : "/intro.mp4"}
           autoPlay
           playsInline
           muted
