@@ -2148,7 +2148,16 @@ ${feynmanInput}`;
     const calcTasks = getRechenTasks();
     const topics = ['Alle', 'KPI', 'Handelskalkulation', 'Conversion', 'ROAS', 'Allgemein'];
     
-    const countByTopic = (t) => t === 'Alle' ? calcTasks.length : calcTasks.filter(q => categorizeRechenTask(q) === t).length;
+    const now = Date.now();
+    const preparedAll = buildPreparedQuizzes(calcTasks, quizProg);
+    const dueAll = filterDueQuizzes(preparedAll, quizProg, now);
+
+    const getTopicStats = (t) => {
+      const topicTasks = t === 'Alle' ? calcTasks : calcTasks.filter(q => categorizeRechenTask(q) === t);
+      const topicPrepared = buildPreparedQuizzes(topicTasks, quizProg);
+      const topicDue = filterDueQuizzes(topicPrepared, quizProg, now);
+      return { total: topicTasks.length, due: topicDue.length };
+    };
 
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
@@ -2180,17 +2189,24 @@ ${feynmanInput}`;
                 fontSize: '0.92rem'
               }}
             >
-              {topics.map(t => (
-                <option key={t} value={t}>{t} ({countByTopic(t)} Fragen)</option>
-              ))}
+              {topics.map(t => {
+                const stats = getTopicStats(t);
+                return (
+                  <option key={t} value={t}>
+                    {t} ({stats.due} fällig / {stats.total} gesamt)
+                  </option>
+                );
+              })}
             </select>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <button className="btn-secondary" onClick={() => startRechenTasks(10, rechenSetup.topic)}>10 Fragen</button>
-            <button className="btn-secondary" onClick={() => startRechenTasks(20, rechenSetup.topic)}>20 Fragen</button>
-            <button className="btn-secondary" onClick={() => startRechenTasks(50, rechenSetup.topic)}>50 Fragen</button>
-            <button className="btn-primary" onClick={() => startRechenTasks('All', rechenSetup.topic)}>Alle fälligen</button>
+            <button className="btn-secondary" onClick={() => startRechenTasks(10, rechenSetup.topic)}>10 Aufgaben</button>
+            <button className="btn-secondary" onClick={() => startRechenTasks(20, rechenSetup.topic)}>20 Aufgaben</button>
+            <button className="btn-secondary" onClick={() => startRechenTasks(50, rechenSetup.topic)}>50 Aufgaben</button>
+            <button className="btn-primary" onClick={() => startRechenTasks('All', rechenSetup.topic)}>
+              {getTopicStats(rechenSetup.topic).due} fällige starten
+            </button>
           </div>
           
           <p style={{ marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
