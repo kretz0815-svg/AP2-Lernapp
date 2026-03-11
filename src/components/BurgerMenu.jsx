@@ -343,6 +343,26 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, t
                                 )}
                             </div>
 
+                            <div className="stat-card" style={{ cursor: isGuest ? 'not-allowed' : 'pointer', opacity: isGuest ? 0.72 : 1 }} onClick={() => handleCategoryClick('rechen')}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Rechen-Aufgaben{isGuest ? ' 🔒' : ''}</span>
+                                    {!isGuest && <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>}
+                                </div>
+                                {isGuest ? (
+                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>Nur mit E-Mail-Login verfügbar</div>
+                                ) : (
+                                    <>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                            <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--primary)' }}>{stats.rechenLearned}</span>
+                                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.rechenTotal} verinnerlicht</span>
+                                        </div>
+                                        <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
+                                            <div className="progress-bar" style={{ width: `${(stats.rechenLearned / Math.max(stats.rechenTotal, 1)) * 100}%`, background: 'var(--primary)' }}></div>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+
                         </div>
                     </div>
                 </div>

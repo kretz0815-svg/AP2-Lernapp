@@ -60,6 +60,12 @@ export default function QuestionManager({ category, questions, progress, formatL
             color: 'var(--accent)',
             progressKey: 'ap2_wisor_eco_progress',
             isLearned: (id, prog) => !!prog[id],
+        },
+        rechen: {
+            title: 'Rechen-Aufgaben',
+            color: 'var(--primary)',
+            progressKey: 'ap2_quiz_progress',
+            isLearned: (id, prog) => prog[id] && prog[id].nextReview > Date.now(),
         }
     };
 
@@ -112,7 +118,7 @@ export default function QuestionManager({ category, questions, progress, formatL
             const { data: { session } } = await supabase.auth.getSession();
             if (session?.user) {
                 const userId = session.user.id;
-                if (category === 'quiz') {
+                if (category === 'quiz' || category === 'rechen') {
                     await supabase
                         .from('user_task_progress')
                         .delete()

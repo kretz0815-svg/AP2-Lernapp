@@ -66,8 +66,6 @@ function App() {
   const {
     authUser,
     setAuthUser,
-    pinInput,
-    setPinInput,
     authError,
     setAuthError,
     email,
@@ -82,7 +80,6 @@ function App() {
     captchaToken,
     setCaptchaToken,
     captchaRef,
-    SECRET_PIN,
     handleLogin,
     handleRegister,
     handleGoogleLogin,
@@ -532,6 +529,32 @@ function App() {
     ...(quizUForm2.questions || []),
     ...(customQuizQuestions || [])
   ];
+
+  // --- RECHEN AUFGABEN HELPER ---
+  const isRechenTask = (q) => {
+    const text = ((q.question || '') + ' ' + (q.topic || '') + ' ' + (q.hint || '')).toLowerCase();
+    const hasCalcKeywords = ['berechne', 'rechnen', 'wieviel', 'wie hoch', 'betrag', 'kalkuliere', 'ermittle', 'prozent', 'anteil', 'summe', 'kosten'].some(k => text.includes(k));
+    const hasNumbers = /[0-9]+/.test(q.question || '');
+    const hasSymbols = /[%€]/.test(q.question || '') || (q.answerOptions && q.answerOptions.some(opt => /[%€]/.test(opt.text)));
+    const isCalcTopic = ['Kalkulation', 'Performance', 'Conversion', 'ROAS', 'CTR', 'CPC', 'CPA', 'Deckungsbeitrag'].some(t => (q.topic || '').includes(t));
+    return (isCalcTopic || ((hasCalcKeywords || hasSymbols) && hasNumbers));
+  };
+
+  const getRechenTasks = () => {
+    const all = getAllQuizQuestions();
+    return all.filter(isRechenTask);
+  };
+
+  const categorizeRechenTask = (q) => {
+    const text = (q.question + ' ' + (q.topic || '')).toLowerCase();
+    if (text.includes('conversion') || text.includes('konversionsrate') || text.includes(' cr ')) return 'Conversion';
+    if (text.includes('roas') || text.includes('return on advertising')) return 'ROAS';
+    if (['ctr', 'cpc', 'cpa', 'kennzahl', 'performance', 'effizienz', 'click-through', 'cost per'].some(k => text.includes(k))) return 'KPI';
+    if (['kalkulation', 'preis', 'rabatt', 'skonto', 'gewinn', 'handlungskost', 'einstand', 'listen'].some(k => text.includes(k))) return 'Handelskalkulation';
+    return 'Allgemein';
+  };
+
+  const [rechenSetup, setRechenSetup] = useState({ topic: 'Alle', count: 10 });
 
   const buildPreparedQuizzes = (rawQuizzes, quizProg) => {
     return rawQuizzes.map(q => {
@@ -1167,7 +1190,7 @@ ${feynmanInput}`;
     refreshQuizDuePool().catch(() => { });
 
     appendLearningEvent({
-      mode: 'quiz',
+      mode: isRechenTask(q) ? 'rechen' : 'quiz',
       questionId: q.id,
       questionText: q.question,
       correct: isCorrect,
@@ -1550,31 +1573,21 @@ ${feynmanInput}`;
           <hr style={{ margin: '1.5rem 0', borderColor: 'var(--glass-border)' }} />
 
           <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '0.8rem' }}>Alternativ: Lokaler Gast Zugang (Nur auf diesem Gerät)</p>
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            if (pinInput === SECRET_PIN) {
+          <button
+            type="button"
+            className="btn-secondary"
+            style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}
+            onClick={() => {
               setAuthError(false);
               localStorage.setItem(ACCESS_MODE_KEY, 'guest');
               clearGuestProgressData();
               localStorage.setItem('masterpat_auth', 'true');
               setAppMode('intro');
               window.location.reload(); // Zum Laden der User Data vom Device
-            } else {
-              setAuthError(true);
-              setPinInput('');
-            }
-          }}>
-            <input
-              type="password"
-              className="wisor-input"
-              placeholder="App-PIN"
-              value={pinInput}
-              onChange={(e) => setPinInput(e.target.value)}
-              style={{ textAlign: 'center', letterSpacing: '0.2rem', marginBottom: '1rem', padding: '0.7rem', fontSize: '1rem' }}
-            />
-            {authError && <p style={{ color: 'var(--error)', marginBottom: '1rem', fontWeight: 'bold' }}>Falsche PIN!</p>}
-            <button type="submit" className="btn-secondary" style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}>Als Gast (Lokal) fortfahren</button>
-          </form>
+            }}
+          >
+            Als Gast (Lokal) fortfahren
+          </button>
         </div>
       </div>
     );
@@ -1615,6 +1628,14 @@ ${feynmanInput}`;
   }, 0);
   const wisorQuestions = wisor1.questions || [];
   const wisorEcoQuestions = wisorEco.questions || [];
+  const rechenTasks = getRechenTasks();
+  const rechenTotal = rechenTasks.length;
+  const rechenLearned = rechenTasks.reduce((count, q) => {
+    const progress = quizProg[q.id];
+    if (!progress) return count;
+    return count + ((progress.nextReview || 0) > nowTs ? 1 : 0);
+  }, 0);
+
   const globalStats = {
     quizTotal: allQuizQuestions.length,
     quizLearned: Math.min(quizLearnedCount, allQuizQuestions.length),
@@ -1622,6 +1643,8 @@ ${feynmanInput}`;
     wisorLearned: Object.keys(completedWisors).length,
     wisorEcoTotal: wisorEcoQuestions.length,
     wisorEcoLearned: Object.keys(completedWisorsEco).length,
+    rechenTotal,
+    rechenLearned
   };
 
   const burgerMenuPortal = createPortal(
@@ -1647,18 +1670,19 @@ ${feynmanInput}`;
           category={questionManagerCategory}
           questions={
             questionManagerCategory === 'quiz' ? allQuizQuestions :
-              questionManagerCategory === 'wisor' ? wisorQuestions : wisorEcoQuestions
+              questionManagerCategory === 'wisor' ? wisorQuestions : 
+              questionManagerCategory === 'wisorEco' ? wisorEcoQuestions : rechenTasks
           }
           authUser={authUser}
           progress={
-            questionManagerCategory === 'quiz' ? quizProg :
+            questionManagerCategory === 'quiz' || questionManagerCategory === 'rechen' ? quizProg :
               questionManagerCategory === 'wisor' ? completedWisors : completedWisorsEco
           }
           formatLatex={formatLatex}
           onClose={() => setQuestionManagerCategory(null)}
           onAddCustomQuizQuestion={handleAddCustomQuizQuestion}
           onProgressUpdate={(cat, updatedProgress) => {
-            if (cat === 'quiz') refreshQuizDuePool().catch(() => { });
+            if (cat === 'quiz' || cat === 'rechen') refreshQuizDuePool().catch(() => { });
             else if (cat === 'wisor') setCompletedWisors(updatedProgress);
             else if (cat === 'wisorEco') setCompletedWisorsEco(updatedProgress);
           }}
@@ -1826,6 +1850,25 @@ ${feynmanInput}`;
                 🔄 Lernfortschritt zurücksetzen
               </button>
             )}
+          </div>
+
+          <div className="dash-card rechen-card" onClick={() => { setAppMode('rechen_tasks_setup'); }}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
+              <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+              </svg>
+            </div>
+            <div style={{ position: 'absolute', top: '12px', right: '12px', background: 'var(--primary)', color: 'white', fontSize: '0.65rem', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>NEU</div>
+            <h2>Rechen-<br />Aufgaben</h2>
+            <p>Gezieltes Training für IHK-relevante Rechen- und KPI-Aufgaben.</p>
+            <div className="chip">
+              {rechenLearned === rechenTotal && rechenTotal > 0 ? 'Alles gemeistert! 🎉' : 
+               `${rechenTotal - rechenLearned} Aufgaben fällig`}
+            </div>
           </div>
 
           <div className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
@@ -2067,6 +2110,93 @@ ${feynmanInput}`;
           title="Bist du dir sicher?"
           description="Dein gesamter Lernstand wird unwiderruflich auf Null zurückgesetzt. Löse die Aufgabe, um fortzufahren:"
         />
+      </div>
+    );
+  }
+
+  const startRechenTasks = (count, topic) => {
+    let filtered = getRechenTasks();
+    if (topic && topic !== 'Alle') {
+      filtered = filtered.filter(q => categorizeRechenTask(q) === topic);
+    }
+    
+    const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
+    const prepared = buildPreparedQuizzes(filtered, quizProg);
+    const now = Date.now();
+
+    // If "Alle fälligen", only take due ones
+    let pool;
+    if (count === 'All') {
+      pool = filterDueQuizzes(prepared, quizProg, now);
+    } else {
+      // Prioritize due questions, then fill with unlearned/ready
+      const due = filterDueQuizzes(prepared, quizProg, now);
+      const remaining = prepared.filter(p => !due.some(d => d.id === p.id));
+      pool = [...due, ...remaining.sort(() => Math.random() - 0.5)].slice(0, parseInt(count));
+    }
+    
+    if (pool.length === 0) {
+      alert('Keine fälligen Aufgaben für dieses Thema gefunden.');
+      return;
+    }
+
+    resetQuiz(pool);
+    setAppMode('quiz');
+  };
+
+  if (appMode === 'rechen_tasks_setup') {
+    const calcTasks = getRechenTasks();
+    const topics = ['Alle', 'KPI', 'Handelskalkulation', 'Conversion', 'ROAS', 'Allgemein'];
+    
+    const countByTopic = (t) => t === 'Alle' ? calcTasks.length : calcTasks.filter(q => categorizeRechenTask(q) === t).length;
+
+    return (
+      <div className="app-container" style={{ zIndex: 10 }}>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <header>
+          <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
+        </header>
+        <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
+          <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Wieviele Fragen?</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Wähle ein Rechen-Thema und dann die Anzahl der Fragen für dein Training.</p>
+
+          <div style={{ marginBottom: '1.3rem', textAlign: 'left' }}>
+            <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '0.45rem' }}>
+              Themenblock
+            </label>
+            <select
+              value={rechenSetup.topic}
+              onChange={(e) => setRechenSetup(prev => ({ ...prev, topic: e.target.value }))}
+              style={{
+                width: '100%',
+                padding: '0.7rem 0.9rem',
+                borderRadius: '10px',
+                border: '1px solid var(--glass-border)',
+                background: 'rgba(255,255,255,0.05)',
+                color: 'var(--text-light)',
+                fontSize: '0.92rem'
+              }}
+            >
+              {topics.map(t => (
+                <option key={t} value={t}>{t} ({countByTopic(t)} Fragen)</option>
+              ))}
+            </select>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <button className="btn-secondary" onClick={() => startRechenTasks(10, rechenSetup.topic)}>10 Fragen</button>
+            <button className="btn-secondary" onClick={() => startRechenTasks(20, rechenSetup.topic)}>20 Fragen</button>
+            <button className="btn-secondary" onClick={() => startRechenTasks(50, rechenSetup.topic)}>50 Fragen</button>
+            <button className="btn-primary" onClick={() => startRechenTasks('All', rechenSetup.topic)}>Alle fälligen</button>
+          </div>
+          
+          <p style={{ marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+            Inklusive Video-Vorschlägen & KI-Assistent
+          </p>
+        </div>
       </div>
     );
   }
@@ -2372,7 +2502,8 @@ Die JSON muss exakt diese Struktur haben:
       flashcard: 'Lernkarten',
       kalkulation: 'Kalkulations-Boss',
       breakEven: 'Break-Even-Point',
-      klr: 'KLR-Modul'
+      klr: 'KLR-Modul',
+      rechen: 'Rechen-Aufgaben'
     };
 
     const modeTotals = events.reduce((acc, event) => {
@@ -2383,7 +2514,7 @@ Die JSON muss exakt diese Struktur haben:
       return acc;
     }, {});
 
-    const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco' || e.mode === 'kalkulation' || e.mode === 'breakEven' || e.mode === 'klr');
+    const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco' || e.mode === 'kalkulation' || e.mode === 'breakEven' || e.mode === 'klr' || e.mode === 'rechen');
     const totalAnswers = events.length;
     const totalCorrect = events.filter(e => e.correct).length;
     const hitRate = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
