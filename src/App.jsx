@@ -1858,7 +1858,7 @@ ${feynmanInput}`;
               </svg>
             </div>
             <div style={{ position: 'absolute', top: '12px', right: '12px', background: 'var(--primary)', color: 'white', fontSize: '0.65rem', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>NEU</div>
-            <h2>Rechen-<br />Aufgaben</h2>
+            <h2>KPI<br />berechnen</h2>
             <p>Gezieltes Training für IHK-relevante Rechen- und KPI-Aufgaben.</p>
             <div className="chip">
               {rechenLearned === rechenTotal && rechenTotal > 0 ? 'Alles gemeistert! 🎉' : 
@@ -2514,7 +2514,7 @@ Die JSON muss exakt diese Struktur haben:
       kalkulation: 'Kalkulations-Boss',
       breakEven: 'Break-Even-Point',
       klr: 'KLR-Modul',
-      rechen: 'Rechen-Aufgaben'
+      rechen: 'KPI berechnen'
     };
 
     const modeTotals = events.reduce((acc, event) => {

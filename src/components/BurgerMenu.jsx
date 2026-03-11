@@ -345,7 +345,7 @@ const BurgerMenu = ({ authUser, handleLogout, stats, isLightMode, toggleTheme, t
 
                             <div className="stat-card" style={{ cursor: isGuest ? 'not-allowed' : 'pointer', opacity: isGuest ? 0.72 : 1 }} onClick={() => handleCategoryClick('rechen')}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Rechen-Aufgaben{isGuest ? ' 🔒' : ''}</span>
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>KPI berechnen{isGuest ? ' 🔒' : ''}</span>
                                     {!isGuest && <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>}
                                 </div>
                                 {isGuest ? (
