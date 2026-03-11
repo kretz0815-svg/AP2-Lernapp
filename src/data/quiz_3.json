@@ -3528,6 +3528,202 @@
       "hint": "Überlege, was ein Kunde zuerst sieht, wenn er den Shop besucht.",
       "youtubeQuery": "E-Commerce Strategie Grundlagen IHK Standards",
       "topic": "Strategische Grundlagen"
+    },
+    {
+      "question": "Im wöchentlichen Marketing-Meeting der „Tech-Nova AG“ präsentiert der Kampagnen-Manager stolz den aktuellen „ROAS“. Welchem primären Zweck dient diese spezifische Kennzahl im E-Commerce?",
+      "answerOptions": [
+        {
+          "text": "Sie gibt an, wie viele Nutzer eine Werbeanzeige gesehen, aber nicht darauf geklickt haben.",
+          "isCorrect": false,
+          "rationale": "Das wäre eher die View-Through-Rate oder Impression-Analyse."
+        },
+        {
+          "text": "Sie misst die Effizienz einer Werbekampagne und gibt an, wie viel Umsatz pro investiertem Euro in Werbung generiert wurde (Return on Advertising Spend).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. ROAS steht für „Return on Advertising Spend“. Diese Kennzahl misst die direkte Effizienz einer Kampagne, indem sie zeigt, wie viel Umsatz jeder investierte Werbe-Euro zurückgebracht hat."
+        },
+        {
+          "text": "Sie berechnet die exakten Kosten, die anfallen, um einen einzelnen Klick auf eine Anzeige zu generieren.",
+          "isCorrect": false,
+          "rationale": "Das ist der CPC (Cost per Click)."
+        },
+        {
+          "text": "Sie zeigt den prozentualen Anteil der Nutzer, die den Checkout-Prozess im Shop abbrechen.",
+          "isCorrect": false,
+          "rationale": "Das ist die Checkout-Abbruchrate."
+        }
+      ],
+      "hint": "Return on Advertising Spend – was kommt für das Werbe-Geld zurück?",
+      "youtubeQuery": "ROAS Bedeutung E-Commerce Marketing",
+      "topic": "ROAS (Bedeutung und Zweck)"
+    },
+    {
+      "question": "Die „Eco-Wear GmbH“ launcht eine neue Social-Media-Kampagne für nachhaltige Jacken. Das Unternehmen investiert 4.000 € in diese Online-Werbung. Das Controlling stellt fest, dass durch diese spezifische Kampagne ein direkter Umsatz von 32.000 € erzielt wurde. Wie hoch ist der ROAS?",
+      "answerOptions": [
+        {
+          "text": "12,5",
+          "isCorrect": false,
+          "rationale": "Falsch. Das wäre 4000 / 32000, was keinen Sinn für den ROAS ergibt."
+        },
+        {
+          "text": "8",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Der ROAS berechnet sich, indem man den erzielten Umsatz durch die Werbekosten teilt. Rechnung: 32.000 € (Umsatz) / 4.000 € (Kosten) = 8. Ein ROAS von 8 bedeutet, dass jeder investierte Euro 8 Euro Umsatz generiert hat."
+        },
+        {
+          "text": "0,125",
+          "isCorrect": false,
+          "rationale": "Falsch. Das ist der Kehrwert."
+        },
+        {
+          "text": "80 %",
+          "isCorrect": false,
+          "rationale": "Falsch. Der ROAS wird meist als Faktor (z.B. 8 oder 800 %) angegeben, nicht als Prozentwert der Kosten zum Umsatz."
+        }
+      ],
+      "hint": "Formel: Umsatz / Werbekosten.",
+      "youtubeQuery": "ROAS berechnen Beispiel E-Commerce",
+      "topic": "ROAS (Berechnung in der Praxis)"
+    },
+    {
+      "question": "Die „Urban-Kicks GmbH“ schaltet ein Werbebanner für neue Sneaker auf einem Fashion-Blog. Das Team analysiert die „Click-Through-Rate (CTR)“. Welche beiden Werte werden bei dieser Kennzahl zwingend ins Verhältnis gesetzt?",
+      "answerOptions": [
+        {
+          "text": "Die Anzahl der Käufe verglichen mit den Gesamtausgaben für die Werbung.",
+          "isCorrect": false,
+          "rationale": "Das wäre eher der CPA oder die Conversion Rate bezogen auf Kosten."
+        },
+        {
+          "text": "Die Anzahl der Klicks auf die Anzeige verglichen mit der Anzahl der Gesamtimpressionen (wie oft die Anzeige angezeigt wurde).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Click-Through-Rate (CTR) gibt das Verhältnis der Nutzer an, die aktiv auf eine Werbeanzeige geklickt haben, im Vergleich dazu, wie oft die Anzeige insgesamt auf Bildschirmen eingeblendet wurde (Impressionen)."
+        },
+        {
+          "text": "Die Anzahl der in den Warenkorb gelegten Artikel verglichen mit den tatsächlichen Käufen.",
+          "isCorrect": false,
+          "rationale": "Das ist die Cart-to-Detail- oder Buy-to-Detail-Rate."
+        },
+        {
+          "text": "Die Anzahl der Website-Besucher verglichen mit den Newsletter-Anmeldungen.",
+          "isCorrect": false,
+          "rationale": "Das ist die Newsletter-Conversion-Rate."
+        }
+      ],
+      "hint": "Klick-Rate – wie viele haben geklickt von denen, die es sahen?",
+      "youtubeQuery": "CTR Click Through Rate Definition E-Commerce",
+      "topic": "Click-Through-Rate (Definition)"
+    },
+    {
+      "question": "Ein Werbevideo der „Green-Hike UG“ wurde auf YouTube insgesamt 2.000 Mal bei der Zielgruppe eingeblendet (Impressionen). Die Auswertung zeigt, dass 80 Nutzer auf den Link im Video geklickt haben, um zum Shop zu gelangen. Wie hoch ist die CTR?",
+      "answerOptions": [
+        {
+          "text": "40 %",
+          "isCorrect": false,
+          "rationale": "Falsch. (80 / 200) wäre 40%, hier sind es aber 2.000 Impressionen."
+        },
+        {
+          "text": "0,04 %",
+          "isCorrect": false,
+          "rationale": "Falsch. Das ist der Dezimalwert (80 / 2000) ohne Multiplikation mit 100."
+        },
+        {
+          "text": "4 %",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Die Formel lautet: (Anzahl der Klicks / Anzahl der Impressionen) * 100 %. Rechnung: (80 / 2.000) * 100 % = 0,04 * 100 % = 4 %."
+        },
+        {
+          "text": "25 %",
+          "isCorrect": false,
+          "rationale": "Falsch. (2000 / 80) ergibt 25, aber das ist nicht die Formel."
+        }
+      ],
+      "hint": "Formel: (Klicks / Impressionen) * 100.",
+      "youtubeQuery": "CTR berechnen Beispiel Online Marketing",
+      "topic": "Click-Through-Rate (Berechnung)"
+    },
+    {
+      "question": "Um Traffic (Besucher) auf den neuen Online-Shop zu lenken, nutzt die „Smart-Home Solutions AG“ Suchmaschinenwerbung. Das Controlling überwacht dabei streng den „CPC“ (Cost per Click). Was hilft diese Metrik den Werbetreibenden primär zu verstehen?",
+      "answerOptions": [
+        {
+          "text": "Wie viel Umsatz ein Kunde über seine gesamte Lebensdauer im Shop generiert.",
+          "isCorrect": false,
+          "rationale": "Das ist der CLV (Customer Lifetime Value)."
+        },
+        {
+          "text": "Wie viel das Unternehmen im Durchschnitt für jeden einzelnen Website-Besucher ausgibt, der durch den Klick auf diese Anzeige generiert wird.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Der CPC misst die direkten Kosten für einen einzelnen Klick. Er zeigt dem Unternehmen exakt, was es im Durchschnitt bezahlen muss, um einen einzelnen Nutzer über diese Anzeige auf die eigene Website zu „kaufen“."
+        },
+        {
+          "text": "Wie hoch die Produktionskosten für das Erstellen des Werbebanners waren.",
+          "isCorrect": false,
+          "rationale": "Das sind fixe Erstellungskosten, kein CPC."
+        },
+        {
+          "text": "Wie viele Nutzer das beworbene Produkt nach dem Klick auch wirklich gekauft haben.",
+          "isCorrect": false,
+          "rationale": "Das zeigt die Conversion Rate."
+        }
+      ],
+      "hint": "Kosten pro Klick – was kostet ein einzelner Besucher?",
+      "youtubeQuery": "CPC Cost per Click Erklärung Online Marketing",
+      "topic": "Cost per Click (Bedeutung)"
+    },
+    {
+      "question": "Ein Start-up für Premium-Hundefutter möchte wissen, wie viel Marketing-Budget eigentlich ausgegeben werden muss, um genau einen Nutzer dazu zu bringen, ein monatliches Futter-Abo abzuschließen (eine Conversion). Welche Kennzahl liefert exakt diese Information?",
+      "answerOptions": [
+        {
+          "text": "Click-Through-Rate (CTR)",
+          "isCorrect": false,
+          "rationale": "Die CTR misst nur das Klickverhalten auf Anzeigen."
+        },
+        {
+          "text": "Cost per Click (CPC)",
+          "isCorrect": false,
+          "rationale": "Der CPC misst nur die Kosten für den Website-Besuch, nicht für den Abschluss."
+        },
+        {
+          "text": "Cost per Acquisition (CPA)",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Der CPA (Cost per Acquisition) gibt an, wie viel es das Unternehmen kostet, einen Kunden über eine Werbekampagne zu akquirieren oder eine ganz bestimmte Conversion (wie hier den Abo-Abschluss oder Kauf) zu erreichen."
+        },
+        {
+          "text": "Ad Impressions",
+          "isCorrect": false,
+          "rationale": "Impressions messen nur die Häufigkeit der Anzeige."
+        }
+      ],
+      "hint": "Kosten pro Akquise – was kostet ein neuer Kunde?",
+      "youtubeQuery": "CPA Cost per Acquisition E-Commerce erklärt",
+      "topic": "Cost per Acquisition (Definition)"
+    },
+    {
+      "question": "Die „Next-Gen Gaming GmbH“ gibt für eine Werbekampagne auf Instagram insgesamt 600 € aus. Die Anzeige generiert 150 Klicks. Aus diesen Klicks resultieren am Ende exakt 12 tatsächliche Käufe (Conversions) eines neuen Headsets. Wie hoch ist der CPA (Cost per Acquisition) für diese Kampagne?",
+      "answerOptions": [
+        {
+          "text": "4 €",
+          "isCorrect": false,
+          "rationale": "Falsch. Das wäre der Cost per Click: 600 € / 150 Klicks = 4 €."
+        },
+        {
+          "text": "50 €",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Formel für den CPA lautet: Gesamtkosten der Werbung / Anzahl der Conversions. Rechnung: 600 € / 12 Käufe = 50 €. Es kostet das Unternehmen also im Durchschnitt 50 €, um einen Headset-Käufer zu akquirieren."
+        },
+        {
+          "text": "12 €",
+          "isCorrect": false,
+          "rationale": "Falsch. Das ist nur die Anzahl der Käufe."
+        },
+        {
+          "text": "7.200 €",
+          "isCorrect": false,
+          "rationale": "Falsch. (600 * 12) ergibt keinen Sinn in dieser Kennzahlenlogik."
+        }
+      ],
+      "hint": "Formel: Gesamtkosten / Anzahl der Conversions.",
+      "youtubeQuery": "CPA berechnen Beispiel E-Commerce Marketing",
+      "topic": "Cost per Acquisition (Berechnung)"
     }
   ]
 }
