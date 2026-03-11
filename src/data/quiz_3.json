@@ -447,7 +447,8 @@
       ],
       "hint": "Strategisch geht es um Risikostreuung statt Ein-Plattform-Abhängigkeit.",
       "youtubeQuery": "Amazon FBA Risiken Plattformabhängigkeit Diversifizierung Vertriebskanäle",
-      "topic": "Geschäftsmodelle"
+      "topic": "Geschäftsmodelle",
+      "forceKnowledge": true
     },
     {
       "question": "Ein Händler entscheidet sich für die Nutzung von Amazon FBA. Neben der reinen Einlagerung und dem Versand der Pakete übernimmt Amazon in diesem Modell noch eine weitere, sehr ressourcenintensive Aufgabe für den Verkäufer. Welche ist das?",
@@ -1428,7 +1429,8 @@
       ],
       "hint": "Prüfe, ob Zielgruppe und Kanal laut Daten wirklich zusammenpassen.",
       "youtubeQuery": "Zielgruppen Match Budgetallokation LinkedIn XING 15 bis 20",
-      "topic": "Zielgruppen-Match (Fehlallokation von Budget)"
+      "topic": "Zielgruppen-Match (Fehlallokation von Budget)",
+      "forceKnowledge": true
     },
     {
       "question": "Das E-Commerce-Team analysiert die Reichweite von TikTok über Altersgruppen. Die Erhebung zeigt: 94 % (15 bis 20 Jahre), 66 % (21 bis 30 Jahre) und 32 % (31 bis 40 Jahre). Welcher signifikante Trend lässt sich aus diesen Zahlen ableiten?",
@@ -1456,7 +1458,8 @@
       ],
       "hint": "Vergleiche die Werte entlang des Altersverlaufs.",
       "youtubeQuery": "TikTok Nutzung Altersgruppen Trendanalyse 15 bis 40",
-      "topic": "Plattform-Lebenszyklus und Alterssprung (TikTok)"
+      "topic": "Plattform-Lebenszyklus und Alterssprung (TikTok)",
+      "forceKnowledge": true
     },
     {
       "question": "Ein E-Commerce-Unternehmen plant eine aufwendige Video-Marketingkampagne exklusiv auf TikTok und Snapchat. Die Zielgruppe für das neue Produkt sind Personen zwischen 31 und 50 Jahren. Interne Marktdaten zeigen: TikTok liegt bei den 31- bis 40-Jährigen nur bei 32 %, bei den 41- bis 50-Jährigen gibt es keine messbare Nutzung mehr. Snapchat weist in der gesamten Altersgruppe 31 bis 50 keine messbaren Nutzerdaten auf. Wie sind die Erfolgsaussichten dieser Kampagne zu bewerten?",
@@ -2074,7 +2077,8 @@
       ],
       "hint": "Welcher Begriff steht für die finanzielle Planung und Verteilung von Geldmitteln?",
       "youtubeQuery": "Mediaplanung Budgetierung Marketingbudget",
-      "topic": "Mediaplanung (Budgetierung)"
+      "topic": "Mediaplanung (Budgetierung)",
+      "forceKnowledge": true
     },
     {
       "question": "Ein neues Zelt-Modell soll auf den Markt gebracht werden. Der Marketing-Manager stellt durch den Mediaplan sicher, dass der Produktlaunch zeitgleich über den E-Mail-Newsletter, einen Banner auf der Webseite und über alle Social-Media-Kanäle koordiniert beworben wird. Welcher Aspekt der Mediaplanung ist das?",
@@ -3339,6 +3343,7 @@
         }
       ],
       "topic": "Kennzahlen – Werbeeffizienz (ROAS)",
+      "forceKnowledge": true,
       "youtubeQuery": "Return on Advertising Spend ROAS einfach erklärt",
       "hint": "Verhältnis von Werbekosten zum erzielten Umsatz."
     },
@@ -3511,7 +3516,8 @@
       ],
       "hint": "Social Proof basiert auf den Erfahrungen anderer Menschen.",
       "youtubeQuery": "Social Proof E-Commerce Vertrauen Kundenbewertungen",
-      "topic": "Conversion-Optimierung"
+      "topic": "Conversion-Optimierung",
+      "forceKnowledge": true
     },
     {
       "question": "Ein junges Start-up, die „Trailblazer Gear AG“, plant den Launch eines neuen Online-Shops. Das Team hat viele wilde Ideen, von Treueprogrammen bis hin zu Influencer-Kooperationen. Was ist laut IHK-Standards jedoch die absolute grundlegende Voraussetzung für eine erfolgreiche E-Commerce-Strategie, bevor solche Zusatzmaßnahmen greifen können?",
