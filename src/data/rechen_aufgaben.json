@@ -1198,13 +1198,13 @@
         {
           "text": "Die Wiederholungskaufrate misst den Umsatz, die Kaufhäufigkeit den Gewinn.",
           "isCorrect": false,
-          "ratio    {
-      "question": "Bei einer Kundenumfrage zum Net Promoter Score (NPS) auf einer Skala von 0-10 gab es 100 Antworten. 50 Nutzer wählten eine 9 oder 10 (Promotoren). 30 Nutzer wählten eine 7 oder 8 (Passiv). 20 Nutzer wählten 0 bis 6 (Detraktoren). Wie lautet der NPS?",
-      "answerOptions": [
-        {
-          "text": "+ 50",
-          "isCorrect": false,
           "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Wiederholungskaufrate (Repeat Purchase Rate)",
+      "youtubeQuery": "Wiederholungskaufrate (Repeat Purchase Rate) berechnen E-Commerce KPI",
+      "topic": "Wiederholungskaufrate (Repeat Purchase Rate)"
+    },
     {
       "question": "Bei einer Kundenumfrage zum Net Promoter Score (NPS) auf einer Skala von 0-10 gab es 100 Antworten. 50 Nutzer wählten eine 9 oder 10 (Promotoren). 30 Nutzer wählten eine 7 oder 8 (Passiv). 20 Nutzer wählten 0 bis 6 (Detraktoren). Wie lautet der NPS?",
       "answerOptions": [
