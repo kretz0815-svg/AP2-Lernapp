@@ -3604,5 +3604,538 @@
       "youtubeQuery": "CPA Cost per Acquisition E-Commerce erklärt",
       "topic": "Cost per Acquisition (Definition)"
     }
+,
+    {
+      "question": "Die „Urban-Kicks GmbH“ möchte wissen, an welcher genauen Stelle im Checkout-Prozess die meisten Kunden den Kauf abbrechen. Welcher wesentliche Vorteil von Google Analytics wird hierbei genutzt?",
+      "answerOptions": [
+        {
+          "text": "Die Analyse der Traffic-Quellen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Ziel-Tracking für Newsletter-Anmeldungen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Konversionsraten-Optimierung durch die Analyse von Drop-off-Punkten im Kaufprozess.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Durch die Analyse, wo und wann im Kaufprozess die Besucher abspringen (Drop-off-Punkte), können Unternehmen ihre Website optimieren, um die Konversionen zu steigern."
+        },
+        {
+          "text": "Die Erfassung von veralteten Serverdaten.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Fokus auf Absprungpunkte im Kaufprozess.",
+      "youtubeQuery": "Google Analytics Checkout Abbruch Drop-off Punkte Analyse",
+      "topic": "Webanalyse"
+    },
+    {
+      "question": "Der Shop-Manager der „Peak-Performance AG“ möchte auswerten, welche Produkte im letzten Monat die Bestseller waren und wie hoch der durchschnittliche Bestellwert war. Welche spezifische Funktion von Google Analytics liefert diese Daten?",
+      "answerOptions": [
+        {
+          "text": "Das E-Commerce-Tracking.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Das spezielle E-Commerce-Tracking in Google Analytics zeigt dem Unternehmen, welche Produkte sich am besten verkaufen, wie hoch der durchschnittliche Bestellwert ist und wie die Konversionsraten aussehen."
+        },
+        {
+          "text": "Die Performance-Analyse.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Quellen-Auswertung.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Social-Media-Monitoring.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Spezielle Funktion für Online-Shops.",
+      "youtubeQuery": "Google Analytics E-Commerce-Tracking Funktionen Bestseller",
+      "topic": "Webanalyse"
+    },
+    {
+      "question": "Die erfassten Besucherzahlen in Google Analytics sind bei der „EcoHike UG“ deutlich niedriger als die tatsächlichen Serverzugriffe. Welches technische Risiko bei Tracking-Tools führt am ehesten zu dieser Diskrepanz?",
+      "answerOptions": [
+        {
+          "text": "Die Datenüberlastung der Google-Server.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Der Einsatz von Ad-Blockern oder dem „Do Not Track“-Feature in den Browsern der Nutzer.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Aufgrund von Dingen wie dem Einsatz von Ad-Blockern oder dem „Do Not Track\"-Feature in Browsern werden nicht immer alle Daten erfasst, was zu unvollständigen oder verzerrten Analysen führt."
+        },
+        {
+          "text": "Eine Verzögerung in der Datenanzeige.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die hohen Kosten für die Premium-Version.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Überlege, welche Browser-Erweiterungen Tracking verhindern können.",
+      "youtubeQuery": "Datenunvollständigkeit Webanalyse Ad-Blocker Do Not Track",
+      "topic": "Webanalyse-Risiken"
+    },
+    {
+      "question": "Nach der Implementierung des Google-Analytics-Tracking-Codes beschweren sich Kunden der „Smart-Gear GmbH“ über extrem langsame Ladezeiten im Shop. Welches Risiko hat sich hier manifestiert?",
+      "answerOptions": [
+        {
+          "text": "Datenüberlastung.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Sicherheitsbedenken durch Hacker-Angriffe.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Performance-Einflüsse durch nicht korrekt eingebundenen Tracking-Code.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Das Einbinden von Tracking-Codes kann, wenn es nicht korrekt gemacht wird, die Ladezeiten (Performance) einer Website beeinträchtigen, was wiederum die User Experience negativ beeinflusst."
+        },
+        {
+          "text": "Veraltete Daten im System.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Code-Einbindung kann die Geschwindigkeit beeinflussen.",
+      "youtubeQuery": "Tracking-Code Performance Einflüsse Ladezeit Website",
+      "topic": "Webanalyse-Risiken"
+    },
+    {
+      "question": "Das neu eingestellte E-Commerce-Team fühlt sich von der schieren Menge der Metriken in Google Analytics erschlagen und kann keine klaren Schlüsse für die nächste Kampagne ziehen. Wie wird dieses Phänomen fachlich genannt?",
+      "answerOptions": [
+        {
+          "text": "Black-Box-Effekt.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Datenüberlastung.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die schiere Menge an Daten, die Google Analytics bietet, kann überwältigend sein (Datenüberlastung) und es schwierig machen, die relevanten Informationen überhaupt noch herauszufiltern."
+        },
+        {
+          "text": "Datenunvollständigkeit.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Performance-Einbuße.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Zu viele Daten können die Analyse erschweren.",
+      "youtubeQuery": "Datenüberlastung Big Data Analyse Probleme",
+      "topic": "Webanalyse-Risiken"
+    },
+    {
+      "question": "Die „Next-Level Electronics GmbH“ leidet unter starken Zahlungsausfällen bei Rechnungskäufen. Ein neues KI-System soll bei jedem Bestellvorgang die Wahrscheinlichkeit eines Betrugs vorab berechnen. Welchem kaufmännischen Controllingprozess ist das zuzuordnen?",
+      "answerOptions": [
+        {
+          "text": "Deckungsbeitragsrechnung.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Liquiditätsplanung.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Risikomanagement.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Zahlungsausfallprognosen, Retourenanalysen und Betrugserkennung sind klassische Einsatzgebiete der KI im Risikomanagement des Unternehmens."
+        },
+        {
+          "text": "Budgetkontrolle.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Vermeidung von Betrug und Zahlungsausfall.",
+      "youtubeQuery": "KI Risikomanagement Betrugserkennung E-Commerce",
+      "topic": "KI-Controlling"
+    },
+    {
+      "question": "Ein KI-Tool wird im Shop der „Trailblazer AG“ eingesetzt, um genau vorherzusagen, welche einzelnen Artikel nach Abzug der direkten Kosten eigentlich nur noch Geld verbrennen („Low-Performer“). Welcher Controlling-Prozess profitiert hier direkt?",
+      "answerOptions": [
+        {
+          "text": "Die Deckungsbeitragsrechnung (Identifikation unrentabler Artikel).",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Die KI prognostiziert hier den Deckungsbeitrag je Produkt. Dies hilft bei der Deckungsbeitragsrechnung enorm, um unrentable Artikel (Low-Performer) schnell zu identifizieren."
+        },
+        {
+          "text": "Die Cashflow-Prognose.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die automatische Abweichungsanalyse.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Social-Media-Monitoring.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Identifikation von 'Geldverbrennern'.",
+      "youtubeQuery": "Deckungsbeitragsrechnung KI Low-Performer Identifikation",
+      "topic": "KI-Controlling"
+    },
+    {
+      "question": "Das KI-System der „Snow-Peak Ausrüstung“ hat für April einen schwachen Absatz von Winterjacken vorhergesagt. Durch einen plötzlichen, extremen Kälteeinbruch im Frühling wurde der Shop jedoch überrannt und die Jacken waren sofort ausverkauft. Welche fundamentale Grenze der KI zeigt sich hier?",
+      "answerOptions": [
+        {
+          "text": "KIs können keine Daten aus dem eigenen ERP-System verarbeiten.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Fehlender Kontext: Externe Faktoren wie unvorhersehbares Wetter oder neue Gesetze können oft nicht antizipiert werden.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Eine wesentliche Grenze von KI ist der fehlende Kontext. Komplexe externe Faktoren wie extremes Wetter, Gesetzesänderungen oder Pandemien, die nicht in den Trainingsdaten stehen, können oft nicht vorhergesehen werden."
+        },
+        {
+          "text": "KIs verletzen grundsätzlich den Datenschutz (DSGVO).",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Der Algorithmus hat den sogenannten \"Black-Box-Fehler\" erlitten.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Unvorhersehbare äußere Ereignisse.",
+      "youtubeQuery": "Grenzen der KI Kontext Wetter Gesetzesänderungen",
+      "topic": "Grenzen der KI"
+    },
+    {
+      "question": "Warum scheitert ein KI-gestütztes Prognosesystem oft kläglich, wenn sich das Verhalten der Konsumenten von heute auf morgen völlig ändert (Trendbruch)?",
+      "answerOptions": [
+        {
+          "text": "Weil die KI nur englischsprachige Trends erkennen kann.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Weil KI-Prognosen rein auf Mustern der Vergangenheitsdaten basieren; völlig neue Trendbrüche sind darin noch nicht erfasst.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Maschinelles Lernen basiert auf Vergangenheitsdaten. Wenn ein völlig neuer Trendbruch auftritt, zu dem es keine historischen Daten gibt, liegt die KI bei der Prognose meistens falsch."
+        },
+        {
+          "text": "Weil die Speicherkapazität der Server bei Trendbrüchen automatisch gedrosselt wird.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Weil das System bei neuen Trends aus rechtlichen Gründen abschaltet.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "KI lernt aus der Vergangenheit.",
+      "youtubeQuery": "KI Prognosen Trendbruch Vergangenheitsdaten Problem",
+      "topic": "Grenzen der KI"
+    },
+    {
+      "question": "Der Finanzchef erhält von der KI eine klare Anweisung, das Budget für einen Marketingkanal auf Null zu setzen. Er fragt die IT-Abteilung, warum das System diese Entscheidung getroffen hat. Die Entwickler können den exakte Rechenweg der Maschine jedoch nicht erklären. Wie nennt man dieses Risiko?",
+      "answerOptions": [
+        {
+          "text": "Garbage In, Garbage Out.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Datenunvollständigkeit.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Black-Box-Effekt.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Der „Black-Box-Effekt“ beschreibt das Problem, dass die Entscheidungswege und komplexen Berechnungen der KI für den Menschen oft mangelhaft nachvollziehbar oder erklärbar sind."
+        },
+        {
+          "text": "Datenschutzverletzung.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nicht nachvollziehbare Entscheidungswege.",
+      "youtubeQuery": "KI Black-Box-Effekt Erklärbarkeit Risiken",
+      "topic": "Grenzen der KI"
+    },
+    {
+      "question": "Vor dem Kauf der KI-Software für das Controlling listet das Management alle harten, finanziellen Gefahren auf. Welche der folgenden Optionen gehört zu den rein betriebswirtschaftlichen Risiken?",
+      "answerOptions": [
+        {
+          "text": "Der Verlust der unternehmerischen Intuition.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Hohe Implementierungskosten, Schulungsaufwand und eine starke Abhängigkeit vom Softwareanbieter.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Implementierungskosten, hoher Schulungsaufwand und die vertragliche/technische Abhängigkeit von Software sind klassische harte, betriebswirtschaftliche Risiken. Die anderen Punkte sind strategische Gefahren."
+        },
+        {
+          "text": "Eine Überfokussierung auf quantitative Kennzahlen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Verpassen von Markttrends.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Fokus auf harte Fakten und Kosten.",
+      "youtubeQuery": "Betriebswirtschaftliche Risiken KI Implementierung Kosten",
+      "topic": "KI-Bewertung"
+    },
+    {
+      "question": "Die „Urban-Sports GmbH“ verlässt sich seit einem Jahr blind auf die KI-Absatzprognosen. Der langjährige Einkaufsleiter beschwert sich: „Wir schauen nur noch auf den Computer und haben das Gespür für unsere Kunden völlig verloren!“ Welches Risiko der KI-Nutzung wird hier deutlich?",
+      "answerOptions": [
+        {
+          "text": "Das Risiko fehlerhafter Verkaufsdaten.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Vernachlässigung der unternehmerischen Erfahrung und eine Überfokussierung auf rein quantitative Kennzahlen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das ist ein klassisches strategisches Risiko: Das Management verlernt, auf die eigene unternehmerische Erfahrung zu vertrauen und fokussiert sich zu sehr auf nackte, von der Maschine errechnete Zahlen."
+        },
+        {
+          "text": "Ein Verstoß gegen das Urheberrecht.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Reduzierung von Forderungsausfällen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Verlust des menschlichen Gespürs.",
+      "youtubeQuery": "Strategische Risiken KI unternehmerisches Gespür Verlust",
+      "topic": "KI-Bewertung"
+    },
+    {
+      "question": "Wie lautet das fachlich begründete IHK-Gesamturteil für die Automatisierung des Controllings durch Künstliche Intelligenz?",
+      "answerOptions": [
+        {
+          "text": "KI sollte verboten werden, da die Risiken durch den Black-Box-Effekt zu hoch sind.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Eine vollständige 100%ige Automatisierung ist stets das Ziel, um Personalkosten komplett zu streichen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "KI ist hervorragend als Entscheidungsunterstützung, jedoch ist eine vollständige Automatisierung ohne menschliche kaufmännische Bewertung nicht empfehlenswert.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Das perfekte Zusammenspiel besteht aus der immensen Rechenpower der KI als Unterstützung und dem menschlichen, kaufmännischen Verstand, der am Ende die Bewertung vornimmt und die Kontrolle behält."
+        },
+        {
+          "text": "KI eignet sich nur für Start-ups, nicht für etablierte Unternehmen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Zusammenspiel von Mensch und Maschine.",
+      "youtubeQuery": "KI Controlling Gesamturteil Entscheidungsunterstützung",
+      "topic": "KI-Bewertung"
+    },
+    {
+      "question": "Die Geschäftsleitung der „Summit-Gear AG“ hat die neue KI-Software gekauft. Um eine totale Fehlsteuerung und finanzielle Schäden in der Startphase zu verhindern, sollte welche Maßnahme als allererstes erfolgen?",
+      "answerOptions": [
+        {
+          "text": "Eine sofortige „Big Bang“-Umstellung aller Abteilungen auf das System.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Eine Pilotphase, in der das System zunächst nur in einem begrenzten, ausgewählten Controllingbereich getestet wird.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Eine Pilotphase in einem ausgewählten Bereich ermöglicht es, das System zu testen, die Mitarbeiter zu schulen und Kinderkrankheiten zu beheben, ohne das gesamte Unternehmen zu gefährden."
+        },
+        {
+          "text": "Das Löschen aller Altdaten.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Kündigung des bisherigen Controlling-Teams.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Erst testen, dann ausrollen.",
+      "youtubeQuery": "KI Einführung Pilotphase Controlling Risikominimierung",
+      "topic": "Integration in Prozesse"
+    },
+    {
+      "question": "In der Testphase gibt es Streit: Die KI storniert automatisch Budgets, während der Finanzmanager sie manuell freigeben will. Welche essenzielle Maßnahme zur Integration wurde hier versäumt?",
+      "answerOptions": [
+        {
+          "text": "Die Definition von klaren Freigabeprozessen (Wer hat das letzte Wort?).",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Um Konflikte zwischen Mensch und Maschine zu vermeiden, müssen im Vorfeld ganz klare Freigabeprozesse und Regeln definiert werden, wer wann eingreifen darf."
+        },
+        {
+          "text": "Die Anbindung an das ERP-System.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Updaten der Antiviren-Software.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die regelmäßige Validierung von Prognosen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Regelwerk für Entscheidungen.",
+      "youtubeQuery": "KI Integration Freigabeprozesse Mensch Maschine Konflikt",
+      "topic": "Integration in Prozesse"
+    },
+    {
+      "question": "Auch wenn die KI gut läuft, darf das Unternehmen nicht blind vertrauen. Was muss das Team laut Best-Practices fortlaufend tun, um die Qualität der Prognosen zu sichern?",
+      "answerOptions": [
+        {
+          "text": "Den Serverraum täglich lüften.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Regelmäßige Validierung (Überprüfung) der Prognosen auf Basis der tatsächlichen Ergebnisse.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die regelmäßige Validierung der Prognosen (Soll-Ist-Abgleich der Vorhersagen) ist zwingend nötig, um sicherzustellen, dass die KI nicht aufgrund von falschen Daten langfristig in eine falsche Richtung steuert."
+        },
+        {
+          "text": "Den Algorithmus jeden Monat neu programmieren lassen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Kunden fragen, ob sie die KI mögen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Soll-Ist-Vergleich der Vorhersagen.",
+      "youtubeQuery": "KI Prognose Validierung Qualitätssicherung Controlling",
+      "topic": "Integration in Prozesse"
+    },
+    {
+      "question": "Das Sortiment der „Active-Life E-Commerce“ ist riesig. Die KI analysiert stetig Beschaffungskosten, Retouren und Versandgebühren auf Artikelebene. Welche wichtige betriebswirtschaftliche Kennzahl kann dadurch auf den Cent genau prognostiziert werden?",
+      "answerOptions": [
+        {
+          "text": "Der Liquiditätsgrad.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die allgemeine Marketingkostenquote.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Der Deckungsbeitrag je Produkt.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Durch die Analyse aller variablen Kosten (Einkauf, Retouren, Logistik) auf Artikelebene kann die KI den genauen Deckungsbeitrag je Produkt prognostizieren, was die Sortimentssteuerung enorm erleichtert."
+        },
+        {
+          "text": "Die Conversion Rate.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Analyse variabler Kosten auf Artikelebene.",
+      "youtubeQuery": "Deckungsbeitragsrechnung KI Artikel Kostenanalyse",
+      "topic": "KPI-Verbesserung durch KI"
+    },
+    {
+      "question": "Die neue KI der „Tech-Nova AG“ erkennt durch Musteranalysen im Checkout, wenn Kunden vermutlich eine mangelnde Bonität haben oder in betrügerischer Absicht auf Rechnung bestellen wollen. Welche Unternehmenskennzahl wird durch dieses System direkt gesenkt und verbessert?",
+      "answerOptions": [
+        {
+          "text": "Die Forderungsausfallquote.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Wenn die KI Betrugsversuche und unzuverlässige Zahler vorab erkennt und den Rechnungskauf blockiert, sinkt die Forderungsausfallquote (Anteil der unbezahlten Rechnungen am Umsatz) massiv."
+        },
+        {
+          "text": "Die EBIT-Marge.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Retourenquote.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Budgetabweichung.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Anteil unbezahlter Rechnungen am Umsatz.",
+      "youtubeQuery": "Forderungsausfallquote KI Betrugserkennung Checkout",
+      "topic": "KPI-Verbesserung durch KI"
+    },
+    {
+      "question": "Durch hochkomplexe Cashflow-Vorhersagen berechnet die KI, wann genau welche Lieferantenrechnungen fällig sind und wann Kunden ihre Raten voraussichtlich bezahlen. Welche Kennzahl wird durch diese vorausschauende Planung präziser steuerbar?",
+      "answerOptions": [
+        {
+          "text": "Der durchschnittliche Bestellwert.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Der Liquiditätsgrad.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Cashflow-Vorhersagen und die Überwachung von Ein- und Auszahlungen dienen direkt dazu, den Liquiditätsgrad (die Zahlungsfähigkeit des Unternehmens) präzise zu steuern und Engpässe zu vermeiden."
+        },
+        {
+          "text": "Die Cost per Acquisition (CAC).",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Click-Through-Rate (CTR).",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Zahlungsfähigkeit des Unternehmens.",
+      "youtubeQuery": "Liquiditätsgrad KI Cashflow Prognose Controlling",
+      "topic": "KPI-Verbesserung durch KI"
+    }
   ]
 }
