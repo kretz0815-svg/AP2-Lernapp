@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../supabaseClient';
 import '../index.css';
 
-export default function FloatingNotes({ questionId, questionText }) {
+export default function FloatingNotes({ questionId, questionText, currentAppMode }) {
     const [isOpen, setIsOpen] = useState(false);
     const [notes, setNotes] = useState('');
     const [avoidInput, setAvoidInput] = useState(false);
 
-    const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
+    const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth <= 1024);
 
     // Desktop: drag & resize state
     const [position, setPosition] = useState({
@@ -128,7 +128,7 @@ export default function FloatingNotes({ questionId, questionText }) {
     // Resize (umbruch Mobile/Desktop + Desktop Constraints)
     useEffect(() => {
         const handleResize = () => {
-            const mobile = window.innerWidth <= 768;
+            const mobile = window.innerWidth <= 1024;
             setIsMobile(mobile);
             if (!mobile) {
                 setPosition(p => ({
@@ -329,9 +329,16 @@ export default function FloatingNotes({ questionId, questionText }) {
         }
         : {
             position: 'fixed',
-            right: '12px',
-            top: `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
-            zIndex: 1000
+            right: (currentAppMode && currentAppMode !== 'dashboard') ? '54px' : '12px',
+            top: (currentAppMode && currentAppMode !== 'dashboard') ? '0px' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
+            zIndex: 1000,
+            borderRadius: (currentAppMode && currentAppMode !== 'dashboard') ? '0' : '999px',
+            height: (currentAppMode && currentAppMode !== 'dashboard') ? '54px' : 'auto',
+            width: (currentAppMode && currentAppMode !== 'dashboard') ? '54px' : 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: (currentAppMode && currentAppMode !== 'dashboard') ? 'transparent' : ''
         };
 
     return (
@@ -342,6 +349,7 @@ export default function FloatingNotes({ questionId, questionText }) {
                         className="floating-notes-toggle"
                         onClick={() => setIsOpen(true)}
                         title="Notizen zur aktuellen Frage"
+                        style={(currentAppMode && currentAppMode !== 'dashboard' && isMobile) ? { background: 'transparent', boxShadow: 'none', border: 'none', width: '100%', height: '100%', borderRadius: 0, color: 'var(--text-light)' } : {}}
                     >
                         <svg viewBox="0 0 24 24" width="1.4em" height="1.4em" fill="currentColor" style={{ display: 'block' }}>
                             <path d="M3 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6.586l-1 1V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h7v1H5a2 2 0 0 1-2-2V5z" />

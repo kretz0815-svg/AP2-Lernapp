@@ -259,12 +259,19 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     return ['lager', 'packstation', 'buero'].filter((k) => level2FieldOk[k] === true).length;
   }, [level2FieldOk]);
 
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
+
   useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
     const t = setTimeout(() => {
       setMentorState('idle');
       setMentorMessage('System online. Zeig mir saubere KLR-Logik.');
     }, 950);
-    return () => clearTimeout(t);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(t);
+    };
   }, []);
 
   useEffect(() => () => {
@@ -342,7 +349,11 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
       <div style={{ ...shellStyle, maxWidth }}>
         {content}
       </div>
-      <CyberEinsteinMentor state={mentorState} message={mentorMessage} visible />
+      <CyberEinsteinMentor 
+        state={mentorState} 
+        message={mentorMessage} 
+        visible={!isMobile || mentorState !== 'idle'} 
+      />
     </div>
   );
 
@@ -389,7 +400,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     if (isCorrect) {
       setLevel1Correct((n) => n + 1);
       setLevel1Feedback('Richtig. Saubere Einordnung.');
-      setMentorTransient('success', successLine(), 1700);
+      setMentorTransient('success', successLine(), 2000);
     } else {
       setLevel1Mistakes((n) => n + 1);
       setLevel1Feedback(
@@ -413,7 +424,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     grantXp(baseXp + bonusXp);
     if (level1ScorePct >= 75) unlockLevel(2);
     if (level1Correct === level1Items.length) triggerConfetti();
-    setMentorTransient('success', 'Level 1 abgeschlossen. Kostenarten sitzen.', 2200);
+    setMentorTransient('success', 'Level 1 abgeschlossen. Kostenarten sitzen.', 2000);
     requestAnimationFrame(() => setScreen('home'));
   };
 
@@ -463,7 +474,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     if (allOkNow) {
       setLevel2Status('success');
       setLevel2Feedback('Perfekt verteilt. Genau richtig!');
-      setMentorTransient('success', 'Betriebsabrechnungsbogen sauber verteilt.', 2200);
+      setMentorTransient('success', 'Betriebsabrechnungsbogen sauber verteilt.', 2000);
     } else if (showFieldFeedback) {
       if (ok) {
         setLevel2Status('idle');
@@ -552,7 +563,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
       });
       setLevel3Status('success');
       setLevel3Feedback('Stark. Zuschlagskalkulation korrekt abgeschlossen.');
-      setMentorTransient('success', 'Perfekt. Dein Kalkulationsmodell ist stimmig.', 2200);
+      setMentorTransient('success', 'Perfekt. Dein Kalkulationsmodell ist stimmig.', 2000);
       return;
     }
 
@@ -654,7 +665,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
     });
     setLevel4Status('success');
     setLevel4Feedback(`Stark. Break-Even bei ${expectedUnits} Stück und damit innerhalb der Kapazität.`);
-    setMentorTransient('success', 'Mission erfüllt. Dein Startup überlebt diesen Monat.', 2400);
+    setMentorTransient('success', 'Mission erfüllt. Dein Startup überlebt diesen Monat.', 2000);
   };
 
   const finishLevel4Mission = () => {

@@ -2222,8 +2222,8 @@ ${feynmanInput}`;
           <div className="blob blob-2"></div>
           <KLRGameHub onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
         </div>
-        <FloatingNotes questionId="klr_game" questionText="KLR Startup Survival" />
-        <FloatingCalculator />
+        <FloatingNotes questionId="klr_game" questionText="KLR Startup Survival" currentAppMode={appMode} />
+        <FloatingCalculator currentAppMode={appMode} />
       </>
     );
   }
@@ -2234,8 +2234,8 @@ ${feynmanInput}`;
         {pomodoroPortal}
         {burgerMenuPortal}
         <KalkulationsBoss onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} isGuest={!authUser} />
-        <FloatingNotes questionId="kalkulation" questionText="Kalkulations-Boss" />
-        <FloatingCalculator />
+        <FloatingNotes questionId="kalkulation" questionText="Kalkulations-Boss" currentAppMode={appMode} />
+        <FloatingCalculator currentAppMode={appMode} />
       </>
     );
   }
@@ -2246,8 +2246,8 @@ ${feynmanInput}`;
         {pomodoroPortal}
         {burgerMenuPortal}
         <BreakEvenPoint onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
-        <FloatingNotes questionId="break_even_point" questionText="Break-Even-Point Training" />
-        <FloatingCalculator />
+        <FloatingNotes questionId="break_even_point" questionText="Break-Even-Point Training" currentAppMode={appMode} />
+        <FloatingCalculator currentAppMode={appMode} />
       </>
     );
   }
@@ -3498,8 +3498,8 @@ Die JSON muss exakt diese Struktur haben:
             document.body
           )}
         </div>
-        <FloatingNotes questionId={`quiz_${currentQuizIndex}`} questionText={q.question || 'Quiz Frage'} />
-        <FloatingCalculator />
+        <FloatingNotes questionId={`quiz_${currentQuizIndex}`} questionText={q.question || 'Quiz Frage'} currentAppMode={appMode} />
+        <FloatingCalculator currentAppMode={appMode} />
       </div>
     );
   }
@@ -3682,8 +3682,8 @@ Die JSON muss exakt diese Struktur haben:
             </div>
           )}
         </div>
-        <FloatingNotes questionId={`${activeWisorMode === 'wisor1' ? 'wisor' : 'wisoreco'}_${q.id}`} questionText={q.question || 'Wisor Frage'} />
-        <FloatingCalculator />
+        <FloatingNotes questionId={`${activeWisorMode === 'wisor1' ? 'wisor' : 'wisoreco'}_${q.id}`} questionText={q.question || 'Wisor Frage'} currentAppMode={appMode} />
+        <FloatingCalculator currentAppMode={appMode} />
       </div>
     );
   }
@@ -3778,8 +3778,8 @@ Die JSON muss exakt diese Struktur haben:
             </div>
           )}
         </div>
-        <FloatingNotes questionId={`flashcard_${currentCard.id}`} questionText={currentCard.front || 'Lernkarte'} />
-        <FloatingCalculator />
+        <FloatingNotes questionId={`flashcard_${currentCard.id}`} questionText={currentCard.front || 'Lernkarte'} currentAppMode={appMode} />
+        <FloatingCalculator currentAppMode={appMode} />
       </div>
     </>
   );
