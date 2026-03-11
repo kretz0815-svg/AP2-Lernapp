@@ -1198,13 +1198,13 @@
         {
           "text": "Die Wiederholungskaufrate misst den Umsatz, die Kaufhäufigkeit den Gewinn.",
           "isCorrect": false,
+          "ratio    {
+      "question": "Bei einer Kundenumfrage zum Net Promoter Score (NPS) auf einer Skala von 0-10 gab es 100 Antworten. 50 Nutzer wählten eine 9 oder 10 (Promotoren). 30 Nutzer wählten eine 7 oder 8 (Passiv). 20 Nutzer wählten 0 bis 6 (Detraktoren). Wie lautet der NPS?",
+      "answerOptions": [
+        {
+          "text": "+ 50",
+          "isCorrect": false,
           "rationale": "Falsch."
-        }
-      ],
-      "hint": "Nutze die Formel für Wiederholungskaufrate (Repeat Purchase Rate)",
-      "youtubeQuery": "Wiederholungskaufrate (Repeat Purchase Rate) berechnen E-Commerce KPI",
-      "topic": "Wiederholungskaufrate (Repeat Purchase Rate)"
-    },
     {
       "question": "Bei einer Kundenumfrage zum Net Promoter Score (NPS) auf einer Skala von 0-10 gab es 100 Antworten. 50 Nutzer wählten eine 9 oder 10 (Promotoren). 30 Nutzer wählten eine 7 oder 8 (Passiv). 20 Nutzer wählten 0 bis 6 (Detraktoren). Wie lautet der NPS?",
       "answerOptions": [
@@ -1260,6 +1260,174 @@
       "hint": "Nutze die Formel für Net Promoter Score (NPS)",
       "youtubeQuery": "Net Promoter Score (NPS) berechnen E-Commerce KPI",
       "topic": "Net Promoter Score (NPS)"
+    },
+    {
+      "question": "Die „Urban-Styles GmbH“ verzeichnete im letzten Monat 200.000 Suchanfragen in ihrem Online-Shop. Die Analyse zeigt, dass 10 % dieser Anfragen zu sogenannten \"Nulltreffern\" (keine Ergebnisse) führten. Von den Kunden, die einen Nulltreffer erlebten, verließen 70 % sofort den Shop. Eine historische Datenauswertung belegt, dass 5 % dieser abgewanderten Kunden eigentlich einen Kauf mit einem durchschnittlichen Warenkorbwert von 100 € getätigt hätten. Wie hoch ist der exakte potenzielle Umsatzverlust für die „Urban-Styles GmbH“ durch diese Nulltreffer?",
+      "answerOptions": [
+        {
+          "text": "140.000 €",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "70.000 €",
+          "isCorrect": true,
+          "rationale": "Richtig ist B (70.000 €). Der Rechenweg erfolgt in 4 Schritten: 1. Nulltreffer: 200.000 Suchanfragen * 10 % = 20.000 Nulltreffer. 2. Abbrüche: 20.000 * 70 % = 14.000 Kunden verlassen den Shop. 3. Kaufbereite Kunden: 14.000 * 5 % = 700 Kunden hätten gekauft. 4. Umsatzverlust: 700 Kunden * 100 € = 70.000 € entgangener Umsatz."
+        },
+        {
+          "text": "14.000 €",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "20.000 €",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Berechne erst die Nulltreffer, dann die Abbrüche, dann die kaufbereiten Kunden und schließlich den Umsatzverlust.",
+      "youtubeQuery": "Nulltreffer Suchanfragen Umsatzverlust berechnen E-Commerce",
+      "topic": "Berechnung des potenziellen Umsatzverlustes"
+    },
+    {
+      "question": "Ein Händler für Smart-Home-Technik hat in seinem Shop eine Nulltrefferquote von 15 % bei der internen Suchfunktion gemessen. In der aktuellen Woche wurden insgesamt 8.000 Suchanfragen von Nutzern in das Suchfeld eingegeben. Wie viele Suchanfragen führten in dieser Woche somit zu Nulltreffern?",
+      "answerOptions": [
+        {
+          "text": "1.200 Suchanfragen",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Die absolute Zahl der Nulltreffer berechnet sich, indem man die Gesamtanzahl der Suchanfragen mit der prozentualen Nulltrefferquote multipliziert. Rechnung: 8.000 * 0,15 (oder 15 %) = 1.200 Nulltreffer."
+        },
+        {
+          "text": "1.500 Suchanfragen",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "800 Suchanfragen",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "6.800 Suchanfragen",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Multipliziere die Gesamtanzahl der Anfragen mit der Nulltrefferquote.",
+      "youtubeQuery": "Nulltrefferquote berechnen absolute Zahl",
+      "topic": "Berechnung der absoluten Nulltreffer"
+    },
+    {
+      "question": "Die „Peak-Adventures AG“ führt eine neue Produktkategorie für Winterausrüstung ein. An einem Tag werden 3.000 Suchanfragen im Shop eingegeben. Das System meldet, dass 2.100 dieser Suchanfragen erfolgreich zu einem Produkt führten (Treffer). Die restlichen Suchanfragen lieferten keine Ergebnisse. Wie hoch ist dem prozentuale Anteil der Nulltreffer in Bezug auf die Gesamtanzahl der Suchanfragen an diesem Tag?",
+      "answerOptions": [
+        {
+          "text": "70,00 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "42,86 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "30,00 %",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Der Rechenweg erfolgt in 2 Schritten: 1. Anzahl der Nulltreffer berechnen: 3.000 (Gesamt) - 2.100 (Treffer) = 900 Nulltreffer. 2. Prozentsatz berechnen: (900 Nulltreffer / 3.000 Gesamtanfragen) * 100 = 30,00 %."
+        },
+        {
+          "text": "21,00 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Berechne erst die Anzahl der Nulltreffer und setze sie dann ins Verhältnis zur Gesamtzahl.",
+      "youtubeQuery": "Nulltrefferquote prozentual berechnen Shopsuche",
+      "topic": "Berechnung der prozentualen Nulltrefferquote"
+    },
+    {
+      "question": "Die „Green-Hike UG“ schaltet eine Display-Werbekampagne auf verschiedenen Outdoor-Blogs. Im Auswertungszeitraum verzeichnet das Unternehmen insgesamt 80.000 Impressionen (Besucher sahen die Anzeige). Die Auswertung im Ad-Manager zeigt, dass 3.200 Klicks auf diese Anzeigen generiert wurden. Wie hoch ist die Click-Through-Rate (CTR) für diese Kampagne?",
+      "answerOptions": [
+        {
+          "text": "0,04 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "4,00 %",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Click-Through-Rate (CTR) berechnet sich, indem man die Anzahl der Klicks durch die Anzahl der Impressionen (oder Besucher) teilt und mit 100 multipliziert. Rechnung: (3.200 Klicks / 80.000 Impressionen) * 100 = 4,00 %."
+        },
+        {
+          "text": "25,00 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "40,00 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Formel: (Klicks / Impressionen) * 100.",
+      "youtubeQuery": "Click-Through-Rate CTR berechnen Online Marketing",
+      "topic": "Click-Through-Rate (CTR) berechnen"
+    },
+    {
+      "question": "Ein Auszubildender der „Tech-Nova AG“ steuert eine Google-Ads-Kampagne. Die Geschäftsleitung hat für diese Kampagne ein Maximalbudget von 1.000 € freigegeben. Bisher wurden insgesamt 300 Klicks generiert, und das Konto zeigt an, dass von dem Freigabebudget bisher exakt 240 € tatsächlich ausgegeben wurden. Wie hoch ist der durchschnittliche Cost per Click (CPC) zu diesem Zeitpunkt?",
+      "answerOptions": [
+        {
+          "text": "3,33 €",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "0,80 €",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Der CPC berechnet sich aus den tatsächlich getätigten Ausgaben geteilt durch die generierten Klicks. Rechnung: 240 € (Ausgaben) / 300 Klicks = 0,80 € pro Klick. Das maximale Freigabebudget ist irrelevant."
+        },
+        {
+          "text": "1,25 €",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "0,24 €",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Verwende die tatsächlichen Ausgaben für die Berechnung des CPC.",
+      "youtubeQuery": "Cost per Click CPC berechnen Beispiel",
+      "topic": "Cost per Click (CPC) mit Budget-Falle"
+    },
+    {
+      "question": "Wir haben in den vorherigen Aufgaben viel über \"Nulltreffer\" gerechnet. Aber was genau beschreibt dieser Begriff im Rahmen des E-Commerce-Controllings eigentlich fachlich korrekt?",
+      "answerOptions": [
+        {
+          "text": "Eine Werbeanzeige (z.B. Google Ads), die von Nutzern gesehen, aber kein einziges Mal angeklickt wurde.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Eine Eingabe eines Nutzers in die interne Suchmaske des Online-Shops, bei der das System keine passenden Produkte oder Ergebnisseiten finden kann.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Ein \"Nulltreffer\" entsteht, wenn ein Kunde in der internen Shop-Suche einen Suchbegriff eingibt und der Shop keine passenden Artikel dazu ausgeben kann."
+        },
+        {
+          "text": "Einen Kunden, der Artikel in den Warenkorb legt, den Bestellvorgang dann aber an der Kasse (Checkout) abbricht.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Einen Server-Fehler (wie Error 404), der dazu führt, dass die Startseite des Shops nicht geladen werden kann.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Denke an die Suchfunktion innerhalb eines Online-Shops.",
+      "youtubeQuery": "E-Commerce Controlling Nulltreffer Definition",
+      "topic": "Kennzahlen-Verständnis (Nulltreffer)"
     }
   ]
 }
