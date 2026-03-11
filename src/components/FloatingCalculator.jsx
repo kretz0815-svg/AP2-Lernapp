@@ -33,7 +33,7 @@ export default function FloatingCalculator({ currentAppMode }) {
     const [waitingForNewValue, setWaitingForNewValue] = useState(false);
 
     // Responsive State
-    const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth <= 1024);
+    const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
     const [position, setPosition] = useState({
         x: typeof window !== 'undefined' ? window.innerWidth - 300 : 800,
         y: typeof window !== 'undefined' ? window.innerHeight / 2 - 250 : 200
@@ -59,7 +59,7 @@ export default function FloatingCalculator({ currentAppMode }) {
 
     useEffect(() => {
         const handleResize = () => {
-            const mobile = window.innerWidth <= 1024;
+            const mobile = window.innerWidth <= 768;
             setIsMobile(mobile);
             if (!mobile) {
                 setPosition(p => ({
@@ -429,16 +429,9 @@ export default function FloatingCalculator({ currentAppMode }) {
         }
         : {
             position: 'fixed',
-            right: (currentAppMode && currentAppMode !== 'dashboard') ? '0px' : '12px',
-            top: (currentAppMode && currentAppMode !== 'dashboard') ? '0px' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
-            zIndex: 1000,
-            borderRadius: (currentAppMode && currentAppMode !== 'dashboard') ? '0 0 0 12px' : '999px',
-            height: (currentAppMode && currentAppMode !== 'dashboard') ? '54px' : 'auto',
-            width: (currentAppMode && currentAppMode !== 'dashboard') ? '54px' : 'auto',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: (currentAppMode && currentAppMode !== 'dashboard') ? 'transparent' : ''
+            right: (currentAppMode === 'klr') ? '12px' : '12px',
+            top: (currentAppMode === 'klr') ? '1px' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
+            zIndex: 1000
         };
     const helperValue = String(currentValue ?? '').replace('.', ',');
     const helperText = helperValue.length > 14 ? `${helperValue.slice(0, 14)}…` : helperValue;
@@ -452,7 +445,6 @@ export default function FloatingCalculator({ currentAppMode }) {
                         className="floating-notes-toggle"
                         onClick={() => setIsOpen(true)}
                         title="Taschenrechner öffnen"
-                        style={(currentAppMode && currentAppMode !== 'dashboard' && isMobile) ? { background: 'transparent', boxShadow: 'none', border: 'none', width: '100%', height: '100%', borderRadius: 0, color: 'var(--text-light)' } : {}}
                     >
                         <svg viewBox="0 0 24 24" width="1.4em" height="1.4em" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" style={{ display: 'block' }}>
                             <rect x="2" y="2" width="20" height="20" rx="3" />
