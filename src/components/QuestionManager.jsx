@@ -62,7 +62,7 @@ export default function QuestionManager({ category, questions, progress, formatL
             isLearned: (id, prog) => !!prog[id],
         },
         rechen: {
-            title: 'KPI berechnen',
+            title: "KPI's",
             color: 'var(--primary)',
             progressKey: 'ap2_quiz_progress',
             isLearned: (id, prog) => prog[id] && prog[id].nextReview > Date.now(),
