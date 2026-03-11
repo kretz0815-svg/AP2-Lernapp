@@ -1299,6 +1299,36 @@ button {
   }
 }
 
+/* Rechen-Aufgaben Card Glow */
+.rechen-card {
+  border: 1px solid rgba(99, 102, 241, 0.45) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 15px rgba(99, 102, 241, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.rechen-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  transition: transform 0.6s ease-out;
+}
+
+.rechen-card:hover::before {
+  transform: scale(1.2);
+}
+
+.rechen-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(99, 102, 241, 0.3);
+  border-color: var(--primary) !important;
+  transform: translateY(-5px) scale(1.02);
+}
+
 /* Learning Analytics Dashboard – mobile responsive */
 @media (max-width: 768px) {
   .learning-analytics-dashboard {

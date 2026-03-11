@@ -5,7 +5,6 @@ import { ACCESS_MODE_KEY } from '../utils/constants';
 
 export const useAuth = (setAppMode) => {
     const [authUser, setAuthUser] = useState(null);
-    const [pinInput, setPinInput] = useState('');
     const [authError, setAuthError] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -15,7 +14,6 @@ export const useAuth = (setAppMode) => {
     const [captchaToken, setCaptchaToken] = useState(null);
 
     const captchaRef = useRef(null);
-    const SECRET_PIN = '261115'; // Guest PIN
 
     const clearGuestProgressData = () => {
         localStorage.removeItem('ap2_srs_progress');
@@ -118,8 +116,6 @@ export const useAuth = (setAppMode) => {
     return {
         authUser,
         setAuthUser,
-        pinInput,
-        setPinInput,
         authError,
         setAuthError,
         email,
@@ -134,7 +130,6 @@ export const useAuth = (setAppMode) => {
         captchaToken,
         setCaptchaToken,
         captchaRef,
-        SECRET_PIN,
         handleLogin,
         handleRegister,
         handleGoogleLogin,
