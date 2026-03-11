@@ -1,0 +1,145 @@
+{
+  "title": "Rechen-Aufgaben",
+  "questions": [
+    {
+      "question": "Das Unternehmen Sun-Sports vereinbart folgendes Abrechnungsmodell mit einer Influencerin: Eine feste Vergütung von 500 € pro Beitrag. Zusätzlich 0,05 € für jeden Like. Erreicht der Beitrag mehr als 10.000 Likes, gibt es einen Bonus von 100 €. Die Influencerin veröffentlicht einen Beitrag, der am Ende exakt 12.300 Likes erzielt. Wie hoch ist die gesamte Vergütung für diesen einen Beitrag?",
+      "answerOptions": [
+        {
+          "text": "615 €",
+          "isCorrect": false,
+          "rationale": "Dies entspricht nur dem Like-Anteil (12.300 * 0,05 €), ohne Grundvergütung und Bonus."
+        },
+        {
+          "text": "1.115 €",
+          "isCorrect": false,
+          "rationale": "Hier fehlt ein Teil der Gesamtberechnung."
+        },
+        {
+          "text": "1.215 €",
+          "isCorrect": true,
+          "rationale": "Richtig: 500 € Grundvergütung + 615 € Likes + 100 € Bonus = 1.215 €."
+        },
+        {
+          "text": "600 €",
+          "isCorrect": false,
+          "rationale": "Hier wurde nur Grundvergütung plus Bonus betrachtet, der Like-Anteil fehlt."
+        }
+      ],
+      "hint": "Rechne in drei Blöcken: Fixbetrag + Like-Betrag + Bonus.",
+      "youtubeQuery": "Influencer Vergütung berechnen Fixbetrag Like Bonus Rechenbeispiel",
+      "topic": "Influencer Marketing"
+    },
+    {
+      "question": "Das Controlling der „Peak-Adventures AG“ wertet den vergangenen Monat aus. Der neue Online-Shop verzeichnete insgesamt 8.000 Besucher. Davon haben exakt 200 Besucher einen Kauf getätigt und eine Bestellung abgeschlossen. Wie hoch ist die Conversion Rate (Konversionsrate) für diesen Monat?",
+      "answerOptions": [
+        {
+          "text": "40,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch. Die Berechnung erfolgt durch (Käufe / Besucher) * 100."
+        },
+        {
+          "text": "2,5 %",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Conversion Rate berechnet sich, indem man die Anzahl der Käufe durch die Anzahl der Besucher teilt und das Ergebnis mit 100 multipliziert: (200 Käufe / 8.000 Besucher) * 100 = 0,025 * 100 = 2,5 %."
+        },
+        {
+          "text": "0,025 %",
+          "isCorrect": false,
+          "rationale": "Falsch. Das ist der Dezimalwert vor der Multiplikation mit 100."
+        },
+        {
+          "text": "4,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch. (8000 / 200) ergibt 40, aber das ist nicht die Formel für die Conversion Rate."
+        }
+      ],
+      "hint": "Formel: (Anzahl der Käufe / Anzahl der Besucher) * 100.",
+      "youtubeQuery": "Conversion Rate berechnen E-Commerce Controlling",
+      "topic": "Berechnung der Conversion Rate"
+    },
+    {
+      "question": "Die „Eco-Wear GmbH“ launcht eine neue Social-Media-Kampagne für nachhaltige Jacken. Das Unternehmen investiert 4.000 € in diese Online-Werbung. Das Controlling stellt fest, dass durch diese spezifische Kampagne ein direkter Umsatz von 32.000 € erzielt wurde. Wie hoch ist der ROAS?",
+      "answerOptions": [
+        {
+          "text": "12,5",
+          "isCorrect": false,
+          "rationale": "Falsch. Das wäre 4000 / 32000, was keinen Sinn für den ROAS ergibt."
+        },
+        {
+          "text": "8",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Der ROAS berechnet sich, indem man den erzielten Umsatz durch die Werbekosten teilt. Rechnung: 32.000 € (Umsatz) / 4.000 € (Kosten) = 8. Ein ROAS von 8 bedeutet, dass jeder investierte Euro 8 Euro Umsatz generiert hat."
+        },
+        {
+          "text": "0,125",
+          "isCorrect": false,
+          "rationale": "Falsch. Das ist der Kehrwert."
+        },
+        {
+          "text": "80 %",
+          "isCorrect": false,
+          "rationale": "Falsch. Der ROAS wird meist als Faktor (z.B. 8 oder 800 %) angegeben, nicht als Prozentwert der Kosten zum Umsatz."
+        }
+      ],
+      "hint": "Formel: Umsatz / Werbekosten.",
+      "youtubeQuery": "ROAS berechnen Beispiel E-Commerce",
+      "topic": "ROAS (Berechnung in der Praxis)"
+    },
+    {
+      "question": "Ein Werbevideo der „Green-Hike UG“ wurde auf YouTube insgesamt 2.000 Mal bei der Zielgruppe eingeblendet (Impressionen). Die Auswertung zeigt, dass 80 Nutzer auf den Link im Video geklickt haben, um zum Shop zu gelangen. Wie hoch ist die CTR?",
+      "answerOptions": [
+        {
+          "text": "40 %",
+          "isCorrect": false,
+          "rationale": "Falsch. (80 / 200) wäre 40%, hier sind es aber 2.000 Impressionen."
+        },
+        {
+          "text": "0,04 %",
+          "isCorrect": false,
+          "rationale": "Falsch. Das ist der Dezimalwert (80 / 2000) ohne Multiplikation mit 100."
+        },
+        {
+          "text": "4 %",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Die Formel lautet: (Anzahl der Klicks / Anzahl der Impressionen) * 100 %. Rechnung: (80 / 2.000) * 100 % = 0,04 * 100 % = 4 %."
+        },
+        {
+          "text": "25 %",
+          "isCorrect": false,
+          "rationale": "Falsch. (2000 / 80) ergibt 25, aber das ist nicht die Formel."
+        }
+      ],
+      "hint": "Formel: (Klicks / Impressionen) * 100.",
+      "youtubeQuery": "CTR berechnen Beispiel Online Marketing",
+      "topic": "Click-Through-Rate (Berechnung)"
+    },
+    {
+      "question": "Die „Next-Gen Gaming GmbH“ gibt für eine Werbekampagne auf Instagram insgesamt 600 € aus. Die Anzeige generiert 150 Klicks. Aus diesen Klicks resultieren am Ende exakt 12 tatsächliche Käufe (Conversions) eines neuen Headsets. Wie hoch ist der CPA (Cost per Acquisition) für diese Kampagne?",
+      "answerOptions": [
+        {
+          "text": "4 €",
+          "isCorrect": false,
+          "rationale": "Falsch. Das wäre der Cost per Click: 600 € / 150 Klicks = 4 €."
+        },
+        {
+          "text": "50 €",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Formel für den CPA lautet: Gesamtkosten der Werbung / Anzahl der Conversions. Rechnung: 600 € / 12 Käufe = 50 €. Es kostet das Unternehmen also im Durchschnitt 50 €, um einen Headset-Käufer zu akquirieren."
+        },
+        {
+          "text": "12 €",
+          "isCorrect": false,
+          "rationale": "Falsch. Das ist nur die Anzahl der Käufe."
+        },
+        {
+          "text": "7.200 €",
+          "isCorrect": false,
+          "rationale": "Falsch. (600 * 12) ergibt keinen Sinn in dieser Kennzahlenlogik."
+        }
+      ],
+      "hint": "Formel: Gesamtkosten / Anzahl der Conversions.",
+      "youtubeQuery": "CPA berechnen Beispiel E-Commerce Marketing",
+      "topic": "Cost per Acquisition (Berechnung)"
+    }
+  ]
+}

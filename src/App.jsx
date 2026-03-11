@@ -6,10 +6,8 @@ import flashcards1 from './data/flashcards_1.json';
 import flashcards2 from './data/flashcards_2.json';
 import flashcards3 from './data/flashcards_3.json';
 
-import quiz1 from './data/quiz_1.json';
-import quiz2 from './data/quiz_2.json';
-import quiz3 from './data/quiz_3.json';
-import quizUForm2 from './data/uform2_quiz.json';
+import wissenTesten from './data/wissen_testen.json';
+import rechenAufgaben from './data/rechen_aufgaben.json';
 import notesIcon from './assets/book-line-icon.png';
 
 import wisor1 from './data/wisor_1.json';
@@ -523,11 +521,8 @@ function App() {
   // detectQuizTopic and getQuizTopicGroup imported from utils/quizTopics.js
 
   const getAllQuizQuestions = () => [
-    ...(quiz1.questions || []),
-    ...(quiz2.questions || []),
-    ...(quiz3.questions || []),
-    ...(quizUForm2.questions || []),
-    ...(customQuizQuestions || [])
+    ...(wissenTesten.questions || []),
+    ...(customQuizQuestions || []).filter(q => !isRechenTask(q))
   ];
 
   // --- RECHEN AUFGABEN HELPER ---
@@ -541,10 +536,10 @@ function App() {
     return (isCalcTopic || ((hasCalcKeywords || hasSymbols) && hasNumbers));
   };
 
-  const getRechenTasks = () => {
-    const all = getAllQuizQuestions();
-    return all.filter(isRechenTask);
-  };
+  const getRechenTasks = () => [
+    ...(rechenAufgaben.questions || []),
+    ...(customQuizQuestions || []).filter(isRechenTask)
+  ];
 
   const categorizeRechenTask = (q) => {
     const text = (q.question + ' ' + (q.topic || '')).toLowerCase();
@@ -571,11 +566,9 @@ function App() {
 
   const refreshQuizDuePool = async ({ customData = null } = {}) => {
     const rawQuizzes = [
-      ...(quiz1.questions || []),
-      ...(quiz2.questions || []),
-      ...(quiz3.questions || []),
-      ...(quizUForm2.questions || []),
-      ...((customData ?? customQuizQuestions) || [])
+      ...(wissenTesten.questions || []),
+      ...(rechenAufgaben.questions || []),
+      ...(customQuizQuestions || [])
     ];
 
     const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
