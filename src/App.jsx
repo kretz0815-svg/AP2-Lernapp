@@ -532,6 +532,7 @@ function App() {
 
   // --- RECHEN AUFGABEN HELPER ---
   const isRechenTask = (q) => {
+    if (q.forceKnowledge) return false;
     const text = ((q.question || '') + ' ' + (q.topic || '') + ' ' + (q.hint || '')).toLowerCase();
     const hasCalcKeywords = ['berechne', 'rechnen', 'wieviel', 'wie hoch', 'betrag', 'kalkuliere', 'ermittle', 'prozent', 'anteil', 'summe', 'kosten'].some(k => text.includes(k));
     const hasNumbers = /[0-9]+/.test(q.question || '');

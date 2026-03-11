@@ -1399,7 +1399,8 @@
       ],
       "hint": "Nutze die konkreten Nutzungsanteile der Zielgruppe als Entscheidungsbasis.",
       "youtubeQuery": "Influencer Marketing Plattformwahl Zielgruppe 15 bis 30 Dateninterpretation",
-      "topic": "Dateninterpretation (Influencer-Marketing)"
+      "topic": "Dateninterpretation (Influencer-Marketing)",
+      "forceKnowledge": true
     },
     {
       "question": "Ein neuer Mitarbeiter schlägt vor, das gesamte Werbebudget für die neue Young Explorer Streetwear (Zielgruppe: 15 bis 20 Jahre) in Werbeanzeigen auf XING und LinkedIn zu investieren. Eine interne Analyse zeigt jedoch, dass die Nutzung dieser Plattformen in der Altersgruppe 15 bis 20 faktisch bei 0 % liegt. Was ist die fachliche Bewertung dieses Vorschlags?",
@@ -1483,7 +1484,8 @@
       ],
       "hint": "Prüfe zürst, ob die Zielgruppe auf den gewälten Plattformen überhaupt erreichbar ist.",
       "youtubeQuery": "Kampagnenplanung Plattform Eignung TikTok Snapchat Zielgruppe 31 bis 50",
-      "topic": "Kampagnenplanung und Plattform-Eignung (Snapchat und TikTok)"
+      "topic": "Kampagnenplanung und Plattform-Eignung (Snapchat und TikTok)",
+      "forceKnowledge": true
     },
     {
       "question": "Das Marketing-Team analysiert die Social-Media-Nutzung der Altersgruppe 41 bis 60 Jahre. Bei Business-Netzwerken zeigt sich: XING lag bei den 21- bis 30-Jährigen bei 21 %, stürzt bei den 41- bis 50-Jährigen auf 5 % ab und ist bei den 51- bis 60-Jährigen nicht mehr messbar (0 %). LinkedIn hat in dieser Altersgruppe ebenfalls keine messbare Relevanz. Was ist die logischste betriebswirtschaftliche Erklärung für diesen Einbruch?",
@@ -1511,7 +1513,8 @@
       ],
       "hint": "Denke an den typischen Lebenszyklus von Karriere- und Wechselmotivation.",
       "youtubeQuery": "demografisches Nutzerverhalten Business Netzwerke XING LinkedIn 41 bis 60",
-      "topic": "Demografisches Nutzerverhalten (Business-Netzwerke)"
+      "topic": "Demografisches Nutzerverhalten (Business-Netzwerke)",
+      "forceKnowledge": true
     },
     {
       "question": "Ein Online-Shop mit Zielgruppe 15 bis 60 Jahre sucht einen Basis-Kanal mit hoher Reichweite über alle Generationen. Interne Daten zeigen, dass Plattformen wie TikTok nach dem 30. Lebensjahr stark einbrechen. Welche zwei Kanäle weisen über alle Altersgruppen hinweg die stabilste und höchste Durchdringung auf und eignen sich daher als generationenübergreifende Basis-Kanäle?",
@@ -2183,7 +2186,8 @@
       ],
       "hint": "Wie bezeichnet man die nachträgliche Überprüfung von Zielen und Messergebnissen?",
       "youtubeQuery": "Mediaplanung Erfolgskontrolle KPI Auswertung",
-      "topic": "Mediaplanung (Erfolgskontrolle)"
+      "topic": "Mediaplanung (Erfolgskontrolle)",
+      "forceKnowledge": true
     },
     {
       "question": "Die „Outdoor-Fun GmbH“ bucht für eine neue Werbekampagne teure Werbespots im landesweiten Fernsehen und schaltet Anzeigen in großen Print-Magazinen. Wie wird diese breit gestreute, wenig zielgerichtete Form der Massenkommunikation im Marketing-Fachjargon genannt?",
@@ -2295,7 +2299,8 @@
       ],
       "hint": "Wie nennt man einen qualifizierten Interessentenkontakt im Marketing?",
       "youtubeQuery": "Lead Leadgenerierung B2B Marketing",
-      "topic": "Marketing-Schlagworte (Lead)"
+      "topic": "Marketing-Schlagworte (Lead)",
+      "forceKnowledge": true
     },
     {
       "question": "In einem E-Mail-Newsletter wird das neue \"Survival-Messer X1\" beworben. Der Link im Newsletter führt den Kunden nicht auf www.outdoor-fun.de (die Startseite), sondern direkt auf www.outdoor-fun.de/produkte/messer-x1. Wie nennt man diese Art der tiefen Verlinkung?",
@@ -2854,6 +2859,7 @@
         }
       ],
       "topic": "Wettbewerbsrecht (UWG)",
+      "forceKnowledge": true,
       "youtubeQuery": "UWG Gesetz gegen den unlauteren Wettbewerb",
       "hint": "Irreführende Werbung ist unlauterer Wettbewerb."
     },
@@ -3022,6 +3028,7 @@
         }
       ],
       "topic": "KI im Performance Marketing (Gebotsstrategien)",
+      "forceKnowledge": true,
       "youtubeQuery": "KI künstliche Intelligenz Performance Marketing",
       "hint": "KI kann in Echtzeit Daten auswerten und Preise dynamisch anpassen."
     },
@@ -3134,6 +3141,7 @@
         }
       ],
       "topic": "Grenzen der KI-Nutzung (Kreativität)",
+      "forceKnowledge": true,
       "youtubeQuery": "KI Kreativität Grenzen Markenführung",
       "hint": "Maschinen können nur schwer echte menschliche Emotionen simulieren."
     },
@@ -3246,6 +3254,7 @@
         }
       ],
       "topic": "KI-Einsatz – Gesamturteil",
+      "forceKnowledge": true,
       "youtubeQuery": "KI im Marketing ersetzt es den Menschen",
       "hint": "Die Entscheidungskompetenz und Endkontrolle muss beim Menschen bleiben."
     },
@@ -3415,7 +3424,8 @@
       ],
       "hint": "Betrachte das Verhältnis von Besuchern zu Käufern.",
       "youtubeQuery": "Conversion Rate Bedeutung E-Commerce Controlling",
-      "topic": "Interpretation der Conversion Rate"
+      "topic": "Interpretation der Conversion Rate",
+      "forceKnowledge": true
     },
     {
       "question": "Die „Next-Level Sports GmbH“ hat viel Traffic auf der Website, aber die Kunden brechen den Kaufvorgang oft ab. Eine Agentur rät zur dringenden Optimierung der Benutzerfreundlichkeit (Usability). Welche konkrete Maßnahme im Online-Shop fällt unter diesen Bereich?",
@@ -3443,7 +3453,8 @@
       ],
       "hint": "Usability betrifft die einfache Bedienbarkeit des Shops.",
       "youtubeQuery": "Usability Optimierung Online Shop Checkout Prozess",
-      "topic": "Conversion-Optimierung"
+      "topic": "Conversion-Optimierung",
+      "forceKnowledge": true
     },
     {
       "question": "Ein Händler für Premium-Kaffeeautomaten möchte das Kaufinteresse der Kunden auf den Produktdetailseiten steigern. Welcher Ansatz im Bereich der Produktdarstellung ist laut E-Commerce-Best-Practices dafür am besten geeignet?",
@@ -3471,7 +3482,8 @@
       ],
       "hint": "Qualität und Information sind entscheidend für Premium-Produkte.",
       "youtubeQuery": "Produktdarstellung E-Commerce Best Practices",
-      "topic": "Conversion-Optimierung"
+      "topic": "Conversion-Optimierung",
+      "forceKnowledge": true
     },
     {
       "question": "Kunden sind oft unsicher, ob sie bei einem ihnen unbekannten Online-Shop bestellen sollen. Mit welchem der folgenden Mittel kann ein Shop den sogenannten „Social Proof“ nutzen, um das Vertrauen der Besucher zu gewinnen und die Conversion Rate zu erhöhen?",
@@ -3555,7 +3567,8 @@
       ],
       "hint": "Return on Advertising Spend – was kommt für das Werbe-Geld zurück?",
       "youtubeQuery": "ROAS Bedeutung E-Commerce Marketing",
-      "topic": "ROAS (Bedeutung und Zweck)"
+      "topic": "ROAS (Bedeutung und Zweck)",
+      "forceKnowledge": true
     },
     {
       "question": "Die „Eco-Wear GmbH“ launcht eine neue Social-Media-Kampagne für nachhaltige Jacken. Das Unternehmen investiert 4.000 € in diese Online-Werbung. Das Controlling stellt fest, dass durch diese spezifische Kampagne ein direkter Umsatz von 32.000 € erzielt wurde. Wie hoch ist der ROAS?",
