@@ -140,6 +140,1126 @@
       "hint": "Formel: Gesamtkosten / Anzahl der Conversions.",
       "youtubeQuery": "CPA berechnen Beispiel E-Commerce Marketing",
       "topic": "Cost per Acquisition (Berechnung)"
+    },
+    {
+      "question": "Die Web-Analyse eines Onlineshops weist für den vergangenen Monat 80.000 Unique Visitors und 1.600 generierte Bestellungen aus. Wie hoch ist die Conversion Rate (CR)?",
+      "answerOptions": [
+        {
+          "text": "5,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "2,0 %",
+          "isCorrect": true,
+          "rationale": "Die CR berechnet sich aus (Bestellungen / Besucher) * 100. Hier: (1.600 / 80.000) * 100 = 2,0 %."
+        },
+        {
+          "text": "1,6 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "0,5 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Conversion Rate (CR)",
+      "youtubeQuery": "Conversion Rate (CR) berechnen E-Commerce KPI",
+      "topic": "Conversion Rate (CR)"
+    },
+    {
+      "question": "Welche betriebswirtschaftliche Aussage lässt sich aus einer sinkenden Conversion Rate bei gleichzeitig stark steigenden Traffic-Zahlen (Besuchern) ableiten?",
+      "answerOptions": [
+        {
+          "text": "Der Shop hat ein Monopol aufgebaut und benötigt keine weiteren Marketingmaßnahmen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die neu gewonnenen Besucher sind weniger kaufbereit oder die Landingpage entspricht nicht den Erwartungen der Werbeanzeigen.",
+          "isCorrect": true,
+          "rationale": "Wenn mehr Leute kommen, aber prozentual weniger kaufen, ist der Traffic oft unqualifiziert oder die Usability mangelhaft."
+        },
+        {
+          "text": "Der Customer Lifetime Value der Bestandskunden hat sich signifikant erhöht.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die variablen Kosten für Verpackung und Versand sind zu hoch angesetzt.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Conversion Rate (CR)",
+      "youtubeQuery": "Conversion Rate (CR) berechnen E-Commerce KPI",
+      "topic": "Conversion Rate (CR)"
+    },
+    {
+      "question": "Ein E-Commerce-Unternehmen erwirtschaftet in einem Quartal einen Gesamtumsatz von 150.000 EUR bei insgesamt 2.500 getätigten Bestellungen. Wie lautet der Average Order Value (AOV)?",
+      "answerOptions": [
+        {
+          "text": "60,00 EUR",
+          "isCorrect": true,
+          "rationale": "Der AOV berechnet sich aus Gesamtumsatz / Anzahl der Bestellungen. Hier: 150.000 EUR / 2.500 = 60 EUR."
+        },
+        {
+          "text": "16,60 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "85,00 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "45,00 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Average Order Value (AOV)",
+      "youtubeQuery": "Average Order Value (AOV) berechnen E-Commerce KPI",
+      "topic": "Average Order Value (AOV)"
+    },
+    {
+      "question": "Welche strategische Maßnahme eignet sich am besten, um den Average Order Value (AOV) gezielt zu steigern?",
+      "answerOptions": [
+        {
+          "text": "Die Erhöhung des Budgets für Display-Advertising zur Neukundengewinnung.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Reduzierung der angebotenen Zahlungsmöglichkeiten im Checkout.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Implementierung von Cross-Selling-Angeboten (z.B. \"Kunden kauften auch\") auf der Produktdetailseite.",
+          "isCorrect": true,
+          "rationale": "Zusatzartikel im Warenkorb erhöhen den durchschnittlichen Bestellwert pro Kunde direkt."
+        },
+        {
+          "text": "Die Senkung der Produktpreise im gesamten Sortiment um 20 %.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Average Order Value (AOV)",
+      "youtubeQuery": "Average Order Value (AOV) berechnen E-Commerce KPI",
+      "topic": "Average Order Value (AOV)"
+    },
+    {
+      "question": "Ein Kunde kauft durchschnittlich 4-mal pro Jahr ein, der durchschnittliche Bestellwert (AOV) liegt bei 50 EUR. Die durchschnittliche Kundenbeziehung dauert 3 Jahre. Wie hoch ist der vereinfachte Customer Lifetime Value (CLV) nach Umsatz?",
+      "answerOptions": [
+        {
+          "text": "200 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "600 EUR",
+          "isCorrect": true,
+          "rationale": "Der CLV ist hier: Kauffrequenz (4) * AOV (50 EUR) * Jahre (3) = 600 EUR Umsatz."
+        },
+        {
+          "text": "150 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "800 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Customer Lifetime Value (CLV)",
+      "youtubeQuery": "Customer Lifetime Value (CLV) berechnen E-Commerce KPI",
+      "topic": "Customer Lifetime Value (CLV)"
+    },
+    {
+      "question": "Warum ist der Customer Lifetime Value (CLV) für die Budgetplanung im Performance Marketing entscheidend?",
+      "answerOptions": [
+        {
+          "text": "Er bestimmt die Obergrenze der Customer Acquisition Cost (CAC), da die Akquisekosten niedriger als der CLV sein müssen, um langfristig profitabel zu sein.",
+          "isCorrect": true,
+          "rationale": "Ein profitables Geschäftsmodell setzt voraus, dass ein Kunde über seine \"Lebensdauer\" mehr einbringt, als seine Akquise gekostet hat."
+        },
+        {
+          "text": "Er gibt exakt an, wie viel Serverkapazität für das nächste Geschäftsjahr gebucht werden muss.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Er zeigt auf, welche Produkte im Lager die höchste Umschlagshäufigkeit aufweisen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Er legt fest, wie hoch die Conversion Rate im nächsten Quartal zwingend sein muss.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Customer Lifetime Value (CLV)",
+      "youtubeQuery": "Customer Lifetime Value (CLV) berechnen E-Commerce KPI",
+      "topic": "Customer Lifetime Value (CLV)"
+    },
+    {
+      "question": "Ein Marktplatzbetreiber verkauft im November Waren für 500.000 EUR. 50.000 EUR davon werden im Dezember retourniert. Zusätzlich gewährt er 10.000 EUR an Rabatten. Wie hoch ist das Gross Merchandise Volume (GMV) für den November?",
+      "answerOptions": [
+        {
+          "text": "440.000 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "500.000 EUR",
+          "isCorrect": true,
+          "rationale": "Das GMV ist der unbereinigte Bruttowarenwert aller über die Plattform verkauften Artikel vor Abzug von Stornos, Retouren oder Rabatten."
+        },
+        {
+          "text": "450.000 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "490.000 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Gross Merchandise Volume (GMV)",
+      "youtubeQuery": "Gross Merchandise Volume (GMV) berechnen E-Commerce KPI",
+      "topic": "Gross Merchandise Volume (GMV)"
+    },
+    {
+      "question": "Welche Schwäche hat die alleinige Betrachtung des Gross Merchandise Volume (GMV) zur Bewertung des Unternehmenserfolgs?",
+      "answerOptions": [
+        {
+          "text": "Es gibt keine Auskunft über die tatsächlichen Marketingkosten.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Es berücksichtigt keine Retouren, Stornierungen und Rabatte und spiegelt somit nicht den realen, behaltenen Umsatz wider.",
+          "isCorrect": true,
+          "rationale": "Ein hohes GMV bringt nichts, wenn 80 % der Ware retourniert werden. Es ist eine Vanity Metric ohne Profitabilitätsaussage."
+        },
+        {
+          "text": "Es kann nur in US-Dollar berechnet werden und ist für europäische Shops irrelevant.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Es misst ausschließlich den B2B-Umsatz und vernachlässigt das Endkundengeschäft.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Gross Merchandise Volume (GMV)",
+      "youtubeQuery": "Gross Merchandise Volume (GMV) berechnen E-Commerce KPI",
+      "topic": "Gross Merchandise Volume (GMV)"
+    },
+    {
+      "question": "Ein Online-Modeshop versendet im Monat 5.000 Pakete mit insgesamt 15.000 Artikeln. Es werden 6.000 Artikel von den Kunden zurückgeschickt. Wie hoch ist die Retourenquote auf Artikelebene?",
+      "answerOptions": [
+        {
+          "text": "40,0 %",
+          "isCorrect": true,
+          "rationale": "Die Berechnung lautet: (Retournierte Artikel / Versendete Artikel) * 100. Hier: (6.000 / 15.000) * 100 = 40 %."
+        },
+        {
+          "text": "120,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "30,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "25,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Retourenquote",
+      "youtubeQuery": "Retourenquote berechnen E-Commerce KPI",
+      "topic": "Retourenquote"
+    },
+    {
+      "question": "Welche Konsequenz hat eine dauerhaft hohe Retourenquote auf die Unternehmensprozesse?",
+      "answerOptions": [
+        {
+          "text": "Die Customer Acquisition Cost (CAC) sinkt automatisch.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Der Deckungsbeitrag sinkt durch hohe Handlingkosten (Prüfung, Aufbereitung) und Wertverluste der Ware.",
+          "isCorrect": true,
+          "rationale": "Jede Retoure verursacht Kosten im Logistikzentrum und schmälert den Profit, der von der Bestellung übrig bleibt."
+        },
+        {
+          "text": "sinkt automatisch.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Suchmaschinenplatzierung (SEO) der Website verbessert sich.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Retourenquote",
+      "youtubeQuery": "Retourenquote berechnen E-Commerce KPI",
+      "topic": "Retourenquote"
+    },
+    {
+      "question": "Ein Produkt wird für 100 EUR (netto) verkauft. Der Einkaufspreis beträgt 40 EUR. Verpackung und Versand kosten 10 EUR, Transaktionsgebühren (Payment) liegen bei 2 EUR. Wie hoch ist der absolute Deckungsbeitrag I (DB I)?",
+      "answerOptions": [
+        {
+          "text": "48 EUR",
+          "isCorrect": true,
+          "rationale": "DB I = Verkaufserlös - variable Kosten (100 - 40 - 10 - 2 = 48 EUR)."
+        },
+        {
+          "text": "60 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "100 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "38 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Deckungsbeitrag (Contribution Margin)",
+      "youtubeQuery": "Deckungsbeitrag (Contribution Margin) berechnen E-Commerce KPI",
+      "topic": "Deckungsbeitrag (Contribution Margin)"
+    },
+    {
+      "question": "Was besagt ein negativer Stück-Deckungsbeitrag bei einem Produkt im E-Commerce?",
+      "answerOptions": [
+        {
+          "text": "Das Produkt bringt hohe Umsätze und sollte verstärkt beworben werden.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Mit jedem verkauften Stück dieses Produkts macht das Unternehmen Verlust, noch bevor Fixkosten gedeckt sind.",
+          "isCorrect": true,
+          "rationale": "Die variablen Kosten übersteigen den Verkaufspreis. Das Produkt verbrennt aktiv Geld."
+        },
+        {
+          "text": "Die Marketingkosten waren in diesem Monat besonders niedrig.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Produkt hat eine sehr geringe Retourenquote.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Deckungsbeitrag (Contribution Margin)",
+      "youtubeQuery": "Deckungsbeitrag (Contribution Margin) berechnen E-Commerce KPI",
+      "topic": "Deckungsbeitrag (Contribution Margin)"
+    },
+    {
+      "question": "Ein Shop investiert im Oktober 10.000 EUR in Google Ads und Social Media Werbung. Daraus resultieren 250 neue Kunden. Wie hoch sind die Customer Acquisition Cost (CAC)?",
+      "answerOptions": [
+        {
+          "text": "40 EUR",
+          "isCorrect": true,
+          "rationale": "CAC berechnet sich aus Gesamtkosten Marketing / Anzahl Neukunden (10.000 / 250 = 40 EUR)."
+        },
+        {
+          "text": "25 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "400 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "100 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Customer Acquisition Cost (CAC)",
+      "youtubeQuery": "Customer Acquisition Cost (CAC) berechnen E-Commerce KPI",
+      "topic": "Customer Acquisition Cost (CAC)"
+    },
+    {
+      "question": "In einer IHK-Prüfung wird nach der Daumenregel für das Verhältnis von Customer Lifetime Value (CLV) zu Customer Acquisition Cost (CAC) gefragt. Welches Verhältnis gilt als gesund und profitabel?",
+      "answerOptions": [
+        {
+          "text": "CAC : CLV = 3:1 (Die Akquise darf dreimal so teuer sein wie der Kundenwert).",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "CLV : CAC = 1:1 (Kundenwert und Akquisekosten müssen exakt gleich hoch sein).",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "CLV : CAC = 3:1 (Der Kundenwert sollte mindestens dreimal so hoch sein wie die Akquisekosten).",
+          "isCorrect": true,
+          "rationale": "Dieses Verhältnis (3:1) ist die Standard-Faustregel für nachhaltiges Wachstum im E-Commerce."
+        },
+        {
+          "text": "CLV : CAC = 1:10 (Der Kundenwert sollte nur ein Zehntel der Akquisekosten betragen).",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Customer Acquisition Cost (CAC)",
+      "youtubeQuery": "Customer Acquisition Cost (CAC) berechnen E-Commerce KPI",
+      "topic": "Customer Acquisition Cost (CAC)"
+    },
+    {
+      "question": "Eine Facebook-Werbekampagne kostet 2.000 EUR und generiert unmittelbar einen direkt messbaren Umsatz von 10.000 EUR. Wie hoch ist der Return on Ad Spend (ROAS)?",
+      "answerOptions": [
+        {
+          "text": "200 % (oder Faktor 2)",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "500 % (oder Faktor 5)",
+          "isCorrect": true,
+          "rationale": "ROAS = (Umsatz der Kampagne / Kosten der Kampagne). Hier: 10.000 / 2.000 = Faktor 5 bzw. 500 %."
+        },
+        {
+          "text": "8.000 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "10 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Return on Ad Spend (ROAS)",
+      "youtubeQuery": "Return on Ad Spend (ROAS) berechnen E-Commerce KPI",
+      "topic": "Return on Ad Spend (ROAS)"
+    },
+    {
+      "question": "Was sagt ein Return on Ad Spend (ROAS) von 100 % (bzw. Faktor 1,0) bei einer Werbekampagne aus?",
+      "answerOptions": [
+        {
+          "text": "Die Kampagne hat den Umsatz verdoppelt und ist sehr profitabel.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Kampagne hat exakt so viel Umsatz generiert, wie sie an Werbekosten verursacht hat. (Unter Berücksichtigung der Produktkosten ist sie defizitär).",
+          "isCorrect": true,
+          "rationale": "Bei einem ROAS von 1 deckt der generierte Umsatz nur die Werbekosten. Da das Produkt selbst auch Einkaufs- und Versandkosten hat, macht man insgesamt Verlust."
+        },
+        {
+          "text": "Die Kampagne war ein kompletter Totalausfall und hat keinen einzigen Cent Umsatz generiert.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Anzeige wurde von 100 % der Zielgruppe angeklickt.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Return on Ad Spend (ROAS)",
+      "youtubeQuery": "Return on Ad Spend (ROAS) berechnen E-Commerce KPI",
+      "topic": "Return on Ad Spend (ROAS)"
+    },
+    {
+      "question": "Eine Suchmaschinen-Anzeige wird 10.000 Mal eingeblendet (Impressions) und erhält 350 Klicks. Wie hoch ist die Click-Through Rate (CTR)?",
+      "answerOptions": [
+        {
+          "text": "35,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "3,5 %",
+          "isCorrect": true,
+          "rationale": "CTR = (Klicks / Impressions) * 100. Hier: (350 / 10.000) * 100 = 3,5 %."
+        },
+        {
+          "text": "0,35 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "10,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Click-Through Rate (CTR)",
+      "youtubeQuery": "Click-Through Rate (CTR) berechnen E-Commerce KPI",
+      "topic": "Click-Through Rate (CTR)"
+    },
+    {
+      "question": "Wie ist eine sehr niedrige Click-Through Rate (CTR) bei einer Suchmaschinen-Anzeige in der Regel zu interpretieren?",
+      "answerOptions": [
+        {
+          "text": "Die Landingpage im Onlineshop hat eine schlechte Ladezeit.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Werbeanzeige ist für die Nutzer wenig relevant oder unattraktiv gestaltet.",
+          "isCorrect": true,
+          "rationale": "Wenn viele die Anzeige sehen, aber kaum jemand klickt, passt der Anzeigentext nicht zur Suchintention des Nutzers."
+        },
+        {
+          "text": "Das Produkt ist komplett ausverkauft.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Der Checkout-Prozess hat einen technischen Fehler.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Click-Through Rate (CTR)",
+      "youtubeQuery": "Click-Through Rate (CTR) berechnen E-Commerce KPI",
+      "topic": "Click-Through Rate (CTR)"
+    },
+    {
+      "question": "Ein Händler gibt bei Google Ads 500 EUR aus und generiert damit 1.250 Klicks auf seinen Shop. Wie hoch sind die durchschnittlichen Cost per Click (CPC)?",
+      "answerOptions": [
+        {
+          "text": "0,40 EUR",
+          "isCorrect": true,
+          "rationale": "CPC = Gesamtkosten / Anzahl der Klicks. Hier: 500 EUR / 1.250 Klicks = 0,40 EUR."
+        },
+        {
+          "text": "2,50 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "1,25 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "0,80 EUR",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Cost per Click (CPC)",
+      "youtubeQuery": "Cost per Click (CPC) berechnen E-Commerce KPI",
+      "topic": "Cost per Click (CPC)"
+    },
+    {
+      "question": "Warum variiert der Cost per Click (CPC) bei Keyword-Werbung (z.B. Google Ads) stark zwischen verschiedenen Branchen?",
+      "answerOptions": [
+        {
+          "text": "Weil Google per Gesetz für Finanzprodukte höhere Gebühren verlangen muss als für Bekleidung.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Der CPC basiert auf einem Auktionsmodell. Bei margenstarken Produkten sind Wettbewerber bereit, mehr pro Klick zu bieten.",
+          "isCorrect": true,
+          "rationale": "Hoher potenzieller Gewinn pro Kunde (hoher CLV) führt zu härterem Wettbewerb und höheren Geboten im Auktionsverfahren."
+        },
+        {
+          "text": "Weil der CPC immer abhängig vom Alter der Zielgruppe berechnet wird.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Der CPC wird ausschließlich durch die Ladezeit der Zielseite definiert.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Cost per Click (CPC)",
+      "youtubeQuery": "Cost per Click (CPC) berechnen E-Commerce KPI",
+      "topic": "Cost per Click (CPC)"
+    },
+    {
+      "question": "Ein Analytics-Tool zeigt folgende Traffic-Quellen: Organic Search 40%, Direct 30%, Paid Ads 20%, Social 10%. Was bedeutet die Quelle \"Direct\"?",
+      "answerOptions": [
+        {
+          "text": "Kunden, die über einen bezahlten Google-Suchbegriff in den Shop kommen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Kunden, die die URL (Domain) direkt in den Browser eintippen oder ein Lesezeichen nutzen.",
+          "isCorrect": true,
+          "rationale": "Direct Traffic entsteht, wenn kein vorheriger Referrer messbar ist."
+        },
+        {
+          "text": "Kunden, die durch einen Influencer-Post auf Instagram zum Shop navigieren.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Kunden, die physisch im stationären Geschäft einkaufen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Traffic-Quellen",
+      "youtubeQuery": "Traffic-Quellen berechnen E-Commerce KPI",
+      "topic": "Traffic-Quellen"
+    },
+    {
+      "question": "Warum ist die Analyse der Traffic-Quellen im E-Commerce von strategischer Bedeutung?",
+      "answerOptions": [
+        {
+          "text": "Sie dient ausschließlich der Berechnung der Mehrwertsteuer für das Finanzamt.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Sie zeigt auf, welche Marketingkanäle am effektivsten Besucher anziehen und hilft bei der Budgetallokation.",
+          "isCorrect": true,
+          "rationale": "Nur wer weiß, woher die profitablen Besucher kommen, kann sein Marketingbudget effizient verteilen."
+        },
+        {
+          "text": "Sie verhindert technische Ausfälle der Server-Infrastruktur.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Sie bestimmt automatisch den Verkaufspreis der Produkte.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Traffic-Quellen",
+      "youtubeQuery": "Traffic-Quellen berechnen E-Commerce KPI",
+      "topic": "Traffic-Quellen"
+    },
+    {
+      "question": "Von 1.000 Nutzern, die Artikel in den virtuellen Warenkorb legen, schließen letztendlich nur 300 den Kauf im Checkout erfolgreich ab. Wie hoch ist die Cart Abandonment Rate?",
+      "answerOptions": [
+        {
+          "text": "70,0 %",
+          "isCorrect": true,
+          "rationale": "Es brechen 700 von 1.000 Nutzern ab. (700 / 1.000) * 100 = 70 %."
+        },
+        {
+          "text": "30,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "15,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "300,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Cart Abandonment Rate (Warenkorbabbrecherquote)",
+      "youtubeQuery": "Cart Abandonment Rate (Warenkorbabbrecherquote) berechnen E-Commerce KPI",
+      "topic": "Cart Abandonment Rate (Warenkorbabbrecherquote)"
+    },
+    {
+      "question": "Was ist eine der häufigsten Ursachen für eine extrem hohe Cart Abandonment Rate?",
+      "answerOptions": [
+        {
+          "text": "Das Design der Startseite wirkt veraltet.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Produktbilder auf der Kategorieseite sind unscharf.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Unerwartet hohe Versandkosten, die erst spät im Checkout-Prozess angezeigt werden.",
+          "isCorrect": true,
+          "rationale": "Versteckte Kosten am Ende des Trichters (Checkout) sind der absolute Conversion-Killer Nummer 1."
+        },
+        {
+          "text": "Die Meta-Tags für die Google-Suche fehlen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Cart Abandonment Rate (Warenkorbabbrecherquote)",
+      "youtubeQuery": "Cart Abandonment Rate (Warenkorbabbrecherquote) berechnen E-Commerce KPI",
+      "topic": "Cart Abandonment Rate (Warenkorbabbrecherquote)"
+    },
+    {
+      "question": "Ein Besucher klickt auf ein Google-Suchergebnis, landet auf einer Produktdetailseite und schließt das Browserfenster nach 10 Sekunden wieder, ohne auf einen weiteren Link zu klicken. Welcher KPI wird dadurch in Analytics negativ beeinflusst?",
+      "answerOptions": [
+        {
+          "text": "Return on Ad Spend (ROAS)",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Bounce Rate (Absprungrate)",
+          "isCorrect": true,
+          "rationale": "Die Bounce Rate misst den prozentualen Anteil der Sitzungen mit nur einem einzigen Seitenaufruf ohne Interaktion."
+        },
+        {
+          "text": "Gross Merchandise Volume (GMV)",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Kaufhäufigkeit",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Bounce Rate (Absprungrate)",
+      "youtubeQuery": "Bounce Rate (Absprungrate) berechnen E-Commerce KPI",
+      "topic": "Bounce Rate (Absprungrate)"
+    },
+    {
+      "question": "Ist eine hohe Bounce Rate (z.B. 80 %) auf einer Landingpage immer ein Indikator für eine schlechte Leistung?",
+      "answerOptions": [
+        {
+          "text": "Ja, sie zeigt an, dass der Server abgestürzt ist.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Nein, bei reinen Informationsseiten (z.B. FAQ, Blog-Artikel) kann der Nutzer die gesuchte Antwort sofort gefunden und die Seite zufrieden verlassen haben.",
+          "isCorrect": true,
+          "rationale": "Wenn das Ziel der Seite reine Informationsvermittlung ist, ist ein Absprung nach dem Lesen völlig normal."
+        },
+        {
+          "text": "Ja, eine Bounce Rate über 50 % führt zur Sperrung des Google Ads Kontos.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Nein, eine hohe Bounce Rate senkt automatisch die Serverkosten des Onlineshops.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Bounce Rate (Absprungrate)",
+      "youtubeQuery": "Bounce Rate (Absprungrate) berechnen E-Commerce KPI",
+      "topic": "Bounce Rate (Absprungrate)"
+    },
+    {
+      "question": "Wie wird die \"Average Time on Site\" (durchschnittliche Verweildauer) in den gängigen Web-Analytics-Tools vereinfacht gemessen?",
+      "answerOptions": [
+        {
+          "text": "Durch die Zeitdifferenz zwischen dem ersten Seitenaufruf und dem Aufruf der letzten Seite in einer Sitzung.",
+          "isCorrect": true,
+          "rationale": "Tools messen die Zeitstempel zwischen Aufruf 1 und Aufruf 2, 3 etc. Bei einem Absprung (Bounce) ist die gemessene Zeit meist 0."
+        },
+        {
+          "text": "Durch Zugriff auf die Systemuhr des Nutzers beim Herunterfahren des Computers.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Durch die Anzahl der Wörter auf der Seite geteilt durch die durchschnittliche Lesegeschwindigkeit.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Indem der Nutzer per Popup am Ende gefragt wird, wie lange er online war.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Verweildauer (Average Time on Site)",
+      "youtubeQuery": "Verweildauer (Average Time on Site) berechnen E-Commerce KPI",
+      "topic": "Verweildauer (Average Time on Site)"
+    },
+    {
+      "question": "Eine hohe durchschnittliche Verweildauer in einem Onlineshop gilt grundsätzlich als positiv. In welchem speziellen Fall könnte sie jedoch auf ein Problem hindeuten?",
+      "answerOptions": [
+        {
+          "text": "Wenn die Verweildauer im Checkout-Prozess extrem hoch ist, deutet dies auf verwirrende Formulare oder technische Hürden hin.",
+          "isCorrect": true,
+          "rationale": "Ein Checkout sollte schnell und reibungslos gehen. Dauert er ewig, hängen die Nutzer fest."
+        },
+        {
+          "text": "Wenn der Kunde sich lange Blog-Artikel auf der Seite durchliest.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Wenn der Kunde lange Produktvideos auf der Detailseite ansieht.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Wenn die Verweildauer an Wochenenden höher ist als unter der Woche.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Verweildauer (Average Time on Site)",
+      "youtubeQuery": "Verweildauer (Average Time on Site) berechnen E-Commerce KPI",
+      "topic": "Verweildauer (Average Time on Site)"
+    },
+    {
+      "question": "Ein Nutzer besucht die Startseite, klickt auf eine Kategorie, sieht sich zwei Produkte an und verlässt den Shop. Wie lautet der KPI \"Seiten pro Sitzung\" für diesen spezifischen Besuch?",
+      "answerOptions": [
+        {
+          "text": "1",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "2",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "4",
+          "isCorrect": true,
+          "rationale": "Startseite (1) + Kategorie (1) + Produkt A (1) + Produkt B (1) = 4 Seitenaufrufe in dieser Sitzung."
+        },
+        {
+          "text": "5",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Seiten pro Sitzung (Pages per Session)",
+      "youtubeQuery": "Seiten pro Sitzung (Pages per Session) berechnen E-Commerce KPI",
+      "topic": "Seiten pro Sitzung (Pages per Session)"
+    },
+    {
+      "question": "Welche Aussage lässt sich aus einem hohen Wert für \"Seiten pro Sitzung\" im E-Commerce ableiten?",
+      "answerOptions": [
+        {
+          "text": "Der Shop hat zu hohe Preise und der Nutzer sucht nach günstigeren Alternativen im Netz.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Der Nutzer zeigt ein starkes Engagement und Interesse am Sortiment.",
+          "isCorrect": true,
+          "rationale": "Wer viele Seiten anklickt, stöbert intensiv und hat ein höheres Potenzial für einen Kauf."
+        },
+        {
+          "text": "Die Versandkosten sind zu niedrig.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Serverkapazität ist erschöpft.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Seiten pro Sitzung (Pages per Session)",
+      "youtubeQuery": "Seiten pro Sitzung (Pages per Session) berechnen E-Commerce KPI",
+      "topic": "Seiten pro Sitzung (Pages per Session)"
+    },
+    {
+      "question": "Ein Onlineshop startet das Jahr mit 2.000 Bestandskunden. Im Laufe des Jahres gehen 500 Kunden verloren. Es werden jedoch 800 Neukunden gewonnen. Am Ende des Jahres gibt es 2.300 Kunden. Wie hoch ist die Customer Retention Rate (CRR) bezogen auf den Anfangsbestand?",
+      "answerOptions": [
+        {
+          "text": "115 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "75 %",
+          "isCorrect": true,
+          "rationale": "Berechnung: ((Endbestand - Neukunden) / Anfangsbestand) * 100. Also: ((2.300 - 800) / 2.000) * 100 = (1.500 / 2.000) * 100 = 75 %."
+        },
+        {
+          "text": "25 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "40 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Customer Retention Rate (CRR)",
+      "youtubeQuery": "Customer Retention Rate (CRR) berechnen E-Commerce KPI",
+      "topic": "Customer Retention Rate (CRR)"
+    },
+    {
+      "question": "Warum ist eine hohe Customer Retention Rate (CRR) betriebswirtschaftlich oft wertvoller als eine hohe Neukundengewinnungsrate?",
+      "answerOptions": [
+        {
+          "text": "Weil Bestandskunden gesetzlich verpflichtet sind, regelmäßig zu kaufen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Weil die Reaktivierung von Bestandskunden in der Regel deutlich geringere Marketingkosten verursacht als die Akquise von Neukunden (CAC).",
+          "isCorrect": true,
+          "rationale": "Einem Kunden, der den Shop schon kennt und vertraut, etwas zu verkaufen, ist viel günstiger als kalten Traffic einzukaufen."
+        },
+        {
+          "text": "Weil Bestandskunden niemals Retouren verursachen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Weil die Wettbewerber keine Bestandskunden anwerben dürfen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Customer Retention Rate (CRR)",
+      "youtubeQuery": "Customer Retention Rate (CRR) berechnen E-Commerce KPI",
+      "topic": "Customer Retention Rate (CRR)"
+    },
+    {
+      "question": "Wenn ein Abo-E-Commerce-Modell im Monat eine Customer Retention Rate von 95 % aufweist. Wie hoch ist dann die Churn Rate?",
+      "answerOptions": [
+        {
+          "text": "5 %",
+          "isCorrect": true,
+          "rationale": "Die Churn Rate ist das exakte Gegenteil der Retention Rate. Wenn 95 % bleiben, wandern 5 % ab."
+        },
+        {
+          "text": "100 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "95 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "0 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Churn Rate (Abwanderungsquote)",
+      "youtubeQuery": "Churn Rate (Abwanderungsquote) berechnen E-Commerce KPI",
+      "topic": "Churn Rate (Abwanderungsquote)"
+    },
+    {
+      "question": "Welche Maßnahme ist am effektivsten, um die Churn Rate in einem E-Commerce-Shop aktiv zu senken?",
+      "answerOptions": [
+        {
+          "text": "Die Einführung eines loyalitätsbasierten Bonusprogramms (z.B. Punkte sammeln für Rabatte).",
+          "isCorrect": true,
+          "rationale": "Bonusprogramme schaffen Wechselbarrieren und belohnen Treue, was die Kundenabwanderung direkt reduziert."
+        },
+        {
+          "text": "Die Verdopplung der Preise für das gesamte Sortiment.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Löschen der Kundenkonten nach dem ersten Kauf aus Datenschutzgründen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Abschalten des Kundenservice, um Kosten zu sparen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Churn Rate (Abwanderungsquote)",
+      "youtubeQuery": "Churn Rate (Abwanderungsquote) berechnen E-Commerce KPI",
+      "topic": "Churn Rate (Abwanderungsquote)"
+    },
+    {
+      "question": "In einem Jahreszeitraum wurden in einem Shop 10.000 Bestellungen generiert. Diese Bestellungen wurden von 4.000 einzigartigen (unique) Kunden getätigt. Wie lautet die durchschnittliche Kaufhäufigkeit?",
+      "answerOptions": [
+        {
+          "text": "2,5 Käufe pro Kunde",
+          "isCorrect": true,
+          "rationale": "Kaufhäufigkeit = Gesamtzahl Bestellungen / Anzahl der einzigartigen Kunden. Hier: 10.000 / 4.000 = 2,5."
+        },
+        {
+          "text": "0,4 Käufe pro Kunde",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "4,0 Käufe pro Kunde",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "6.000 Käufe pro Kunde",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Kaufhäufigkeit (Purchase Frequency)",
+      "youtubeQuery": "Kaufhäufigkeit (Purchase Frequency) berechnen E-Commerce KPI",
+      "topic": "Kaufhäufigkeit (Purchase Frequency)"
+    },
+    {
+      "question": "In welcher E-Commerce-Branche ist naturgemäß mit der höchsten Kaufhäufigkeit zu rechnen?",
+      "answerOptions": [
+        {
+          "text": "Beim Online-Verkauf von Matratzen und Betten.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Im Bereich Fast Moving Consumer Goods (z.B. Online-Supermarkt / Lebensmittel).",
+          "isCorrect": true,
+          "rationale": "Lebensmittel und Verbrauchsgüter (FMCG) werden in kurzen Intervallen immer wieder benötigt (hohe Frequenz)."
+        },
+        {
+          "text": "Beim Verkauf von Premium-Sportwagen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Beim Verkauf von Trauringen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Kaufhäufigkeit (Purchase Frequency)",
+      "youtubeQuery": "Kaufhäufigkeit (Purchase Frequency) berechnen E-Commerce KPI",
+      "topic": "Kaufhäufigkeit (Purchase Frequency)"
+    },
+    {
+      "question": "Von 5.000 Kunden, die im letzten Jahr in einem Shop gekauft haben, haben 1.500 mehr als eine Bestellung getätigt. Wie hoch ist die Wiederholungskaufrate?",
+      "answerOptions": [
+        {
+          "text": "30,0 %",
+          "isCorrect": true,
+          "rationale": "Berechnung: (Kunden mit >1 Kauf / Alle Kunden) * 100. Hier: (1.500 / 5.000) * 100 = 30 %."
+        },
+        {
+          "text": "70,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "15,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "3,3 %",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Wiederholungskaufrate (Repeat Purchase Rate)",
+      "youtubeQuery": "Wiederholungskaufrate (Repeat Purchase Rate) berechnen E-Commerce KPI",
+      "topic": "Wiederholungskaufrate (Repeat Purchase Rate)"
+    },
+    {
+      "question": "Was unterscheidet die Wiederholungskaufrate von der Kennzahl der Kaufhäufigkeit (Purchase Frequency)?",
+      "answerOptions": [
+        {
+          "text": "Beide Kennzahlen sind identisch und können synonym verwendet werden.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Wiederholungskaufrate gibt den prozentualen Anteil der Kundenbasis an, die mehrfach kauft. Die Kaufhäufigkeit gibt an, wie viele Bestellungen ein Kunde im Durchschnitt macht.",
+          "isCorrect": true,
+          "rationale": "Die Rate ist ein Prozentsatz (z.B. 30 % sind Wiederholungskäufer), die Frequenz ist ein absoluter Wert (z.B. 2,5 Käufe pro Kunde)."
+        },
+        {
+          "text": "Die Kaufhäufigkeit wird nur im B2B-Sektor angewendet.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Wiederholungskaufrate misst den Umsatz, die Kaufhäufigkeit den Gewinn.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Wiederholungskaufrate (Repeat Purchase Rate)",
+      "youtubeQuery": "Wiederholungskaufrate (Repeat Purchase Rate) berechnen E-Commerce KPI",
+      "topic": "Wiederholungskaufrate (Repeat Purchase Rate)"
+    },
+    {
+      "question": "Bei einer Kundenumfrage zum Net Promoter Score (NPS) auf einer Skala von 0-10 gab es 100 Antworten. 50 Nutzer wählten eine 9 oder 10 (Promotoren). 30 Nutzer wählten eine 7 oder 8 (Passiv). 20 Nutzer wählten 0 bis 6 (Detraktoren). Wie lautet der NPS?",
+      "answerOptions": [
+        {
+          "text": "+ 50",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "+ 30",
+          "isCorrect": true,
+          "rationale": "NPS = % Promotoren - % Detraktoren. Hier: 50 % - 20 % = + 30. (Die Passiven werden ignoriert)."
+        },
+        {
+          "text": "+ 80",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "- 20",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Net Promoter Score (NPS)",
+      "youtubeQuery": "Net Promoter Score (NPS) berechnen E-Commerce KPI",
+      "topic": "Net Promoter Score (NPS)"
+    },
+    {
+      "question": "Welche zentrale Kundenfrage bildet das Fundament zur Erhebung des Net Promoter Score (NPS)?",
+      "answerOptions": [
+        {
+          "text": "Würden Sie unser Unternehmen / unseren Onlineshop einem Freund oder Kollegen weiterempfehlen?",
+          "isCorrect": true,
+          "rationale": "Dies ist die standardisierte, weltweite Kernfrage des NPS, da persönliche Empfehlungen das höchste Maß an Vertrauen ausdrücken."
+        },
+        {
+          "text": "Wie zufrieden waren Sie mit der Verpackung der Lieferung?",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Wie hoch ist die Wahrscheinlichkeit, dass Sie das Produkt wegen Nichtgefallen retournieren?",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Wie fanden Sie den Preis unserer Produkte im Vergleich zur Konkurrenz?",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Nutze die Formel für Net Promoter Score (NPS)",
+      "youtubeQuery": "Net Promoter Score (NPS) berechnen E-Commerce KPI",
+      "topic": "Net Promoter Score (NPS)"
     }
   ]
 }
