@@ -3360,6 +3360,174 @@
       "topic": "Kennzahlen – Kundenakquisition (CAC)",
       "youtubeQuery": "Customer Acquisition Cost CAC KPIs",
       "hint": "Was kostet es, einen Kunden (Customer) zu 'akquirieren' (Acquisition)?"
+    },
+    {
+      "question": "Das Controlling der „Peak-Adventures AG“ wertet den vergangenen Monat aus. Der neue Online-Shop verzeichnete insgesamt 8.000 Besucher. Davon haben exakt 200 Besucher einen Kauf getätigt und eine Bestellung abgeschlossen. Wie hoch ist die Conversion Rate (Konversionsrate) für diesen Monat?",
+      "answerOptions": [
+        {
+          "text": "40,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch. Die Berechnung erfolgt durch (Käufe / Besucher) * 100."
+        },
+        {
+          "text": "2,5 %",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Conversion Rate berechnet sich, indem man die Anzahl der Käufe durch die Anzahl der Besucher teilt und das Ergebnis mit 100 multipliziert: (200 Käufe / 8.000 Besucher) * 100 = 0,025 * 100 = 2,5 %."
+        },
+        {
+          "text": "0,025 %",
+          "isCorrect": false,
+          "rationale": "Falsch. Das ist der Dezimalwert vor der Multiplikation mit 100."
+        },
+        {
+          "text": "4,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch. (8000 / 200) ergibt 40, aber das ist nicht die Formel für die Conversion Rate."
+        }
+      ],
+      "hint": "Formel: (Anzahl der Käufe / Anzahl der Besucher) * 100.",
+      "youtubeQuery": "Conversion Rate berechnen E-Commerce Controlling",
+      "topic": "Berechnung der Conversion Rate"
+    },
+    {
+      "question": "Im Jahresbericht der „Urban-Kicks GmbH“ steht: „Wir konnten unsere Conversion Rate im vierten Quartal stabil bei 8 % halten.“ Was bedeutet diese Aussage für das E-Commerce-Controlling ganz konkret?",
+      "answerOptions": [
+        {
+          "text": "Dass 8 % aller produzierten Schuhe aufgrund von Mängeln retourniert wurden.",
+          "isCorrect": false,
+          "rationale": "Das wäre die Retourenquote, nicht die Conversion Rate."
+        },
+        {
+          "text": "Dass der Shop genau 8 % mehr Umsatz gemacht hat als im Vorquartal.",
+          "isCorrect": false,
+          "rationale": "Die Conversion Rate bezieht sich auf Abschlüsse pro Besucher, nicht auf das Umsatzwachstum."
+        },
+        {
+          "text": "Dass von 100 Besuchern des Online-Shops durchschnittlich 8 Personen einen Kauf getätigt haben.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Eine Conversion Rate von 8 % bedeutet im E-Commerce, dass exakt 8 % aller Besucher (Traffic) der Website letztendlich einen Kauf (Conversion) getätigt haben."
+        },
+        {
+          "text": "Dass 8 % der Kunden den Newsletter des Shops abonniert haben.",
+          "isCorrect": false,
+          "rationale": "Das wäre die Newsletter-Conversion-Rate, im allgemeinen E-Commerce-Kontext ist jedoch meist der Kaufabschluss gemeint."
+        }
+      ],
+      "hint": "Betrachte das Verhältnis von Besuchern zu Käufern.",
+      "youtubeQuery": "Conversion Rate Bedeutung E-Commerce Controlling",
+      "topic": "Interpretation der Conversion Rate"
+    },
+    {
+      "question": "Die „Next-Level Sports GmbH“ hat viel Traffic auf der Website, aber die Kunden brechen den Kaufvorgang oft ab. Eine Agentur rät zur dringenden Optimierung der Benutzerfreundlichkeit (Usability). Welche konkrete Maßnahme im Online-Shop fällt unter diesen Bereich?",
+      "answerOptions": [
+        {
+          "text": "Das Schalten von teureren TV-Werbespots zur besten Sendezeit.",
+          "isCorrect": false,
+          "rationale": "Das ist Marketing/Bekanntheit, keine Usability-Optimierung im Shop."
+        },
+        {
+          "text": "Die Verwendung von klaren Call-to-Action-Buttons und die Einrichtung eines intuitiven, unkomplizierten Checkout-Prozesses.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Benutzerfreundlichkeit einer Website, insbesondere durch eine übersichtliche Navigation, klare Call-to-Action-Buttons und einen intuitiven Checkout-Prozess, ist ein essenzieller Faktor zur Steigerung der Conversion Rate."
+        },
+        {
+          "text": "Das massenhafte Einkaufen von gefälschten 5-Sterne-Bewertungen.",
+          "isCorrect": false,
+          "rationale": "Das ist unlauterer Wettbewerb und keine Usability-Maßnahme."
+        },
+        {
+          "text": "Die Reduzierung aller Artikelpreise um pauschal 20 %.",
+          "isCorrect": false,
+          "rationale": "Das ist eine Preisstrategie, keine Verbesserung der Benutzerfreundlichkeit."
+        }
+      ],
+      "hint": "Usability betrifft die einfache Bedienbarkeit des Shops.",
+      "youtubeQuery": "Usability Optimierung Online Shop Checkout Prozess",
+      "topic": "Conversion-Optimierung"
+    },
+    {
+      "question": "Ein Händler für Premium-Kaffeeautomaten möchte das Kaufinteresse der Kunden auf den Produktdetailseiten steigern. Welcher Ansatz im Bereich der Produktdarstellung ist laut E-Commerce-Best-Practices dafür am besten geeignet?",
+      "answerOptions": [
+        {
+          "text": "Die Produkte nur noch in Textform aufzulisten, um die Ladezeit der Seite auf unter 0,5 Sekunden zu senken.",
+          "isCorrect": false,
+          "rationale": "Text allein reicht für Premium-Produkte oft nicht aus, um Vertrauen und Interesse zu wecken."
+        },
+        {
+          "text": "Die Präsentation der Automaten mit professionellen, hochwertigen Bildern und sehr detaillierten Produktbeschreibungen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Eine professionelle Produktdarstellung mit hochwertigen Bildern und detaillierten Beschreibungen steigert das Kaufinteresse und das Vertrauen der Kunden maßgeblich, was sich positiv auf die Conversion Rate auswirkt."
+        },
+        {
+          "text": "Das Ausblenden von Preisen, bis der Kunde ein Kundenkonto angelegt hat.",
+          "isCorrect": false,
+          "rationale": "Das erhöht Hürden und schreckt Kunden eher ab."
+        },
+        {
+          "text": "Die Nutzung von stark verpixelten Hersteller-Skizzen, um Neugier zu wecken.",
+          "isCorrect": false,
+          "rationale": "Pixelige Skizzen wirken unprofessionell and senken das Vertrauen."
+        }
+      ],
+      "hint": "Qualität und Information sind entscheidend für Premium-Produkte.",
+      "youtubeQuery": "Produktdarstellung E-Commerce Best Practices",
+      "topic": "Conversion-Optimierung"
+    },
+    {
+      "question": "Kunden sind oft unsicher, ob sie bei einem ihnen unbekannten Online-Shop bestellen sollen. Mit welchem der folgenden Mittel kann ein Shop den sogenannten „Social Proof“ nutzen, um das Vertrauen der Besucher zu gewinnen und die Conversion Rate zu erhöhen?",
+      "answerOptions": [
+        {
+          "text": "Durch die Anzeige von echten Kundenbewertungen, Erfahrungsberichten und Empfehlungen direkt auf der Website.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. „Social Proof“ (soziale Bewährtheit) entsteht durch das Anzeigen von positiven Kundenbewertungen und Empfehlungen anderer Käufer. Dies erhöht das Vertrauen neuer Besucher massiv und verringert ihre Kaufhemmung."
+        },
+        {
+          "text": "Durch das Anbieten einer Hotline, die 24 Stunden am Tag erreichbar ist.",
+          "isCorrect": false,
+          "rationale": "Eine Hotline ist Service, aber kein klassischer 'Social Proof'."
+        },
+        {
+          "text": "Durch die Integration eines automatisierten Chatbots.",
+          "isCorrect": false,
+          "rationale": "Ein Chatbot unterstützt, ist aber kein sozialer Beleg durch andere Kunden."
+        },
+        {
+          "text": "Durch das Einfärben der Shop-Website in beruhigende Blau-Töne.",
+          "isCorrect": false,
+          "rationale": "Farben wirken psychologisch, sind aber kein Social Proof."
+        }
+      ],
+      "hint": "Social Proof basiert auf den Erfahrungen anderer Menschen.",
+      "youtubeQuery": "Social Proof E-Commerce Vertrauen Kundenbewertungen",
+      "topic": "Conversion-Optimierung"
+    },
+    {
+      "question": "Ein junges Start-up, die „Trailblazer Gear AG“, plant den Launch eines neuen Online-Shops. Das Team hat viele wilde Ideen, von Treueprogrammen bis hin zu Influencer-Kooperationen. Was ist laut IHK-Standards jedoch die absolute grundlegende Voraussetzung für eine erfolgreiche E-Commerce-Strategie, bevor solche Zusatzmaßnahmen greifen können?",
+      "answerOptions": [
+        {
+          "text": "Das zwingende Angebot von kostenlosen Produktproben bei wirklich jeder Bestellung.",
+          "isCorrect": false,
+          "rationale": "Das ist eine Marketing-Maßnahme, aber keine fundamentale Strategiebasis."
+        },
+        {
+          "text": "Die sofortige Einführung von kostenpflichtigen VIP-Mitgliedschaftsprogrammen (wie Amazon Prime).",
+          "isCorrect": false,
+          "rationale": "Das setzt eine bereits etablierte Marke und treue Kundenbasis voraus."
+        },
+        {
+          "text": "Ein attraktives Webdesign kombiniert mit ansprechenden Produktbildern, um überhaupt erst einmal das grundlegende Vertrauen der Kunden zu gewinnen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Ein ansprechendes Webdesign und hochwertige Produktbilder sind die absolute Basis, um Kundenvertrauen aufzubauen und sie zum Kauf zu motivieren. Social-Media-Präsenz, kostenpflichtige Mitgliedschaften oder Gratisproben sind zwar hilfreiche zusätzliche Marketingstrategien, aber ohne die visuelle Basis im Shop (Design/Bilder) laufen sie ins Leere."
+        },
+        {
+          "text": "Eine tägliche Posting-Frequenz auf allen gängigen Social-Media-Kanälen.",
+          "isCorrect": false,
+          "rationale": "Social Media bringt Reichweite, aber die Basis muss im Shop selbst liegen."
+        }
+      ],
+      "hint": "Überlege, was ein Kunde zuerst sieht, wenn er den Shop besucht.",
+      "youtubeQuery": "E-Commerce Strategie Grundlagen IHK Standards",
+      "topic": "Strategische Grundlagen"
     }
   ]
 }
