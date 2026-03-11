@@ -1631,7 +1631,8 @@ ${feynmanInput}`;
   const rechenTasks = getRechenTasks();
   const rechenTotal = rechenTasks.length;
   const rechenLearned = rechenTasks.reduce((count, q) => {
-    const progress = quizProg[q.id];
+    const qId = q.id || generateId(q.question);
+    const progress = quizProg[qId];
     if (!progress) return count;
     return count + ((progress.nextReview || 0) > nowTs ? 1 : 0);
   }, 0);
