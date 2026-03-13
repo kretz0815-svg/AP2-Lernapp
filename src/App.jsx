@@ -194,7 +194,6 @@ function App() {
   const einsteinRef = useRef(null);
   const introVideoRef = useRef(null);
   const [introMuted, setIntroMuted] = useState(false);
-  const [introStarted, setIntroStarted] = useState(false);
   const [einsteinTilt, setEinsteinTilt] = useState({ rotateX: 0, rotateY: 0 });
   const [showConfetti, setShowConfetti] = useState(false);
   const triggerConfetti = () => {
@@ -229,12 +228,11 @@ function App() {
   useEffect(() => {
     if (appMode === 'intro') {
       setIntroMuted(false);
-      setIntroStarted(false);
     }
   }, [appMode]);
 
   useEffect(() => {
-    if (appMode !== 'intro' || !introStarted) return;
+    if (appMode !== 'intro') return;
     const video = introVideoRef.current;
     if (!video) return;
 
@@ -263,7 +261,7 @@ function App() {
       cancelled = true;
       cancelAnimationFrame(raf);
     };
-  }, [appMode, introMuted, introStarted]);
+  }, [appMode, introMuted]);
 
   // Scroll to top on every mode change
   useEffect(() => {
@@ -1744,52 +1742,13 @@ ${feynmanInput}`;
           ref={introVideoRef}
           key={window.innerWidth <= 768 ? 'intro-mobile-v2' : 'intro-desktop-v2'}
           src={window.innerWidth <= 768 ? "/intromobile.mp4" : "/intro.mp4"}
-          autoPlay={introStarted}
+          autoPlay
           muted={introMuted}
           playsInline
           preload="auto"
           onEnded={() => setAppMode('dashboard')}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
-        {!introStarted && (
-          <button
-            onClick={async () => {
-              const video = introVideoRef.current;
-              setIntroMuted(false);
-              setIntroStarted(true);
-              if (!video) return;
-              video.muted = false;
-              video.volume = 1;
-              try {
-                await video.play();
-              } catch {
-                video.muted = true;
-                setIntroMuted(true);
-                try {
-                  await video.play();
-                } catch {
-                  // If this fails too, browser/device blocks playback entirely.
-                }
-              }
-            }}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'rgba(0,0,0,0.24)',
-              border: 'none',
-              color: '#fff',
-              zIndex: 10000,
-              cursor: 'pointer',
-              display: 'grid',
-              placeItems: 'center',
-              textAlign: 'center'
-            }}
-          >
-            <span style={{ background: 'rgba(0,0,0,0.58)', border: '1px solid rgba(255,255,255,0.24)', borderRadius: '12px', padding: '0.75rem 1rem', backdropFilter: 'blur(4px)', fontWeight: 700 }}>
-              Tippen zum Starten (Ton an)
-            </span>
-          </button>
-        )}
         <button
           onClick={() => {
             setIntroMuted((prev) => {
@@ -1805,7 +1764,6 @@ ${feynmanInput}`;
               return nextMuted;
             });
           }}
-          disabled={!introStarted}
           title={introMuted ? 'Ton einschalten' : 'Ton ausschalten'}
           aria-label={introMuted ? 'Ton einschalten' : 'Ton ausschalten'}
           style={{
@@ -1820,8 +1778,8 @@ ${feynmanInput}`;
             color: '#fff',
             border: '1px solid rgba(255,255,255,0.24)',
             borderRadius: '999px',
-            cursor: introStarted ? 'pointer' : 'not-allowed',
-            opacity: introStarted ? 1 : 0.55,
+            cursor: 'pointer',
+            opacity: 1,
             zIndex: 10000,
             backdropFilter: 'blur(4px)',
             WebkitBackdropFilter: 'blur(4px)'
