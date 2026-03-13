@@ -90,7 +90,8 @@
   z-index: 60;
   display: grid;
   gap: 0.45rem;
-  width: clamp(220px, calc((100vw - 1120px) / 2 - 24px), 360px);
+  width: max(230px, calc((100vw - 1120px) / 2 - 20px));
+  max-width: 560px;
   pointer-events: none;
 }
 
@@ -125,7 +126,8 @@
 
 .pm-cyber-mentor__bubble--expanded p {
   display: block;
-  overflow: visible;
+  max-height: calc(100vh - 250px);
+  overflow: auto;
 }
 
 .pm-cyber-mentor__close {
@@ -230,10 +232,15 @@
     right: max(10px, env(safe-area-inset-right, 0px) + 10px);
     bottom: max(72px, env(safe-area-inset-bottom, 0px) + 72px);
     width: min(320px, calc(100vw - 14px));
+    max-width: calc(100vw - 14px);
   }
 
   .pm-cyber-mentor__avatar-wrap {
     width: 88px;
     height: 110px;
+  }
+
+  .pm-cyber-mentor__bubble--expanded p {
+    max-height: calc(100vh - 260px);
   }
 }

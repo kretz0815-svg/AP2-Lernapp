@@ -65,6 +65,7 @@ const sectionStyle = {
 const normalize = (value) => String(value || '').toLowerCase().trim();
 const sanitizeEinsteinText = (input) => String(input || '')
     .replace(/\*\*/g, '')
+    .replace(/^hallo[!,.:\s-]*/i, '')
     .replace(/gute frage[:,!\s]*/i, '')
     .replace(/\s{2,}/g, ' ')
     .trim();
