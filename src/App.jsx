@@ -29,6 +29,7 @@ import VideoPanel from './components/VideoPanel';
 import GeminiPanel from './components/GeminiPanel';
 import Confetti from './components/Confetti';
 import { KLRGameHub, useKLRGame } from './features/klr';
+import { PMBasicsHub, ProjectMGameHub, ProjectMMainHub, useProjectMGame } from './features/projectM';
 import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
 import { reviewTaskWithDSR, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
 
@@ -58,6 +59,7 @@ function App() {
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
   const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || import.meta.env.VITE_HCAPTCHA_SITEKEY || '';
   const { progress: klrProgress } = useKLRGame() || { progress: { xp: 0 } };
+  const { progress: projectMProgress } = useProjectMGame() || { progress: { xp: 0 } };
 
   // Set up auth first
 
@@ -190,6 +192,8 @@ function App() {
   const [calcAiLoading, setCalcAiLoading] = useState(false);
   const wisorInputRef = useRef(null);
   const einsteinRef = useRef(null);
+  const introVideoRef = useRef(null);
+  const [introMuted, setIntroMuted] = useState(true);
   const [einsteinTilt, setEinsteinTilt] = useState({ rotateX: 0, rotateY: 0 });
   const [showConfetti, setShowConfetti] = useState(false);
   const triggerConfetti = () => {
@@ -219,6 +223,12 @@ function App() {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
+  }, [appMode]);
+
+  useEffect(() => {
+    if (appMode === 'intro') {
+      setIntroMuted(true);
+    }
   }, [appMode]);
 
   // Scroll to top on every mode change
@@ -1341,6 +1351,11 @@ ${feynmanInput}`;
       clearAnalyticsByMode('klr');
       setResetModalVisible(false);
       window.location.reload();
+    } else if (resetTarget === 'projectM') {
+      localStorage.removeItem('project_m_game_progress_v1');
+      clearAnalyticsByMode('projectM');
+      setResetModalVisible(false);
+      window.location.reload();
     } else if (resetTarget === 'kalkulation') {
       localStorage.removeItem('kalk_boss_completed_flawless');
       clearAnalyticsByMode('kalkulation');
@@ -1359,6 +1374,7 @@ ${feynmanInput}`;
       localStorage.removeItem('ap2_wisor_eco_progress');
       localStorage.removeItem('ap2_saved_notes');
       localStorage.removeItem('klr_game_progress_v1');
+      localStorage.removeItem('project_m_game_progress_v1');
       localStorage.removeItem(getAnalyticsStorageKey(authUser));
 
       // Reset progress state (keep customQuizQuestions intact)
@@ -1691,16 +1707,35 @@ ${feynmanInput}`;
     return (
       <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 9999, backgroundColor: '#000' }}>
         <video
+          ref={introVideoRef}
           key={window.innerWidth <= 768 ? 'intro-mobile-v2' : 'intro-desktop-v2'}
           src={window.innerWidth <= 768 ? "/intromobile.mp4" : "/intro.mp4"}
           autoPlay
-          muted
+          muted={introMuted}
           playsInline
-          defaultMuted
           preload="auto"
           onEnded={() => setAppMode('dashboard')}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
+        <button
+          onClick={() => {
+            setIntroMuted((prev) => {
+              const nextMuted = !prev;
+              const video = introVideoRef.current;
+              if (video) {
+                video.muted = nextMuted;
+                video.volume = 1;
+                if (!nextMuted) {
+                  video.play().catch(() => { });
+                }
+              }
+              return nextMuted;
+            });
+          }}
+          style={{ position: 'absolute', top: '20px', right: '130px', background: 'rgba(0,0,0,0.5)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer', zIndex: 10000, backdropFilter: 'blur(4px)', fontFamily: 'inherit' }}
+        >
+          {introMuted ? 'Ton an' : 'Ton aus'}
+        </button>
         <button
           onClick={() => setAppMode('dashboard')}
           style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(0,0,0,0.5)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer', zIndex: 10000, backdropFilter: 'blur(4px)', fontFamily: 'inherit' }}
@@ -1857,7 +1892,6 @@ ${feynmanInput}`;
                 <line x1="12" y1="8" x2="12" y2="16"></line>
               </svg>
             </div>
-            <div style={{ position: 'absolute', top: '12px', right: '12px', background: 'var(--primary)', color: 'white', fontSize: '0.65rem', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>NEU</div>
             <h2>KPI's</h2>
             <p>Gezieltes Training für IHK-relevante Rechen- und KPI-Aufgaben.</p>
             <div className="chip">
@@ -1952,11 +1986,33 @@ ${feynmanInput}`;
             </div>
             <h2>KLR Startup<br />Survival</h2>
             <p>Gamifizierte Kosten- und Leistungsrechnung im E-Commerce-Setting.</p>
-            <div className="chip">Neu: Phase 1</div>
+            <div className="chip">XP: {klrProgress?.xp || 0}</div>
             <button
               className="btn-secondary"
               style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
               onClick={(e) => { e.stopPropagation(); openResetModal(e, 'klr'); }}
+            >
+              🔄 Lernfortschritt zurücksetzen
+            </button>
+          </div>
+
+          <div className="dash-card" onClick={() => setAppMode('project_m')}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
+              <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="15" rx="2.5" />
+                <line x1="7" y1="9" x2="17" y2="9" />
+                <line x1="7" y1="13" x2="13" y2="13" />
+                <line x1="15.5" y1="13" x2="17.5" y2="16" />
+                <line x1="17.5" y1="13" x2="15.5" y2="16" />
+              </svg>
+            </div>
+            <h2>Project M<br />Sneaker Drop</h2>
+            <p>PM-Trainingsmission mit Phasenlogik, PSP-Architektur und Gantt-Analyse.</p>
+            <div className="chip">XP: {projectMProgress?.xp || 0}</div>
+            <button
+              className="btn-secondary"
+              style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
+              onClick={(e) => { e.stopPropagation(); openResetModal(e, 'projectM'); }}
             >
               🔄 Lernfortschritt zurücksetzen
             </button>
@@ -2228,6 +2284,55 @@ ${feynmanInput}`;
     );
   }
 
+  if (appMode === 'project_m') {
+    return (
+      <>
+        <div className="app-container" style={{ zIndex: 10 }}>
+          {pomodoroPortal}
+          {burgerMenuPortal}
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <ProjectMMainHub
+            onBack={() => setAppMode('dashboard')}
+            onOpenSneakerDrop={() => setAppMode('project_m_core')}
+            onOpenPMBasics={() => setAppMode('pm_basics')}
+            xp={projectMProgress?.xp || 0}
+          />
+        </div>
+      </>
+    );
+  }
+
+  if (appMode === 'project_m_core') {
+    return (
+      <>
+        <div className="app-container" style={{ zIndex: 10 }}>
+          {pomodoroPortal}
+          {burgerMenuPortal}
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <ProjectMGameHub onBack={() => setAppMode('project_m')} onLearningEvent={appendLearningEvent} />
+        </div>
+        <FloatingNotes questionId="project_m_game" questionText="Project M Sneaker Drop" currentAppMode={appMode} />
+        <FloatingCalculator currentAppMode={appMode} />
+      </>
+    );
+  }
+
+  if (appMode === 'pm_basics') {
+    return (
+      <>
+        <div className="app-container" style={{ zIndex: 10 }}>
+          {pomodoroPortal}
+          {burgerMenuPortal}
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <PMBasicsHub onBack={() => setAppMode('project_m')} />
+        </div>
+      </>
+    );
+  }
+
   if (appMode === 'kalkulation') {
     return (
       <>
@@ -2495,6 +2600,7 @@ Die JSON muss exakt diese Struktur haben:
         kalkulation: byMode('kalkulation'),
         breakEven: byMode('breakEven'),
         klr: byMode('klr'),
+        projectM: byMode('projectM'),
       };
     };
 
@@ -2514,6 +2620,7 @@ Die JSON muss exakt diese Struktur haben:
       kalkulation: 'Kalkulations-Boss',
       breakEven: 'Break-Even-Point',
       klr: 'KLR-Modul',
+      projectM: 'Project M',
       rechen: "KPI's"
     };
 
@@ -2525,7 +2632,7 @@ Die JSON muss exakt diese Struktur haben:
       return acc;
     }, {});
 
-    const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco' || e.mode === 'kalkulation' || e.mode === 'breakEven' || e.mode === 'klr' || e.mode === 'rechen');
+    const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco' || e.mode === 'kalkulation' || e.mode === 'breakEven' || e.mode === 'klr' || e.mode === 'projectM' || e.mode === 'rechen');
     const totalAnswers = events.length;
     const totalCorrect = events.filter(e => e.correct).length;
     const hitRate = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
@@ -2576,6 +2683,7 @@ Die JSON muss exakt diese Struktur haben:
       if (event.mode === 'kalkulation') return 'Kalkulations-Boss';
       if (event.mode === 'breakEven') return 'Break-Even-Point';
       if (event.mode === 'klr') return event.topic || 'KLR-Modul';
+      if (event.mode === 'projectM') return event.topic || 'Project M';
       return 'Allgemein';
     };
 
@@ -2652,6 +2760,7 @@ Die JSON muss exakt diese Struktur haben:
       if (entry.mode === 'wisorEco') return 'WisoR E-Commerce';
       if (entry.mode === 'flashcard') return 'Lernkarten Wissen';
       if (entry.mode === 'klr') return entry.topic || 'KLR-Modul';
+      if (entry.mode === 'projectM') return entry.topic || 'Project M';
       return 'Allgemein';
     };
 
@@ -2771,7 +2880,7 @@ Die JSON muss exakt diese Struktur haben:
     const circleRadius = 62;
     const circleCircumference = 2 * Math.PI * circleRadius;
     const circleOffset = circleCircumference * (1 - overallAccuracy / 100);
-    const allModeKeys = ['quiz', 'wisor', 'wisorEco', 'kalkulation', 'breakEven', 'klr', 'flashcard'];
+    const allModeKeys = ['quiz', 'wisor', 'wisorEco', 'kalkulation', 'breakEven', 'klr', 'projectM', 'flashcard'];
     const dayTotalCount = allModeKeys.reduce((s, m) => s + day[m].correct + day[m].wrong, 0);
     const dayCorrectCount = allModeKeys.reduce((s, m) => s + day[m].correct, 0);
     const dayAccuracy = dayTotalCount > 0 ? Math.round((dayCorrectCount / dayTotalCount) * 100) : 0;

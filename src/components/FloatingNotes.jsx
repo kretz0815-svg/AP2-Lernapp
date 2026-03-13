@@ -329,8 +329,8 @@ export default function FloatingNotes({ questionId, questionText, currentAppMode
         }
         : {
             position: 'fixed',
-            right: (currentAppMode === 'klr') ? '74px' : '12px',
-            top: (currentAppMode === 'klr') ? '1px' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
+            right: (currentAppMode === 'klr' || currentAppMode === 'project_m' || currentAppMode === 'project_m_core') ? '74px' : '12px',
+            top: (currentAppMode === 'klr' || currentAppMode === 'project_m' || currentAppMode === 'project_m_core') ? '1px' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
             zIndex: 1000
         };
 
