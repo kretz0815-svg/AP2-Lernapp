@@ -231,6 +231,38 @@ function App() {
     }
   }, [appMode]);
 
+  useEffect(() => {
+    if (appMode !== 'intro') return;
+    const video = introVideoRef.current;
+    if (!video) return;
+
+    let cancelled = false;
+    const raf = requestAnimationFrame(async () => {
+      if (cancelled) return;
+      video.volume = 1;
+      video.muted = introMuted;
+      try {
+        await video.play();
+      } catch {
+        if (cancelled) return;
+        if (!introMuted) {
+          video.muted = true;
+          setIntroMuted(true);
+          try {
+            await video.play();
+          } catch {
+            // If this also fails, browser policy/device state blocks playback.
+          }
+        }
+      }
+    });
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+    };
+  }, [appMode, introMuted]);
+
   // Scroll to top on every mode change
   useEffect(() => {
     window.scrollTo(0, 0);
