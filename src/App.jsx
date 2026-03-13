@@ -1732,9 +1732,39 @@ ${feynmanInput}`;
               return nextMuted;
             });
           }}
-          style={{ position: 'absolute', top: '20px', right: '130px', background: 'rgba(0,0,0,0.5)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer', zIndex: 10000, backdropFilter: 'blur(4px)', fontFamily: 'inherit' }}
+          title={introMuted ? 'Ton einschalten' : 'Ton ausschalten'}
+          aria-label={introMuted ? 'Ton einschalten' : 'Ton ausschalten'}
+          style={{
+            position: 'absolute',
+            right: '20px',
+            bottom: '20px',
+            width: '52px',
+            height: '52px',
+            display: 'grid',
+            placeItems: 'center',
+            background: 'rgba(0,0,0,0.52)',
+            color: '#fff',
+            border: '1px solid rgba(255,255,255,0.24)',
+            borderRadius: '999px',
+            cursor: 'pointer',
+            zIndex: 10000,
+            backdropFilter: 'blur(4px)',
+            WebkitBackdropFilter: 'blur(4px)'
+          }}
         >
-          {introMuted ? 'Ton an' : 'Ton aus'}
+          {introMuted ? (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <line x1="23" y1="9" x2="17" y2="15" />
+              <line x1="17" y1="9" x2="23" y2="15" />
+            </svg>
+          ) : (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+              <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+            </svg>
+          )}
         </button>
         <button
           onClick={() => setAppMode('dashboard')}
