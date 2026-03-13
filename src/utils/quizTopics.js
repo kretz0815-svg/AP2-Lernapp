@@ -42,6 +42,11 @@ export const getQuizTopicGroup = (topic) => {
         return 'Shop & UX';
     }
 
+    // Projektmanagement
+    if (/(projektmanagement|projekt|phasing|gantt|psp|vorgang|zeitplan)/i.test(t)) {
+        return 'Projektmanagement';
+    }
+
     // Marketing-Strategie
     if (/(strategie|zielgruppe|segmentierung|schlagworte|planung|budget|media|lead|kommunikation|branding|positionierung|wettbewerbsbeobachtung)/i.test(t)) {
         return 'Marketing-Strategie';

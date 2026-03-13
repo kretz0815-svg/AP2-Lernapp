@@ -4136,6 +4136,146 @@
       "hint": "Zahlungsfähigkeit des Unternehmens.",
       "youtubeQuery": "Liquiditätsgrad KI Cashflow Prognose Controlling",
       "topic": "KPI-Verbesserung durch KI"
+    },
+    {
+      "question": "Ein neuer Projektmanager der „Urban-Trail AG“ soll eine große Online-Marketing-Kampagne für die kommende Wintersaison planen. Er ist sich bei der Reihenfolge der ersten Schritte unsicher. Wie lautet die korrekte, chronologische Abarbeitungsreihenfolge der ersten vier Hauptphasen in einem solchen E-Commerce-Projekt?",
+      "answerOptions": [
+        {
+          "text": "Marktanalyse -> Projektvorbereitung -> Kanalauswahl und Optimierung -> Inhaltsplanung",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Projektvorbereitung -> Marktanalyse -> Inhaltsplanung -> Kanalauswahl und Optimierung",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Ein professionelles Projekt startet immer mit der Projektvorbereitung. Danach folgt die Marktanalyse, um die Zielgruppe zu verstehen. Erst danach geht es in die Inhaltsplanung und schließlich in die Kanalauswahl und Optimierung."
+        },
+        {
+          "text": "Inhaltsplanung -> Marktanalyse -> Umsetzung -> Projektvorbereitung",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Projektvorbereitung -> Umsetzung -> Monitoring und Analyse -> Marktanalyse",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Vorbereitung kommt vor Analyse.",
+      "youtubeQuery": "Projektphasen E-Commerce Marketing Planung",
+      "topic": "Projektmanagement (Reihenfolge)"
+    },
+    {
+      "question": "Das Team erstellt einen Projektstrukturplan (PSP). Drei konkrete Untervorgänge auf der Liste lauten: \"Zielgruppenanalyse\", \"Konkurrenzanalyse\" und \"SWOT-Analyse\". Welchem übergeordneten Hauptvorgang müssen diese Aufgaben zwingend zugeordnet werden?",
+      "answerOptions": [
+        {
+          "text": "1.1 Projektvorbereitung",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "1.4 Kanalauswahl und -optimierung",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "1.2 Marktanalyse",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Die Zielgruppenanalyse, die Konkurrenzanalyse und die SWOT-Analyse sind klassische Untervorgänge der Hauptphase \"1.2 Marktanalyse\"."
+        },
+        {
+          "text": "1.6 Monitoring und Analyse",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Wer ist die Zielgruppe und wer der Wettbewerb?",
+      "youtubeQuery": "Projektstrukturplan Marktanalyse Untervorgänge",
+      "topic": "Projektmanagement (Marktanalyse)"
+    },
+    {
+      "question": "Die „Urban-Trail AG“ ist in der heißen Phase der Kampagne: Es werden konkrete Zielgruppensegmentierungen in den Tools vorgenommen, das finale Ad-Design wird erstellt und die Landing Pages werden technisch aufgebaut. In welcher Projektphase befindet sich das Team hier?",
+      "answerOptions": [
+        {
+          "text": "1.3 Inhaltsplanung",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "1.7 Optimierung und Anpassung",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "1.1 Projektvorbereitung",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "1.5 Umsetzung",
+          "isCorrect": true,
+          "rationale": "Richtig ist D. Sobald es an das konkrete Setup der Kampagnen, das Design der Ads, das E-Mail-Design und die Erstellung von Landing Pages geht, befindet man sich im Hauptvorgang \"1.5 Umsetzung\"."
+        }
+      ],
+      "hint": "Es wird jetzt wirklich gebaut und eingerichtet.",
+      "youtubeQuery": "Projektphasen Umsetzung E-Commerce",
+      "topic": "Projektmanagement (Umsetzung)"
+    },
+    {
+      "question": "Die Marketingkampagne ist beendet. Das Team trifft sich zu einem finalen Meeting. Es werden die \"Lessons Learned\" (Erfahrungswerte) besprochen, die Ergebnisse präsentiert und gemessen, ob die zu Beginn definierten Ziele wirklich erreicht wurden. Welche Projektphase wird hier gerade durchgeführt?",
+      "answerOptions": [
+        {
+          "text": "1.6 Monitoring und Analyse",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "1.8 Abschluss und Bericht",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Ergebnispräsentation, die Erfolgsmessung gegenüber der Zielsetzung sowie die Ableitung von Lessons Learned und Empfehlungen sind die finalen Untervorgänge der Phase \"1.8 Abschluss und Bericht\"."
+        },
+        {
+          "text": "1.1 Projektvorbereitung",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "1.7 Optimierung und Anpassung",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Ganz am Ende.",
+      "youtubeQuery": "Projektabschluss Lessons Learned",
+      "topic": "Projektmanagement (Abschluss)"
+    },
+    {
+      "question": "Der Projektleiter überwacht den Fortschritt der Kampagne mit einem Gantt-Diagramm (Balkenplan). Im Status-Meeting weist er darauf hin, dass ein bestimmter \"Sammelvorgang\" aktuell \"kritisch\" ist. Was bedeutet diese Aussage für das Projektmanagement fachlich?",
+      "answerOptions": [
+        {
+          "text": "Es bedeutet, dass dieser Vorgang das geplante Budget bereits massiv überschritten hat.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Es bedeutet, dass der Sammelvorgang den Endtermin des gesamten Projekts bestimmt; Verzögerungen hier führen direkt zu einer Verspätung des gesamten Projekts.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. In der Projektsteuerung und bei der Auswertung von Gantt-Diagrammen bedeutet die Aussage \"Sammelvorgang ist kritisch\", dass dieser Vorgang auf dem sogenannten kritischen Pfad liegt und somit direkt den finalen Endtermin des Projekts bestimmt."
+        },
+        {
+          "text": "Es bedeutet, dass der Vorgang bereits erfolgreich und vor dem Zeitplan abgeschlossen wurde.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Es bedeutet, dass fehlerhafte Inhalte (z.B. falsche Bilder) in die Kampagne eingebaut wurden.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Kritischer Pfad.",
+      "youtubeQuery": "Gantt Diagramm kritischer Pfad einfach erklärt",
+      "topic": "Projektmanagement (Gantt-Diagramm)"
     }
   ]
 }
