@@ -4276,6 +4276,174 @@
       "hint": "Kritischer Pfad.",
       "youtubeQuery": "Gantt Diagramm kritischer Pfad einfach erklärt",
       "topic": "Projektmanagement (Gantt-Diagramm)"
+    },
+    {
+      "question": "Die „Urban-Kicks AG“ möchte einen komplett neuen Online-Shop programmieren lassen und beauftragt dafür eine externe Agentur. Im ersten Schritt verfasst die „Urban-Kicks AG“ ein Dokument, in dem sie alle allgemeinen Erwartungen, Wünsche und Anforderungen an die Lösung des Problems detailliert beschreibt. Welcher Fachbegriff beschreibt dieses Dokument?",
+      "answerOptions": [
+        {
+          "text": "Das Pflichtenheft",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Lastenheft",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das Lastenheft wird vom Auftraggeber (hier: Urban-Kicks AG) erstellt und enthält alle formulierten Anforderungen und Wünsche an das Projekt. Das Pflichtenheft (A) wäre die technische Antwort des Auftragnehmers (der Agentur) darauf, wie diese Wünsche konkret umgesetzt werden."
+        },
+        {
+          "text": "Das Scrum-Backlog",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Gantt-Diagramm",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Wer schreibt die Anforderungen (Lasten) auf?",
+      "youtubeQuery": "Lastenheft vs Pflichtenheft einfach erklärt",
+      "topic": "Projektmanagement (Lastenheft vs. Pflichtenheft)"
+    },
+    {
+      "question": "Ein Software-Team der „Tech-Nova GmbH“ entwickelt eine neue App-Funktion. Anstatt das gesamte Projekt am Stück zu planen, arbeitet das Team in iterativen, kleinen Einheiten. Jeder dieser Zyklen dauert exakt drei Wochen und liefert am Ende ein funktionierendes, potenziell auslieferbares Produktinkrement. Welches Projektmanagement-Framework wird hier genutzt?",
+      "answerOptions": [
+        {
+          "text": "Die Wasserfall-Methode",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Lineare Modell",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Scrum",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Scrum ist ein agiles Framework, bei dem Projekte in kleinere, handhabbare Einheiten (sogenannte „Sprints“) unterteilt werden. Diese Sprints haben eine feste Dauer von meist 2 bis 4 Wochen und liefern am Ende ein fertiges Inkrement."
+        },
+        {
+          "text": "Das Pflichtenheft-Modell",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Agile Sprints.",
+      "youtubeQuery": "Scrum Framework einfach erklärt",
+      "topic": "Projektmanagement (Scrum)"
+    },
+    {
+      "question": "Das E-Commerce-Team der „Eco-Wear UG“ arbeitet komplett im Home-Office. Um ein neues Projekt erfolgreich umzusetzen, nutzen die Mitarbeiter Tools wie Slack, Microsoft Teams und Google Docs, um gemeinsam an Texten zu schreiben und sich in Echtzeit abzustimmen. Wie nennt man diese Form der Zusammenarbeit im Fachjargon?",
+      "answerOptions": [
+        {
+          "text": "Klassisches Projektmanagement",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Kollaboratives Arbeiten",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Kollaboratives Arbeiten bezeichnet die Praxis, bei der Individuen mithilfe von Technologien und Plattformen (wie Slack oder Teams) gemeinsam an Projekten arbeiten, um Synergien zu schaffen."
+        },
+        {
+          "text": "Wasserfall-Methode",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Retargeting",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Zusammenarbeit über Tools.",
+      "youtubeQuery": "Kollaboratives Arbeiten Definition Tools",
+      "topic": "Projektmanagement (Kollaboratives Arbeiten)"
+    },
+    {
+      "question": "Die „Summit-Gear AG“ plant den Launch eines neuen Shopsystems streng nach der klassischen Wasserfall-Methode. Die Phasen laufen strikt linear nacheinander ab. Welches spezifische Risiko birgt diese Methode im sich sehr schnell verändernden E-Commerce-Markt?",
+      "answerOptions": [
+        {
+          "text": "Eine unzureichende Dokumentation aufgrund des zu schnellen Arbeitstempos.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Eine lange Time-to-Market und sehr hohe Kosten für Änderungen, falls in späten Projektphasen plötzliche Anpassungen an den Markt nötig werden.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das Wasserfall-Modell ist sehr starr (Rigidität). Die sequenzielle Natur führt zu einer langen Time-to-Market. Wenn in späteren Phasen Änderungen erforderlich sind (z. B. durch neue Markttrends), sind diese sehr kostspielig und zeitaufwendig."
+        },
+        {
+          "text": "Zu häufige Kommunikationsschleifen mit dem Kunden während der Entwicklungsphase.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Gefahr, dass keine langfristigen Strategien berücksichtigt werden.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Warum ist das Wasserfall-Modell unflexibel?",
+      "youtubeQuery": "Wasserfall Modell Nachteile E-Commerce",
+      "topic": "Projektmanagement (Wasserfall-Modell)"
+    },
+    {
+      "question": "Um schneller zu sein, wechselt ein Online-Shop in der IT-Entwicklung komplett auf ein agiles Modell (hohes Tempo, viele Iterationen). Welches potenziell existenzbedrohende Risiko für ein E-Commerce-Unternehmen kann bei einer zu schnellen, agilen Iteration entstehen?",
+      "answerOptions": [
+        {
+          "text": "Das Produkt kommt erst nach mehreren Jahren auf den Markt.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Risiko von Qualitätsproblemen und Sicherheitslücken im Shop, weil bei den schnellen Sprints nicht genug Zeit für umfassende Tests bleibt.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Im E-Commerce ist Sicherheit entscheidend. Bei einem zu schnellen agilen Entwicklungsprozess besteht das Risiko, dass nicht genug Zeit für umfassende Tests bleibt, was zu Fehlern oder Sicherheitslücken führen kann."
+        },
+        {
+          "text": "Eine Überdokumentation, die das Team bei der Arbeit behindert.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Eine starre Unflexibilität gegenüber plötzlichen Kundenwünschen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Was passiert, wenn man die Sicherheit vernachlässigt?",
+      "youtubeQuery": "Agile Entwicklung Risiken E-Commerce",
+      "topic": "Projektmanagement (Agile Risiken)"
+    },
+    {
+      "question": "Eine neue Social-Media-Kampagne wird geplant. Es gibt unter anderem folgende Aufgaben: Content-Erstellung (Bilder/Texte), Budgetplanung für die Anzeigen und den tatsächlichen Launch (Start) der Kampagne. Wie lautet die absolut zwingende logische Abhängigkeit im Projektmanagement für den Start der Kampagne?",
+      "answerOptions": [
+        {
+          "text": "Der Launch der Kampagne muss zwingend vor der Content-Erstellung erfolgen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Überwachung und Abschlussanalyse müssen vor dem Launch der Kampagne abgeschlossen sein.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Content-Erstellung sowie die Budget- und Anzeigenplanung müssen vollständig abgeschlossen sein, bevor der Launch der Kampagne stattfinden kann.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Im Projektmanagement gibt es klare Abhängigkeiten: Vorgänge wie die Erstellung von Inhalten (Content) und das Einrichten von Werbeanzeigen inklusive Budgetplanung müssen zwingend vor dem eigentlichen Kampagnen-Launch abgeschlossen sein."
+        },
+        {
+          "text": "Die Budgetplanung darf erst nach dem Launch der Kampagne erfolgen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Was muss vorher fertig sein?",
+      "youtubeQuery": "Logische Abhängigkeiten Projektmanagement",
+      "topic": "Projektmanagement (Abhängigkeiten)"
     }
   ]
 }
