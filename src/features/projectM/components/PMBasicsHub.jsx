@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import './projectm-cyber.css';
 
 const sectionStyle = {
@@ -9,24 +9,270 @@ const sectionStyle = {
 };
 
 const MODULES = [
+    { id: 1, title: 'Modul 1: Begriffe-Matcher', summary: 'Ordne die 5 PM-Begriffe den richtigen Definitionen zu.' },
+    { id: 2, title: 'Modul 2: Agil vs. Klassisch', summary: 'Sortiere Risiken in die passende Methode.' },
+    { id: 3, title: 'Modul 3: Abhängigkeits-Detektiv', summary: 'Erkenne zentrale Abhängigkeiten im Projektplan.' }
+];
+
+const DEFINITIONS = [
     {
-        id: 1,
-        title: 'Modul 1: Begriffe-Matcher',
-        summary: 'Begriffe wie Lastenheft, Pflichtenheft, Scrum und Wasserfall den richtigen Definitionen zuordnen.'
+        id: 'lasten',
+        label: 'Dokument des Auftraggebers: beschreibt WAS erwartet wird (Anforderungen/Wünsche).'
     },
     {
-        id: 2,
-        title: 'Modul 2: Agil vs. Klassisch',
-        summary: 'Risiko-Karten korrekt in agiles oder klassisches PM sortieren.'
+        id: 'pflichten',
+        label: 'Antwort des Auftragnehmers: beschreibt WIE Anforderungen technisch umgesetzt werden.'
     },
     {
-        id: 3,
-        title: 'Modul 3: Abhängigkeits-Detektiv',
-        summary: 'Abhängigkeiten zwischen Aufgaben per Pfeildiagramm erkennen und einzeichnen.'
+        id: 'wasserfall',
+        label: 'Lineares Modell: Phasen laufen strikt nacheinander.'
+    },
+    {
+        id: 'scrum',
+        label: 'Agiles Framework mit kurzen Sprints und iterativen Teilergebnissen.'
+    },
+    {
+        id: 'kollaborativ',
+        label: 'Gemeinsames Arbeiten mehrerer Personen mit digitalen Tools.'
     }
 ];
 
-export default function PMBasicsHub({ onBack }) {
+const TERM_TASKS = [
+    { term: 'Lastenheft', correct: 'lasten' },
+    { term: 'Pflichtenheft', correct: 'pflichten' },
+    { term: 'Wasserfall-Methode', correct: 'wasserfall' },
+    { term: 'Scrum', correct: 'scrum' },
+    { term: 'Kollaboratives Arbeiten', correct: 'kollaborativ' }
+];
+
+const RISK_CARDS = [
+    { id: 'r1', text: 'Unklare Anforderungen durch ständige Änderungen', correct: 'agil' },
+    { id: 'r2', text: 'Kostenüberschreitung durch fehlenden Gesamtüberblick', correct: 'agil' },
+    { id: 'r3', text: 'Qualitätsprobleme bei zu schnellen Iterationen', correct: 'agil' },
+    { id: 'r4', text: 'Kommunikationsprobleme zwischen Team und Stakeholdern', correct: 'agil' },
+    { id: 'r5', text: 'Ressourcenkonflikte bei parallelen Aufgaben', correct: 'agil' },
+    { id: 'r6', text: 'Fehlende langfristige Planung und Vision', correct: 'agil' },
+    { id: 'r7', text: 'Rigidität: Anforderungen können kaum geändert werden', correct: 'klassisch' },
+    { id: 'r8', text: 'Lange Time-to-Market: Produkt kommt spät auf den Markt', correct: 'klassisch' },
+    { id: 'r9', text: 'Unentdeckte Fehler: Tests erst am Projektende', correct: 'klassisch' },
+    { id: 'r10', text: 'Fehlende Kundenbeteiligung bis zum Projektabschluss', correct: 'klassisch' },
+    { id: 'r11', text: 'Hohe Änderungskosten in späteren Projektphasen', correct: 'klassisch' },
+    { id: 'r12', text: 'Demotivation durch lange Wartezeiten ohne sichtbare Ergebnisse', correct: 'klassisch' }
+];
+
+const DEPENDENCY_OPTIONS = [
+    { id: 'A>B', label: 'A → B', correct: true },
+    { id: 'A>C', label: 'A → C', correct: true },
+    { id: 'A>D', label: 'A → D', correct: true },
+    { id: 'B>E', label: 'B → E', correct: true },
+    { id: 'C>F', label: 'C → F', correct: true },
+    { id: 'D>H', label: 'D → H', correct: true },
+    { id: 'H>I', label: 'H → I', correct: true },
+    { id: 'E>B', label: 'E → B', correct: false },
+    { id: 'H>D', label: 'H → D', correct: false },
+    { id: 'J>I', label: 'J → I', correct: false },
+    { id: 'G>A', label: 'G → A', correct: false },
+    { id: 'C>A', label: 'C → A', correct: false }
+];
+
+export default function PMBasicsHub({ onBack, onLearningEvent }) {
+    const [activeModule, setActiveModule] = useState(1);
+    const [completed, setCompleted] = useState({ 1: false, 2: false, 3: false });
+
+    const [m1Answers, setM1Answers] = useState({});
+    const [m1Feedback, setM1Feedback] = useState('');
+
+    const [m2Answers, setM2Answers] = useState({});
+    const [m2Feedback, setM2Feedback] = useState('');
+
+    const [m3Selected, setM3Selected] = useState({});
+    const [m3Feedback, setM3Feedback] = useState('');
+
+    const unlocked = useMemo(() => ({
+        1: true,
+        2: completed[1],
+        3: completed[2]
+    }), [completed]);
+
+    const handleCheckModule1 = () => {
+        const wrong = TERM_TASKS.filter((task) => m1Answers[task.term] !== task.correct);
+        if (wrong.length === 0) {
+            setCompleted((prev) => ({ ...prev, 1: true }));
+            setM1Feedback('Stark! Alle 5 Begriffe sind korrekt zugeordnet. Modul 2 ist freigeschaltet.');
+            setActiveModule(2);
+            onLearningEvent?.({
+                mode: 'projectM',
+                questionId: 'pm_basics_modul1',
+                questionText: 'PM Basics Modul 1 abgeschlossen',
+                correct: true,
+                topic: 'PM Basics Modul 1 · Begriffe'
+            });
+            return;
+        }
+        setM1Feedback(`${wrong.length} Zuordnung(en) sind noch nicht korrekt. Prüfe besonders: ${wrong[0].term}.`);
+        onLearningEvent?.({
+            mode: 'projectM',
+            questionId: 'pm_basics_modul1',
+            questionText: 'PM Basics Modul 1 Prüfung',
+            correct: false,
+            topic: 'PM Basics Modul 1 · Begriffe'
+        });
+    };
+
+    const handleCheckModule2 = () => {
+        const unresolved = RISK_CARDS.filter((card) => !m2Answers[card.id]);
+        if (unresolved.length > 0) {
+            setM2Feedback(`Noch ${unresolved.length} Karte(n) nicht zugeordnet.`);
+            return;
+        }
+        const wrong = RISK_CARDS.filter((card) => m2Answers[card.id] !== card.correct);
+        if (wrong.length === 0) {
+            setCompleted((prev) => ({ ...prev, 2: true }));
+            setM2Feedback('Sauber sortiert. Modul 3 ist freigeschaltet.');
+            setActiveModule(3);
+            onLearningEvent?.({
+                mode: 'projectM',
+                questionId: 'pm_basics_modul2',
+                questionText: 'PM Basics Modul 2 abgeschlossen',
+                correct: true,
+                topic: 'PM Basics Modul 2 · Methodenvergleich'
+            });
+            return;
+        }
+        setM2Feedback(`${wrong.length} Karte(n) sind in der falschen Methode. Erste kritische Karte: "${wrong[0].text}".`);
+        onLearningEvent?.({
+            mode: 'projectM',
+            questionId: 'pm_basics_modul2',
+            questionText: 'PM Basics Modul 2 Prüfung',
+            correct: false,
+            topic: 'PM Basics Modul 2 · Methodenvergleich'
+        });
+    };
+
+    const handleCheckModule3 = () => {
+        const selected = DEPENDENCY_OPTIONS.filter((option) => m3Selected[option.id]);
+        const selectedCorrect = selected.filter((option) => option.correct).length;
+        const selectedWrong = selected.filter((option) => !option.correct).length;
+
+        if (selectedCorrect >= 4 && selectedWrong === 0) {
+            setCompleted((prev) => ({ ...prev, 3: true }));
+            const allSeven = DEPENDENCY_OPTIONS.filter((option) => option.correct).every((option) => m3Selected[option.id]);
+            setM3Feedback(allSeven
+                ? 'Perfekt: alle 7 Kernabhängigkeiten korrekt erkannt. Bonus erreicht.'
+                : `Bestanden: ${selectedCorrect}/7 richtige Kernabhängigkeiten ohne Fehlpfeile.`);
+            onLearningEvent?.({
+                mode: 'projectM',
+                questionId: 'pm_basics_modul3',
+                questionText: 'PM Basics Modul 3 abgeschlossen',
+                correct: true,
+                topic: 'PM Basics Modul 3 · Abhängigkeiten'
+            });
+            return;
+        }
+
+        setM3Feedback(`Noch nicht bestanden. Aktuell: ${selectedCorrect} richtig, ${selectedWrong} falsch. Ziel: mindestens 4 richtig, 0 falsch.`);
+        onLearningEvent?.({
+            mode: 'projectM',
+            questionId: 'pm_basics_modul3',
+            questionText: 'PM Basics Modul 3 Prüfung',
+            correct: false,
+            topic: 'PM Basics Modul 3 · Abhängigkeiten'
+        });
+    };
+
+    const renderModule1 = () => (
+        <div className="projectm-wire" style={sectionStyle}>
+            <h2 style={{ marginTop: 0 }}>Modul 1: Begriffe-Matcher</h2>
+            <p style={{ marginTop: 0, color: 'var(--text-muted)' }}>
+                Ordne jeden Begriff genau einer Definition zu.
+            </p>
+            <div style={{ display: 'grid', gap: '0.55rem' }}>
+                {TERM_TASKS.map((task) => (
+                    <div key={task.term} className="projectm-wire" style={{ borderRadius: '12px', padding: '0.65rem' }}>
+                        <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.35rem' }}>{task.term}</label>
+                        <select
+                            className="wisor-input"
+                            style={{ width: '100%' }}
+                            value={m1Answers[task.term] || ''}
+                            onChange={(e) => setM1Answers((prev) => ({ ...prev, [task.term]: e.target.value }))}
+                        >
+                            <option value="">Definition wählen…</option>
+                            {DEFINITIONS.map((def) => (
+                                <option key={def.id} value={def.id}>{def.label}</option>
+                            ))}
+                        </select>
+                    </div>
+                ))}
+            </div>
+            <div style={{ marginTop: '0.9rem', display: 'flex', gap: '0.55rem', flexWrap: 'wrap' }}>
+                <button className="btn-primary" onClick={handleCheckModule1}>Modul 1 prüfen</button>
+            </div>
+            {m1Feedback && <p style={{ marginBottom: 0 }}>{m1Feedback}</p>}
+        </div>
+    );
+
+    const renderModule2 = () => (
+        <div className="projectm-wire" style={sectionStyle}>
+            <h2 style={{ marginTop: 0 }}>Modul 2: Agil vs. Klassisch</h2>
+            <p style={{ marginTop: 0, color: 'var(--text-muted)' }}>
+                Ordne jede Risiko-Karte der passenden Methode zu.
+            </p>
+            <div style={{ display: 'grid', gap: '0.5rem' }}>
+                {RISK_CARDS.map((card) => (
+                    <div key={card.id} className="projectm-wire" style={{ borderRadius: '12px', padding: '0.65rem' }}>
+                        <p style={{ margin: '0 0 0.4rem 0' }}>{card.text}</p>
+                        <select
+                            className="wisor-input"
+                            style={{ width: '100%' }}
+                            value={m2Answers[card.id] || ''}
+                            onChange={(e) => setM2Answers((prev) => ({ ...prev, [card.id]: e.target.value }))}
+                        >
+                            <option value="">Methode wählen…</option>
+                            <option value="agil">Agiles PM</option>
+                            <option value="klassisch">Klassisches PM</option>
+                        </select>
+                    </div>
+                ))}
+            </div>
+            <div style={{ marginTop: '0.9rem', display: 'flex', gap: '0.55rem', flexWrap: 'wrap' }}>
+                <button className="btn-primary" onClick={handleCheckModule2}>Modul 2 prüfen</button>
+            </div>
+            {m2Feedback && <p style={{ marginBottom: 0 }}>{m2Feedback}</p>}
+        </div>
+    );
+
+    const renderModule3 = () => (
+        <div className="projectm-wire" style={sectionStyle}>
+            <h2 style={{ marginTop: 0 }}>Modul 3: Abhängigkeits-Detektiv</h2>
+            <p style={{ marginTop: 0, color: 'var(--text-muted)' }}>
+                Markiere die korrekten Abhängigkeiten. Bestanden ab 4 richtigen ohne Fehlpfeile.
+            </p>
+            <div className="projectm-wire" style={{ borderRadius: '12px', padding: '0.65rem', marginBottom: '0.65rem' }}>
+                <strong>Aufgaben A–J (Kurzfassung)</strong>
+                <p style={{ marginBottom: 0, color: 'var(--text-muted)' }}>
+                    A Analyse, B Ziele, C Plattformen, D Content, E Zeitplan, F Budget/Ads, G Tracking, H Launch, I Monitoring, J Abschlussanalyse.
+                </p>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.5rem' }}>
+                {DEPENDENCY_OPTIONS.map((option) => (
+                    <label key={option.id} className="projectm-statement" style={{ cursor: 'pointer' }}>
+                        <input
+                            type="checkbox"
+                            checked={Boolean(m3Selected[option.id])}
+                            onChange={(e) => setM3Selected((prev) => ({ ...prev, [option.id]: e.target.checked }))}
+                            style={{ marginRight: '0.45rem' }}
+                        />
+                        {option.label}
+                    </label>
+                ))}
+            </div>
+            <div style={{ marginTop: '0.9rem', display: 'flex', gap: '0.55rem', flexWrap: 'wrap' }}>
+                <button className="btn-primary" onClick={handleCheckModule3}>Modul 3 prüfen</button>
+            </div>
+            {m3Feedback && <p style={{ marginBottom: 0 }}>{m3Feedback}</p>}
+        </div>
+    );
+
     return (
         <div className="projectm-cyber-theme" style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
             <div style={{ maxWidth: '980px', width: '100%', margin: '0 auto', padding: '1rem 0.9rem 3.6rem' }}>
@@ -38,18 +284,32 @@ export default function PMBasicsHub({ onBack }) {
                 <div className="projectm-wire" style={sectionStyle}>
                     <h1 style={{ marginTop: 0, marginBottom: '0.2rem' }}>PM Basics</h1>
                     <p style={{ marginTop: 0, color: 'var(--text-muted)' }}>
-                        Dieser Bereich ist die Grundlagen-Schiene zu Project M und wird als eigener Lernpfad geführt.
+                        Jetzt vollständig mit Inhalt: 3 aufeinander aufbauende Module.
                     </p>
                 </div>
 
-                <div style={{ display: 'grid', gap: '0.75rem' }}>
-                    {MODULES.map((module) => (
-                        <div key={module.id} className="projectm-wire" style={{ ...sectionStyle, marginBottom: 0 }}>
-                            <h2 style={{ marginTop: 0, marginBottom: '0.3rem' }}>{module.title}</h2>
-                            <p style={{ margin: 0, color: 'var(--text-muted)' }}>{module.summary}</p>
-                        </div>
-                    ))}
+                <div className="projectm-wire" style={sectionStyle}>
+                    <div style={{ display: 'flex', gap: '0.55rem', flexWrap: 'wrap' }}>
+                        {MODULES.map((module) => (
+                            <button
+                                key={module.id}
+                                className={activeModule === module.id ? 'btn-primary' : 'btn-secondary'}
+                                disabled={!unlocked[module.id]}
+                                onClick={() => setActiveModule(module.id)}
+                                style={{ opacity: unlocked[module.id] ? 1 : 0.45 }}
+                            >
+                                {module.title}{completed[module.id] ? ' ✓' : ''}
+                            </button>
+                        ))}
+                    </div>
+                    <p style={{ marginBottom: 0, marginTop: '0.6rem', color: 'var(--text-muted)' }}>
+                        {MODULES.find((module) => module.id === activeModule)?.summary}
+                    </p>
                 </div>
+
+                {activeModule === 1 && renderModule1()}
+                {activeModule === 2 && renderModule2()}
+                {activeModule === 3 && renderModule3()}
             </div>
         </div>
     );

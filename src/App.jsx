@@ -2434,7 +2434,7 @@ ${feynmanInput}`;
           {burgerMenuPortal}
           <div className="blob blob-1"></div>
           <div className="blob blob-2"></div>
-          <PMBasicsHub onBack={() => setAppMode('project_m')} />
+          <PMBasicsHub onBack={() => setAppMode('project_m')} onLearningEvent={appendLearningEvent} />
         </div>
       </>
     );
