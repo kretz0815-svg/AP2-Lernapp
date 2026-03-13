@@ -18,16 +18,39 @@ const shuffle = (items) => {
     }
     return arr;
 };
+const pickQuip = () => {
+    const quips = [
+        'Falscher Move.',
+        'Nope, das sitzt noch nicht.',
+        'Knapp daneben.',
+        'Das war ein klassischer Denkfehler.'
+    ];
+    return quips[Math.floor(Math.random() * quips.length)];
+};
 const sanitizeEinsteinText = (input) => String(input || '')
     .replace(/\*\*/g, '')
+    .replace(/\*/g, '')
     .replace(/^hallo[!,.:\s-]*/i, '')
     .replace(/gute frage[:,!\s]*/i, '')
     .replace(/^das ist eine (super|gute|tolle) frage[^.]*\.\s*/i, '')
     .replace(/^das ist eine starke beobachtung[^.]*\.\s*/i, '')
     .replace(/^deine frage ist (absolut )?(berechtigt|gut)[^.]*\.\s*/i, '')
     .replace(/^super (frage|beobachtung)[^.]*\.\s*/i, '')
+    .replace(/^super[,!.\s]*/i, '')
+    .replace(/^stark[,!.\s]*/i, '')
+    .replace(/^sehr gut[,!.\s]*/i, '')
     .replace(/\s{2,}/g, ' ')
     .trim();
+const formatEinsteinError = (raw, fallback) => {
+    const base = sanitizeEinsteinText(raw) || sanitizeEinsteinText(fallback);
+    const sentences = base
+        .split(/(?<=[.!?])\s+/)
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .slice(0, 2);
+    const explanation = sentences.join(' ') || 'Prüfe die Zuordnung logisch erneut.';
+    return `${pickQuip()} ${explanation}`.trim();
+};
 
 const MODULES = [
     { id: 1, title: 'Modul 1: Begriffe-Matcher', summary: 'Ordne die 5 PM-Begriffe den richtigen Definitionen zu.' },
@@ -231,11 +254,11 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                 `Gewählte Definition: ${getDefinitionLabel(value)}`,
                 `Fachbegriff: ${task.term}`
             );
-            const hint = sanitizeEinsteinText(ai) || fallbackHint;
+            const hint = formatEinsteinError(ai, fallbackHint);
             setM1HintsByTerm((prev) => ({ ...prev, [task.term]: hint }));
             setM1EinsteinMessage(hint);
         } catch {
-            setM1EinsteinMessage('Hinweis verfügbar. Prüfe das rote Feld erneut.');
+            setM1EinsteinMessage(formatEinsteinError('', fallbackHint));
         }
     };
 
@@ -297,11 +320,11 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                 `Gewählt: ${value === 'agil' ? 'Agiles PM' : 'Klassisches PM'}`,
                 `Korrekt: ${card.correct === 'agil' ? 'Agiles PM' : 'Klassisches PM'}`
             );
-            const hint = sanitizeEinsteinText(ai) || fallbackHint;
+            const hint = formatEinsteinError(ai, fallbackHint);
             setM2HintsByCard((prev) => ({ ...prev, [card.id]: hint }));
             setM2EinsteinMessage(hint);
         } catch {
-            setM2EinsteinMessage('Hinweis verfügbar. Prüfe die rote Karte erneut inhaltlich.');
+            setM2EinsteinMessage(formatEinsteinError('', fallbackHint));
         }
     };
 

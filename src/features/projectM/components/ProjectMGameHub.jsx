@@ -63,16 +63,39 @@ const sectionStyle = {
 };
 
 const normalize = (value) => String(value || '').toLowerCase().trim();
+const pickQuip = () => {
+    const quips = [
+        'Falscher Move.',
+        'Nope, das sitzt noch nicht.',
+        'Knapp daneben.',
+        'Das war ein klassischer Denkfehler.'
+    ];
+    return quips[Math.floor(Math.random() * quips.length)];
+};
 const sanitizeEinsteinText = (input) => String(input || '')
     .replace(/\*\*/g, '')
+    .replace(/\*/g, '')
     .replace(/^hallo[!,.:\s-]*/i, '')
     .replace(/gute frage[:,!\s]*/i, '')
     .replace(/^das ist eine (super|gute|tolle) frage[^.]*\.\s*/i, '')
     .replace(/^das ist eine starke beobachtung[^.]*\.\s*/i, '')
     .replace(/^deine frage ist (absolut )?(berechtigt|gut)[^.]*\.\s*/i, '')
     .replace(/^super (frage|beobachtung)[^.]*\.\s*/i, '')
+    .replace(/^super[,!.\s]*/i, '')
+    .replace(/^stark[,!.\s]*/i, '')
+    .replace(/^sehr gut[,!.\s]*/i, '')
     .replace(/\s{2,}/g, ' ')
     .trim();
+const formatEinsteinError = (raw, fallback) => {
+    const base = sanitizeEinsteinText(raw) || sanitizeEinsteinText(fallback);
+    const sentences = base
+        .split(/(?<=[.!?])\s+/)
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .slice(0, 2);
+    const explanation = sentences.join(' ') || 'Prüfe die Abhängigkeit dieser Position erneut.';
+    return `${pickQuip()} ${explanation}`.trim();
+};
 const shuffle = (items) => {
     const arr = [...items];
     for (let i = arr.length - 1; i > 0; i -= 1) {
@@ -237,11 +260,11 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                 `Erwartet: ${CORRECT_PHASES[idx]}`,
                 `Eingabe: ${value}`
             );
-            const hint = sanitizeEinsteinText(ai) || fallback;
+            const hint = formatEinsteinError(ai, fallback);
             setL1Hints((prev) => ({ ...prev, [idx]: hint }));
             setEinsteinMessage(hint);
         } catch {
-            setEinsteinMessage('Hinweis verfügbar. Prüfe das rote Feld erneut.');
+            setEinsteinMessage(formatEinsteinError('', fallback));
         }
     };
 
