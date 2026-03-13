@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { askGemini } from '../../../geminiClient';
 import { useProjectMGame } from '../state/ProjectMGameProvider';
-import PMCyberEinsteinMentor from './PMCyberEinsteinMentor';
 import './projectm-cyber.css';
 
 const LEVEL_XP = { 1: 50, 2: 75, 3: 100 };
@@ -63,39 +61,6 @@ const sectionStyle = {
 };
 
 const normalize = (value) => String(value || '').toLowerCase().trim();
-const pickQuip = () => {
-    const quips = [
-        'Falscher Move.',
-        'Nope, das sitzt noch nicht.',
-        'Knapp daneben.',
-        'Das war ein klassischer Denkfehler.'
-    ];
-    return quips[Math.floor(Math.random() * quips.length)];
-};
-const sanitizeEinsteinText = (input) => String(input || '')
-    .replace(/\*\*/g, '')
-    .replace(/\*/g, '')
-    .replace(/^hallo[!,.:\s-]*/i, '')
-    .replace(/gute frage[:,!\s]*/i, '')
-    .replace(/^das ist eine (super|gute|tolle) frage[^.]*\.\s*/i, '')
-    .replace(/^das ist eine starke beobachtung[^.]*\.\s*/i, '')
-    .replace(/^deine frage ist (absolut )?(berechtigt|gut)[^.]*\.\s*/i, '')
-    .replace(/^super (frage|beobachtung)[^.]*\.\s*/i, '')
-    .replace(/^super[,!.\s]*/i, '')
-    .replace(/^stark[,!.\s]*/i, '')
-    .replace(/^sehr gut[,!.\s]*/i, '')
-    .replace(/\s{2,}/g, ' ')
-    .trim();
-const formatEinsteinError = (raw, fallback) => {
-    const base = sanitizeEinsteinText(raw) || sanitizeEinsteinText(fallback);
-    const sentences = base
-        .split(/(?<=[.!?])\s+/)
-        .map((s) => s.trim())
-        .filter(Boolean)
-        .slice(0, 2);
-    const explanation = sentences.join(' ') || 'Prüfe die Abhängigkeit dieser Position erneut.';
-    return `${pickQuip()} ${explanation}`.trim();
-};
 const shuffle = (items) => {
     const arr = [...items];
     for (let i = arr.length - 1; i > 0; i -= 1) {
@@ -105,35 +70,22 @@ const shuffle = (items) => {
     return arr;
 };
 
-function buildFallbackEinstein(eventType) {
-    const map = {
-        level_start: 'System online. Projekt M wartet auf saubere PM-Logik.',
-        wrong_placement: 'Diese Reihenfolge kollidiert mit Abhängigkeiten. Denke an die fachliche Vorleistung.',
-        wrong_node: 'Der PSP-Knoten passt noch nicht sauber zum übergeordneten Arbeitspaket.',
-        wrong_answer: 'Diese Aussage kippt am Stichtag 21.08.2023. Prüfe Status und Terminlage.',
-        level_complete: 'Stabil gelöst. Das nächste Level ist freigeschaltet.',
-        game_complete: 'Mission abgeschlossen. Du hast PM-Phasen, PSP und Gantt belastbar trainiert.'
-    };
-    return map[eventType] || 'Präzision schlägt Tempo. Prüfe den letzten Schritt erneut.';
-}
-
 export default function ProjectMGameHub({ onBack, onLearningEvent }) {
     const { progress, grantXp, unlockLevel, markLevelComplete } = useProjectMGame();
     const [activeLevel, setActiveLevel] = useState(progress.currentLevel || 1);
-    const [einsteinMessage, setEinsteinMessage] = useState(buildFallbackEinstein('level_start'));
-    const [einsteinLoading, setEinsteinLoading] = useState(false);
 
     const [l1Slots, setL1Slots] = useState(Array(CORRECT_PHASES.length).fill(''));
     const [l1WrongSlots, setL1WrongSlots] = useState([]);
     const [l1ResultSlots, setL1ResultSlots] = useState(Array(CORRECT_PHASES.length).fill(null));
     const [l1LockedSlots, setL1LockedSlots] = useState(Array(CORRECT_PHASES.length).fill(false));
-    const [l1Hints, setL1Hints] = useState({});
     const [l1OptionOrder, setL1OptionOrder] = useState(() => shuffle(CORRECT_PHASES));
 
     const [l2Answers, setL2Answers] = useState(() => (
         LEVEL2_FIELDS.reduce((acc, field) => ({ ...acc, [field.id]: '' }), {})
     ));
-    const [l2Hints, setL2Hints] = useState({});
+    const [l2Results, setL2Results] = useState(() => (
+        LEVEL2_FIELDS.reduce((acc, field) => ({ ...acc, [field.id]: null }), {})
+    ));
 
     const [l3Selected, setL3Selected] = useState({});
     const [l3Eval, setL3Eval] = useState({});
@@ -141,46 +93,12 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
 
     const unlockedLevels = progress.unlockedLevels || [1];
     const completedSet = new Set(progress.completedLevels || []);
-    const hasWrongSignals = l1ResultSlots.includes('wrong')
-        || Object.values(l2Hints).length > 0
-        || Object.values(l3Eval).some((state) => state === 'wrong' || state === 'missed');
-    const mentorState = einsteinLoading
-        ? 'speaking'
-        : hasWrongSignals
-            ? 'error'
-            : /abgeschlossen|freigeschaltet|bestanden|perfekt|stark/i.test(einsteinMessage)
-            ? 'success'
-            : 'idle';
-
-    const askEinstein = async ({ eventType, question, contextQuestion, contextAnswer }) => {
-        const fallback = buildFallbackEinstein(eventType);
-        setEinsteinLoading(true);
-        setEinsteinMessage('Cyber-Einstein synchronisiert...');
-        try {
-            const reply = await askGemini(question, contextQuestion, contextAnswer);
-            const compact = sanitizeEinsteinText(reply);
-            setEinsteinMessage(compact || fallback);
-        } catch {
-            setEinsteinMessage(fallback);
-        } finally {
-            setEinsteinLoading(false);
-        }
-    };
-
     const completeLevel = (levelId, topic, questionText) => {
         if (!completedSet.has(levelId)) {
             grantXp(LEVEL_XP[levelId] || 0);
             markLevelComplete(levelId);
             if (levelId < 3) unlockLevel(levelId + 1);
         }
-        askEinstein({
-            eventType: levelId === 3 ? 'game_complete' : 'level_complete',
-            question: levelId === 3
-                ? 'Gib ein kurzes Abschlussfeedback zum Lernfortschritt in 2 Sätzen.'
-                : `Gib ein kurzes Levelabschluss-Feedback für Level ${levelId}.`,
-            contextQuestion: questionText,
-            contextAnswer: topic
-        });
         onLearningEvent?.({
             mode: 'projectM',
             questionId: `projectm_l${levelId}_complete`,
@@ -194,10 +112,7 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
 
     const handleLevel1Check = () => {
         const unresolved = l1LockedSlots.filter((item) => !item).length;
-        if (unresolved > 0) {
-            setEinsteinMessage(`Noch ${unresolved} Position(en) offen. Setze alle Felder, dann prüfen wir.`);
-            return;
-        }
+        if (unresolved > 0) return;
         const wrong = [];
         l1Slots.forEach((phase, idx) => {
             if (phase !== CORRECT_PHASES[idx]) wrong.push(idx);
@@ -212,13 +127,6 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
         const firstIdx = wrong[0];
         const expected = CORRECT_PHASES[firstIdx];
         const got = l1Slots[firstIdx] || '(leer)';
-        askEinstein({
-            eventType: 'wrong_placement',
-            question: `Warum ist "${got}" auf Position ${firstIdx + 1} falsch? Bitte ohne exakte Lösung zu verraten.`,
-            contextQuestion: `Erwartet an Position ${firstIdx + 1}: ${expected}`,
-            contextAnswer: `Eingabe: ${got}`
-        });
-
         onLearningEvent?.({
             mode: 'projectM',
             questionId: `projectm_l1_pos_${firstIdx + 1}`,
@@ -230,7 +138,7 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
         });
     };
 
-    const handleLevel1Select = async (idx, value) => {
+    const handleLevel1Select = (idx, value) => {
         if (!value || l1LockedSlots[idx]) return;
         const isCorrect = value === CORRECT_PHASES[idx];
         setL1Slots((prev) => {
@@ -248,55 +156,28 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
             next[idx] = true;
             return next;
         });
-
-        if (isCorrect) return;
-
-        const fallback = `Diese Phase passt hier nicht. Prüfe die fachliche Abhängigkeit vor Position ${idx + 1}.`;
-        setL1Hints((prev) => ({ ...prev, [idx]: fallback }));
-        setEinsteinMessage('Cyber-Einstein analysiert die falsche Position…');
-        try {
-            const ai = await askGemini(
-                `Warum passt "${value}" nicht auf Position ${idx + 1}?`,
-                `Erwartet: ${CORRECT_PHASES[idx]}`,
-                `Eingabe: ${value}`
-            );
-            const hint = formatEinsteinError(ai, fallback);
-            setL1Hints((prev) => ({ ...prev, [idx]: hint }));
-            setEinsteinMessage(hint);
-        } catch {
-            setEinsteinMessage(formatEinsteinError('', fallback));
-        }
     };
 
     const handleLevel2Check = () => {
-        const nextHints = {};
+        const nextResults = {};
         LEVEL2_FIELDS.forEach((field) => {
             const value = normalize(l2Answers[field.id]);
             if (!value) {
-                nextHints[field.id] = 'Feld ist leer.';
+                nextResults[field.id] = 'wrong';
                 return;
             }
             const hit = field.keywords.some((keyword) => value.includes(keyword) || keyword.includes(value));
-            if (!hit) {
-                nextHints[field.id] = 'Passt inhaltlich noch nicht sauber zum Knoten.';
-            }
+            nextResults[field.id] = hit ? 'correct' : 'wrong';
         });
 
-        setL2Hints(nextHints);
-        const invalidEntries = Object.entries(nextHints);
+        setL2Results(nextResults);
+        const invalidEntries = Object.entries(nextResults).filter(([, state]) => state === 'wrong');
         if (invalidEntries.length === 0) {
             completeLevel(2, 'Project M Level 2 · PSP-Erstellung', 'Project M L2: PSP-Baum validiert');
             return;
         }
 
         const [firstId] = invalidEntries[0];
-        askEinstein({
-            eventType: 'wrong_node',
-            question: `Gib einen Hinweis, warum der Node ${firstId} noch nicht stimmig ist.`,
-            contextQuestion: `Node ${firstId}: ${l2Answers[firstId] || '(leer)'}`,
-            contextAnswer: 'PSP-Struktur prüfen'
-        });
-
         onLearningEvent?.({
             mode: 'projectM',
             questionId: `projectm_l2_${firstId}`,
@@ -310,15 +191,7 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
 
     const handleLevel3Check = () => {
         const selectedIds = GANTT_STATEMENTS.filter((s) => l3Selected[s.id]).map((s) => s.id);
-        if (selectedIds.length === 0) {
-            askEinstein({
-                eventType: 'wrong_answer',
-                question: 'Der Nutzer hat noch keine Aussage ausgewählt. Gib einen knappen Startimpuls.',
-                contextQuestion: 'Gantt-Analyse zum Stichtag 21.08.2023',
-                contextAnswer: 'Status und Termin prüfen'
-            });
-            return;
-        }
+        if (selectedIds.length === 0) return;
 
         const evalMap = {};
         let hasWrong = false;
@@ -345,13 +218,6 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
         }
 
         const firstWrong = GANTT_STATEMENTS.find((s) => evalMap[s.id] === 'wrong' || evalMap[s.id] === 'missed');
-        askEinstein({
-            eventType: 'wrong_answer',
-            question: `Erkläre kurz, warum die Aussage "${firstWrong?.text || ''}" nicht korrekt bewertet wurde.`,
-            contextQuestion: 'Stichtag: 21.08.2023',
-            contextAnswer: 'Balkenstatus und Terminabhängigkeit'
-        });
-
         onLearningEvent?.({
             mode: 'projectM',
             questionId: `projectm_l3_stmt_${firstWrong?.id || 'x'}`,
@@ -431,7 +297,6 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                         setL1WrongSlots([]);
                         setL1ResultSlots(Array(CORRECT_PHASES.length).fill(null));
                         setL1LockedSlots(Array(CORRECT_PHASES.length).fill(false));
-                        setL1Hints({});
                         setL1OptionOrder(shuffle(CORRECT_PHASES));
                     }}
                 >
@@ -449,7 +314,24 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.55rem' }}>
                 {LEVEL2_FIELDS.map((field) => (
-                    <div key={field.id} className="projectm-wire" style={{ borderRadius: '12px', padding: '0.55rem' }}>
+                    <div
+                        key={field.id}
+                        className="projectm-wire"
+                        style={{
+                            borderRadius: '12px',
+                            padding: '0.55rem',
+                            borderColor: l2Results[field.id] === 'correct'
+                                ? 'rgba(52,211,153,0.95)'
+                                : l2Results[field.id] === 'wrong'
+                                    ? 'rgba(248,113,113,0.95)'
+                                    : undefined,
+                            boxShadow: l2Results[field.id] === 'correct'
+                                ? '0 0 0 2px rgba(52,211,153,0.65), 0 0 34px rgba(52,211,153,0.55), inset 0 0 0 1px rgba(52,211,153,0.35)'
+                                : l2Results[field.id] === 'wrong'
+                                    ? '0 0 0 2px rgba(248,113,113,0.62), 0 0 34px rgba(248,113,113,0.42), inset 0 0 0 1px rgba(248,113,113,0.25)'
+                                    : undefined
+                        }}
+                    >
                         <label htmlFor={`pm_${field.id}`} style={{ display: 'block', marginBottom: '0.35rem', fontWeight: 700 }}>
                             {field.label}
                         </label>
@@ -465,12 +347,16 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                             placeholder="Eintrag..."
                             style={{
                                 width: '100%',
-                                borderColor: l2Hints[field.id] ? 'rgba(248,113,113,0.8)' : undefined
+                                borderColor: l2Results[field.id] === 'correct'
+                                    ? 'rgba(52,211,153,0.8)'
+                                    : l2Results[field.id] === 'wrong'
+                                        ? 'rgba(248,113,113,0.8)'
+                                        : undefined,
+                                boxShadow: l2Results[field.id] === 'correct'
+                                    ? '0 0 24px rgba(52,211,153,0.5)'
+                                    : undefined
                             }}
                         />
-                        {l2Hints[field.id] && (
-                            <p style={{ margin: '0.35rem 0 0', color: '#fca5a5', fontSize: '0.82rem' }}>{l2Hints[field.id]}</p>
-                        )}
                     </div>
                 ))}
             </div>
@@ -480,7 +366,7 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                     className="btn-secondary"
                     onClick={() => {
                         setL2Answers(LEVEL2_FIELDS.reduce((acc, field) => ({ ...acc, [field.id]: '' }), {}));
-                        setL2Hints({});
+                        setL2Results(LEVEL2_FIELDS.reduce((acc, field) => ({ ...acc, [field.id]: null }), {}));
                     }}
                 >
                     Felder leeren
@@ -530,7 +416,6 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
 
     return (
         <div className="projectm-cyber-theme" style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
-            <PMCyberEinsteinMentor state={mentorState} message={einsteinMessage} visible />
             <div data-pm-content-root="true" style={{ maxWidth: '1120px', width: '100%', margin: '0 auto', padding: '1rem 0.9rem 4.2rem' }}>
                 <div className="projectm-wire" style={topBarStyle}>
                     <button className="btn-nav" onClick={onBack}>&larr; Menü</button>
