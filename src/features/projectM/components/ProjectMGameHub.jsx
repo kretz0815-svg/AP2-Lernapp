@@ -62,6 +62,14 @@ const sectionStyle = {
 };
 
 const normalize = (value) => String(value || '').toLowerCase().trim();
+const shuffle = (items) => {
+    const arr = [...items];
+    for (let i = arr.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+};
 
 function buildFallbackEinstein(eventType) {
     const map = {
@@ -83,6 +91,10 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
 
     const [l1Slots, setL1Slots] = useState(Array(CORRECT_PHASES.length).fill(''));
     const [l1WrongSlots, setL1WrongSlots] = useState([]);
+    const [l1ResultSlots, setL1ResultSlots] = useState(Array(CORRECT_PHASES.length).fill(null));
+    const [l1LockedSlots, setL1LockedSlots] = useState(Array(CORRECT_PHASES.length).fill(false));
+    const [l1Hints, setL1Hints] = useState({});
+    const [l1OptionOrder, setL1OptionOrder] = useState(() => shuffle(CORRECT_PHASES));
 
     const [l2Answers, setL2Answers] = useState(() => (
         LEVEL2_FIELDS.reduce((acc, field) => ({ ...acc, [field.id]: '' }), {})
@@ -91,6 +103,7 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
 
     const [l3Selected, setL3Selected] = useState({});
     const [l3Eval, setL3Eval] = useState({});
+    const [l3StatementOrder, setL3StatementOrder] = useState(() => shuffle(GANTT_STATEMENTS));
 
     const unlockedLevels = progress.unlockedLevels || [1];
     const completedSet = new Set(progress.completedLevels || []);
@@ -136,6 +149,11 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
     };
 
     const handleLevel1Check = () => {
+        const unresolved = l1LockedSlots.filter((item) => !item).length;
+        if (unresolved > 0) {
+            setEinsteinMessage(`Noch ${unresolved} Position(en) offen. Setze alle Felder, dann prüfen wir.`);
+            return;
+        }
         const wrong = [];
         l1Slots.forEach((phase, idx) => {
             if (phase !== CORRECT_PHASES[idx]) wrong.push(idx);
@@ -166,6 +184,44 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
             expectedAnswer: expected,
             topic: 'Project M Level 1 · Phasenlogik'
         });
+    };
+
+    const handleLevel1Select = async (idx, value) => {
+        if (!value || l1LockedSlots[idx]) return;
+        const isCorrect = value === CORRECT_PHASES[idx];
+        setL1Slots((prev) => {
+            const next = [...prev];
+            next[idx] = value;
+            return next;
+        });
+        setL1ResultSlots((prev) => {
+            const next = [...prev];
+            next[idx] = isCorrect ? 'correct' : 'wrong';
+            return next;
+        });
+        setL1LockedSlots((prev) => {
+            const next = [...prev];
+            next[idx] = true;
+            return next;
+        });
+
+        if (isCorrect) return;
+
+        const fallback = `Diese Phase passt hier nicht. Prüfe die fachliche Abhängigkeit vor Position ${idx + 1}.`;
+        setL1Hints((prev) => ({ ...prev, [idx]: fallback }));
+        setEinsteinMessage('Cyber-Einstein analysiert die falsche Position…');
+        try {
+            const ai = await askGemini(
+                `Warum passt "${value}" nicht auf Position ${idx + 1}?`,
+                `Erwartet: ${CORRECT_PHASES[idx]}`,
+                `Eingabe: ${value}`
+            );
+            const hint = String(ai || '').trim() || fallback;
+            setL1Hints((prev) => ({ ...prev, [idx]: hint }));
+            setEinsteinMessage('Hinweis aktualisiert. Prüfe das rote Feld.');
+        } catch {
+            setEinsteinMessage('Hinweis verfügbar. Prüfe das rote Feld erneut.');
+        }
     };
 
     const handleLevel2Check = () => {
@@ -275,27 +331,28 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                         <strong style={{ display: 'block', marginBottom: '0.35rem' }}>Position {idx + 1}</strong>
                         <select
                             value={l1Slots[idx]}
-                            onChange={(e) => {
-                                const value = e.target.value;
-                                setL1Slots((prev) => {
-                                    const next = [...prev];
-                                    const existingIdx = next.findIndex((item, i) => item === value && i !== idx);
-                                    if (existingIdx >= 0) next[existingIdx] = '';
-                                    next[idx] = value;
-                                    return next;
-                                });
-                            }}
+                            disabled={l1LockedSlots[idx]}
+                            onChange={(e) => handleLevel1Select(idx, e.target.value)}
                             className="wisor-input"
                             style={{
                                 width: '100%',
-                                borderColor: l1WrongSlots.includes(idx) ? 'rgba(248,113,113,0.8)' : undefined
+                                borderColor: l1ResultSlots[idx] === 'correct'
+                                    ? 'rgba(52,211,153,0.8)'
+                                    : l1ResultSlots[idx] === 'wrong'
+                                        ? 'rgba(248,113,113,0.8)'
+                                        : undefined
                             }}
                         >
                             <option value="">Bitte wählen</option>
-                            {CORRECT_PHASES.map((phase) => (
+                            {l1OptionOrder.map((phase) => (
                                 <option key={phase} value={phase}>{phase}</option>
                             ))}
                         </select>
+                        {l1ResultSlots[idx] === 'wrong' && l1Hints[idx] && (
+                            <p style={{ margin: '0.45rem 0 0', color: '#fecaca', lineHeight: 1.35 }}>
+                                <strong>Cyber-Einstein:</strong> {l1Hints[idx]}
+                            </p>
+                        )}
                     </div>
                 ))}
             </div>
@@ -312,9 +369,13 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                     onClick={() => {
                         setL1Slots(Array(CORRECT_PHASES.length).fill(''));
                         setL1WrongSlots([]);
+                        setL1ResultSlots(Array(CORRECT_PHASES.length).fill(null));
+                        setL1LockedSlots(Array(CORRECT_PHASES.length).fill(false));
+                        setL1Hints({});
+                        setL1OptionOrder(shuffle(CORRECT_PHASES));
                     }}
                 >
-                    Zurücksetzen
+                    Neu mischen
                 </button>
             </div>
         </div>
@@ -375,7 +436,7 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                 Wähle alle Aussagen, die zum Stichtag 21.08.2023 zutreffen.
             </p>
             <div style={{ display: 'grid', gap: '0.55rem' }}>
-                {GANTT_STATEMENTS.map((statement) => {
+                {l3StatementOrder.map((statement) => {
                     const state = l3Eval[statement.id];
                     const cls = state ? `projectm-statement projectm-statement--${state}` : 'projectm-statement';
                     return (
@@ -398,9 +459,10 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                     onClick={() => {
                         setL3Selected({});
                         setL3Eval({});
+                        setL3StatementOrder(shuffle(GANTT_STATEMENTS));
                     }}
                 >
-                    Auswahl leeren
+                    Neu mischen
                 </button>
             </div>
         </div>

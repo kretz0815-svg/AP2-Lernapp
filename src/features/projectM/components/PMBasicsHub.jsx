@@ -9,6 +9,15 @@ const sectionStyle = {
     marginBottom: '0.85rem'
 };
 
+const shuffle = (items) => {
+    const arr = [...items];
+    for (let i = arr.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+};
+
 const MODULES = [
     { id: 1, title: 'Modul 1: Begriffe-Matcher', summary: 'Ordne die 5 PM-Begriffe den richtigen Definitionen zu.' },
     { id: 2, title: 'Modul 2: Agil vs. Klassisch', summary: 'Sortiere Risiken in die passende Methode.' },
@@ -88,15 +97,23 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
     const [m1Answers, setM1Answers] = useState({});
     const [m1Feedback, setM1Feedback] = useState('');
     const [m1ResultByTerm, setM1ResultByTerm] = useState({});
-    const [m1Locked, setM1Locked] = useState(false);
+    const [m1LockedByTerm, setM1LockedByTerm] = useState({});
     const [m1HintsByTerm, setM1HintsByTerm] = useState({});
     const [m1EinsteinMessage, setM1EinsteinMessage] = useState('System bereit. Wähle die passenden Definitionen.');
+    const [m1TaskOrder, setM1TaskOrder] = useState(() => shuffle(TERM_TASKS));
+    const [m1DefOrder, setM1DefOrder] = useState(() => shuffle(DEFINITIONS));
 
     const [m2Answers, setM2Answers] = useState({});
     const [m2Feedback, setM2Feedback] = useState('');
+    const [m2ResultByCard, setM2ResultByCard] = useState({});
+    const [m2LockedByCard, setM2LockedByCard] = useState({});
+    const [m2HintsByCard, setM2HintsByCard] = useState({});
+    const [m2EinsteinMessage, setM2EinsteinMessage] = useState('Sortiere die Risiken präzise in agil oder klassisch.');
+    const [m2CardOrder, setM2CardOrder] = useState(() => shuffle(RISK_CARDS));
 
     const [m3Selected, setM3Selected] = useState({});
     const [m3Feedback, setM3Feedback] = useState('');
+    const [m3OptionOrder, setM3OptionOrder] = useState(() => shuffle(DEPENDENCY_OPTIONS));
 
     const unlocked = useMemo(() => ({
         1: true,
@@ -118,15 +135,24 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
         return hints[term] || 'Zuordnung noch nicht stimmig. Prüfe den Kernbegriff erneut.';
     };
 
+    const buildRiskHint = (card, picked) => {
+        if (!card) return 'Diese Zuordnung ist fachlich noch nicht stimmig.';
+        if (card.correct === 'agil' && picked === 'klassisch') {
+            return 'Dieses Risiko entsteht eher durch iterative/agile Dynamik, nicht durch starre Phasenplanung.';
+        }
+        if (card.correct === 'klassisch' && picked === 'agil') {
+            return 'Das ist typisch für starre klassische Vorgehensmodelle mit später Änderbarkeit.';
+        }
+        return 'Diese Zuordnung ist fachlich noch nicht stimmig.';
+    };
+
     const handleCheckModule1 = () => {
-        if (m1Locked) return;
-        const wrong = TERM_TASKS.filter((task) => m1Answers[task.term] !== task.correct);
-        const nextResultByTerm = TERM_TASKS.reduce((acc, task) => ({
-            ...acc,
-            [task.term]: m1Answers[task.term] === task.correct ? 'correct' : 'wrong'
-        }), {});
-        setM1ResultByTerm(nextResultByTerm);
-        setM1Locked(true);
+        const unresolved = TERM_TASKS.filter((task) => !m1LockedByTerm[task.term]);
+        if (unresolved.length > 0) {
+            setM1Feedback(`Noch ${unresolved.length} Begriff(e) nicht beantwortet.`);
+            return;
+        }
+        const wrong = TERM_TASKS.filter((task) => m1ResultByTerm[task.term] !== 'correct');
 
         if (wrong.length === 0) {
             setCompleted((prev) => ({ ...prev, 1: true }));
@@ -143,12 +169,6 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
             });
             return;
         }
-
-        const initialHints = {};
-        wrong.forEach((task) => {
-            initialHints[task.term] = buildLocalHint(task.term, m1Answers[task.term]);
-        });
-        setM1HintsByTerm(initialHints);
         setM1EinsteinMessage('Mehrere Zuordnungen sind fachlich noch nicht präzise. Prüfe die Hinweise pro Feld.');
         setM1Feedback(`${wrong.length} Zuordnung(en) sind noch nicht korrekt. Prüfe besonders: ${wrong[0].term}.`);
         onLearningEvent?.({
@@ -159,30 +179,39 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
             topic: 'PM Basics Modul 1 · Begriffe'
         });
 
-        Promise.allSettled(wrong.map(async (task) => {
-            try {
-                const ai = await askGemini(
-                    `Warum passt die Zuordnung bei "${task.term}" nicht? Bitte kurz erklären, ohne die Lösung direkt vorzugeben.`,
-                    `Gewählte Definition: ${getDefinitionLabel(m1Answers[task.term])}`,
-                    `Fachbegriff: ${task.term}`
-                );
-                const hint = String(ai || '').trim();
-                return { term: task.term, hint: hint || buildLocalHint(task.term, m1Answers[task.term]) };
-            } catch {
-                return { term: task.term, hint: buildLocalHint(task.term, m1Answers[task.term]) };
-            }
-        })).then((results) => {
-            const aiHints = {};
-            results.forEach((res) => {
-                if (res.status === 'fulfilled' && res.value?.term) {
-                    aiHints[res.value.term] = res.value.hint;
-                }
-            });
-            if (Object.keys(aiHints).length > 0) {
-                setM1HintsByTerm((prev) => ({ ...prev, ...aiHints }));
-                setM1EinsteinMessage('Cyber-Einstein hat dir zu den falschen Feldern konkrete Hinweise hinterlegt.');
-            }
+    };
+
+    const handleModule1Select = async (task, value) => {
+        if (!task || !value || m1LockedByTerm[task.term]) return;
+        const isCorrect = value === task.correct;
+        setM1Answers((prev) => ({ ...prev, [task.term]: value }));
+        setM1LockedByTerm((prev) => ({ ...prev, [task.term]: true }));
+        setM1ResultByTerm((prev) => ({ ...prev, [task.term]: isCorrect ? 'correct' : 'wrong' }));
+        if (isCorrect) return;
+
+        const fallbackHint = buildLocalHint(task.term, value);
+        setM1HintsByTerm((prev) => ({ ...prev, [task.term]: fallbackHint }));
+        setM1EinsteinMessage('Cyber-Einstein analysiert die falsche Zuordnung…');
+        onLearningEvent?.({
+            mode: 'projectM',
+            questionId: `pm_basics_modul1_${task.term}`,
+            questionText: `PM Basics Modul 1: ${task.term}`,
+            correct: false,
+            topic: 'PM Basics Modul 1 · Begriffe'
         });
+
+        try {
+            const ai = await askGemini(
+                `Warum passt die Zuordnung bei "${task.term}" nicht? Bitte kurz erklären, ohne die Lösung direkt vorzugeben.`,
+                `Gewählte Definition: ${getDefinitionLabel(value)}`,
+                `Fachbegriff: ${task.term}`
+            );
+            const hint = String(ai || '').trim() || fallbackHint;
+            setM1HintsByTerm((prev) => ({ ...prev, [task.term]: hint }));
+            setM1EinsteinMessage('Hinweis aktualisiert. Prüfe das rote Feld.');
+        } catch {
+            setM1EinsteinMessage('Hinweis verfügbar. Prüfe das rote Feld erneut.');
+        }
     };
 
     const handleCheckModule2 = () => {
@@ -194,6 +223,7 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
         const wrong = RISK_CARDS.filter((card) => m2Answers[card.id] !== card.correct);
         if (wrong.length === 0) {
             setCompleted((prev) => ({ ...prev, 2: true }));
+            setM2EinsteinMessage('Stark sortiert. Die methodischen Unterschiede sind sauber erkannt.');
             setM2Feedback('Sauber sortiert. Modul 3 ist freigeschaltet.');
             setActiveModule(3);
             onLearningEvent?.({
@@ -205,6 +235,7 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
             });
             return;
         }
+        setM2EinsteinMessage('Einige Risiken sind methodisch vertauscht. Prüfe die Hinweise unter den roten Karten.');
         setM2Feedback(`${wrong.length} Karte(n) sind in der falschen Methode. Erste kritische Karte: "${wrong[0].text}".`);
         onLearningEvent?.({
             mode: 'projectM',
@@ -213,6 +244,40 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
             correct: false,
             topic: 'PM Basics Modul 2 · Methodenvergleich'
         });
+    };
+
+    const handleModule2Select = async (card, value) => {
+        if (!card || !value || m2LockedByCard[card.id]) return;
+        const isCorrect = value === card.correct;
+        setM2Answers((prev) => ({ ...prev, [card.id]: value }));
+        setM2LockedByCard((prev) => ({ ...prev, [card.id]: true }));
+        setM2ResultByCard((prev) => ({ ...prev, [card.id]: isCorrect ? 'correct' : 'wrong' }));
+
+        if (isCorrect) return;
+
+        const fallbackHint = buildRiskHint(card, value);
+        setM2HintsByCard((prev) => ({ ...prev, [card.id]: fallbackHint }));
+        setM2EinsteinMessage('Cyber-Einstein analysiert die falsche Zuordnung…');
+        onLearningEvent?.({
+            mode: 'projectM',
+            questionId: `pm_basics_modul2_${card.id}`,
+            questionText: `PM Basics Modul 2: ${card.text}`,
+            correct: false,
+            topic: 'PM Basics Modul 2 · Methodenvergleich'
+        });
+
+        try {
+            const ai = await askGemini(
+                `Warum gehört "${card.text}" nicht zu "${value === 'agil' ? 'Agiles PM' : 'Klassisches PM'}"?`,
+                `Gewählt: ${value === 'agil' ? 'Agiles PM' : 'Klassisches PM'}`,
+                `Korrekt: ${card.correct === 'agil' ? 'Agiles PM' : 'Klassisches PM'}`
+            );
+            const hint = String(ai || '').trim() || fallbackHint;
+            setM2HintsByCard((prev) => ({ ...prev, [card.id]: hint }));
+            setM2EinsteinMessage('Hinweis aktualisiert. Schau unter die rote Karte.');
+        } catch {
+            setM2EinsteinMessage('Hinweis verfügbar. Prüfe die rote Karte erneut inhaltlich.');
+        }
     };
 
     const handleCheckModule3 = () => {
@@ -254,12 +319,12 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
             </p>
             <div className="projectm-wire" style={{ borderRadius: '12px', padding: '0.65rem', marginBottom: '0.65rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                 <strong>Definitionen</strong>
-                {DEFINITIONS.map((def) => (
+                {m1DefOrder.map((def) => (
                     <div key={`legend_${def.id}`} style={{ lineHeight: 1.35 }}>{def.fullLabel}</div>
                 ))}
             </div>
             <div style={{ display: 'grid', gap: '0.55rem' }}>
-                {TERM_TASKS.map((task) => (
+                {m1TaskOrder.map((task) => (
                     <div
                         key={task.term}
                         className="projectm-wire"
@@ -283,11 +348,11 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                             className="wisor-input"
                             style={{ width: '100%' }}
                             value={m1Answers[task.term] || ''}
-                            disabled={m1Locked}
-                            onChange={(e) => setM1Answers((prev) => ({ ...prev, [task.term]: e.target.value }))}
+                            disabled={Boolean(m1LockedByTerm[task.term])}
+                            onChange={(e) => handleModule1Select(task, e.target.value)}
                         >
                             <option value="">Definition wählen…</option>
-                            {DEFINITIONS.map((def) => (
+                            {m1DefOrder.map((def) => (
                                 <option key={def.id} value={def.id}>{def.optionLabel}</option>
                             ))}
                         </select>
@@ -309,10 +374,12 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                         setM1HintsByTerm({});
                         setM1Feedback('');
                         setM1EinsteinMessage('System bereit. Wähle die passenden Definitionen.');
-                        setM1Locked(false);
+                        setM1LockedByTerm({});
+                        setM1TaskOrder(shuffle(TERM_TASKS));
+                        setM1DefOrder(shuffle(DEFINITIONS));
                     }}
                 >
-                    Neu starten
+                    Neu mischen
                 </button>
             </div>
             {m1Feedback && <p style={{ marginBottom: 0 }}>{m1Feedback}</p>}
@@ -330,26 +397,67 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                 Ordne jede Risiko-Karte der passenden Methode zu.
             </p>
             <div style={{ display: 'grid', gap: '0.5rem' }}>
-                {RISK_CARDS.map((card) => (
-                    <div key={card.id} className="projectm-wire" style={{ borderRadius: '12px', padding: '0.65rem' }}>
+                {m2CardOrder.map((card) => (
+                    <div
+                        key={card.id}
+                        className="projectm-wire"
+                        style={{
+                            borderRadius: '12px',
+                            padding: '0.65rem',
+                            borderColor: m2ResultByCard[card.id] === 'correct'
+                                ? 'rgba(52,211,153,0.8)'
+                                : m2ResultByCard[card.id] === 'wrong'
+                                    ? 'rgba(248,113,113,0.9)'
+                                    : undefined,
+                            boxShadow: m2ResultByCard[card.id] === 'correct'
+                                ? '0 0 0 1px rgba(52,211,153,0.35), 0 0 22px rgba(52,211,153,0.25)'
+                                : m2ResultByCard[card.id] === 'wrong'
+                                    ? '0 0 0 1px rgba(248,113,113,0.35), 0 0 22px rgba(248,113,113,0.2)'
+                                    : undefined
+                        }}
+                    >
                         <p style={{ margin: '0 0 0.4rem 0' }}>{card.text}</p>
                         <select
                             className="wisor-input"
                             style={{ width: '100%' }}
                             value={m2Answers[card.id] || ''}
-                            onChange={(e) => setM2Answers((prev) => ({ ...prev, [card.id]: e.target.value }))}
+                            disabled={Boolean(m2LockedByCard[card.id])}
+                            onChange={(e) => handleModule2Select(card, e.target.value)}
                         >
                             <option value="">Methode wählen…</option>
                             <option value="agil">Agiles PM</option>
                             <option value="klassisch">Klassisches PM</option>
                         </select>
+                        {m2ResultByCard[card.id] === 'wrong' && m2HintsByCard[card.id] && (
+                            <p style={{ margin: '0.5rem 0 0', color: '#fecaca', lineHeight: 1.35 }}>
+                                <strong>Cyber-Einstein:</strong> {m2HintsByCard[card.id]}
+                            </p>
+                        )}
                     </div>
                 ))}
             </div>
             <div style={{ marginTop: '0.9rem', display: 'flex', gap: '0.55rem', flexWrap: 'wrap' }}>
                 <button className="btn-primary" onClick={handleCheckModule2}>Modul 2 prüfen</button>
+                <button
+                    className="btn-secondary"
+                    onClick={() => {
+                        setM2Answers({});
+                        setM2ResultByCard({});
+                        setM2LockedByCard({});
+                        setM2HintsByCard({});
+                        setM2Feedback('');
+                        setM2EinsteinMessage('Sortiere die Risiken präzise in agil oder klassisch.');
+                        setM2CardOrder(shuffle(RISK_CARDS));
+                    }}
+                >
+                    Neu mischen
+                </button>
             </div>
             {m2Feedback && <p style={{ marginBottom: 0 }}>{m2Feedback}</p>}
+            <div className="projectm-wire" style={{ borderRadius: '12px', padding: '0.65rem', marginTop: '0.65rem' }}>
+                <strong>Cyber-Einstein</strong>
+                <p style={{ margin: '0.35rem 0 0' }}>{m2EinsteinMessage}</p>
+            </div>
         </div>
     );
 
@@ -366,7 +474,7 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                 </p>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.5rem' }}>
-                {DEPENDENCY_OPTIONS.map((option) => (
+                {m3OptionOrder.map((option) => (
                     <label key={option.id} className="projectm-statement" style={{ cursor: 'pointer' }}>
                         <input
                             type="checkbox"
@@ -380,6 +488,16 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
             </div>
             <div style={{ marginTop: '0.9rem', display: 'flex', gap: '0.55rem', flexWrap: 'wrap' }}>
                 <button className="btn-primary" onClick={handleCheckModule3}>Modul 3 prüfen</button>
+                <button
+                    className="btn-secondary"
+                    onClick={() => {
+                        setM3Selected({});
+                        setM3Feedback('');
+                        setM3OptionOrder(shuffle(DEPENDENCY_OPTIONS));
+                    }}
+                >
+                    Neu mischen
+                </button>
             </div>
             {m3Feedback && <p style={{ marginBottom: 0 }}>{m3Feedback}</p>}
         </div>
