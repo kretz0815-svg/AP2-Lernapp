@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { askGemini } from '../../../geminiClient';
 import './projectm-cyber.css';
 
 const sectionStyle = {
@@ -86,6 +87,10 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
 
     const [m1Answers, setM1Answers] = useState({});
     const [m1Feedback, setM1Feedback] = useState('');
+    const [m1ResultByTerm, setM1ResultByTerm] = useState({});
+    const [m1Locked, setM1Locked] = useState(false);
+    const [m1HintsByTerm, setM1HintsByTerm] = useState({});
+    const [m1EinsteinMessage, setM1EinsteinMessage] = useState('System bereit. Wähle die passenden Definitionen.');
 
     const [m2Answers, setM2Answers] = useState({});
     const [m2Feedback, setM2Feedback] = useState('');
@@ -99,10 +104,34 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
         3: completed[2]
     }), [completed]);
 
+    const getDefinitionLabel = (defId) => DEFINITIONS.find((d) => d.id === defId)?.fullLabel || 'Unbekannte Definition';
+
+    const buildLocalHint = (term, pickedId) => {
+        const picked = getDefinitionLabel(pickedId);
+        const hints = {
+            'Lastenheft': `Das passt nicht: "${picked}" beschreibt nicht die Auftraggeber-Sicht. Lastenheft startet bei den Erwartungen des Kunden.`,
+            'Pflichtenheft': `Hier fehlt die technische Umsetzungsperspektive. Das Pflichtenheft antwortet konkret auf das Lastenheft.`,
+            'Wasserfall-Methode': `Das ist keine lineare Phasenlogik. Beim Wasserfall laufen Phasen strikt nacheinander.`,
+            'Scrum': `Das passt methodisch nicht zu Scrum. Scrum arbeitet iterativ in Sprints mit regelmäßigen Anpassungen.`,
+            'Kollaboratives Arbeiten': `Hier fehlt der Team- und Tool-Fokus. Kollaboratives Arbeiten bedeutet gemeinsames Arbeiten mehrerer Personen.`
+        };
+        return hints[term] || 'Zuordnung noch nicht stimmig. Prüfe den Kernbegriff erneut.';
+    };
+
     const handleCheckModule1 = () => {
+        if (m1Locked) return;
         const wrong = TERM_TASKS.filter((task) => m1Answers[task.term] !== task.correct);
+        const nextResultByTerm = TERM_TASKS.reduce((acc, task) => ({
+            ...acc,
+            [task.term]: m1Answers[task.term] === task.correct ? 'correct' : 'wrong'
+        }), {});
+        setM1ResultByTerm(nextResultByTerm);
+        setM1Locked(true);
+
         if (wrong.length === 0) {
             setCompleted((prev) => ({ ...prev, 1: true }));
+            setM1HintsByTerm({});
+            setM1EinsteinMessage('Exzellent. Alle Zuordnungen sitzen sauber.');
             setM1Feedback('Stark! Alle 5 Begriffe sind korrekt zugeordnet. Modul 2 ist freigeschaltet.');
             setActiveModule(2);
             onLearningEvent?.({
@@ -114,6 +143,13 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
             });
             return;
         }
+
+        const initialHints = {};
+        wrong.forEach((task) => {
+            initialHints[task.term] = buildLocalHint(task.term, m1Answers[task.term]);
+        });
+        setM1HintsByTerm(initialHints);
+        setM1EinsteinMessage('Mehrere Zuordnungen sind fachlich noch nicht präzise. Prüfe die Hinweise pro Feld.');
         setM1Feedback(`${wrong.length} Zuordnung(en) sind noch nicht korrekt. Prüfe besonders: ${wrong[0].term}.`);
         onLearningEvent?.({
             mode: 'projectM',
@@ -121,6 +157,31 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
             questionText: 'PM Basics Modul 1 Prüfung',
             correct: false,
             topic: 'PM Basics Modul 1 · Begriffe'
+        });
+
+        Promise.allSettled(wrong.map(async (task) => {
+            try {
+                const ai = await askGemini(
+                    `Warum passt die Zuordnung bei "${task.term}" nicht? Bitte kurz erklären, ohne die Lösung direkt vorzugeben.`,
+                    `Gewählte Definition: ${getDefinitionLabel(m1Answers[task.term])}`,
+                    `Fachbegriff: ${task.term}`
+                );
+                const hint = String(ai || '').trim();
+                return { term: task.term, hint: hint || buildLocalHint(task.term, m1Answers[task.term]) };
+            } catch {
+                return { term: task.term, hint: buildLocalHint(task.term, m1Answers[task.term]) };
+            }
+        })).then((results) => {
+            const aiHints = {};
+            results.forEach((res) => {
+                if (res.status === 'fulfilled' && res.value?.term) {
+                    aiHints[res.value.term] = res.value.hint;
+                }
+            });
+            if (Object.keys(aiHints).length > 0) {
+                setM1HintsByTerm((prev) => ({ ...prev, ...aiHints }));
+                setM1EinsteinMessage('Cyber-Einstein hat dir zu den falschen Feldern konkrete Hinweise hinterlegt.');
+            }
         });
     };
 
@@ -199,12 +260,30 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
             </div>
             <div style={{ display: 'grid', gap: '0.55rem' }}>
                 {TERM_TASKS.map((task) => (
-                    <div key={task.term} className="projectm-wire" style={{ borderRadius: '12px', padding: '0.65rem' }}>
+                    <div
+                        key={task.term}
+                        className="projectm-wire"
+                        style={{
+                            borderRadius: '12px',
+                            padding: '0.65rem',
+                            borderColor: m1ResultByTerm[task.term] === 'correct'
+                                ? 'rgba(52,211,153,0.8)'
+                                : m1ResultByTerm[task.term] === 'wrong'
+                                    ? 'rgba(248,113,113,0.9)'
+                                    : undefined,
+                            boxShadow: m1ResultByTerm[task.term] === 'correct'
+                                ? '0 0 0 1px rgba(52,211,153,0.35), 0 0 22px rgba(52,211,153,0.25)'
+                                : m1ResultByTerm[task.term] === 'wrong'
+                                    ? '0 0 0 1px rgba(248,113,113,0.35), 0 0 22px rgba(248,113,113,0.2)'
+                                    : undefined
+                        }}
+                    >
                         <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.35rem' }}>{task.term}</label>
                         <select
                             className="wisor-input"
                             style={{ width: '100%' }}
                             value={m1Answers[task.term] || ''}
+                            disabled={m1Locked}
                             onChange={(e) => setM1Answers((prev) => ({ ...prev, [task.term]: e.target.value }))}
                         >
                             <option value="">Definition wählen…</option>
@@ -212,13 +291,35 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                                 <option key={def.id} value={def.id}>{def.optionLabel}</option>
                             ))}
                         </select>
+                        {m1ResultByTerm[task.term] === 'wrong' && m1HintsByTerm[task.term] && (
+                            <p style={{ margin: '0.5rem 0 0', color: '#fecaca', lineHeight: 1.35 }}>
+                                <strong>Cyber-Einstein:</strong> {m1HintsByTerm[task.term]}
+                            </p>
+                        )}
                     </div>
                 ))}
             </div>
             <div style={{ marginTop: '0.9rem', display: 'flex', gap: '0.55rem', flexWrap: 'wrap' }}>
                 <button className="btn-primary" onClick={handleCheckModule1}>Modul 1 prüfen</button>
+                <button
+                    className="btn-secondary"
+                    onClick={() => {
+                        setM1Answers({});
+                        setM1ResultByTerm({});
+                        setM1HintsByTerm({});
+                        setM1Feedback('');
+                        setM1EinsteinMessage('System bereit. Wähle die passenden Definitionen.');
+                        setM1Locked(false);
+                    }}
+                >
+                    Neu starten
+                </button>
             </div>
             {m1Feedback && <p style={{ marginBottom: 0 }}>{m1Feedback}</p>}
+            <div className="projectm-wire" style={{ borderRadius: '12px', padding: '0.65rem', marginTop: '0.65rem' }}>
+                <strong>Cyber-Einstein</strong>
+                <p style={{ margin: '0.35rem 0 0' }}>{m1EinsteinMessage}</p>
+            </div>
         </div>
     );
 
