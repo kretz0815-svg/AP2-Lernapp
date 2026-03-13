@@ -17,23 +17,28 @@ const MODULES = [
 const DEFINITIONS = [
     {
         id: 'lasten',
-        label: 'Dokument des Auftraggebers: beschreibt WAS erwartet wird (Anforderungen/Wünsche).'
+        optionLabel: 'D1 · Auftraggeber (WAS)',
+        fullLabel: 'D1: Dokument des Auftraggebers – beschreibt WAS erwartet wird (Anforderungen/Wünsche).'
     },
     {
         id: 'pflichten',
-        label: 'Antwort des Auftragnehmers: beschreibt WIE Anforderungen technisch umgesetzt werden.'
+        optionLabel: 'D2 · Auftragnehmer (WIE)',
+        fullLabel: 'D2: Antwort des Auftragnehmers – beschreibt WIE Anforderungen technisch umgesetzt werden.'
     },
     {
         id: 'wasserfall',
-        label: 'Lineares Modell: Phasen laufen strikt nacheinander.'
+        optionLabel: 'D3 · Lineares Modell',
+        fullLabel: 'D3: Lineares Modell – Phasen laufen strikt nacheinander.'
     },
     {
         id: 'scrum',
-        label: 'Agiles Framework mit kurzen Sprints und iterativen Teilergebnissen.'
+        optionLabel: 'D4 · Agile Sprints',
+        fullLabel: 'D4: Agiles Framework mit kurzen Sprints und iterativen Teilergebnissen.'
     },
     {
         id: 'kollaborativ',
-        label: 'Gemeinsames Arbeiten mehrerer Personen mit digitalen Tools.'
+        optionLabel: 'D5 · Teamarbeit mit Tools',
+        fullLabel: 'D5: Gemeinsames Arbeiten mehrerer Personen mit digitalen Tools.'
     }
 ];
 
@@ -186,6 +191,12 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
             <p style={{ marginTop: 0, color: 'var(--text-muted)' }}>
                 Ordne jeden Begriff genau einer Definition zu.
             </p>
+            <div className="projectm-wire" style={{ borderRadius: '12px', padding: '0.65rem', marginBottom: '0.65rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                <strong>Definitionen</strong>
+                {DEFINITIONS.map((def) => (
+                    <div key={`legend_${def.id}`} style={{ lineHeight: 1.35 }}>{def.fullLabel}</div>
+                ))}
+            </div>
             <div style={{ display: 'grid', gap: '0.55rem' }}>
                 {TERM_TASKS.map((task) => (
                     <div key={task.term} className="projectm-wire" style={{ borderRadius: '12px', padding: '0.65rem' }}>
@@ -198,7 +209,7 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                         >
                             <option value="">Definition wählen…</option>
                             {DEFINITIONS.map((def) => (
-                                <option key={def.id} value={def.id}>{def.label}</option>
+                                <option key={def.id} value={def.id}>{def.optionLabel}</option>
                             ))}
                         </select>
                     </div>
