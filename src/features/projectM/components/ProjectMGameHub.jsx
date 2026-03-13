@@ -335,7 +335,24 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
             </p>
             <div className="projectm-phase-grid">
                 {CORRECT_PHASES.map((_, idx) => (
-                    <div key={`slot_${idx}`} className="projectm-wire" style={{ borderRadius: '12px', padding: '0.55rem' }}>
+                    <div
+                        key={`slot_${idx}`}
+                        className="projectm-wire"
+                        style={{
+                            borderRadius: '12px',
+                            padding: '0.55rem',
+                            borderColor: l1ResultSlots[idx] === 'correct'
+                                ? 'rgba(52,211,153,0.95)'
+                                : l1ResultSlots[idx] === 'wrong'
+                                    ? 'rgba(248,113,113,0.95)'
+                                    : undefined,
+                            boxShadow: l1ResultSlots[idx] === 'correct'
+                                ? '0 0 0 1px rgba(52,211,153,0.45), 0 0 26px rgba(52,211,153,0.35)'
+                                : l1ResultSlots[idx] === 'wrong'
+                                    ? '0 0 0 1px rgba(248,113,113,0.35), 0 0 24px rgba(248,113,113,0.2)'
+                                    : undefined
+                        }}
+                    >
                         <strong style={{ display: 'block', marginBottom: '0.35rem' }}>Position {idx + 1}</strong>
                         <select
                             value={l1Slots[idx]}
@@ -344,11 +361,15 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                             className="wisor-input"
                             style={{
                                 width: '100%',
+                                minHeight: '58px',
                                 borderColor: l1ResultSlots[idx] === 'correct'
                                     ? 'rgba(52,211,153,0.8)'
                                     : l1ResultSlots[idx] === 'wrong'
                                         ? 'rgba(248,113,113,0.8)'
-                                        : undefined
+                                        : undefined,
+                                boxShadow: l1ResultSlots[idx] === 'correct'
+                                    ? '0 0 18px rgba(52,211,153,0.25)'
+                                    : undefined
                             }}
                         >
                             <option value="">Bitte wählen</option>
