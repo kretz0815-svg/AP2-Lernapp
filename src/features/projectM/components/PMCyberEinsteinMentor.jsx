@@ -2,6 +2,7 @@ import React from 'react';
 
 export default function PMCyberEinsteinMentor({ state = 'idle', message = '', visible = true }) {
     const [isMobile, setIsMobile] = React.useState(typeof window !== 'undefined' && window.innerWidth <= 768);
+    const [desktopWidth, setDesktopWidth] = React.useState(260);
     const [isExpanded, setIsExpanded] = React.useState(false);
     const prevMessageRef = React.useRef('');
 
@@ -9,6 +10,22 @@ export default function PMCyberEinsteinMentor({ state = 'idle', message = '', vi
         const handleResize = () => setIsMobile(window.innerWidth <= 768);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    React.useEffect(() => {
+        const computeWidth = () => {
+            if (typeof window === 'undefined') return;
+            const viewport = window.innerWidth;
+            const contentMax = 1120;
+            const pagePadding = 30;
+            const contentWidth = Math.min(contentMax, Math.max(320, viewport - pagePadding));
+            const sideSpace = Math.max(0, (viewport - contentWidth) / 2);
+            const target = Math.floor(sideSpace - 16);
+            setDesktopWidth(Math.max(220, target));
+        };
+        computeWidth();
+        window.addEventListener('resize', computeWidth);
+        return () => window.removeEventListener('resize', computeWidth);
     }, []);
 
     React.useEffect(() => {
@@ -25,7 +42,11 @@ export default function PMCyberEinsteinMentor({ state = 'idle', message = '', vi
     if (isMobile && state === 'idle') return null;
 
     return (
-        <aside className={`pm-cyber-mentor pm-cyber-mentor--${state}`} aria-live="polite">
+        <aside
+            className={`pm-cyber-mentor pm-cyber-mentor--${state}`}
+            aria-live="polite"
+            style={!isMobile ? { width: `${desktopWidth}px` } : undefined}
+        >
             <div className={`pm-cyber-mentor__bubble ${isExpanded ? 'pm-cyber-mentor__bubble--expanded' : ''}`}>
                 {isExpanded && (
                     <button
