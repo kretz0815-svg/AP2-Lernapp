@@ -90,7 +90,7 @@
   z-index: 60;
   display: grid;
   gap: 0.45rem;
-  width: min(420px, calc(100vw - 20px));
+  width: clamp(220px, calc((100vw - 1120px) / 2 - 24px), 360px);
   pointer-events: none;
 }
 
@@ -100,6 +100,8 @@
   padding: 0.55rem 0.65rem;
   background: rgba(6, 18, 48, 0.92);
   box-shadow: 0 0 0 1px rgba(120, 188, 255, 0.2), 0 0 24px rgba(98, 171, 255, 0.24);
+  pointer-events: auto;
+  position: relative;
 }
 
 .pm-cyber-mentor__bubble strong {
@@ -115,6 +117,30 @@
   font-size: 0.97rem;
   line-height: 1.35;
   color: #d9eaff;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pm-cyber-mentor__bubble--expanded p {
+  display: block;
+  overflow: visible;
+}
+
+.pm-cyber-mentor__close {
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 99px;
+  border: 1px solid rgba(158, 200, 255, 0.45);
+  background: rgba(8, 23, 56, 0.82);
+  color: #d9eaff;
+  font-size: 16px;
+  line-height: 18px;
+  cursor: pointer;
 }
 
 .pm-cyber-mentor__avatar-wrap {

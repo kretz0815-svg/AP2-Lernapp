@@ -18,6 +18,11 @@ const shuffle = (items) => {
     }
     return arr;
 };
+const sanitizeEinsteinText = (input) => String(input || '')
+    .replace(/\*\*/g, '')
+    .replace(/gute frage[:,!\s]*/i, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
 
 const MODULES = [
     { id: 1, title: 'Modul 1: Begriffe-Matcher', summary: 'Ordne die 5 PM-Begriffe den richtigen Definitionen zu.' },
@@ -219,7 +224,7 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                 `Gewählte Definition: ${getDefinitionLabel(value)}`,
                 `Fachbegriff: ${task.term}`
             );
-            const hint = String(ai || '').replace(/\*\*/g, '').trim() || fallbackHint;
+            const hint = sanitizeEinsteinText(ai) || fallbackHint;
             setM1HintsByTerm((prev) => ({ ...prev, [task.term]: hint }));
             setM1EinsteinMessage(hint);
         } catch {
@@ -285,7 +290,7 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                 `Gewählt: ${value === 'agil' ? 'Agiles PM' : 'Klassisches PM'}`,
                 `Korrekt: ${card.correct === 'agil' ? 'Agiles PM' : 'Klassisches PM'}`
             );
-            const hint = String(ai || '').replace(/\*\*/g, '').trim() || fallbackHint;
+            const hint = sanitizeEinsteinText(ai) || fallbackHint;
             setM2HintsByCard((prev) => ({ ...prev, [card.id]: hint }));
             setM2EinsteinMessage(hint);
         } catch {
@@ -350,9 +355,9 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                                     ? 'rgba(248,113,113,0.9)'
                                     : undefined,
                             boxShadow: m1ResultByTerm[task.term] === 'correct'
-                                ? '0 0 0 1px rgba(52,211,153,0.35), 0 0 22px rgba(52,211,153,0.25)'
+                                ? '0 0 0 2px rgba(52,211,153,0.62), 0 0 32px rgba(52,211,153,0.5), inset 0 0 0 1px rgba(52,211,153,0.25)'
                                 : m1ResultByTerm[task.term] === 'wrong'
-                                    ? '0 0 0 1px rgba(248,113,113,0.35), 0 0 22px rgba(248,113,113,0.2)'
+                                    ? '0 0 0 2px rgba(248,113,113,0.62), 0 0 32px rgba(248,113,113,0.42), inset 0 0 0 1px rgba(248,113,113,0.2)'
                                     : undefined
                         }}
                     >
@@ -414,9 +419,9 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                                     ? 'rgba(248,113,113,0.9)'
                                     : undefined,
                             boxShadow: m2ResultByCard[card.id] === 'correct'
-                                ? '0 0 0 1px rgba(52,211,153,0.35), 0 0 22px rgba(52,211,153,0.25)'
+                                ? '0 0 0 2px rgba(52,211,153,0.62), 0 0 32px rgba(52,211,153,0.5), inset 0 0 0 1px rgba(52,211,153,0.25)'
                                 : m2ResultByCard[card.id] === 'wrong'
-                                    ? '0 0 0 1px rgba(248,113,113,0.35), 0 0 22px rgba(248,113,113,0.2)'
+                                    ? '0 0 0 2px rgba(248,113,113,0.62), 0 0 32px rgba(248,113,113,0.42), inset 0 0 0 1px rgba(248,113,113,0.2)'
                                     : undefined
                         }}
                     >

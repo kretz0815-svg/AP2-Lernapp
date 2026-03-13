@@ -63,6 +63,11 @@ const sectionStyle = {
 };
 
 const normalize = (value) => String(value || '').toLowerCase().trim();
+const sanitizeEinsteinText = (input) => String(input || '')
+    .replace(/\*\*/g, '')
+    .replace(/gute frage[:,!\s]*/i, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
 const shuffle = (items) => {
     const arr = [...items];
     for (let i = arr.length - 1; i > 0; i -= 1) {
@@ -122,7 +127,7 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
         setEinsteinMessage('Cyber-Einstein synchronisiert...');
         try {
             const reply = await askGemini(question, contextQuestion, contextAnswer);
-            const compact = String(reply || '').trim();
+            const compact = sanitizeEinsteinText(reply);
             setEinsteinMessage(compact || fallback);
         } catch {
             setEinsteinMessage(fallback);
@@ -224,7 +229,7 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                 `Erwartet: ${CORRECT_PHASES[idx]}`,
                 `Eingabe: ${value}`
             );
-            const hint = String(ai || '').replace(/\*\*/g, '').trim() || fallback;
+            const hint = sanitizeEinsteinText(ai) || fallback;
             setL1Hints((prev) => ({ ...prev, [idx]: hint }));
             setEinsteinMessage(hint);
         } catch {
@@ -347,9 +352,9 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                                     ? 'rgba(248,113,113,0.95)'
                                     : undefined,
                             boxShadow: l1ResultSlots[idx] === 'correct'
-                                ? '0 0 0 1px rgba(52,211,153,0.45), 0 0 26px rgba(52,211,153,0.35)'
+                                ? '0 0 0 2px rgba(52,211,153,0.65), 0 0 34px rgba(52,211,153,0.55), inset 0 0 0 1px rgba(52,211,153,0.35)'
                                 : l1ResultSlots[idx] === 'wrong'
-                                    ? '0 0 0 1px rgba(248,113,113,0.35), 0 0 24px rgba(248,113,113,0.2)'
+                                    ? '0 0 0 2px rgba(248,113,113,0.62), 0 0 34px rgba(248,113,113,0.42), inset 0 0 0 1px rgba(248,113,113,0.25)'
                                     : undefined
                         }}
                     >
@@ -368,7 +373,7 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                                         ? 'rgba(248,113,113,0.8)'
                                         : undefined,
                                 boxShadow: l1ResultSlots[idx] === 'correct'
-                                    ? '0 0 18px rgba(52,211,153,0.25)'
+                                    ? '0 0 24px rgba(52,211,153,0.5)'
                                     : undefined
                             }}
                         >
