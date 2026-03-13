@@ -193,7 +193,7 @@ function App() {
   const wisorInputRef = useRef(null);
   const einsteinRef = useRef(null);
   const introVideoRef = useRef(null);
-  const [introMuted, setIntroMuted] = useState(true);
+  const [introMuted, setIntroMuted] = useState(false);
   const [einsteinTilt, setEinsteinTilt] = useState({ rotateX: 0, rotateY: 0 });
   const [showConfetti, setShowConfetti] = useState(false);
   const triggerConfetti = () => {
@@ -227,7 +227,7 @@ function App() {
 
   useEffect(() => {
     if (appMode === 'intro') {
-      setIntroMuted(true);
+      setIntroMuted(false);
     }
   }, [appMode]);
 
