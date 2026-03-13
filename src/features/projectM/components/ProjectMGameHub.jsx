@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { askGemini } from '../../../geminiClient';
 import { useProjectMGame } from '../state/ProjectMGameProvider';
+import PMCyberEinsteinMentor from './PMCyberEinsteinMentor';
 import './projectm-cyber.css';
 
 const LEVEL_XP = { 1: 50, 2: 75, 3: 100 };
@@ -107,6 +108,13 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
 
     const unlockedLevels = progress.unlockedLevels || [1];
     const completedSet = new Set(progress.completedLevels || []);
+    const mentorState = einsteinLoading
+        ? 'speaking'
+        : /abgeschlossen|freigeschaltet|bestanden|perfekt|stark/i.test(einsteinMessage)
+            ? 'success'
+            : /falsch|nicht|prüfe|kollidiert|fehler/i.test(einsteinMessage)
+                ? 'error'
+                : 'idle';
 
     const askEinstein = async ({ eventType, question, contextQuestion, contextAnswer }) => {
         const fallback = buildFallbackEinstein(eventType);
@@ -470,6 +478,7 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
 
     return (
         <div className="projectm-cyber-theme" style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
+            <PMCyberEinsteinMentor state={mentorState} message={einsteinMessage} visible />
             <div style={{ maxWidth: '1120px', width: '100%', margin: '0 auto', padding: '1rem 0.9rem 4.2rem' }}>
                 <div className="projectm-wire" style={topBarStyle}>
                     <button className="btn-nav" onClick={onBack}>&larr; Menü</button>
@@ -509,12 +518,6 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                 {activeLevel === 2 && renderLevel2()}
                 {activeLevel === 3 && renderLevel3()}
 
-                <div className="projectm-wire" style={{ ...sectionStyle, marginBottom: 0 }}>
-                    <h3 style={{ marginTop: 0, marginBottom: '0.45rem' }}>Cyber-Einstein</h3>
-                    <p style={{ margin: 0, color: einsteinLoading ? '#bfdbfe' : 'var(--text-light)' }}>
-                        {einsteinMessage}
-                    </p>
-                </div>
             </div>
         </div>
     );

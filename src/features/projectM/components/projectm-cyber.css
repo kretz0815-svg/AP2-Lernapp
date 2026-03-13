@@ -80,3 +80,132 @@
   border-color: rgba(251, 191, 36, 0.68);
   box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.35);
 }
+
+.pm-cyber-mentor {
+  position: fixed;
+  left: max(10px, env(safe-area-inset-left, 0px) + 10px);
+  bottom: max(10px, env(safe-area-inset-bottom, 0px) + 10px);
+  z-index: 60;
+  display: grid;
+  gap: 0.45rem;
+  width: min(260px, calc(100vw - 20px));
+  pointer-events: none;
+}
+
+.pm-cyber-mentor__bubble {
+  border: 1px solid rgba(120, 188, 255, 0.78);
+  border-radius: 14px;
+  padding: 0.55rem 0.65rem;
+  background: rgba(6, 18, 48, 0.92);
+  box-shadow: 0 0 0 1px rgba(120, 188, 255, 0.2), 0 0 24px rgba(98, 171, 255, 0.24);
+}
+
+.pm-cyber-mentor__bubble strong {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ec8ff;
+}
+
+.pm-cyber-mentor__bubble p {
+  margin: 0.25rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: #d9eaff;
+}
+
+.pm-cyber-mentor__avatar-wrap {
+  position: relative;
+  width: 110px;
+  height: 132px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(120, 188, 255, 0.72);
+  background: rgba(5, 16, 42, 0.9);
+  box-shadow: 0 0 0 1px rgba(120, 188, 255, 0.24), 0 0 32px rgba(92, 160, 255, 0.28);
+}
+
+.pm-cyber-mentor__avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: hue-rotate(140deg) saturate(1.35) brightness(1.08) contrast(1.16) drop-shadow(0 0 10px rgba(110, 190, 255, 0.8));
+  transform-origin: center;
+}
+
+.pm-cyber-mentor__mouth {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.pm-cyber-mentor__mouth span {
+  display: block;
+  width: 3px;
+  height: 5px;
+  border-radius: 99px;
+  background: #9ec8ff;
+  opacity: 0.72;
+}
+
+.pm-cyber-mentor--idle .pm-cyber-mentor__avatar-wrap {
+  animation: pmCyberIdlePulse 2.6s ease-in-out infinite;
+}
+
+.pm-cyber-mentor--booting .pm-cyber-mentor__avatar-wrap,
+.pm-cyber-mentor--speaking .pm-cyber-mentor__avatar-wrap {
+  animation: pmCyberGlitch 0.45s steps(2, end) infinite;
+}
+
+.pm-cyber-mentor--speaking .pm-cyber-mentor__mouth span {
+  animation: pmCyberTalk 0.4s ease-in-out infinite;
+}
+
+.pm-cyber-mentor--error .pm-cyber-mentor__avatar-wrap,
+.pm-cyber-mentor--error .pm-cyber-mentor__bubble {
+  border-color: rgba(255, 107, 107, 0.82);
+  box-shadow: 0 0 0 1px rgba(255, 107, 107, 0.35), 0 0 28px rgba(255, 84, 84, 0.28);
+}
+
+.pm-cyber-mentor--success .pm-cyber-mentor__avatar-wrap,
+.pm-cyber-mentor--success .pm-cyber-mentor__bubble {
+  border-color: rgba(255, 212, 103, 0.85);
+  box-shadow: 0 0 0 1px rgba(255, 212, 103, 0.35), 0 0 30px rgba(255, 208, 88, 0.33);
+}
+
+@keyframes pmCyberIdlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+@keyframes pmCyberGlitch {
+  0% { transform: translateX(0) skewX(0deg); opacity: 1; }
+  20% { transform: translateX(-1px) skewX(-0.8deg); opacity: 0.92; }
+  40% { transform: translateX(2px) skewX(1deg); opacity: 1; }
+  60% { transform: translateX(-1px) skewX(-0.4deg); opacity: 0.95; }
+  100% { transform: translateX(0) skewX(0deg); opacity: 1; }
+}
+
+@keyframes pmCyberTalk {
+  0%, 100% { height: 4px; opacity: 0.5; }
+  50% { height: 10px; opacity: 1; }
+}
+
+@media (max-width: 900px) {
+  .pm-cyber-mentor {
+    left: auto;
+    right: max(10px, env(safe-area-inset-right, 0px) + 10px);
+    bottom: max(72px, env(safe-area-inset-bottom, 0px) + 72px);
+    width: min(205px, calc(100vw - 14px));
+  }
+
+  .pm-cyber-mentor__avatar-wrap {
+    width: 88px;
+    height: 110px;
+  }
+}

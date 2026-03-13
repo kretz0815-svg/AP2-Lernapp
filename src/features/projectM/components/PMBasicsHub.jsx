@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { askGemini } from '../../../geminiClient';
+import PMCyberEinsteinMentor from './PMCyberEinsteinMentor';
 import './projectm-cyber.css';
 
 const sectionStyle = {
@@ -114,6 +115,18 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
     const [m3Selected, setM3Selected] = useState({});
     const [m3Feedback, setM3Feedback] = useState('');
     const [m3OptionOrder, setM3OptionOrder] = useState(() => shuffle(DEPENDENCY_OPTIONS));
+    const mentorMessage = activeModule === 1
+        ? m1EinsteinMessage
+        : activeModule === 2
+            ? m2EinsteinMessage
+            : (m3Feedback || 'Markiere die relevanten Abhängigkeiten sauber und logisch.');
+    const mentorState = /analysiert/i.test(mentorMessage)
+        ? 'speaking'
+        : /perfekt|stark|bestanden|freigeschaltet/i.test(mentorMessage)
+            ? 'success'
+            : /nicht|falsch|kritisch|noch/i.test(mentorMessage)
+                ? 'error'
+                : 'idle';
 
     const unlocked = useMemo(() => ({
         1: true,
@@ -383,10 +396,6 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                 </button>
             </div>
             {m1Feedback && <p style={{ marginBottom: 0 }}>{m1Feedback}</p>}
-            <div className="projectm-wire" style={{ borderRadius: '12px', padding: '0.65rem', marginTop: '0.65rem' }}>
-                <strong>Cyber-Einstein</strong>
-                <p style={{ margin: '0.35rem 0 0' }}>{m1EinsteinMessage}</p>
-            </div>
         </div>
     );
 
@@ -454,10 +463,6 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                 </button>
             </div>
             {m2Feedback && <p style={{ marginBottom: 0 }}>{m2Feedback}</p>}
-            <div className="projectm-wire" style={{ borderRadius: '12px', padding: '0.65rem', marginTop: '0.65rem' }}>
-                <strong>Cyber-Einstein</strong>
-                <p style={{ margin: '0.35rem 0 0' }}>{m2EinsteinMessage}</p>
-            </div>
         </div>
     );
 
@@ -505,6 +510,7 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
 
     return (
         <div className="projectm-cyber-theme" style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
+            <PMCyberEinsteinMentor state={mentorState} message={mentorMessage} visible />
             <div style={{ maxWidth: '980px', width: '100%', margin: '0 auto', padding: '1rem 0.9rem 3.6rem' }}>
                 <div className="projectm-wire" style={{ ...sectionStyle, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.65rem' }}>
                     <button className="btn-nav" onClick={onBack}>&larr; PM Modul</button>
