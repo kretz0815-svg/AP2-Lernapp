@@ -219,9 +219,9 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                 `Gewählte Definition: ${getDefinitionLabel(value)}`,
                 `Fachbegriff: ${task.term}`
             );
-            const hint = String(ai || '').trim() || fallbackHint;
+            const hint = String(ai || '').replace(/\*\*/g, '').trim() || fallbackHint;
             setM1HintsByTerm((prev) => ({ ...prev, [task.term]: hint }));
-            setM1EinsteinMessage('Hinweis aktualisiert. Prüfe das rote Feld.');
+            setM1EinsteinMessage(hint);
         } catch {
             setM1EinsteinMessage('Hinweis verfügbar. Prüfe das rote Feld erneut.');
         }
@@ -285,9 +285,9 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                 `Gewählt: ${value === 'agil' ? 'Agiles PM' : 'Klassisches PM'}`,
                 `Korrekt: ${card.correct === 'agil' ? 'Agiles PM' : 'Klassisches PM'}`
             );
-            const hint = String(ai || '').trim() || fallbackHint;
+            const hint = String(ai || '').replace(/\*\*/g, '').trim() || fallbackHint;
             setM2HintsByCard((prev) => ({ ...prev, [card.id]: hint }));
-            setM2EinsteinMessage('Hinweis aktualisiert. Schau unter die rote Karte.');
+            setM2EinsteinMessage(hint);
         } catch {
             setM2EinsteinMessage('Hinweis verfügbar. Prüfe die rote Karte erneut inhaltlich.');
         }
@@ -369,11 +369,6 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                                 <option key={def.id} value={def.id}>{def.optionLabel}</option>
                             ))}
                         </select>
-                        {m1ResultByTerm[task.term] === 'wrong' && m1HintsByTerm[task.term] && (
-                            <p style={{ margin: '0.5rem 0 0', color: '#fecaca', lineHeight: 1.35 }}>
-                                <strong>Cyber-Einstein:</strong> {m1HintsByTerm[task.term]}
-                            </p>
-                        )}
                     </div>
                 ))}
             </div>
@@ -437,11 +432,6 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
                             <option value="agil">Agiles PM</option>
                             <option value="klassisch">Klassisches PM</option>
                         </select>
-                        {m2ResultByCard[card.id] === 'wrong' && m2HintsByCard[card.id] && (
-                            <p style={{ margin: '0.5rem 0 0', color: '#fecaca', lineHeight: 1.35 }}>
-                                <strong>Cyber-Einstein:</strong> {m2HintsByCard[card.id]}
-                            </p>
-                        )}
                     </div>
                 ))}
             </div>

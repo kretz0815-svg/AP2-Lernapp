@@ -224,9 +224,9 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                 `Erwartet: ${CORRECT_PHASES[idx]}`,
                 `Eingabe: ${value}`
             );
-            const hint = String(ai || '').trim() || fallback;
+            const hint = String(ai || '').replace(/\*\*/g, '').trim() || fallback;
             setL1Hints((prev) => ({ ...prev, [idx]: hint }));
-            setEinsteinMessage('Hinweis aktualisiert. Prüfe das rote Feld.');
+            setEinsteinMessage(hint);
         } catch {
             setEinsteinMessage('Hinweis verfügbar. Prüfe das rote Feld erneut.');
         }
@@ -356,11 +356,6 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
                                 <option key={phase} value={phase}>{phase}</option>
                             ))}
                         </select>
-                        {l1ResultSlots[idx] === 'wrong' && l1Hints[idx] && (
-                            <p style={{ margin: '0.45rem 0 0', color: '#fecaca', lineHeight: 1.35 }}>
-                                <strong>Cyber-Einstein:</strong> {l1Hints[idx]}
-                            </p>
-                        )}
                     </div>
                 ))}
             </div>

@@ -113,6 +113,8 @@
   font-size: 0.82rem;
   line-height: 1.35;
   color: #d9eaff;
+  max-height: 170px;
+  overflow: auto;
 }
 
 .pm-cyber-mentor__avatar-wrap {
