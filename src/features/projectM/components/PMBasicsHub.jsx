@@ -22,6 +22,10 @@ const sanitizeEinsteinText = (input) => String(input || '')
     .replace(/\*\*/g, '')
     .replace(/^hallo[!,.:\s-]*/i, '')
     .replace(/gute frage[:,!\s]*/i, '')
+    .replace(/^das ist eine (super|gute|tolle) frage[^.]*\.\s*/i, '')
+    .replace(/^das ist eine starke beobachtung[^.]*\.\s*/i, '')
+    .replace(/^deine frage ist (absolut )?(berechtigt|gut)[^.]*\.\s*/i, '')
+    .replace(/^super (frage|beobachtung)[^.]*\.\s*/i, '')
     .replace(/\s{2,}/g, ' ')
     .trim();
 
@@ -121,6 +125,8 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
     const [m3Selected, setM3Selected] = useState({});
     const [m3Feedback, setM3Feedback] = useState('');
     const [m3OptionOrder, setM3OptionOrder] = useState(() => shuffle(DEPENDENCY_OPTIONS));
+    const m1HasWrong = Object.values(m1ResultByTerm).some((state) => state === 'wrong');
+    const m2HasWrong = Object.values(m2ResultByCard).some((state) => state === 'wrong');
     const mentorMessage = activeModule === 1
         ? m1EinsteinMessage
         : activeModule === 2
@@ -128,11 +134,11 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
             : (m3Feedback || 'Markiere die relevanten Abhängigkeiten sauber und logisch.');
     const mentorState = /analysiert/i.test(mentorMessage)
         ? 'speaking'
-        : /perfekt|stark|bestanden|freigeschaltet/i.test(mentorMessage)
+        : (activeModule === 1 && m1HasWrong) || (activeModule === 2 && m2HasWrong)
+            ? 'error'
+            : /perfekt|stark|bestanden|freigeschaltet/i.test(mentorMessage)
             ? 'success'
-            : /nicht|falsch|kritisch|noch/i.test(mentorMessage)
-                ? 'error'
-                : 'idle';
+            : 'idle';
 
     const unlocked = useMemo(() => ({
         1: true,

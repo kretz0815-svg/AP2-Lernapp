@@ -67,6 +67,10 @@ const sanitizeEinsteinText = (input) => String(input || '')
     .replace(/\*\*/g, '')
     .replace(/^hallo[!,.:\s-]*/i, '')
     .replace(/gute frage[:,!\s]*/i, '')
+    .replace(/^das ist eine (super|gute|tolle) frage[^.]*\.\s*/i, '')
+    .replace(/^das ist eine starke beobachtung[^.]*\.\s*/i, '')
+    .replace(/^deine frage ist (absolut )?(berechtigt|gut)[^.]*\.\s*/i, '')
+    .replace(/^super (frage|beobachtung)[^.]*\.\s*/i, '')
     .replace(/\s{2,}/g, ' ')
     .trim();
 const shuffle = (items) => {
@@ -114,13 +118,16 @@ export default function ProjectMGameHub({ onBack, onLearningEvent }) {
 
     const unlockedLevels = progress.unlockedLevels || [1];
     const completedSet = new Set(progress.completedLevels || []);
+    const hasWrongSignals = l1ResultSlots.includes('wrong')
+        || Object.values(l2Hints).length > 0
+        || Object.values(l3Eval).some((state) => state === 'wrong' || state === 'missed');
     const mentorState = einsteinLoading
         ? 'speaking'
-        : /abgeschlossen|freigeschaltet|bestanden|perfekt|stark/i.test(einsteinMessage)
+        : hasWrongSignals
+            ? 'error'
+            : /abgeschlossen|freigeschaltet|bestanden|perfekt|stark/i.test(einsteinMessage)
             ? 'success'
-            : /falsch|nicht|prüfe|kollidiert|fehler/i.test(einsteinMessage)
-                ? 'error'
-                : 'idle';
+            : 'idle';
 
     const askEinstein = async ({ eventType, question, contextQuestion, contextAnswer }) => {
         const fallback = buildFallbackEinstein(eventType);
