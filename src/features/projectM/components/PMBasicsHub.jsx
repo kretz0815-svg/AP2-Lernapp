@@ -507,7 +507,7 @@ export default function PMBasicsHub({ onBack, onLearningEvent }) {
     return (
         <div className="projectm-cyber-theme" style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
             <PMCyberEinsteinMentor state={mentorState} message={mentorMessage} visible />
-            <div style={{ maxWidth: '980px', width: '100%', margin: '0 auto', padding: '1rem 0.9rem 3.6rem' }}>
+            <div data-pm-content-root="true" style={{ maxWidth: '980px', width: '100%', margin: '0 auto', padding: '1rem 0.9rem 3.6rem' }}>
                 <div className="projectm-wire" style={{ ...sectionStyle, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.65rem' }}>
                     <button className="btn-nav" onClick={onBack}>&larr; PM Modul</button>
                     <span className="chip">Part 2</span>

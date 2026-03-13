@@ -91,7 +91,7 @@
   display: grid;
   gap: 0.45rem;
   width: max(230px, calc((100vw - 1120px) / 2 - 20px));
-  max-width: 560px;
+  max-width: none;
   pointer-events: none;
 }
 

@@ -15,12 +15,20 @@ export default function PMCyberEinsteinMentor({ state = 'idle', message = '', vi
     React.useEffect(() => {
         const computeWidth = () => {
             if (typeof window === 'undefined') return;
+            const contentRoot = document.querySelector('[data-pm-content-root="true"]');
+            if (contentRoot) {
+                const rect = contentRoot.getBoundingClientRect();
+                const viewportLeftPadding = 10;
+                const gapToContent = 10;
+                const target = Math.floor(rect.left - viewportLeftPadding - gapToContent);
+                setDesktopWidth(Math.max(220, target));
+                return;
+            }
+
             const viewport = window.innerWidth;
             const contentMax = 1120;
-            const pagePadding = 30;
-            const contentWidth = Math.min(contentMax, Math.max(320, viewport - pagePadding));
-            const sideSpace = Math.max(0, (viewport - contentWidth) / 2);
-            const target = Math.floor(sideSpace - 16);
+            const sideSpace = Math.max(0, (viewport - contentMax) / 2);
+            const target = Math.floor(sideSpace - 20);
             setDesktopWidth(Math.max(220, target));
         };
         computeWidth();
