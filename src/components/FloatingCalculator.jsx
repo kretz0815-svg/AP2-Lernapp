@@ -429,8 +429,8 @@ export default function FloatingCalculator({ currentAppMode }) {
         }
         : {
             position: 'fixed',
-            right: (currentAppMode === 'klr') ? '12px' : '12px',
-            top: (currentAppMode === 'klr' || currentAppMode === 'project_m' || currentAppMode === 'project_m_core') ? '1px' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
+            right: '12px',
+            top: (currentAppMode === 'klr') ? '1px' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
             zIndex: 1000
         };
     const helperValue = String(currentValue ?? '').replace('.', ',');

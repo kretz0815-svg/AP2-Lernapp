@@ -29,7 +29,6 @@ import VideoPanel from './components/VideoPanel';
 import GeminiPanel from './components/GeminiPanel';
 import Confetti from './components/Confetti';
 import { KLRGameHub, useKLRGame } from './features/klr';
-import { PMBasicsHub, ProjectMGameHub, ProjectMMainHub, useProjectMGame } from './features/projectM';
 import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
 import { reviewTaskWithDSR, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
 
@@ -59,7 +58,6 @@ function App() {
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
   const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || import.meta.env.VITE_HCAPTCHA_SITEKEY || '';
   const { progress: klrProgress } = useKLRGame() || { progress: { xp: 0 } };
-  const { progress: projectMProgress } = useProjectMGame() || { progress: { xp: 0 } };
 
   // Set up auth first
 
@@ -1385,11 +1383,6 @@ ${feynmanInput}`;
       clearAnalyticsByMode('klr');
       setResetModalVisible(false);
       window.location.reload();
-    } else if (resetTarget === 'projectM') {
-      localStorage.removeItem('project_m_game_progress_v1');
-      clearAnalyticsByMode('projectM');
-      setResetModalVisible(false);
-      window.location.reload();
     } else if (resetTarget === 'kalkulation') {
       localStorage.removeItem('kalk_boss_completed_flawless');
       clearAnalyticsByMode('kalkulation');
@@ -1408,7 +1401,6 @@ ${feynmanInput}`;
       localStorage.removeItem('ap2_wisor_eco_progress');
       localStorage.removeItem('ap2_saved_notes');
       localStorage.removeItem('klr_game_progress_v1');
-      localStorage.removeItem('project_m_game_progress_v1');
       localStorage.removeItem(getAnalyticsStorageKey(authUser));
 
       // Reset progress state (keep customQuizQuestions intact)
@@ -2103,27 +2095,6 @@ ${feynmanInput}`;
             </button>
           </div>
 
-          <div className="dash-card" onClick={() => setAppMode('project_m')}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="4" width="18" height="15" rx="2.5" />
-                <line x1="7" y1="9" x2="17" y2="9" />
-                <line x1="7" y1="13" x2="13" y2="13" />
-                <line x1="15.5" y1="13" x2="17.5" y2="16" />
-                <line x1="17.5" y1="13" x2="15.5" y2="16" />
-              </svg>
-            </div>
-            <h2>Project M<br />Sneaker Drop</h2>
-            <p>PM-Trainingsmission mit Phasenlogik, PSP-Architektur und Gantt-Analyse.</p>
-            <div className="chip">XP: {projectMProgress?.xp || 0}</div>
-            <button
-              className="btn-secondary"
-              style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
-              onClick={(e) => { e.stopPropagation(); openResetModal(e, 'projectM'); }}
-            >
-              🔄 Lernfortschritt zurücksetzen
-            </button>
-          </div>
         </div>
 
         <ResetModal
@@ -2387,55 +2358,6 @@ ${feynmanInput}`;
         </div>
         <FloatingNotes questionId="klr_game" questionText="KLR Startup Survival" currentAppMode={appMode} />
         <FloatingCalculator currentAppMode={appMode} />
-      </>
-    );
-  }
-
-  if (appMode === 'project_m') {
-    return (
-      <>
-        <div className="app-container" style={{ zIndex: 10 }}>
-          {pomodoroPortal}
-          {burgerMenuPortal}
-          <div className="blob blob-1"></div>
-          <div className="blob blob-2"></div>
-          <ProjectMMainHub
-            onBack={() => setAppMode('dashboard')}
-            onOpenSneakerDrop={() => setAppMode('project_m_core')}
-            onOpenPMBasics={() => setAppMode('pm_basics')}
-            xp={projectMProgress?.xp || 0}
-          />
-        </div>
-      </>
-    );
-  }
-
-  if (appMode === 'project_m_core') {
-    return (
-      <>
-        <div className="app-container" style={{ zIndex: 10 }}>
-          {pomodoroPortal}
-          {burgerMenuPortal}
-          <div className="blob blob-1"></div>
-          <div className="blob blob-2"></div>
-          <ProjectMGameHub onBack={() => setAppMode('project_m')} onLearningEvent={appendLearningEvent} />
-        </div>
-        <FloatingNotes questionId="project_m_game" questionText="Project M Sneaker Drop" currentAppMode={appMode} />
-        <FloatingCalculator currentAppMode={appMode} />
-      </>
-    );
-  }
-
-  if (appMode === 'pm_basics') {
-    return (
-      <>
-        <div className="app-container" style={{ zIndex: 10 }}>
-          {pomodoroPortal}
-          {burgerMenuPortal}
-          <div className="blob blob-1"></div>
-          <div className="blob blob-2"></div>
-          <PMBasicsHub onBack={() => setAppMode('project_m')} onLearningEvent={appendLearningEvent} />
-        </div>
       </>
     );
   }
@@ -2707,7 +2629,6 @@ Die JSON muss exakt diese Struktur haben:
         kalkulation: byMode('kalkulation'),
         breakEven: byMode('breakEven'),
         klr: byMode('klr'),
-        projectM: byMode('projectM'),
       };
     };
 
@@ -2727,7 +2648,6 @@ Die JSON muss exakt diese Struktur haben:
       kalkulation: 'Kalkulations-Boss',
       breakEven: 'Break-Even-Point',
       klr: 'KLR-Modul',
-      projectM: 'Project M',
       rechen: "KPI's"
     };
 
@@ -2739,7 +2659,7 @@ Die JSON muss exakt diese Struktur haben:
       return acc;
     }, {});
 
-    const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco' || e.mode === 'kalkulation' || e.mode === 'breakEven' || e.mode === 'klr' || e.mode === 'projectM' || e.mode === 'rechen');
+    const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco' || e.mode === 'kalkulation' || e.mode === 'breakEven' || e.mode === 'klr' || e.mode === 'rechen');
     const totalAnswers = events.length;
     const totalCorrect = events.filter(e => e.correct).length;
     const hitRate = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
@@ -2790,7 +2710,6 @@ Die JSON muss exakt diese Struktur haben:
       if (event.mode === 'kalkulation') return 'Kalkulations-Boss';
       if (event.mode === 'breakEven') return 'Break-Even-Point';
       if (event.mode === 'klr') return event.topic || 'KLR-Modul';
-      if (event.mode === 'projectM') return event.topic || 'Project M';
       return 'Allgemein';
     };
 
@@ -2867,7 +2786,6 @@ Die JSON muss exakt diese Struktur haben:
       if (entry.mode === 'wisorEco') return 'WisoR E-Commerce';
       if (entry.mode === 'flashcard') return 'Lernkarten Wissen';
       if (entry.mode === 'klr') return entry.topic || 'KLR-Modul';
-      if (entry.mode === 'projectM') return entry.topic || 'Project M';
       return 'Allgemein';
     };
 
@@ -2987,7 +2905,7 @@ Die JSON muss exakt diese Struktur haben:
     const circleRadius = 62;
     const circleCircumference = 2 * Math.PI * circleRadius;
     const circleOffset = circleCircumference * (1 - overallAccuracy / 100);
-    const allModeKeys = ['quiz', 'wisor', 'wisorEco', 'kalkulation', 'breakEven', 'klr', 'projectM', 'flashcard'];
+    const allModeKeys = ['quiz', 'wisor', 'wisorEco', 'kalkulation', 'breakEven', 'klr', 'flashcard'];
     const dayTotalCount = allModeKeys.reduce((s, m) => s + day[m].correct + day[m].wrong, 0);
     const dayCorrectCount = allModeKeys.reduce((s, m) => s + day[m].correct, 0);
     const dayAccuracy = dayTotalCount > 0 ? Math.round((dayCorrectCount / dayTotalCount) * 100) : 0;
