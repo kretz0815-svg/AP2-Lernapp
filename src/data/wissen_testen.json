@@ -4444,6 +4444,622 @@
       "hint": "Was muss vorher fertig sein?",
       "youtubeQuery": "Logische Abhängigkeiten Projektmanagement",
       "topic": "Projektmanagement (Abhängigkeiten)"
+    },
+    {
+      "question": "Ein Kunde kauft die neue Fitness-Software „Vital-Tracker“ der „Vital-Tech AG“. Nach der Installation stellt er fest, dass der Programmstart extrem lange dauert und wichtige Funktionen nach 30 Sekunden abstürzen. Der Kunde beschwert sich über eine sogenannte „Schlechtleistung“. Was genau wird im E-Commerce fachlich unter diesem Begriff verstanden?",
+      "answerOptions": [
+        {
+          "text": "Ein Zahlungsverzug des Kunden, bei dem die Rechnung nach 30 Tagen noch nicht beglichen wurde.",
+          "isCorrect": false,
+          "rationale": "Dies beschreibt den Zahlungsverzug, nicht die Schlechtleistung des Verkäufers."
+        },
+        {
+          "text": "Die mangelhafte Erfüllung eines Vertrags durch den Verkäufer, was bedeutet, dass ein Produkt defekt, beschädigt oder nicht wie beschrieben ist.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Schlechtleistung im E-Commerce bezieht sich auf die mangelhafte Erfüllung eines Vertrags durch eine der Parteien, typischerweise den Verkäufer. Dies bedeutet, dass ein verkauftes Produkt defekt, beschädigt oder nicht wie beschrieben ist, oder Dienstleistungen nicht den festgelegten Anforderungen entsprechen."
+        },
+        {
+          "text": "Ein Fehler des Paketdienstleisters, bei dem die Ware zwei Tage zu spät beim Kunden ankommt (Lieferverzug).",
+          "isCorrect": false,
+          "rationale": "Das Verspäten der Lieferung wird als Lieferverzug (Schuldnerverzug) bezeichnet, nicht primär als Schlechtleistung der Ware selbst."
+        },
+        {
+          "text": "Ein Widerruf des Kunden innerhalb der gesetzlichen 14-Tage-Frist ohne Angabe von Gründen.",
+          "isCorrect": false,
+          "rationale": "Ein Widerruf ist ein gesetzliches Recht des Kunden bei Fernabsatzverträgen und keine Vertragsstörung durch den Verkäufer."
+        }
+      ],
+      "hint": "Denke daran, dass der Begriff die Qualität der Vertragserfüllung beschreibt.",
+      "youtubeQuery": "Schlechtleistung E-Commerce Vertragsrecht Definition",
+      "topic": "Vertragsrecht & Schlechtleistung"
+    },
+    {
+      "question": "Der Kunde ist verärgert über die abstürzende „Vital-Tracker“-Software. Er möchte das Programm eigentlich behalten, sieht aber nicht ein, den vollen Preis von 120 € für eine fehlerhafte Software zu bezahlen. Welches rechtliche Mittel im Falle einer Schlechtleistung möchte der Kunde hier in Anspruch nehmen?",
+      "answerOptions": [
+        {
+          "text": "Nachbesserung",
+          "isCorrect": false,
+          "rationale": "Nachbesserung würde bedeuten, dass das Produkt repariert oder neu geliefert wird, um es fehlerfrei zu machen."
+        },
+        {
+          "text": "Wandlung (Rücktritt)",
+          "isCorrect": false,
+          "rationale": "Wandlung bzw. Rücktritt bedeutet die komplette Rückgängigmachung des Vertrags, der Kunde behält die Ware dann nicht."
+        },
+        {
+          "text": "Minderung",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Wenn ein Kunde sich dazu entscheidet, die mangelhafte Ware zu behalten, kann er eine Herabsetzung des Kaufpreises, also eine Minderung, verlangen. Die Nachbesserung (A) würde die Lieferung einer funktionierenden Version bedeuten, die Wandlung (B) die komplette Rückgängigmachung des Vertrags."
+        },
+        {
+          "text": "Schadensersatz",
+          "isCorrect": false,
+          "rationale": "Schadensersatz wird verlangt, wenn dem Kunden durch den Mangel ein konkreter (finanzieller) Schaden entstanden ist."
+        }
+      ],
+      "hint": "Der Kunde behält die Ware, zahlt aber weniger.",
+      "youtubeQuery": "Gewährleistungsrechte Minderung Schlechtleistung",
+      "topic": "Vertragsrecht & Schlechtleistung"
+    },
+    {
+      "question": "Ein Kunde der „Urban-Gear GmbH“ beschwert sich: Er habe ein rotes Zelt bestellt, aber ein blaues geliefert bekommen. Um zu prüfen, ob es im Vorfeld vielleicht Missverständnisse in den Absprachen gab, muss der Kundenservice die bisherige Kommunikation mit dem Kunden überprüfen. Welches System wird hierfür primär genutzt?",
+      "answerOptions": [
+        {
+          "text": "Das Produktinformationssystem (PIM).",
+          "isCorrect": false,
+          "rationale": "Ein PIM verwaltet Produktdaten, keine Kommunikationshistorie mit Kunden."
+        },
+        {
+          "text": "Die Versandsoftware der Logistikabteilung.",
+          "isCorrect": false,
+          "rationale": "Versandsoftware dient der Logistikabwicklung, nicht der Einsicht in E-Mail-Verläufe."
+        },
+        {
+          "text": "Das Customer-Relationship-Management-System (CRM) und die E-Mail-Software.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Die Überprüfung der zum Vorgang zugehörigen Kommunikation kann am besten mit einem CRM-System und der verwendeten E-Mail-Software erfolgen. Somit wird ausgeschlossen, dass Missverständnisse mit dem Kunden aufgetreten sind."
+        },
+        {
+          "text": "Das Content-Management-System (CMS) des Webshops.",
+          "isCorrect": false,
+          "rationale": "Das CMS wird zur Pflege der Website-Inhalte genutzt, nicht für den individuellen Kundensupport."
+        }
+      ],
+      "hint": "Suche nach dem System, das die Kundenbeziehung und Historie verwaltet.",
+      "youtubeQuery": "CRM System Kundenservice E-Mail Software Kommunikation",
+      "topic": "Kundenservice & Systemnutzung"
+    },
+    {
+      "question": "Der Kunde mit der abstürzenden Software musste drei Tage auf eine Antwort des Supports warten. Welche internen Maßnahmen sollte die „Vital-Tech AG“ dringend ergreifen, um solche Eskalationen in Zukunft zu vermeiden?",
+      "answerOptions": [
+        {
+          "text": "Die Einführung eines effektiveren Support-Systems zur zügigen Bearbeitung von Anfragen und regelmäßige Schulungen für das Kundenservice-Team.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Um solche Vorfälle zu vermeiden, ist die Einführung eines effektiveren Support-Systems wichtig, das Kundenanfragen zügig bearbeitet. Zudem helfen regelmäßige Schulungen für das Kundenservice-Team, um sicherzustellen, dass mit Problemen und Beschwerden effizient umgegangen wird."
+        },
+        {
+          "text": "Die sofortige Löschung aller negativen Kunden-E-Mails, um die Support-Statistik künstlich zu verbessern.",
+          "isCorrect": false,
+          "rationale": "Das Löschen von Beschwerden löst das Problem nicht und führt langfristig zu mehr Frustration und schlechterer Reputation."
+        },
+        {
+          "text": "Den Verkaufspreis der Software um 50 % reduzieren, damit die Kunden weniger Support erwarten.",
+          "isCorrect": false,
+          "rationale": "Ein niedriger Preis rechtfertigt keine mangelhafte Leistung oder fehlenden Support."
+        },
+        {
+          "text": "Die Verantwortung vertraglich komplett auf den Endkunden übertragen.",
+          "isCorrect": false,
+          "rationale": "Gesetzliche Gewährleistungsrechte können gegenüber Verbrauchern nicht einfach ausgeschlossen oder auf sie übertragen werden."
+        }
+      ],
+      "hint": "Prävention bedeutet, die Ursachen für lange Wartezeiten und Inkompetenz zu beheben.",
+      "youtubeQuery": "Beschwerdemanagement E-Commerce interne Maßnahmen Schulungen",
+      "topic": "Kundenservice & Systemnutzung"
+    },
+    {
+      "question": "Die „Vital-Tech AG“ liefert monatelang fehlerhafte Software aus und ignoriert Kundenbeschwerden. Die Personalabteilung (HR) warnt die Geschäftsführung plötzlich, dass diese Schlechtleistungen sogar direkte Auswirkungen auf das eigene Recruiting haben. Warum ist das so?",
+      "answerOptions": [
+        {
+          "text": "Weil die Arbeitsagentur Unternehmen mit schlechten Bewertungen verbietet, neue Stellenanzeigen zu schalten.",
+          "isCorrect": false,
+          "rationale": "Es gibt kein solches Verbot durch die Arbeitsagentur aufgrund von Produktmängeln."
+        },
+        {
+          "text": "Weil qualifizierte Bewerber sich oft gegen ein Unternehmen mit einem bekannten Imageproblem entscheiden, da sie Bedenken hinsichtlich der Unternehmenskultur oder der Jobstabilität haben.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Ein schlechter Ruf und wiederholte Schlechtleistungen können zu massiven Rekrutierungsproblemen führen. Qualifizierte Bewerber könnten sich gegen ein Unternehmen mit einem bekannten Imageproblem entscheiden, da sie Bedenken hinsichtlich der Unternehmenskultur, der Jobstabilität oder ihrer eigenen beruflichen Entwicklung haben könnten."
+        },
+        {
+          "text": "Weil das Unternehmen rechtlich verpflichtet ist, unzufriedene Kunden als neue Mitarbeiter einzustellen.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine rechtliche Verpflichtung, Kunden als Mitarbeiter einzustellen."
+        },
+        {
+          "text": "Weil Bewerber für den Kundenservice ein abgeschlossenes Jura-Studium vorweisen müssen, was die Auswahl verkleinert.",
+          "isCorrect": false,
+          "rationale": "Das ist faktisch falsch und wäre keine direkte Folge der Schlechtleistung."
+        }
+      ],
+      "hint": "Denke an den 'War for Talents' und die Bedeutung der Arbeitgebermarke (Employer Branding).",
+      "youtubeQuery": "Employer Branding Reputation Auswirkungen Recruiting",
+      "topic": "Strategische Auswirkungen"
+    },
+    {
+      "question": "Ein Geschäftskunde (B2B) kauft für seine Handwerksfirma 10 teure Jacken im Online-Shop der „Pro-Gear AG“. Eine Woche später möchte er die Jacken grundlos zurückschicken und beruft sich auf das gesetzliche 14-tägige Widerrufsrecht aus dem Internet-Kauf. Wie ist die rechtliche Lage?",
+      "answerOptions": [
+        {
+          "text": "Er ist im Recht, da das gesetzliche Widerrufsrecht im Internet für alle Käufer ausnahmslos gilt.",
+          "isCorrect": false,
+          "rationale": "Das gesetzliche Widerrufsrecht schützt primär Verbraucher (Privatpersonen), nicht Unternehmen im B2B-Verkehr."
+        },
+        {
+          "text": "Er hat grundsätzlich kein gesetzliches Widerrufsrecht, da dieses in der EU regulär nur auf Endverbraucher (B2C) ausgerichtet ist, es sei denn, die „Pro-Gear AG“ räumt es ihm in ihren AGB freiwillig ein.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. In der EU ist das gesetzliche Widerrufsrecht bei Fernabsatzverträgen in der Regel auf private Verbraucher (B2C) ausgerichtet. Geschäftskunden (B2B) haben dieses Recht von Gesetz wegen nicht, Händler können es ihnen aber freiwillig über die AGB gewähren."
+        },
+        {
+          "text": "Er hat ein Widerrufsrecht, muss aber zwingend die doppelten Rückversandkosten tragen.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine Regelung für 'doppelte' Rückversandkosten als Bedingung für ein nicht vorhandenes gesetzliches Recht."
+        },
+        {
+          "text": "B2B-Kunden dürfen online generell nur auf Rechnung kaufen, weshalb ein Widerruf immer unzulässig ist.",
+          "isCorrect": false,
+          "rationale": "Die Zahlungsart hat keinen Einfluss auf das Bestehen oder Nichtbestehen eines gesetzlichen Widerrufsrechts."
+        }
+      ],
+      "hint": "Unterscheide zwischen B2C (Verbraucher) und B2B (Unternehmer).",
+      "youtubeQuery": "Widerrufsrecht B2B vs B2C Fernabsatzgesetz",
+      "topic": "Recht (Widerruf)"
+    },
+    {
+      "question": "Das E-Commerce-Controlling der „Urban-Runners GmbH“ wertet das abgelaufene Quartal aus. Es wurden insgesamt 8.000 Bestellungen verschickt. Im gleichen Zeitraum kamen exakt 1.600 retournierte Artikel wieder im Lager an. Wie hoch ist die Retourenquote?",
+      "answerOptions": [
+        {
+          "text": "12 %",
+          "isCorrect": false,
+          "rationale": "Falscher Rechenweg."
+        },
+        {
+          "text": "25 %",
+          "isCorrect": false,
+          "rationale": "Hier wurde vermutlich 8.000 / 1.600 gerechnet, was dem Kehrwert entspricht."
+        },
+        {
+          "text": "20 %",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Die Retourenquote wird berechnet, indem man die Anzahl der Retouren durch die Anzahl der Sendungen teilt: (1.600 / 8.000) * 100 = 20 %."
+        },
+        {
+          "text": "16 %",
+          "isCorrect": false,
+          "rationale": "Das wäre das Ziel für das nächste Quartal, nicht der aktuelle Wert."
+        }
+      ],
+      "hint": "Formel: (Anzahl Retouren / Anzahl Sendungen) * 100.",
+      "youtubeQuery": "Retourenquote berechnen E-Commerce Kennzahlen",
+      "topic": "KPI & Kennzahlen (Retouren)"
+    },
+    {
+      "question": "Die „Urban-Runners GmbH“ hat aktuell eine Retourenquote von 20 %. Die Geschäftsführung gibt als Ziel vor, diese Quote durch bessere Produktbilder um 4 % (also auf 16 %) zu reduzieren. Wie viele retournierte Artikel wären das bei einer gleichbleibenden Anzahl von 8.000 verschickten Bestellungen?",
+      "answerOptions": [
+        {
+          "text": "1.600 Artikel",
+          "isCorrect": false,
+          "rationale": "Das entspräche der aktuellen Zahl bei 20 % Retourenquote."
+        },
+        {
+          "text": "1.280 Artikel",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Bei einer Zielquote von 16 % rechnet man: 8.000 * 0,16 = 1.280."
+        },
+        {
+          "text": "320 Artikel",
+          "isCorrect": false,
+          "rationale": "Das ist nur die Differenz (Ersparnis) der Retouren, nicht die Gesamtzahl bei Erreichen des Ziels."
+        },
+        {
+          "text": "6.400 Artikel",
+          "isCorrect": false,
+          "rationale": "Das wäre die Anzahl der Pakete, die NICHT zurückgeschickt werden (84 %)."
+        }
+      ],
+      "hint": "Multipliziere die 8.000 Sendungen mit der neuen Zielquote (0,16).",
+      "youtubeQuery": "Prozentrechnung E-Commerce Retourensenkung",
+      "topic": "KPI & Kennzahlen (Retouren)"
+    },
+    {
+      "question": "Ein Fashion-Start-up, die „Style-Nova AG“, hat eine extrem hohe Retourenquote. Das Feedback zeigt, dass die Kunden die Kleidung meist zurückschicken, weil die Größen anders ausfallen als erwartet. Welche spezifische E-Commerce-Maßnahme ist hier am effektivsten, um die Retourenquote präventiv zu senken?",
+      "answerOptions": [
+        {
+          "text": "Die Erhöhung der Preise, damit Kunden seltener bestellen.",
+          "isCorrect": false,
+          "rationale": "Das reduziert zwar vielleicht die Bestellungen, löst aber nicht das Problem der falschen Größen."
+        },
+        {
+          "text": "Die Implementierung von Tools wie virtueller Anprobe oder interaktiven Größenberatern im Shop.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Tools wie virtuelle Anproben oder Größenberater helfen Kunden, sofort die richtige Passform zu finden, was Rücksendungen aufgrund von Passformproblemen drastisch reduziert."
+        },
+        {
+          "text": "Das Versenden der Pakete per Express-Lieferung, damit die Kunden die Ware schneller haben.",
+          "isCorrect": false,
+          "rationale": "Schnelle Lieferung verbessert das Kundenerlebnis, ändert aber nichts daran, wenn die Hose nicht passt."
+        },
+        {
+          "text": "Die Auslagerung des Kundenservice an ein Callcenter.",
+          "isCorrect": false,
+          "rationale": "Dies ist eine reaktive Maßnahme zur Bearbeitung von Problemen, aber keine präventive Maßnahme zur Retourenvermeidung."
+        }
+      ],
+      "hint": "Welche Maßnahme hilft dem Kunden vor dem Kauf, die richtige Größe zu wählen?",
+      "youtubeQuery": "Retourensenkung E-Commerce Maßnahmen Größenberater",
+      "topic": "Retourenmanagement"
+    },
+    {
+      "question": "Ein Kunde der „Active-Lifestyle UG“ hat einen Rucksack zurückgeschickt, da der Reißverschluss defekt ist. Das Paket kommt im Unternehmen an. Welche Abteilung ist in einem professionellen Retourenprozess nun im nächsten Schritt dafür zuständig, die Ware in Empfang zu nehmen, sie auf Beschädigung zu prüfen und zu entscheiden, ob eine Rückerstattung erfolgt?",
+      "answerOptions": [
+        {
+          "text": "Die Buchhaltung",
+          "isCorrect": false,
+          "rationale": "Die Buchhaltung erstattet zwar das Geld, kann aber den physischen Zustand der Ware im Lager nicht prüfen."
+        },
+        {
+          "text": "Die Marketingabteilung",
+          "isCorrect": false,
+          "rationale": "Marketing befasst sich mit der Kundengewinnung, nicht mit der physischen Warenprüfung."
+        },
+        {
+          "text": "Die Retourenabteilung / das Qualitätsmanagement (QM)",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Wenn die Ware zurückkommt, prüft die Retourenabteilung bzw. das QM den Artikel auf Vollständigkeit und Funktionalität, bevor weitere Schritte wie die Erstattung eingeleitet werden."
+        },
+        {
+          "text": "Das Controlling",
+          "isCorrect": false,
+          "rationale": "Controlling wertet die Kennzahlen (Retourenquote) aus, ist aber nicht operativ in die Warenprüfung eingebunden."
+        }
+      ],
+      "hint": "Wer prüft die Ware direkt nach dem Eintreffen im Lager?",
+      "youtubeQuery": "Retourenprozess Ablauf E-Commerce Logistik",
+      "topic": "Retourenmanagement"
+    },
+    {
+      "question": "Ein Kunde kauft einen teuren Trainingsanzug der Marke „Pro-Flex“ im Shop der „Active-Trail AG“. Nach 10 Tagen sendet er ihn im Rahmen des Widerrufsrechts zurück. Die Retourenabteilung stellt fest: Der Anzug riecht nach Schweiß, hat Flecken und in der Tasche steckt ein gestempeltes Ticket für ein Fitnessstudio. Wie ist die rechtliche Lage bezüglich der Rückerstattung?",
+      "answerOptions": [
+        {
+          "text": "Das Widerrufsrecht erlischt sofort; der Kunde bekommt den Anzug zurückgeschickt und muss den vollen Preis zahlen.",
+          "isCorrect": false,
+          "rationale": "Das Widerrufsrecht bleibt grundsätzlich bestehen, aber die Höhe der Erstattung kann gemindert werden."
+        },
+        {
+          "text": "Der Kunde darf widerrufen, hat aber keinen Anspruch auf die volle Erstattung. Das Unternehmen kann einen Wertersatz (z. B. für Reinigungskosten und Wertverlust) vom Kaufpreis abziehen, da die Ware über das erlaubte Testen hinaus genutzt wurde.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das Widerrufsrecht bleibt grundsätzlich bestehen. Allerdings darf der Kunde die Ware nur so prüfen, wie es auch in einem Ladengeschäft möglich wäre (kurze Anprobe). Wurde die Ware darüber hinaus intensiv genutzt (Fitnessstudio), darf der Händler einen Wertersatz für den entstandenen Wertverlust bzw. die Reinigungskosten einbehalten."
+        },
+        {
+          "text": "Das Unternehmen muss den vollen Kaufpreis erstatten, da der Kunde gesetzlich das Recht hat, Sportkleidung vor dem Widerruf intensiv beim Sport zu testen.",
+          "isCorrect": false,
+          "rationale": "Falsch. Das Testen während des Sports geht über die Prüfung der Beschaffenheit (wie im Laden) hinaus."
+        },
+        {
+          "text": "Das Unternehmen muss den vollen Preis erstatten, darf dem Kunden aber eine Strafgebühr von 50 € in Rechnung stellen.",
+          "isCorrect": false,
+          "rationale": "Strafgebühren sind rechtlich nicht vorgesehen; zulässig ist ein Wertersatz für den tatsächlichen Wertverlust."
+        }
+      ],
+      "hint": "Stichwort: Prüfung der Ware wie im Ladengeschäft.",
+      "youtubeQuery": "Widerrufsrecht Wertersatz Nutzung Kleidung",
+      "topic": "Retourenrecht & Wertersatz"
+    },
+    {
+      "question": "Ein Kunde beschwert sich wütend bei der „Outdoor-Living GmbH“: Sein neuer Holzkohlegrill „Fire-Vortex 3000“ raucht extrem und die Schale hat sich verformt. Eine Prüfung durch den Support ergibt jedoch eindeutig, dass kein Produktmangel vorliegt, sondern der Kunde die Sicherheitshinweise komplett ignoriert und den Grill falsch bedient hat. Wie sollte der E-Commerce-Kaufmann reagieren, um wirtschaftlich und kundenorientiert zu handeln?",
+      "answerOptions": [
+        {
+          "text": "Er weist die Reklamation schroff ab, verweist auf die Anleitung und sperrt das Kundenkonto, um weitere ungerechtfertigte Retouren zu vermeiden.",
+          "isCorrect": false,
+          "rationale": "Eine schroffe Abweisung schädigt die Kundenbeziehung und die Reputation des Shops massiv."
+        },
+        {
+          "text": "Er schaltet sofort einen Anwalt ein, um den Kunden wegen Rufschädigung zu verklagen.",
+          "isCorrect": false,
+          "rationale": "Das Einschalten eines Anwalts bei einer einfachen Beschwerde ist unverhältnismäßig und unwirtschaftlich."
+        },
+        {
+          "text": "Er erklärt dem Kunden ruhig und professionell den Bedienfehler. Um die Kundenbeziehung dennoch zu retten, bietet er einen Kulanz-Kompromiss an (z. B. einen Rabatt auf Ersatzteile oder einen Gutschein).",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Bei unsachgemäßer Benutzung besteht zwar kein gesetzlicher Gewährleistungsanspruch, jedoch ist eine harte Abweisung schlecht für die Unternehmensreputation. Ein freundlicher Hinweis auf den Fehler, kombiniert mit einem Kulanzangebot, stellt den Kunden zufrieden."
+        },
+        {
+          "text": "Er gibt dem Kunden Recht, erstattet den vollen Preis und ändert sofort das Produktdesign.",
+          "isCorrect": false,
+          "rationale": "Den vollen Preis bei Eigenverschulden zu erstatten ist unwirtschaftlich und das Design muss bei Bedienfehlern nicht zwingend fehlerhaft sein."
+        }
+      ],
+      "hint": "Kulanz ist ein wichtiges Instrument zur Kundenbindung bei schwierigen Fällen.",
+      "youtubeQuery": "Reklamationsmanagement Kulanz E-Commerce",
+      "topic": "Reklamationsmanagement & Kulanz"
+    },
+    {
+      "question": "Das Anfragevolumen der „Urban-Kicks AG“ ist um 40 % gestiegen. Die Geschäftsführung will einen KI-Chatbot einführen. Für welche konkreten Service-Prozesse ist die KI aufgrund des hohen Standardisierungsgrades am besten geeignet?",
+      "answerOptions": [
+        {
+          "text": "Für das Führen von Verhandlungsgesprächen mit Großhändlern.",
+          "isCorrect": false,
+          "rationale": "Verhandlungen erfordern menschliche Strategie und Empathie, keine standardisierte KI."
+        },
+        {
+          "text": "Für die Beantwortung von hochkomplexen juristischen Beschwerden.",
+          "isCorrect": false,
+          "rationale": "Komplexe juristische Sachverhalte sind zu individuell für einen Standard-Chatbot."
+        },
+        {
+          "text": "Für die Beantwortung wiederkehrender Standardfragen (Lieferstatus, Rückgabefristen) und die automatisierte Retourenabwicklung (Erstellung von Rücksendeetiketten).",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. KI-Chatbots eignen sich hervorragend für Prozesse mit hohem Standardisierungsgrad und hoher Wiederholungsrate. Hier können sie die menschlichen Mitarbeiter massiv entlasten."
+        },
+        {
+          "text": "Für das Führen von Kündigungsgesprächen mit Mitarbeitern aus dem Kundenservice.",
+          "isCorrect": false,
+          "rationale": "Personalgespräche sind hochsensibel und müssen zwingend von Menschen geführt werden."
+        }
+      ],
+      "hint": "Suche nach Aufgaben, die sich oft wiederholen und klaren Regeln folgen.",
+      "youtubeQuery": "KI Chatbot Kundenservice Einsatzgebiete Standardisierung",
+      "topic": "KI im Kundenservice (Prozesse)"
+    },
+    {
+      "question": "Der Leiter des Kundenservice der „Tech-Nova UG“ ist skeptisch bezüglich des neuen Chatbots. Welches typische kundenbezogene Risiko geht mit der Einführung einer solchen Automatisierung einher?",
+      "answerOptions": [
+        {
+          "text": "Die KI könnte verlangen, dass der Kunde für jede Antwort bezahlt.",
+          "isCorrect": false,
+          "rationale": "Dies ist kein typisches KI-Szenario, sondern eher ein Geschäftsmodell-Thema (Pay-per-Support)."
+        },
+        {
+          "text": "Eine unpersönliche Kommunikation und große Frustration auf Kundenseite, wenn die KI komplexe Probleme missversteht und falsche Antworten liefert.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das größte kundenbezogene Risiko besteht darin, dass die Kommunikation unpersönlich wirkt und Kunden bei komplexen Anliegen frustriert sind, wenn der Bot sie nicht versteht oder falsch informiert."
+        },
+        {
+          "text": "Die Abhängigkeit vom Software-Anbieter und hohe Implementierungskosten.",
+          "isCorrect": false,
+          "rationale": "Das sind betriebswirtschaftliche/organisatorische Risiken, keine primär kundenbezogenen."
+        },
+        {
+          "text": "Die KI könnte eigenmächtig neue Produkte im Shop anlegen.",
+          "isCorrect": false,
+          "rationale": "Service-Chatbots haben in der Regel keinen Schreibzugriff auf das Produktkatalog-System."
+        }
+      ],
+      "hint": "Denke an das Gefühl des Kunden, wenn er keine hilfreiche Antwort von einer Maschine bekommt.",
+      "youtubeQuery": "KI Kundenservice Risiken Akzeptanz Frustration",
+      "topic": "KI im Kundenservice (Risiken)"
+    },
+    {
+      "question": "Bevor der neue Service-Chatbot der „Fit-Gear GmbH“ live geht, prüft der Datenschutzbeauftragte das System. Welche zwingende Vorgabe muss beim Einsatz von KI im Kundenkontakt aus rechtlicher Sicht unbedingt eingehalten werden?",
+      "answerOptions": [
+        {
+          "text": "Es muss absolute Transparenz herrschen (Kunde muss wissen, dass er mit einer KI spricht), und es dürfen keine vollautomatisierten Entscheidungen mit rechtlicher Wirkung (gemäß Art. 22 DSGVO) getroffen werden.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Aus DSGVO-Sicht sind Transparenz (Hinweis auf KI-Nutzung) und der Schutz vor vollautomatisierten Einzelfallentscheidungen essenziell."
+        },
+        {
+          "text": "Die KI muss zwingend auf Servern außerhalb der EU gehostet werden.",
+          "isCorrect": false,
+          "rationale": "Im Gegenteil: Server innerhalb der EU (oder mit EU-Standard) sind aus DSGVO-Sicht meist zu bevorzugen."
+        },
+        {
+          "text": "Der Chatbot darf keine IP-Adressen erfassen, weshalb Kunden nur per Brief mit der KI kommunizieren dürfen.",
+          "isCorrect": false,
+          "rationale": "Ein digitaler Chatbot per Brief ist technisch ein Widerspruch; IP-Erfassung ist mit Einwilligung/Zweckbindung zulässig."
+        },
+        {
+          "text": "Der Chatbot muss so programmiert sein, dass er sich als echter Mensch (z.B. \"Service-Mitarbeiterin Sarah\") ausgibt, um Vertrauen zu wecken.",
+          "isCorrect": false,
+          "rationale": "Das Vortäuschen einer menschlichen Identität ist rechtlich unzulässig (Kenntlichmachungspflicht)."
+        }
+      ],
+      "hint": "Transparenzgebot: Der Nutzer muss wissen, wer (oder was) sein Gegenüber ist.",
+      "youtubeQuery": "KI DSGVO Transparenzpflicht Chatbot Art 22",
+      "topic": "Datenschutz (KI & DSGVO)"
+    },
+    {
+      "question": "Um die Frustration bei Kunden zu vermeiden, die mit dem Chatbot nicht weiterkommen, muss eine wichtige operative Funktion in die KI-Software integriert werden. Welche Maßnahme ist unerlässlich, um die Servicequalität trotz Automatisierung aufrechtzuerhalten?",
+      "answerOptions": [
+        {
+          "text": "Das Einfärben des Chat-Fensters in einer beruhigenden Farbe.",
+          "isCorrect": false,
+          "rationale": "Farben können die Stimmung beeinflussen, lösen aber keine sachlichen Kundenprobleme."
+        },
+        {
+          "text": "Die nahtlose Möglichkeit zur Weiterleitung des Chats an einen echten, menschlichen Servicemitarbeiter (Human Handover).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Da eine KI nicht alles lösen kann, ist die Eskalation an einen Menschen (Human Handover) entscheidend für die Servicequalität."
+        },
+        {
+          "text": "Die automatische Sperrung des Kundenkontos bei zu vielen Fehlversuchen.",
+          "isCorrect": false,
+          "rationale": "Das würde die Frustration massiv steigern statt das Serviceproblem zu lösen."
+        },
+        {
+          "text": "Das Abspielen von Warteschleifenmusik im Chatbot.",
+          "isCorrect": false,
+          "rationale": "Warteschleifenmusik im Text-Chat ist zwecklos und verbessert die Lösungsqualität nicht."
+        }
+      ],
+      "hint": "Was ist der Rettungsanker für den Kunden, wenn die KI nicht mehr weiterweiß?",
+      "youtubeQuery": "Human Handover Chatbot Servicequalität Eskalation",
+      "topic": "KI Qualitätssicherung"
+    },
+    {
+      "question": "Das Projektteam möchte nach drei Monaten messen, ob der Chatbot wirklich eine Entlastung gebracht hat und wie die Kunden darauf reagieren. Welche Kennzahlen (KPIs) sind für diese spezifische Evaluierung im Kundenservice am aussagekräftigsten?",
+      "answerOptions": [
+        {
+          "text": "Die Conversion Rate und der Return on Advertising Spend (ROAS).",
+          "isCorrect": false,
+          "rationale": "Das sind klassische Marketing-Ziele, keine primären Service-Automatisierungs-KPIs."
+        },
+        {
+          "text": "Die Lagerumschlagshäufigkeit und die Out-of-Stock-Quote.",
+          "isCorrect": false,
+          "rationale": "Diese Kennzahlen messen die Effizienz der Logistik und Warenverfügbarkeit."
+        },
+        {
+          "text": "Die First Response Time (FRT), die Lösungsquote beim Erstkontakt und die Weiterleitungsquote an menschliche Mitarbeiter.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Diese KPIs zeigen direkt, wie schnell der Bot reagiert, wie viele Probleme er final löst und wie oft Menschen eingreifen müssen."
+        },
+        {
+          "text": "Der Deckungsbeitrag je Artikel und die Klickrate (CTR).",
+          "isCorrect": false,
+          "rationale": "Deckungsbeitrag ist finanziell, CTR ist Marketing; beide evaluieren nicht die Chatbot-Leistung."
+        }
+      ],
+      "hint": "Überlege, welche Zahlen die Antwortgeschwindigkeit und Erfolgsrate im Service messen.",
+      "youtubeQuery": "Chatbot KPIs Kundenservice Messbarkeit Erfolg",
+      "topic": "KI Erfolgsmessung"
+    },
+    {
+      "question": "Ein Kunde der „Camp & Hike AG“ droht per E-Mail mit einer vernichtenden Online-Bewertung, weil die Aufbauanleitung seines neuen Familienzelts unlesbar und fehlerhaft ist. Ein Kollege im Kundenservice stuft das Ticket auf \"Niedrige Priorität\" und sagt: \"Ach, eine schlechte Bewertung tut uns bei 1.000 guten doch nicht weh.\" Welches unsichtbare, technische Risiko von schlechten Bewertungen vergisst der Kollege hier völlig?",
+      "answerOptions": [
+        {
+          "text": "Die Serverkosten des eigenen Webshops steigen durch jede negative Bewertung automatisch an.",
+          "isCorrect": false,
+          "rationale": "Bewertungen haben keinen Einfluss auf die Serverbetriebskosten."
+        },
+        {
+          "text": "Suchmaschinen (wie Google) werten Häufungen negativer Bewertungen aus, was zu einem deutlichen Ranking-Verlust in den Suchergebnissen (SEO-Folgen) führen kann.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Bewertungskennzahlen sind ein Ranking-Faktor. Häufen sich negative Signale, stufen Suchmaschinen und Plattformen die Relevanz des Shops herab, was zu weniger Sichtbarkeit führt."
+        },
+        {
+          "text": "Das Shopsystem löscht Artikel mit schlechten Bewertungen automatisch aus der Datenbank.",
+          "isCorrect": false,
+          "rationale": "Systeme archivieren oder löschen Artikel in der Regel nicht eigenständig aufgrund von Kundenmeinungen; dies bleibt eine manuelle oder regelbasierte Entscheidung des Händlers."
+        },
+        {
+          "text": "Der Provider des Kunden sperrt den Webshop für die gesamte Region des Käufers.",
+          "isCorrect": false,
+          "rationale": "Provider führen keine regionalen Sperren aufgrund einzelner Kundenbeschwerden oder Bewertungen durch."
+        }
+      ],
+      "hint": "Denke an die Auswirkungen auf die Sichtbarkeit in Suchmaschinen.",
+      "youtubeQuery": "SEO Auswirkungen negative Bewertungen Google Ranking",
+      "topic": "Risikobewertung & Reputation"
+    },
+    {
+      "question": "Nehmen wir an, der Kunde war schneller und hat die negative Bewertung über die fehlerhafte Zelt-Anleitung bereits auf einem großen Portal veröffentlicht. Was ist laut Best-Practices im Reklamationsmanagement die einzig richtige Reaktion des Unternehmens auf diese öffentliche Kritik?",
+      "answerOptions": [
+        {
+          "text": "Die Bewertung komplett ignorieren, da eine Antwort nur noch mehr Aufmerksamkeit darauf lenkt.",
+          "isCorrect": false,
+          "rationale": "Ignorieren signalisiert Desinteresse und lässt die Kritik für andere Leser unkommentiert im Raum stehen."
+        },
+        {
+          "text": "Sofort rechtliche Gegenmaßnahmen einleiten und dem Kunden mit einer Anzeige wegen Rufschädigung drohen.",
+          "isCorrect": false,
+          "rationale": "Rechtliche Drohungen bei berechtigter Kritik führen oft zum 'Streisand-Effekt' und schädigen den Ruf weiter."
+        },
+        {
+          "text": "Öffentlich, freundlich und sachlich antworten, sich für den Fehler entschuldigen und eine konkrete Lösung anbieten, um auch anderen Lesern zu zeigen, dass Feedback ernst genommen wird.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Eine professionelle öffentliche Antwort zeigt potenziellen Kunden, dass das Unternehmen Verantwortung übernimmt und lösungsorientiert arbeitet."
+        },
+        {
+          "text": "Die Bewertung durch eine beauftragte Agentur heimlich löschen lassen.",
+          "isCorrect": false,
+          "rationale": "Manipulationsversuche sind riskant, oft unzulässig und lösen das eigentliche Produktproblem nicht."
+        }
+      ],
+      "hint": "Öffentliche Kritik ist eine Chance, Professionalität zu beweisen.",
+      "youtubeQuery": "Reklamationsmanagement öffentliche Bewertung reagieren",
+      "topic": "Kommunikation & Deeskalation"
+    },
+    {
+      "question": "Du bearbeitest das Ticket des Kunden. Der Kunde fährt in 5 Tagen in den Urlaub und ist extrem gestresst, weil das Zelt nicht aufgebaut werden kann. Was muss zwingend der Kern deiner Antwort-E-Mail sein, um die Situation sofort zu deeskalieren?",
+      "answerOptions": [
+        {
+          "text": "Eine ausführliche Erklärung, warum der Hersteller in China die Schuld an dem Druckfehler trägt.",
+          "isCorrect": false,
+          "rationale": "Schuldzuweisungen an Dritte interessieren den Kunden im Stressfall nicht und wirken unprofessionell."
+        },
+        {
+          "text": "Eine freundliche Einleitung, eine ehrliche Entschuldigung und die sofortige Lieferung einer echten Lösungsoption (z.B. die korrekte Anleitung direkt als lesbares PDF im Anhang).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Schnelle Hilfe und Empathie sind die effektivsten Werkzeuge zur Deeskalation bei Zeitdruck."
+        },
+        {
+          "text": "Die Zusage, dass der zuständige Produktmanager sofort entlassen wird.",
+          "isCorrect": false,
+          "rationale": "Personelle Konsequenzen lösen das fachliche Problem des Kunden nicht und sind kein angemessener Kommunikationsinhalt."
+        },
+        {
+          "text": "Ein 5-Euro-Gutschein für die nächste Bestellung, ohne auf das aktuelle Zelt-Problem einzugehen.",
+          "isCorrect": false,
+          "rationale": "Ein Gutschein ohne Problemlösung wirkt wie eine Abspeisung und erhöht oft die Frustration."
+        }
+      ],
+      "hint": "Lösungsorientierung steht an erster Stelle.",
+      "youtubeQuery": "Deeskalationsstrategien Kundenservice E-Mail",
+      "topic": "Kommunikation & Deeskalation"
+    },
+    {
+      "question": "Das Qualitätsmanagement der „Camp & Hike AG“ hat das Zelt im Lager überprüft und festgestellt: Der Kunde hat Recht! Die beigelegte Anleitung ist unvollständig und fehlerhaft. Der Fehler betrifft die gesamte Charge. Welche interne Sofortmaßnahme muss das Unternehmen nun zwingend ergreifen, um weitere unzufriedene Kunden zu verhindern?",
+      "answerOptions": [
+        {
+          "text": "Den Preis des Zelts im Shop drastisch senken, damit sich zukünftige Käufer nicht mehr so schnell beschweren.",
+          "isCorrect": false,
+          "rationale": "Niedrige Preise heilen keine Produktmängel und verhindern keine Unzufriedenheit."
+        },
+        {
+          "text": "Eine Überprüfung, welche Kunden dieses Zelt in den letzten Tagen bereits erhalten haben, um ihnen proaktiv die korrigierte Anleitung per E-Mail nachzusenden.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Proaktives Handeln bei bekannten Fehlern in einer Charge verhindert Eskalationen, bevor sie entstehen."
+        },
+        {
+          "text": "Das Produkt sofort aus dem Sortiment nehmen und nie wieder Zelte verkaufen.",
+          "isCorrect": false,
+          "rationale": "Dies wäre eine extreme Überreaktion auf einen korrigierbaren Dokumentationsfehler."
+        },
+        {
+          "text": "Abwarten, ob sich die anderen Käufer überhaupt beschweren, um Support-Kosten zu sparen.",
+          "isCorrect": false,
+          "rationale": "Abwarten führt zu einer Welle von Beschwerden und schädigt die Reputation nachhaltig (Reaktanz)."
+        }
+      ],
+      "hint": "Handle proaktiv statt reaktiv.",
+      "youtubeQuery": "Qualitätsmanagement E-Commerce Chargenfehler",
+      "topic": "Interne Prozessoptimierung"
+    },
+    {
+      "question": "Um sicherzustellen, dass andere Kollegen im Kundenservice sofort Bescheid wissen, wenn sich in den nächsten Tagen weitere Kunden wegen des Zeltes melden, muss das Wissen im Unternehmen geteilt werden. In welchen Systemen muss diese Fehler-Information (mangelhafte Anleitung) zwingend hinterlegt werden?",
+      "answerOptions": [
+        {
+          "text": "Ausschließlich im privaten Notizbuch des Support-Mitarbeiters.",
+          "isCorrect": false,
+          "rationale": "Privates Wissen ist für das Team nicht nutzbar und geht bei Abwesenheit verloren."
+        },
+        {
+          "text": "Im Produktinformationssystem (PIM) und im zentralen Service-Ticket-System.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Zentrale IT-Systeme stellen sicher, dass alle Abteilungen auf demselben Wissensstand sind (Single Source of Truth)."
+        },
+        {
+          "text": "Im Content-Management-System (CMS) auf der Startseite des Shops.",
+          "isCorrect": false,
+          "rationale": "Interne Support-Informationen gehören nicht auf die öffentliche Startseite des Webshops."
+        },
+        {
+          "text": "Im Zeiterfassungssystem der Mitarbeiter.",
+          "isCorrect": false,
+          "rationale": "Das Zeiterfassungssystem dient der HR-Administration und nicht dem Wissensmanagement für Produkte."
+        }
+      ],
+      "hint": "Informationen gehören in Systeme, auf die das gesamte Team Zugriff hat.",
+      "youtubeQuery": "Wissensmanagement E-Commerce PIM Ticketsystem",
+      "topic": "Interne Prozessoptimierung"
     }
   ]
 }
