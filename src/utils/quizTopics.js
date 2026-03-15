@@ -38,7 +38,7 @@ export const getQuizTopicGroup = (topic) => {
     }
 
     // Shop-Management & UX
-    if (/(ux|usability|shop|checkout|navigation|personal|a\/b|landingpage|sortiment|marge|warenkorb|fba|amazon|geschäftsmodell|ertrag|nulltreffer|suchfeld|kriterium)/i.test(t)) {
+    if (/(ux|usability|shop|checkout|navigation|personal|a\/b|landingpage|sortiment|marge|warenkorb|fba|amazon|geschäftsmodell|ertrag|nulltreffer|suchfeld|kriterium|reklamation|beschwerde|support|kundenservice)/i.test(t)) {
         return 'Shop & UX';
     }
 
@@ -48,7 +48,7 @@ export const getQuizTopicGroup = (topic) => {
     }
 
     // Marketing-Strategie
-    if (/(strategie|zielgruppe|segmentierung|schlagworte|planung|budget|media|lead|kommunikation|branding|positionierung|wettbewerbsbeobachtung)/i.test(t)) {
+    if (/(strategie|zielgruppe|segmentierung|schlagworte|planung|budget|media|lead|kommunikation|branding|positionierung|wettbewerbsbeobachtung|psychologie|4-ohren)/i.test(t)) {
         return 'Marketing-Strategie';
     }
 

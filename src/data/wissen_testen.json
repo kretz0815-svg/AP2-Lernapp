@@ -5060,6 +5060,147 @@
       "hint": "Informationen gehören in Systeme, auf die das gesamte Team Zugriff hat.",
       "youtubeQuery": "Wissensmanagement E-Commerce PIM Ticketsystem",
       "topic": "Interne Prozessoptimierung" 
+    },
+    {
+      "question": "Ein Kunde der „Urban-Active GmbH“ beschwert sich per E-Mail massiv über eine Fitness-Uhr, die nach vier Wochen defekt ist, und fordert sein Geld zurück. Ein Auszubildender soll eine standardisierte Antwort-E-Mail entwerfen. Welches Vorgehen entspricht den professionellen E-Commerce-Standards für eine deeskalierende und lösungsorientierte Antwort?",
+      "answerOptions": [
+        {
+          "text": "Eine sofortige Rückerstattung des Geldes veranlassen, ohne die Rücksendung der Uhr abzuwarten, um den Kunden maximal schnell zufriedenzustellen.",
+          "isCorrect": false,
+          "rationale": "Eine Rückerstattung ohne Vorliegen der Ware ist wirtschaftlich riskant und kein Standardvorgehen bei Defekten nach 4 Wochen."
+        },
+        {
+          "text": "Eine freundliche Einleitung mit aufrichtiger Entschuldigung formulieren und dem Kunden klare Optionen (z. B. Erstattung oder Austausch) anbieten, die greifen, sobald der defekte Artikel zurückgesendet wurde.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Eine professionelle Beschwerde-Antwort benötigt eine freundliche Einleitung, eine Entschuldigung für die Unannehmlichkeiten und klare Lösungsoptionen (Rückerstattung oder Umtausch nach Rücksendung der defekten Ware). So fühlt sich der Kunde ernst genommen, während das Unternehmen wirtschaftlich abgesichert bleibt."
+        },
+        {
+          "text": "Dem Kunden erklären, dass elektronische Geräte nun mal kaputtgehen können, die Erstattung ablehnen, aber einen 10-Euro-Gutschein mitsenden.",
+          "isCorrect": false,
+          "rationale": "Das ist wenig kundenorientiert und ignoriert die Gewährleistungsansprüche des Kunden."
+        },
+        {
+          "text": "Die E-Mail direkt und ohne eigenen Kommentar an den Hersteller der Uhr weiterleiten.",
+          "isCorrect": false,
+          "rationale": "Der Händler ist der erste Ansprechpartner für den Kunden; das einfache Weiterreichen ohne Kommentar ist unprofessionell."
+        }
+      ],
+      "hint": "Überlege, wie man Kundenbindung und wirtschaftliche Absicherung verbindet.",
+      "youtubeQuery": "Professionelles Reklamationsmanagement E-Mail-Standards E-Commerce",
+      "topic": "Reklamationsmanagement"
+    },
+    {
+      "question": "Die „Urban-Active GmbH“ möchte einen neuen Kommunikationskanal auf ihrer Website integrieren. Das Ziel ist es, Kunden in Echtzeit zu helfen, ohne dass diese den Shop verlassen müssen. Zudem soll ein einzelner Service-Mitarbeiter mehrere Kunden gleichzeitig betreuen können. Welcher Kanal bietet exakt diese Vorteile?",
+      "answerOptions": [
+        {
+          "text": "Der telefonische Kundenservice.",
+          "isCorrect": false,
+          "rationale": "Am Telefon kann ein Mitarbeiter in der Regel nur ein Gespräch gleichzeitig führen."
+        },
+        {
+          "text": "Die Kommunikation über soziale Medien (z.B. Instagram-Kommentare).",
+          "isCorrect": false,
+          "rationale": "Das findet oft außerhalb des eigenen Shops statt und ist nicht primär für Echtzeit-Eins-zu-Eins-Hilfe optimiert."
+        },
+        {
+          "text": "Der Live-Chat auf der Website.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Der Live-Chat bietet sofortige Antworten (Echtzeit), hält den Kunden auf der Website (verhindert Kaufabbrüche) und ist hochgradig effizient, da ein gut geschulter Mitarbeiter mehrere Chats parallel bearbeiten kann."
+        },
+        {
+          "text": "Die klassische E-Mail-Betreuung.",
+          "isCorrect": false,
+          "rationale": "E-Mail ist asynchron und bietet keine Echtzeit-Hilfe."
+        }
+      ],
+      "hint": "Welcher Kanal erlaubt Multitasking für den Mitarbeiter und sofortiges Feedback für den Kunden?",
+      "youtubeQuery": "Kommunikationskanäle Kundenservice Live-Chat Vorteile",
+      "topic": "Kundenservice-Kanäle"
+    },
+    {
+      "question": "Für sehr komplexe, beratungsintensive Produkte oder bei stark emotional aufgeladenen Beschwerden rät der Leiter des Kundenservice dazu, dem Kunden ein Gespräch über den telefonischen Kundenservice anzubieten. Warum ist das Telefon in solchen spezifischen Fällen digitalen Text-Kanälen oft überlegen?",
+      "answerOptions": [
+        {
+          "text": "Weil Telefonate automatisch vom System transkribiert und veröffentlicht werden können.",
+          "isCorrect": false,
+          "rationale": "Das ist technisch möglich, aber kein Grund für die Überlegenheit in Krisenmomenten."
+        },
+        {
+          "text": "Weil das Telefonat eine persönliche, menschliche Verbindung schafft, bei der durch Tonfall, Empathie und aktives Zuhören Probleme oft schneller und deeskalierender gelöst werden können.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die größte Stärke des Telefons ist der persönliche Kontakt. Durch Tonfall und Empathie lässt sich eine emotionale Verbindung aufbauen, wodurch komplexe oder emotional aufgeladene Probleme oft viel schneller und direkter gelöst werden können als durch ein langes E-Mail-Hin-und-Her."
+        },
+        {
+          "text": "Weil Telefongespräche rechtlich nicht bindend sind und das Unternehmen so keine Zusagen einhalten muss.",
+          "isCorrect": false,
+          "rationale": "Mündliche Zusagen können durchaus bindend sein; das ist kein Vorteil des Kanals."
+        },
+        {
+          "text": "Weil ein Mitarbeiter am Telefon bis zu fünf Kunden gleichzeitig beraten kann.",
+          "isCorrect": false,
+          "rationale": "Das Gegenteil ist der Fall; Telefonate binden die volle Aufmerksamkeit eines Mitarbeiters."
+        }
+      ],
+      "hint": "Denke an die Wirkung von Stimme und Empathie in schwierigen Gesprächen.",
+      "youtubeQuery": "Vorteile Telefonsupport Kundenservice Deeskalation",
+      "topic": "Kundenservice-Kanäle"
+    },
+    {
+      "question": "Ein Kunde schreibt dem Support: „Ich habe das Produkt vor einer Woche bestellt, immer noch nicht erhalten, obwohl 3-5 Tage Lieferzeit angegeben waren. Was ist da los?“ Wenn wir diese Nachricht nach dem bekannten 4-Ohren-Modell von Friedemann Schulz von Thun analysieren: Welche Aussage trifft der Kunde hier rein auf der Sachebene?",
+      "answerOptions": [
+        {
+          "text": "„Ich bin ein sehr ungeduldiger Mensch und mache mir große Sorgen um mein Geld.“",
+          "isCorrect": false,
+          "rationale": "Dies gehört eher zum Bereich der Selbstoffenbarung."
+        },
+        {
+          "text": "„Die Lieferung ist im Vergleich zur angegebenen Lieferzeit von 3-5 Tagen in Verzug.“",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Sachebene (das „Sach-Ohr“) filtert rein die nackten Daten und Fakten aus einer Nachricht heraus. Die Fakten hier lauten schlicht: Das Produkt wurde vor einer Woche bestellt, die Lieferzeit war mit 3-5 Tagen angegeben, das Produkt ist noch nicht da. Emotionen oder Forderungen spielen auf dieser Ebene keine Rolle."
+        },
+        {
+          "text": "„Sie sind ein unzuverlässiges Unternehmen und ich vertraue Ihnen nicht mehr.“",
+          "isCorrect": false,
+          "rationale": "Dies ist die Beziehungsebene."
+        },
+        {
+          "text": "„Erklären Sie mir sofort, wo mein Paket ist, und geben Sie mir einen Rabatt!“",
+          "isCorrect": false,
+          "rationale": "Dies ist die Appell-Ebene."
+        }
+      ],
+      "hint": "Was sind die harten Fakten der Nachricht ohne Subtext?",
+      "youtubeQuery": "4 Ohren Modell Sachebene Beispiel Kommunikation",
+      "topic": "Kommunikationspsychologie"
+    },
+    {
+      "question": "Betrachten wir dieselbe Nachricht des Kunden („...Was ist da los?“). Der Support-Mitarbeiter interpretiert die Nachricht wie folgt: „Der Kunde zweifelt unsere Zuverlässigkeit an und verlangt von mir jetzt eine sofortige Erklärung für die Verspätung.“ Auf welchen zwei Ebenen des 4-Ohren-Modells hat der Mitarbeiter die Nachricht in diesem Moment primär gehört?",
+      "answerOptions": [
+        {
+          "text": "Auf der Sachebene und der Selbstoffenbarung.",
+          "isCorrect": false,
+          "rationale": "Der Mitarbeiter hört hier weder Fakten noch etwas über den Zustand des Senders, sondern über seine Beziehung zum Unternehmen und eine Handlungsaufforderung."
+        },
+        {
+          "text": "Auf der Selbstoffenbarung und der Appell-Ebene.",
+          "isCorrect": false,
+          "rationale": "Selbstoffenbarung wäre der Zustand des Kunden. Hier geht es aber um den Zweifel an der Firma (Beziehung)."
+        },
+        {
+          "text": "Auf der Beziehungsebene und der Appell-Ebene.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Das Heraushören von Zweifeln an der Zuverlässigkeit des Unternehmens ist ein klassisches Hören auf der Beziehungsebene (Wie steht der Sender zu mir?). Der wahrgenommene Wunsch nach einer sofortigen Erklärung ist das Hören auf der Appell-Ebene (Was will der Sender von mir, das ich tun soll?)."
+        },
+        {
+          "text": "Auf der Sachebene und der Beziehungsebene.",
+          "isCorrect": false,
+          "rationale": "Die Sachebene wird hier in der Interpretation ausgeblendet; der Fokus liegt auf dem 'Was denkt er von uns' und 'Was soll ich tun'."
+        }
+      ],
+      "hint": "Werden Zweifel an der Kompetenz geäußert und wird eine Handlung erwartet?",
+      "youtubeQuery": "4 Ohren Modell Beziehungsebene Appell Ebene Kommunikation",
+      "topic": "Kommunikationspsychologie"
     }
   ]
 }
+

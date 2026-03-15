@@ -564,7 +564,7 @@ function App() {
 
   const getAllQuizQuestions = () => [
     ...(wissenTesten.questions || []),
-    ...(customQuizQuestions || []).filter(q => !isRechenTask(q))
+    ...(customQuizQuestions || [])
   ];
 
   // --- RECHEN AUFGABEN HELPER ---
@@ -609,8 +609,7 @@ function App() {
   const refreshQuizDuePool = async ({ customData = null } = {}) => {
     const rawQuizzes = [
       ...(wissenTesten.questions || []),
-      ...(rechenAufgaben.questions || []),
-      ...(customQuizQuestions || [])
+      ...(customQuizQuestions || []).filter(q => !isRechenTask(q))
     ];
 
     const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
@@ -1653,36 +1652,37 @@ ${feynmanInput}`;
   );
 
   // --- GLOBAL STATS + BURGER MENU (available in ALL modes) ---
-  const allQuizQuestions = getAllQuizQuestions();
-  const quizProg = quizProgressView || {};
-  const nowTs = Date.now();
-  const quizLearnedCount = allQuizQuestions.reduce((count, question) => {
-    const questionId = question.id || generateId(question.question);
-    const progress = quizProg[questionId];
-    if (!progress) return count;
-    return count + ((progress.nextReview || 0) > nowTs ? 1 : 0);
-  }, 0);
-  const wisorQuestions = wisor1.questions || [];
-  const wisorEcoQuestions = wisorEco.questions || [];
-  const rechenTasks = getRechenTasks();
-  const rechenTotal = rechenTasks.length;
-  const rechenLearned = rechenTasks.reduce((count, q) => {
-    const qId = q.id || generateId(q.question);
-    const progress = quizProg[qId];
-    if (!progress) return count;
-    return count + ((progress.nextReview || 0) > nowTs ? 1 : 0);
-  }, 0);
+    const allQuizQuestions = [
+      ...(wissenTesten.questions || []),
+      ...(customQuizQuestions || []).filter(q => !isRechenTask(q))
+    ];
+    const quizProg = quizProgressView || {};
+    const nowTs = Date.now();
+    
+    const calculateLearnedCount = (questionsArray) => questionsArray.reduce((count, question) => {
+      const questionId = question.id || generateId(question.question);
+      const progress = quizProg[questionId];
+      if (!progress) return count;
+      return count + ((progress.nextReview || 0) > nowTs ? 1 : 0);
+    }, 0);
 
-  const globalStats = {
-    quizTotal: allQuizQuestions.length,
-    quizLearned: Math.min(quizLearnedCount, allQuizQuestions.length),
-    wisorTotal: wisorQuestions.length,
-    wisorLearned: Object.keys(completedWisors).length,
-    wisorEcoTotal: wisorEcoQuestions.length,
-    wisorEcoLearned: Object.keys(completedWisorsEco).length,
-    rechenTotal,
-    rechenLearned
-  };
+    const quizLearnedCount = calculateLearnedCount(allQuizQuestions);
+    const wisorQuestions = wisor1.questions || [];
+    const wisorEcoQuestions = wisorEco.questions || [];
+    const rechenTasks = getRechenTasks(); // This already handles filtering custom questions
+    const rechenTotal = rechenTasks.length;
+    const rechenLearned = calculateLearnedCount(rechenTasks);
+
+    const globalStats = {
+      quizTotal: allQuizQuestions.length,
+      quizLearned: Math.min(quizLearnedCount, allQuizQuestions.length),
+      wisorTotal: wisorQuestions.length,
+      wisorLearned: Object.keys(completedWisors).length,
+      wisorEcoTotal: wisorEcoQuestions.length,
+      wisorEcoLearned: Object.keys(completedWisorsEco).length,
+      rechenTotal,
+      rechenLearned
+    };
 
   const burgerMenuPortal = createPortal(
     <>
@@ -2628,6 +2628,7 @@ Die JSON muss exakt diese Struktur haben:
         flashcard: byMode('flashcard'),
         kalkulation: byMode('kalkulation'),
         breakEven: byMode('breakEven'),
+        rechen: byMode('rechen'),
         klr: byMode('klr'),
       };
     };
@@ -2671,7 +2672,8 @@ Die JSON muss exakt diese Struktur haben:
       (flashcards3.cards || []).length +
       getAllQuizQuestions().length +
       (wisor1.questions || []).length +
-      (wisorEco.questions || []).length;
+      (wisorEco.questions || []).length +
+      getRechenTasks().length;
 
     // Unique richtig beantwortete Fragen (letzte Antwort pro questionId zählt)
     const latestByQuestion = {};
