@@ -12,9 +12,9 @@ export const getQuizTopicGroup = (topic) => {
         return 'KPI & Webanalyse';
     }
 
-    // KI & Innovation
-    if (/(ki\b|künstliche intelligenz|intelligenz|algorithmus|digitalisierung|innovation|disposition|integration)/i.test(t)) {
-        return 'KI & Innovation';
+    // KI, Innovation & Produktentwicklung
+    if (/(ki\b|künstliche intelligenz|intelligenz|algorithmus|digitalisierung|innovation|disposition|integration|produktentwicklung|kundenmitwirkung|crowdsourcing|prototyp|ideen)/i.test(t)) {
+        return 'KI, Innovation & Produkt';
     }
 
     // Social Media & Influencer
@@ -47,8 +47,13 @@ export const getQuizTopicGroup = (topic) => {
         return 'Projektmanagement';
     }
 
+    // Kommunikation & Psychologie
+    if (/(kommunikation|psychologie|4-ohren|gespräch|feedback|beschwerdemanagement|kunde)/i.test(t)) {
+        return 'Kommunikation & Psychologie';
+    }
+
     // Marketing-Strategie
-    if (/(strategie|zielgruppe|segmentierung|schlagworte|planung|budget|media|lead|kommunikation|branding|positionierung|wettbewerbsbeobachtung|psychologie|4-ohren)/i.test(t)) {
+    if (/(strategie|zielgruppe|segmentierung|schlagworte|planung|budget|media|lead|branding|positionierung|wettbewerbsbeobachtung)/i.test(t)) {
         return 'Marketing-Strategie';
     }
 
@@ -72,13 +77,14 @@ export const detectQuizTopic = (quiz) => {
     if (/(a\/b|landingpage|konversion|conversion|metrik|kpi|roi|roas|cac|ctr|cpc|cpa|webanalyse)/i.test(topicSource)) return 'KPI & Webanalyse';
     if (/(eye|heatmap|usability|nulltreffer|suchfeld|navigation|shop|checkout)/i.test(topicSource)) return 'Shop & UX';
     if (/(dropshipping|amazon|fba|geschäftsmodell)/i.test(topicSource)) return 'Geschäftsmodelle';
-    if (/(k[iï]|künstliche intelligenz|markttrend|budgetallokation|garbage in|algorithmus)/i.test(topicSource)) return 'KI & Innovation';
+    if (/(k[iï]|künstliche intelligenz|markttrend|budgetallokation|garbage in|algorithmus|innovation|produktentwicklung|mitwirkung|crowdsourcing)/i.test(topicSource)) return 'KI, Innovation & Produkt';
     if (/(sortiment|marge|eigenmarke|warenkorb|bundle|cross[- ]selling|rabatt)/i.test(topicSource)) return 'Shop & UX';
     if (/(social|media|influencer|pay-per|affiliate|likes|instagram|facebook|tiktok|youtube|kanal)/i.test(topicSource)) return 'Social Media';
     if (/(uwg|wettbewerb|abmahnung|unterlassung|recht|dsgvo|urheber|lizenz)/i.test(topicSource)) return 'Recht & Datenschutz';
     if (/(e-mail|newsletter|mail)/i.test(topicSource)) return 'E-Mail-Marketing';
     if (/(journey|kundenreise)/i.test(topicSource)) return 'Customer Journey';
     if (/(soziale ziele|sachliche ziele|unternehmensziele|betriebswirtschaft|wiso|grundlagen)/i.test(topicSource)) return 'WiSo Grundlagen';
+    if (/(psychologie|4-ohren|kommunikation|kunde)/i.test(topicSource)) return 'Kommunikation & Psychologie';
 
     return 'Allgemein';
 };

@@ -5200,6 +5200,146 @@
       "hint": "Werden Zweifel an der Kompetenz geäußert und wird eine Handlung erwartet?",
       "youtubeQuery": "4 Ohren Modell Beziehungsebene Appell Ebene Kommunikation",
       "topic": "Kommunikationspsychologie"
+    },
+    {
+      "question": "Die „Eco-Stride AG“ plant die Entwicklung eines komplett neuen, nachhaltigen Laufschuhs. Das Marketing schlägt vor, die Kunden von Tag 1 an in die Entwicklung einzubeziehen. Welcher direkte finanzielle und risikobezogene Vorteil entsteht dem Unternehmen durch diese frühe Kundenmitwirkung?",
+      "answerOptions": [
+        {
+          "text": "Das Unternehmen spart sich sämtliche Steuern auf das finale Produkt.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Durch das frühe Einholen von Feedback werden Fehlentwicklungen oder eine schlechte Marktannahme frühzeitig erkannt, was extrem kostspielige Änderungen nach der Markteinführung verhindert.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Risikominimierung und Kosteneffizienz sind zentrale Argumente für die Kundenmitwirkung. Werden Fehler oder Fehlannahmen über Kundenwünsche schon in der Entwicklungsphase erkannt, spart sich das Unternehmen teure Flops und nachträgliche Änderungen bei der Markteinführung."
+        },
+        {
+          "text": "Das Unternehmen kann die gesetzliche Gewährleistung für den Schuh rechtlich auf die teilnehmenden Kunden abwälzen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Kunden verzichten durch ihre Teilnahme automatisch auf ihr gesetzliches Widerrufsrecht beim späteren Kauf.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Fehler früher finden spart Geld.",
+      "youtubeQuery": "Kundenmitwirkung Produktentwicklung Vorteile",
+      "topic": "Kundenmitwirkung (Vorteile)"
+    },
+    {
+      "question": "Besonders bei der Entwicklung von nachhaltigen Produkten (wie dem neuen Eco-Laufschuh) hat die offene Einbindung der Kunden einen starken psychologischen Zusatzeffekt auf die Marke. Welcher ist das laut Marketing-Experten?",
+      "answerOptions": [
+        {
+          "text": "Die Kunden glauben dadurch, dass das Produkt kostenlos sein wird.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Transparenz des Entwicklungsprozesses stärkt die Glaubwürdigkeit der Nachhaltigkeitsversprechen massiv und steigert die emotionale Kundetreue zur Marke.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Kunden, die in den Prozess einbezogen werden, fühlen sich der Marke stärker verbunden (Kundentreue). Gerade bei Nachhaltigkeitsthemen sorgt diese Transparenz für eine enorm hohe Glaubwürdigkeit und stärkt das Vertrauen in die Versprechen des Unternehmens."
+        },
+        {
+          "text": "Das Unternehmen wirkt dadurch kleiner und hilfsbedürftiger, was Mitleidskäufe generiert.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Konkurrenz wird dadurch rechtlich daran gehindert, ebenfalls nachhaltige Schuhe zu produzieren.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Transparenz schafft Vertrauen.",
+      "youtubeQuery": "Markenbindung durch Kundenintegration",
+      "topic": "Kundenmitwirkung (Markenbindung)"
+    },
+    {
+      "question": "Die „Nova-Trek GmbH“ möchte für ihren neuen Outdoor-Schuh völlig unvoreingenommene, neue Design-Ideen sammeln. Sie richtet eine Plattform ein, auf der tausende Nutzer eigene Skizzen und Funktionswünsche einreichen und anschließend über die besten Ideen abstimmen können. Wie wird diese spezifische Methode der Kundenmitwirkung im Fachjargon genannt?",
+      "answerOptions": [
+        {
+          "text": "Social-Media-Engagement",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Prototypentest",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Crowdsourcing",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Beim „Crowdsourcing“ lagert ein Unternehmen Aufgaben (wie die Ideengenerierung oder das Design) an eine große Masse an Menschen (die Crowd) aus. Plattformen, auf denen Nutzer Ideen einreichen und darüber abstimmen können, sind das klassische Beispiel dafür."
+        },
+        {
+          "text": "Affiliate-Marketing",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Die Masse (Crowd) hilft.",
+      "youtubeQuery": "Crowdsourcing einfach erklärt Marketing",
+      "topic": "Kundenmitwirkung (Crowdsourcing)"
+    },
+    {
+      "question": "Die Entwicklung des neuen Laufschuhs der „Eco-Stride AG“ ist weit fortgeschritten. Jetzt benötigt das Team dringend knallhartes Feedback zu Passform, Komfort und der tatsächlichen Haltbarkeit im Gelände. Welche Methode der Kundeneinbeziehung ist hier als einzige wirklich zielführend?",
+      "answerOptions": [
+        {
+          "text": "Eine Online-Umfrage per E-Mail-Newsletter.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Einrichten eines neuen Diskussions-Forums (Online-Community).",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Produktion von ersten Prototypen, die einer ausgewählten Kundengruppe für physische Praxistests zur Verfügung gestellt werden.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Wenn es um physische Eigenschaften wie Passform, Tragekomfort und echte Funktion geht, reichen digitale Umfragen nicht aus. Hier müssen echte Prototypen produziert und von Kunden unter realen Bedingungen getestet werden (Prototypentests)."
+        },
+        {
+          "text": "Das Posten eines 3D-Modells auf Instagram.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Man muss den Schuh wirklich anziehen.",
+      "youtubeQuery": "Prototypentest Produktentwicklung",
+      "topic": "Kundenmitwirkung (Prototypentest)"
+    },
+    {
+      "question": "Um die Kunden nicht nur einmalig zu befragen, sondern einen dauerhaften Raum für Diskussionen, den Austausch von Ideen und kontinuierliches Feedback zu schaffen, integriert der Shop-Manager einen neuen Bereich direkt auf der Firmen-Website. Welche Maßnahme wird hier umgesetzt?",
+      "answerOptions": [
+        {
+          "text": "Der Aufbau einer Online-Community (Forum).",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Der Aufbau einer eigenen Online-Community oder eines Forums auf der Unternehmenswebsite schafft einen dauerhaften, exklusiven Raum, in dem Kunden und Entwickler langfristig interagieren, Ideen austauschen und tiefgreifendes Feedback geben können."
+        },
+        {
+          "text": "Die Durchführung eines einmaligen Offline-Workshops.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Integration eines Kundenbewertungs-Tools für bereits gekaufte Artikel.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Schaltung von Google Search Ads (SEA).",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "hint": "Ein dauerhafter Ort zum Austausch.",
+      "youtubeQuery": "Online Community Markenbildung",
+      "topic": "Kundenmitwirkung (Online-Community)"
     }
   ]
 }
