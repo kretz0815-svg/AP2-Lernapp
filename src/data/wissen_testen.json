@@ -5340,6 +5340,258 @@
       "hint": "Ein dauerhafter Ort zum Austausch.",
       "youtubeQuery": "Online Community Markenbildung",
       "topic": "Kundenmitwirkung (Online-Community)"
+    },
+    {
+      "question": "Ein Auszubildender der „Trail-Blazer UG“ soll in einem Satz zusammenfassen, wofür ein CRM-System überhaupt angeschafft wird. Wie lautet die fachlich korrekte Definition?",
+      "answerOptions": [
+        {
+          "text": "Es ist ein reines Logistik-Tool zur automatischen Nachbestellung von leeren Lagerbeständen.",
+          "isCorrect": false,
+          "rationale": "Ein CRM ist kein Logistik-Tool für Lagerbestände."
+        },
+        {
+          "text": "Es verwaltet und analysiert die Beziehungen und Interaktionen mit bestehenden und potenziellen Kunden, um die Kundenbindung zu erhöhen und den Umsatz zu steigern.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Ein CRM (Customer Relationship Management) bündelt alle Kundeninteraktionen an einem Ort. Das primäre Ziel ist es, die Geschäftsbeziehungen zu verbessern, den Kundenstamm zu erweitern und langfristig den Umsatz zu maximieren."
+        },
+        {
+          "text": "Es dient ausschließlich der Berechnung von Lohn- und Gehaltsabrechnungen für den Kundenservice.",
+          "isCorrect": false,
+          "rationale": "Lohnabrechnung ist Aufgabe von HR/Finanzsoftware, nicht CRM."
+        },
+        {
+          "text": "Es ist ein Programm, das vollautomatisch Werbevideos für Social Media generiert.",
+          "isCorrect": false,
+          "rationale": "CRM generiert keine Werbevideos."
+        }
+      ],
+      "hint": "Denke an die Kundenbeziehung und den Namen 'Customer Relationship Management'.",
+      "youtubeQuery": "CRM Definition einfach erklärt Zweck",
+      "topic": "CRM Grundlagen"
+    },
+    {
+      "question": "Bei der „Eco-Move AG“ herrscht Chaos: Kunden schreiben per E-Mail, kommentieren auf Instagram und nutzen den Webchat. Der Support verliert den Überblick. Welchen spezifischen Vorteil bietet ein modernes CRM-System für genau dieses Problem?",
+      "answerOptions": [
+        {
+          "text": "Das Multi-Channel-Management, welches verschiedene Kommunikationskanäle integriert, sodass das Unternehmen eine konsistente Kommunikation über alle Kanäle hinweg gewährleisten kann.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Durch das Multi-Channel-Management laufen E-Mails, Social-Media-Nachrichten und Chats in einem einzigen System zusammen. Der Support-Mitarbeiter sieht die gesamte Historie des Kunden, egal über welchen Kanal dieser sich meldet."
+        },
+        {
+          "text": "Die automatische Löschung aller Social-Media-Kommentare, um den Support zu entlasten.",
+          "isCorrect": false,
+          "rationale": "Löschen von Kommentaren ist keine CRM-Funktion zur Support-Verbesserung."
+        },
+        {
+          "text": "Die Verkaufsprognose-Funktion.",
+          "isCorrect": false,
+          "rationale": "Verkaufsprognosen lösen das Kommunikationschaos nicht."
+        },
+        {
+          "text": "Die mobile App-Funktion.",
+          "isCorrect": false,
+          "rationale": "Eine App allein löst die Kanalintegration nicht."
+        }
+      ],
+      "hint": "Suche nach einem Begriff, der viele Kommunikationskanäle bündelt.",
+      "youtubeQuery": "CRM Multi Channel Management Kundenservice",
+      "topic": "CRM & E-Commerce"
+    },
+    {
+      "question": "Die IT-Abteilung der „Urban-Peak GmbH“ fordert, dass das neue CRM-System zwingend offene \"Schnittstellen\" (APIs) haben muss. Warum ist dieser Punkt, bekannt als System-Integration, so wichtig für den E-Commerce?",
+      "answerOptions": [
+        {
+          "text": "Damit das CRM-System problemlos mit anderen Geschäftssystemen (wie der E-Commerce-Plattform oder Finanzsoftware) verbunden werden kann, was zu einem nahtlosen Datenfluss führt.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Ein CRM-System ist am stärksten, wenn es nicht isoliert arbeitet. Die nahtlose Integration in andere Systeme (z. B. das Shop-System oder die Buchhaltung) verhindert doppelte Datenpflege und sorgt für automatisierte Prozesse."
+        },
+        {
+          "text": "Damit das System ohne Internetverbindung funktioniert.",
+          "isCorrect": false,
+          "rationale": "APIs dienen der Vernetzung, nicht dem Offline-Modus."
+        },
+        {
+          "text": "Damit Kunden das CRM-System auf ihren eigenen Handys installieren können.",
+          "isCorrect": false,
+          "rationale": "Integration bezieht sich auf Systeme, nicht auf Kunden-Installationen."
+        },
+        {
+          "text": "Damit die Software automatisch Viren auf den Firmenrechnern bekämpft.",
+          "isCorrect": false,
+          "rationale": "CRM ist kein Virenscanner."
+        }
+      ],
+      "hint": "Vernetzung verschiedener Software-Systeme.",
+      "youtubeQuery": "CRM System Integration API E-Commerce",
+      "topic": "CRM & E-Commerce"
+    },
+    {
+      "question": "Welche spezifischen Aufgaben kann die Vertriebsabteilung (Sales) durch ein CRM-System durch Workflow-Automatisierungen deutlich effizienter gestalten?",
+      "answerOptions": [
+        {
+          "text": "Das Erstellen von Jahresabschlüssen und Bilanzen.",
+          "isCorrect": false,
+          "rationale": "Bilanzen sind Aufgabe der Buchhaltung."
+        },
+        {
+          "text": "Die Segmentierung von Zielgruppen für großflächige Werbekampagnen auf Facebook.",
+          "isCorrect": false,
+          "rationale": "Das ist eher Marketing als direkter Vertrieb workflow."
+        },
+        {
+          "text": "Das Verwalten von Leads (Interessenten), das Erstellen von Angeboten und das Verfolgen von konkreten Verkaufschancen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Der Vertrieb nutzt das CRM primär als Verkaufs-Tool: Kundenkontakte (Leads) werden systematisch nachverfolgt, individuelle Angebote werden hinterlegt und der Fortschritt von Verkaufschancen wird in Echtzeit getrackt."
+        },
+        {
+          "text": "Die physische Verpackung und Frankierung von Paketen im Lager.",
+          "isCorrect": false,
+          "rationale": "Lagerarbeit ist Logistik, nicht Sales-CRM."
+        }
+      ],
+      "hint": "Vertriebler arbeiten mit Interessenten (Leads) und Angeboten.",
+      "youtubeQuery": "CRM Vertrieb Automatisierung Leads Angebote",
+      "topic": "CRM & E-Commerce"
+    },
+    {
+      "question": "Auch die Marketingabteilung der „Next-Gen Retail UG“ drängt auf die Einführung des CRM-Systems. Welche Funktion der Software ist für das Marketing-Team von unschätzbarem Wert?",
+      "answerOptions": [
+        {
+          "text": "Die Erstellung von Lieferscheinen.",
+          "isCorrect": false,
+          "rationale": "Lieferscheine kommen aus ERP/Logistik."
+        },
+        {
+          "text": "Integrierte Tools, um Zielgruppen präzise zu segmentieren, Marketingkampagnen passgenau zu planen und deren Effektivität direkt zu messen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Da das CRM das Kaufverhalten und die Vorlieben der Kunden speichert, kann das Marketing exakte Zielgruppen (Segmente) bilden (z. B. 'Kunden, die im letzten Jahr Zelte gekauft haben') und diese punktgenau mit relevanten Kampagnen bespielen."
+        },
+        {
+          "text": "Die Möglichkeit, Mitarbeitergehälter pünktlich zu überweisen.",
+          "isCorrect": false,
+          "rationale": "Gehälter sind HR-Sache."
+        },
+        {
+          "text": "Die automatische Reparatur defekter Retouren.",
+          "isCorrect": false,
+          "rationale": "CRM repariert keine physischen Produkte."
+        }
+      ],
+      "hint": "Es geht um Zielgruppen und Kampagnenplanung.",
+      "youtubeQuery": "CRM Marketing Segmentierung Kampagnen",
+      "topic": "CRM & E-Commerce"
+    },
+    {
+      "question": "Das CRM ist gekauft, aber die Mitarbeiter weigern sich, es zu nutzen, weil sie den zusätzlichen Aufwand und die Umstellung ihrer gewohnten Excel-Listen fürchten. Wie löst das Management dieses Problem laut Best-Practices am besten?",
+      "answerOptions": [
+        {
+          "text": "Durch fristlose Kündigungen bei Nichtnutzung.",
+          "isCorrect": false,
+          "rationale": "Kündigung ist keine Best Practice für Change Management."
+        },
+        {
+          "text": "Durch Schulungen und Workshops, um die Vorteile und Arbeitserleichterungen des CRM-Systems für jeden Einzelnen klar zu verdeutlichen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Widerstand gegen Veränderungen (Change Management) ist eine der größten Hürden. Mitarbeiter müssen durch frühzeitige Schulungen und Workshops abgeholt werden, damit sie verstehen, dass das System ihre tägliche Arbeit auf lange Sicht massiv erleichtert."
+        },
+        {
+          "text": "Indem das CRM-System wieder abgeschafft und zur Zettelwirtschaft zurückgekehrt wird.",
+          "isCorrect": false,
+          "rationale": "Rückschritt ist keine Lösung."
+        },
+        {
+          "text": "Durch das Einstellen von Leiharbeitern, die das System nachts heimlich pflegen.",
+          "isCorrect": false,
+          "rationale": "Das löst das Akzeptanzproblem nicht."
+        }
+      ],
+      "hint": "Mitarbeiter müssen 'mitgenommen' werden.",
+      "youtubeQuery": "CRM Einführung Widerstand Mitarbeiter Change Management",
+      "topic": "CRM & E-Commerce"
+    },
+    {
+      "question": "Tausende alte Kundendaten sollen in das neue CRM importiert werden. Leider sind in den alten Tabellen viele Namen falsch geschrieben, Adressen veraltet und E-Mail-Adressen doppelt vorhanden. Welches Risiko besteht hier und wie muss es gelöst werden?",
+      "answerOptions": [
+        {
+          "text": "Das Risiko von Dateninkonsistenzen. Lösung: Eine gründliche Datenbereinigung zwingend vor der Migration durchführen und klare Eingaberegeln für die Zukunft aufstellen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. 'Garbage In, Garbage Out': Wenn schlechte Daten in ein neues System importiert werden, ist das System sofort unbrauchbar. Die Datenbereinigung vor der Migration ist der wichtigste und zeitaufwendigste technische Schritt bei einer CRM-Einführung."
+        },
+        {
+          "text": "Das Risiko von Hackerangriffen. Lösung: Die Daten ausdrucken und per Hand neu abtippen.",
+          "isCorrect": false,
+          "rationale": "Abtippen schützt nicht vor Hackern und ist ineffizient."
+        },
+        {
+          "text": "Das Risiko von DSGVO-Strafen. Lösung: Alle Kundendaten vor dem Import löschen.",
+          "isCorrect": false,
+          "rationale": "Löschen aller Daten verhindert den Geschäftsbetrieb."
+        },
+        {
+          "text": "Das Risiko von Serverüberlastungen. Lösung: Das CRM nur von 8 bis 12 Uhr vormittags einschalten.",
+          "isCorrect": false,
+          "rationale": "Zeitliche Einschränkung löst keine Datenqualitätsprobleme."
+        }
+      ],
+      "hint": "Ein sauberes System braucht saubere Daten ('Data Cleaning').",
+      "youtubeQuery": "CRM Datenmigration Datenbereinigung",
+      "topic": "CRM & E-Commerce"
+    },
+    {
+      "question": "Ein langjähriger Kunde der „Eco-Move AG“ meldet sich beim Kundenservice and verlangt einen vollständigen Ausdruck aller Informationen, die das Unternehmen über ihn im CRM gespeichert hat. Zudem fordert er, dass seine alte Telefonnummer sofort korrigiert wird. Auf welches DSGVO-Prinzip beruft er sich hier rechtmäßig?",
+      "answerOptions": [
+        {
+          "text": "Auf das Prinzip der Datenminimierung.",
+          "isCorrect": false,
+          "rationale": "Datenminimierung bedeutet, so wenig Daten wie möglich zu erheben."
+        },
+        {
+          "text": "Auf das Prinzip der Zweckbindung.",
+          "isCorrect": false,
+          "rationale": "Zweckbindung bedeutet, Daten nur für den erhobenen Zweck zu nutzen."
+        },
+        {
+          "text": "Auf die Rechte der Betroffenen (Recht auf Einsicht, Korrektur und Löschung).",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Nach der DSGVO haben Kunden weitreichende Betroffenenrechte. Sie dürfen jederzeit Auskunft darüber verlangen, was gespeichert ist, sie dürfen Fehler korrigieren lassen und haben (unter bestimmten Bedingungen) das Recht auf Löschung ('Recht auf Vergessenwerden')."
+        },
+        {
+          "text": "Auf das Prinzip der Datensicherheit.",
+          "isCorrect": false,
+          "rationale": "Datensicherheit betrifft den Schutz vor Zugriffen."
+        }
+      ],
+      "hint": "Die DSGVO gibt dem Kunden Rechte über seine eigenen Daten.",
+      "youtubeQuery": "DSGVO Betroffenenrechte CRM",
+      "topic": "Recht (DSGVO)"
+    },
+    {
+      "question": "Die „Urban-Peak GmbH“ baut ein neues Registrierungsformular für den Shop. Der Datenschutzbeauftragte verlangt zwingend einen gut sichtbaren Informationstext, der dem Kunden genau erklärt, welche Daten erfasst werden und wozu das Unternehmen sie nutzen wird. Welches DSGVO-Prinzip wird hier angewendet?",
+      "answerOptions": [
+        {
+          "text": "Das Prinzip der Transparenz.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Das Transparenzgebot der DSGVO schreibt vor, dass Unternehmen keine geheime Datensammlung betreiben dürfen. Der Kunde muss vor der Dateneingabe klar, einfach und verständlich darüber informiert werden, was mit seinen Daten geschieht."
+        },
+        {
+          "text": "Das Prinzip der Datensicherheit (Verschlüsselung).",
+          "isCorrect": false,
+          "rationale": "Sicherheit betrifft die Technik, nicht die Information."
+        },
+        {
+          "text": "Das Recht auf Datenportabilität.",
+          "isCorrect": false,
+          "rationale": "Portabilität betrifft die Mitnahme von Daten."
+        },
+        {
+          "text": "Das Prinzip der Speicherbegrenzung.",
+          "isCorrect": false,
+          "rationale": "Speicherbegrenzung betrifft die Löschfristen."
+        }
+      ],
+      "hint": "Der Kunde muss klar über die Datennutzung informiert werden.",
+      "youtubeQuery": "DSGVO Transparenzgebot Online Shop",
+      "topic": "Recht (DSGVO)"
     }
   ]
 }
