@@ -5592,6 +5592,566 @@
       "hint": "Der Kunde muss klar über die Datennutzung informiert werden.",
       "youtubeQuery": "DSGVO Transparenzgebot Online Shop",
       "topic": "Recht (DSGVO)"
+    },
+    {
+      "question": "Auf der Facebook-Seite der „Urban-Gear GmbH“ taucht ein Nutzer auf, der völlig zusammenhanglose, provokante Kommentare unter jedes Produkt postet. Wie definiert man einen solchen „Troll“ im E-Commerce fachlich korrekt?",
+      "answerOptions": [
+        {
+          "text": "Ein Nutzer, der online provoziert, belästigt oder absichtlich Chaos stiftet, meist nur mit der Absicht, Reaktionen von anderen hervorzurufen oder die Gemeinschaft zu stören.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Ein „Troll“ zeichnet sich dadurch aus, dass er keine sachliche Kritik übt, sondern absichtlich provoziert und stört, um emotionale Reaktionen zu erzwingen."
+        },
+        {
+          "text": "Ein besonders loyaler Stammkunde, der die Produkte des Unternehmens gegen Kritik anderer Nutzer verteidigt.",
+          "isCorrect": false,
+          "rationale": "Das wäre ein Markenbotschafter (Advocate), kein Troll."
+        },
+        {
+          "text": "Ein automatisierter Bot der Konkurrenz, der massenhaft Klicks auf Werbeanzeigen generiert, um das Budget zu leeren.",
+          "isCorrect": false,
+          "rationale": "Das ist Ad Fraud oder Klickbetrug, kein Troll."
+        },
+        {
+          "text": "Ein bezahlter Influencer, der durch provokante Posts die Reichweite einer Marke steigern soll.",
+          "isCorrect": false,
+          "rationale": "Influencer werben für Produkte; Trolle stören absichtlich."
+        }
+      ],
+      "hint": "Ein Troll sucht Aufmerksamkeit durch Provokation, nicht durch sachliche Diskussion.",
+      "youtubeQuery": "Definition Troll E-Commerce Merkmale",
+      "topic": "Troll-Management"
+    },
+    {
+      "question": "Das Social-Media-Team ist unsicher, ob ein kritischer Kommentar von einem unzufriedenen Kunden oder einem Troll stammt. Welches konkrete Verhaltensmuster ist ein klares Erkennungsmerkmal für einen Troll?",
+      "answerOptions": [
+        {
+          "text": "Die detaillierte Beschreibung eines Defekts an einem gekauften Produkt inklusive Bestellnummer.",
+          "isCorrect": false,
+          "rationale": "Dies spricht für einen echten Kunden mit einem legitimen Problem."
+        },
+        {
+          "text": "Die absichtliche Verbreitung falscher Informationen sowie wiederholte, aggressive Kommentare ohne jeden konstruktiven Zweck.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Trolle erkennt man an provokativen, aggressiven Beiträgen, der Verbreitung von Fake-News und dem völligen Fehlen eines konstruktiven Zwecks."
+        },
+        {
+          "text": "Das höfliche Nachfragen nach einer verlängerten Rückgabefrist.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein Zeichen für einen Kundenkontakt, der nach einer Lösung sucht."
+        },
+        {
+          "text": "Das Posten eines Fotos, auf dem die Ware beschädigt im Karton liegt.",
+          "isCorrect": false,
+          "rationale": "Dies ist eine sachliche Dokumentation eines Mangels."
+        }
+      ],
+      "hint": "Suche nach fehlender Konstruktivität und fehlenden Fakten.",
+      "youtubeQuery": "Erkennungsmerkmale Trolle Social Media",
+      "topic": "Troll-Management"
+    },
+    {
+      "question": "Welche fatale Auswirkung kann ein Troll haben, wenn das Unternehmen seine Kommentare (auch wenn sie offensichtlich falsch sind) wochenlang unkommentiert unter den Bestseller-Produkten stehen lässt?",
+      "answerOptions": [
+        {
+          "text": "Die Serverkosten steigen, da Facebook für lange Kommentarspalten Geld verlangt.",
+          "isCorrect": false,
+          "rationale": "Kommentare auf Social-Media-Plattformen verursachen dem Unternehmen keine direkten Serverkosten."
+        },
+        {
+          "text": "Neue oder unsichere Kunden werden abgeschreckt, da sie die negativen Kontroversen sehen, was zu einem massiven Schaden am Markenimage führt.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Der größte Nachteil ist der Reputationsschaden. Selbst wenn die Kommentare erlogen sind, schrecken die negativen Kontroversen (Imageverlust) potenzielle Neukunden massiv vom Kauf ab."
+        },
+        {
+          "text": "Der Troll erhält automatisch Administratoren-Rechte für die Seite.",
+          "isCorrect": false,
+          "rationale": "Rechtevergabe erfolgt durch Bestätigung durch Admins, nicht durch Kommentare."
+        },
+        {
+          "text": "Die Produkte werden von Google automatisch aus den Suchergebnissen gelöscht.",
+          "isCorrect": false,
+          "rationale": "Google löscht keine Produkte aufgrund von Kommentaren auf Facebook."
+        }
+      ],
+      "hint": "Denke an den 'Silent Reader', der die ungeklärte Kritik wahrnimmt.",
+      "youtubeQuery": "Reputationsschaden Trolle E-Commerce Markenimage",
+      "topic": "Troll-Management"
+    },
+    {
+      "question": "Neben dem Imageverlust nennt das Management ein weiteres massives Problem, das entsteht, wenn hunderte Troll-Kommentare die Social-Media-Kanäle fluten. Welches ist das?",
+      "answerOptions": [
+        {
+          "text": "Das Unternehmen muss Steuern auf die generierten Klicks zahlen.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine 'Klicksteuer' für Kommentare."
+        },
+        {
+          "text": "Die Verzerrung des echten Kundenfeedbacks: Das Unternehmen kann legitime, ehrliche Kritik von echten Käufern in der Masse der Troll-Posts kaum noch erkennen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Echtes Feedback ist extrem wertvoll. Trolle verzerren dieses Bild so stark, dass das Unternehmen echte Probleme (z.B. Produktionsfehler) nicht mehr rechtzeitig erkennt, weil sie im Chaos untergehen."
+        },
+        {
+          "text": "Die automatische Sperrung des Firmenkontos durch die Gewerbeaufsicht.",
+          "isCorrect": false,
+          "rationale": "Die Gewerbeaufsicht sperrt keine Social-Media-Konten wegen Trollen."
+        },
+        {
+          "text": "Die gesetzliche Pflicht, jedem Troll eine kostenlose Ersatzlieferung anzubieten.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine Pflicht für Ersatzlieferungen an Trolle ohne Kaufvertrag und Mangel."
+        }
+      ],
+      "hint": "Echtes Feedback ist in der Masse der Störung schwer zu finden.",
+      "youtubeQuery": "Distortion Customer Feedback Trolls Social Media",
+      "topic": "Troll-Management"
+    },
+    {
+      "question": "Die „Peak-Adventures AG“ leidet seit Wochen unter einer Troll-Attacke. Das Social-Media-Team wirkt im wöchentlichen Meeting extrem frustriert und erschöpft. Welche zwei internen Nachteile für das Unternehmen zeigen sich hier deutlich?",
+      "answerOptions": [
+        {
+          "text": "Eine Erhöhung der Logistikkosten und vermehrte Retouren von unbeschädigten Artikeln.",
+          "isCorrect": false,
+          "rationale": "Logistik wird durch Troll-Kommentare nicht direkt beeinflusst."
+        },
+        {
+          "text": "Ein massiv erhöhter Kundenserviceaufwand (Ressourcenbindung) sowie die Demoralisierung des Teams, was sogar zu einer höheren Mitarbeiterfluktuation führen kann.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Trolle binden Zeit und Geld im Support. Gleichzeitig leiden die Mitarbeiter psychisch unter den ständigen Aggressionen, was die Moral senkt und Kündigungen provozieren kann."
+        },
+        {
+          "text": "Eine Senkung der Conversion-Rate und eine Erhöhung des Return on Advertising Spend (ROAS).",
+          "isCorrect": false,
+          "rationale": "Während ROAS sinken kann, ist die Teammoral hier das Hauptthema des Szenarios."
+        },
+        {
+          "text": "Ein Verlust von Lieferantenverträgen und höhere Einkaufspreise.",
+          "isCorrect": false,
+          "rationale": "Lieferanten verträge hängen in der Regel nicht von Troll-Kommentaren ab."
+        }
+      ],
+      "hint": "Bedenke die psychische Belastung und die Kosten für den Zeitaufwand.",
+      "youtubeQuery": "Nachteile Trolle Unternehmen Ressourcenbindung Mitarbeitermoral",
+      "topic": "Troll-Management"
+    },
+    {
+      "question": "Ein Troll beleidigt die neue Outdoor-Kollektion als „billigen Schrott“. Der Social-Media-Manager ist wütend und tippt eine aggressive, sarkastische Antwort ab. Warum verstößt das gegen die wichtigste Grundregel im Umgang mit Trollen?",
+      "answerOptions": [
+        {
+          "text": "Weil sarkastische Antworten auf Facebook grundsätzlich Geld kosten.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine Kosten für Sarkasmus auf sozialen Netzwerken."
+        },
+        {
+          "text": "Weil Trolle genau auf diese emotionale Reaktion aus sind. Die wichtigste Regel lautet: „Nicht emotional reagieren“, professionell bleiben und sich nicht provozieren lassen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. 'Don't feed the troll' (Füttere den Troll nicht). Trolle wollen Emotionen und Chaos sehen. Eine professionelle, sachliche Haltung entzieht ihnen die Grundlage."
+        },
+        {
+          "text": "Weil der Troll das Unternehmen sonst wegen Verletzung des Urheberrechts verklagen kann.",
+          "isCorrect": false,
+          "rationale": "Sarkasmus tangiert das Urheberrecht normalerweise nicht direkt."
+        },
+        {
+          "text": "Weil das Gesetz gegen den unlauteren Wettbewerb (UWG) Ironie im Internet verbietet.",
+          "isCorrect": false,
+          "rationale": "Das UWG verbietet keine Ironie."
+        }
+      ],
+      "hint": "'Don't feed the troll' ist die goldene Regel.",
+      "youtubeQuery": "Regeln im Umgang mit Trollen Don't feed the troll",
+      "topic": "Troll-Management"
+    },
+    {
+      "question": "Bevor ein vermeintlicher Troll-Kommentar gelöscht wird, fordert der Abteilungsleiter, den Post noch einmal genau zu lesen. Welche wichtige Überlegung muss laut IHK-Standards vor jeder Löschung stehen?",
+      "answerOptions": [
+        {
+          "text": "Die Überlegung, ob das Löschen die Ladezeit der Website verbessert.",
+          "isCorrect": false,
+          "rationale": "Ein einzelner gelöschter Kommentar verbessert die Performance nicht spürbar."
+        },
+        {
+          "text": "Die Differenzierung, ob es wirklich reine Troll-Aktivität ist oder ob sich in dem provokanten Ton vielleicht doch legitimes Feedback bzw. konstruktive Kritik eines frustrierten echten Kunden versteckt.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Nicht jeder wütende Kommentar ist ein Troll. Manchmal versteckt sich hinter harschen Worten echtes Kunden-Feedback, das das Unternehmen zur Verbesserung der Produkte nutzen kann."
+        },
+        {
+          "text": "Die Prüfung, ob der Kommentar von einem verifizierten Instagram-Account mit blauem Haken stammt.",
+          "isCorrect": false,
+          "rationale": "Auch verifizierte Accounts können trollen, und unverifizierte echte Kunden können wichtiges Feedback geben."
+        },
+        {
+          "text": "Die Überlegung, ob die Löschung steuerlich absetzbar ist.",
+          "isCorrect": false,
+          "rationale": "Löschungen sind keine steuerlich absetzbaren Kosten."
+        }
+      ],
+      "hint": "Suche nach dem Kern: Ist da ein legitimes Problem hinter dem Ton?",
+      "youtubeQuery": "Unterschied Troll und unzufriedener Kunde Reklamationsmanagement",
+      "topic": "Troll-Management"
+    },
+    {
+      "question": "Die „Urban-Gear GmbH“ möchte sich zukünftig besser gegen Trolle absichern und das Löschen von Kommentaren vereinfachen. Welche präventive Maßnahme sollte dafür auf allen Firmen-Profilen etabliert werden?",
+      "answerOptions": [
+        {
+          "text": "Das Aufstellen von klaren Community-Richtlinien (Verhaltensregeln), auf die sich das Unternehmen bei Verstößen jederzeit berufen kann.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Klare „Netiquetten“ oder Community-Richtlinien definieren vorab, was erlaubt ist (sachliche Kritik) und was nicht (Beleidigungen). Verstoßen Trolle dagegen, hat das Unternehmen eine klare Legitimation zum Löschen."
+        },
+        {
+          "text": "Die Pflicht, dass Kunden vor einem Kommentar ihre Ausweisnummer eingeben müssen.",
+          "isCorrect": false,
+          "rationale": "Dies würde echte Kunden abschrecken und ist datenschutzrechtlich sehr bedenklich."
+        },
+        {
+          "text": "Das Ausblenden der Kommentarfunktion an Wochenenden.",
+          "isCorrect": false,
+          "rationale": "Social Media ist 24/7 aktiv; Ausblenden schädigt die Community-Interaktion massiv."
+        },
+        {
+          "text": "Die Einstellung eines Anwalts, der jeden Kommentar einzeln freigibt.",
+          "isCorrect": false,
+          "rationale": "Das wäre unwirtschaftlich und zu langsam für die Interaktion im Internet."
+        }
+      ],
+      "hint": "Regeln geben eine rechtliche und moralische Basis für Hausrecht.",
+      "youtubeQuery": "Netiquette erstellen Community Richtlinien Social Media",
+      "topic": "Troll-Management"
+    },
+    {
+      "question": "Ein Troll-Account wurde von der „Peak-Adventures AG“ blockiert und seine Hass-Kommentare wurden gelöscht. Wie sollte das Unternehmen nun gegenüber der restlichen Community handeln, um einen „Shitstorm“ wegen angeblicher Zensur zu vermeiden?",
+      "answerOptions": [
+        {
+          "text": "Das Unternehmen sollte behaupten, es handele sich um einen technischen Fehler von Facebook.",
+          "isCorrect": false,
+          "rationale": "Lügen zerstört langfristig die Glaubwürdigkeit des Unternehmens."
+        },
+        {
+          "text": "Das Unternehmen sollte Transparenz bewahren und (z.B. in einem kurzen Statement) erklären, warum gelöscht/blockiert wurde (z.B. wegen Verstoßes gegen die Richtlinien).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das heimliche Löschen von Kommentaren wird oft als Zensur gewertet. Transparenz (die klare Kommunikation, warum jemand wegen Regelverstoßes gesperrt wurde) schützt das Unternehmen vor Missverständnissen und stärkt das Vertrauen der echten Community."
+        },
+        {
+          "text": "Das Unternehmen sollte alle anderen Follower prophylaktisch ebenfalls für 24 Stunden sperren.",
+          "isCorrect": false,
+          "rationale": "Das würde das Problem nur vergrößern und die gesamte Community verärgern."
+        },
+        {
+          "text": "Das Unternehmen sollte so tun, als sei der Troll nie da gewesen und alle Nachfragen ignorieren.",
+          "isCorrect": false,
+          "rationale": "Ignorieren kann als Schwäche oder Zensur ausgelegt werden."
+        }
+      ],
+      "hint": "Transparenz schafft Vertrauen bei den 'stillen Mitlesern'.",
+      "youtubeQuery": "Krisenkommunikation Social Media Transparenz Löschen",
+      "topic": "Troll-Management"
+    },
+    {
+      "question": "Die „Eco-Trek UG“ erhält 800 Beschwerden pro Monat. Welche spezifischen Reklamations-Prozesse eignen sich hervorragend, um sie an eine Künstliche Intelligenz auszulagern?",
+      "answerOptions": [
+        {
+          "text": "Das Führen von Telefonaten mit Großlieferanten über Preisnachlässe.",
+          "isCorrect": false,
+          "rationale": "Verhandlungen erfordern menschliches Gespür und strategische Abwägung."
+        },
+        {
+          "text": "Die strukturierte Datenauswertung (z.B. Zuordnung von Bestellnummern) und die automatische Kategorisierung der E-Mails (z.B. Vorsortierung in 'Defekt' oder 'Transportschaden').",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. KI ist unschlagbar darin, strukturierte Daten (wie Nummern) blitzschnell aus E-Mails herauszufiltern und die Nachrichten anhand von Stichworten in die richtigen Kategorien vorzusortieren."
+        },
+        {
+          "text": "Die Entscheidung darüber, ob einem Kunden, der 2 Tage nach Ablauf der Garantie schreibt, ausnahmsweise noch geholfen wird.",
+          "isCorrect": false,
+          "rationale": "Dies ist eine Kulanzentscheidung, die menschliches Urteilsvermögen erfordert."
+        },
+        {
+          "text": "Die physische Begutachtung der defekten Rücksendungen im Lager.",
+          "isCorrect": false,
+          "rationale": "Software-KI kann keine physische Prüfung im Lager durchführen (außer durch Robotik, was hier nicht gemeint ist)."
+        }
+      ],
+      "hint": "Kategorisierung und Datenextraktion sind Stärken der KI.",
+      "youtubeQuery": "KI im Kundenservice Reklamationsmanagement Automatisierung",
+      "topic": "KI & Reklamationsmanagement"
+    },
+    {
+      "question": "Eine KI analysiert eine E-Mail, in der ein Kunde mit dem Anwalt droht, weil das Zelt im Starkregen undicht war. Warum raten Experten dringend davon ab, die KI diesen Fall vollautomatisch lösen zu lassen?",
+      "answerOptions": [
+        {
+          "text": "Weil KI-Systeme das Wort 'Anwalt' aus Datenschutzgründen nicht lesen dürfen.",
+          "isCorrect": false,
+          "rationale": "Dies ist eine falsche Aussage bezüglich der Funktionalität von KI."
+        },
+        {
+          "text": "Weil es hier um emotionale Eskalationen und rechtliche Sonderfälle (Beweislast) geht. Eine KI besitzt keine Empathie und keinen Ermessensspielraum für individuelle Kulanzentscheidungen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Empathie bei verärgerten Kunden, individuelle Kulanzentscheidungen ('Drücken wir hier ein Auge zu?') und juristische Sonderfälle sind die absoluten Grenzen der KI. Hier muss zwingend ein Mensch übernehmen."
+        },
+        {
+          "text": "Weil das Shopsystem bei extrem langen E-Mails automatisch abstürzt.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein rein technisches Problem, das nichts mit der KI-Entscheidungsfindung zu tun hat."
+        },
+        {
+          "text": "Weil KI-Antworten in solchen Fällen gesetzlich immer notariell beglaubigt werden müssen.",
+          "isCorrect": false,
+          "rationale": "Dafür gibt es keine gesetzliche Grundlage."
+        }
+      ],
+      "hint": "Rechtliche Sonderfälle und hohe Emotionalität fordern menschliches Eingreifen.",
+      "youtubeQuery": "Grenzen von KI Kundenservice Empathie Kulanz",
+      "topic": "KI & Reklamationsmanagement"
+    },
+    {
+      "question": "Das Controlling der „Vanguard-Retail GmbH“ bewertet die Einführung der Reklamations-KI rein aus betriebswirtschaftlicher (finanzieller) Sicht. Welche zwei Argumente sprechen am stärksten für die Investition?",
+      "answerOptions": [
+        {
+          "text": "Die Reduzierung der Bearbeitungszeit pro E-Mail und die hohe Skalierbarkeit des Systems bei starkem Unternehmenswachstum.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Die massiv sinkende Bearbeitungszeit (Effizienz), die Entlastung des Personals und die Skalierbarkeit (eine KI kann 100 oder 10.000 E-Mails gleichzeitig verarbeiten) sind die größten betriebswirtschaftlichen Chancen."
+        },
+        {
+          "text": "Eine persönlichere, emotionalere Bindung zum Kunden.",
+          "isCorrect": false,
+          "rationale": "Dies ist eher ein Risiko oder eine Herausforderung, keine unmittelbare finanzielle Chance der KI."
+        },
+        {
+          "text": "Die automatische Steigerung des Traffics über Google.",
+          "isCorrect": false,
+          "rationale": "Reklamations-KI steigert nicht den Traffic."
+        },
+        {
+          "text": "Das sofortige Einsparen von 100% der Serverkosten.",
+          "isCorrect": false,
+          "rationale": "KI erhöht eher den Bedarf an Rechenpower/Serverressourcen."
+        }
+      ],
+      "hint": "Fokussiere auf zeitliche Effizienz und Wachstumsmöglichkeit ohne Personalaufbau.",
+      "youtubeQuery": "BWL Vorteile KI Kundenservice Skalierbarkeit",
+      "topic": "KI Chancen & Risiken"
+    },
+    {
+      "question": "Vor der Vertragsunterschrift warnt der Finanzchef vor den harten betriebswirtschaftlichen Risiken der KI-Software. Welche Punkte gehören in diese Kategorie?",
+      "answerOptions": [
+        {
+          "text": "Eine zu unpersönliche Kommunikation mit den Käufern.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein qualitatives/kundenbezogenes Risiko, kein direktes finanzielles Risiko."
+        },
+        {
+          "text": "Die Gefahr eines Shitstorms auf Facebook.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein Reputationsrisiko."
+        },
+        {
+          "text": "Hohe Implementierungskosten der Software, fortlaufende Lizenzgebühren und ein hoher Schulungsaufwand für die Mitarbeiter.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Implementierung, Schulungen, Lizenzgebühren und mögliche Folgekosten durch Systemfehler sind harte, messbare betriebswirtschaftliche Risiken."
+        },
+        {
+          "text": "Die Vernachlässigung der Corporate Identity (CI) auf der Website.",
+          "isCorrect": false,
+          "rationale": "Das betrifft die Gestaltung, nicht primär die Kostenstruktur."
+        }
+      ],
+      "hint": "Suche nach den 'harten' Investitions- und laufenden Kosten.",
+      "youtubeQuery": "Kosten und Risiken KI Software Implementierung",
+      "topic": "KI Chancen & Risiken"
+    },
+    {
+      "question": "Wie profitiert der Kunde (kundenorientierte Perspektive) am meisten davon, wenn die „Eco-Trek UG“ ein KI-System für den Erstkontakt bei Reklamationen nutzt?",
+      "answerOptions": [
+        {
+          "text": "Er erhält jedes Produkt im Shop automatisch 10% günstiger.",
+          "isCorrect": false,
+          "rationale": "Durch KI im Service werden Produkte nicht automatisch günstiger."
+        },
+        {
+          "text": "Er profitiert von einer 24/7-Erreichbarkeit, sofortigen Eingangsbestätigungen und einer drastisch schnelleren Reaktionszeit (Wartezeit sinkt von Tagen auf Minuten).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Aus Kundensicht sind die ständige Erreichbarkeit rund um die Uhr (24/7), eine einheitliche Qualität der Antworten und vor allem das Wegfallen von tagelangen Wartezeiten die absoluten Highlights."
+        },
+        {
+          "text": "Er muss in Zukunft keine Bestellnummern mehr angeben.",
+          "isCorrect": false,
+          "rationale": "Die KI benötigt weiterhin Daten, um den Fall zuzuordnen (auch wenn sie diese besser findet)."
+        },
+        {
+          "text": "Er erhält von der KI automatisch eine persönliche Handynummer des Geschäftsführers.",
+          "isCorrect": false,
+          "rationale": "Das wäre ein massives Sicherheitsrisiko und kein Standardmerkmal."
+        }
+      ],
+      "hint": "Vorteile für Kunden liegen oft in Geschwindigkeit und Verfügbarkeit.",
+      "youtubeQuery": "Kundenvorteile KI Kundenservice Reaktionszeit",
+      "topic": "KI Chancen & Risiken"
+    },
+    {
+      "question": "Eine KI bearbeitet die Beschwerde über einen gerissenen Wanderrucksack, erkennt aber den Kontext falsch und sendet dem Kunden eine Anleitung zum Waschen von Socken. Welches kundenbezogene Risiko tritt hier ein?",
+      "answerOptions": [
+        {
+          "text": "Das Risiko einer DSGVO-Strafe durch die Aufsichtsbehörde.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein rechtliches/behördliches Risiko, kein direktes Risiko der Kundenbeziehung in diesem Kontext."
+        },
+        {
+          "text": "Ein enormer Vertrauensverlust durch fehlerhafte, unsinnige Antworten und die damit verbundene Frustration über eine unpersönliche „Roboter-Kommunikation“.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Wenn die KI Fehler macht oder den Kern des Problems nicht versteht, fühlt sich der Kunde nicht wertgeschätzt. Die unpersönliche Kommunikation und fachlich falsche Antworten führen zu extremer Frustration und Vertrauensverlust."
+        },
+        {
+          "text": "Die automatische Erhöhung des Kaufpreises im Warenkorb.",
+          "isCorrect": false,
+          "rationale": "E-Mail-KI und Warenkorb-Preise sind voneinander getrennt."
+        },
+        {
+          "text": "Eine Störung in der Logistikkette des Herstellers.",
+          "isCorrect": false,
+          "rationale": "Falsche Antworten an Endkunden stören nicht die Produktion."
+        }
+      ],
+      "hint": "Überlege, wie der Kunde sich fühlt, wenn er nicht verstanden wird.",
+      "youtubeQuery": "Risiken KI Kundenbeziehung Vertrauensverlust Halluzinationen",
+      "topic": "KI Chancen & Risiken"
+    },
+    {
+      "question": "Die KI soll eine Antwort auf eine wütende Beschwerde entwerfen. Damit die E-Mail nicht wie von einer gefühllosen Maschine wirkt, müssen zwei kundenorientierte Anforderungen zwingend einprogrammiert werden. Welche sind das?",
+      "answerOptions": [
+        {
+          "text": "Die Verwendung von sehr vielen Emojis und Ausrufezeichen.",
+          "isCorrect": false,
+          "rationale": "Zu viele Symbole wirken unprofessionell und können provokant wirken."
+        },
+        {
+          "text": "Eine empathische Einleitung (z.B. „Es tut uns leid, dass Sie Ärger haben...“) sowie eine starke Personalisierung (Kundenname und konkreter Bezug zum defekten Produkt).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Um kundenorientiert zu sein, muss auch eine KI-E-Mail empathisch beginnen (\"Es tut uns leid...\") und durch die Nutzung des Namens sowie des konkreten Produktnamens personalisiert sein."
+        },
+        {
+          "text": "Das sofortige Anbieten eines 50% Rabatts und kostenlosem Premium-Versand.",
+          "isCorrect": false,
+          "rationale": "Das wäre unwirtschaftlich und nicht in jedem Fall angemessen."
+        },
+        {
+          "text": "Das Weglassen einer Grußformel, um effizienter zu wirken.",
+          "isCorrect": false,
+          "rationale": "Fehlende Höflichkeitsformen wirken unhöflich und maschinell."
+        }
+      ],
+      "hint": "Denke an Empathie und Individualität.",
+      "youtubeQuery": "Kundenorientierte E-Mail-Kommunikation KI Support",
+      "topic": "KI & Reklamationsmanagement"
+    },
+    {
+      "question": "Ein Kunde schreibt, dass der Reißverschluss seiner Jacke defekt ist. Die KI antwortet: „Es tut uns leid, dass wir Ihnen eine schlecht verarbeitete Jacke geschickt haben.“ Warum ist dieser Satz für das Unternehmen juristisch brandgefährlich?",
+      "answerOptions": [
+        {
+          "text": "Weil das Wort 'schlecht' von Spam-Filtern blockiert wird.",
+          "isCorrect": false,
+          "rationale": "Das Wort 'schlecht' verursacht keine Spam-Blockade."
+        },
+        {
+          "text": "Weil diese rechtlich unsaubere Formulierung einem voreiligen juristischen Schuldanerkenntnis gleichkommt, bevor das Produkt überhaupt im Lager geprüft wurde.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Eine Reklamationsantwort muss neutral bleiben. Ein Satz wie 'dass wir Ihnen schlechte Qualität geliefert haben' ist ein rechtliches Schuldanerkenntnis. Stellt sich später heraus, dass der Kunde den Reißverschluss selbst zerstört hat, hat das Unternehmen durch diese E-Mail seine Verhandlungsposition ruiniert."
+        },
+        {
+          "text": "Weil die Jacke laut AGB gar keinen Reißverschluss hat.",
+          "isCorrect": false,
+          "rationale": "Das ist faktisch unsinnig im Kontext der Frage."
+        },
+        {
+          "text": "Weil das Unternehmen dadurch automatisch die Garantie auf 5 Jahre verlängert.",
+          "isCorrect": false,
+          "rationale": "Schuldanerkenntnisse verlängern nicht die Garantiezeit."
+        }
+      ],
+      "hint": "Formuliere neutral, bis der Fall geprüft ist.",
+      "youtubeQuery": "Rechtliche Fallstricke Reklamationsantworten Schuldanerkenntnis",
+      "topic": "KI & Reklamationsmanagement"
+    },
+    {
+      "question": "Die IT-Abteilung schlägt vor: 'Lass die KI doch defekte Artikel unter 10 € Wert vollautomatisch ablehnen, ohne dass ein Mensch noch drüberschaut.' Der Datenschutzbeauftragte stoppt das sofort mit Verweis auf Art. 22 der DSGVO. Warum?",
+      "answerOptions": [
+        {
+          "text": "Weil die DSGVO verbietet, KI-Systeme für Produkte unter 10 € einzusetzen.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine Wertgrenzen in der DSGVO für KI-Einsatz."
+        },
+        {
+          "text": "Weil laut Art. 22 DSGVO keine Entscheidungen getroffen werden dürfen, die ausschließlich auf einer automatisierten Verarbeitung beruhen und für den Kunden rechtliche Wirkung entfalten (z.B. finale Ablehnung der Gewährleistung).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Art. 22 DSGVO schützt Verbraucher vor der reinen 'Maschinen-Willkür'. Eine Entscheidung mit rechtlicher Tragweite (wie die Ablehnung einer Reklamation) darf nicht zu 100% von einer KI gefällt werden. Ein Mensch muss die finale Freigabe erteilen."
+        },
+        {
+          "text": "Weil die KI keine Rechnungen drucken kann.",
+          "isCorrect": false,
+          "rationale": "Hat nichts mit DSGVO Art. 22 zu tun."
+        },
+        {
+          "text": "Weil das System dafür zwingend die Augenfarbe des Kunden wissen müsste.",
+          "isCorrect": false,
+          "rationale": "Augenfarbe ist hier völlig irrelevant."
+        }
+      ],
+      "hint": "Suche nach dem Verbot der rein automatisierten Einzelfallentscheidung.",
+      "youtubeQuery": "DSGVO Artikel 22 automatisierte Entscheidungen KI",
+      "topic": "Recht (DSGVO)"
+    },
+    {
+      "question": "Bevor der Kunde seine Reklamation über das neue Formular im Shop absendet, muss er ein kleines Häkchen setzen. Daneben steht: „Ihre Anfrage wird zur Beschleunigung von einem KI-System vorsortiert.“ Welche DSGVO-Anforderung wird durch diesen Hinweis erfüllt?",
+      "answerOptions": [
+        {
+          "text": "Die Datensparsamkeit.",
+          "isCorrect": false,
+          "rationale": "Datensparsamkeit betrifft die Menge der erhobenen Daten."
+        },
+        {
+          "text": "Das Recht auf Datenportabilität.",
+          "isCorrect": false,
+          "rationale": "Datenportabilität betrifft den Export von Daten."
+        },
+        {
+          "text": "Die Transparenzpflicht über die KI-Nutzung (Informationspflicht gegenüber dem Kunden).",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Wenn KI-Systeme im Einsatz sind, greift die Transparenzpflicht. Der Kunde muss klar und verständlich darüber informiert werden, dass seine persönlichen Daten (Beschwerdetext, Name) von einer Künstlichen Intelligenz verarbeitet werden."
+        },
+        {
+          "text": "Die Löschfrist.",
+          "isCorrect": false,
+          "rationale": "Löschfristen regeln, wie lange Daten gespeichert werden dürfen."
+        }
+      ],
+      "hint": "Der Nutzer muss wissen, wie seine Daten verarbeitet werden.",
+      "youtubeQuery": "DSGVO Transparenzpflicht KI Informationspflicht",
+      "topic": "Recht (DSGVO)"
+    },
+    {
+      "question": "Das KI-System fordert bei einer Reklamation eines Zeltes plötzlich das Geburtsdatum und den Familienstand des Kunden an, um 'die Stimmung besser einschätzen zu können'. Welche zwei Grundprinzipien des Datenschutzes verletzt das System hier massiv?",
+      "answerOptions": [
+        {
+          "text": "Das Urheberrecht und das Markenrecht.",
+          "isCorrect": false,
+          "rationale": "Es geht hier um Datenschutz, nicht um geistiges Eigentum."
+        },
+        {
+          "text": "Die Zweckbindung und die Datensparsamkeit (Datenminimierung), da diese privaten Daten für die reine Abwicklung eines defekten Zeltes völlig irrelevant sind.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das Prinzip der Datensparsamkeit besagt, dass nur Daten erhoben werden dürfen, die für die Aufgabe zwingend nötig sind. Die Zweckbindung besagt, dass Daten nur für den Zweck genutzt werden dürfen, für den sie erhoben wurden. Familienstand und Geburtsdatum haben bei einer Zelt-Reklamation nichts zu suchen."
+        },
+        {
+          "text": "Das Recht auf Löschung und das Widerrufsrecht.",
+          "isCorrect": false,
+          "rationale": "Diese Rechte sind hier nicht die primär verletzten Prinzipien."
+        },
+        {
+          "text": "Die Informationspflicht und die Datensicherheit (TOM).",
+          "isCorrect": false,
+          "rationale": "Es geht um die Menge und den Zweck der Daten."
+        }
+      ],
+      "hint": "Erhöhe nur so viele Daten wie nötig und zweckdienlich.",
+      "youtubeQuery": "Datenschutz Grundprinzipien Datensparsamkeit Zweckbindung",
+      "topic": "Recht (DSGVO)"
     }
   ]
 }
