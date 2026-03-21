@@ -8,15 +8,15 @@ import { formatLatex } from '../utils/formatting';
 import { createPortal } from 'react-dom';
 
 const QuizSession = ({
-  allQuizzes,
   quizDuePool,
+  initialSessionPool = [], // renamed from allQuizzes to match App.jsx
   onComplete,
   onCancel,
   feynmanModeEnabled,
   onLearningEvent,
   pomodoroPortal,
   burgerMenuPortal,
-  handleToggleVideos, // from App logic
+  handleToggleVideos,
   wisorVideoOpen,
   wisorVideoLoading,
   wisorVideos,
@@ -36,6 +36,7 @@ const QuizSession = ({
   setAppMode,
   handleFeynmanCheck
 }) => {
+  const [internalQuizzes, setInternalQuizzes] = useState(initialSessionPool);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
@@ -55,7 +56,7 @@ const QuizSession = ({
     setSelectedAnswer(null);
   }, [currentQuizIndex]);
 
-  if (allQuizzes.length === 0) {
+  if (!internalQuizzes || internalQuizzes.length === 0) {
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
         {burgerMenuPortal}
@@ -74,14 +75,14 @@ const QuizSession = ({
     );
   }
 
-  if (currentQuizIndex >= allQuizzes.length) {
+  if (currentQuizIndex >= internalQuizzes.length) {
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
         {burgerMenuPortal}
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-          {(showConfetti || ((quizScore.correct === quizScore.total && quizScore.total > 0) || (quizDuePool.length === 0 && lastQuizCorrect))) && <Confetti />}
+        {(showConfetti || ((quizScore.correct === quizScore.total && quizScore.total > 0) || (quizDuePool.length === 0 && lastQuizCorrect))) && <Confetti />}
           <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Quiz Beendet!</h2>
           <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {quizScore.correct} / {quizScore.total}</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
@@ -93,8 +94,10 @@ const QuizSession = ({
     );
   }
 
-  const q = allQuizzes[currentQuizIndex];
-  const selectedOption = selectedAnswer !== null ? q.answerOptions[selectedAnswer] : null;
+  const q = internalQuizzes[currentQuizIndex];
+  if (!q) return null; // Safety check
+
+  const selectedOption = selectedAnswer !== null ? q.answerOptions?.[selectedAnswer] : null;
   const shouldGateExplanation = selectedAnswer !== null
     && feynmanModeEnabled
     && !!selectedOption?.isCorrect
@@ -105,7 +108,7 @@ const QuizSession = ({
   const canProceedToNextQuizQuestion = !requireFeynmanCompletion
     || quizExplanationRevealed
     || !!feynmanFeedback;
-  const remainingInSession = Math.max(allQuizzes.length - currentQuizIndex, 0);
+  const remainingInSession = Math.max(internalQuizzes.length - currentQuizIndex, 0);
 
   const handleQuizAnswer = (idx) => {
     if (selectedAnswer !== null) return;
@@ -123,7 +126,7 @@ const QuizSession = ({
         topic: q.topic || ''
       });
     }
-    if (isCorrect && currentQuizIndex === allQuizzes.length - 1) {
+    if (isCorrect && currentQuizIndex === internalQuizzes.length - 1) {
         if (triggerConfetti) triggerConfetti();
     }
   };
@@ -188,10 +191,10 @@ const QuizSession = ({
         />
 
         <div className="quiz-question">
-          {formatLatex(q.question)}
+          {formatLatex(q.question || '')}
         </div>
         <div className="quiz-options">
-          {q.answerOptions.map((opt, idx) => {
+          {(q.answerOptions || []).map((opt, idx) => {
             let btnClass = "quiz-btn";
             if (selectedAnswer !== null) {
               if (opt.isCorrect) btnClass += " correct";

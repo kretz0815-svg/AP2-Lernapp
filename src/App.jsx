@@ -61,6 +61,26 @@ import { computeNextQuizProgress, filterDueQuizzes } from './utils/quizDue';
 import { useAuth } from './hooks/useAuth';
 import { useAppearance } from './hooks/useAppearance';
 
+// --- UTILS OUTSIDE COMPONENT ---
+const isRechenTask = (q) => {
+  if (q.forceKnowledge) return false;
+  const text = ((q.question || '') + ' ' + (q.topic || '') + ' ' + (q.hint || '')).toLowerCase();
+  const hasCalcKeywords = ['berechne', 'rechnen', 'wieviel', 'wie hoch', 'betrag', 'kalkuliere', 'ermittle', 'prozent', 'anteil', 'summe', 'kosten'].some(k => text.includes(k));
+  const hasNumbers = /[0-9]+/.test(q.question || '');
+  const hasSymbols = /[%€]/.test(q.question || '') || (q.answerOptions && q.answerOptions.some(opt => /[%€]/.test(opt.text)));
+  const isCalcTopic = ['Kalkulation', 'Performance', 'Conversion', 'ROAS', 'CTR', 'CPC', 'CPA', 'Deckungsbeitrag'].some(t => (q.topic || '').includes(t));
+  return (isCalcTopic || ((hasCalcKeywords || hasSymbols) && hasNumbers));
+};
+
+const categorizeRechenTask = (q) => {
+  const text = (q.question + ' ' + (q.topic || '')).toLowerCase();
+  if (text.includes('conversion') || text.includes('konversionsrate') || text.includes(' cr ')) return 'Conversion';
+  if (text.includes('roas') || text.includes('return on advertising')) return 'ROAS';
+  if (['ctr', 'cpc', 'cpa', 'kennzahl', 'performance', 'effizienz', 'click-through', 'cost per'].some(k => text.includes(k))) return 'KPI';
+  if (['kalkulation', 'preis', 'rabatt', 'skonto', 'gewinn', 'handlungskost', 'einstand', 'listen'].some(k => text.includes(k))) return 'Handelskalkulation';
+  return 'Allgemein';
+};
+
 function App() {
   const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'intro' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor', 'intro'
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
@@ -153,12 +173,13 @@ function App() {
   const [stats, setStats] = useState({ learnedToday: 0, totalDue: 0 });
 
   // --- QUIZ STATE ---
-  const [allQuizzes, setAllQuizzes] = useState([]);
   const [quizDuePool, setQuizDuePool] = useState([]);
+  const [quizSessionPool, setQuizSessionPool] = useState([]);
   const [quizProgressView, setQuizProgressView] = useState(() => JSON.parse(localStorage.getItem('ap2_quiz_progress') || '{}'));
   const [selectedQuizTopic, setSelectedQuizTopic] = useState('all');
   const [feynmanModeEnabled, setFeynmanModeEnabled] = useState(false);
   const [lastQuizCorrect, setLastQuizCorrect] = useState(false);
+  const [quizCountSelection, setQuizCountSelection] = useState(10);
 
   // --- WISOR STATE ---
   const [allWisors, setAllWisors] = useState([]);
@@ -357,7 +378,7 @@ function App() {
     setGeminiVisible(false);
     setGeminiQuery('');
     setGeminiResponse('');
-  }, [currentWisorIndex, currentQuizIndex]);
+  }, [currentWisorIndex]);
 
   // formatLatex imported from utils/formatting.js
 
@@ -563,30 +584,10 @@ function App() {
     ...(customQuizQuestions || [])
   ];
 
-  // --- RECHEN AUFGABEN HELPER ---
-  const isRechenTask = (q) => {
-    if (q.forceKnowledge) return false;
-    const text = ((q.question || '') + ' ' + (q.topic || '') + ' ' + (q.hint || '')).toLowerCase();
-    const hasCalcKeywords = ['berechne', 'rechnen', 'wieviel', 'wie hoch', 'betrag', 'kalkuliere', 'ermittle', 'prozent', 'anteil', 'summe', 'kosten'].some(k => text.includes(k));
-    const hasNumbers = /[0-9]+/.test(q.question || '');
-    const hasSymbols = /[%€]/.test(q.question || '') || (q.answerOptions && q.answerOptions.some(opt => /[%€]/.test(opt.text)));
-    const isCalcTopic = ['Kalkulation', 'Performance', 'Conversion', 'ROAS', 'CTR', 'CPC', 'CPA', 'Deckungsbeitrag'].some(t => (q.topic || '').includes(t));
-    return (isCalcTopic || ((hasCalcKeywords || hasSymbols) && hasNumbers));
-  };
-
   const getRechenTasks = () => [
     ...(rechenAufgaben.questions || []),
     ...(customQuizQuestions || []).filter(isRechenTask)
   ];
-
-  const categorizeRechenTask = (q) => {
-    const text = (q.question + ' ' + (q.topic || '')).toLowerCase();
-    if (text.includes('conversion') || text.includes('konversionsrate') || text.includes(' cr ')) return 'Conversion';
-    if (text.includes('roas') || text.includes('return on advertising')) return 'ROAS';
-    if (['ctr', 'cpc', 'cpa', 'kennzahl', 'performance', 'effizienz', 'click-through', 'cost per'].some(k => text.includes(k))) return 'KPI';
-    if (['kalkulation', 'preis', 'rabatt', 'skonto', 'gewinn', 'handlungskost', 'einstand', 'listen'].some(k => text.includes(k))) return 'Handelskalkulation';
-    return 'Allgemein';
-  };
 
   const [rechenSetup, setRechenSetup] = useState({ topic: 'Alle', count: 10 });
 
@@ -811,17 +812,24 @@ function App() {
     }
   };
 
-  const handleGeminiAsk = async () => {
+  const handleGeminiAsk = async (activeQuestion = null) => {
     if (!geminiQuery.trim()) return;
     setGeminiLoading(true);
     setGeminiResponse('');
 
-    const q = appMode === 'quiz' ? allQuizzes[currentQuizIndex] : allWisors[currentWisorIndex];
+    const q = activeQuestion || (appMode === 'wisor' ? allWisors[currentWisorIndex] : null);
+    if (!q) {
+      setGeminiLoading(false);
+      return;
+    }
+
     let expectedAnswers = '';
     if (appMode === 'wisor') {
       expectedAnswers = q.expectedAnswers?.join(', ') || 'N/A';
-    } else {
+    } else if (q.answerOptions) {
       expectedAnswers = q.answerOptions.find(opt => opt.isCorrect)?.text || 'N/A';
+    } else {
+      expectedAnswers = 'N/A';
     }
     const answerInfo = "Geforderte Antwort(en): " + expectedAnswers + " | Erklärung: " + (q.rationale || 'N/A');
 
@@ -870,7 +878,7 @@ ${input}`;
       sessionQs = sessionQs.slice(0, effectiveLimit);
     }
 
-    resetQuiz(sessionQs);
+    setQuizSessionPool(sessionQs);
     setAppMode('quiz');
   };
 
@@ -980,7 +988,6 @@ ${input}`;
               }
               localStorage.setItem('ap2_saved_notes', JSON.stringify(merged));
             }
-            // Load appearance settings from Supabase
             if (data.progress_data.appearance_settings) {
               localStorage.setItem(getAppearanceKey(session.user), JSON.stringify(data.progress_data.appearance_settings));
             }
@@ -997,8 +1004,10 @@ ${input}`;
             localStorage.setItem('ap2_wisor_progress', JSON.stringify({}));
             localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
             localStorage.setItem('ap2_saved_notes', JSON.stringify({}));
-            localStorage.setItem(getAnalyticsStorageKey(session.user), JSON.stringify(createEmptyAnalytics()));
-            localStorage.setItem(getCustomQuizStorageKey(session.user), JSON.stringify([]));
+            if (session?.user) {
+              localStorage.setItem(getAnalyticsStorageKey(session.user), JSON.stringify(createEmptyAnalytics()));
+              localStorage.setItem(getCustomQuizStorageKey(session.user), JSON.stringify([]));
+            }
             analyticsData = createEmptyAnalytics();
             customQuizData = [];
           }
@@ -1206,7 +1215,6 @@ ${input}`;
       setCompletedWisors({});
       setCompletedWisorsEco({});
       setQuizProgressView({});
-      setAllQuizzes([]);
       setLearningAnalytics(createEmptyAnalytics());
       setStats({ learnedToday: 0, totalDue: 0 });
 
@@ -1399,8 +1407,21 @@ ${input}`;
               disabled={authLoading}
               style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}
             >
-              Mit Google anmelden
-            </button>
+              </button>
+            {currentHost === 'localhost' && (
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={() => {
+                  localStorage.setItem('masterpat_auth', 'true');
+                  localStorage.setItem(ACCESS_MODE_KEY, 'guest');
+                  setAppMode('dashboard');
+                }}
+                style={{ width: '100%', padding: '0.8rem', fontSize: '1rem', marginTop: '0.5rem', background: 'linear-gradient(45deg, #ff416c, #ff4b2b)' }}
+              >
+                Login (Dev Bypass)
+              </button>
+            )}
           </form>
 
           {authMsg && <p style={{ color: authMsg.includes('Erfolg') || authMsg.includes('erstellt') ? 'var(--success)' : 'var(--error)', marginBottom: '1rem', fontWeight: 'bold' }}>{authMsg}</p>}
@@ -2075,7 +2096,7 @@ ${input}`;
       return;
     }
 
-    resetQuiz(pool);
+    setQuizSessionPool(pool);
     setAppMode('quiz');
   };
 
@@ -2250,12 +2271,22 @@ ${input}`;
     return (
       <React.Suspense fallback={<div className="loading-overlay">Lade Quiz...</div>}>
         <QuizSession
-          allQuizzes={allQuizzes}
           quizDuePool={quizDuePool}
-          onComplete={resetQuiz}
+          initialSessionPool={quizSessionPool}
+          onComplete={() => {
+            refreshQuizDuePool();
+            setAppMode('dashboard');
+          }}
           onCancel={() => setAppMode('dashboard')}
           feynmanModeEnabled={feynmanModeEnabled}
           onLearningEvent={appendLearningEvent}
+          handleGeminiAsk={handleGeminiAsk}
+          geminiResponse={geminiResponse}
+          geminiLoading={geminiLoading}
+          setGeminiQuery={setGeminiQuery}
+          geminiQuery={geminiQuery}
+          setGeminiVisible={setGeminiVisible}
+          geminiVisible={geminiVisible}
           pomodoroPortal={pomodoroPortal}
           burgerMenuPortal={burgerMenuPortal}
           handleToggleVideos={handleToggleVideos}
@@ -2265,13 +2296,6 @@ ${input}`;
           wisorVideoError={wisorVideoError}
           selectedWisorVideo={selectedWisorVideo}
           setSelectedWisorVideo={setSelectedWisorVideo}
-          geminiVisible={geminiVisible}
-          setGeminiVisible={setGeminiVisible}
-          geminiQuery={geminiQuery}
-          setGeminiQuery={setGeminiQuery}
-          handleGeminiAsk={handleGeminiAsk}
-          geminiLoading={geminiLoading}
-          geminiResponse={geminiResponse}
           showConfetti={showConfetti}
           triggerConfetti={() => triggerConfetti()}
           lastQuizCorrect={lastQuizCorrect}
