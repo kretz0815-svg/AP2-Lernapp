@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ORGANIGRAMM_SVG } from '../data/sharedSvgs';
+
+const ASSETS = {
+    '@organigramm@': ORGANIGRAMM_SVG
+};
 
 const FloatingImage = ({ svgCode, isLightMode }) => {
     const [isOpen, setIsOpen] = useState(false);
+
+    // Resolve placeholders if any
+    const finalSvg = ASSETS[svgCode] || svgCode;
 
     // Desktop & Mobile: unified drag & resize state
     const MathMax = Math.max;
@@ -134,7 +142,7 @@ const FloatingImage = ({ svgCode, isLightMode }) => {
         };
     }, [isOpen, size]);
 
-    if (!svgCode) return null;
+    if (!finalSvg) return null;
 
     // Determine active resize handle corners based on quadrant position
     const isTopHalf = position.y + (size.height / 2) < (typeof window !== 'undefined' ? window.innerHeight / 2 : 400);
@@ -172,16 +180,6 @@ const FloatingImage = ({ svgCode, isLightMode }) => {
                 }}
                 onClick={() => setIsOpen(true)}
                 title="Dazugehörige Grafik anzeigen"
-                onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
-                    e.currentTarget.style.boxShadow = '0 6px 15px rgba(59, 130, 246, 0.6)';
-                    e.currentTarget.style.background = '#2563eb';
-                }}
-                onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.boxShadow = '0 4px 10px rgba(59, 130, 246, 0.4)';
-                    e.currentTarget.style.background = '#3b82f6';
-                }}
             >
                 Anhang
             </button>
@@ -198,15 +196,11 @@ const FloatingImage = ({ svgCode, isLightMode }) => {
                         width: `${size.width}px`,
                         height: `${size.height}px`,
                         zIndex: 1000,
-                        resize: 'none',
-                        margin: 0,
-                        transform: 'none',
                         padding: '15px',
                         display: 'flex',
                         flexDirection: 'column',
                         background: isLightMode ? 'rgba(255, 255, 255, 0.85)' : 'rgba(15, 23, 42, 0.65)',
                         backdropFilter: 'blur(30px)',
-                        WebkitBackdropFilter: 'blur(30px)',
                         borderRadius: '24px',
                         border: '1px solid var(--glass-border)',
                         boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
@@ -250,7 +244,7 @@ const FloatingImage = ({ svgCode, isLightMode }) => {
                     >
                         <div
                             className="svg-container"
-                            dangerouslySetInnerHTML={{ __html: svgCode }}
+                            dangerouslySetInnerHTML={{ __html: finalSvg }}
                             style={{ userSelect: 'none', pointerEvents: 'none' }}
                         />
                     </div>

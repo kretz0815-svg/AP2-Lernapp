@@ -8,7 +8,7 @@ if (apiKey) {
     genAI = new GoogleGenerativeAI(apiKey);
 }
 
-const GEMINI_MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash'];
+const GEMINI_MODELS = ['gemini-2.0-flash', 'gemini-1.5-flash'];
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
 
 function extractTextFromResult(result) {
@@ -147,7 +147,7 @@ Antworte auf Deutsch.`;
     // Gemini zuerst
     if (genAI) {
         try {
-            const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+            const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
             const result = await model.generateContent(prompt);
             return result.response.text();
         } catch (error) {
@@ -206,7 +206,7 @@ ${questionList}`;
         // Gemini zuerst
         if (genAI) {
             try {
-                const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+                const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
                 const result = await model.generateContent(prompt);
                 const text = result.response.text().trim();
                 const jsonMatch = text.match(/\{[\s\S]*"topics"[\s\S]*\}/);
@@ -301,7 +301,7 @@ ${eventList}`;
         // Gemini zuerst
         if (genAI) {
             try {
-                const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+                const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
                 const result = await model.generateContent(prompt);
                 const text = result.response.text().trim();
                 const insights = parseInsights(text);
