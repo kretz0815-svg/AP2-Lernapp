@@ -49,7 +49,6 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
   const { progress, grantXp, unlockLevel } = useProjectM();
   const [screen, setScreen] = useState('home');
   const [showConfetti, setShowConfetti] = useState(false);
-  const [assistantMessage, setAssistantMessage] = useState('Systeme bereit. Analysiere Projekt "SneakerNova"...');
   const [assistantState, setAssistantState] = useState('idle');
   
   // Current Random Variants
@@ -70,7 +69,6 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
   const triggerError = (msg) => {
     playSound('error');
     setAssistantState('error');
-    setAssistantMessage(msg || 'Struktureller Fehler im Plan!');
     setTimeout(() => setAssistantState('idle'), 3000);
   };
 
@@ -167,7 +165,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
           next[slotIndex] = card;
           return next;
         });
-        setAssistantMessage('Exakt! Das ist die richtige Phase.');
+
         const currentCount = l1Dropped.filter(v => v !== null).length;
         if (currentCount === l1Variant.cards.length - 1) {
            triggerSuccess();
@@ -280,7 +278,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
            const next = { ...prev, [catId]: [...prev[catId], card] };
            if (catId === l2Variant.quizTriggerCategory && next[catId].length === l2Variant.quizTriggerCount && !l2QuizGate) {
               setL2QuizGate(true);
-              setAssistantMessage('Moment! Kurze Wissensprüfung...');
+
            }
            return next;
         });
@@ -549,16 +547,6 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
     <div className={`project-m-container ${assistantState === 'success' ? 'project-m-theme--success' : ''}`}>
       {showConfetti && <Confetti />}
       {currentScreen}
-
-      <div className={`pm-assistant pm-assistant--${assistantState}`}>
-        <div className="pm-assistant__bubble">
-          <strong>Projekt-Assistent</strong>
-          <p>{assistantMessage}</p>
-        </div>
-        <div className="avatar-placeholder" style={{ width: '100px', height: '100px', background: 'rgba(109,175,255,0.2)', border: '1px solid var(--primary)', borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontStyle: 'italic', fontSize: '0.7rem' }}>
-           AI Vision Bot
-        </div>
-      </div>
     </div>
   );
 }

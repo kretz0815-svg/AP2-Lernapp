@@ -63,41 +63,7 @@
   background: rgba(6, 12, 18, 0.7) !important;
 }
 
-/* Assistant styles */
-.pm-assistant {
-  position: fixed;
-  right: max(10px, env(safe-area-inset-right, 0px) + 10px);
-  bottom: max(10px, env(safe-area-inset-bottom, 0px) + 10px);
-  z-index: 50;
-  display: grid;
-  gap: 0.45rem;
-  width: min(260px, calc(100vw - 20px));
-  pointer-events: none;
-}
 
-.pm-assistant__bubble {
-  border: 1px solid rgba(110, 220, 255, 0.75);
-  border-radius: 14px;
-  padding: 0.65rem 0.8rem;
-  background: rgba(0, 12, 18, 0.92);
-  box-shadow: 0 0 0 1px rgba(110, 220, 255, 0.2), 0 0 24px rgba(89, 210, 255, 0.24);
-  transition: all 0.3s ease;
-}
-
-.pm-assistant__bubble strong {
-  display: block;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #86e0ff;
-}
-
-.pm-assistant__bubble p {
-  margin: 0.25rem 0 0;
-  font-size: 0.88rem;
-  line-height: 1.4;
-  color: #d8f5ff;
-}
 
 /* Card Styles */
 .pm-card {
@@ -238,12 +204,7 @@
   border-radius: 4px;
 }
 
-@media (max-width: 768px) {
-  .pm-assistant {
-    bottom: max(72px, env(safe-area-inset-bottom, 0px) + 72px);
-    width: min(300px, calc(100vw - 20px));
-  }
-}
+
 
 @media (max-width: 600px) {
   .pm-wire {
