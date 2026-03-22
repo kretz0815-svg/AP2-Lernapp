@@ -135,6 +135,7 @@ export default function FloatingNotes({
     // Resize (umbruch Mobile/Desktop + Desktop Constraints)
     useEffect(() => {
         const handleResize = () => {
+            if (isMobileOverride !== null) return;
             const mobile = window.innerWidth <= 768;
             setIsMobile(mobile);
             if (!mobile) {
@@ -370,7 +371,7 @@ export default function FloatingNotes({
                     style={isMobile ? {
                         position: 'fixed',
                         left: '0px',
-                        top: `${vvState.offsetTop + vvState.height - mobileHeight}px`,
+                        top: `${vvState.height - mobileHeight}px`,
                         width: '100vw',
                         height: `${mobileHeight}px`,
                         zIndex: 1000,
@@ -382,7 +383,8 @@ export default function FloatingNotes({
                         border: '1px solid var(--glass-border)',
                         borderBottom: 'none',
                         boxShadow: '0 -5px 25px rgba(0,0,0,0.5)',
-                        background: 'rgba(15, 23, 42, 0.45)',
+                        background: 'rgba(15, 23, 42, 0.96)',
+                        color: 'white',
                         backdropFilter: 'blur(20px)',
                         WebkitBackdropFilter: 'blur(20px)'
                     } : {
@@ -397,7 +399,11 @@ export default function FloatingNotes({
                         transform: 'none',
                         padding: '15px',
                         display: 'flex',
-                        flexDirection: 'column'
+                        flexDirection: 'column',
+                        background: 'rgba(15, 23, 42, 0.96)',
+                        color: 'white',
+                        borderRadius: '18px',
+                        border: '1px solid rgba(255, 255, 255, 0.15)'
                     }}
                 >
                     <div
@@ -445,11 +451,11 @@ export default function FloatingNotes({
                             flex: 1,
                             resize: 'none',
                             marginTop: isMobile ? '5px' : '10px',
-                            background: 'rgba(255, 255, 255, 0.02)',
+                            background: 'rgba(0, 0, 0, 0.3)',
                             backdropFilter: 'blur(10px)',
                             WebkitBackdropFilter: 'blur(10px)',
                             color: 'white',
-                            border: '1px solid var(--glass-border)',
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
                             borderRadius: '12px',
                             padding: '10px',
                             outline: 'none',

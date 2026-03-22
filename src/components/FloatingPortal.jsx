@@ -12,12 +12,15 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    if (typeof document === 'undefined') return null;
+
     if (!isMobile) {
-        return (
+        return createPortal(
             <>
                 <FloatingNotes questionId={questionId} questionText={questionText} currentAppMode={currentAppMode} />
                 <FloatingCalculator currentAppMode={currentAppMode} />
-            </>
+            </>,
+            document.body
         );
     }
 
@@ -31,32 +34,40 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
                 position: 'fixed',
                 right: '12px',
                 top: '12px',
-                zIndex: 1000001, // Absolute top priority
-                display: 'flex',
-                gap: '12px',
-                backgroundColor: 'rgba(0, 0, 0, 0.82)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                padding: '8px 12px',
-                borderRadius: '20px',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
-                pointerEvents: 'auto',
-                touchAction: 'none'
+                zIndex: 1000001,
+                pointerEvents: 'none', // Allow touches through to the screen
+                overflow: 'visible'
             }}
         >
-            <FloatingNotes 
-                questionId={questionId} 
-                questionText={questionText} 
-                currentAppMode={currentAppMode} 
-                isMobileOverride={true}
-                inlineMode={true}
-            />
-            <FloatingCalculator 
-                currentAppMode={currentAppMode} 
-                isMobileOverride={true}
-                inlineMode={true}
-            />
+            <div 
+                style={{
+                    display: 'flex',
+                    gap: '12px',
+                    backgroundColor: 'rgba(0, 0, 0, 0.82)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    padding: '8px 12px',
+                    borderRadius: '20px',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+                    pointerEvents: 'auto', // Re-enable pointer events for icons
+                    marginLeft: 'auto', // Align to right
+                    width: 'fit-content'
+                }}
+            >
+                <FloatingNotes 
+                    questionId={questionId} 
+                    questionText={questionText} 
+                    currentAppMode={currentAppMode} 
+                    isMobileOverride={true}
+                    inlineMode={true}
+                />
+                <FloatingCalculator 
+                    currentAppMode={currentAppMode} 
+                    isMobileOverride={true}
+                    inlineMode={true}
+                />
+            </div>
         </div>,
         document.body
     );

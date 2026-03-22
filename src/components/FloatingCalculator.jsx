@@ -64,6 +64,7 @@ export default function FloatingCalculator({
 
     useEffect(() => {
         const handleResize = () => {
+            if (isMobileOverride !== null) return;
             const mobile = window.innerWidth <= 768;
             setIsMobile(mobile);
             if (!mobile) {
@@ -164,9 +165,9 @@ export default function FloatingCalculator({
         const { width, height } = getMobileWindowDimensions(vvState);
         const x = clamp((vvState.width - width) / 2, MOBILE_VIEWPORT_MARGIN, vvState.width - width - MOBILE_VIEWPORT_MARGIN);
         const y = clamp(
-            vvState.offsetTop + vvState.height - height - 18,
-            vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
-            vvState.offsetTop + vvState.height - height - MOBILE_VIEWPORT_MARGIN
+            vvState.height - height - 18,
+            MOBILE_VIEWPORT_MARGIN,
+            vvState.height - height - MOBILE_VIEWPORT_MARGIN
         );
         setMobileWindow({ x, y, width, height });
     }, [isMobile, isOpen, vvState]);
@@ -181,8 +182,8 @@ export default function FloatingCalculator({
             const x = clamp(prev.x, MOBILE_VIEWPORT_MARGIN, vvState.width - width - MOBILE_VIEWPORT_MARGIN);
             const y = clamp(
                 prev.y,
-                vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
-                vvState.offsetTop + vvState.height - height - MOBILE_VIEWPORT_MARGIN
+                MOBILE_VIEWPORT_MARGIN,
+                vvState.height - height - MOBILE_VIEWPORT_MARGIN
             );
             if (x === prev.x && y === prev.y && width === prev.width && height === prev.height) return prev;
             return { x, y, width, height };
@@ -217,8 +218,8 @@ export default function FloatingCalculator({
         );
         const nextY = clamp(
             gesture.startWindow.y + dy,
-            vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
-            vvState.offsetTop + vvState.height - gesture.startWindow.height - MOBILE_VIEWPORT_MARGIN
+            MOBILE_VIEWPORT_MARGIN,
+            vvState.height - gesture.startWindow.height - MOBILE_VIEWPORT_MARGIN
         );
         setMobileWindow(prev => ({ ...prev, x: nextX, y: nextY }));
     };
@@ -481,8 +482,9 @@ export default function FloatingCalculator({
                         maxWidth: `${CALC_MAX_WIDTH}px`,
                         zIndex: 1000, margin: 0, padding: '10px 10px 8px 10px',
                         display: 'flex', flexDirection: 'column',
-                        borderRadius: '18px', border: '1px solid var(--glass-border)',
+                        borderRadius: '18px', border: '1px solid rgba(255, 255, 255, 0.15)',
                         boxShadow: '0 8px 30px rgba(0,0,0,0.55)', background: 'rgba(0, 0, 0, 0.96)',
+                        color: 'white',
                         touchAction: 'auto'
                     } : {
                         position: 'fixed',
@@ -490,7 +492,11 @@ export default function FloatingCalculator({
                         width: `${size.width}px`, height: `${size.height}px`,
                         maxWidth: `${CALC_MAX_WIDTH}px`, maxHeight: `${CALC_MAX_HEIGHT}px`,
                         zIndex: 1000, resize: 'none', margin: 0, transform: 'none',
-                        padding: '10px 0', display: 'flex', flexDirection: 'column', background: 'rgba(0, 0, 0, 0.96)'
+                        padding: '10px 0', display: 'flex', flexDirection: 'column', 
+                        background: 'rgba(0, 0, 0, 0.96)',
+                        color: 'white',
+                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        borderRadius: '18px'
                     }}
                 >
                     <div
@@ -517,7 +523,7 @@ export default function FloatingCalculator({
 
                     <input
                         className="calc-display"
-                        style={{ fontSize, border: 'none', outline: 'none', width: '100%', textAlign: 'right', background: 'transparent', color: 'inherit', fontFamily: 'inherit', fontWeight: 'inherit', caretColor: 'rgba(255,255,255,0.6)' }}
+                        style={{ fontSize, border: 'none', outline: 'none', width: '100%', textAlign: 'right', background: 'transparent', color: 'white', fontFamily: 'inherit', fontWeight: 'inherit', caretColor: 'rgba(255,255,255,0.6)' }}
                         value={currentValue}
                         onChange={(e) => {
                             setHasCalcActivity(true);
