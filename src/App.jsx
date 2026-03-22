@@ -29,6 +29,7 @@ import VideoPanel from './components/VideoPanel';
 import GeminiPanel from './components/GeminiPanel';
 import Confetti from './components/Confetti';
 import { KLRGameHub, useKLRGame } from './features/klr';
+import { ProjectMGame, useProjectM } from './features/project-m';
 import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
 import { reviewTaskWithDSR, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
 
@@ -68,6 +69,7 @@ function App() {
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
   const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || import.meta.env.VITE_HCAPTCHA_SITEKEY || '';
   const { progress: klrProgress } = useKLRGame() || { progress: { xp: 0 } };
+  const { progress: pmProgress } = useProjectM() || { progress: { xp: 0 } };
 
   // Set up auth first
 
@@ -1170,6 +1172,11 @@ ${input}`;
       clearAnalyticsByMode('breakEven');
       setResetModalVisible(false);
       window.location.reload();
+    } else if (resetTarget === 'project_m') {
+      localStorage.removeItem('project_m_progress_v1');
+      clearAnalyticsByMode('project_m');
+      setResetModalVisible(false);
+      window.location.reload();
     } else if (resetTarget === 'fullAccount') {
       // Clear progress localStorage (keep custom quiz questions)
       localStorage.removeItem('ap2_srs_progress');
@@ -1178,6 +1185,7 @@ ${input}`;
       localStorage.removeItem('ap2_wisor_eco_progress');
       localStorage.removeItem('ap2_saved_notes');
       localStorage.removeItem('klr_game_progress_v1');
+      localStorage.removeItem('project_m_progress_v1');
       localStorage.removeItem(getAnalyticsStorageKey(authUser));
 
       // Reset progress state (keep customQuizQuestions intact)
@@ -1798,6 +1806,26 @@ ${input}`;
             <div className="chip">XP: {klrProgress?.xp || 0}</div>
           </div>
 
+          <div id="card-project-m" className="dash-card" onClick={() => setAppMode('project_m')}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
+              <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                <path d="M12 11v6" />
+                <path d="M9 14h6" />
+              </svg>
+            </div>
+            <h2>Projekt m<br />Mastery</h2>
+            <p>Beherrsche den Projektlebenszyklus und Fachbegriffe im E-Commerce.</p>
+            <div className="chip">XP: {pmProgress?.xp || 0}</div>
+            <button
+               className="btn-secondary"
+               style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
+               onClick={(e) => { e.stopPropagation(); openResetModal(e, 'project_m'); }}
+            >
+               🔄 Lernfortschritt zurücksetzen
+            </button>
+          </div>
+
           <div id="card-notes" className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
               <img
@@ -2078,6 +2106,22 @@ ${input}`;
           <KLRGameHub onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
         </div>
         <FloatingNotes questionId="klr_game" questionText="KLR Startup Survival" currentAppMode={appMode} />
+        <FloatingCalculator currentAppMode={appMode} />
+      </>
+    );
+  }
+
+  if (appMode === 'project_m') {
+    return (
+      <>
+        <div className="app-container" style={{ zIndex: 10 }}>
+          {pomodoroPortal}
+          {burgerMenuPortal}
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <ProjectMGame onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
+        </div>
+        <FloatingNotes questionId="project_m" questionText="Projekt m Mastery" currentAppMode={appMode} />
         <FloatingCalculator currentAppMode={appMode} />
       </>
     );
