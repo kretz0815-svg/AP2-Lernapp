@@ -407,6 +407,8 @@ function App() {
     const appearanceRaw = localStorage.getItem(getAppearanceKey(authUser));
     const appearance = appearanceRaw ? JSON.parse(appearanceRaw) : null;
     const theme = localStorage.getItem(getThemeKey(authUser)) || 'dark';
+    const klrProgress = JSON.parse(localStorage.getItem('klr_game_progress_v1') || 'null');
+    const projectMProgress = JSON.parse(localStorage.getItem('project_m_progress_v1') || 'null');
 
     return {
       ...srsProgress,
@@ -417,6 +419,8 @@ function App() {
       custom_quiz_questions: customQuiz,
       appearance_settings: appearance,
       theme_mode: theme,
+      klr_progress: klrProgress,
+      project_m_progress: projectMProgress,
       ...overrides
     };
   };
@@ -975,6 +979,15 @@ ${input}`;
             localStorage.setItem('ap2_wisor_progress', JSON.stringify({}));
             localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
             localStorage.setItem('ap2_saved_notes', JSON.stringify({}));
+            if (data.progress_data.project_m_progress) {
+              localStorage.setItem('project_m_progress_v1', JSON.stringify(data.progress_data.project_m_progress));
+            }
+            if (data.progress_data.klr_progress) {
+              localStorage.setItem('klr_game_progress_v1', JSON.stringify(data.progress_data.klr_progress));
+            }
+            // Trigger local update for providers
+            window.dispatchEvent(new Event('storage'));
+
             if (session?.user) {
               localStorage.setItem(getAnalyticsStorageKey(session.user), JSON.stringify(createEmptyAnalytics()));
               localStorage.setItem(getCustomQuizStorageKey(session.user), JSON.stringify([]));
@@ -982,6 +995,8 @@ ${input}`;
             analyticsData = createEmptyAnalytics();
             customQuizData = [];
           }
+          // After loading we might want to tell the providers to refresh
+          window.dispatchEvent(new CustomEvent('ap2_progress_synced'));
         } catch (err) {
           console.error("Supabase load error: ", err);
         }
@@ -1049,10 +1064,16 @@ ${input}`;
       flushPendingMemberSync();
     };
 
+    const handleExternalUpdate = () => {
+      syncProgressToSupabase();
+    };
+
+    window.addEventListener('ap2_progress_updated', handleExternalUpdate);
     window.addEventListener('online', handleOnline);
     return () => {
       clearInterval(interval);
       window.removeEventListener('online', handleOnline);
+      window.removeEventListener('ap2_progress_updated', handleExternalUpdate);
     };
   }, [authUser?.id]);
 

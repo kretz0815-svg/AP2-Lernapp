@@ -27,7 +27,9 @@ export const createEmptyMemberProgressData = () => ({
     wisor_eco_progress: {},
     saved_notes: {},
     learning_analytics: createEmptyAnalytics(),
-    custom_quiz_questions: []
+    custom_quiz_questions: [],
+    klr_progress: null,
+    project_m_progress: null
 });
 
 // ─── ID Generation ──────────────────────────────────────────────

@@ -35,11 +35,20 @@ const ProjectMContext = createContext(null);
 export function ProjectMProvider({ children }) {
     const [progress, setProgress] = useState(readInitialProgress);
 
+    React.useEffect(() => {
+        const handleSync = () => {
+             setProgress(readInitialProgress());
+        };
+        window.addEventListener('ap2_progress_synced', handleSync);
+        return () => window.removeEventListener('ap2_progress_synced', handleSync);
+    }, []);
+
     const persist = (updater) => {
         setProgress((prev) => {
             const next = typeof updater === 'function' ? updater(prev) : updater;
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+                window.dispatchEvent(new CustomEvent('ap2_progress_updated', { detail: { key: STORAGE_KEY } }));
             } catch {
                 // Ignore errors
             }
