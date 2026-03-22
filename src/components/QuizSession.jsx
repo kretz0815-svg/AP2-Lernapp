@@ -35,7 +35,8 @@ const QuizSession = ({
   triggerConfetti,
   lastQuizCorrect,
   setAppMode,
-  handleFeynmanCheck
+  handleFeynmanCheck,
+  onQuizAnswer
 }) => {
   const [internalQuizzes, setInternalQuizzes] = useState(initialSessionPool);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
@@ -128,7 +129,10 @@ const QuizSession = ({
       });
     }
     if (isCorrect && currentQuizIndex === internalQuizzes.length - 1) {
-        if (triggerConfetti) triggerConfetti();
+      if (triggerConfetti) triggerConfetti();
+    }
+    if (onQuizAnswer) {
+      onQuizAnswer(q, isCorrect);
     }
   };
 

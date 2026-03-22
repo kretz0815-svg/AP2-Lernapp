@@ -487,6 +487,32 @@ function App() {
     }
   };
 
+  const handleQuizAnswerUpdate = async (q, isCorrect) => {
+    // 1. Local progress update
+    const localProg = JSON.parse(localStorage.getItem('ap2_quiz_progress') || '{}');
+    const prevProg = localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 };
+    const nextProg = computeNextQuizProgress(prevProg, isCorrect);
+    
+    localProg[q.id] = nextProg;
+    localStorage.setItem('ap2_quiz_progress', JSON.stringify(localProg));
+    setQuizProgressView(localProg);
+
+    // 2. Supabase DSR update
+    if (authUser?.id) {
+      // Mapping correct answer to a 4 (Good), otherwise 2 (Hard) if incorrect.
+      const rating = isCorrect ? 4 : 2; 
+      reviewTaskWithDSR({
+        supabase,
+        userId: authUser.id,
+        taskId: `quiz:${q.id}`,
+        rating,
+        taskType: 'quiz',
+        category: q.topic,
+        metadata: { question: q.question }
+      }).catch(err => console.error('DSR quiz review failed:', err));
+    }
+  };
+
   const appendLearningEvent = ({ mode, questionId, questionText, correct, userAnswer = '', expectedAnswer = '', topic = '' }) => {
     const now = Date.now();
     const keyBase = getLearningEventKey({ mode, questionId, questionText });
@@ -2232,6 +2258,7 @@ ${input}`;
           onCancel={() => setAppMode('dashboard')}
           feynmanModeEnabled={feynmanModeEnabled}
           onLearningEvent={appendLearningEvent}
+          onQuizAnswer={handleQuizAnswerUpdate}
           handleGeminiAsk={handleGeminiAsk}
           geminiResponse={geminiResponse}
           geminiLoading={geminiLoading}
