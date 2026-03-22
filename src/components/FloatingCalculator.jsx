@@ -21,7 +21,12 @@ const getMobileWindowDimensions = (vvState) => {
     };
 };
 
-export default function FloatingCalculator({ currentAppMode }) {
+export default function FloatingCalculator({ 
+    currentAppMode,
+    isMobileOverride = null,
+    mobileTopOverride = null,
+    inlineMode = false
+}) {
     const [isOpen, setIsOpen] = useState(false);
     const [avoidInput, setAvoidInput] = useState(false);
     const [hasCalcActivity, setHasCalcActivity] = useState(false);
@@ -33,7 +38,7 @@ export default function FloatingCalculator({ currentAppMode }) {
     const [waitingForNewValue, setWaitingForNewValue] = useState(false);
 
     // Responsive State
-    const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
+    const [isMobile, setIsMobile] = useState(isMobileOverride !== null ? isMobileOverride : (typeof window !== 'undefined' && window.innerWidth <= 768));
     const [position, setPosition] = useState({
         x: typeof window !== 'undefined' ? window.innerWidth - 300 : 800,
         y: typeof window !== 'undefined' ? window.innerHeight / 2 - 250 : 200
@@ -419,20 +424,24 @@ export default function FloatingCalculator({ currentAppMode }) {
     const preferredTop = visibleTop + Math.round(visibleHeight * 0.22);
     const minTop = visibleTop + 72;
     const maxTop = visibleTop + Math.max(92, visibleHeight - 180);
-    const mobileTop = Math.max(minTop, Math.min(preferredTop, maxTop));
-    const mobileToggleStyle = avoidInput
+    const mobileTop = mobileTopOverride !== null ? mobileTopOverride : Math.max(minTop, Math.min(preferredTop, maxTop));
+    let mobileToggleStyle = avoidInput
         ? {
-            position: 'fixed',
-            left: '12px',
-            top: `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
+            position: inlineMode ? 'relative' : 'fixed',
+            left: inlineMode ? '0' : '12px',
+            top: inlineMode ? '0' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
             zIndex: 1000
         }
         : {
-            position: 'fixed',
-            right: '12px',
-            top: (currentAppMode === 'klr') ? '1px' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
+            position: inlineMode ? 'relative' : 'fixed',
+            right: (currentAppMode === 'klr') ? (inlineMode ? '0' : '74px') : (inlineMode ? '0' : '12px'),
+            top: (currentAppMode === 'klr') ? (inlineMode ? '0' : '1px') : (inlineMode ? '0' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`),
             zIndex: 1000
         };
+
+    if (inlineMode) {
+        mobileToggleStyle = { ...mobileToggleStyle, top: 'auto', right: 'auto', left: 'auto', position: 'relative' };
+    }
     const helperValue = String(currentValue ?? '').replace('.', ',');
     const helperText = helperValue.length > 14 ? `${helperValue.slice(0, 14)}…` : helperValue;
     const showResultHelper = !isOpen && hasCalcActivity && currentValue !== '0';
@@ -440,7 +449,7 @@ export default function FloatingCalculator({ currentAppMode }) {
     return (
         <>
             {!isOpen ? (
-                <div style={isMobile ? mobileToggleStyle : { position: 'fixed', right: '20px', top: 'calc(50% + 70px)', transform: 'translateY(-50%)', zIndex: 1000 }}>
+                <div style={isMobile ? mobileToggleStyle : (inlineMode ? { position: 'relative' } : { position: 'fixed', right: '20px', top: 'calc(50% + 70px)', transform: 'translateY(-50%)', zIndex: 1000 })}>
                     <button
                         className="floating-notes-toggle"
                         onClick={() => setIsOpen(true)}

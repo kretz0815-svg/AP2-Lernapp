@@ -2,12 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../supabaseClient';
 import '../index.css';
 
-export default function FloatingNotes({ questionId, questionText, currentAppMode }) {
+export default function FloatingNotes({ 
+    questionId, 
+    questionText, 
+    currentAppMode,
+    inlineMode = false,
+    mobileTopOverride = null,
+    isMobileOverride = null
+}) {
     const [isOpen, setIsOpen] = useState(false);
     const [notes, setNotes] = useState('');
     const [avoidInput, setAvoidInput] = useState(false);
 
-    const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
+    const [isMobile, setIsMobile] = useState(isMobileOverride !== null ? isMobileOverride : (typeof window !== 'undefined' && window.innerWidth <= 768));
 
     // Desktop: drag & resize state
     const [position, setPosition] = useState({
@@ -319,25 +326,30 @@ export default function FloatingNotes({ questionId, questionText, currentAppMode
     const preferredTop = visibleTop + Math.round(visibleHeight * 0.22) + 70;
     const minTop = visibleTop + 142;
     const maxTop = visibleTop + Math.max(160, visibleHeight - 110);
-    const mobileTop = Math.max(minTop, Math.min(preferredTop, maxTop));
-    const mobileToggleStyle = avoidInput
+    const mobileTop = mobileTopOverride !== null ? mobileTopOverride : Math.max(minTop, Math.min(preferredTop, maxTop));
+    let mobileToggleStyle = avoidInput
         ? {
-            position: 'fixed',
-            left: '12px',
-            top: `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
+            position: inlineMode ? 'relative' : 'fixed',
+            left: inlineMode ? '0' : '12px',
+            top: inlineMode ? '0' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
             zIndex: 1000
         }
         : {
-            position: 'fixed',
-            right: (currentAppMode === 'klr') ? '74px' : '12px',
-            top: (currentAppMode === 'klr') ? '1px' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
+            position: inlineMode ? 'relative' : 'fixed',
+            right: (currentAppMode === 'klr') ? (inlineMode ? '0' : '74px') : (inlineMode ? '0' : '12px'),
+            top: (currentAppMode === 'klr') ? (inlineMode ? '0' : '1px') : (inlineMode ? '0' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`),
             zIndex: 1000
         };
+
+    if (inlineMode) {
+        // Reset top/right/left for inline positioning within the draggable group
+        mobileToggleStyle = { ...mobileToggleStyle, top: 'auto', right: 'auto', left: 'auto', position: 'relative' };
+    }
 
     return (
         <>
             {!isOpen ? (
-                <div style={isMobile ? mobileToggleStyle : { position: 'fixed', right: '20px', top: '50%', transform: 'translateY(-50%)', zIndex: 1000 }}>
+                <div style={isMobile ? mobileToggleStyle : (inlineMode ? { position: 'relative' } : { position: 'fixed', right: '20px', top: '50%', transform: 'translateY(-50%)', zIndex: 1000 })}>
                     <button
                         className="floating-notes-toggle"
                         onClick={() => setIsOpen(true)}

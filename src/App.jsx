@@ -18,6 +18,7 @@ import { askGemini, extractFocusTopics, extractCalculationInsights } from './gem
 import { fetchYouTubeVideos } from './youtubeClient';
 import FloatingNotes from './components/FloatingNotes';
 import FloatingCalculator from './components/FloatingCalculator';
+import FloatingPortal from './components/FloatingPortal';
 import FloatingImage from './components/FloatingImage';
 import BurgerMenu from './components/BurgerMenu';
 import QuestionManager from './components/QuestionManager';
@@ -2126,8 +2127,7 @@ ${input}`;
           <div className="blob blob-2"></div>
           <KLRGameHub onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
         </div>
-        <FloatingNotes questionId="klr_game" questionText="KLR Startup Survival" currentAppMode={appMode} />
-        <FloatingCalculator currentAppMode={appMode} />
+        <FloatingPortal questionId="klr_game" questionText="KLR Startup Survival" currentAppMode={appMode} />
       </>
     );
   }
@@ -2142,8 +2142,7 @@ ${input}`;
           <div className="blob blob-2"></div>
           <ProjectMGame onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
         </div>
-        <FloatingNotes questionId="project_m" questionText="Projekt m Mastery" currentAppMode={appMode} />
-        <FloatingCalculator currentAppMode={appMode} />
+        <FloatingPortal questionId="project_m" questionText="Projekt m Mastery" currentAppMode={appMode} />
       </>
     );
   }
@@ -2154,8 +2153,7 @@ ${input}`;
         {pomodoroPortal}
         {burgerMenuPortal}
         <KalkulationsBoss onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} isGuest={!authUser} />
-        <FloatingNotes questionId="kalkulation" questionText="Kalkulations-Boss" />
-        <FloatingCalculator />
+        <FloatingPortal questionId="kalkulation" questionText="Kalkulations-Boss" />
       </>
     );
   }
@@ -2166,8 +2164,7 @@ ${input}`;
         {pomodoroPortal}
         {burgerMenuPortal}
         <BreakEvenPoint onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
-        <FloatingNotes questionId="break_even_point" questionText="Break-Even-Point Training" />
-        <FloatingCalculator />
+        <FloatingPortal questionId="break_even_point" questionText="Break-Even-Point Training" />
       </>
     );
   }
