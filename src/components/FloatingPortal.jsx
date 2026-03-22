@@ -78,21 +78,37 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '12px',
-                pointerEvents: 'none' // Allow clicking through the container gap
+                pointerEvents: 'none', // Allow clicking through the container gap
+                touchAction: 'none',   // Prevent scrolling/selection
+                userSelect: 'none',
+                WebkitUserSelect: 'none'
             }}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
         >
-            {/* Drag Handle indicator for mobile */}
+            {/* Improved Drag Handle for mobile */}
             <div style={{ 
-                width: '40px', 
-                height: '4px', 
-                background: 'rgba(255,255,255,0.3)', 
-                borderRadius: '2px', 
-                margin: '0 auto 4px auto',
-                pointerEvents: 'auto'
-            }} />
+                width: '44px', 
+                height: '44px', 
+                background: 'rgba(255,255,255,0.08)', 
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto',
+                pointerEvents: 'auto',
+                border: '1px solid rgba(255,255,255,0.1)',
+                color: 'rgba(255,255,255,0.4)',
+                fontSize: '0.8rem',
+                flexShrink: 0
+            }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                    <div style={{ width: '12px', height: '1.5px', background: 'currentColor', borderRadius: '1px' }} />
+                    <div style={{ width: '18px', height: '1.5px', background: 'currentColor', borderRadius: '1px' }} />
+                    <div style={{ width: '12px', height: '1.5px', background: 'currentColor', borderRadius: '1px' }} />
+                </div>
+            </div>
             
             <div style={{ pointerEvents: 'auto' }}>
                 <FloatingNotes 
