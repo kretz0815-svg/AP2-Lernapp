@@ -2119,53 +2119,49 @@ ${input}`;
 
   if (appMode === 'klr') {
     return (
-      <>
-        <div className="app-container" style={{ zIndex: 10 }}>
-          {pomodoroPortal}
-          {burgerMenuPortal}
-          <div className="blob blob-1"></div>
-          <div className="blob blob-2"></div>
+      <div className="app-container" style={{ zIndex: 10 }}>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <React.Suspense fallback={<div className="loading-overlay">Lade KLR...</div>}>
           <KLRGameHub onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
-        </div>
-        <FloatingPortal questionId="klr_game" questionText="KLR Startup Survival" currentAppMode={appMode} />
-      </>
+        </React.Suspense>
+      </div>
     );
   }
 
   if (appMode === 'project_m') {
     return (
-      <>
-        <div className="app-container" style={{ zIndex: 10 }}>
-          {pomodoroPortal}
-          {burgerMenuPortal}
-          <div className="blob blob-1"></div>
-          <div className="blob blob-2"></div>
+      <div className="app-container" style={{ zIndex: 10 }}>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <React.Suspense fallback={<div className="loading-overlay">Lade Projekt m...</div>}>
           <ProjectMGame onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
-        </div>
-        <FloatingPortal questionId="project_m" questionText="Projekt m Mastery" currentAppMode={appMode} />
-      </>
+        </React.Suspense>
+      </div>
     );
   }
 
   if (appMode === 'kalkulation') {
     return (
-      <>
+      <div className="app-container" style={{ zIndex: 10 }}>
         {pomodoroPortal}
         {burgerMenuPortal}
-        <KalkulationsBoss onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} isGuest={!authUser} />
-        <FloatingPortal questionId="kalkulation" questionText="Kalkulations-Boss" />
-      </>
+        <React.Suspense fallback={<div className="loading-overlay">Lade Kalkulation...</div>}>
+          <KalkulationsBoss onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} isGuest={!authUser} />
+        </React.Suspense>
+      </div>
     );
   }
 
   if (appMode === 'break_even') {
     return (
-      <>
+      <div className="app-container" style={{ zIndex: 10 }}>
         {pomodoroPortal}
         {burgerMenuPortal}
-        <BreakEvenPoint onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
-        <FloatingPortal questionId="break_even_point" questionText="Break-Even-Point Training" />
-      </>
+        <React.Suspense fallback={<div className="loading-overlay">Lade Break-Even...</div>}>
+          <BreakEvenPoint onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
+        </React.Suspense>
+      </div>
     );
   }
 

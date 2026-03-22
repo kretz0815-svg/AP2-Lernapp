@@ -1,4 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react';
+import FloatingPortal from './FloatingPortal';
 
 const toEuro = (cents) => (cents / 100).toFixed(2).replace('.', ',');
 const parseEuroToCents = (raw) => {
@@ -321,6 +322,7 @@ export default function BreakEvenPoint({ onBack, onLearningEvent }) {
           </>
         )}
       </div>
+      <FloatingPortal questionId="break_even_point" questionText="Break-Even-Point Training" currentAppMode="break_even" />
     </div>
   );
 }

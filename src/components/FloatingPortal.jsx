@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import FloatingNotes from './FloatingNotes';
 import FloatingCalculator from './FloatingCalculator';
 
@@ -20,36 +21,43 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
         );
     }
 
-    // On mobile: horizontal top-right arrangement
-    return (
+    // On mobile: horizontal top-right arrangement, teleported to body to stay on top
+    if (typeof document === 'undefined') return null;
+
+    return createPortal(
         <div 
             className="mobile-floating-portal"
             style={{
                 position: 'fixed',
                 right: '12px',
                 top: '12px',
-                zIndex: 1000,
+                zIndex: 1000001, // Absolute top priority
                 display: 'flex',
-                gap: '10px',
-                pointerEvents: 'none'
+                gap: '12px',
+                backgroundColor: 'rgba(0, 0, 0, 0.82)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                padding: '8px 12px',
+                borderRadius: '20px',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+                pointerEvents: 'auto',
+                touchAction: 'none'
             }}
         >
-            <div style={{ pointerEvents: 'auto' }}>
-                <FloatingNotes 
-                    questionId={questionId} 
-                    questionText={questionText} 
-                    currentAppMode={currentAppMode} 
-                    isMobileOverride={true}
-                    inlineMode={true}
-                />
-            </div>
-            <div style={{ pointerEvents: 'auto' }}>
-                <FloatingCalculator 
-                    currentAppMode={currentAppMode} 
-                    isMobileOverride={true}
-                    inlineMode={true}
-                />
-            </div>
-        </div>
+            <FloatingNotes 
+                questionId={questionId} 
+                questionText={questionText} 
+                currentAppMode={currentAppMode} 
+                isMobileOverride={true}
+                inlineMode={true}
+            />
+            <FloatingCalculator 
+                currentAppMode={currentAppMode} 
+                isMobileOverride={true}
+                inlineMode={true}
+            />
+        </div>,
+        document.body
     );
 }

@@ -4,6 +4,7 @@ import VideoPanel from './VideoPanel';
 import GeminiPanel from './GeminiPanel';
 import FloatingNotes from './FloatingNotes';
 import FloatingCalculator from './FloatingCalculator';
+import FloatingPortal from './FloatingPortal';
 import ResetModal from './ResetModal';
 
 const WisorSession = ({
@@ -216,8 +217,7 @@ const WisorSession = ({
         </form>
       </div>
 
-      <FloatingNotes questionId={`wisor_${q.id}`} questionText={q.question} />
-      <FloatingCalculator />
+      <FloatingPortal questionId={`wisor_${q.id}`} questionText={q.question} currentAppMode="wisor" />
     </div>
   );
 };

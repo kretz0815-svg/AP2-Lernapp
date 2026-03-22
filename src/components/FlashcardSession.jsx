@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FloatingNotes from './FloatingNotes';
+import FloatingPortal from './FloatingPortal';
 import { formatLatex } from '../utils/formatting';
 
 import { reviewTaskWithDSR } from '../services/srsStore';
@@ -132,9 +133,10 @@ const FlashcardSession = ({
         )}
       </div>
 
-      <FloatingNotes 
+      <FloatingPortal 
         questionId={currentCard.id} 
         questionText={currentCard.front} 
+        currentAppMode="flashcards"
       />
     </div>
   );

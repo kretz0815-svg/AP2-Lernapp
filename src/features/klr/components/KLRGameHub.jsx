@@ -5,6 +5,7 @@ import { fetchYouTubeVideos } from '../../../youtubeClient';
 import { askCyberEinstein, askGemini } from '../../../geminiClient';
 import CyberEinsteinMentor from './CyberEinsteinMentor';
 import Confetti from '../../../components/Confetti';
+import FloatingPortal from '../../../components/FloatingPortal';
 import './klr-cyber.css';
 
 const LEVELS = [
@@ -1500,6 +1501,7 @@ export default function KLRGameHub({ onBack, onLearningEvent }) {
           );
         })}
       </div>
+      <FloatingPortal questionId="klr_game" questionText="KLR Startup Survival" currentAppMode="klr" />
     </>,
     '980px'
   );

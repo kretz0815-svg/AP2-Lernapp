@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useProjectM } from '../state/ProjectMProvider';
 import Confetti from '../../../components/Confetti';
+import FloatingPortal from '../../../components/FloatingPortal';
 import { L1_VARIANTS, L2_VARIANTS, L3_VARIANTS, L4_VARIANTS } from '../data/scenarios';
 import './project-m.css';
 
@@ -50,6 +51,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
   const [screen, setScreen] = useState('home');
   const [showConfetti, setShowConfetti] = useState(false);
   const [assistantState, setAssistantState] = useState('idle');
+  const [selectedCard, setSelectedCard] = useState(null);
   
   // Current Random Variants
   const [l1Variant, setL1Variant] = useState(L1_VARIANTS[0]);
@@ -151,11 +153,12 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
     
     const handleDragStart = (e, card) => {
       e.dataTransfer.setData('cardId', card.id);
+      setSelectedCard(card);
     };
 
-    const handleDrop = (e, slotIndex) => {
-      e.preventDefault();
-      const cardId = e.dataTransfer.getData('cardId');
+    const handleDrop = (e, slotIndex, clickedCardId = null) => {
+      if (e && e.preventDefault) e.preventDefault();
+      const cardId = clickedCardId || e.dataTransfer.getData('cardId');
       const card = l1Variant.cards.find(c => c.id === cardId);
       if (!card) return;
       
@@ -165,6 +168,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
           next[slotIndex] = card;
           return next;
         });
+        setSelectedCard(null);
 
         const currentCount = l1Dropped.filter(v => v !== null).length;
         if (currentCount === l1Variant.cards.length - 1) {
@@ -178,10 +182,16 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
       }
     };
 
+    const handleSlotClick = (idx) => {
+      if (selectedCard) {
+        handleDrop(null, idx, selectedCard.id);
+      }
+    };
+
     return (
       <div className="project-m-theme">
         <div className="pm-wire" style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem', borderRadius: '24px' }}>
-          <button className="btn-nav" onClick={() => setScreen('home')}>&larr; Zurück</button>
+          <button className="btn-nav" onClick={() => { setScreen('home'); setSelectedCard(null); }}>&larr; Zurück</button>
           
           <div style={{ textAlign: 'center', margin: '1rem 0 2rem' }}>
             <h2 style={{ color: 'var(--primary)', fontSize: '2rem' }}>Level 1: {l1Variant.title}</h2>
@@ -192,11 +202,12 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
             {l1Dropped.map((item, idx) => (
               <div 
                 key={idx} 
-                className={`timeline-slot ${item ? 'pm-card--correct' : ''}`}
+                className={`timeline-slot ${item ? 'pm-card--correct' : ''} ${selectedCard && !item ? 'pm-slot--interactive' : ''}`}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => !item && handleDrop(e, idx)}
+                onClick={() => !item && handleSlotClick(idx)}
               >
-                {item ? item.label : ''}
+                {item ? item.label : (selectedCard ? 'Ablegen' : '')}
               </div>
             ))}
           </div>
@@ -205,12 +216,14 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
             {l1Variant.cards.map(card => {
                const alreadyPlaced = l1Dropped.some(d => d?.id === card.id);
                if (alreadyPlaced) return null;
+               const isSelected = selectedCard?.id === card.id;
                return (
                  <div 
                    key={card.id} 
-                   className="pm-card" 
+                   className={`pm-card ${isSelected ? 'pm-card--selected' : ''}`} 
                    draggable 
                    onDragStart={(e) => handleDragStart(e, card)}
+                   onClick={() => setSelectedCard(isSelected ? null : card)}
                  >
                    {card.label}
                    {l1Mistakes[card.id] >= 3 && <div className="hint-icon" title="Tipp: Beginne immer mit der Vorbereitung.">❓</div>}
@@ -265,11 +278,12 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
 
     const handleDragStart = (e, card) => {
       e.dataTransfer.setData('cardId', card.id);
+      setSelectedCard(card);
     };
 
-    const handleDrop = (e, catId) => {
-      e.preventDefault();
-      const cardId = e.dataTransfer.getData('cardId');
+    const handleDrop = (e, catId, clickedCardId = null) => {
+      if (e && e.preventDefault) e.preventDefault();
+      const cardId = clickedCardId || e.dataTransfer.getData('cardId');
       const card = l2Variant.cards.find(c => c.id === cardId);
       if(!card) return;
 
@@ -282,6 +296,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
            }
            return next;
         });
+        setSelectedCard(null);
         playSound('success');
       } else {
         triggerError('Inkorrekte Zuordnung. Überlege genau, in was diese Aufgabe mündet.');
@@ -289,10 +304,16 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
       }
     };
 
+    const handleBoxClick = (catId) => {
+      if (selectedCard) {
+        handleDrop(null, catId, selectedCard.id);
+      }
+    };
+
     return (
       <div className="project-m-theme">
         <div className="pm-wire" style={{ maxWidth: '1100px', margin: '0 auto', padding: '2rem', borderRadius: '24px' }}>
-          <button className="btn-nav" onClick={() => setScreen('home')}>&larr; Zurück</button>
+          <button className="btn-nav" onClick={() => { setScreen('home'); setSelectedCard(null); }}>&larr; Zurück</button>
 
           <div style={{ textAlign: 'center', margin: '1rem 0 1.5rem' }}>
             <h2 style={{ color: 'var(--primary)', fontSize: '2rem' }}>Level 2: {l2Variant.title}</h2>
@@ -303,33 +324,40 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
             {l2Variant.categories.map(cat => (
               <div 
                 key={cat.id} 
-                className="pm-category-box"
+                className={`pm-category-box ${selectedCard ? 'pm-box--interactive' : ''}`}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => handleDrop(e, cat.id)}
+                onClick={() => handleBoxClick(cat.id)}
+                style={{ cursor: selectedCard ? 'pointer' : 'default' }}
               >
                 <h3>{cat.title}</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                    {l2Dropped[cat.id].map(card => (
                      <div key={card.id} className="pm-card pm-card--correct" style={{ fontSize: '0.75rem', padding: '0.5rem' }}>{card.label}</div>
                    ))}
+                   {selectedCard && <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)', textAlign: 'center', border: '1px dashed rgba(255,255,255,0.1)', padding: '0.5rem', borderRadius: '8px' }}>Hier ablegen</div>}
                 </div>
               </div>
             ))}
           </div>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem', justifyContent: 'center', marginTop: '2rem' }}>
-            {!l2QuizGate && remainingCards.map(card => (
+            {!l2QuizGate && remainingCards.map(card => {
+              const isSelected = selectedCard?.id === card.id;
+              return (
               <div 
                 key={card.id} 
-                className="pm-card" 
+                className={`pm-card ${isSelected ? 'pm-card--selected' : ''}`} 
                 draggable 
                 onDragStart={(e) => handleDragStart(e, card)}
+                onClick={() => setSelectedCard(isSelected ? null : card)}
                 style={{ width: '180px' }}
               >
                 {card.label}
                 {l2Mistakes[card.id] >= 3 && <div className="hint-icon">❓</div>}
               </div>
-            ))}
+            );
+            })}
           </div>
 
           {l2QuizGate && (
@@ -372,15 +400,18 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
   const [l3Pool, setL3Pool] = useState([]);
 
   const renderLevel3 = () => {
-    const handleDrop = (e, index) => {
-      e.preventDefault();
-      const val = e.dataTransfer.getData('answer');
+    const handleDrop = (e, index, answerText = null) => {
+      if (e && e.preventDefault) e.preventDefault();
+      const val = answerText || e.dataTransfer.getData('answer');
+      if (!val) return;
+
       if (val === l3Variant.cloze[index].gap) {
         setL3Answers(prev => {
           const next = [...prev];
           next[index] = val;
           return next;
         });
+        setSelectedCard(null);
         playSound('success');
       } else {
         triggerError('Dieser Begriff passt semantisch oder technisch nicht.');
@@ -392,7 +423,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
     return (
       <div className="project-m-theme">
         <div className="pm-wire" style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem', borderRadius: '24px' }}>
-          <button className="btn-nav" onClick={() => setScreen('home')}>&larr; Zurück</button>
+          <button className="btn-nav" onClick={() => { setScreen('home'); setSelectedCard(null); }}>&larr; Zurück</button>
           
           <div style={{ textAlign: 'center', margin: '1rem 0 1rem' }}>
             <h2 style={{ color: 'var(--primary)', fontSize: '2rem' }}>Level 3: {l3Variant.title}</h2>
@@ -404,11 +435,13 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
               <div key={idx} style={{ marginBottom: '1.5rem', background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '12px' }}>
                 {cloze.text} 
                 <div 
-                  className={`pm-drop-zone ${l3Answers[idx] ? 'filled' : ''}`}
+                  className={`pm-drop-zone ${l3Answers[idx] ? 'filled' : ''} ${selectedCard && !l3Answers[idx] ? 'pm-slot--interactive' : ''}`}
                   onDragOver={e => e.preventDefault()}
                   onDrop={e => handleDrop(e, idx)}
+                  onClick={() => !l3Answers[idx] && selectedCard && handleDrop(null, idx, selectedCard)}
+                  style={{ cursor: (!l3Answers[idx] && selectedCard) ? 'pointer' : 'default' }}
                 >
-                  {l3Answers[idx] || ''}
+                  {l3Answers[idx] || (selectedCard ? '...' : '')}
                 </div>
               </div>
             ))}
@@ -417,13 +450,24 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem', justifyContent: 'center' }}>
              {l3Pool.map((p, i) => {
                if (l3Answers.includes(p)) return null;
-               return <div key={i} className="pm-card" draggable onDragStart={e => e.dataTransfer.setData('answer', p)}>{p}</div>
+               const isSelected = selectedCard === p;
+               return (
+                 <div 
+                   key={i} 
+                   className={`pm-card ${isSelected ? 'pm-card--selected' : ''}`} 
+                   draggable 
+                   onDragStart={e => { e.dataTransfer.setData('answer', p); setSelectedCard(p); }}
+                   onClick={() => setSelectedCard(isSelected ? null : p)}
+                 >
+                   {p}
+                 </div>
+               );
              })}
           </div>
 
           {allChecked && (
              <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-                <button className="btn-primary" onClick={() => { triggerSuccess(); grantXp(100); unlockLevel(4); setScreen('home'); }}>Meister der Begriffe! XP+</button>
+                <button className="btn-primary" onClick={() => { triggerSuccess(); grantXp(100); unlockLevel(4); setScreen('home'); setSelectedCard(null); }}>Meister der Begriffe! XP+</button>
              </div>
           )}
         </div>
@@ -441,46 +485,49 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
     });
 
     const handleDragStart = (e, card, from) => {
-      e.dataTransfer.setData('cardStr', JSON.stringify({ card, from }));
+      const data = { card, from };
+      e.dataTransfer.setData('cardStr', JSON.stringify(data));
+      setSelectedCard(data);
     };
 
-    const handleDrop = (e, targetIdx) => {
-       e.preventDefault();
-       const data = JSON.parse(e.dataTransfer.getData('cardStr'));
+    const handleDrop = (e, targetIdx, clickedData = null) => {
+       if (e && e.preventDefault) e.preventDefault();
+       const data = clickedData || JSON.parse(e.dataTransfer.getData('cardStr'));
        const { card, from } = data;
 
        setL4Current(prev => {
           const next = [...prev];
           if (from === 'board') {
              const originIdx = next.findIndex(c => c.id === card.id);
-             const temp = next[targetIdx];
-             if(next[targetIdx] !== undefined) {
-                 next[targetIdx] = next[originIdx];
-                 next[originIdx] = temp;
+             if (originIdx !== -1) {
+               const temp = next[targetIdx];
+               next[targetIdx] = next[originIdx];
+               next[originIdx] = temp;
              }
           } else {
-             // ensure we're not exceeding max length or adding duplicates
              if (!next.some(c => c.id === card.id)) {
                 next[targetIdx] = card;
              }
           }
           return next;
        });
+       setSelectedCard(null);
     };
 
-    const handleTrash = (e) => {
-       e.preventDefault();
-       const data = JSON.parse(e.dataTransfer.getData('cardStr'));
-       if (data.from === 'board') {
-          setL4Current(prev => prev.filter(c => c.id !== data.card.id));
+    const handleTrash = (e, clickedCard = null) => {
+       if (e && e.preventDefault) e.preventDefault();
+       const cardData = clickedCard || JSON.parse(e.dataTransfer.getData('cardStr'));
+       if (cardData && cardData.from === 'board') {
+          setL4Current(prev => prev.filter(c => c.id !== cardData.card.id));
           playSound('error');
        }
+       setSelectedCard(null);
     };
 
     return (
       <div className="project-m-theme">
         <div className="pm-wire" style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem', borderRadius: '24px' }}>
-          <button className="btn-nav" onClick={() => setScreen('home')}>&larr; Zurück</button>
+          <button className="btn-nav" onClick={() => { setScreen('home'); setSelectedCard(null); }}>&larr; Zurück</button>
 
           <div style={{ textAlign: 'center', margin: '1rem 0 2rem' }}>
             <h2 style={{ color: 'var(--primary)', fontSize: '2rem' }}>Level 4: {l4Variant.title}</h2>
@@ -488,36 +535,72 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
           </div>
 
           <div className="level-4-layout" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', minHeight: '120px', padding: '1.5rem', border: '1px solid rgba(109,175,255,0.2)', borderRadius: '15px' }}>
-             {l4Current.map((card, idx) => (
+             {l4Current.map((card, idx) => {
+               const isSelected = selectedCard?.card?.id === card.id;
+               return (
                <div 
                  key={card.id} 
-                 className="pm-card" 
+                 className={`pm-card ${isSelected ? 'pm-card--selected' : ''}`}
                  draggable 
                  onDragStart={e => handleDragStart(e, card, 'board')}
                  onDragOver={e => e.preventDefault()}
                  onDrop={e => handleDrop(e, idx)}
+                 onClick={() => {
+                   if (selectedCard && selectedCard.card.id !== card.id) {
+                     handleDrop(null, idx, selectedCard);
+                   } else {
+                     setSelectedCard({ card, from: 'board' });
+                   }
+                 }}
+                 style={{ cursor: 'pointer' }}
                >
                  {card.label}
                </div>
-             ))}
-             {l4Current.length < l4Variant.correctSequence.length && <div className="pm-card" style={{ border: '2px dashed #444', opacity: 0.3 }} onDragOver={e => e.preventDefault()} onDrop={e => handleDrop(e, l4Current.length)}>+ Drop here</div>}
+             );
+             })}
+             {l4Current.length < l4Variant.correctSequence.length && (
+               <div 
+                 className={`pm-card ${selectedCard ? 'pm-slot--interactive' : ''}`} 
+                 style={{ border: '2px dashed #444', opacity: 0.5 }} 
+                 onDragOver={e => e.preventDefault()} 
+                 onDrop={e => handleDrop(e, l4Current.length)}
+                 onClick={() => selectedCard && handleDrop(null, l4Current.length, selectedCard)}
+               >
+                 {selectedCard ? 'Absetzten' : '+ Drop here'}
+               </div>
+             )}
           </div>
 
           <div className="level-4-layout" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '3rem' }}>
              <div style={{ flex: 1 }}>
                 <h4 style={{ marginBottom: '0.8rem' }}>Inventar:</h4>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
-                   {l4Inventory.map(c => (
-                     <div key={c.id} className="pm-card" draggable onDragStart={e => handleDragStart(e, c, 'inventory')} style={{ fontSize: '0.8rem' }}>{c.label}</div>
-                   ))}
+                   {l4Inventory.map(c => {
+                     const isPlaced = l4Current.some(p => p.id === c.id);
+                     if (isPlaced) return null;
+                     const isSelected = selectedCard?.card?.id === c.id;
+                     return (
+                       <div 
+                         key={c.id} 
+                         className={`pm-card ${isSelected ? 'pm-card--selected' : ''}`} 
+                         draggable 
+                         onDragStart={e => handleDragStart(e, c, 'inventory')}
+                         onClick={() => setSelectedCard(isSelected ? null : { card: c, from: 'inventory' })}
+                         style={{ fontSize: '0.8rem' }}
+                       >
+                         {c.label}
+                       </div>
+                     );
+                   })}
                 </div>
              </div>
              
              <div 
-               className="level-4-trash"
+               className={`level-4-trash ${selectedCard?.from === 'board' ? 'pm-box--interactive' : ''}`}
                onDragOver={e => e.preventDefault()} 
                onDrop={handleTrash}
-               style={{ width: '100px', height: '100px', border: '2px solid var(--accent)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: '2rem' }}
+               onClick={() => selectedCard?.from === 'board' && handleTrash(null, selectedCard)}
+               style={{ width: '100px', height: '100px', border: '2px solid var(--accent)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: '2rem', cursor: selectedCard?.from === 'board' ? 'pointer' : 'default' }}
              >
                 🗑️
              </div>
@@ -525,7 +608,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
 
           {isWin && (
              <div style={{ marginTop: '3rem', textAlign: 'center' }}>
-                <button className="btn-primary" style={{ padding: '1rem 3rem' }} onClick={() => { triggerSuccess(); grantXp(150); setScreen('home'); }}>Meisterprüfung Bestanden! 🏆</button>
+                <button className="btn-primary" style={{ padding: '1rem 3rem' }} onClick={() => { triggerSuccess(); grantXp(150); setScreen('home'); setSelectedCard(null); }}>Meisterprüfung Bestanden! 🏆</button>
              </div>
           )}
         </div>
@@ -547,6 +630,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
     <div className={`project-m-container ${assistantState === 'success' ? 'project-m-theme--success' : ''}`}>
       {showConfetti && <Confetti />}
       {currentScreen}
+      <FloatingPortal questionId="project_m" questionText="Projekt m Mastery" currentAppMode="project_m" />
     </div>
   );
 }

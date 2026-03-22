@@ -4,6 +4,7 @@ import VideoPanel from './VideoPanel';
 import GeminiPanel from './GeminiPanel';
 import FloatingNotes from './FloatingNotes';
 import FloatingCalculator from './FloatingCalculator';
+import FloatingPortal from './FloatingPortal';
 import { formatLatex } from '../utils/formatting';
 import { createPortal } from 'react-dom';
 
@@ -345,8 +346,7 @@ const QuizSession = ({
           document.body
         )}
       </div>
-      <FloatingNotes questionId={`quiz_${currentQuizIndex}`} questionText={q.question || 'Quiz Frage'} />
-      <FloatingCalculator />
+      <FloatingPortal questionId={`quiz_${currentQuizIndex}`} questionText={q.question || 'Quiz Frage'} currentAppMode="quiz" />
     </div>
   );
 };

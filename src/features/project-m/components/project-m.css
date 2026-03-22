@@ -256,3 +256,29 @@
     margin-top: 1.5rem;
   }
 }
+
+/* New Interactive Styles for Mobile Click-to-Drop */
+.pm-card--selected {
+  outline: 3px solid var(--accent);
+  box-shadow: 0 0 20px var(--accent) !important;
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.pm-slot--interactive {
+  background: rgba(109, 175, 255, 0.15);
+  border: 2px dashed var(--primary) !important;
+  animation: pmSlotPulse 1.5s infinite;
+}
+
+.pm-box--interactive {
+  background: rgba(109, 175, 255, 0.1) !important;
+  border: 2px dashed var(--primary) !important;
+  animation: pmSlotPulse 1.5s infinite;
+}
+
+@keyframes pmSlotPulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; border-color: var(--accent); }
+  100% { opacity: 0.6; }
+}
