@@ -60,26 +60,8 @@ import { detectQuizTopic, getQuizTopicGroup } from './utils/quizTopics';
 import { computeNextQuizProgress, filterDueQuizzes } from './utils/quizDue';
 import { useAuth } from './hooks/useAuth';
 import { useAppearance } from './hooks/useAppearance';
+import { isRechenTask, categorizeRechenTask, getAllQuizQuestions, getRechenTasks } from './utils/quizUtils';
 
-// --- UTILS OUTSIDE COMPONENT ---
-const isRechenTask = (q) => {
-  if (q.forceKnowledge) return false;
-  const text = ((q.question || '') + ' ' + (q.topic || '') + ' ' + (q.hint || '')).toLowerCase();
-  const hasCalcKeywords = ['berechne', 'rechnen', 'wieviel', 'wie hoch', 'betrag', 'kalkuliere', 'ermittle', 'prozent', 'anteil', 'summe', 'kosten'].some(k => text.includes(k));
-  const hasNumbers = /[0-9]+/.test(q.question || '');
-  const hasSymbols = /[%€]/.test(q.question || '') || (q.answerOptions && q.answerOptions.some(opt => /[%€]/.test(opt.text)));
-  const isCalcTopic = ['Kalkulation', 'Performance', 'Conversion', 'ROAS', 'CTR', 'CPC', 'CPA', 'Deckungsbeitrag'].some(t => (q.topic || '').includes(t));
-  return (isCalcTopic || ((hasCalcKeywords || hasSymbols) && hasNumbers));
-};
-
-const categorizeRechenTask = (q) => {
-  const text = (q.question + ' ' + (q.topic || '')).toLowerCase();
-  if (text.includes('conversion') || text.includes('konversionsrate') || text.includes(' cr ')) return 'Conversion';
-  if (text.includes('roas') || text.includes('return on advertising')) return 'ROAS';
-  if (['ctr', 'cpc', 'cpa', 'kennzahl', 'performance', 'effizienz', 'click-through', 'cost per'].some(k => text.includes(k))) return 'KPI';
-  if (['kalkulation', 'preis', 'rabatt', 'skonto', 'gewinn', 'handlungskost', 'einstand', 'listen'].some(k => text.includes(k))) return 'Handelskalkulation';
-  return 'Allgemein';
-};
 
 function App() {
   const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'intro' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor', 'intro'
@@ -163,10 +145,6 @@ function App() {
 
   const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-  // Force dark mode appearance for auth screen and guests
-  useEffect(() => {
-    // ... logic is now inside useAppearance
-  }, []);
 
   // --- FLASHCARD STATE ---
   const [allCards, setAllCards] = useState([]);
@@ -579,15 +557,6 @@ function App() {
 
   // detectQuizTopic and getQuizTopicGroup imported from utils/quizTopics.js
 
-  const getAllQuizQuestions = () => [
-    ...(wissenTesten.questions || []),
-    ...(customQuizQuestions || [])
-  ];
-
-  const getRechenTasks = () => [
-    ...(rechenAufgaben.questions || []),
-    ...(customQuizQuestions || []).filter(isRechenTask)
-  ];
 
   const [rechenSetup, setRechenSetup] = useState({ topic: 'Alle', count: 10 });
 
@@ -1179,7 +1148,7 @@ ${input}`;
       }
 
       setResetModalVisible(false);
-      setAllQuizzes([]);
+      setQuizSessionPool([]);
 
       Promise.allSettled(resetTasks)
         .then(() => refreshQuizDuePool())
@@ -1336,6 +1305,14 @@ ${input}`;
     setCurrentWisorIndex(newIndex);
   };
 
+  // Fallback for unknown appMode
+  // (Effect defined here — BEFORE any conditional return — to comply with React hooks rules)
+  useEffect(() => {
+    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
+      setAppMode('dashboard');
+    }
+  }, [appMode]);
+
   // --- RENDERERS ---
 
   if (appMode === 'auth') {
@@ -1407,6 +1384,7 @@ ${input}`;
               disabled={authLoading}
               style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}
             >
+              Mit Google anmelden
               </button>
             {currentHost === 'localhost' && (
               <button
@@ -1460,7 +1438,8 @@ ${input}`;
       onTick={(t) => setPomodoroTimeLeft(t)}
       onTimeUp={() => {
         if (appMode === 'quiz') {
-          setCurrentQuizIndex(allQuizzes.length);
+          // Quiz index is managed inside QuizSession now — just navigate back
+          setAppMode('dashboard');
         } else if (appMode === 'wisor') {
           setCurrentWisorIndex(allWisors.length);
         }
@@ -1490,7 +1469,7 @@ ${input}`;
     const quizLearnedCount = calculateLearnedCount(allQuizQuestions);
     const wisorQuestions = wisor1.questions || [];
     const wisorEcoQuestions = wisorEco.questions || [];
-    const rechenTasks = getRechenTasks(); // This already handles filtering custom questions
+    const rechenTasks = getRechenTasks(customQuizQuestions);
     const rechenTotal = rechenTasks.length;
     const rechenLearned = calculateLearnedCount(rechenTasks);
 
@@ -1729,79 +1708,6 @@ ${input}`;
             )}
           </div>
 
-          <div id="card-wisor" className="dash-card" style={!authUser ? { opacity: 0.55, cursor: 'not-allowed' } : {}} onClick={() => { if (authUser) startWisor('wisor1'); }}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <svg width="1.2em" height="1.2em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 280 200 H 460 V 420 L 420 460 L 380 420 L 340 460 L 300 420 L 260 460 L 220 420 V 320" fill="none" stroke="var(--text-light)" strokeWidth="32" strokeLinejoin="round" strokeLinecap="round" />
-                <rect x="290" y="270" width="140" height="24" rx="12" fill="var(--text-light)" />
-                <rect x="290" y="325" width="140" height="24" rx="12" fill="var(--text-light)" />
-                <rect x="290" y="380" width="80" height="24" rx="12" fill="var(--text-light)" />
-                <g transform="translate(190, 220) rotate(45)">
-                  <rect x="-20" y="40" width="40" height="200" rx="20" fill="var(--text-light)" />
-                  <rect x="-60" y="-45" width="120" height="90" rx="5" fill="var(--text-light)" />
-                  <rect x="-80" y="-35" width="20" height="70" fill="var(--text-light)" />
-                  <rect x="-105" y="-55" width="25" height="110" rx="12" fill="var(--text-light)" />
-                  <rect x="60" y="-35" width="20" height="70" fill="var(--text-light)" />
-                  <rect x="80" y="-55" width="25" height="110" rx="12" fill="var(--text-light)" />
-                </g>
-              </svg>
-            </div>
-            <h2>WisoR<br />(Eingabe)</h2>
-            <p>Freitext Eingabe für Zahlen und Fakten. Gekonntes verschwindet!</p>
-            {!authUser ? (
-              <div className="chip">🔒 Nur mit Account</div>
-            ) : (
-              <div className="chip">{Object.keys(completedWisors).length === wisor1.questions.length ? 'Alles gemeistert! 🎉' : `${wisor1.questions.length - Object.keys(completedWisors).length} Fragen verfügbar`}</div>
-            )}
-
-            {authUser && Object.keys(completedWisors).length > 0 && (
-              <button
-                className="btn-secondary"
-                style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
-                onClick={(e) => { e.stopPropagation(); openResetModal(e, 'wisor'); }}
-              >
-                🔄 Lernfortschritt zurücksetzen
-              </button>
-            )}
-          </div>
-
-          <div id="card-wisoreco" className="dash-card" style={!authUser ? { opacity: 0.55, cursor: 'not-allowed' } : {}} onClick={() => { if (authUser) startWisor('wisorEco'); }}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <svg width="1.2em" height="1.2em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 280 200 H 460 V 420 L 420 460 L 380 420 L 340 460 L 300 420 L 260 460 L 220 420 V 320" fill="none" stroke="var(--text-light)" strokeWidth="32" strokeLinejoin="round" strokeLinecap="round" />
-                <text x="290" y="375" fontSize="130" fontWeight="900" fill="var(--text-light)" textAnchor="middle" fontFamily="system-ui, -apple-system, sans-serif">$</text>
-                <rect x="340" y="270" width="100" height="24" rx="12" fill="var(--text-light)" />
-                <rect x="340" y="325" width="100" height="24" rx="12" fill="var(--text-light)" />
-                <rect x="340" y="380" width="60" height="24" rx="12" fill="var(--text-light)" />
-                <g transform="translate(190, 220) rotate(45)">
-                  <rect x="-20" y="40" width="40" height="200" rx="20" fill="var(--text-light)" />
-                  <rect x="-60" y="-45" width="120" height="90" rx="5" fill="var(--text-light)" />
-                  <rect x="-80" y="-35" width="20" height="70" fill="var(--text-light)" />
-                  <rect x="-105" y="-55" width="25" height="110" rx="12" fill="var(--text-light)" />
-                  <rect x="60" y="-35" width="20" height="70" fill="var(--text-light)" />
-                  <rect x="80" y="-55" width="25" height="110" rx="12" fill="var(--text-light)" />
-                </g>
-              </svg>
-            </div>
-            <h2>WisoR im<br />E-Commerce</h2>
-            <p>Freitext Eingabe für E-Commerce spezifische Aufgaben.</p>
-            {!authUser ? (
-              <div className="chip">🔒 Nur mit Account</div>
-            ) : (
-              <div className="chip">{Object.keys(completedWisorsEco).length === (wisorEco?.questions?.length || 0) && (wisorEco?.questions?.length || 0) > 0 ? 'Alles gemeistert! 🎉' : `${(wisorEco?.questions?.length || 0) - Object.keys(completedWisorsEco).length} Fragen verfügbar`}</div>
-            )}
-
-            {authUser && Object.keys(completedWisorsEco).length > 0 && (
-              <button
-                className="btn-secondary"
-                style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
-                onClick={(e) => { e.stopPropagation(); openResetModal(e, 'wisorEco'); }}
-              >
-                🔄 Lernfortschritt zurücksetzen
-              </button>
-            )}
-          </div>
-
           <div id="card-kpis" className="dash-card rechen-card" onClick={() => { setAppMode('rechen_tasks_setup'); }}>
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
               <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1820,23 +1726,6 @@ ${input}`;
             </div>
           </div>
 
-          <div id="card-notes" className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <img
-                src={notesIcon}
-                alt="Notizen"
-                style={{
-                  width: '1.05em',
-                  height: '1.05em',
-                  objectFit: 'contain',
-                  filter: isLightMode ? 'none' : 'invert(1)'
-                }}
-              />
-            </div>
-            <h2>Meine Notizen</h2>
-            <p>Deine gespeicherten Notizen ansehen und als PDF exportieren.</p>
-            <div className="chip" style={{ marginTop: 'auto' }}>Gespeichert</div>
-          </div>
 
           <div id="card-kalkulation" className="dash-card" onClick={() => setAppMode('kalkulation')}>
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
@@ -1909,17 +1798,22 @@ ${input}`;
             <div className="chip">XP: {klrProgress?.xp || 0}</div>
           </div>
 
-          <div id="card-flashcards" className="dash-card" onClick={() => setAppMode('flashcards')}>
+          <div id="card-notes" className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <svg width="1.1em" height="1.1em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="3" y1="9" x2="21" y2="9"></line>
-                <line x1="9" y1="21" x2="9" y2="9"></line>
-              </svg>
+              <img
+                src={notesIcon}
+                alt="Notizen"
+                style={{
+                  width: '1.05em',
+                  height: '1.05em',
+                  objectFit: 'contain',
+                  filter: isLightMode ? 'none' : 'invert(1)'
+                }}
+              />
             </div>
-            <h2>Lernkarten<br />(SRS)</h2>
-            <p>Spaced Repetition Training für langfristiges Behalten.</p>
-            <div className="chip">{stats.totalDue} Karten fällig</div>
+            <h2>Meine Notizen</h2>
+            <p>Deine gespeicherten Notizen ansehen und als PDF exportieren.</p>
+            <div className="chip" style={{ marginTop: 'auto' }}>Gespeichert</div>
           </div>
 
         </div>
@@ -2071,7 +1965,7 @@ ${input}`;
   }
 
   const startRechenTasks = (count, topic) => {
-    let filtered = getRechenTasks();
+    let filtered = getRechenTasks(customQuizQuestions);
     if (topic && topic !== 'Alle') {
       filtered = filtered.filter(q => categorizeRechenTask(q) === topic);
     }
@@ -2101,7 +1995,7 @@ ${input}`;
   };
 
   if (appMode === 'rechen_tasks_setup') {
-    const calcTasks = getRechenTasks();
+    const calcTasks = getRechenTasks(customQuizQuestions);
     const topics = ['Alle', 'KPI', 'Handelskalkulation', 'Conversion', 'ROAS', 'Allgemein'];
     
     const now = Date.now();
@@ -2362,6 +2256,7 @@ ${input}`;
           allCards={allCards}
           stats={stats}
           setStats={setStats}
+          onBack={() => setAppMode('dashboard')}
           setAppMode={setAppMode}
           appendLearningEvent={appendLearningEvent}
           authUser={authUser}
@@ -2373,14 +2268,12 @@ ${input}`;
     );
   }
 
-  // Fallback for unknown appMode or default (should not happen if all modes are handled)
-  useEffect(() => {
-    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
-      setAppMode('dashboard');
-    }
-  }, [appMode]);
-
-  return null;
+  // Final safety: if no condition matched, return dashboard
+  return (
+    <div className="app-container" style={{ zIndex: 10 }}>
+        <button className="btn-primary" onClick={() => setAppMode('dashboard')}>Return to Dashboard</button>
+    </div>
+  );
 }
 
 export default App;

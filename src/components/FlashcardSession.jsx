@@ -2,20 +2,77 @@ import React, { useState, useEffect } from 'react';
 import FloatingNotes from './FloatingNotes';
 import { formatLatex } from '../utils/formatting';
 
+import { reviewTaskWithDSR } from '../services/srsStore';
+import { mapFlashcardQualityToRating } from '../services/srsFeedbackMapper';
+
 const FlashcardSession = ({
-  learningQueue,
-  currentIndex, // We'll manage it internally if possible, or take it as prop
-  onRating,
-  onBack,
+  allCards = [],
   stats,
-  isFlipped,
-  setIsFlipped,
-  onToggleFlip,
+  setStats,
+  onBack,
   pomodoroPortal,
-  burgerMenuPortal
+  burgerMenuPortal,
+  authUser,
+  supabase,
+  appendLearningEvent
 }) => {
-  // If we want it fully self-contained:
-  const [internalIndex, setInternalIndex] = useState(currentIndex);
+  const [internalIndex, setInternalIndex] = useState(0);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [learningQueue, setLearningQueue] = useState([]);
+
+  useEffect(() => {
+    // Basic queue filtering: just show some cards or filter by due date if metadata exists
+    // For now, let's just use allCards as the "queue" if it's the first load
+    if (allCards.length > 0 && learningQueue.length === 0) {
+      setLearningQueue([...allCards].sort(() => Math.random() - 0.5));
+    }
+  }, [allCards, learningQueue.length]);
+
+  const onToggleFlip = () => setIsFlipped(!isFlipped);
+
+  const handleRating = async (quality, e) => {
+    if (e) e.stopPropagation();
+    const currentCard = learningQueue[internalIndex];
+    if (!currentCard) return;
+
+    // 1. Calculate the rating (0-5)
+    const rating = mapFlashcardQualityToRating(quality);
+
+    // 2. Log event for global analytics
+    if (appendLearningEvent) {
+      appendLearningEvent({
+        mode: 'flashcard',
+        questionId: currentCard.id,
+        questionText: currentCard.front,
+        correct: quality >= 3,
+        userAnswer: `Rating: ${quality}`,
+        expectedAnswer: 'N/A',
+        topic: currentCard.topic || 'Flashcard'
+      });
+    }
+
+    // 3. Update DSR progress via Supabase
+    if (authUser?.id && supabase) {
+      reviewTaskWithDSR({
+        supabase,
+        userId: authUser.id,
+        taskId: `card:${currentCard.id}`,
+        rating,
+        taskType: 'flashcard',
+        metadata: { front: currentCard.front }
+      }).catch(err => console.error('Flashcard DSR failed:', err));
+    }
+
+    // 4. Update local stats
+    if (setStats) {
+      setStats(prev => ({ ...prev, learnedToday: prev.learnedToday + 1 }));
+    }
+
+    // 5. Move to next
+    setIsFlipped(false);
+    setInternalIndex(prev => prev + 1);
+  };
+
   const currentCard = learningQueue[internalIndex];
 
   if (learningQueue.length === 0 || internalIndex >= learningQueue.length) {
@@ -68,9 +125,9 @@ const FlashcardSession = ({
 
         {isFlipped && (
           <div className="rating-buttons fade-in">
-            <button className="btn-rating btn-rating-0" onClick={(e) => onRating(0, e)}>Garnicht</button>
-            <button className="btn-rating btn-rating-3" onClick={(e) => onRating(3, e)}>Mittel</button>
-            <button className="btn-rating btn-rating-5" onClick={(e) => onRating(5, e)}>Perfekt</button>
+            <button className="btn-rating btn-rating-0" onClick={(e) => handleRating(0, e)}>Garnicht</button>
+            <button className="btn-rating btn-rating-3" onClick={(e) => handleRating(3, e)}>Mittel</button>
+            <button className="btn-rating btn-rating-5" onClick={(e) => handleRating(5, e)}>Perfekt</button>
           </div>
         )}
       </div>
