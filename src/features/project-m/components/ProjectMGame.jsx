@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useProjectM } from '../state/ProjectMProvider';
 import Confetti from '../../../components/Confetti';
+import { L1_VARIANTS, L2_VARIANTS, L3_VARIANTS, L4_VARIANTS } from '../data/scenarios';
 import './project-m.css';
 
 // --- Sound Helper using Web Audio API for "Pling" and "Bop" ---
@@ -38,67 +39,11 @@ const playSound = (type) => {
 
 // --- Levels Configuration ---
 const LEVELS = [
-  { id: 1, title: 'Die Chronologie', subtitle: 'Der Zeitstrahl', objective: 'Bringe die Hauptphasen des E-Commerce-Projekts in die richtige Reihenfolge.' },
+  { id: 1, title: 'Die Chronologie', subtitle: 'Der Zeitstrahl', objective: 'Bringe die Hauptphasen des Projekts in die richtige Reihenfolge.' },
   { id: 2, title: 'Der Projektstrukturplan', subtitle: 'PSP & Untervorgänge', objective: 'Ordne spezifische Aufgaben den richtigen Hauptphasen zu.' },
-  { id: 3, title: 'Steuerung & Gantt', subtitle: 'Fachbegriffe & Diagramme', objective: 'Vervollständige die Fachbegriffe zum kritischen Pfad und Gantt-Modell.' },
+  { id: 3, title: 'Steuerung & Gantt', subtitle: 'Fachbegriffe & Diagramme', objective: 'Vervollständige die Fachbegriffe zu IHK-Methoden.' },
   { id: 4, title: 'Die Meisterprüfung', subtitle: 'Fehlersuche & Transfer', objective: 'Korrigiere den fehlerhaften Projektplan und baue die fehlenden Phasen ein.' }
 ];
-
-const L1_CARDS = [
-  { id: 'l1-1', label: 'Projektvorbereitung', order: 0 },
-  { id: 'l1-2', label: 'Marktanalyse', order: 1 },
-  { id: 'l1-3', label: 'Inhaltsplanung', order: 2 },
-  { id: 'l1-4', label: 'Kanalauswahl & Optimierung', order: 3 },
-  { id: 'l1-5', label: 'Umsetzung', order: 4 },
-  { id: 'l1-6', label: 'Monitoring & Analyse', order: 5 },
-  { id: 'l1-7', label: 'Abschluss & Bericht', order: 6 }
-];
-
-const L2_CATEGORIES = [
-  { id: 'A', title: 'A) Marktanalyse' },
-  { id: 'B', title: 'B) Inhaltsplanung' },
-  { id: 'C', title: 'C) Umsetzung' },
-  { id: 'D', title: 'D) Abschluss & Bericht' }
-];
-
-const L2_CARDS = [
-  { id: 'l2-1', label: 'Zielgruppenanalyse', category: 'A' },
-  { id: 'l2-2', label: 'Konkurrenzanalyse', category: 'A' },
-  { id: 'l2-3', label: 'SWOT-Analyse', category: 'A' },
-  { id: 'l2-4', label: 'Redaktionsplan erstellen', category: 'B' },
-  { id: 'l2-5', label: 'Content-Strategie festlegen', category: 'B' },
-  { id: 'l2-6', label: 'Landing Pages technisch aufbauen', category: 'C' },
-  { id: 'l2-7', label: 'Finales Ad-Design erstellen', category: 'C' },
-  { id: 'l2-8', label: 'Zielgruppensegmentierung im Tool einstellen', category: 'C' },
-  { id: 'l2-9', label: 'Lessons Learned besprechen', category: 'D' },
-  { id: 'l2-10', label: 'Erfolg gegen Zielsetzung messen', category: 'D' },
-  { id: 'l2-11', label: 'Abschlusspräsentation halten', category: 'D' }
-];
-
-const L3_CLOZE = [
-    { text: 'Ein Balkenplan zur Terminübersicht heißt auch', gap: 'Gantt-Diagramm', wrong: ['Budgetplan', 'Meilenstein'] },
-    { text: 'Vorgänge, die parallel laufen können, nennt man', gap: 'Gleichzeitige Vorgänge', wrong: ['Lagerhaltung', 'Einfache Bindung'] },
-    { text: 'Wenn ein Sammelvorgang den finalen Endtermin des Projekts bestimmt und keine Puffer hat, liegt er auf dem', gap: 'Kritischen Pfad', wrong: ['Pfadfinder', 'Hauptumsatzträger'] },
-    { text: 'Eine Aufgabe, die zwingend abgeschlossen sein muss, bevor die nächste beginnt, erzeugt eine', gap: 'Abhängigkeit', wrong: ['Projektbremse', 'Budgetkürzung'] }
-];
-
-const L4_SITUATION = {
-    faulty: [
-        { label: 'Idee', correctLabel: 'Projektvorbereitung' },
-        { label: 'Umsetzung', correctLabel: 'Marktanalyse' },
-        { label: 'Marktanalyse', correctLabel: 'Inhaltsplanung' },
-        { label: 'Abschluss', correctLabel: 'Umsetzung' },
-        { label: 'Monitoring', correctLabel: 'Abschluss & Bericht' }
-    ],
-    inventory: [
-        { id: 'l4-i1', label: 'Projektvorbereitung' },
-        { id: 'l4-i2', label: 'Marktanalyse' },
-        { id: 'l4-i3', label: 'Inhaltsplanung' },
-        { id: 'l4-i4', label: 'Umsetzung' },
-        { id: 'l4-i5', label: 'Monitoring' },
-        { id: 'l4-i6', label: 'Abschluss & Bericht' }
-    ]
-};
 
 export default function ProjectMGame({ onBack, onLearningEvent }) {
   const { progress, grantXp, unlockLevel } = useProjectM();
@@ -107,6 +52,12 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
   const [assistantMessage, setAssistantMessage] = useState('Systeme bereit. Analysiere Projekt "SneakerNova"...');
   const [assistantState, setAssistantState] = useState('idle');
   
+  // Current Random Variants
+  const [l1Variant, setL1Variant] = useState(L1_VARIANTS[0]);
+  const [l2Variant, setL2Variant] = useState(L2_VARIANTS[0]);
+  const [l3Variant, setL3Variant] = useState(L3_VARIANTS[0]);
+  const [l4Variant, setL4Variant] = useState(L4_VARIANTS[0]);
+
   // Confetti trigger
   const triggerSuccess = () => {
     setShowConfetti(true);
@@ -121,6 +72,36 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
     setAssistantState('error');
     setAssistantMessage(msg || 'Struktureller Fehler im Plan!');
     setTimeout(() => setAssistantState('idle'), 3000);
+  };
+
+  const handleStartLevel = (levelId) => {
+    if (levelId === 1) {
+      const v = L1_VARIANTS[Math.floor(Math.random() * L1_VARIANTS.length)];
+      setL1Variant(v);
+      setL1Dropped(Array(v.cards.length).fill(null));
+      setL1Mistakes({});
+      setL1QuizGate(false);
+      setScreen('level1');
+    } else if (levelId === 2) {
+      const v = L2_VARIANTS[Math.floor(Math.random() * L2_VARIANTS.length)];
+      setL2Variant(v);
+      setL2Dropped({ A: [], B: [], C: [], D: [] });
+      setL2Mistakes({});
+      setL2QuizGate(false);
+      setScreen('level2');
+    } else if (levelId === 3) {
+      const v = L3_VARIANTS[Math.floor(Math.random() * L3_VARIANTS.length)];
+      setL3Variant(v);
+      setL3Answers(Array(v.cloze.length).fill(''));
+      setL3Pool([...v.pool].sort(() => Math.random() - 0.5));
+      setScreen('level3');
+    } else if (levelId === 4) {
+      const v = L4_VARIANTS[Math.floor(Math.random() * L4_VARIANTS.length)];
+      setL4Variant(v);
+      setL4Current(v.faulty.map((item, id) => ({ ...item, id: `faulty-${id}` })));
+      setL4Inventory(v.inventory);
+      setScreen('level4');
+    }
   };
 
   // --- HOME SCREEN ---
@@ -145,7 +126,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
                 key={lvl.id} 
                 className={`dash-card pm-wire ${!isUnlocked ? 'locked' : ''}`}
                 style={{ cursor: isUnlocked ? 'pointer' : 'not-allowed', opacity: isUnlocked ? 1 : 0.6 }}
-                onClick={() => isUnlocked && setScreen(`level${lvl.id}`)}
+                onClick={() => isUnlocked && handleStartLevel(lvl.id)}
               >
                 <div className="level-number" style={{ fontSize: '2.5rem', fontWeight: '900', color: 'rgba(109,175,255,0.2)', position: 'absolute', right: '15px', top: '10px' }}>0{lvl.id}</div>
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '0.4rem' }}>{lvl.title}</h3>
@@ -177,7 +158,8 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
     const handleDrop = (e, slotIndex) => {
       e.preventDefault();
       const cardId = e.dataTransfer.getData('cardId');
-      const card = L1_CARDS.find(c => c.id === cardId);
+      const card = l1Variant.cards.find(c => c.id === cardId);
+      if (!card) return;
       
       if (card.order === slotIndex) {
         setL1Dropped(prev => {
@@ -186,7 +168,8 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
           return next;
         });
         setAssistantMessage('Exakt! Das ist die richtige Phase.');
-        if (l1Dropped.filter(v => v !== null).length === 6) {
+        const currentCount = l1Dropped.filter(v => v !== null).length;
+        if (currentCount === l1Variant.cards.length - 1) {
            triggerSuccess();
         } else {
            playSound('success');
@@ -203,8 +186,8 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
           <button className="btn-nav" onClick={() => setScreen('home')}>&larr; Zurück</button>
           
           <div style={{ textAlign: 'center', margin: '1rem 0 2rem' }}>
-            <h2 style={{ color: 'var(--primary)', fontSize: '2rem' }}>Level 1: Die Chronologie</h2>
-            <p style={{ color: 'var(--text-muted)' }}>Szenario: 🛒 "SneakerNova" Sommer-Sale. In welcher Reihenfolge planen wir?</p>
+            <h2 style={{ color: 'var(--primary)', fontSize: '2rem' }}>Level 1: {l1Variant.title}</h2>
+            <p style={{ color: 'var(--text-muted)' }}>{l1Variant.scenario}</p>
           </div>
 
           <div className="timeline-container">
@@ -221,7 +204,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
           </div>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', marginTop: '3rem' }}>
-            {L1_CARDS.map(card => {
+            {l1Variant.cards.map(card => {
                const alreadyPlaced = l1Dropped.some(d => d?.id === card.id);
                if (alreadyPlaced) return null;
                return (
@@ -241,11 +224,24 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
           {isCompleted && !l1QuizGate && (
             <div className="fade-in pm-wire" style={{ marginTop: '2rem', padding: '1.5rem', textAlign: 'center', background: 'rgba(109, 175, 255, 0.1)' }}>
               <h3>Quiz-Gate! 🛑</h3>
-              <p>Womit startet ein professionelles E-Commerce-Projekt zwingend?</p>
-              <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1rem' }}>
-                <button className="btn-secondary" onClick={() => triggerError('Falsch! Design kommt erst viel später.')}>Design</button>
-                <button className="btn-secondary" onClick={() => { triggerSuccess(); setL1QuizGate(true); }}>Projektvorbereitung</button>
-                <button className="btn-secondary" onClick={() => triggerError('Falsch! Ohne Planung keine Umsetzung.')}>Umsetzung</button>
+              <p>{l1Variant.quizQuestion}</p>
+              <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1rem', flexWrap: 'wrap' }}>
+                {l1Variant.quizAnswers.map((ans, i) => (
+                    <button 
+                        key={i} 
+                        className="btn-secondary" 
+                        onClick={() => {
+                            if (ans.correct) {
+                                triggerSuccess();
+                                setL1QuizGate(true);
+                            } else {
+                                triggerError(ans.msg);
+                            }
+                        }}
+                    >
+                        {ans.text}
+                    </button>
+                ))}
               </div>
             </div>
           )}
@@ -266,7 +262,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
   const [l2QuizGate, setL2QuizGate] = useState(false);
 
   const renderLevel2 = () => {
-    const remainingCards = L2_CARDS.filter(c => !Object.values(l2Dropped).flat().some(d => d.id === c.id));
+    const remainingCards = l2Variant.cards.filter(c => !Object.values(l2Dropped).flat().some(d => d.id === c.id));
     const allPlaced = remainingCards.length === 0;
 
     const handleDragStart = (e, card) => {
@@ -276,20 +272,19 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
     const handleDrop = (e, catId) => {
       e.preventDefault();
       const cardId = e.dataTransfer.getData('cardId');
-      const card = L2_CARDS.find(c => c.id === cardId);
+      const card = l2Variant.cards.find(c => c.id === cardId);
+      if(!card) return;
 
       if (card.category === catId) {
-        setL2Dropped(prev => ({
-          ...prev,
-          [catId]: [...prev[catId], card]
-        }));
+        setL2Dropped(prev => {
+           const next = { ...prev, [catId]: [...prev[catId], card] };
+           if (catId === l2Variant.quizTriggerCategory && next[catId].length === l2Variant.quizTriggerCount && !l2QuizGate) {
+              setL2QuizGate(true);
+              setAssistantMessage('Moment! Kurze Wissensprüfung...');
+           }
+           return next;
+        });
         playSound('success');
-        
-        // Gate check: If Box C becomes full (3 items)
-        if (catId === 'C' && l2Dropped.C.length === 2 && !l2QuizGate) {
-           setL2QuizGate(true);
-           setAssistantMessage('Moment! Kurze Wissensprüfung...');
-        }
       } else {
         triggerError('Inkorrekte Zuordnung. Überlege genau, in was diese Aufgabe mündet.');
         setL2Mistakes(prev => ({ ...prev, [cardId]: (prev[cardId] || 0) + 1 }));
@@ -302,12 +297,12 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
           <button className="btn-nav" onClick={() => setScreen('home')}>&larr; Zurück</button>
 
           <div style={{ textAlign: 'center', margin: '1rem 0 1.5rem' }}>
-            <h2 style={{ color: 'var(--primary)', fontSize: '2rem' }}>Level 2: Projektstrukturplan</h2>
-            <p style={{ color: 'var(--text-muted)' }}>Szenario: Detaillierung für den "SneakerNova"-Sale. Ordne die Aufgaben richtig zu.</p>
+            <h2 style={{ color: 'var(--primary)', fontSize: '2rem' }}>Level 2: {l2Variant.title}</h2>
+            <p style={{ color: 'var(--text-muted)' }}>{l2Variant.scenario}</p>
           </div>
 
           <div className="pm-category-grid">
-            {L2_CATEGORIES.map(cat => (
+            {l2Variant.categories.map(cat => (
               <div 
                 key={cat.id} 
                 className="pm-category-box"
@@ -342,11 +337,24 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
           {l2QuizGate && (
             <div className="fade-in pm-wire" style={{ marginTop: '2rem', padding: '1.5rem', textAlign: 'center', border: '2px solid var(--accent)' }}>
                <h3>Einstich-Frage! 🎯</h3>
-               <p>Das Team baut Landing Pages und setzt Tracking-Pixel. In welcher Phase sind wir?</p>
-               <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1rem' }}>
-                  <button className="btn-secondary" onClick={() => triggerError('Nope, Monitoring kommt danach.')}>Monitoring</button>
-                  <button className="btn-secondary" onClick={() => { triggerSuccess(); setL2QuizGate(false); }}>Umsetzung</button>
-                  <button className="btn-secondary" onClick={() => triggerError('Leider falsch, wir sind schon aktiv.')}>Planung</button>
+               <p>{l2Variant.quizQuestion}</p>
+               <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1rem', flexWrap: 'wrap' }}>
+                  {l2Variant.quizAnswers.map((ans, i) => (
+                      <button 
+                          key={i} 
+                          className="btn-secondary" 
+                          onClick={() => {
+                              if(ans.correct) {
+                                  triggerSuccess();
+                                  setL2QuizGate(false);
+                              } else {
+                                  triggerError(ans.msg);
+                              }
+                          }}
+                      >
+                          {ans.text}
+                      </button>
+                  ))}
                </div>
             </div>
           )}
@@ -363,13 +371,13 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
 
   // --- LEVEL 3: GANTT ---
   const [l3Answers, setL3Answers] = useState(Array(4).fill(''));
-  const [l3Pool, setL3Pool] = useState(['Gantt-Diagramm', 'Gleichzeitige Vorgänge', 'Kritischen Pfad', 'Abhängigkeit', 'Meilenstein', 'Budgetplan'].sort(() => Math.random() - 0.5));
+  const [l3Pool, setL3Pool] = useState([]);
 
   const renderLevel3 = () => {
     const handleDrop = (e, index) => {
       e.preventDefault();
       const val = e.dataTransfer.getData('answer');
-      if (val === L3_CLOZE[index].gap) {
+      if (val === l3Variant.cloze[index].gap) {
         setL3Answers(prev => {
           const next = [...prev];
           next[index] = val;
@@ -389,12 +397,12 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
           <button className="btn-nav" onClick={() => setScreen('home')}>&larr; Zurück</button>
           
           <div style={{ textAlign: 'center', margin: '1rem 0 1rem' }}>
-            <h2 style={{ color: 'var(--primary)', fontSize: '2rem' }}>Level 3: Projektsteuerung & Gantt</h2>
-            <p style={{ color: 'var(--text-muted)' }}>Fülle das Lückentext-Puzzle über Terminplanung und kritische Pfade aus.</p>
+            <h2 style={{ color: 'var(--primary)', fontSize: '2rem' }}>Level 3: {l3Variant.title}</h2>
+            <p style={{ color: 'var(--text-muted)' }}>{l3Variant.scenario}</p>
           </div>
 
           <div className="pm-cloze-container">
-            {L3_CLOZE.map((cloze, idx) => (
+            {l3Variant.cloze.map((cloze, idx) => (
               <div key={idx} style={{ marginBottom: '1.5rem', background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '12px' }}>
                 {cloze.text} 
                 <div 
@@ -426,13 +434,12 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
   };
 
   // --- LEVEL 4: MASTER TEST ---
-  const [l4Current, setL4Current] = useState(L4_SITUATION.faulty.map((item, id) => ({ ...item, id: `faulty-${id}` })));
-  const [l4Inventory, setL4Inventory] = useState(L4_SITUATION.inventory);
+  const [l4Current, setL4Current] = useState([]);
+  const [l4Inventory, setL4Inventory] = useState([]);
 
   const renderLevel4 = () => {
-    const isWin = l4Current.length === 6 && l4Current.every((card, idx) => {
-        const correctSequence = ['Projektvorbereitung', 'Marktanalyse', 'Inhaltsplanung', 'Umsetzung', 'Monitoring', 'Abschluss & Bericht'];
-        return card.label === correctSequence[idx];
+    const isWin = l4Current.length === l4Variant.correctSequence.length && l4Current.every((card, idx) => {
+        return card.label === l4Variant.correctSequence[idx];
     });
 
     const handleDragStart = (e, card, from) => {
@@ -446,32 +453,21 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
 
        setL4Current(prev => {
           const next = [...prev];
-          // Simple swap or replace
           if (from === 'board') {
-             // Swap on board
              const originIdx = next.findIndex(c => c.id === card.id);
              const temp = next[targetIdx];
-             next[targetIdx] = next[originIdx];
-             next[originIdx] = temp;
+             if(next[targetIdx] !== undefined) {
+                 next[targetIdx] = next[originIdx];
+                 next[originIdx] = temp;
+             }
           } else {
-             // From inventory - replace or insert?
-             // User said: "remove false cards and replace with correct"
-             // For simplicity, let's just allow replacing the slot
-             next[targetIdx] = card;
+             // ensure we're not exceeding max length or adding duplicates
+             if (!next.some(c => c.id === card.id)) {
+                next[targetIdx] = card;
+             }
           }
           return next;
        });
-
-       // Logic for appending/fixing size
-       if (l4Current.length < 6 && from === 'inventory') {
-          // Check if we should append
-         setL4Current(prev => {
-            if (prev.length < 6 && !prev.some(c => c.id === card.id)) {
-               return [...prev, card];
-            }
-            return prev;
-         });
-       }
     };
 
     const handleTrash = (e) => {
@@ -489,11 +485,11 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
           <button className="btn-nav" onClick={() => setScreen('home')}>&larr; Zurück</button>
 
           <div style={{ textAlign: 'center', margin: '1rem 0 2rem' }}>
-            <h2 style={{ color: 'var(--primary)', fontSize: '2rem' }}>Level 4: Die Meisterprüfung</h2>
-            <p style={{ color: 'var(--text-muted)' }}>Szenario: Korrigiere den Relaunch-Plan der "EcoGlow" App. Ziehe Fehler heraus und baue die korrekte Kette (6 Phasen).</p>
+            <h2 style={{ color: 'var(--primary)', fontSize: '2rem' }}>Level 4: {l4Variant.title}</h2>
+            <p style={{ color: 'var(--text-muted)' }}>{l4Variant.scenario}</p>
           </div>
 
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', minHeight: '120px', padding: '1.5rem', border: '1px solid rgba(109,175,255,0.2)', borderRadius: '15px' }}>
+          <div className="level-4-layout" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', minHeight: '120px', padding: '1.5rem', border: '1px solid rgba(109,175,255,0.2)', borderRadius: '15px' }}>
              {l4Current.map((card, idx) => (
                <div 
                  key={card.id} 
@@ -506,10 +502,10 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
                  {card.label}
                </div>
              ))}
-             {l4Current.length < 6 && <div className="pm-card" style={{ border: '2px dashed #444', opacity: 0.3 }} onDragOver={e => e.preventDefault()} onDrop={e => handleDrop(e, l4Current.length)}>+ Drop here</div>}
+             {l4Current.length < l4Variant.correctSequence.length && <div className="pm-card" style={{ border: '2px dashed #444', opacity: 0.3 }} onDragOver={e => e.preventDefault()} onDrop={e => handleDrop(e, l4Current.length)}>+ Drop here</div>}
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '3rem' }}>
+          <div className="level-4-layout" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '3rem' }}>
              <div style={{ flex: 1 }}>
                 <h4 style={{ marginBottom: '0.8rem' }}>Inventar:</h4>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
@@ -520,6 +516,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
              </div>
              
              <div 
+               className="level-4-trash"
                onDragOver={e => e.preventDefault()} 
                onDrop={handleTrash}
                style={{ width: '100px', height: '100px', border: '2px solid var(--accent)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: '2rem' }}
