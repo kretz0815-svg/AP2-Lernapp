@@ -450,11 +450,12 @@ export default function FloatingCalculator({
     return (
         <>
             {!isOpen ? (
-                <div style={isMobile ? mobileToggleStyle : (inlineMode ? { position: 'relative' } : { position: 'fixed', right: '20px', top: 'calc(50% + 70px)', transform: 'translateY(-50%)', zIndex: 1000 })}>
+                inlineMode ? (
                     <button
                         className="floating-notes-toggle"
                         onClick={() => setIsOpen(true)}
                         title="Taschenrechner öffnen"
+                        style={{ position: 'relative', width: '42px', height: '42px' }}
                     >
                         <svg viewBox="0 0 24 24" width="1.4em" height="1.4em" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" style={{ display: 'block' }}>
                             <rect x="2" y="2" width="20" height="20" rx="3" />
@@ -469,7 +470,28 @@ export default function FloatingCalculator({
                             <line x1="5" y1="18.5" x2="9" y2="18.5" />
                         </svg>
                     </button>
-                </div>
+                ) : (
+                    <div style={isMobile ? mobileToggleStyle : { position: 'fixed', right: '20px', top: 'calc(50% + 70px)', transform: 'translateY(-50%)', zIndex: 1000 }}>
+                        <button
+                            className="floating-notes-toggle"
+                            onClick={() => setIsOpen(true)}
+                            title="Taschenrechner öffnen"
+                        >
+                            <svg viewBox="0 0 24 24" width="1.4em" height="1.4em" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" style={{ display: 'block' }}>
+                                <rect x="2" y="2" width="20" height="20" rx="3" />
+                                <line x1="12" y1="2" x2="12" y2="22" strokeWidth="1.5" />
+                                <line x1="2" y1="12" x2="22" y2="12" strokeWidth="1.5" />
+                                <line x1="7" y1="5" x2="7" y2="9" />
+                                <line x1="5" y1="7" x2="9" y2="7" />
+                                <line x1="15" y1="7" x2="19" y2="7" />
+                                <line x1="15" y1="15.5" x2="19" y2="19" />
+                                <line x1="19" y1="15.5" x2="15" y2="19" />
+                                <line x1="5" y1="16" x2="9" y2="16" />
+                                <line x1="5" y1="18.5" x2="9" y2="18.5" />
+                            </svg>
+                        </button>
+                    </div>
+                )
             ) : (
                 <div
                     className="floating-notes-window fade-in card-face"

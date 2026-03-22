@@ -33,7 +33,7 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
             style={{
                 position: 'fixed',
                 right: '12px',
-                top: '12px',
+                top: 'calc(env(safe-area-inset-top, 0px) + 12px)',
                 zIndex: 1000001,
                 pointerEvents: 'none', // Allow touches through to the screen
                 overflow: 'visible'
