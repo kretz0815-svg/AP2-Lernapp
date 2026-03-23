@@ -26,8 +26,16 @@ export default function FloatingNotes({
 
     // Mobile: visual viewport state for keyboard stickiness
     const [vvState, setVvState] = useState({
+        width: typeof window !== 'undefined' ? window.innerWidth : 390,
         height: typeof window !== 'undefined' ? window.innerHeight : 800,
         offsetTop: 0
+    });
+    const [mobileWindow, setMobileWindow] = useState({ x: 20, y: 120, width: 300, height: 260 });
+
+    const mobileGestureRef = useRef({
+        isDragging: false,
+        startTouch: null,
+        startWindow: null
     });
 
     const dragRef = useRef(false);
@@ -156,11 +164,12 @@ export default function FloatingNotes({
         const updateVv = () => {
             if (window.visualViewport) {
                 setVvState({
+                    width: window.visualViewport.width,
                     height: window.visualViewport.height,
                     offsetTop: window.visualViewport.offsetTop
                 });
             } else {
-                setVvState({ height: window.innerHeight, offsetTop: 0 });
+                setVvState({ width: window.innerWidth, height: window.innerHeight, offsetTop: 0 });
             }
         };
         if (window.visualViewport) {
@@ -210,6 +219,51 @@ export default function FloatingNotes({
             document.removeEventListener('focusout', handleFocusOut);
         };
     }, [isMobile]);
+
+    // Mobile: position window centered when opening
+    const MOBILE_MARGIN = 8;
+    const MOBILE_NOTES_WIDTH_RATIO = 0.85;
+    const MOBILE_NOTES_MAX_WIDTH = 360;
+
+    useEffect(() => {
+        if (!isMobile || !isOpen) return;
+        const width = Math.min(vvState.width * MOBILE_NOTES_WIDTH_RATIO, MOBILE_NOTES_MAX_WIDTH);
+        const height = Math.min(280, vvState.height * 0.45);
+        const x = Math.max(MOBILE_MARGIN, (vvState.width - width) / 2);
+        const y = Math.max(MOBILE_MARGIN, (vvState.height - height) / 2);
+        setMobileWindow({ x, y, width, height });
+    }, [isMobile, isOpen, vvState]);
+
+    // Mobile touch drag handlers
+    const handleMobileWindowTouchStart = (e) => {
+        if (!isMobile) return;
+        if (e.target.closest('button') || e.target.closest('textarea')) return;
+        const touch = e.touches[0];
+        if (!touch) return;
+        mobileGestureRef.current = {
+            isDragging: true,
+            startTouch: { x: touch.clientX, y: touch.clientY },
+            startWindow: { x: mobileWindow.x, y: mobileWindow.y }
+        };
+    };
+
+    const handleMobileWindowTouchMove = (e) => {
+        if (!mobileGestureRef.current.isDragging) return;
+        const touch = e.touches[0];
+        if (!touch) return;
+        if (e.cancelable) e.preventDefault();
+        const dx = touch.clientX - mobileGestureRef.current.startTouch.x;
+        const dy = touch.clientY - mobileGestureRef.current.startTouch.y;
+        setMobileWindow(prev => ({
+            ...prev,
+            x: Math.max(MOBILE_MARGIN, Math.min(prev.width ? vvState.width - prev.width - MOBILE_MARGIN : vvState.width, mobileGestureRef.current.startWindow.x + dx)),
+            y: Math.max(MOBILE_MARGIN, Math.min(prev.height ? vvState.height - prev.height - MOBILE_MARGIN : vvState.height, mobileGestureRef.current.startWindow.y + dy))
+        }));
+    };
+
+    const handleMobileWindowTouchEnd = () => {
+        mobileGestureRef.current.isDragging = false;
+    };
 
     const onDragStart = (e) => {
         if (isMobile || e.target.closest('.floating-notes-close') || e.target.closest('textarea')) return;
@@ -354,11 +408,10 @@ export default function FloatingNotes({
             className="floating-notes-window fade-in card-face"
             style={isMobile ? {
                 position: 'fixed',
-                left: '50%',
-                top: `${Math.max(40, (vvState.height - mobileHeight) / 2)}px`,
-                transform: 'translateX(-50%)',
-                width: 'min(90vw, 360px)',
-                height: `${mobileHeight}px`,
+                left: `${mobileWindow.x}px`,
+                top: `${mobileWindow.y}px`,
+                width: `${mobileWindow.width}px`,
+                height: `${mobileWindow.height}px`,
                 zIndex: 1000002,
                 margin: 0,
                 padding: '10px 15px',
@@ -367,10 +420,9 @@ export default function FloatingNotes({
                 borderRadius: '18px',
                 border: '1px solid rgba(255, 255, 255, 0.18)',
                 boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
-                background: 'rgba(15, 23, 42, 0.94)',
+                background: 'rgba(0, 0, 0, 0.96)',
                 color: 'white',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
+                touchAction: 'auto',
                 pointerEvents: 'auto'
             } : {
                 position: 'fixed',
@@ -394,22 +446,29 @@ export default function FloatingNotes({
             <div
                 className="floating-notes-header"
                 onMouseDown={!isMobile ? onDragStart : undefined}
-                onTouchStart={!isMobile ? onDragStart : undefined}
+                onTouchStart={isMobile ? handleMobileWindowTouchStart : onDragStart}
+                onTouchMove={isMobile ? handleMobileWindowTouchMove : undefined}
+                onTouchEnd={isMobile ? handleMobileWindowTouchEnd : undefined}
+                onTouchCancel={isMobile ? handleMobileWindowTouchEnd : undefined}
                 style={{
-                    cursor: isMobile ? 'default' : 'move',
+                    cursor: isMobile ? 'grab' : 'move',
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     marginBottom: '5px',
-                    userSelect: 'none'
+                    userSelect: 'none',
+                    touchAction: 'none'
                 }}
             >
-                <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'white' }}>Notizen</h3>
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <h3 style={{ margin: 0, fontSize: '1.05rem', color: 'white' }}>Notizen</h3>
+                    {isMobile && <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.65)' }}>↕︎ ziehen</span>}
+                </div>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <button
                         className="floating-notes-save"
                         onClick={handleSaveNote}
-                        style={{ background: 'var(--primary)', border: 'none', color: 'white', borderRadius: '4px', padding: '0 8px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}
+                        style={{ background: 'var(--primary)', border: 'none', color: 'white', borderRadius: '6px', padding: '4px 10px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}
                         title="Notiz speichern"
                     >
                         Speichern
