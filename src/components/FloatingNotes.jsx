@@ -347,6 +347,124 @@ export default function FloatingNotes({
         mobileToggleStyle = { ...mobileToggleStyle, top: 'auto', right: 'auto', left: 'auto', position: 'relative' };
     }
 
+    // ── Render the opened notes window ──
+    const notesWindow = (
+        <div
+            className="floating-notes-window fade-in card-face"
+            style={isMobile ? {
+                position: 'fixed',
+                left: '0px',
+                top: `${(vvState.height - mobileHeight) / 2}px`,
+                width: '100vw',
+                height: `${mobileHeight}px`,
+                zIndex: 1000002,
+                margin: 0,
+                padding: '10px 15px',
+                display: 'flex',
+                flexDirection: 'column',
+                borderRadius: '24px 24px 24px 24px',
+                border: '1px solid var(--glass-border)',
+                boxShadow: '0 -5px 25px rgba(0,0,0,0.5)',
+                background: 'rgba(15, 23, 42, 0.96)',
+                color: 'white',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                pointerEvents: 'auto'
+            } : {
+                position: 'fixed',
+                left: `${position.x}px`,
+                top: `${position.y}px`,
+                width: `${size.width}px`,
+                height: `${size.height}px`,
+                zIndex: 1000,
+                resize: 'none',
+                margin: 0,
+                transform: 'none',
+                padding: '15px',
+                display: 'flex',
+                flexDirection: 'column',
+                background: 'rgba(15, 23, 42, 0.96)',
+                color: 'white',
+                borderRadius: '18px',
+                border: '1px solid rgba(255, 255, 255, 0.15)'
+            }}
+        >
+            <div
+                className="floating-notes-header"
+                onMouseDown={!isMobile ? onDragStart : undefined}
+                onTouchStart={!isMobile ? onDragStart : undefined}
+                style={{
+                    cursor: isMobile ? 'default' : 'move',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '5px',
+                    userSelect: 'none'
+                }}
+            >
+                <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'white' }}>Notizen</h3>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    <button
+                        className="floating-notes-save"
+                        onClick={handleSaveNote}
+                        style={{ background: 'var(--primary)', border: 'none', color: 'white', borderRadius: '4px', padding: '0 8px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}
+                        title="Notiz speichern"
+                    >
+                        Speichern
+                    </button>
+                    <button
+                        className="floating-notes-close"
+                        onClick={() => setIsOpen(false)}
+                        style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', outline: 'none', padding: '0 5px' }}
+                        title="Notizfenster minimieren"
+                    >
+                        &times;
+                    </button>
+                </div>
+            </div>
+
+            <textarea
+                className="floating-notes-textarea wisor-input"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Deine Notizen hier..."
+                autoFocus={!isMobile}
+                style={{
+                    width: '100%',
+                    flex: 1,
+                    resize: 'none',
+                    marginTop: isMobile ? '5px' : '10px',
+                    background: 'rgba(0, 0, 0, 0.3)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    color: 'white',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '12px',
+                    padding: '10px',
+                    outline: 'none',
+                    fontSize: isMobile ? '16px' : 'inherit'
+                }}
+            />
+
+            {!isMobile && resizeProps && (
+                <>
+                    <div
+                        style={{ position: 'absolute', [resizeProps.vPos]: 0, [resizeProps.hPos]: 0, width: '30px', height: '30px', cursor: resizeProps.cursor, zIndex: 10 }}
+                        onMouseDown={(e) => onResizeStart(activeResizeHandle, e)}
+                        onTouchStart={(e) => onResizeStart(activeResizeHandle, e)}
+                    />
+                    <div style={{
+                        position: 'absolute', [resizeProps.vPos]: '8px', [resizeProps.hPos]: '8px', width: '12px', height: '12px',
+                        [resizeProps.vBorder]: '2.5px solid rgba(255,255,255,0.7)',
+                        [resizeProps.hBorder]: '2.5px solid rgba(255,255,255,0.7)',
+                        pointerEvents: 'none',
+                        borderRadius: '2px'
+                    }} />
+                </>
+            )}
+        </div>
+    );
+
     return (
         <>
             {!isOpen ? (
@@ -384,120 +502,11 @@ export default function FloatingNotes({
                     </div>
                 )
             ) : (
-                <div
-                    className="floating-notes-window fade-in card-face"
-                    style={isMobile ? {
-                        position: 'fixed',
-                        left: '0px',
-                        top: `${(vvState.height - mobileHeight) / 2}px`,
-                        width: '100vw',
-                        height: `${mobileHeight}px`,
-                        zIndex: 1000,
-                        margin: 0,
-                        padding: '10px 15px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        borderRadius: '24px 24px 24px 24px',
-                        border: '1px solid var(--glass-border)',
-                        boxShadow: '0 -5px 25px rgba(0,0,0,0.5)',
-                        background: 'rgba(15, 23, 42, 0.96)',
-                        color: 'white',
-                        backdropFilter: 'blur(20px)',
-                        WebkitBackdropFilter: 'blur(20px)',
-                        pointerEvents: 'auto'
-                    } : {
-                        position: 'fixed',
-                        left: `${position.x}px`,
-                        top: `${position.y}px`,
-                        width: `${size.width}px`,
-                        height: `${size.height}px`,
-                        zIndex: 1000,
-                        resize: 'none',
-                        margin: 0,
-                        transform: 'none',
-                        padding: '15px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        background: 'rgba(15, 23, 42, 0.96)',
-                        color: 'white',
-                        borderRadius: '18px',
-                        border: '1px solid rgba(255, 255, 255, 0.15)'
-                    }}
-                >
-                    <div
-                        className="floating-notes-header"
-                        onMouseDown={!isMobile ? onDragStart : undefined}
-                        onTouchStart={!isMobile ? onDragStart : undefined}
-                        style={{
-                            cursor: isMobile ? 'default' : 'move',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginBottom: '5px',
-                            userSelect: 'none'
-                        }}
-                    >
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'white' }}>Notizen</h3>
-                        <div style={{ display: 'flex', gap: '10px' }}>
-                            <button
-                                className="floating-notes-save"
-                                onClick={handleSaveNote}
-                                style={{ background: 'var(--primary)', border: 'none', color: 'white', borderRadius: '4px', padding: '0 8px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}
-                                title="Notiz speichern"
-                            >
-                                Speichern
-                            </button>
-                            <button
-                                className="floating-notes-close"
-                                onClick={() => setIsOpen(false)}
-                                style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', outline: 'none', padding: '0 5px' }}
-                                title="Notizfenster minimieren"
-                            >
-                                &times;
-                            </button>
-                        </div>
-                    </div>
-
-                    <textarea
-                        className="floating-notes-textarea wisor-input"
-                        value={notes}
-                        onChange={(e) => setNotes(e.target.value)}
-                        placeholder="Deine Notizen hier..."
-                        autoFocus={!isMobile} // Disable autoFocus on mobile to avoid keyboard pop on open
-                        style={{
-                            width: '100%',
-                            flex: 1,
-                            resize: 'none',
-                            marginTop: isMobile ? '5px' : '10px',
-                            background: 'rgba(0, 0, 0, 0.3)',
-                            backdropFilter: 'blur(10px)',
-                            WebkitBackdropFilter: 'blur(10px)',
-                            color: 'white',
-                            border: '1px solid rgba(255, 255, 255, 0.2)',
-                            borderRadius: '12px',
-                            padding: '10px',
-                            outline: 'none',
-                            fontSize: isMobile ? '16px' : 'inherit' // Prevent iOS zoom on focus
-                        }}
-                    />
-
-                    {!isMobile && resizeProps && (
-                        <>
-                            <div
-                                style={{ position: 'absolute', [resizeProps.vPos]: 0, [resizeProps.hPos]: 0, width: '30px', height: '30px', cursor: resizeProps.cursor, zIndex: 10 }}
-                                onMouseDown={(e) => onResizeStart(activeResizeHandle, e)}
-                                onTouchStart={(e) => onResizeStart(activeResizeHandle, e)}
-                            />
-                            <div style={{
-                                position: 'absolute', [resizeProps.vPos]: '8px', [resizeProps.hPos]: '8px', width: '12px', height: '12px',
-                                [resizeProps.vBorder]: '2.5px solid rgba(255,255,255,0.7)',
-                                [resizeProps.hBorder]: '2.5px solid rgba(255,255,255,0.7)',
-                                pointerEvents: 'none',
-                                borderRadius: '2px'
-                            }} />
-                        </>
-                    )}
-                </div>
+                // On mobile: portal to document.body so it escapes the
+                // FloatingPortal's pointerEvents:'none' container.
+                isMobile && typeof document !== 'undefined'
+                    ? createPortal(notesWindow, document.body)
+                    : notesWindow
             )}
         </>
     );

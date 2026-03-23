@@ -447,6 +447,140 @@ export default function FloatingCalculator({
     const helperText = helperValue.length > 14 ? `${helperValue.slice(0, 14)}…` : helperValue;
     const showResultHelper = !isOpen && hasCalcActivity && currentValue !== '0';
 
+    // ── Render the opened calculator window ──
+    const calcWindow = (
+        <div
+            className="floating-notes-window fade-in card-face"
+            style={isMobile ? {
+                position: 'fixed',
+                left: `${mobileWindow.x}px`,
+                top: `${mobileWindow.y}px`,
+                width: `${mobileWindow.width}px`,
+                height: `${mobileWindow.height}px`,
+                maxWidth: `${CALC_MAX_WIDTH}px`,
+                zIndex: 1000002, margin: 0, padding: '10px 10px 8px 10px',
+                display: 'flex', flexDirection: 'column',
+                borderRadius: '18px', border: '1px solid rgba(255, 255, 255, 0.15)',
+                boxShadow: '0 8px 30px rgba(0,0,0,0.55)', background: 'rgba(0, 0, 0, 0.96)',
+                color: 'white',
+                touchAction: 'auto',
+                pointerEvents: 'auto'
+            } : {
+                position: 'fixed',
+                left: `${position.x}px`, top: `${position.y}px`,
+                width: `${size.width}px`, height: `${size.height}px`,
+                maxWidth: `${CALC_MAX_WIDTH}px`, maxHeight: `${CALC_MAX_HEIGHT}px`,
+                zIndex: 1000, resize: 'none', margin: 0, transform: 'none',
+                padding: '10px 0', display: 'flex', flexDirection: 'column', 
+                background: 'rgba(0, 0, 0, 0.96)',
+                color: 'white',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                borderRadius: '18px'
+            }}
+        >
+            <div
+                className="floating-notes-header"
+                onMouseDown={!isMobile ? onDragStart : undefined}
+                onTouchStart={isMobile ? handleMobileWindowTouchStart : onDragStart}
+                onTouchMove={isMobile ? handleMobileWindowTouchMove : undefined}
+                onTouchEnd={isMobile ? handleMobileWindowTouchEnd : undefined}
+                onTouchCancel={isMobile ? handleMobileWindowTouchEnd : undefined}
+                style={{ cursor: isMobile ? 'grab' : 'move', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px', userSelect: 'none', touchAction: 'none' }}
+            >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <h3 style={{ margin: 0, fontSize: '1.05rem', color: 'white' }}>Rechner</h3>
+                    {isMobile && <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.65)' }}>↕︎ ziehen</span>}
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <button
+                        className="floating-notes-close"
+                        onClick={() => setIsOpen(false)}
+                        style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', outline: 'none', padding: '0 5px' }}
+                    > &times; </button>
+                </div>
+            </div>
+
+            <input
+                className="calc-display"
+                style={{ fontSize, border: 'none', outline: 'none', width: '100%', textAlign: 'right', background: 'transparent', color: 'white', fontFamily: 'inherit', fontWeight: 'inherit', caretColor: 'rgba(255,255,255,0.6)' }}
+                value={currentValue}
+                onChange={(e) => {
+                    setHasCalcActivity(true);
+                    const raw = e.target.value.replace(',', '.').replace(/[^0-9.-]/g, '');
+                    if (raw === '' || raw === '-') { setCurrentValue(raw || '0'); return; }
+                    const parts = raw.split('.');
+                    const cleaned = parts.length > 2 ? parts[0] + '.' + parts.slice(1).join('') : raw;
+                    setCurrentValue(cleaned);
+                    setWaitingForNewValue(false);
+                }}
+                onPaste={(e) => {
+                    e.preventDefault();
+                    setHasCalcActivity(true);
+                    const pasted = (e.clipboardData.getData('text') || '').replace(',', '.').replace(/[^0-9.-]/g, '');
+                    if (pasted) {
+                        setCurrentValue(pasted);
+                        setWaitingForNewValue(false);
+                    }
+                }}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter') { e.preventDefault(); handleEquals(); }
+                    if (e.key === 'Backspace' && currentValue.length <= 1) {
+                        e.preventDefault();
+                        setCurrentValue('0');
+                    }
+                }}
+                inputMode="decimal"
+            />
+
+            <div className="calc-wrapper">
+                <div className="calc-grid">
+                    <button className="calc-btn calc-top" onClick={handleClear}>{currentValue === '0' ? 'AC' : 'C'}</button>
+                    <button className="calc-btn calc-top" onClick={handleToggleSign}>+/-</button>
+                    <button className="calc-btn calc-top" onClick={handlePercent}>%</button>
+                    <button className={`calc-btn calc-op ${operator === '÷' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('÷')}>÷</button>
+
+                    <button className="calc-btn calc-num" onClick={() => handleDigit('7')}>7</button>
+                    <button className="calc-btn calc-num" onClick={() => handleDigit('8')}>8</button>
+                    <button className="calc-btn calc-num" onClick={() => handleDigit('9')}>9</button>
+                    <button className={`calc-btn calc-op ${operator === '×' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('×')}>×</button>
+
+                    <button className="calc-btn calc-num" onClick={() => handleDigit('4')}>4</button>
+                    <button className="calc-btn calc-num" onClick={() => handleDigit('5')}>5</button>
+                    <button className="calc-btn calc-num" onClick={() => handleDigit('6')}>6</button>
+                    <button className={`calc-btn calc-op ${operator === '-' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('-')}>-</button>
+
+                    <button className="calc-btn calc-num" onClick={() => handleDigit('1')}>1</button>
+                    <button className="calc-btn calc-num" onClick={() => handleDigit('2')}>2</button>
+                    <button className="calc-btn calc-num" onClick={() => handleDigit('3')}>3</button>
+                    <button className={`calc-btn calc-op ${operator === '+' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('+')}>+</button>
+
+                    <button className="calc-btn calc-num" onClick={() => handleDigit('0')}>0</button>
+                    <button className="calc-btn calc-num" onClick={handleDot}>,</button>
+                    <button className="calc-btn calc-top" onClick={handleBackspace} title="Eine Ziffer löschen">⌫</button>
+                    <button className="calc-btn calc-op" onClick={handleEquals}>=</button>
+                </div>
+            </div>
+
+            {/* Resizer Desktop */}
+            {!isMobile && resizeProps && (
+                <>
+                    <div
+                        style={{ position: 'absolute', [resizeProps.vPos]: 0, [resizeProps.hPos]: 0, width: '30px', height: '30px', cursor: resizeProps.cursor, zIndex: 10 }}
+                        onMouseDown={(e) => onResizeStart(activeResizeHandle, e)}
+                        onTouchStart={(e) => onResizeStart(activeResizeHandle, e)}
+                    />
+                    <div style={{
+                        position: 'absolute', [resizeProps.vPos]: '8px', [resizeProps.hPos]: '8px', width: '12px', height: '12px',
+                        [resizeProps.vBorder]: '2.5px solid rgba(255,255,255,0.7)',
+                        [resizeProps.hBorder]: '2.5px solid rgba(255,255,255,0.7)',
+                        pointerEvents: 'none',
+                        borderRadius: '2px'
+                    }} />
+                </>
+            )}
+        </div>
+    );
+
     return (
         <>
             {!isOpen ? (
@@ -494,137 +628,12 @@ export default function FloatingCalculator({
                     </div>
                 )
             ) : (
-                <div
-                    className="floating-notes-window fade-in card-face"
-                    style={isMobile ? {
-                        position: 'fixed',
-                        left: `${mobileWindow.x}px`,
-                        top: `${mobileWindow.y}px`,
-                        width: `${mobileWindow.width}px`,
-                        height: `${mobileWindow.height}px`,
-                        maxWidth: `${CALC_MAX_WIDTH}px`,
-                        zIndex: 1000, margin: 0, padding: '10px 10px 8px 10px',
-                        display: 'flex', flexDirection: 'column',
-                        borderRadius: '18px', border: '1px solid rgba(255, 255, 255, 0.15)',
-                        boxShadow: '0 8px 30px rgba(0,0,0,0.55)', background: 'rgba(0, 0, 0, 0.96)',
-                        color: 'white',
-                        touchAction: 'auto',
-                        pointerEvents: 'auto'
-                    } : {
-                        position: 'fixed',
-                        left: `${position.x}px`, top: `${position.y}px`,
-                        width: `${size.width}px`, height: `${size.height}px`,
-                        maxWidth: `${CALC_MAX_WIDTH}px`, maxHeight: `${CALC_MAX_HEIGHT}px`,
-                        zIndex: 1000, resize: 'none', margin: 0, transform: 'none',
-                        padding: '10px 0', display: 'flex', flexDirection: 'column', 
-                        background: 'rgba(0, 0, 0, 0.96)',
-                        color: 'white',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
-                        borderRadius: '18px'
-                    }}
-                >
-                    <div
-                        className="floating-notes-header"
-                        onMouseDown={!isMobile ? onDragStart : undefined}
-                        onTouchStart={isMobile ? handleMobileWindowTouchStart : onDragStart}
-                        onTouchMove={isMobile ? handleMobileWindowTouchMove : undefined}
-                        onTouchEnd={isMobile ? handleMobileWindowTouchEnd : undefined}
-                        onTouchCancel={isMobile ? handleMobileWindowTouchEnd : undefined}
-                        style={{ cursor: isMobile ? 'grab' : 'move', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px', userSelect: 'none', touchAction: 'none' }}
-                    >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <h3 style={{ margin: 0, fontSize: '1.05rem', color: 'white' }}>Rechner</h3>
-                            {isMobile && <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.65)' }}>↕︎ ziehen</span>}
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <button
-                                className="floating-notes-close"
-                                onClick={() => setIsOpen(false)}
-                                style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', outline: 'none', padding: '0 5px' }}
-                            > &times; </button>
-                        </div>
-                    </div>
-
-                    <input
-                        className="calc-display"
-                        style={{ fontSize, border: 'none', outline: 'none', width: '100%', textAlign: 'right', background: 'transparent', color: 'white', fontFamily: 'inherit', fontWeight: 'inherit', caretColor: 'rgba(255,255,255,0.6)' }}
-                        value={currentValue}
-                        onChange={(e) => {
-                            setHasCalcActivity(true);
-                            const raw = e.target.value.replace(',', '.').replace(/[^0-9.-]/g, '');
-                            if (raw === '' || raw === '-') { setCurrentValue(raw || '0'); return; }
-                            // Prevent multiple dots
-                            const parts = raw.split('.');
-                            const cleaned = parts.length > 2 ? parts[0] + '.' + parts.slice(1).join('') : raw;
-                            setCurrentValue(cleaned);
-                            setWaitingForNewValue(false);
-                        }}
-                        onPaste={(e) => {
-                            e.preventDefault();
-                            setHasCalcActivity(true);
-                            const pasted = (e.clipboardData.getData('text') || '').replace(',', '.').replace(/[^0-9.-]/g, '');
-                            if (pasted) {
-                                setCurrentValue(pasted);
-                                setWaitingForNewValue(false);
-                            }
-                        }}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter') { e.preventDefault(); handleEquals(); }
-                            if (e.key === 'Backspace' && currentValue.length <= 1) {
-                                e.preventDefault();
-                                setCurrentValue('0');
-                            }
-                        }}
-                        inputMode="decimal"
-                    />
-
-                    <div className="calc-wrapper">
-                        <div className="calc-grid">
-                            <button className="calc-btn calc-top" onClick={handleClear}>{currentValue === '0' ? 'AC' : 'C'}</button>
-                            <button className="calc-btn calc-top" onClick={handleToggleSign}>+/-</button>
-                            <button className="calc-btn calc-top" onClick={handlePercent}>%</button>
-                            <button className={`calc-btn calc-op ${operator === '÷' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('÷')}>÷</button>
-
-                            <button className="calc-btn calc-num" onClick={() => handleDigit('7')}>7</button>
-                            <button className="calc-btn calc-num" onClick={() => handleDigit('8')}>8</button>
-                            <button className="calc-btn calc-num" onClick={() => handleDigit('9')}>9</button>
-                            <button className={`calc-btn calc-op ${operator === '×' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('×')}>×</button>
-
-                            <button className="calc-btn calc-num" onClick={() => handleDigit('4')}>4</button>
-                            <button className="calc-btn calc-num" onClick={() => handleDigit('5')}>5</button>
-                            <button className="calc-btn calc-num" onClick={() => handleDigit('6')}>6</button>
-                            <button className={`calc-btn calc-op ${operator === '-' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('-')}>-</button>
-
-                            <button className="calc-btn calc-num" onClick={() => handleDigit('1')}>1</button>
-                            <button className="calc-btn calc-num" onClick={() => handleDigit('2')}>2</button>
-                            <button className="calc-btn calc-num" onClick={() => handleDigit('3')}>3</button>
-                            <button className={`calc-btn calc-op ${operator === '+' && waitingForNewValue ? 'active' : ''}`} onClick={() => handleOperator('+')}>+</button>
-
-                            <button className="calc-btn calc-num" onClick={() => handleDigit('0')}>0</button>
-                            <button className="calc-btn calc-num" onClick={handleDot}>,</button>
-                            <button className="calc-btn calc-top" onClick={handleBackspace} title="Eine Ziffer löschen">⌫</button>
-                            <button className="calc-btn calc-op" onClick={handleEquals}>=</button>
-                        </div>
-                    </div>
-
-                    {/* Resizer Desktop */}
-                    {!isMobile && resizeProps && (
-                        <>
-                            <div
-                                style={{ position: 'absolute', [resizeProps.vPos]: 0, [resizeProps.hPos]: 0, width: '30px', height: '30px', cursor: resizeProps.cursor, zIndex: 10 }}
-                                onMouseDown={(e) => onResizeStart(activeResizeHandle, e)}
-                                onTouchStart={(e) => onResizeStart(activeResizeHandle, e)}
-                            />
-                            <div style={{
-                                position: 'absolute', [resizeProps.vPos]: '8px', [resizeProps.hPos]: '8px', width: '12px', height: '12px',
-                                [resizeProps.vBorder]: '2.5px solid rgba(255,255,255,0.7)',
-                                [resizeProps.hBorder]: '2.5px solid rgba(255,255,255,0.7)',
-                                pointerEvents: 'none',
-                                borderRadius: '2px'
-                            }} />
-                        </>
-                    )}
-                </div>
+                // On mobile: portal the window to document.body so it escapes the
+                // FloatingPortal's pointerEvents:'none' container. On desktop it
+                // renders inline (already portalled by FloatingPortal or App).
+                isMobile && typeof document !== 'undefined'
+                    ? createPortal(calcWindow, document.body)
+                    : calcWindow
             )}
             {showResultHelper && typeof document !== 'undefined' && createPortal(
                 <div
