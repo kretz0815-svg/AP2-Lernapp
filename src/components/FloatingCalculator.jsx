@@ -14,7 +14,7 @@ const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 const getMobileWindowDimensions = (vvState) => {
     const maxWidth = Math.max(MOBILE_CALC_MIN_WIDTH, vvState.width - (MOBILE_VIEWPORT_MARGIN * 2));
     const maxHeight = Math.max(MOBILE_CALC_MIN_HEIGHT, vvState.height - (MOBILE_VIEWPORT_MARGIN * 2));
-    const preset = { widthTarget: vvState.width * 0.52, heightTarget: vvState.height * 0.45 };
+    const preset = { widthTarget: vvState.width * 0.88, heightTarget: vvState.height * 0.45 };
     return {
         width: clamp(preset.widthTarget, MOBILE_CALC_MIN_WIDTH, Math.min(CALC_MAX_WIDTH, maxWidth)),
         height: clamp(preset.heightTarget, MOBILE_CALC_MIN_HEIGHT, Math.min(560, maxHeight))
@@ -165,9 +165,9 @@ export default function FloatingCalculator({
         const { width, height } = getMobileWindowDimensions(vvState);
         const x = clamp((vvState.width - width) / 2, MOBILE_VIEWPORT_MARGIN, vvState.width - width - MOBILE_VIEWPORT_MARGIN);
         const y = clamp(
-            vvState.height - height - 18,
-            MOBILE_VIEWPORT_MARGIN,
-            vvState.height - height - MOBILE_VIEWPORT_MARGIN
+            vvState.offsetTop + (vvState.height - height) / 2,
+            vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
+            vvState.offsetTop + vvState.height - height - MOBILE_VIEWPORT_MARGIN
         );
         setMobileWindow({ x, y, width, height });
     }, [isMobile, isOpen, vvState]);
@@ -430,13 +430,13 @@ export default function FloatingCalculator({
         ? {
             position: inlineMode ? 'relative' : 'fixed',
             left: inlineMode ? '0' : '12px',
-            top: inlineMode ? '0' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
+            bottom: inlineMode ? '0' : 'calc(env(safe-area-inset-bottom, 0px) + 20px)',
             zIndex: 1000
         }
         : {
             position: inlineMode ? 'relative' : 'fixed',
             right: (currentAppMode === 'klr') ? (inlineMode ? '0' : '74px') : (inlineMode ? '0' : '12px'),
-            top: (currentAppMode === 'klr') ? (inlineMode ? '0' : '1px') : (inlineMode ? '0' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`),
+            bottom: (currentAppMode === 'klr') ? (inlineMode ? '0' : '1px') : (inlineMode ? '0' : 'calc(env(safe-area-inset-bottom, 0px) + 20px)'),
             zIndex: 1000
         };
 

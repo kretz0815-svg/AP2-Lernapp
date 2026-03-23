@@ -923,7 +923,7 @@ ${input}`;
           if (data && data.progress_data) {
             progressData = { ...data.progress_data };
             localStorage.setItem('ap2_srs_progress', JSON.stringify(progressData));
-            localStorage.setItem('ap2_quiz_progress', JSON.stringify({}));
+            // Removed: localStorage.setItem('ap2_quiz_progress', JSON.stringify({})); // Keep local progress intact as fallback
 
             if (data.progress_data.wisor_progress) {
               localStorage.setItem('ap2_wisor_progress', JSON.stringify(data.progress_data.wisor_progress));
@@ -1002,7 +1002,7 @@ ${input}`;
             await supabase.from('user_data').upsert([{ user_id: userId, device_id: userId, progress_data: emptyProgress }], { onConflict: 'user_id' });
             progressData = { ...emptyProgress };
             localStorage.setItem('ap2_srs_progress', JSON.stringify(progressData));
-            localStorage.setItem('ap2_quiz_progress', JSON.stringify({}));
+            // Removed: localStorage.setItem('ap2_quiz_progress', JSON.stringify({})); // Keep local progress intact as fallback
             localStorage.setItem('ap2_wisor_progress', JSON.stringify({}));
             localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
             localStorage.setItem('ap2_saved_notes', JSON.stringify({}));
@@ -2255,7 +2255,10 @@ ${input}`;
             refreshQuizDuePool();
             setAppMode('dashboard');
           }}
-          onCancel={() => setAppMode('dashboard')}
+          onCancel={() => {
+            refreshQuizDuePool();
+            setAppMode('dashboard');
+          }}
           feynmanModeEnabled={feynmanModeEnabled}
           onLearningEvent={appendLearningEvent}
           onQuizAnswer={handleQuizAnswerUpdate}

@@ -332,13 +332,13 @@ export default function FloatingNotes({
         ? {
             position: inlineMode ? 'relative' : 'fixed',
             left: inlineMode ? '0' : '12px',
-            top: inlineMode ? '0' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`,
+            bottom: inlineMode ? '0' : 'calc(env(safe-area-inset-bottom, 0px) + 20px)',
             zIndex: 1000
         }
         : {
             position: inlineMode ? 'relative' : 'fixed',
             right: (currentAppMode === 'klr') ? (inlineMode ? '0' : '74px') : (inlineMode ? '0' : '12px'),
-            top: (currentAppMode === 'klr') ? (inlineMode ? '0' : '1px') : (inlineMode ? '0' : `calc(env(safe-area-inset-top, 0px) + ${mobileTop}px)`),
+            bottom: (currentAppMode === 'klr') ? (inlineMode ? '0' : '1px') : (inlineMode ? '0' : 'calc(env(safe-area-inset-bottom, 0px) + 20px)'),
             zIndex: 1000
         };
 
@@ -388,7 +388,7 @@ export default function FloatingNotes({
                     style={isMobile ? {
                         position: 'fixed',
                         left: '0px',
-                        top: `${vvState.height - mobileHeight}px`,
+                        top: `${vvState.offsetTop + (vvState.height - mobileHeight) / 2}px`,
                         width: '100vw',
                         height: `${mobileHeight}px`,
                         zIndex: 1000,

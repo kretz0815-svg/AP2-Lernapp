@@ -70,7 +70,7 @@ const QuizSession = ({
           <p style={{ color: 'var(--text-muted)', marginBottom: '1.8rem' }}>Für den gewählten Themenblock ist gerade nichts offen.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
             <button className="btn-secondary" onClick={() => setAppMode('quiz_setup')}>Themenwahl</button>
-            <button className="btn-primary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
+            <button className="btn-primary" onClick={() => (onCancel ? onCancel() : setAppMode('dashboard'))}>Zurück zum Menü</button>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@ const QuizSession = ({
           <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Quiz Beendet!</h2>
           <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {quizScore.correct} / {quizScore.total}</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
+            <button className="btn-secondary" onClick={() => (onCancel ? onCancel() : setAppMode('dashboard'))}>Zurück zum Menü</button>
             <button className="btn-primary" onClick={() => onComplete && onComplete()}>Nochmal spielen</button>
           </div>
         </div>
@@ -149,7 +149,7 @@ const QuizSession = ({
       <div className="blob blob-2"></div>
       <header>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-          <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
+          <button className="btn-nav" onClick={() => (onCancel ? onCancel() : setAppMode('dashboard'))}>&larr; Menü</button>
           <p className="subtitle">Frage {currentQuizIndex + 1} · {remainingInSession} offen</p>
           <div className="score-badge">Score: {quizScore.correct}</div>
         </div>
