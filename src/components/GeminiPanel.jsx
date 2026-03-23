@@ -27,7 +27,7 @@ const GeminiPanel = ({
                     {title}
                 </p>
             )}
-            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', alignItems: 'stretch' }}>
                 <input
                     type="text"
                     className="wisor-input"
@@ -40,14 +40,14 @@ const GeminiPanel = ({
                             onAsk();
                         }
                     }}
-                    style={{ flex: 1, padding: '0.8rem', margin: 0, fontSize: '0.95rem' }}
+                    style={{ flex: 1, padding: '0.8rem', margin: 0, fontSize: '0.95rem', minWidth: 0 }}
                 />
                 <button
                     type="button"
                     className="btn-primary"
                     onClick={onAsk}
                     disabled={isLoading || !query.trim()}
-                    style={{ padding: '0 1.5rem' }}
+                    style={{ padding: '0 1.2rem', width: 'auto', flexShrink: 0, whiteSpace: 'nowrap' }}
                 >
                     {isLoading ? '...' : 'Fragen'}
                 </button>
