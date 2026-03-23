@@ -48,6 +48,7 @@ const QuizSession = ({
   const [feynmanFeedbackLevel, setFeynmanFeedbackLevel] = useState(null);
   const [quizExplanationRevealed, setQuizExplanationRevealed] = useState(false);
   const [quizRevealConfirmVisible, setQuizRevealConfirmVisible] = useState(false);
+  const shuffledAnswersRef = useRef({});
 
   useEffect(() => {
     // Reset state on index change (if handled externally, but here we handle it internally)
@@ -99,7 +100,14 @@ const QuizSession = ({
   const q = internalQuizzes[currentQuizIndex];
   if (!q) return null; // Safety check
 
-  const selectedOption = selectedAnswer !== null ? q.answerOptions?.[selectedAnswer] : null;
+  // Initialize shuffled answers once per question to prevent layout thrashing and translation bugs
+  if (!shuffledAnswersRef.current[q.id]) {
+    const opts = (q.answerOptions || []).map((opt, originalIndex) => ({ ...opt, originalIndex }));
+    shuffledAnswersRef.current[q.id] = opts.sort(() => Math.random() - 0.5);
+  }
+  const currentAnswers = shuffledAnswersRef.current[q.id];
+
+  const selectedOption = selectedAnswer !== null ? currentAnswers[selectedAnswer] : null;
   const shouldGateExplanation = selectedAnswer !== null
     && feynmanModeEnabled
     && !!selectedOption?.isCorrect
@@ -114,7 +122,7 @@ const QuizSession = ({
 
   const handleQuizAnswer = (idx) => {
     if (selectedAnswer !== null) return;
-    const isCorrect = q.answerOptions[idx].isCorrect;
+    const isCorrect = currentAnswers[idx].isCorrect;
     setSelectedAnswer(idx);
     setQuizScore(prev => ({ correct: prev.correct + (isCorrect ? 1 : 0), total: prev.total + 1 }));
     if (onLearningEvent) {
@@ -123,7 +131,7 @@ const QuizSession = ({
         questionId: q.id,
         questionText: q.question,
         correct: isCorrect,
-        userAnswer: q.answerOptions[idx].text,
+        userAnswer: currentAnswers[idx].text,
         expectedAnswer: q.answerOptions.find(o => o.isCorrect)?.text || '',
         topic: q.topic || ''
       });
@@ -199,7 +207,7 @@ const QuizSession = ({
           {formatLatex(q.question || '')}
         </div>
         <div className="quiz-options">
-          {(q.answerOptions || []).map((opt, idx) => {
+          {currentAnswers.map((opt, idx) => {
             let btnClass = "quiz-btn";
             if (selectedAnswer !== null) {
               if (opt.isCorrect) btnClass += " correct";
@@ -207,7 +215,7 @@ const QuizSession = ({
             }
             return (
               <button
-                key={idx}
+                key={opt.text + idx}
                 className={btnClass}
                 onClick={() => handleQuizAnswer(idx)}
                 disabled={selectedAnswer !== null}
@@ -221,7 +229,7 @@ const QuizSession = ({
         {selectedAnswer !== null && (
           <div className="quiz-rationale fade-in">
             {!shouldGateExplanation ? (
-              <p><strong>Erklärung:</strong> {formatLatex(q.answerOptions[selectedAnswer].rationale)}</p>
+              <p><strong>Erklärung:</strong> {formatLatex(currentAnswers[selectedAnswer].rationale || 'Keine Erklärung vorhanden.')}</p>
             ) : (
               <div style={{ marginBottom: '0.4rem', textAlign: 'left', border: '1px dashed var(--glass-border)', borderRadius: '10px', padding: '0.85rem', background: 'rgba(255,255,255,0.02)' }}>
                 <p style={{ margin: 0, color: 'var(--text-muted)' }}>
@@ -237,7 +245,7 @@ const QuizSession = ({
               </div>
             )}
 
-            {feynmanModeEnabled && q.answerOptions[selectedAnswer].isCorrect && (
+            {feynmanModeEnabled && currentAnswers[selectedAnswer].isCorrect && (
               <div style={{ marginTop: '1rem', textAlign: 'left', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '1rem', background: 'rgba(255,255,255,0.03)' }}>
                 <label style={{ display: 'block', color: 'var(--text-light)', marginBottom: '0.55rem', fontWeight: 600 }}>
                   Feynman-Check
@@ -307,7 +315,7 @@ const QuizSession = ({
               </div>
             )}
 
-            {!(feynmanModeEnabled && q.answerOptions[selectedAnswer]?.isCorrect && feynmanFeedback) && (
+            {!(feynmanModeEnabled && currentAnswers[selectedAnswer]?.isCorrect && feynmanFeedback) && (
               <button
                 className="btn-primary"
                 style={{ marginTop: '1rem' }}
