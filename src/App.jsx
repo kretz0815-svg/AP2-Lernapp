@@ -633,15 +633,16 @@ function App() {
         if (row) {
           const supabaseNextReview = row.due_date ? new Date(row.due_date).getTime() : 0;
           const localNextReview = localProg?.nextReview || 0;
+          const localLatestRep = localProg?.rep || 0;
 
-          // Immer den SPÄTEREN nextReview nehmen (strengerer Cooldown gewinnt).
-          // Das verhindert, dass alte Supabase-Einträge mit zu kurzen Intervallen
-          // den korrekten lokalen 24h-Cooldown überschreiben.
-          const useLocal = localProg && localNextReview > supabaseNextReview;
+          // Always trust local progress if it shows we answered it (nextReview in future)
+          // or if it strictly has a later review date than Supabase. This fixes iOS
+          // Safari fetch caching bugs displaying old database states immediately after a session.
+          const useLocal = localProg && (localNextReview > supabaseNextReview || localNextReview > now);
 
           if (useLocal) {
             effectiveProgress[q.id] = {
-              rep: Math.max(localProg.rep || 0, row.review_count || 0),
+              rep: Math.max(localLatestRep, row.review_count || 0),
               ef: localProg.ef || 2.5,
               interval: localProg.interval || 0,
               nextReview: localNextReview
