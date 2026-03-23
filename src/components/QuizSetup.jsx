@@ -105,7 +105,7 @@ const QuizSetup = ({
           onClick={startQuiz}
           disabled={selectedTopicDueCount === 0}
         >
-          Boss starten &rarr;
+          Los geht's &rarr;
         </button>
       </div>
     </div>
