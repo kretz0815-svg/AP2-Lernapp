@@ -165,9 +165,9 @@ export default function FloatingCalculator({
         const { width, height } = getMobileWindowDimensions(vvState);
         const x = clamp((vvState.width - width) / 2, MOBILE_VIEWPORT_MARGIN, vvState.width - width - MOBILE_VIEWPORT_MARGIN);
         const y = clamp(
-            vvState.offsetTop + (vvState.height - height) / 2,
-            vvState.offsetTop + MOBILE_VIEWPORT_MARGIN,
-            vvState.offsetTop + vvState.height - height - MOBILE_VIEWPORT_MARGIN
+            (vvState.height - height) / 2,
+            MOBILE_VIEWPORT_MARGIN,
+            vvState.height - height - MOBILE_VIEWPORT_MARGIN
         );
         setMobileWindow({ x, y, width, height });
     }, [isMobile, isOpen, vvState]);
@@ -455,7 +455,7 @@ export default function FloatingCalculator({
                         className="floating-notes-toggle"
                         onClick={() => setIsOpen(true)}
                         title="Taschenrechner öffnen"
-                        style={{ position: 'relative', width: '42px', height: '42px' }}
+                        style={{ position: 'relative', width: '42px', height: '42px', pointerEvents: 'auto' }}
                     >
                         <svg viewBox="0 0 24 24" width="1.4em" height="1.4em" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" style={{ display: 'block' }}>
                             <rect x="2" y="2" width="20" height="20" rx="3" />
@@ -476,6 +476,7 @@ export default function FloatingCalculator({
                             className="floating-notes-toggle"
                             onClick={() => setIsOpen(true)}
                             title="Taschenrechner öffnen"
+                            style={{ pointerEvents: 'auto' }}
                         >
                             <svg viewBox="0 0 24 24" width="1.4em" height="1.4em" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" style={{ display: 'block' }}>
                                 <rect x="2" y="2" width="20" height="20" rx="3" />
@@ -507,7 +508,8 @@ export default function FloatingCalculator({
                         borderRadius: '18px', border: '1px solid rgba(255, 255, 255, 0.15)',
                         boxShadow: '0 8px 30px rgba(0,0,0,0.55)', background: 'rgba(0, 0, 0, 0.96)',
                         color: 'white',
-                        touchAction: 'auto'
+                        touchAction: 'auto',
+                        pointerEvents: 'auto'
                     } : {
                         position: 'fixed',
                         left: `${position.x}px`, top: `${position.y}px`,

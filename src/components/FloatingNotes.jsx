@@ -355,7 +355,7 @@ export default function FloatingNotes({
                         className="floating-notes-toggle"
                         onClick={() => setIsOpen(true)}
                         title="Notizen zur aktuellen Frage"
-                        style={{ position: 'relative', width: '42px', height: '42px' }}
+                        style={{ position: 'relative', width: '42px', height: '42px', pointerEvents: 'auto' }}
                     >
                         <svg viewBox="0 0 24 24" width="1.4em" height="1.4em" fill="currentColor" style={{ display: 'block' }}>
                             <path d="M3 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6.586l-1 1V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h7v1H5a2 2 0 0 1-2-2V5z" />
@@ -371,6 +371,7 @@ export default function FloatingNotes({
                             className="floating-notes-toggle"
                             onClick={() => setIsOpen(true)}
                             title="Notizen zur aktuellen Frage"
+                            style={{ pointerEvents: 'auto' }}
                         >
                             <svg viewBox="0 0 24 24" width="1.4em" height="1.4em" fill="currentColor" style={{ display: 'block' }}>
                                 <path d="M3 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6.586l-1 1V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h7v1H5a2 2 0 0 1-2-2V5z" />
@@ -388,7 +389,7 @@ export default function FloatingNotes({
                     style={isMobile ? {
                         position: 'fixed',
                         left: '0px',
-                        top: `${vvState.offsetTop + (vvState.height - mobileHeight) / 2}px`,
+                        top: `${(vvState.height - mobileHeight) / 2}px`,
                         width: '100vw',
                         height: `${mobileHeight}px`,
                         zIndex: 1000,
@@ -396,14 +397,14 @@ export default function FloatingNotes({
                         padding: '10px 15px',
                         display: 'flex',
                         flexDirection: 'column',
-                        borderRadius: '24px 24px 0 0',
+                        borderRadius: '24px 24px 24px 24px',
                         border: '1px solid var(--glass-border)',
-                        borderBottom: 'none',
                         boxShadow: '0 -5px 25px rgba(0,0,0,0.5)',
                         background: 'rgba(15, 23, 42, 0.96)',
                         color: 'white',
                         backdropFilter: 'blur(20px)',
-                        WebkitBackdropFilter: 'blur(20px)'
+                        WebkitBackdropFilter: 'blur(20px)',
+                        pointerEvents: 'auto'
                     } : {
                         position: 'fixed',
                         left: `${position.x}px`,
