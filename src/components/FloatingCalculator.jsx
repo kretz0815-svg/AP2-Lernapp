@@ -14,7 +14,7 @@ const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 const getMobileWindowDimensions = (vvState) => {
     const maxWidth = Math.max(MOBILE_CALC_MIN_WIDTH, vvState.width - (MOBILE_VIEWPORT_MARGIN * 2));
     const maxHeight = Math.max(MOBILE_CALC_MIN_HEIGHT, vvState.height - (MOBILE_VIEWPORT_MARGIN * 2));
-    const preset = { widthTarget: vvState.width * 0.88, heightTarget: vvState.height * 0.45 };
+    const preset = { widthTarget: vvState.width * 0.60, heightTarget: vvState.height * 0.40 };
     return {
         width: clamp(preset.widthTarget, MOBILE_CALC_MIN_WIDTH, Math.min(CALC_MAX_WIDTH, maxWidth)),
         height: clamp(preset.heightTarget, MOBILE_CALC_MIN_HEIGHT, Math.min(560, maxHeight))

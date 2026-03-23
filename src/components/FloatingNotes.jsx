@@ -321,7 +321,7 @@ export default function FloatingNotes({
     }[activeResizeHandle];
 
     // Mobile Styling Konstanten
-    const mobileHeight = Math.min(220, vvState.height * 0.45);
+    const mobileHeight = Math.min(280, vvState.height * 0.45);
     const visibleTop = vvState.offsetTop;
     const visibleHeight = vvState.height;
     const preferredTop = visibleTop + Math.round(visibleHeight * 0.22) + 70;
@@ -353,19 +353,20 @@ export default function FloatingNotes({
             className="floating-notes-window fade-in card-face"
             style={isMobile ? {
                 position: 'fixed',
-                left: '0px',
-                top: `${(vvState.height - mobileHeight) / 2}px`,
-                width: '100vw',
+                left: '50%',
+                top: `${Math.max(40, (vvState.height - mobileHeight) / 2)}px`,
+                transform: 'translateX(-50%)',
+                width: 'min(90vw, 360px)',
                 height: `${mobileHeight}px`,
                 zIndex: 1000002,
                 margin: 0,
                 padding: '10px 15px',
                 display: 'flex',
                 flexDirection: 'column',
-                borderRadius: '24px 24px 24px 24px',
-                border: '1px solid var(--glass-border)',
-                boxShadow: '0 -5px 25px rgba(0,0,0,0.5)',
-                background: 'rgba(15, 23, 42, 0.96)',
+                borderRadius: '18px',
+                border: '1px solid rgba(255, 255, 255, 0.18)',
+                boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
+                background: 'rgba(15, 23, 42, 0.94)',
                 color: 'white',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
