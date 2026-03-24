@@ -68,8 +68,8 @@ const SLFGameContainer = ({ room, player, onClose }) => {
     try {
       const prompt = `Validiere Stadt Land Fluss für Buchstabe '${roomData.current_letter}': 
       STADT: ${answersObj.stadt}, LAND: ${answersObj.land}, FLUSS: ${answersObj.fluss}, TIER: ${answersObj.tier}, BERUF: ${answersObj.beruf}.
-      Antworte als JSON: { "stadt": "correct/wrong/neutral", ... }. 
-      Sei streng bei Rechtschreibung und Buchstabe.`;
+      Antworte als JSON: { "stadt": "correct/wrong", ... }. 
+      Sei STRENG. Gib NUR 'correct' oder 'wrong' zurück. Keine Neutral-Werte. Buchstabe muss stimmen.`;
       const response = await askGemini(prompt);
       const jsonMatch = response.match(/\{.*\}/s);
       if (jsonMatch) {
@@ -77,7 +77,7 @@ const SLFGameContainer = ({ room, player, onClose }) => {
         // Translate to German
         const translated = {};
         Object.keys(raw).forEach(k => {
-          translated[k] = raw[k] === 'correct' ? 'Richtig' : (raw[k] === 'wrong' ? 'Falsch' : 'Neutral');
+          translated[k] = raw[k] === 'correct' ? 'Richtig' : 'Falsch';
         });
         setAiResults(translated);
         calculatePoints(translated, answersObj);
@@ -143,6 +143,15 @@ const SLFGameContainer = ({ room, player, onClose }) => {
     } catch (err) { alert(err.message); }
     finally { setNextRoundLoading(false); }
   };
+
+  useEffect(() => {
+    // Reset local states for a new round
+    setLocalRoll(null);
+    setVisualRoll('?');
+    setAiResults(null);
+    setCalculatedPoints(0);
+    setAnswers({ stadt: '', land: '', fluss: '', tier: '', beruf: '' });
+  }, [roomData.current_round_num]);
 
   useEffect(() => {
     if (roomData.game_phase === 'evaluating' && !aiResults) {
