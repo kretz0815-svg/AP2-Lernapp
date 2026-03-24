@@ -68,7 +68,7 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
         {step === 'password' && (
           <div className="slf-form">
              <h2>🔑 VIP Content</h2>
-             <p>Bitte Passwort eingeben (pingsta)</p>
+             <p>Bitte Passwort eingeben</p>
              <form onSubmit={handlePassword}>
                 <input type="password" value={password} onChange={e => setPassword(e.target.value)} autoFocus />
                 <button className="slf-prime-btn">Verify</button>
