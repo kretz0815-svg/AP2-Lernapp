@@ -7,6 +7,7 @@ import './index.css'
 import App from './App.jsx'
 import { KLRGameProvider } from './features/klr'
 import { ProjectMProvider } from './features/project-m'
+import { JourneyArchitectProvider } from './features/journey-architect'
 
 // Enable drag and drop for touch devices globally
 polyfill({
@@ -20,7 +21,9 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <KLRGameProvider>
       <ProjectMProvider>
-        <App />
+        <JourneyArchitectProvider>
+          <App />
+        </JourneyArchitectProvider>
       </ProjectMProvider>
     </KLRGameProvider>
   </StrictMode>,

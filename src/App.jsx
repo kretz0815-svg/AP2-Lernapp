@@ -31,6 +31,7 @@ import GeminiPanel from './components/GeminiPanel';
 import Confetti from './components/Confetti';
 import { KLRGameHub, useKLRGame } from './features/klr';
 import { ProjectMGame, useProjectM } from './features/project-m';
+import { JourneyArchitectGame, useJourneyArchitect } from './features/journey-architect';
 import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
 import { reviewTaskWithDSR, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
 
@@ -71,6 +72,7 @@ function App() {
   const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || import.meta.env.VITE_HCAPTCHA_SITEKEY || '';
   const { progress: klrProgress } = useKLRGame() || { progress: { xp: 0 } };
   const { progress: pmProgress } = useProjectM() || { progress: { xp: 0 } };
+  const { progress: jaProgress } = useJourneyArchitect() || { progress: { xp: 0 } };
 
   // Set up auth first
 
@@ -1226,6 +1228,10 @@ ${input}`;
       clearAnalyticsByMode('project_m');
       setResetModalVisible(false);
       window.location.reload();
+    } else if (resetTarget === 'journey_architect') {
+      localStorage.removeItem('journey_architect_progress_v1');
+      setResetModalVisible(false);
+      window.location.reload();
     } else if (resetTarget === 'fullAccount') {
       // Clear progress localStorage (keep custom quiz questions)
       localStorage.removeItem('ap2_srs_progress');
@@ -1235,6 +1241,7 @@ ${input}`;
       localStorage.removeItem('ap2_saved_notes');
       localStorage.removeItem('klr_game_progress_v1');
       localStorage.removeItem('project_m_progress_v1');
+      localStorage.removeItem('journey_architect_progress_v1');
       localStorage.removeItem(getAnalyticsStorageKey(authUser));
 
       // Reset progress state (keep customQuizQuestions intact)
@@ -1875,6 +1882,25 @@ ${input}`;
             </button>
           </div>
 
+          <div id="card-journey-architect" className="dash-card" style={{ borderColor: 'var(--primary-purple, #8b5cf6)' }} onClick={() => setAppMode('journey_architect')}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em', color: 'var(--primary-purple, #8b5cf6)' }}>
+              <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <path d="M8 11l3 3 5-5" />
+              </svg>
+            </div>
+            <h2 style={{ textShadow: '0 0 10px rgba(139, 92, 246, 0.4)' }}>Journey<br />Architect</h2>
+            <p>Werde zum Meister der Kundenreisen (5, 7 und 8 Phasen).</p>
+            <div className="chip" style={{ color: '#8b5cf6', borderColor: '#8b5cf6', background: 'rgba(139,92,246,0.1)' }}>XP: {jaProgress?.xp || 0}</div>
+            <button
+               className="btn-secondary"
+               style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem', borderColor: '#8b5cf6', color: '#8b5cf6' }}
+               onClick={(e) => { e.stopPropagation(); openResetModal(e, 'journey_architect'); }}
+            >
+               🔄 Lernfortschritt zurücksetzen
+            </button>
+          </div>
+
           <div id="card-notes" className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
               <img
@@ -2163,6 +2189,18 @@ ${input}`;
         {burgerMenuPortal}
         <React.Suspense fallback={<div className="loading-overlay">Lade Projekt m...</div>}>
           <ProjectMGame onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
+        </React.Suspense>
+      </div>
+    );
+  }
+
+  if (appMode === 'journey_architect') {
+    return (
+      <div className="app-container" style={{ zIndex: 10 }}>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <React.Suspense fallback={<div className="loading-overlay">Lade Journey Architect...</div>}>
+          <JourneyArchitectGame onBack={() => setAppMode('dashboard')} />
         </React.Suspense>
       </div>
     );
