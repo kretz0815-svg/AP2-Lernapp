@@ -32,8 +32,11 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
             className="mobile-floating-portal"
             style={{
                 position: 'fixed',
-                right: '12px',
-                bottom: 'calc(env(safe-area-inset-bottom, 0px) + 20px)',
+                right: currentAppMode === 'kalkulation' ? undefined : '12px',
+                left: currentAppMode === 'kalkulation' ? '50%' : undefined,
+                bottom: currentAppMode === 'kalkulation' ? undefined : 'calc(env(safe-area-inset-bottom, 0px) + 20px)',
+                top: currentAppMode === 'kalkulation' ? 'calc(env(safe-area-inset-top, 0px) + 12px)' : undefined,
+                transform: currentAppMode === 'kalkulation' ? 'translateX(-50%)' : undefined,
                 zIndex: 1000001,
                 pointerEvents: 'none',
                 overflow: 'visible'
@@ -51,7 +54,7 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
                     border: '1px solid rgba(255, 255, 255, 0.15)',
                     boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
                     pointerEvents: 'auto', // Re-enable pointer events for icons
-                    marginLeft: 'auto', // Align to right
+                    marginLeft: currentAppMode === 'kalkulation' ? '0' : 'auto', // Align to right normally, center when kalkulation
                     width: 'fit-content'
                 }}
             >
