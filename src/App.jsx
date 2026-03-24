@@ -1372,7 +1372,7 @@ ${input}`;
   // Fallback for unknown appMode
   // (Effect defined here — BEFORE any conditional return — to comply with React hooks rules)
   useEffect(() => {
-    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'project_m', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
+    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
       setAppMode('dashboard');
     }
   }, [appMode]);
