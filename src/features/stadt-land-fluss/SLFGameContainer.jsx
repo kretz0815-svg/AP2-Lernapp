@@ -108,19 +108,31 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   const finalizeRoll = async (val) => {
     try {
       await slfService.updateDiceRoll(player.id, val);
-      await refreshPlayers();
       
-      // Auto-determine winner if simple case
+      // Let's re-fetch to see the current state of everyone
       const updatedPlayers = await slfService.fetchPlayers(room.id);
-      const allRolled = updatedPlayers.every(p => p.dice_roll > 0);
+      setPlayers(updatedPlayers);
+      
+      const allRolled = updatedPlayers.length > 0 && updatedPlayers.every(p => p.dice_roll > 0);
       
       if (allRolled) {
         const sorted = [...updatedPlayers].sort((a, b) => b.dice_roll - a.dice_roll);
-        const winnerId = sorted[0].id;
-        // Broadcast the winner by updating room state if host
-        if (player.device_id === roomData.host_id || updatedPlayers.length === 1) {
-          await advanceToLetterRoulette(winnerId);
+        
+        // TIE CHECK: If the top two have the same roll
+        if (updatedPlayers.length > 1 && sorted[0].dice_roll === sorted[1].dice_roll) {
+           alert(`Unentschieden (${sorted[0].dice_roll})! Bitte würfelt noch einmal.`);
+           // Reset all rolls to 0 via a helper or bulk update
+           for (const p of updatedPlayers) {
+             await slfService.updateDiceRoll(p.id, 0);
+           }
+           setLocalRoll(null);
+           refreshPlayers();
+           return;
         }
+
+        const winnerId = sorted[0].id;
+        // The last player to roll triggers the advance for everyone
+        await advanceToLetterRoulette(winnerId);
       }
     } catch (err) {
       console.error('Finalize roll error:', err);
@@ -173,10 +185,13 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   const renderDice = () => {
     const sorted = [...players].sort((a, b) => b.dice_roll - a.dice_roll);
     const winner = sorted[0]?.dice_roll > 0 ? sorted[0] : null;
+    const allReady = players.every(p => p.dice_roll > 0);
 
     return (
       <div className="slf-section">
         <h3>🎲 Würfel für Initiative</h3>
+        <p className="slf-hint">Alle müssen würfeln. Wer am höchsten wirft, beginnt!</p>
+        
         <div className="slf-dice-grid">
            {players.length > 0 ? players.map(p => {
              const isMe = p.id === player.id;
@@ -196,10 +211,12 @@ const SLFGameContainer = ({ room, player, onClose }) => {
           </button>
         )}
         
-        {winner && winner.dice_roll > 0 && (
+        {localRoll && !allReady && <div className="slf-waiting-box">Warten auf Mitspieler... ⏳</div>}
+        
+        {winner && winner.dice_roll > 0 && allReady && (
            <div className="slf-winner-announcement">
              🏆 {winner.name} hat gewonnen!
-             <button onClick={() => advanceToLetterRoulette(winner.id)} className="slf-sub-btn">Weiter zum Buchstaben Roulette</button>
+             <p>Warte auf Start durch Gewinner...</p>
            </div>
         )}
       </div>
