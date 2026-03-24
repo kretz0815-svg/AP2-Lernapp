@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useJourneyArchitect } from '../state/JourneyArchitectProvider';
 import { L1_SCENARIOS, L2_SCENARIOS, L3_SCENARIOS, L4_SCENARIOS } from '../data/scenarios';
-import Confetti from '../../components/Confetti';
-import GeminiPanel from '../../components/GeminiPanel';
-import FloatingPortal from '../../components/FloatingPortal';
+import Confetti from '../../../components/Confetti';
+import GeminiPanel from '../../../components/GeminiPanel';
+import FloatingPortal from '../../../components/FloatingPortal';
 import './journey-architect.css';
-import { askGemini } from '../../geminiClient';
+import { askGemini } from '../../../geminiClient';
 
 const LEVEL_DATA = {
     1: { id: 1, title: 'Level 1: 5-Phasen-Journey', scenarios: L1_SCENARIOS, xpPoints: 100 },
