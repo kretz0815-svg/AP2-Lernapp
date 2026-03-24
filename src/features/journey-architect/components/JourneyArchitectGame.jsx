@@ -124,6 +124,8 @@ Gibt kurzes, ermutigendes Feedback. Wenn es falsch ist, erkläre warum. Wenn es 
                 setFeedback({ type: 'success', text: 'Weiter gehts!' });
             }
             setOqLoading(false);
+        } else if (challenge.type === 'dnd-master') {
+            setFeedback({ type: 'success', text: 'Master-Challenge bestanden! Du hast die 3 Modelle verstanden.' });
         }
     };
 
