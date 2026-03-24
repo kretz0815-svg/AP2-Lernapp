@@ -1301,8 +1301,6 @@ button {
 
 /* Rechen-Aufgaben Card Glow */
 .rechen-card {
-  border: 1px solid rgba(168, 85, 247, 0.45) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 15px rgba(168, 85, 247, 0.15);
   position: relative;
   overflow: hidden;
 }
@@ -1316,11 +1314,13 @@ button {
   height: 200%;
   background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
   pointer-events: none;
-  transition: transform 0.6s ease-out;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.6s ease-out;
 }
 
 .rechen-card:hover::before {
   transform: scale(1.2);
+  opacity: 1;
 }
 
 .rechen-card:hover {
