@@ -1,3 +1,4 @@
+import { SLFModal } from './features/stadt-land-fluss';
 import React, { useState, useEffect, useRef } from 'react';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { createPortal } from 'react-dom';
@@ -188,6 +189,7 @@ function App() {
   const [dashboardAiLoading, setDashboardAiLoading] = useState(false);
   const [calcAiInsights, setCalcAiInsights] = useState([]);
   const [calcAiLoading, setCalcAiLoading] = useState(false);
+  const [isSLFOpen, setIsSLFOpen] = useState(false);
   const wisorInputRef = useRef(null);
   const einsteinRef = useRef(null);
   const introVideoRef = useRef(null);
@@ -1919,12 +1921,28 @@ ${input}`;
             <div className="chip" style={{ marginTop: 'auto' }}>Gespeichert</div>
           </div>
 
+          {/* VIP Bereich: Stadt Land Fluss Multiplayer */}
+          <div id="card-vip" className="dash-card" onClick={() => setIsSLFOpen(true)}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
+              <span>👑</span>
+            </div>
+            <h2>VIP Bereich</h2>
+            <p>MasterPat Multiplayer: Stadt, Land, Fluss mit Echtzeit-Buzzer.</p>
+            <div className="chip" style={{ background: 'rgba(234, 179, 8, 0.2)', color: '#eab308' }}>Multiplayer</div>
+          </div>
+
         </div>
 
         <ResetModal
           isOpen={resetModalVisible}
           onClose={() => setResetModalVisible(false)}
           onConfirm={handleResetExecute}
+        />
+
+        <SLFModal
+          isOpen={isSLFOpen}
+          onClose={() => setIsSLFOpen(false)}
+          authUser={authUser}
         />
       </div>
     );
