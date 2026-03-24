@@ -4,6 +4,7 @@ import { askGemini } from '../geminiClient';
 import FloatingNotes from './FloatingNotes';
 import FloatingCalculator from './FloatingCalculator';
 import FloatingPortal from './FloatingPortal';
+import GeminiPanel from './GeminiPanel';
 import Confetti from './Confetti';
 
 // ═══════════════════════════════════════════════════════════════
@@ -815,36 +816,16 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
             )}
 
             {/* Gemini KI Panel */}
-            {geminiVisible && (
-                <div className="fade-in" style={{ marginBottom: '1.2rem', width: '100%', borderRadius: '16px', padding: '1.2rem', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
-                    <p style={{ color: 'var(--text-light)', marginBottom: '0.8rem', fontSize: '1rem', fontWeight: 'bold' }}>Frage an deinen KI-Tutor</p>
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
-                        <input
-                            type="text"
-                            className="wisor-input"
-                            placeholder="Was verstehst du nicht?"
-                            value={geminiQuery}
-                            onChange={(e) => setGeminiQuery(e.target.value)}
-                            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleGeminiAsk(); } }}
-                            style={{ flex: 1, padding: '0.8rem', margin: 0 }}
-                        />
-                        <button
-                            type="button"
-                            className="btn-primary"
-                            onClick={handleGeminiAsk}
-                            disabled={geminiLoading || !geminiQuery.trim()}
-                            style={{ padding: '0 1.2rem' }}
-                        >
-                            {geminiLoading ? '⏳' : 'Fragen'}
-                        </button>
-                    </div>
-                    {geminiResponse && (
-                        <div className="fade-in" style={{ marginTop: '0.8rem', padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', color: '#e2e8f0', textAlign: 'left', lineHeight: '1.6' }}>
-                            <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', margin: 0, fontSize: '0.9rem' }}>{geminiResponse}</pre>
-                        </div>
-                    )}
-                </div>
-            )}
+            <GeminiPanel
+                isOpen={geminiVisible}
+                title="Frage an deinen KI-Tutor"
+                placeholder="Was verstehst du nicht?"
+                query={geminiQuery}
+                onQueryChange={setGeminiQuery}
+                onAsk={handleGeminiAsk}
+                isLoading={geminiLoading}
+                response={geminiResponse}
+            />
 
             {/* Elevator Schema */}
             <div ref={containerRef} style={{
