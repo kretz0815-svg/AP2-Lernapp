@@ -281,24 +281,25 @@ h1 {
 .dash-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.6s ease-out;
   pointer-events: none;
 }
 
 .dash-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) scale(1.02);
   border-color: rgba(168, 85, 247, 0.5);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(168, 85, 247, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(168, 85, 247, 0.3);
 }
 
 .dash-card:hover::before {
   opacity: 1;
+  transform: scale(1.2);
 }
 
 .dash-icon {
@@ -1299,34 +1300,10 @@ button {
   }
 }
 
-/* Rechen-Aufgaben Card Glow */
+/* Rechen-Aufgaben Card – Base Dash-Card styles now match original Rechen-Card intensity */
 .rechen-card {
   position: relative;
   overflow: hidden;
-}
-
-.rechen-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.6s ease-out;
-}
-
-.rechen-card:hover::before {
-  transform: scale(1.2);
-  opacity: 1;
-}
-
-.rechen-card:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(168, 85, 247, 0.3);
-  border-color: var(--secondary) !important;
-  transform: translateY(-5px) scale(1.02);
 }
 
 /* Learning Analytics Dashboard – mobile responsive */
