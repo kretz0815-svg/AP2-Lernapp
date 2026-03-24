@@ -1927,8 +1927,8 @@ ${input}`;
               <span>👑</span>
             </div>
             <h2>VIP Bereich</h2>
-            <p>MasterPat Multiplayer: Stadt, Land, Fluss mit Echtzeit-Buzzer.</p>
-            <div className="chip" style={{ background: 'rgba(234, 179, 8, 0.2)', color: '#eab308' }}>Multiplayer</div>
+            <p>Exklusive Zusatzfunktionen für MasterPat Premium Mitglieder.</p>
+            <div className="chip" style={{ background: 'rgba(234, 179, 8, 0.2)', color: '#eab308' }}>PRO</div>
           </div>
 
         </div>
