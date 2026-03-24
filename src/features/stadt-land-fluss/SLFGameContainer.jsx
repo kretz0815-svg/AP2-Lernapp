@@ -20,6 +20,8 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   
   // Round Specific State
   const [localRoll, setLocalRoll] = useState(null);
+  const [isRollingDice, setIsRollingDice] = useState(false);
+  const [visualRoll, setVisualRoll] = useState('?');
   const [answers, setAnswers] = useState({ stadt: '', land: '', fluss: '', tier: '', beruf: '' });
   const [aiResults, setAiResults] = useState(null);
   const [rouletteLetter, setRouletteLetter] = useState('A');
@@ -84,14 +86,44 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   const startDicePhase = () => slfService.setGamePhase(room.id, 'dice');
 
   const rollDice = async () => {
-    const val = Math.floor(Math.random() * 6) + 1;
-    setLocalRoll(val);
-    await slfService.updateDiceRoll(player.id, val);
+    if (isRollingDice) return;
+    setIsRollingDice(true);
     
-    // Auto-advance if everyone rolled (simplified logic for demo)
-    const activePlayers = players.filter(p => p.dice_roll > 0);
-    if (activePlayers.length === players.length - 1 && players.length > 1) {
-       // Logic to determine winner (server side ideally or last roller)
+    // Dice Animation
+    let count = 0;
+    const interval = setInterval(() => {
+      setVisualRoll(Math.floor(Math.random() * 6) + 1);
+      count++;
+      if (count > 15) {
+        clearInterval(interval);
+        const finalVal = Math.floor(Math.random() * 6) + 1;
+        setVisualRoll(finalVal);
+        setLocalRoll(finalVal);
+        setIsRollingDice(false);
+        finalizeRoll(finalVal);
+      }
+    }, 80);
+  };
+
+  const finalizeRoll = async (val) => {
+    try {
+      await slfService.updateDiceRoll(player.id, val);
+      await refreshPlayers();
+      
+      // Auto-determine winner if simple case
+      const updatedPlayers = await slfService.fetchPlayers(room.id);
+      const allRolled = updatedPlayers.every(p => p.dice_roll > 0);
+      
+      if (allRolled) {
+        const sorted = [...updatedPlayers].sort((a, b) => b.dice_roll - a.dice_roll);
+        const winnerId = sorted[0].id;
+        // Broadcast the winner by updating room state if host
+        if (player.device_id === roomData.host_id || updatedPlayers.length === 1) {
+          await advanceToLetterRoulette(winnerId);
+        }
+      }
+    } catch (err) {
+      console.error('Finalize roll error:', err);
     }
   };
 
@@ -146,16 +178,21 @@ const SLFGameContainer = ({ room, player, onClose }) => {
       <div className="slf-section">
         <h3>🎲 Würfel für Initiative</h3>
         <div className="slf-dice-grid">
-           {players.map(p => (
-             <div key={p.id} className={`slf-dice-card ${p.id === player.id ? 'active' : ''}`}>
-                <span>{p.name}</span>
-                <div className="slf-die">{p.dice_roll || '?'}</div>
-             </div>
-           ))}
+           {players.length > 0 ? players.map(p => {
+             const isMe = p.id === player.id;
+             return (
+               <div key={p.id} className={`slf-dice-card ${isMe ? 'active' : ''}`}>
+                  <span>{p.name} {isMe && '(Du)'}</span>
+                  <div className={`slf-die ${isRollingDice && isMe ? 'rolling' : ''}`}>
+                    {isMe && isRollingDice ? visualRoll : (p.dice_roll || '?')}
+                  </div>
+               </div>
+             );
+           }) : <p className="slf-hint">Lade Spieler...</p>}
         </div>
         {!localRoll && (
           <button onClick={rollDice} className="slf-prime-btn slf-dice-btn" style={{ marginTop: '2rem' }}>
-            🎲 Jetzt Würfeln!
+            🎲 JETZT WÜRFELN!
           </button>
         )}
         
@@ -251,7 +288,13 @@ const SLFGameContainer = ({ room, player, onClose }) => {
         .slf-dice-card { background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 20px; text-align: center; border: 2px solid transparent; }
         .slf-dice-card.active { border-color: #a855f7; background: rgba(168, 85, 247, 0.1); }
         .slf-die { font-size: 3.5rem; font-weight: 900; color: #a855f7; margin-top: 1rem; text-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
-        .slf-dice-btn, .slf-spin-btn { max-width: 300px; margin: 0 auto; }
+        .slf-die.rolling { animation: dieRoll 0.1s infinite alternate; color: #fff; }
+        .slf-dice-btn, .slf-spin-btn { max-width: 300px; margin: 0 auto; transform: scale(1.1); }
+        
+        @keyframes dieRoll { 
+          from { transform: rotate(-10deg) scale(1.1); filter: brightness(1.5); } 
+          to { transform: rotate(10deg) scale(0.9); filter: brightness(1); } 
+        }
         
         /* Roulette */
         .slf-slot-display { font-size: 8rem; font-weight: 900; color: #a855f7; margin: 2rem 0; text-shadow: 0 0 30px rgba(168, 85, 247, 0.6); animation: bounce 0.5s infinite alternate; }
