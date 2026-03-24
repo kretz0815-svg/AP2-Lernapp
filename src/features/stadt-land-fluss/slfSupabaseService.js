@@ -7,13 +7,15 @@ export const slfService = {
   /**
    * Room & Phase Sync
    */
-  async createRoom(roomCode, roomName) {
+  async createRoom(roomCode, roomName, totalRounds = 5) {
     const { data, error } = await supabase
       .from('slf_rooms')
       .insert([{ 
         room_code: roomCode, 
         room_name: roomName || roomCode, 
-        game_phase: 'lobby' 
+        game_phase: 'lobby',
+        total_rounds: totalRounds,
+        current_round_num: 1
       }])
       .select()
       .single();
@@ -78,6 +80,24 @@ export const slfService = {
       .from('slf_responses')
       .insert([{ room_id: roomId, player_id: playerId, data: payload }]);
     if (error) throw error;
+  },
+
+  async addPlayerScore(playerId, points) {
+    const { data: p } = await supabase.from('slf_players').select('score').eq('id', playerId).single();
+    const { error } = await supabase
+      .from('slf_players')
+      .update({ score: (p?.score || 0) + points })
+      .eq('id', playerId);
+    if (error) throw error;
+  },
+
+  async fetchResponses(roomId) {
+    const { data, error } = await supabase
+      .from('slf_responses')
+      .select('*, slf_players(name)')
+      .eq('room_id', roomId);
+    if (error) throw error;
+    return data;
   },
 
   async triggerBuzzer(roomId, playerId) {

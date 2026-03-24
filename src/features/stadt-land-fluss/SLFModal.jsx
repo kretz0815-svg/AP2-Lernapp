@@ -14,6 +14,7 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
   const [playerName, setPlayerName] = useState(authUser?.email?.split('@')[0] || 'Gast');
   const [isInvalidPassword, setIsInvalidPassword] = useState(false);
   const [roomNameInput, setRoomNameInput] = useState('');
+  const [totalRounds, setTotalRounds] = useState(5);
   const [roomCode, setRoomCode] = useState('');
   const [currentRoom, setCurrentRoom] = useState(null);
   const [currentPlayer, setCurrentPlayer] = useState(null);
@@ -40,7 +41,7 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
     setLoading(true);
     try {
       const code = Math.random().toString(36).substring(2, 7).toUpperCase();
-      const room = await slfService.createRoom(code, roomNameInput);
+      const room = await slfService.createRoom(code, roomNameInput, totalRounds);
       const player = await slfService.registerPlayer(room.id, deviceId, playerName);
       setCurrentRoom(room);
       setCurrentPlayer(player);
@@ -90,6 +91,16 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
                 <div className="slf-action-box">
                    <label>Neuen Raum erstellen</label>
                    <input value={roomNameInput} onChange={e => setRoomNameInput(e.target.value)} placeholder="Raumname (z.B. Kurs-Ap2)" />
+                   
+                   <div className="slf-round-selector">
+                      <label>Runden anzahl:</label>
+                      <select value={totalRounds} onChange={e => setTotalRounds(parseInt(e.target.value))}>
+                         <option value={5}>5 Runden</option>
+                         <option value={10}>10 Runden</option>
+                         <option value={15}>15 Runden</option>
+                      </select>
+                   </div>
+
                    <button onClick={handleCreate} disabled={loading} className="slf-prime-btn">Raum erstellen</button>
                 </div>
                 
@@ -128,6 +139,8 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
         .slf-split { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem; }
         .slf-action-box { display: flex; flex-direction: column; gap: 0.4rem; background: rgba(255,255,255,0.03); padding: 1.2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
         .slf-action-box label { font-size: 0.8rem; opacity: 0.6; margin-bottom: 0.2rem; display: block; }
+        .slf-round-selector { margin: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem; }
+        .slf-round-selector select { background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 0.4rem; border-radius: 8px; }
         .slf-input-group label { font-size: 0.8rem; opacity: 0.6; margin-bottom: 0.4rem; display: block; }
         .slf-divider { text-align: center; opacity: 0.3; font-size: 0.8rem; text-transform: uppercase; margin: 0.2rem 0; }
         

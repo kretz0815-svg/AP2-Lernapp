@@ -26,6 +26,8 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   const [aiResults, setAiResults] = useState(null);
   const [rouletteLetter, setRouletteLetter] = useState('A');
   const [isRolling, setIsRolling] = useState(false);
+  const [calculatedPoints, setCalculatedPoints] = useState(0);
+  const [nextRoundLoading, setNextRoundLoading] = useState(false);
 
   const categories = ['stadt', 'land', 'fluss', 'tier', 'beruf'];
 
@@ -64,15 +66,82 @@ const SLFGameContainer = ({ room, player, onClose }) => {
    */
   const validateAnswersWithAI = async (answersObj) => {
     try {
-      const prompt = `Validiere Stadt Land Fluss mit Buchstabe '${roomData.current_letter}': 
+      const prompt = `Validiere Stadt Land Fluss für Buchstabe '${roomData.current_letter}': 
       STADT: ${answersObj.stadt}, LAND: ${answersObj.land}, FLUSS: ${answersObj.fluss}, TIER: ${answersObj.tier}, BERUF: ${answersObj.beruf}.
-      Antworte als JSON: { "stadt": "correct/wrong/neutral", ... }`;
+      Antworte als JSON: { "stadt": "correct/wrong/neutral", ... }. 
+      Sei streng bei Rechtschreibung und Buchstabe.`;
       const response = await askGemini(prompt);
       const jsonMatch = response.match(/\{.*\}/s);
-      if (jsonMatch) setAiResults(JSON.parse(jsonMatch[0]));
+      if (jsonMatch) {
+        const raw = JSON.parse(jsonMatch[0]);
+        // Translate to German
+        const translated = {};
+        Object.keys(raw).forEach(k => {
+          translated[k] = raw[k] === 'correct' ? 'Richtig' : (raw[k] === 'wrong' ? 'Falsch' : 'Neutral');
+        });
+        setAiResults(translated);
+        calculatePoints(translated, answersObj);
+      }
     } catch (err) {
       console.error('AI Eval error:', err);
     }
+  };
+
+  const calculatePoints = async (results, myAnswers) => {
+    try {
+      // Get all responses to compare
+      const allResponses = await slfService.fetchResponses(room.id);
+      let roundTotal = 0;
+
+      categories.forEach(cat => {
+        if (results[cat] !== 'Richtig') return;
+        
+        const myVal = myAnswers[cat].trim().toLowerCase();
+        const otherVals = allResponses
+          .filter(r => r.player_id !== player.id)
+          .map(r => r.data[cat]?.trim().toLowerCase() || '');
+
+        const hasOthers = otherVals.some(v => v !== '');
+        const hasSame = otherVals.some(v => v === myVal);
+
+        if (!hasOthers) {
+           roundTotal += 20; // Ich habe was, andere nichts
+        } else if (hasSame) {
+           roundTotal += 5; // Gleiches Wort
+        } else {
+           roundTotal += 10; // Unterschiedliche richtige Wörter
+        }
+      });
+
+      setCalculatedPoints(roundTotal);
+      await slfService.addPlayerScore(player.id, roundTotal);
+      refreshPlayers();
+    } catch (err) { console.error('Score calculation error:', err); }
+  };
+
+  const startNextRoundOrFinish = async () => {
+    setNextRoundLoading(true);
+    try {
+      if (roomData.current_round_num >= roomData.total_rounds) {
+         await slfService.setGamePhase(room.id, 'game_over');
+      } else {
+         // Reset for next round
+         await slfService.setGamePhase(room.id, 'dice', { 
+           current_round_num: roomData.current_round_num + 1,
+           current_letter: null,
+           dice_winner_id: null
+         });
+         // Reset players state (dice_roll) in DB
+         for (const p of players) {
+           await slfService.updateDiceRoll(p.id, 0);
+         }
+         // Local resets
+         setLocalRoll(null);
+         setAiResults(null);
+         setAnswers({ stadt: '', land: '', fluss: '', tier: '', beruf: '' });
+      }
+    } catch (err) { alert(err.message); }
+    finally { setNextRoundLoading(false); }
   };
 
   useEffect(() => {
@@ -260,19 +329,48 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   const renderResults = () => (
     <div className="slf-section">
       <h3>🤖 KI Auswertung</h3>
+      <p className="slf-points-info">Diese Runde: <span>+{calculatedPoints} Punkte</span></p>
+      
       <div className="slf-results-grid">
          {categories.map(cat => (
            <div key={cat} className="slf-res-row">
-             <span>{cat.toUpperCase()}: <b>{answers[cat]}</b></span>
+             <div className="slf-res-left">
+                <span className="slf-cat-label">{cat.toUpperCase()}</span>
+                <span className="slf-val-text">{answers[cat] || '—'}</span>
+             </div>
              {aiResults ? (
-               <span className={`slf-badge ${aiResults[cat]}`}>{aiResults[cat]}</span>
-             ) : 'Analysiere...'}
+               <span className={`slf-badge ${aiResults[cat] === 'Richtig' ? 'correct' : 'wrong'}`}>{aiResults[cat]}</span>
+             ) : <div className="slf-loader-mini">Analysiere...</div>}
            </div>
          ))}
       </div>
-      <button onClick={onClose} className="slf-prime-btn">Beenden & Zurück</button>
+      
+      {aiResults && (
+        <button onClick={startNextRoundOrFinish} disabled={nextRoundLoading} className="slf-prime-btn">
+          {roomData.current_round_num < roomData.total_rounds ? 'Nächste Runde' : 'Zum Endergebnis'}
+        </button>
+      )}
     </div>
   );
+
+  const renderGameOver = () => {
+    const winner = [...players].sort((a,b) => b.score - a.score)[0];
+    return (
+      <div className="slf-section">
+        <h2 className="slf-win-title">🏆 Spiel Beendet!</h2>
+        <div className="slf-final-rank">
+           {players.sort((a,b) => b.score-a.score).map((p, idx) => (
+             <div key={p.id} className={`slf-rank-row ${idx === 0 ? 'top' : ''}`}>
+                <span className="slf-rank-num">#{idx+1}</span>
+                <span className="slf-player-name">{p.name}</span>
+                <span className="slf-player-score">{p.score} Pkt.</span>
+             </div>
+           ))}
+        </div>
+        <button onClick={onClose} className="slf-prime-btn" style={{ marginTop: '2rem' }}>Dashboard</button>
+      </div>
+    );
+  };
 
   return (
     <div className="slf-container">
@@ -284,9 +382,15 @@ const SLFGameContainer = ({ room, player, onClose }) => {
       {roomData.game_phase === 'roulette' && renderRoulette()}
       {roomData.game_phase === 'playing' && renderPlaying()}
       {roomData.game_phase === 'evaluating' && renderResults()}
+      {roomData.game_phase === 'game_over' && renderGameOver()}
+
+      <div className="slf-game-meta">
+         <span>Runde {roomData.current_round_num} / {roomData.total_rounds}</span>
+      </div>
 
       <style>{`
-        .slf-container { color: white; width: 100%; max-width: 600px; }
+        .slf-container { color: white; width: 100%; max-width: 600px; padding-bottom: 2rem; }
+        .slf-game-meta { text-align: center; margin-top: 2rem; opacity: 0.5; font-size: 0.8rem; }
         .slf-section { animation: fadeIn 0.4s ease; display: flex; flex-direction: column; align-items: center; }
         .slf-hint { opacity: 0.6; font-size: 0.9rem; text-align: center; }
         .slf-highlight-code { background: rgba(168, 85, 247, 0.1); border: 2px dashed #a855f7; padding: 1rem 2rem; border-radius: 12px; font-size: 1.1rem; margin-bottom: 2rem; }
@@ -328,10 +432,24 @@ const SLFGameContainer = ({ room, player, onClose }) => {
 
         /* Results */
         .slf-results-grid { width: 100%; margin: 2rem 0; display: grid; gap: 0.8rem; }
-        .slf-res-row { display: flex; justify-content: space-between; background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 12px; }
-        .slf-badge { font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 900; text-transform: uppercase; }
-        .slf-badge.correct { background: #22c55e; }
-        .slf-badge.wrong { background: #ef4444; }
+        .slf-res-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 1.2rem; border-radius: 12px; }
+        .slf-res-left { display: flex; flex-direction: column; }
+        .slf-cat-label { font-size: 0.6rem; opacity: 0.5; font-weight: 900; }
+        .slf-val-text { font-size: 1.2rem; font-weight: 700; }
+        .slf-badge { font-size: 0.8rem; padding: 0.3rem 0.8rem; border-radius: 6px; font-weight: 900; text-transform: uppercase; }
+        .slf-badge.correct { background: #22c55e; box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+        .slf-badge.wrong { background: #ef4444; opacity: 0.8; }
+        .slf-points-info { margin-bottom: 1rem; font-size: 1.1rem; }
+        .slf-points-info span { color: #22c55e; font-weight: 800; font-size: 1.5rem; }
+
+        /* Game Over */
+        .slf-win-title { font-size: 2.5rem; margin-bottom: 2rem; color: #fbbf24; }
+        .slf-final-rank { width: 100%; display: grid; gap: 0.8rem; }
+        .slf-rank-row { display: flex; align-items: center; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 12px; }
+        .slf-rank-row.top { background: linear-gradient(90deg, rgba(251, 191, 36, 0.2), transparent); border: 1px solid rgba(251, 191, 36, 0.3); }
+        .slf-rank-num { font-size: 1.5rem; font-weight: 900; margin-right: 1.5rem; opacity: 0.5; }
+        .slf-player-name { flex: 1; font-weight: 600; }
+        .slf-player-score { font-weight: 900; color: #a855f7; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounce { from { transform: scale(1); } to { transform: scale(1.1); } }
