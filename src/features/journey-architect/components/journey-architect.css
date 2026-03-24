@@ -1,3 +1,51 @@
+.journey-architect-theme {
+  --glass-bg: rgba(28, 12, 38, 0.35);
+  --glass-border: rgba(167, 139, 250, 0.45);
+  --text-light: #ede9fe;
+  --text-muted: #c4b5fd;
+  --primary-purple: #8b5cf6;
+  position: relative;
+  isolation: isolate;
+  color: var(--text-light);
+  min-height: 100vh;
+}
+
+.journey-architect-theme::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(139, 92, 246, 0.12), transparent 35%),
+    radial-gradient(circle at 80% 90%, rgba(124, 58, 237, 0.14), transparent 45%),
+    linear-gradient(180deg, #05020a 0%, #000000 100%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+.ja-wire {
+  border: 1px solid var(--glass-border) !important;
+  background:
+    linear-gradient(145deg, rgba(46, 21, 66, 0.45), rgba(16, 8, 24, 0.35)),
+    repeating-linear-gradient(0deg, rgba(167, 139, 250, 0.05) 0, rgba(167, 139, 250, 0.05) 1px, transparent 1px, transparent 18px),
+    repeating-linear-gradient(90deg, rgba(167, 139, 250, 0.05) 0, rgba(167, 139, 250, 0.05) 1px, transparent 1px, transparent 18px) !important;
+  box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.2), 0 0 28px rgba(139, 92, 246, 0.18);
+}
+
+.journey-architect-theme .btn-primary,
+.journey-architect-theme .btn-secondary {
+  border-color: rgba(167, 139, 250, 0.5) !important;
+  color: #f5f3ff !important;
+}
+
+.journey-architect-theme .btn-primary {
+  background: linear-gradient(135deg, rgba(91, 33, 182, 0.95), rgba(124, 58, 237, 0.8)) !important;
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.25);
+}
+
+.journey-architect-theme .btn-secondary {
+  background: rgba(18, 6, 24, 0.7) !important;
+}
+
 .ja-app {
     display: flex;
     flex-direction: column;
@@ -5,8 +53,6 @@
     width: 100%;
     padding: 2rem;
     font-family: inherit;
-    --primary-purple: #8b5cf6;
-    --primary-purple-hover: #7c3aed;
 }
 
 .ja-header-bar {
@@ -76,9 +122,8 @@
 }
 
 .ja-level-card {
-    background: var(--glass-bg);
+    background: rgba(50, 20, 80, 0.6);
     border: 1px solid var(--glass-border);
-    backdrop-filter: blur(12px);
     border-radius: 16px;
     padding: 2rem;
     text-align: center;
@@ -136,7 +181,7 @@
 }
 
 .ja-mc-btn {
-    background: var(--glass-bg);
+    background: rgba(50, 20, 80, 0.6);
     border: 1px solid var(--glass-border);
     padding: 1rem 1.5rem;
     border-radius: 12px;

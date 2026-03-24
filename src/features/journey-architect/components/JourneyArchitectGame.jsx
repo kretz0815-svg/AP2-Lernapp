@@ -142,7 +142,7 @@ Gibt kurzes, ermutigendes Feedback. Wenn es falsch ist, erkläre warum. Wenn es 
     };
 
     return (
-        <div className="ja-app fade-in" style={{ paddingBottom: '80px', minHeight: '100vh', background: 'var(--bg)', color: 'var(--text)' }}>
+        <div className="ja-app fade-in journey-architect-theme" style={{ paddingBottom: '80px' }}>
             <div className="ja-header-bar">
                 <button className="ja-back-btn" onClick={view === 'menu' ? onBack : () => setView('menu')}>
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
@@ -169,7 +169,7 @@ Gibt kurzes, ermutigendes Feedback. Wenn es falsch ist, erkläre warum. Wenn es 
                             const isLocked = !progress.unlockedLevels.includes(levelId);
                             const lvl = LEVEL_DATA[levelId];
                             return (
-                                <div key={levelId} className={`ja-level-card ${isLocked ? 'locked' : ''}`} onClick={() => !isLocked && startLevel(levelId)}>
+                                <div key={levelId} className={`ja-level-card ja-wire ${isLocked ? 'locked' : ''}`} onClick={() => !isLocked && startLevel(levelId)}>
                                     <div className="ja-level-icon">{isLocked ? '🔒' : '🗺️'}</div>
                                     <h3>{lvl.title}</h3>
                                     {isLocked && <p style={{ fontSize: '0.8rem', opacity: 0.7 }}>Sperre aktiv</p>}
@@ -185,7 +185,7 @@ Gibt kurzes, ermutigendes Feedback. Wenn es falsch ist, erkläre warum. Wenn es 
                     <div className="ja-challenge-progress">
                         Challenge {activeChallengeIdx + 1} / {currentScenario.challenges.length}
                     </div>
-                    <div className="ja-scenario-box">
+                    <div className="ja-scenario-box ja-wire">
                         <p>{currentScenario.scenario}</p>
                     </div>
 
@@ -208,7 +208,7 @@ Gibt kurzes, ermutigendes Feedback. Wenn es falsch ist, erkläre warum. Wenn es 
                                     </div>
                                 ))}
                             </div>
-                            <div className="ja-available-cards">
+                            <div className="ja-available-cards ja-wire">
                                 {availableCards.map((card, idx) => (
                                     <div key={idx} className="ja-card" onClick={() => {
                                         const emptyIdx = slots.findIndex(s=>!s);
@@ -230,7 +230,7 @@ Gibt kurzes, ermutigendes Feedback. Wenn es falsch ist, erkläre warum. Wenn es 
                     {currentScenario.challenges[activeChallengeIdx].type === 'mc' && (
                         <div className="ja-mc-area">
                             {currentScenario.challenges[activeChallengeIdx].answers.map((ans, idx) => {
-                                let btnClass = "ja-mc-btn";
+                                let btnClass = "ja-mc-btn ja-wire";
                                 if (mcRevealed) {
                                     if(ans.correct) btnClass += " correct";
                                     else if (mcSelected === idx) btnClass += " wrong";
@@ -316,7 +316,7 @@ Gibt kurzes, ermutigendes Feedback. Wenn es falsch ist, erkläre warum. Wenn es 
             )}
 
             {view === 'end' && (
-                <div className="ja-end-container">
+                <div className="ja-end-container ja-wire">
                     <h2>Level Abgeschlossen! 🎉</h2>
                     <p>Du hast das Level erfolgreich gemeistert und neue XP gesammelt.</p>
                     <button className="btn-primary" onClick={() => setView('menu')} style={{marginTop: '2rem', padding:'1rem 2rem', fontSize:'1.1rem'}}>
