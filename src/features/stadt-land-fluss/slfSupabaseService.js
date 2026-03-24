@@ -7,21 +7,25 @@ export const slfService = {
   /**
    * Room & Phase Sync
    */
-  async createRoom(roomCode) {
+  async createRoom(roomCode, roomName) {
     const { data, error } = await supabase
       .from('slf_rooms')
-      .insert([{ room_code: roomCode, game_phase: 'lobby' }])
+      .insert([{ 
+        room_code: roomCode, 
+        room_name: roomName || roomCode, 
+        game_phase: 'lobby' 
+      }])
       .select()
       .single();
     if (error) throw error;
     return data;
   },
 
-  async joinRoom(roomCode) {
+  async joinRoom(searchString) {
     const { data, error } = await supabase
       .from('slf_rooms')
       .select('*')
-      .eq('room_code', roomCode)
+      .or(`room_code.eq."${searchString.toUpperCase()}",room_name.eq."${searchString}"`)
       .single();
     if (error) throw error;
     return data;

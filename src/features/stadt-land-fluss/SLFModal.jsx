@@ -13,6 +13,7 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
   const [password, setPassword] = useState('');
   const [playerName, setPlayerName] = useState(authUser?.email?.split('@')[0] || 'Gast');
   const [isInvalidPassword, setIsInvalidPassword] = useState(false);
+  const [roomNameInput, setRoomNameInput] = useState('');
   const [roomCode, setRoomCode] = useState('');
   const [currentRoom, setCurrentRoom] = useState(null);
   const [currentPlayer, setCurrentPlayer] = useState(null);
@@ -35,10 +36,11 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
   };
 
   const handleCreate = async () => {
+    if (!roomNameInput.trim()) { alert('Bitte Raumnamen eingeben'); return; }
     setLoading(true);
     try {
       const code = Math.random().toString(36).substring(2, 7).toUpperCase();
-      const room = await slfService.createRoom(code);
+      const room = await slfService.createRoom(code, roomNameInput);
       const player = await slfService.registerPlayer(room.id, deviceId, playerName);
       setCurrentRoom(room);
       setCurrentPlayer(player);
@@ -79,12 +81,25 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
         {step === 'lobby_setup' && (
           <div className="slf-form">
              <h2>🌍 Multiplayer Lobby</h2>
-             <input value={playerName} onChange={e => setPlayerName(e.target.value)} placeholder="Name" />
+             <div className="slf-input-group">
+                <label>Dein Spielername</label>
+                <input value={playerName} onChange={e => setPlayerName(e.target.value)} placeholder="Spielername" />
+             </div>
+             
              <div className="slf-split">
-                <button onClick={handleCreate} disabled={loading} className="slf-prime-btn">Raum erstellen</button>
-                <div className="slf-divider">oder</div>
-                <input value={roomCode} onChange={e => setRoomCode(e.target.value.toUpperCase())} placeholder="CODE" />
-                <button onClick={handleJoin} disabled={loading} className="slf-sec-btn">Beitreten</button>
+                <div className="slf-action-box">
+                   <label>Neuen Raum erstellen</label>
+                   <input value={roomNameInput} onChange={e => setRoomNameInput(e.target.value)} placeholder="Raumname (z.B. Kurs-Ap2)" />
+                   <button onClick={handleCreate} disabled={loading} className="slf-prime-btn">Raum erstellen</button>
+                </div>
+                
+                <div className="slf-divider">oder beitreten</div>
+                
+                <div className="slf-action-box">
+                   <label>Existierenden Raum beitreten</label>
+                   <input value={roomCode} onChange={e => setRoomCode(e.target.value)} placeholder="Raum-Code oder Name" />
+                   <button onClick={handleJoin} disabled={loading} className="slf-sec-btn">Beitreten</button>
+                </div>
              </div>
           </div>
         )}
@@ -110,8 +125,11 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
         .slf-prime-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4); }
         .slf-sec-btn { background: rgba(255,255,255,0.1); color: white; border: none; width: 100%; padding: 1rem; border-radius: 12px; font-weight: 600; cursor: pointer; }
         
-        .slf-split { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem; }
-        .slf-divider { text-align: center; opacity: 0.3; font-size: 0.8rem; text-transform: uppercase; margin: 0.5rem 0; }
+        .slf-split { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem; }
+        .slf-action-box { display: flex; flex-direction: column; gap: 0.4rem; background: rgba(255,255,255,0.03); padding: 1.2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+        .slf-action-box label { font-size: 0.8rem; opacity: 0.6; margin-bottom: 0.2rem; display: block; }
+        .slf-input-group label { font-size: 0.8rem; opacity: 0.6; margin-bottom: 0.4rem; display: block; }
+        .slf-divider { text-align: center; opacity: 0.3; font-size: 0.8rem; text-transform: uppercase; margin: 0.2rem 0; }
         
         @keyframes vibrate { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
         .vibrate { animation: vibrate 0.4s ease-in-out; border-color: #ef4444; }

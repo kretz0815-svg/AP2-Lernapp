@@ -111,13 +111,14 @@ const SLFGameContainer = ({ room, player, onClose }) => {
 
   const renderLobby = () => (
     <div className="slf-section">
-      <h3>🚀 Lobby (Warten auf Spieler...)</h3>
+      <h3>🚀 Lobby: {roomData.room_name}</h3>
+      <p className="slf-highlight-code">Beitritts-Code: <span>{roomData.room_code}</span></p>
+      
       <div className="slf-p-list">
-        {players.map(p => <div key={p.id} className="slf-p-tag">👤 {p.name}</div>)}
+        {players.map(p => <div key={p.id} className="slf-p-tag">👤 {p.name} {p.id === player.id && '(Host)'}</div>)}
       </div>
-      {players.length > 1 ? (
-        <button className="slf-prime-btn" onClick={startDicePhase}>Engagement starten! (Würfeln)</button>
-      ) : <p className="slf-hint">Bitte warten, bis mindestens ein weiterer Spieler beigetreten ist.</p>}
+      <button className="slf-prime-btn" onClick={startDicePhase}>Engagement starten! (Würfeln)</button>
+      <p className="slf-hint" style={{ marginTop: '1rem' }}>Sende den Code oben an deine Freunde, damit sie beitreten können.</p>
     </div>
   );
 
@@ -214,9 +215,11 @@ const SLFGameContainer = ({ room, player, onClose }) => {
         .slf-container { color: white; width: 100%; max-width: 600px; }
         .slf-section { animation: fadeIn 0.4s ease; display: flex; flex-direction: column; align-items: center; }
         .slf-hint { opacity: 0.6; font-size: 0.9rem; text-align: center; }
+        .slf-highlight-code { background: rgba(168, 85, 247, 0.1); border: 2px dashed #a855f7; padding: 1rem 2rem; border-radius: 12px; font-size: 1.1rem; margin-bottom: 2rem; }
+        .slf-highlight-code span { font-weight: 900; font-family: monospace; font-size: 2rem; color: #a855f7; display: block; margin-top: 0.2rem; }
         
         /* Lobby */
-        .slf-p-list { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+        .slf-p-list { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; justify-content: center; }
         .slf-p-tag { background: rgba(168, 85, 247, 0.2); padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid #a855f7; }
         
         /* Buttons */
