@@ -3,9 +3,13 @@ import { useJourneyArchitect } from '../state/JourneyArchitectProvider';
 import { L1_SCENARIOS, L2_SCENARIOS, L3_SCENARIOS, L4_SCENARIOS } from '../data/scenarios';
 import Confetti from '../../../components/Confetti';
 import GeminiPanel from '../../../components/GeminiPanel';
+import VideoPanel from '../../../components/VideoPanel';
 import FloatingPortal from '../../../components/FloatingPortal';
 import './journey-architect.css';
 import { askGemini } from '../../../geminiClient';
+import { fetchYouTubeVideos } from '../../../youtubeClient';
+
+const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 
 const LEVEL_DATA = {
     1: { id: 1, title: 'Level 1: 5-Phasen-Journey', scenarios: L1_SCENARIOS, xpPoints: 100 },
@@ -37,15 +41,21 @@ export default function JourneyArchitectGame({ onBack }) {
     const [oqFeedback, setOqFeedback] = useState(null);
     const [oqLoading, setOqLoading] = useState(false);
 
-    // Feedback
-    const [feedback, setFeedback] = useState(null);
-    const [showConfetti, setShowConfetti] = useState(false);
-
-    // AI Helper
+    // AI & Video States
     const [geminiVisible, setGeminiVisible] = useState(false);
     const [geminiQuery, setGeminiQuery] = useState('');
     const [geminiLoading, setGeminiLoading] = useState(false);
-    const [geminiResponse, setGeminiResponse] = useState(null);
+    const [geminiResponse, setGeminiResponse] = useState('');
+
+    const [wisorVideoOpen, setWisorVideoOpen] = useState(false);
+    const [wisorVideoLoading, setWisorVideoLoading] = useState(false);
+    const [wisorVideos, setWisorVideos] = useState([]);
+    const [wisorVideoError, setWisorVideoError] = useState(null);
+    const [selectedWisorVideo, setSelectedWisorVideo] = useState(null);
+
+    // Feedback
+    const [feedback, setFeedback] = useState(null);
+    const [showConfetti, setShowConfetti] = useState(false);
 
     const handleGeminiAsk = async () => {
         if (!geminiQuery.trim()) return;
@@ -108,17 +118,31 @@ export default function JourneyArchitectGame({ onBack }) {
         } else if (challenge.type === 'oq') {
             setOqLoading(true);
             try {
-                const prompt = `Bewerte die folgende Antwort des Studenten zum Thema Customer Journey:
+                const prompt = `Du bist ein strenger aber fairer Marketing-Experte. Bewerte die Antwort des Studenten zur Customer Journey präzise.
 Aufgabe: ${challenge.task}
 Antwort des Studenten: "${oqAnswer}"
-Kriterien: Ist die Antwort fachlich sinnvoll? Gibt es einen konkreten Bezug?
-Gibt kurzes, ermutigendes Feedback. Wenn es falsch ist, erkläre warum. Wenn es richtig ist, lobe ihn. Beende mit "KORREKT", wenn es inhaltlich richtig ist, ansonsten "INKORREKT".`;
+
+Prüfe:
+1. Ist die Antwort inhaltlich korrekt? 
+2. Ist sie ausführlich genug oder nur ein "Ja/Nein"? (Verlange eine Begründung oder ein Beispiel).
+3. Bezieht sie sich auf die korrekte Phase?
+
+GIB KURZES FEEDBACK (max 3 Sätze). 
+WICHTIG: Antworte am Ende ENTWEDER mit dem Wort "KORREKT" (wenn alles passt) ODER "INKORREKT" (wenn es unzureichend oder falsch ist). Sei strenger bei sehr kurzen Antworten.`;
                 
                 const res = await askGemini(prompt, "Du bist C-Level Marketing Experte.");
-                const correct = res.includes("KORREKT");
-                setOqFeedback({ text: res, correct });
-                if(correct) setFeedback({ type: 'success', text: 'Klasse Antwort!' });
-                else setFeedback({ type: 'error', text: 'Das war leider nicht ganz richtig.' });
+                const isCorrect = res.trim().endsWith("KORREKT") || res.includes("KORREKT");
+                
+                // If it contains "INKORREKT" at the end, force false
+                const reallyCorrect = isCorrect && !res.trim().endsWith("INKORREKT");
+
+                setOqFeedback({ text: res.replace(/KORREKT|INKORREKT/g, '').trim(), correct: reallyCorrect });
+                
+                if(reallyCorrect) {
+                  setFeedback({ type: 'success', text: 'Klasse Antwort!' });
+                } else {
+                  setFeedback({ type: 'error', text: 'Das hat leider noch nicht gereicht.' });
+                }
             } catch {
                 setOqFeedback({ text: 'KI konnte nicht antworten. Wir werten es als richtig!', correct: true });
                 setFeedback({ type: 'success', text: 'Weiter gehts!' });
@@ -126,6 +150,28 @@ Gibt kurzes, ermutigendes Feedback. Wenn es falsch ist, erkläre warum. Wenn es 
             setOqLoading(false);
         } else if (challenge.type === 'dnd-master') {
             setFeedback({ type: 'success', text: 'Master-Challenge bestanden! Du hast die 3 Modelle verstanden.' });
+        }
+    };
+
+    const handleToggleVideos = async () => {
+        if (wisorVideoOpen) {
+            setWisorVideoOpen(false);
+            return;
+        }
+        setWisorVideoOpen(true);
+        const challenge = currentScenario.challenges[activeChallengeIdx];
+        const query = challenge.youtubeQuery || "Customer Journey Modelle erklärt";
+        
+        setWisorVideoLoading(true);
+        setWisorVideoError(null);
+        try {
+            const results = await fetchYouTubeVideos(query, YOUTUBE_API_KEY, 4);
+            setWisorVideos(results);
+            if (results.length === 0) setWisorVideoError("Keine passenden Videos gefunden.");
+        } catch (e) {
+            setWisorVideoError("Fehler beim Laden der Videos.");
+        } finally {
+            setWisorVideoLoading(false);
         }
     };
 
@@ -187,11 +233,54 @@ Gibt kurzes, ermutigendes Feedback. Wenn es falsch ist, erkläre warum. Wenn es 
                     <div className="ja-challenge-progress">
                         Challenge {activeChallengeIdx + 1} / {currentScenario.challenges.length}
                     </div>
+
+                    {/* AI & Video Help Section (Above Question) */}
+                    <div style={{ marginBottom: '1.5rem', textAlign: 'center', display: 'flex', gap: '0.8rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <button
+                            className={`ja-mc-btn ja-wire fade-in ${wisorVideoLoading ? 'loading' : ''}`}
+                            onClick={handleToggleVideos}
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.2rem', background: wisorVideoOpen ? 'rgba(168, 85, 247, 0.3)' : 'rgba(168, 85, 247, 0.1)', border: '1px solid var(--primary-purple)' }}
+                        >
+                            <span>{wisorVideoOpen ? '🙈' : '📺'}</span>
+                            {wisorVideoOpen ? 'Video aus' : 'Hilfe-Video'}
+                        </button>
+
+                        <button
+                            className="ja-mc-btn ja-wire fade-in"
+                            onClick={() => setGeminiVisible(!geminiVisible)}
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.2rem', background: geminiVisible ? 'rgba(168, 85, 247, 0.3)' : 'rgba(168, 85, 247, 0.1)', border: '1px solid var(--primary-purple)' }}
+                        >
+                            <span>✨</span>
+                            {geminiVisible ? 'KI Schließen' : 'KI um Hilfe bitten'}
+                        </button>
+                    </div>
+
+                    <VideoPanel
+                        isOpen={wisorVideoOpen}
+                        isLoading={wisorVideoLoading}
+                        videos={wisorVideos}
+                        error={wisorVideoError}
+                        selectedVideo={selectedWisorVideo}
+                        onSelectVideo={setSelectedWisorVideo}
+                        onCloseVideo={() => setSelectedWisorVideo(null)}
+                    />
+
+                    <GeminiPanel 
+                        isOpen={geminiVisible}
+                        title="Frage an deinen Architekten-Tutor"
+                        placeholder="Brauchst du Hilfe bei der Journey?"
+                        query={geminiQuery}
+                        onQueryChange={setGeminiQuery}
+                        onAsk={handleGeminiAsk}
+                        isLoading={geminiLoading}
+                        response={geminiResponse}
+                    />
+
                     <div className="ja-scenario-box ja-wire">
                         <p>{currentScenario.scenario}</p>
                     </div>
 
-                    <h2 style={{marginTop: '1.5rem'}}>{currentScenario.challenges[activeChallengeIdx].task}</h2>
+                    <h2 style={{marginTop: '1.5rem', fontSize: '1.2rem', textAlign: 'center'}}>{currentScenario.challenges[activeChallengeIdx].task}</h2>
 
                     {/* DND Challenge */}
                     {currentScenario.challenges[activeChallengeIdx].type === 'dnd' && (
@@ -257,15 +346,15 @@ Gibt kurzes, ermutigendes Feedback. Wenn es falsch ist, erkläre warum. Wenn es 
                     {currentScenario.challenges[activeChallengeIdx].type === 'oq' && (
                         <div className="ja-oq-area">
                             <textarea 
-                                className="wisor-input" 
+                                className="wisor-input ja-wire" 
                                 placeholder="Deine Antwort hier..." 
                                 value={oqAnswer} 
                                 onChange={(e)=>setOqAnswer(e.target.value)}
-                                style={{ width: '100%', minHeight: '100px', padding: '15px' }}
+                                style={{ width: '100%', minHeight: '120px', padding: '15px', color:'white', background:'rgba(255,255,255,0.05)' }}
                             />
                             {oqFeedback && (
-                                <div className={`ja-feedback-box ${oqFeedback.correct ? 'success' : 'error'}`} style={{marginTop:'1rem'}}>
-                                    {oqFeedback.text.replace(/KORREKT|INKORREKT/g, '')}
+                                <div className={`ja-feedback-box ${oqFeedback.correct ? 'success' : 'error'}`} style={{marginTop:'1rem', padding:'1rem', borderRadius:'12px', background: oqFeedback.correct ? 'rgba(34,197,94,0.2)' : 'rgba(239,68,68,0.2)', border: oqFeedback.correct ? '1px solid #22c55e' : '1px solid #ef4444'}}>
+                                    {oqFeedback.text}
                                 </div>
                             )}
                         </div>
@@ -298,21 +387,6 @@ Gibt kurzes, ermutigendes Feedback. Wenn es falsch ist, erkläre warum. Wenn es 
                                 </button>
                             )}
                         </div>
-
-                        <button className="ja-toggle-ki" onClick={() => setGeminiVisible(!geminiVisible)}>
-                            {geminiVisible ? 'KI Ausblenden' : 'KI um Hilfe bitten'}
-                        </button>
-
-                        <GeminiPanel 
-                            isOpen={geminiVisible}
-                            title="Frage an deinen Architekten-Tutor"
-                            placeholder="Brauchst du Hilfe bei der Journey?"
-                            query={geminiQuery}
-                            onQueryChange={setGeminiQuery}
-                            onAsk={handleGeminiAsk}
-                            isLoading={geminiLoading}
-                            response={geminiResponse}
-                        />
                     </div>
                 </div>
             )}
