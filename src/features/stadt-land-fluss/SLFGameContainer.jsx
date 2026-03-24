@@ -27,19 +27,35 @@ const SLFGameContainer = ({ room, player, onClose }) => {
 
   const categories = ['stadt', 'land', 'fluss', 'tier', 'beruf'];
 
+  const refreshPlayers = useCallback(async () => {
+    try {
+      const data = await slfService.fetchPlayers(room.id);
+      if (data && data.length > 0) {
+        setPlayers(data);
+        // Sync local roll if DB already has it
+        const me = data.find(p => p.id === player.id);
+        if (me && me.dice_roll > 0 && !localRoll) {
+          setLocalRoll(me.dice_roll);
+        }
+      }
+    } catch (err) {
+      console.error('refreshPlayers error:', err);
+    }
+  }, [room.id, player.id, localRoll]);
+
   useEffect(() => {
     refreshPlayers();
     const sub = slfService.subscribeToRoom(room.id, 
-      (newRoom) => setRoomData(newRoom), 
+      (newRoom) => {
+        if (newRoom && newRoom.id) {
+          setRoomData(newRoom);
+          refreshPlayers(); // Re-sync players when phase changes
+        }
+      }, 
       () => refreshPlayers()
     );
     return () => sub.unsubscribe();
-  }, [room.id]);
-
-  const refreshPlayers = async () => {
-    const data = await slfService.fetchPlayers(room.id);
-    setPlayers(data);
-  };
+  }, [room.id, refreshPlayers]);
 
   /**
    * AI Validation Placeholder
@@ -137,7 +153,11 @@ const SLFGameContainer = ({ room, player, onClose }) => {
              </div>
            ))}
         </div>
-        {!localRoll && <button onClick={rollDice} className="slf-dice-btn">Jetzt Würfeln!</button>}
+        {!localRoll && (
+          <button onClick={rollDice} className="slf-prime-btn slf-dice-btn" style={{ marginTop: '2rem' }}>
+            🎲 Jetzt Würfeln!
+          </button>
+        )}
         
         {winner && winner.dice_roll > 0 && (
            <div className="slf-winner-announcement">
@@ -154,10 +174,10 @@ const SLFGameContainer = ({ room, player, onClose }) => {
       <h3>🎰 Buchstaben-Roulette</h3>
       <div className="slf-slot-display">{rouletteLetter}</div>
       {roomData.dice_winner_id === player.id ? (
-        <button disabled={isRolling} onClick={spinRoulette} className="slf-spin-btn">
-          {isRolling ? 'Rattert...' : 'STSTOPP!'}
+        <button disabled={isRolling} onClick={spinRoulette} className="slf-prime-btn slf-spin-btn">
+          {isRolling ? '🎰 Rattert...' : '🛑 STOPP!'}
         </button>
-      ) : <p className="slf-hint">Warte auf {players.find(p => p.id === roomData.dice_winner_id)?.name}...</p>}
+      ) : <p className="slf-hint">Warte auf {players.find(p => p.id === roomData.dice_winner_id)?.name || 'Gewinner'}...</p>}
     </div>
   );
 
@@ -229,11 +249,12 @@ const SLFGameContainer = ({ room, player, onClose }) => {
         /* Dice Phase */
         .slf-dice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; width: 100%; margin: 2rem 0; }
         .slf-dice-card { background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 20px; text-align: center; border: 2px solid transparent; }
-        .slf-dice-card.active { border-color: #a855f7; }
-        .slf-die { font-size: 3rem; font-weight: 900; color: #a855f7; margin-top: 1rem; animation: bounce 1s infinite alternate; }
+        .slf-dice-card.active { border-color: #a855f7; background: rgba(168, 85, 247, 0.1); }
+        .slf-die { font-size: 3.5rem; font-weight: 900; color: #a855f7; margin-top: 1rem; text-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
+        .slf-dice-btn, .slf-spin-btn { max-width: 300px; margin: 0 auto; }
         
         /* Roulette */
-        .slf-slot-display { font-size: 8rem; font-weight: 900; color: #a855f7; margin: 2rem 0; text-shadow: 0 0 30px rgba(168, 85, 247, 0.6); }
+        .slf-slot-display { font-size: 8rem; font-weight: 900; color: #a855f7; margin: 2rem 0; text-shadow: 0 0 30px rgba(168, 85, 247, 0.6); animation: bounce 0.5s infinite alternate; }
 
         /* Playing */
         .slf-game-header { font-size: 1.5rem; margin-bottom: 2rem; }
