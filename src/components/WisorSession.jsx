@@ -15,6 +15,7 @@ const WisorSession = ({
   wisor1,
   wisorEco,
   marketingReview,
+  completedMarketingReview,
   onComplete,
   onReset,
   onLearningEvent,
@@ -71,7 +72,7 @@ const WisorSession = ({
           <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Alles geschafft! 🎉</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Du hast alle Wisor-Fragen erfolgreich gemeistert.</p>
           <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
-          <button className="btn-primary" onClick={(e) => openResetModal(e, isWisor1Mode ? 'wisor' : 'wisorEco')} style={{ marginLeft: '1rem' }}>Fortschritt zurücksetzen</button>
+          <button className="btn-primary" onClick={(e) => openResetModal(e, isWisor1Mode ? 'wisor' : isWisorEcoMode ? 'wisorEco' : 'marketing_review')} style={{ marginLeft: '1rem' }}>Fortschritt zurücksetzen</button>
         </div>
         <ResetModal
           isOpen={resetModalVisible}
