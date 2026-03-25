@@ -14,6 +14,7 @@ const WisorSession = ({
   completedWisorsEco,
   wisor1,
   wisorEco,
+  marketingReview,
   onComplete,
   onReset,
   onLearningEvent,
@@ -52,9 +53,12 @@ const WisorSession = ({
   }, [currentWisorIndex]);
 
   const isWisor1Mode = activeWisorMode === 'wisor1';
+  const isWisorEcoMode = activeWisorMode === 'wisorEco';
   const wisorDueMastered = isWisor1Mode
-    ? Object.keys(completedWisors).length === wisor1.questions.length
-    : Object.keys(completedWisorsEco).length === (wisorEco?.questions?.length || 0);
+    ? Object.keys(completedWisors).length === (wisor1?.questions?.length || 0)
+    : isWisorEcoMode
+      ? Object.keys(completedWisorsEco).length === (wisorEco?.questions?.length || 0)
+      : Object.keys(completedMarketingReview || {}).length === (marketingReview?.questions?.length || 0);
 
   if (allWisors.length === 0) {
     return (
@@ -103,10 +107,12 @@ const WisorSession = ({
     if (e) e.preventDefault();
     if (wisorEvaluated || !wisorInput.trim()) return;
 
-    const normalizedInput = wisorInput.toString().trim().toUpperCase();
+    const normalize = (str) => String(str || '').replace(/[\[\],.\s&und-]/gi, '').toUpperCase();
+    const normalizedInput = normalize(wisorInput);
+    
     let correct = false;
     for (const expected of q.expectedAnswers) {
-      if (normalizedInput === expected.toString().trim().toUpperCase()) {
+      if (normalizedInput === normalize(expected)) {
         correct = true;
         break;
       }
@@ -141,6 +147,9 @@ const WisorSession = ({
     setCurrentWisorIndex(prev => prev + 1);
   };
 
+  const modeTitle = isWisor1Mode ? 'WisoR I' : 
+                   isWisorEcoMode ? 'WisoR E-Commerce' : 'Marketing Review';
+
   return (
     <div className="app-container" style={{ zIndex: 10 }}>
       {pomodoroPortal}
@@ -150,7 +159,7 @@ const WisorSession = ({
       <header>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
           <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
-          <p className="subtitle">WisoR {isWisor1Mode ? 'I' : 'E-Commerce'} · {currentWisorIndex + 1} / {allWisors.length}</p>
+          <p className="subtitle">{modeTitle} · {currentWisorIndex + 1} / {allWisors.length}</p>
           <div className="score-badge">Score: {wisorScore.correct}</div>
         </div>
       </header>
@@ -195,17 +204,30 @@ const WisorSession = ({
         <div className="wisor-question">{q.question}</div>
 
         <form onSubmit={handleWisorSubmit}>
-          <input
-            className="wisor-input"
-            type="text"
-            placeholder="Deine Antwort..."
-            value={wisorInput}
-            onChange={(e) => setWisorInput(e.target.value)}
-            disabled={wisorEvaluated}
-            autoFocus
-          />
+          {q.inputType === 'text' && q.expectedAnswers[0].length > 10 ? (
+            <textarea
+              className="wisor-input"
+              placeholder="Deine Antwort hier detailliert beschreiben..."
+              value={wisorInput}
+              onChange={(e) => setWisorInput(e.target.value)}
+              disabled={wisorEvaluated}
+              autoFocus
+              style={{ minHeight: '120px', resize: 'vertical', width: '100%', padding: '1.2rem', fontSize: '1.05rem', lineHeight: '1.5' }}
+            />
+          ) : (
+            <input
+              className="wisor-input"
+              type="text"
+              placeholder="Deine Antwort..."
+              value={wisorInput}
+              onChange={(e) => setWisorInput(e.target.value)}
+              disabled={wisorEvaluated}
+              autoFocus
+              style={{ padding: '1.2rem', fontSize: '1.1rem' }}
+            />
+          )}
           {!wisorEvaluated ? (
-            <button type="submit" className="btn-primary" style={{ width: '100%', marginTop: '1rem' }}>Prüfen</button>
+            <button type="submit" className="btn-primary" style={{ width: '100%', marginTop: '1rem', padding: '1rem', fontSize: '1.1rem' }}>Prüfen</button>
           ) : (
             <div className="fade-in">
               <div className={`wisor-feedback ${wisorIsCorrect ? 'correct' : 'wrong'}`} style={{ marginTop: '1rem', padding: '1rem', borderRadius: '12px' }}>

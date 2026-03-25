@@ -13,6 +13,7 @@ import notesIcon from './assets/book-line-icon.png';
 
 import wisor1 from './data/wisor_1.json';
 import wisorEco from './data/wisor_eco.json';
+import marketingReview from './data/marketing_review.json';
 
 import { supabase } from './supabaseClient';
 import { askGemini, extractFocusTopics, extractCalculationInsights } from './geminiClient';
@@ -175,6 +176,7 @@ function App() {
   const [wisorVideoOpen, setWisorVideoOpen] = useState(false);
   const [completedWisors, setCompletedWisors] = useState({});
   const [completedWisorsEco, setCompletedWisorsEco] = useState({});
+  const [completedMarketingReview, setCompletedMarketingReview] = useState({});
   const [activeWisorMode, setActiveWisorMode] = useState('wisor1');
   const [resetModalVisible, setResetModalVisible] = useState(false);
   const [resetTarget, setResetTarget] = useState('wisor');
@@ -1068,6 +1070,10 @@ ${input}`;
       ].filter(q => !(JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {})[q.id]);
       const shuffledWisors = rawWisors.sort(() => Math.random() - 0.5);
       setAllWisors(shuffledWisors);
+
+      // 6. Setup Review
+      const reviewProg = JSON.parse(localStorage.getItem('ap2_marketing_review_progress')) || {};
+      setCompletedMarketingReview(reviewProg);
     };
 
     initApp();
@@ -1116,11 +1122,17 @@ ${input}`;
 
   const startWisor = (mode = 'wisor1') => {
     setActiveWisorMode(mode);
-    const rawWisors = mode === 'wisor1' ? [...wisor1.questions] : [...(wisorEco.questions || [])];
-    const key = mode === 'wisor1' ? 'ap2_wisor_progress' : 'ap2_wisor_eco_progress';
+    const rawWisors = mode === 'wisor1' ? [...wisor1.questions] : 
+                    mode === 'wisorEco' ? [...(wisorEco.questions || [])] :
+                    [...(marketingReview.questions || [])];
+    
+    const key = mode === 'wisor1' ? 'ap2_wisor_progress' : 
+                mode === 'wisorEco' ? 'ap2_wisor_eco_progress' :
+                'ap2_marketing_review_progress';
+                
     const wisorProg = JSON.parse(localStorage.getItem(key)) || {};
     const uncompleted = rawWisors.filter(q => !wisorProg[q.id]);
-    const shuffled = mode === 'wisor1' ? [...uncompleted].sort(() => Math.random() - 0.5) : [...uncompleted];
+    const shuffled = (mode === 'wisor1' || mode === 'marketing_review') ? [...uncompleted].sort(() => Math.random() - 0.5) : [...uncompleted];
 
     setAllWisors(shuffled);
     setCurrentWisorIndex(0);
@@ -1210,6 +1222,15 @@ ${input}`;
         .catch(() => refreshQuizDuePool());
 
       if (appMode === 'quiz' || appMode === 'quiz_setup') setAppMode('dashboard');
+    } else if (resetTarget === 'wisorEco') {
+      localStorage.removeItem('ap2_wisor_eco_progress');
+      setCompletedWisorsEco({});
+      setResetModalVisible(false);
+    } else if (resetTarget === 'marketing_review') {
+      localStorage.removeItem('ap2_marketing_review_progress');
+      setCompletedMarketingReview({});
+      clearAnalyticsByMode('marketing_review');
+      setResetModalVisible(false);
     } else if (resetTarget === 'klr') {
       localStorage.removeItem('klr_game_progress_v1');
       clearAnalyticsByMode('klr');
@@ -1288,7 +1309,8 @@ ${input}`;
     setLastWisorCorrect(correct);
 
     appendLearningEvent({
-      mode: activeWisorMode === 'wisor1' ? 'wisor' : 'wisorEco',
+      mode: activeWisorMode === 'wisor1' ? 'wisor' : 
+            activeWisorMode === 'wisorEco' ? 'wisorEco' : 'marketing_review',
       questionId: q.id,
       questionText: q.question,
       correct,
@@ -1299,7 +1321,8 @@ ${input}`;
     // Pomodoro session logging
     if (pomodoroActive) {
       const questionText = q.question?.substring(0, 100) || q.id || 'WisoR-Frage';
-      const topicLabel = activeWisorMode === 'wisor1' ? 'WisoR' : 'WisoR E-Commerce';
+      const topicLabel = activeWisorMode === 'wisor1' ? 'WisoR' : 
+                         activeWisorMode === 'wisorEco' ? 'WisoR E-Commerce' : 'Review Marketing';
       setPomodoroSessionLog(prev => [...prev, { correct, questionText, topic: topicLabel }]);
     }
 
@@ -1324,8 +1347,10 @@ ${input}`;
 
       if (activeWisorMode === 'wisor1') {
         setCompletedWisors(updateProg);
-      } else {
+      } else if (activeWisorMode === 'wisorEco') {
         setCompletedWisorsEco(updateProg);
+      } else {
+        setCompletedMarketingReview(updateProg);
       }
     } else {
       setWisorScore(s => ({ ...s, total: s.total + 1 }));
@@ -1337,9 +1362,10 @@ ${input}`;
       reviewTaskWithDSR({
         supabase,
         userId: authUser.id,
-        taskId: `${activeWisorMode === 'wisor1' ? 'wisor' : 'wisorEco'}:${q.id}`,
+        taskId: activeWisorMode + ":" + q.id,
         rating,
-        taskType: activeWisorMode === 'wisor1' ? 'wisor' : 'wisorEco',
+        taskType: activeWisorMode === 'marketing_review' ? 'marketing_review' : 
+                 activeWisorMode === 'wisorEco' ? 'wisorEco' : 'wisor',
         category: activeWisorMode,
         metadata: { source: activeWisorMode, question: q.question }
       }).catch(err => console.error('DSR wisor review failed:', err));
@@ -1546,6 +1572,8 @@ ${input}`;
       wisorLearned: Object.keys(completedWisors).length,
       wisorEcoTotal: wisorEcoQuestions.length,
       wisorEcoLearned: Object.keys(completedWisorsEco).length,
+      reviewTotal: (marketingReview.questions || []).length,
+      reviewLearned: Object.keys(completedMarketingReview).length,
       rechenTotal,
       rechenLearned
     };
@@ -1898,6 +1926,31 @@ ${input}`;
                className="btn-secondary"
                style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
                onClick={(e) => { e.stopPropagation(); openResetModal(e, 'journey_architect'); }}
+            >
+               🔄 Lernfortschritt zurücksetzen
+            </button>
+          </div>
+
+          <div id="card-marketing-review" className="dash-card" onClick={() => startWisor('marketing_review')}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
+              <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <h2>Marketing<br />Review</h2>
+            <p>IHK-Review: Influencer, Live-Shopping, 4P's und Funnel-Strategien.</p>
+            <div className="chip">
+              {Object.keys(completedMarketingReview).length === marketingReview.questions.length ? 'Alles gemeistert! 🎉' : 
+               `${marketingReview.questions.length - Object.keys(completedMarketingReview).length} Fragen offen`}
+            </div>
+            <button
+               className="btn-secondary"
+               style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
+               onClick={(e) => { e.stopPropagation(); openResetModal(e, 'marketing_review'); }}
             >
                🔄 Lernfortschritt zurücksetzen
             </button>
@@ -2371,8 +2424,10 @@ ${input}`;
           activeWisorMode={activeWisorMode}
           completedWisors={completedWisors}
           completedWisorsEco={completedWisorsEco}
+          completedMarketingReview={completedMarketingReview}
           wisorEco={wisorEco}
           wisor1={wisor1}
+          marketingReview={marketingReview}
           lastWisorCorrect={lastWisorCorrect}
           handleWisorSubmit={handleWisorSubmit}
           nextWisorQuestion={nextWisorQuestion}

@@ -10,6 +10,7 @@ import flashcards2 from '../data/flashcards_2.json';
 import flashcards3 from '../data/flashcards_3.json';
 import wisor1 from '../data/wisor_1.json';
 import wisorEco from '../data/wisor_eco.json';
+import marketingReview from '../data/marketing_review.json';
 
 const LearningDashboard = ({
   authUser,
@@ -67,6 +68,7 @@ const LearningDashboard = ({
       breakEven: byMode('breakEven'),
       rechen: byMode('rechen'),
       klr: byMode('klr'),
+      marketing_review: byMode('marketing_review'),
     };
   };
 
@@ -86,7 +88,8 @@ const LearningDashboard = ({
     kalkulation: 'Kalkulations-Boss',
     breakEven: 'Break-Even-Point',
     klr: 'KLR-Modul',
-    rechen: "KPI's"
+    rechen: "KPI's",
+    marketing_review: 'Review Marketing'
   };
 
   const modeTotals = events.reduce((acc, event) => {
@@ -109,6 +112,7 @@ const LearningDashboard = ({
     getAllQuizQuestions(customQuizQuestions).length +
     (wisor1.questions || []).length +
     (wisorEco.questions || []).length +
+    (marketingReview.questions || []).length +
     getRechenTasks(customQuizQuestions).length;
 
   const latestByQuestion = {};
@@ -147,6 +151,7 @@ const LearningDashboard = ({
     if (event.mode === 'kalkulation') return 'Kalkulations-Boss';
     if (event.mode === 'breakEven') return 'Break-Even-Point';
     if (event.mode === 'klr') return event.topic || 'KLR-Modul';
+    if (event.mode === 'marketing_review') return 'Marketing Review';
     return 'Allgemein';
   };
 

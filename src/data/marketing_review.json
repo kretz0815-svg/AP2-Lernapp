@@ -1,0 +1,211 @@
+{
+  "questions": [
+    {
+      "id": "rev_1",
+      "topic": "Influencer Marketing & Krisenmanagement",
+      "question": "Ein bekannter Gaming-Influencer, der für die TechVibe GmbH wirbt, fällt im Stream durch extremistische Äußerungen auf. Nenne zwei mögliche negative Auswirkungen auf das Unternehmen.",
+      "inputType": "text",
+      "expectedAnswers": ["1. Reputationsschaden / Imagetransfer (Glaubwürdigkeit der Unternehmenswerte sinkt).\n2. Kundenverlust / Umsatzrückgang (durch Boykott oder Shitstorm)."],
+      "rationale": "1. Reputationsschaden (Glaubwürdigkeit sinkt), 2. Kundenverlust (Boykott/Shitstorm).",
+      "youtubeQuery": "Influencer Marketing Krisenmanagement"
+    },
+    {
+      "id": "rev_2",
+      "topic": "Influencer Marketing & Krisenmanagement",
+      "question": "Wie sollte die TechVibe GmbH akut auf die Verfehlung des Influencers reagieren? Nenne zwei Maßnahmen.",
+      "inputType": "text",
+      "expectedAnswers": ["1. Sofortige Beendigung der Zusammenarbeit & öffentliche Distanzierung.\n2. Proaktives Engagement (z.B. Spende an eine passende soziale Organisation / Aufklärungskampagne)."],
+      "rationale": "Beendigung & Distanzierung (1), Proaktives Engagement/Spende (2).",
+      "youtubeQuery": "Krisenmanagement Influencer Skandal Reaktion"
+    },
+    {
+      "id": "rev_3",
+      "topic": "Influencer Marketing & Krisenmanagement",
+      "question": "Nenne zwei Kriterien im Hinblick auf die Unternehmensethik, die bei der zukünftigen Auswahl von Influencern beachtet werden sollten.",
+      "inputType": "text",
+      "expectedAnswers": ["1. Werteübereinstimmung (Brand & Corporate Fit).\n2. Background-Check (keine rassistischen/sexistischen Skandale in der Vergangenheit)."],
+      "rationale": "Werteübereinstimmung (1), Background-Check auf Skandale (2).",
+      "youtubeQuery": "Unternehmensethik Influencer Auswahl Kriterien"
+    },
+    {
+      "id": "rev_4",
+      "topic": "Influencer Marketing & Krisenmanagement",
+      "question": "Nenne drei vertriebsbezogene (wirtschaftliche) Kriterien bei der Auswahl eines neuen Influencers.",
+      "inputType": "text",
+      "expectedAnswers": ["Zielgruppenübereinstimmung, Reichweite (Followerzahl), Engagement-Rate (Interaktionen), bisherige Conversion-Raten, Kosten-Nutzen-Verhältnis (ROI)."],
+      "rationale": "Mögliche Kriterien: Zielgruppe, Reichweite, Engagement, Conversion-Rate, ROI.",
+      "youtubeQuery": "Wirtschaftliche Kriterien Influencer Auswahl"
+    },
+    {
+      "id": "rev_5",
+      "topic": "Influencer Marketing & Krisenmanagement",
+      "question": "Influencer berechnen ihre Leistung oft nach 'aktiven Followern'. Welche zwei Risiken bestehen hier für die TechVibe GmbH?\n[A] Ohne genaue Mediadatenanalyse können die Rechnungen nicht auf Korrektheit geprüft werden.\n[B] Influencer könnten gekaufte Fake-Follower (Bots) besitzen.\n[C] Das Influencer-Honorar treibt die internen Personalkosten extrem in die Höhe.\n[D] Die beworbenen Gaming-Produkte müssen zu Dumpingpreisen verkauft werden.\n\n(Gib die 2 Buchstaben ein, z.B. AB)",
+      "inputType": "text",
+      "expectedAnswers": ["AB", "BA"],
+      "rationale": "[A] und [B] sind korrekt. Keine Kontrolle ohne Analyse (A) und Fake-Follower (B).",
+      "youtubeQuery": "Influencer Fake Follower Risiken"
+    },
+    {
+      "id": "rev_6",
+      "topic": "Influencer Marketing & Krisenmanagement",
+      "question": "Auf welchen zwei Plattformen erreichen Influencer die Zielgruppe der TechVibe GmbH im B2C-Bereich (Endkonsumenten) in der Regel NICHT?\n[A] TikTok\n[B] LinkedIn\n[C] Xing\n[D] Instagram\n\n(Gib die 2 Buchstaben ein, z.B. BC)",
+      "inputType": "text",
+      "expectedAnswers": ["BC", "CB"],
+      "rationale": "[B] LinkedIn und [C] Xing sind B2B-Plattformen für berufliche Netzwerke.",
+      "youtubeQuery": "B2C vs B2B Social Media Plattformen"
+    },
+    {
+      "id": "rev_7",
+      "topic": "Influencer Marketing & Krisenmanagement",
+      "question": "Welche zwei Vorteile bietet Influencer-Marketing gegenüber klassischer Fernsehwerbung?\n[A] Garantiert überdurchschnittliche Umsatzsteigerung\n[B] Hohe Reichweite\n[C] Zielgenaue Ansprache spezieller Zielgruppen (wenig Streuverlust)\n[D] Allgemeine Ansprache vieler, ungenauer Zielgruppen\n\n(Gib die 2 Buchstaben ein, z.B. BC)",
+      "inputType": "text",
+      "expectedAnswers": ["BC", "CB"],
+      "rationale": "[B] Reichweite und [C] Zielgenauigkeit sind die Hauptvorteile.",
+      "youtubeQuery": "Vorteile Influencer Marketing vs TV Werbung"
+    },
+    {
+      "id": "rev_8",
+      "topic": "Live-Shopping & Sortiment",
+      "question": "Die TechVibe GmbH plant Live-Shopping-Events auf Twitch. Welche Beschreibung trifft auf diesen Kanal zu?\n[A] Live-Shopping wird vorher aufgezeichnet und zum Download angeboten.\n[B] Live-Shopping eignet sich nur für billige, nicht erklärungsbedürftige Produkte.\n[C] Exklusivität der Angebote und das verkäuferische Geschick des Präsentators sind die größten Erfolgsfaktoren.",
+      "inputType": "text",
+      "expectedAnswers": ["C"],
+      "rationale": "[C] ist richtig. Exklusivität und Geschick sind entscheidend.",
+      "youtubeQuery": "Live Shopping Twitch Erfolgsfaktoren"
+    },
+    {
+      "id": "rev_9",
+      "topic": "Live-Shopping & Sortiment",
+      "question": "Live-Shopping ähnelt dem klassischen Teleshopping und fördert Impulskäufe. Welches spezifische Retouren-Risiko (laut Marktdaten) ist hier besonders hoch?",
+      "inputType": "text",
+      "expectedAnswers": ["Die Komplett-Retoure. Viele Kunden bereuen den Impulskauf kurz darauf und schicken die gesamte Bestellung zurück."],
+      "rationale": "Die Komplett-Retoure nach Reue des Impulskaufs.",
+      "youtubeQuery": "Retourenrisiko Live Shopping Impulskauf"
+    },
+    {
+      "id": "rev_10",
+      "topic": "Live-Shopping & Sortiment",
+      "question": "TechVibe verkauft 'Gaming-Hardware' (z.B. Monitore) und 'Gaming-Merchandise' (z.B. Hoodies, Schuhe). Welche dieser beiden Warengruppen hat laut Statistik die deutlich höhere Retourenquote und warum?",
+      "inputType": "text",
+      "expectedAnswers": ["Gaming-Merchandise (Bekleidung/Schuhe). Grund: Kunden bestellen oft Auswahlsendungen (Größen/Farben) und schicken Teile als Teilretoure zurück."],
+      "rationale": "Merchandise (Bekleidung). Grund: Auswahlsendungen (Passform/Farbe).",
+      "youtubeQuery": "Retourenquote Bekleidung vs Elektronik E-Commerce"
+    },
+    {
+      "id": "rev_11",
+      "topic": "Live-Shopping & Sortiment",
+      "question": "Um die Live-Shopping-Aktion zu bewerten, werden verschiedene Kennzahlen herangezogen. Welche dieser Kennzahlen ist für die Erfolgsbewertung des Live-Formats zu vernachlässigen?\n[A] Conversion-Rate\n[B] Warenbezugspreis\n[C] Retourenquote\n[D] Zuschauerzahl",
+      "inputType": "text",
+      "expectedAnswers": ["B"],
+      "rationale": "[B] Der Warenbezugspreis ist eine interne Einkaufsgröße und sagt nichts über den Kampagnenerfolg aus.",
+      "youtubeQuery": "KPIs Live Shopping Erfolg messen"
+    },
+    {
+      "id": "rev_12",
+      "topic": "Live-Shopping & Sortiment",
+      "question": "TechVibe verkauft primär teure Gaming-PCs (Kernsortiment), bietet aber auch Energy-Drinks an. Die Drinks verkaufen sich seltener, gehören aber dazu. Wie definiert man ein 'Randsortiment'?\n[A] Es wird nur an Aktionstagen angeboten.\n[B] Es macht den größten Teil des Gewinns aus.\n[C] Es dient zur sinnvollen Ergänzung des bestehenden Sortiments.",
+      "inputType": "text",
+      "expectedAnswers": ["C"],
+      "rationale": "[C] Randsortiment dient als sinnvolle Ergänzung des Kernsortiments.",
+      "youtubeQuery": "Sortimentsgestaltung Kernsortiment Randsortiment"
+    },
+    {
+      "id": "rev_13",
+      "topic": "Marketing-Mix (4 P's) & Targeting",
+      "question": "Die Nachfrage nach 'Smart-Home-Beleuchtung' steigt enorm. Nenne eine konkrete Maßnahme aus der Produktpolitik (Product), um darauf zu reagieren.",
+      "inputType": "text",
+      "expectedAnswers": ["Aufnahme neuer, innovativer Smart-Home-Lampen oder Starter-Sets in das eigene Verkaufssortiment."],
+      "rationale": "Produktaufnahme/Erweiterung (Smart-Home-Lampen/Starter-Sets).",
+      "youtubeQuery": "Marketing Mix Produktpolitik Beispiel"
+    },
+    {
+      "id": "rev_14",
+      "topic": "Marketing-Mix (4 P's) & Targeting",
+      "question": "Nenne eine konkrete Maßnahme aus der Preispolitik (Price), um auf den Smart-Home-Trend zu reagieren.",
+      "inputType": "text",
+      "expectedAnswers": ["Anbieten von Paketpreisen/Bundle-Rabatten (z.B. 'Kaufe 3 Lampen, zahle 2'), um den Einstieg attraktiv zu machen."],
+      "rationale": "Paketpreise/Bundle-Rabatte.",
+      "youtubeQuery": "Marketing Mix Preispolitik Beispiel"
+    },
+    {
+      "id": "rev_15",
+      "topic": "Marketing-Mix (4 P's) & Targeting",
+      "question": "Nenne eine konkrete Maßnahme aus der Kommunikationspolitik (Promotion), um auf den Smart-Home-Trend zu reagieren.",
+      "inputType": "text",
+      "expectedAnswers": ["Start einer gezielten Social-Media-Werbekampagne oder eines Newsletters zum Thema 'Dein perfektes Smart-Home-Setup'."],
+      "rationale": "Social-Media-Kampagne, Newsletter.",
+      "youtubeQuery": "Marketing Mix Kommunikationspolitik Beispiel"
+    },
+    {
+      "id": "rev_16",
+      "topic": "Marketing-Mix (4 P's) & Targeting",
+      "question": "Was versteht man unter Umfeld-Targeting (Semantic Targeting)? Nenne ein Beispiel.",
+      "inputType": "text",
+      "expectedAnswers": ["Werbeanzeigen werden im passenden inhaltlichen Umfeld platziert. Beispiel: Werbung für Gaming-Mäuse auf einer News-Website für eSports."],
+      "rationale": "Platzierung im passenden inhaltlichen Umfeld (eSports News -> Gaming-Mäuse).",
+      "youtubeQuery": "Umfeld Targeting Semantic Targeting Erklärung"
+    },
+    {
+      "id": "rev_17",
+      "topic": "Marketing-Mix (4 P's) & Targeting",
+      "question": "Was versteht man unter Retargeting? Nenne ein Beispiel.",
+      "inputType": "text",
+      "expectedAnswers": ["Nutzer, die bereits im eigenen Shop waren, werden markiert und bekommen auf anderen Webseiten Werbung für genau die angesehenen Produkte."],
+      "rationale": "Ansprache von Shop-Besuchern auf externen Seiten.",
+      "youtubeQuery": "Retargeting einfach erklärt Beispiel"
+    },
+    {
+      "id": "rev_18",
+      "topic": "Marketing-Mix (4 P's) & Targeting",
+      "question": "Was versteht man unter Behavioral Targeting?",
+      "inputType": "text",
+      "expectedAnswers": ["Die Werbeausspielung richtet sich nach dem früheren Surf- und Suchverhalten des Nutzers (z.B. über Cookies analysiert)."],
+      "rationale": "Ausrichtung nach Surf- und Suchverhalten.",
+      "youtubeQuery": "Behavioral Targeting einfach erklärt"
+    },
+    {
+      "id": "rev_19",
+      "topic": "Landingpage, Funnel & Affiliate",
+      "question": "Eine Landingpage unterscheidet sich von der normalen Startseite. Nenne drei typische Elemente einer starken Landingpage.",
+      "inputType": "text",
+      "expectedAnswers": ["1. Call-to-Action (Handlungsaufforderung)\n2. Hero-Shot (Emotionales Leitbild/Video)\n3. Trust-Elemente (Kundenbewertungen, Siegel)"],
+      "rationale": "CTA, Hero-Shot, Trust-Elemente.",
+      "youtubeQuery": "Landingpage Aufbau Elemente"
+    },
+    {
+      "id": "rev_20",
+      "topic": "Landingpage, Funnel & Affiliate",
+      "question": "Was ist die konkrete Funktion eines Call-to-Action (CTA) auf einer Landingpage?",
+      "inputType": "text",
+      "expectedAnswers": ["Er lenkt die Aufmerksamkeit des Nutzers ohne Ablenkung auf genau die eine gewünschte Handlung und sorgt so für die Conversion."],
+      "rationale": "Ablenkungsfreie Lenkung auf eine gewünschte Handlung.",
+      "youtubeQuery": "CTA Call to Action Marketing Bedeutung"
+    },
+    {
+      "id": "rev_21",
+      "topic": "Landingpage, Funnel & Affiliate",
+      "question": "Bringe die folgenden 5 Phasen des Marketing-Funnels in die korrekte zeitliche Reihenfolge: Purchase, Consideration, Awareness, Retention, Preference.",
+      "inputType": "text",
+      "expectedAnswers": ["1. Awareness, 2. Consideration, 3. Preference, 4. Purchase, 5. Retention"],
+      "rationale": "Reihenfolge: Awareness -> Consideration -> Preference -> Purchase -> Retention.",
+      "youtubeQuery": "Marketing Funnel Phasen Reihenfolge"
+    },
+    {
+      "id": "rev_22",
+      "topic": "Landingpage, Funnel & Affiliate",
+      "question": "Auf welche Funnel-Phase zielt eine fokussierte Landingpage als Marketing-Instrument primär ab?\n[A] Pre-Awareness\n[B] Consideration\n[C] Purchase / Conversion\n[D] Loyalty",
+      "inputType": "text",
+      "expectedAnswers": ["C"],
+      "rationale": "[C] Purchase / Conversion. Sie soll aktiv zum Abschluss führen.",
+      "youtubeQuery": "Landingpage Funnel Phase"
+    },
+    {
+      "id": "rev_23",
+      "topic": "Landingpage, Funnel & Affiliate",
+      "question": "TechVibe verlinkt auf seiner Seite zu einem Partner-Shop für Gaming-Tische und bekommt dafür eine Affiliate-Provision. Welcher Sachverhalt zum 'Pay-per-Click'-Modell (PPC) ist richtig?\n[A] Das Modell ist extrem lukrativ für den Partner-Shop, da er nur zahlt, wenn jemand wirklich einen Tisch kauft.\n[B] Der Affiliate-Umsatz der TechVibe GmbH steigt mit der bloßen Anzahl an Besuchern, die sie auf die Partnerseite lenkt.\n[C] TechVibe bekommt nur Geld, wenn der Kunde dort seine E-Mail-Adresse hinterlässt (Lead).",
+      "inputType": "text",
+      "expectedAnswers": ["B"],
+      "rationale": "[B] Bei PPC wird pro Klick bezahlt, unabhängig vom Kauf oder Lead.",
+      "youtubeQuery": "Affiliate Marketing Pay per Click PPC"
+    }
+  ]
+}
