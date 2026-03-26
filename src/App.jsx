@@ -2279,13 +2279,13 @@ ${input}`;
 
   if (appMode === 'kalkulation') {
     return (
-      <div className="app-container" style={{ zIndex: 10 }}>
+      <>
         {pomodoroPortal}
         {burgerMenuPortal}
         <React.Suspense fallback={<div className="loading-overlay">Lade Kalkulation...</div>}>
           <KalkulationsBoss onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} isGuest={!authUser} />
         </React.Suspense>
-      </div>
+      </>
     );
   }
 

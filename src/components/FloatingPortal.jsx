@@ -32,11 +32,8 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
             className="mobile-floating-portal"
             style={{
                 position: 'fixed',
-                right: currentAppMode === 'kalkulation' ? undefined : '12px',
-                left: currentAppMode === 'kalkulation' ? '50%' : undefined,
-                bottom: currentAppMode === 'kalkulation' ? undefined : 'calc(env(safe-area-inset-bottom, 0px) + 20px)',
-                top: currentAppMode === 'kalkulation' ? 'calc(env(safe-area-inset-top, 0px) + 12px)' : undefined,
-                transform: currentAppMode === 'kalkulation' ? 'translateX(-50%)' : undefined,
+                right: '12px',
+                bottom: 'calc(env(safe-area-inset-bottom, 0px) + 20px)',
                 zIndex: 1000001,
                 pointerEvents: 'none',
                 overflow: 'visible'
