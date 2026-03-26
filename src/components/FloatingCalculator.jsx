@@ -445,7 +445,7 @@ export default function FloatingCalculator({
     }
     const helperValue = String(currentValue ?? '').replace('.', ',');
     const helperText = helperValue.length > 14 ? `${helperValue.slice(0, 14)}…` : helperValue;
-    const showResultHelper = hasCalcActivity && currentValue !== '0';
+    const showResultHelper = (isOpen || hasCalcActivity || currentValue !== '0') && currentValue !== '0';
 
     // ── Render the opened calculator window ──
     const calcWindow = (
@@ -640,7 +640,7 @@ export default function FloatingCalculator({
                     style={{
                         position: 'fixed',
                         right: isMobile ? '12px' : '16px',
-                        top: currentAppMode === 'kalkulation' ? 'calc(env(safe-area-inset-top, 0px) + 85px)' : 'calc(env(safe-area-inset-top, 0px) + 10px)',
+                        top: `calc(${vvState.offsetTop}px + env(safe-area-inset-top, 0px) + ${currentAppMode === 'kalkulation' ? 85 : 10}px)`,
                         zIndex: 100000,
                         minWidth: '120px',
                         maxWidth: '170px',
