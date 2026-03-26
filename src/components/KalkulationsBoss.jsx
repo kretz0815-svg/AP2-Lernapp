@@ -51,6 +51,12 @@ const LEVEL_CONFIG = [
         direction: 'boss', color: '#a855f7',
         youtubeQuery: 'Handelskalkulation komplett einfach erklärt IHK',
     },
+    {
+        id: 5, title: 'Spannen-Profi', subtitle: 'Generator',
+        story: 'Endlos-Training zur Handelsspanne für E-Commerce Kaufleute.',
+        direction: 'retail_margin', color: '#0ea5e9',
+        youtubeQuery: 'Handelsspanne berechnen Handelskalkulation einfach erklärt',
+    },
 ];
 
 // ══════════════════════════════════════════════════════════════
@@ -260,6 +266,42 @@ function generateLevel(config) {
                     key: 'lep', label: '= Listeneinkaufspreis', value: lep, given: false, isSum: true,
                     hint: `${fmt(zep)} + ${fmt(lieferrabatt)} = ${fmt(lep)} €`
                 }
+            ]
+        };
+    }
+
+    if (config.direction === 'retail_margin') {
+        // ── Handelsspannen-Generator ──
+        // 1. GENERIERUNGS-LOGIK: Wähle saubere Wertepaare (E-Preis/V-Preis)
+        const lvpBase = [50, 100, 150, 200, 250, 300, 400, 500, 800, 1000];
+        const marginPctBase = [10, 20, 25, 30, 40, 50, 60, 75];
+        
+        let lvp, margin_pct, ep;
+        // Sicherstellen, dass nur glatte Euro-Beträge entstehen
+        do {
+            lvp = lvpBase[Math.floor(Math.random() * lvpBase.length)];
+            margin_pct = marginPctBase[Math.floor(Math.random() * marginPctBase.length)];
+            ep = lvp * (1 - margin_pct / 100);
+        } while (!Number.isInteger(ep));
+
+        // 2. AUFGABEN-VARIATION: 3 versch. Textvorlagen
+        const scenarios = [
+            `Dein Shop bietet ein neues Produkt an. Der Einstandspreis (Bezugspreis) beträgt ${ep} €. Du verkaufst es im Shop für ${lvp} € (netto).`,
+            `Auf einem Marktplatz wird ein Artikel zum Listenverkaufspreis von ${lvp} € (netto) angeboten. Dein Einstandspreis liegt bei ${ep} €.`,
+            `Du kalkulierst für einen Zubehörartikel. Der Bezugspreis liegt bei ${ep} €. Im E-Commerce Shop soll der Preis bei ${lvp} € (netto) liegen.`
+        ];
+        const story = scenarios[Math.floor(Math.random() * scenarios.length)];
+
+        return {
+            ...config, story, given: { ep, lvp },
+            steps: [
+                { key: 'ep', label: 'Einstandspreis', value: ep, given: true },
+                { key: 'lvp', label: 'Listenverkaufspreis (netto)', value: lvp, given: true },
+                {
+                    key: 'margin_pct_input', label: 'Handelsspanne in %', value: margin_pct, given: false, isPercent: true,
+                    // 3. KI-FEEDBACK-LOOP (wird in die UI via Hint ausgespielt)
+                    hint: `Schritt-für-Schritt-Herleitung:\n1. Differenz (Spanne in €) = LVP - EP = ${lvp} € - ${ep} € = ${lvp - ep} €\n2. Formel = (Spanne in € / LVP) * 100\n3. Rechnung = (${lvp - ep} / ${lvp}) * 100 = ${margin_pct} %\n(Lob bei Korrekt: Top! Die Spanne von ${margin_pct}% wurde korrekt ermittelt.)`
+                },
             ]
         };
     }
@@ -493,8 +535,8 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                 // Show hint immediately in boss mode
                 setShowHint(prev => ({ ...prev, [idx]: true }));
             } else {
-                // Show hint after 2 wrong attempts
-                if ((attempts[idx] || 0) >= 1) {
+                // Show hint after 2 wrong attempts (or 1 for Level 5/Generator)
+                if ((attempts[idx] || 0) >= (selectedLevel.id === 5 ? 0 : 1)) {
                     setShowHint(prev => ({ ...prev, [idx]: true }));
                 }
             }
@@ -575,12 +617,12 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                 <div className="dashboard-grid" style={{ maxWidth: '900px' }}>
                     {LEVEL_CONFIG.map(config => {
                         const done = completedLevels.includes(config.id);
-                        const locked = isGuest && config.id > 1;
+                        const locked = isGuest && config.id > 1 && config.id < 5; // Level 5 is unlocked for everyone to try the new generator
                         return (
                             <div key={config.id} className="dash-card" onClick={() => { if (!locked) startLevel(config); }}
                                 style={{ borderColor: done ? config.color : undefined, boxShadow: done ? `0 0 20px ${config.color}33` : undefined, opacity: locked ? 0.55 : 1, cursor: locked ? 'not-allowed' : 'pointer' }}>
                                 <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>
-                                    {locked ? '🔒' : config.id === 1 ? '⬇️' : config.id === 2 ? '⬆️' : config.id === 3 ? '🔀' : '👑'}
+                                    {locked ? '🔒' : config.id === 1 ? '⬇️' : config.id === 2 ? '⬆️' : config.id === 3 ? '🔀' : config.id === 5 ? '🎯' : '👑'}
                                 </div>
                                 <h2 style={{ color: 'var(--text-light)', margin: 0 }}>Level {config.id}</h2>
                                 <h3 style={{ color: config.color, margin: '0.2rem 0', fontWeight: 700, fontSize: '1.1rem' }}>{config.title}</h3>
@@ -660,7 +702,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                         </p>
                     )}
                     <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                        <button className="btn-primary" onClick={() => startLevel(LEVEL_CONFIG[selectedLevel.id - 1])}>🔄 {isBoss ? 'Nächster Deal' : 'Nochmal'}</button>
+                        <button className="btn-primary" onClick={() => startLevel(LEVEL_CONFIG[selectedLevel.id - 1])}>🔄 {selectedLevel.id === 5 ? 'Nächste Aufgabe' : (isBoss ? 'Nächster Deal' : 'Nochmal')}</button>
                         <button className="btn-secondary" onClick={() => setSelectedLevel(null)}>📋 Level-Auswahl</button>
                         {!isBoss && selectedLevel.id < 4 && (
                             <button className="btn-primary" style={{ background: LEVEL_CONFIG[selectedLevel.id].color }}
