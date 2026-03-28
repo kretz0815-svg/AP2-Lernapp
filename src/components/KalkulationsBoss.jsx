@@ -546,6 +546,15 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                     setShowHint(prev => ({ ...prev, [stepIdx]: true }));
                 }
             }
+
+            // Keep focus on the current field after a wrong submission (important when using
+            // the button, because click temporarily moves focus away from the input).
+            requestAnimationFrame(() => {
+                const el = inputRefs.current[stepIdx];
+                if (!el) return;
+                el.focus({ preventScroll: true });
+                el.select?.();
+            });
         }
     };
 
@@ -816,7 +825,40 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                                                 <div style={{ fontFamily: 'monospace', fontSize: '1.05rem', fontWeight: 700, color: isDone && !isGiven ? stepStatusColor : 'var(--text-light)', padding: '0.5rem 0.8rem', borderRadius: '10px', background: isDone && !isGiven ? `${stepStatusColor}15` : 'rgba(255,255,255,0.05)', textAlign: 'right' }}>{step.value.toFixed(2)} {step.isPercent ? '%' : '€'}</div>
                                             ) : (
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                                                    <input className={`wisor-input ${wrongSteps[stepIndex] ? 'shake' : ''}`} ref={el => inputRefs.current[stepIndex] = el} type="text" inputMode="decimal" placeholder={step.isPercent ? '%' : '0.00'} value={isActive ? userValue : ''} onChange={isActive ? (e) => handleInput(stepIndex, e.target.value) : undefined} onKeyDown={isActive ? (e) => handleKeyDown(e, stepIndex) : undefined} style={{ height: '40px', fontSize: '1rem', textAlign: 'right', padding: '0 0.8rem', border: `1.5px solid ${stepStatusColor}55`, background: 'rgba(255,255,255,0.05)' }} />
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                                                        <input
+                                                            className={`wisor-input ${wrongSteps[stepIndex] ? 'shake' : ''}`}
+                                                            ref={el => inputRefs.current[stepIndex] = el}
+                                                            type="text"
+                                                            inputMode="decimal"
+                                                            placeholder={step.isPercent ? '%' : '0.00'}
+                                                            value={isActive ? userValue : ''}
+                                                            onChange={isActive ? (e) => handleInput(stepIndex, e.target.value) : undefined}
+                                                            onKeyDown={isActive ? (e) => handleKeyDown(e, stepIndex) : undefined}
+                                                            style={{ flex: 1, height: '40px', fontSize: '1rem', textAlign: 'right', padding: '0 0.8rem', border: `1.5px solid ${stepStatusColor}55`, background: 'rgba(255,255,255,0.05)' }}
+                                                        />
+                                                        {isActive && (
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => validateStep(stepIndex)}
+                                                                title="Eingabe prüfen (Enter)"
+                                                                style={{
+                                                                    height: '40px',
+                                                                    minWidth: '52px',
+                                                                    borderRadius: '10px',
+                                                                    border: `1.5px solid ${stepStatusColor}88`,
+                                                                    background: wrongSteps[stepIndex] ? 'rgba(239,68,68,0.22)' : (validated[stepIndex] ? 'rgba(34,197,94,0.22)' : 'rgba(245,158,11,0.18)'),
+                                                                    color: stepStatusColor,
+                                                                    fontWeight: 800,
+                                                                    fontSize: '0.92rem',
+                                                                    cursor: 'pointer',
+                                                                    padding: '0 0.55rem'
+                                                                }}
+                                                            >
+                                                                {wrongSteps[stepIndex] ? '✕' : (validated[stepIndex] ? '✓' : 'Enter')}
+                                                            </button>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>
