@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchYouTubeVideos } from '../youtubeClient';
 import { askGemini } from '../geminiClient';
-import FloatingNotes from './FloatingNotes';
-import FloatingCalculator from './FloatingCalculator';
 import FloatingPortal from './FloatingPortal';
 import GeminiPanel from './GeminiPanel';
 import Confetti from './Confetti';
@@ -856,7 +854,6 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                     20%, 40%, 60%, 80% { transform: translateX(6px); }
                 }
             `}</style>
-            <FloatingPortal questionId={`kalk_${selectedLevel?.id}`} questionText={selectedLevel?.title || 'Kalkulations-Boss'} currentAppMode="kalkulation" />
         </div>
     );
 }
