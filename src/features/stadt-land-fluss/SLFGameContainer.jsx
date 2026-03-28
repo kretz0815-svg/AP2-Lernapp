@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { supabase } from '../../supabaseClient';
 import { slfService, parseRoomMeta } from './slfSupabaseService';
 import Confetti from '../../components/Confetti';
 import { askGemini } from '../../geminiClient';
@@ -12,7 +13,7 @@ import { askGemini } from '../../geminiClient';
  * 5. Buzzer Lock
  * 6. AI Evaluation
  */
-const SLFGameContainer = ({ room, player, onClose }) => {
+const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const getCategoryKeys = (roomName) => parseRoomMeta(roomName).categories;
   const buildEmptyAnswers = (keys) => keys.reduce((acc, key) => ({ ...acc, [key]: '' }), {});
   const toCategoryLabel = (key) => key.replace(/_/g, ' ').toUpperCase();
@@ -32,11 +33,24 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   const [isRolling, setIsRolling] = useState(false);
   const [calculatedPoints, setCalculatedPoints] = useState(0);
   const [nextRoundLoading, setNextRoundLoading] = useState(false);
+  const [roomRecord, setRoomRecord] = useState(null);
   const submittedRoundKeyRef = useRef('');
   const scoredRoundKeyRef = useRef('');
   const evaluationRetryRef = useRef(null);
+  const gameOverPersistedRef = useRef(false);
 
   const roundKey = `${room.id}:${roomData.current_round_num}:${player.id}`;
+  const sortedPlayers = useMemo(
+    () => [...players].sort((a, b) => {
+      const aCreated = new Date(a.created_at || 0).getTime();
+      const bCreated = new Date(b.created_at || 0).getTime();
+      if (aCreated !== bCreated) return aCreated - bCreated;
+      return String(a.id).localeCompare(String(b.id));
+    }),
+    [players]
+  );
+  const hostPlayerId = sortedPlayers[0]?.id || player.id;
+  const isHost = player.id === hostPlayerId;
 
   useEffect(() => {
     setAnswers((prev) => {
@@ -77,6 +91,28 @@ const SLFGameContainer = ({ room, player, onClose }) => {
     );
     return () => sub.unsubscribe();
   }, [room.id, refreshPlayers]);
+
+  const loadRoomRecord = useCallback(async () => {
+    if (!authUser?.id) return;
+    try {
+      const { data, error } = await supabase
+        .from('user_data')
+        .select('progress_data')
+        .eq('user_id', authUser.id)
+        .single();
+      if (error && error.code !== 'PGRST116') throw error;
+
+      const records = data?.progress_data?.slf_room_records || {};
+      setRoomRecord(records?.[roomData.room_code] || null);
+    } catch (err) {
+      console.error('Failed to load SLF room record:', err);
+      setRoomRecord(null);
+    }
+  }, [authUser?.id, roomData.room_code]);
+
+  useEffect(() => {
+    loadRoomRecord();
+  }, [loadRoomRecord]);
 
   /**
    * AI Validation Placeholder
@@ -198,6 +234,7 @@ const SLFGameContainer = ({ room, player, onClose }) => {
       clearTimeout(evaluationRetryRef.current);
       evaluationRetryRef.current = null;
     }
+    gameOverPersistedRef.current = false;
   }, [roomData.current_round_num, categories]);
 
   useEffect(() => {
@@ -244,9 +281,122 @@ const SLFGameContainer = ({ room, player, onClose }) => {
     };
   }, [roomData.game_phase, room.id, player.id, roomData.current_round_num, roundKey, aiResults, answers, validateAnswersWithAI, calculatePoints, players.length]);
 
+  useEffect(() => {
+    if (roomData.game_phase !== 'game_over' || !authUser?.id || players.length === 0) return;
+    if (gameOverPersistedRef.current) return;
+
+    const persistRoomResult = async () => {
+      try {
+        const ranking = [...players]
+          .sort((a, b) => b.score - a.score)
+          .map((p, idx) => ({ rank: idx + 1, name: p.name, score: p.score }));
+        const top = ranking[0] || { name: 'Unbekannt', score: 0 };
+
+        const { data, error } = await supabase
+          .from('user_data')
+          .select('progress_data')
+          .eq('user_id', authUser.id)
+          .single();
+        if (error && error.code !== 'PGRST116') throw error;
+
+        const progressData = data?.progress_data ? { ...data.progress_data } : {};
+        const roomCode = roomData.room_code;
+        const displayName = parseRoomMeta(roomData.room_name).displayName;
+        const previousRecords = progressData.slf_room_records || {};
+        const currentRecord = previousRecords[roomCode] || {};
+        const previousMatches = Array.isArray(currentRecord.matches) ? currentRecord.matches : [];
+        const nextMatches = [
+          {
+            played_at: new Date().toISOString(),
+            rounds: roomData.total_rounds,
+            ranking
+          },
+          ...previousMatches
+        ].slice(0, 20);
+        const bestScore = Math.max(Number(currentRecord.best_score || 0), Number(top.score || 0));
+        const bestPlayer = Number(top.score || 0) >= Number(currentRecord.best_score || 0)
+          ? top.name
+          : (currentRecord.best_player || top.name);
+        const nextRoomRecord = {
+          room_code: roomCode,
+          room_name: displayName,
+          best_score: bestScore,
+          best_player: bestPlayer,
+          matches: nextMatches
+        };
+
+        progressData.slf_room_records = {
+          ...previousRecords,
+          [roomCode]: nextRoomRecord
+        };
+
+        const savedRooms = Array.isArray(progressData.slf_saved_rooms) ? progressData.slf_saved_rooms : [];
+        progressData.slf_saved_rooms = savedRooms.map((entry) => (
+          String(entry?.room_code || '') === String(roomCode)
+            ? {
+                ...entry,
+                room_name: displayName,
+                best_score: bestScore,
+                best_player: bestPlayer,
+                updated_at: new Date().toISOString()
+              }
+            : entry
+        ));
+
+        await supabase
+          .from('user_data')
+          .upsert(
+            [{
+              user_id: authUser.id,
+              device_id: authUser.id,
+              progress_data: progressData,
+              updated_at: new Date().toISOString()
+            }],
+            { onConflict: 'user_id' }
+          );
+
+        setRoomRecord(nextRoomRecord);
+        gameOverPersistedRef.current = true;
+      } catch (err) {
+        console.error('Failed to persist SLF game over record:', err);
+      }
+    };
+
+    persistRoomResult();
+  }, [roomData.game_phase, roomData.room_code, roomData.room_name, roomData.total_rounds, authUser?.id, players]);
+
   /** ───────── Phase Logic ───────── **/
 
   const startDicePhase = () => slfService.setGamePhase(room.id, 'dice');
+
+  const restartMatch = async () => {
+    if (!isHost) return;
+    setNextRoundLoading(true);
+    try {
+      await slfService.clearResponses(room.id);
+      for (const p of players) {
+        await slfService.resetPlayerForNewMatch(p.id);
+      }
+      await slfService.setGamePhase(room.id, 'dice', {
+        current_round_num: 1,
+        current_letter: null,
+        dice_winner_id: null,
+        buzzer_player_id: null
+      });
+      setLocalRoll(null);
+      setAiResults(null);
+      setCalculatedPoints(0);
+      setAnswers(buildEmptyAnswers(categories));
+      submittedRoundKeyRef.current = '';
+      scoredRoundKeyRef.current = '';
+      gameOverPersistedRef.current = false;
+    } catch (err) {
+      console.error('Restart match error:', err);
+      alert('Neue Partie konnte nicht gestartet werden.');
+    } finally {
+      setNextRoundLoading(false);
+    }
+  };
 
   const rollDice = async () => {
     if (isRollingDice) return;
@@ -336,7 +486,11 @@ const SLFGameContainer = ({ room, player, onClose }) => {
       <p className="slf-highlight-code">Beitritts-Code: <span>{roomData.room_code}</span></p>
       
       <div className="slf-p-list">
-        {players.map(p => <div key={p.id} className="slf-p-tag">👤 {p.name} {p.id === player.id && '(Host)'}</div>)}
+        {players.map((p) => (
+          <div key={p.id} className="slf-p-tag">
+            👤 {p.name} {p.id === player.id ? '(Du)' : ''} {p.id === hostPlayerId ? '(Host)' : ''}
+          </div>
+        ))}
       </div>
       <button className="slf-prime-btn" onClick={startDicePhase}>Engagement starten! (Würfeln)</button>
       <p className="slf-hint" style={{ marginTop: '1rem' }}>Sende den Code oben an deine Freunde, damit sie beitreten können.</p>
@@ -446,11 +600,14 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   );
 
   const renderGameOver = () => {
+    const finalRanking = [...players].sort((a, b) => b.score - a.score);
+    const topHistory = Array.isArray(roomRecord?.matches) ? roomRecord.matches.slice(0, 5) : [];
+
     return (
       <div className="slf-section">
         <h2 className="slf-win-title">🏆 Spiel Beendet!</h2>
         <div className="slf-final-rank">
-           {players.sort((a,b) => b.score-a.score).map((p, idx) => (
+           {finalRanking.map((p, idx) => (
              <div key={p.id} className={`slf-rank-row ${idx === 0 ? 'top' : ''}`}>
                 <span className="slf-rank-num">#{idx+1}</span>
                 <span className="slf-player-name">{p.name}</span>
@@ -458,7 +615,34 @@ const SLFGameContainer = ({ room, player, onClose }) => {
              </div>
            ))}
         </div>
-        <button onClick={onClose} className="slf-prime-btn" style={{ marginTop: '2rem' }}>Dashboard</button>
+
+        {roomRecord?.best_score ? (
+          <div className="slf-record-box">
+            <p>Rekord im Raum: <strong>{roomRecord.best_player}</strong> mit <strong>{roomRecord.best_score} Punkten</strong></p>
+          </div>
+        ) : null}
+
+        {topHistory.length > 0 ? (
+          <div className="slf-toplist">
+            <h4>Letzte Ergebnisse</h4>
+            {topHistory.map((match, idx) => (
+              <div key={`${match.played_at || idx}`} className="slf-top-row">
+                <span>#{idx + 1}</span>
+                <span>{match?.ranking?.[0]?.name || 'Unbekannt'} ({match?.ranking?.[0]?.score || 0} Pkt.)</span>
+              </div>
+            ))}
+          </div>
+        ) : null}
+
+        {isHost ? (
+          <button onClick={restartMatch} disabled={nextRoundLoading} className="slf-prime-btn" style={{ marginTop: '1.2rem' }}>
+            {nextRoundLoading ? 'Starte...' : 'Neue Partie starten'}
+          </button>
+        ) : (
+          <p className="slf-hint" style={{ marginTop: '1.2rem' }}>Warte auf den Host für die nächste Partie…</p>
+        )}
+
+        <button onClick={onClose} className="slf-prime-btn slf-secondary-btn" style={{ marginTop: '0.8rem' }}>Dashboard</button>
       </div>
     );
   };
@@ -494,6 +678,7 @@ const SLFGameContainer = ({ room, player, onClose }) => {
         /* Buttons */
         .slf-prime-btn { background: #a855f7; border: none; padding: 1rem 2rem; color: white; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; }
         .slf-prime-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(168, 85, 247, 0.4); }
+        .slf-secondary-btn { background: rgba(255,255,255,0.15); }
 
         /* Dice Phase */
         .slf-dice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; width: 100%; margin: 2rem 0; }
@@ -541,6 +726,10 @@ const SLFGameContainer = ({ room, player, onClose }) => {
         .slf-rank-num { font-size: 1.5rem; font-weight: 900; margin-right: 1.5rem; opacity: 0.5; }
         .slf-player-name { flex: 1; font-weight: 600; }
         .slf-player-score { font-weight: 900; color: #a855f7; }
+        .slf-record-box { margin-top: 1.2rem; width: 100%; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.45); border-radius: 12px; padding: 0.9rem 1rem; text-align: center; }
+        .slf-toplist { width: 100%; margin-top: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.8rem 1rem; }
+        .slf-toplist h4 { margin: 0 0 0.6rem 0; font-size: 0.95rem; opacity: 0.85; }
+        .slf-top-row { display: flex; justify-content: space-between; gap: 0.8rem; font-size: 0.86rem; opacity: 0.9; padding: 0.22rem 0; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounce { from { transform: scale(1); } to { transform: scale(1.1); } }

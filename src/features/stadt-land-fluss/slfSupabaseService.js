@@ -146,6 +146,14 @@ export const slfService = {
     if (error) throw error;
   },
 
+  async resetPlayerForNewMatch(playerId) {
+    const { error } = await supabase
+      .from('slf_players')
+      .update({ dice_roll: 0, score: 0 })
+      .eq('id', playerId);
+    if (error) throw error;
+  },
+
   async fetchPlayers(roomId) {
     const { data, error } = await supabase
       .from('slf_players')

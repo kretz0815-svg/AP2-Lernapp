@@ -84,14 +84,6 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
     try {
       const roomMeta = parseRoomMeta(room.room_name);
       const safeCategories = parseCategoryInput(categories || roomMeta.categories);
-      const roomEntry = {
-        room_code: room.room_code,
-        room_name: roomMeta.displayName || room.room_name || room.room_code,
-        total_rounds: room.total_rounds || totalRounds,
-        categories: safeCategories,
-        updated_at: new Date().toISOString()
-      };
-
       const { data, error } = await supabase
         .from('user_data')
         .select('progress_data')
@@ -101,6 +93,16 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
 
       const progressData = data?.progress_data ? { ...data.progress_data } : {};
       const previousRooms = Array.isArray(progressData.slf_saved_rooms) ? progressData.slf_saved_rooms : [];
+      const existingEntry = previousRooms.find((entry) => String(entry?.room_code || '') === String(room.room_code));
+      const roomEntry = {
+        room_code: room.room_code,
+        room_name: roomMeta.displayName || room.room_name || room.room_code,
+        total_rounds: room.total_rounds || totalRounds,
+        categories: safeCategories,
+        best_score: existingEntry?.best_score || 0,
+        best_player: existingEntry?.best_player || '',
+        updated_at: new Date().toISOString()
+      };
       const deduped = [
         roomEntry,
         ...previousRooms.filter((entry) => String(entry?.room_code || '') !== room.room_code)
@@ -121,6 +123,42 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
       setSavedRooms(deduped);
     } catch (err) {
       console.error('Failed to save SLF room:', err);
+    }
+  };
+
+  const removeSavedRoom = async (roomCodeToDelete) => {
+    if (!authUser?.id || !roomCodeToDelete) return;
+    try {
+      const { data, error } = await supabase
+        .from('user_data')
+        .select('progress_data')
+        .eq('user_id', authUser.id)
+        .single();
+      if (error && error.code !== 'PGRST116') throw error;
+
+      const progressData = data?.progress_data ? { ...data.progress_data } : {};
+      const previousRooms = Array.isArray(progressData.slf_saved_rooms) ? progressData.slf_saved_rooms : [];
+      const filtered = previousRooms.filter(
+        (entry) => String(entry?.room_code || '') !== String(roomCodeToDelete)
+      );
+      progressData.slf_saved_rooms = filtered;
+
+      await supabase
+        .from('user_data')
+        .upsert(
+          [{
+            user_id: authUser.id,
+            device_id: authUser.id,
+            progress_data: progressData,
+            updated_at: new Date().toISOString()
+          }],
+          { onConflict: 'user_id' }
+        );
+
+      setSavedRooms(filtered);
+    } catch (err) {
+      console.error('Failed to remove saved SLF room:', err);
+      alert('Gespeicherter Raum konnte nicht gelöscht werden.');
     }
   };
 
@@ -258,16 +296,30 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
                   {savedRooms.map((entry) => {
                     const listedCategories = parseCategoryInput(entry.categories);
                     return (
-                      <button
-                        key={entry.room_code}
-                        className="slf-saved-room"
-                        onClick={() => handleJoinSavedRoom(entry)}
-                        disabled={loading}
-                      >
-                        <span className="slf-saved-title">{entry.room_name || entry.room_code}</span>
-                        <span className="slf-saved-meta">Code: {entry.room_code}</span>
-                        <span className="slf-saved-meta">Kategorien: {listedCategories.join(', ')}</span>
-                      </button>
+                      <div key={entry.room_code} className="slf-saved-row">
+                        <button
+                          className="slf-saved-room"
+                          onClick={() => handleJoinSavedRoom(entry)}
+                          disabled={loading}
+                        >
+                          <span className="slf-saved-title">{entry.room_name || entry.room_code}</span>
+                          <span className="slf-saved-meta">Code: {entry.room_code}</span>
+                          <span className="slf-saved-meta">Kategorien: {listedCategories.join(', ')}</span>
+                          {entry.best_score ? (
+                            <span className="slf-saved-meta">
+                              Rekord: {entry.best_player || 'Unbekannt'} ({entry.best_score} Pkt.)
+                            </span>
+                          ) : null}
+                        </button>
+                        <button
+                          className="slf-delete-room"
+                          onClick={() => removeSavedRoom(entry.room_code)}
+                          disabled={loading}
+                          title="Gespeicherten Raum löschen"
+                        >
+                          Löschen
+                        </button>
+                      </div>
                     );
                   })}
                 </div>
@@ -277,7 +329,7 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
         )}
 
         {step === 'ingame' && (
-           <SLFGameContainer room={currentRoom} player={currentPlayer} onClose={onClose} />
+           <SLFGameContainer room={currentRoom} player={currentPlayer} onClose={onClose} authUser={authUser} />
         )}
       </div>
 
@@ -305,8 +357,11 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
         .slf-input-group label { font-size: 0.8rem; opacity: 0.6; margin-bottom: 0.4rem; display: block; }
         .slf-divider { text-align: center; opacity: 0.3; font-size: 0.8rem; text-transform: uppercase; margin: 0.2rem 0; }
         .slf-saved-list { display: grid; gap: 0.7rem; width: 100%; margin-top: 0.5rem; }
+        .slf-saved-row { display: grid; grid-template-columns: 1fr auto; gap: 0.5rem; align-items: stretch; }
         .slf-saved-room { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; color: white; text-align: left; padding: 0.8rem 1rem; cursor: pointer; display: grid; gap: 0.15rem; }
         .slf-saved-room:hover { border-color: rgba(168,85,247,0.7); background: rgba(168,85,247,0.12); }
+        .slf-delete-room { background: rgba(239,68,68,0.16); border: 1px solid rgba(239,68,68,0.6); color: #fecaca; border-radius: 10px; padding: 0.65rem 0.8rem; cursor: pointer; font-size: 0.8rem; font-weight: 700; }
+        .slf-delete-room:hover { background: rgba(239,68,68,0.25); }
         .slf-saved-title { font-weight: 700; }
         .slf-saved-meta { font-size: 0.8rem; opacity: 0.7; }
         
