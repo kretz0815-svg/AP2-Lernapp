@@ -28,7 +28,6 @@ export default function FloatingCalculator({
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const [avoidInput, setAvoidInput] = useState(false);
-    const [hasCalcActivity, setHasCalcActivity] = useState(false);
 
     // Calculator State
     const [currentValue, setCurrentValue] = useState('0');
@@ -324,7 +323,6 @@ export default function FloatingCalculator({
     };
 
     const handleDigit = (digit) => {
-        setHasCalcActivity(true);
         if (waitingForNewValue) {
             setCurrentValue(digit);
             setWaitingForNewValue(false);
@@ -334,7 +332,6 @@ export default function FloatingCalculator({
     };
 
     const handleOperator = (nextOperator) => {
-        setHasCalcActivity(true);
         const inputValue = parseFloat(currentValue);
         if (operator && !waitingForNewValue) {
             const result = calculate(prevValue, inputValue, operator);
@@ -348,7 +345,6 @@ export default function FloatingCalculator({
     };
 
     const handleEquals = () => {
-        setHasCalcActivity(true);
         if (!operator) return;
         const inputValue = parseFloat(currentValue);
         const result = calculate(prevValue, inputValue, operator);
@@ -366,7 +362,6 @@ export default function FloatingCalculator({
     };
 
     const handleBackspace = () => {
-        setHasCalcActivity(true);
         if (waitingForNewValue) {
             setWaitingForNewValue(false);
             setCurrentValue('0');
@@ -383,17 +378,14 @@ export default function FloatingCalculator({
     };
 
     const handleToggleSign = () => {
-        setHasCalcActivity(true);
         setCurrentValue(String(parseFloat(currentValue) * -1));
     };
 
     const handlePercent = () => {
-        setHasCalcActivity(true);
         setCurrentValue(String(parseFloat(currentValue) / 100));
     };
 
     const handleDot = () => {
-        setHasCalcActivity(true);
         if (waitingForNewValue) {
             setCurrentValue('0.');
             setWaitingForNewValue(false);
@@ -438,7 +430,7 @@ export default function FloatingCalculator({
     }
     const helperValue = String(currentValue ?? '').replace('.', ',');
     const helperText = helperValue.length > 14 ? `${helperValue.slice(0, 14)}…` : helperValue;
-    const showResultHelper = (isOpen || hasCalcActivity || currentValue !== '0') && currentValue !== '0';
+    const showResultHelper = !isOpen && currentValue !== '0';
 
     // ── Render the opened calculator window ──
     const calcWindow = (
@@ -498,7 +490,6 @@ export default function FloatingCalculator({
                 style={{ fontSize, border: 'none', outline: 'none', width: '100%', textAlign: 'right', background: 'transparent', color: 'white', fontFamily: 'inherit', fontWeight: 'inherit', caretColor: 'rgba(255,255,255,0.6)' }}
                 value={currentValue}
                 onChange={(e) => {
-                    setHasCalcActivity(true);
                     const raw = e.target.value.replace(',', '.').replace(/[^0-9.-]/g, '');
                     if (raw === '' || raw === '-') { setCurrentValue(raw || '0'); return; }
                     const parts = raw.split('.');
@@ -508,7 +499,6 @@ export default function FloatingCalculator({
                 }}
                 onPaste={(e) => {
                     e.preventDefault();
-                    setHasCalcActivity(true);
                     const pasted = (e.clipboardData.getData('text') || '').replace(',', '.').replace(/[^0-9.-]/g, '');
                     if (pasted) {
                         setCurrentValue(pasted);

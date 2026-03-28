@@ -1030,7 +1030,7 @@ ${input}`;
   useEffect(() => {
     setLearningAnalytics(loadAnalyticsForUser(authUser));
     setCustomQuizQuestions(loadCustomQuizForUser(authUser));
-  }, [authUser?.email]);
+  }, [authUser]);
 
   useEffect(() => {
     refreshQuizDuePool().catch(() => { });
@@ -1060,6 +1060,9 @@ ${input}`;
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('ap2_progress_updated', handleExternalUpdate);
     };
+    // syncProgressToSupabase and flushPendingMemberSync are intentionally not deps here:
+    // adding them would recreate the interval/listeners on every render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authUser?.id]);
 
   const syncProgressToSupabaseAction = async () => {

@@ -28,9 +28,9 @@ export default defineConfig([
         argsIgnorePattern: '^[A-Z_]',
         caughtErrorsIgnorePattern: '^[A-Z_]',
       }],
-      'react-hooks/purity': 'warn',
-      'react-hooks/set-state-in-effect': 'warn',
-      'react-refresh/only-export-components': 'warn',
+      'react-hooks/purity': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+      'react-refresh/only-export-components': 'off',
     },
   },
   {

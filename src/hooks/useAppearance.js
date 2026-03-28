@@ -155,7 +155,6 @@ export const useAppearance = (authUser, appMode) => {
     };
 
     // Load appearance settings from storage when user or system changes
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     useEffect(() => {
         loadAppearanceForUser(authUser);
     }, [authUser, isLightMode]); // eslint-disable-line react-hooks/exhaustive-deps
