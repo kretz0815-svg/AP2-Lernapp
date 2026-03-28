@@ -36,7 +36,9 @@ const QuizSession = ({
   lastQuizCorrect,
   setAppMode,
   handleFeynmanCheck,
-  onQuizAnswer
+  onQuizAnswer,
+  learningMode = 'quiz',
+  setupMode = 'quiz_setup'
 }) => {
   const [internalQuizzes] = useState(initialSessionPool);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
@@ -70,7 +72,7 @@ const QuizSession = ({
           <h2 style={{ color: 'var(--text-light)', marginBottom: '0.8rem', fontSize: '1.8rem' }}>Keine fälligen Fragen</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '1.8rem' }}>Für den gewählten Themenblock ist gerade nichts offen.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <button className="btn-secondary" onClick={() => setAppMode('quiz_setup')}>Themenwahl</button>
+            <button className="btn-secondary" onClick={() => setAppMode(setupMode)}>Themenwahl</button>
             <button className="btn-primary" onClick={() => (onCancel ? onCancel() : setAppMode('dashboard'))}>Zurück zum Menü</button>
           </div>
         </div>
@@ -127,7 +129,7 @@ const QuizSession = ({
     setQuizScore(prev => ({ correct: prev.correct + (isCorrect ? 1 : 0), total: prev.total + 1 }));
     if (onLearningEvent) {
       onLearningEvent({
-        mode: 'quiz',
+        mode: learningMode,
         questionId: q.id,
         questionText: q.question,
         correct: isCorrect,

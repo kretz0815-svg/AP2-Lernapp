@@ -88,7 +88,7 @@ const LearningDashboard = ({
     breakEven: 'Break-Even-Point',
     klr: 'KLR-Modul',
     rechen: "KPI's",
-    marketing_review: 'Review Marketing'
+    marketing_review: 'IHK Extras'
   };
 
   const modeTotals = events.reduce((acc, event) => {
@@ -150,7 +150,7 @@ const LearningDashboard = ({
     if (event.mode === 'kalkulation') return 'Kalkulations-Boss';
     if (event.mode === 'breakEven') return 'Break-Even-Point';
     if (event.mode === 'klr') return event.topic || 'KLR-Modul';
-    if (event.mode === 'marketing_review') return 'Marketing Review';
+    if (event.mode === 'marketing_review') return 'IHK Extras';
     return 'Allgemein';
   };
 

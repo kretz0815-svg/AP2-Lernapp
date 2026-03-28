@@ -155,6 +155,8 @@ function App() {
   const [feynmanModeEnabled, setFeynmanModeEnabled] = useState(false);
   const [lastQuizCorrect] = useState(false);
   const [quizCountSelection, setQuizCountSelection] = useState(10);
+  const [marketingReviewSessionPool, setMarketingReviewSessionPool] = useState([]);
+  const [marketingReviewCountSelection, setMarketingReviewCountSelection] = useState(10);
 
   // --- WISOR STATE ---
   const [allWisors, setAllWisors] = useState([]);
@@ -355,6 +357,7 @@ function App() {
     const srsProgress = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
     const wisorProgress = JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {};
     const wisorEcoProgress = JSON.parse(localStorage.getItem('ap2_wisor_eco_progress')) || {};
+    const marketingReviewProgress = JSON.parse(localStorage.getItem('ap2_marketing_review_progress')) || {};
     const savedNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
     const analytics = loadAnalyticsForUser(authUser);
     const customQuiz = loadCustomQuizForUser(authUser);
@@ -368,6 +371,7 @@ function App() {
       ...srsProgress,
       wisor_progress: wisorProgress,
       wisor_eco_progress: wisorEcoProgress,
+      marketing_review_progress: marketingReviewProgress,
       saved_notes: savedNotes,
       learning_analytics: analytics,
       custom_quiz_questions: customQuiz,
@@ -463,6 +467,34 @@ function App() {
         category: q.topic,
         metadata: { question: q.question }
       }).catch(err => console.error('DSR quiz review failed:', err));
+    }
+  };
+
+  const handleMarketingReviewAnswerUpdate = async (q, isCorrect) => {
+    if (!q?.id) return;
+
+    if (isCorrect) {
+      const localProg = JSON.parse(localStorage.getItem('ap2_marketing_review_progress') || '{}');
+      const nextProg = { ...localProg, [q.id]: true };
+      localStorage.setItem('ap2_marketing_review_progress', JSON.stringify(nextProg));
+      setCompletedMarketingReview(nextProg);
+
+      if (authUser?.id) {
+        syncProgressToSupabase({ marketing_review_progress: nextProg }).catch(() => { });
+      }
+    }
+
+    if (authUser?.id) {
+      const rating = isCorrect ? 4 : 2;
+      reviewTaskWithDSR({
+        supabase,
+        userId: authUser.id,
+        taskId: `marketing_review:${q.id}`,
+        rating,
+        taskType: 'marketing_review',
+        category: q.topic,
+        metadata: { question: q.question }
+      }).catch(err => console.error('DSR marketing review failed:', err));
     }
   };
 
@@ -672,6 +704,12 @@ function App() {
     return due.filter(q => getQuizTopicGroup(q.topic) === topic);
   };
 
+  const getDueMarketingReviewByTopic = (topic = 'all') => {
+    const due = (marketingReview.questions || []).filter(q => !completedMarketingReview[q.id]);
+    if (topic === 'all') return due;
+    return due.filter(q => getQuizTopicGroup(q.topic) === topic);
+  };
+
   const handleToggleVideos = async (q) => {
     if (wisorVideoOpen) {
       setWisorVideoOpen(false);
@@ -838,6 +876,17 @@ ${input}`;
     setAppMode('quiz');
   };
 
+  const startMarketingReviewSession = (limit, topic = 'all') => {
+    let sessionQs = [...getDueMarketingReviewByTopic(topic)].sort(() => Math.random() - 0.5);
+    const isGuest = !authUser;
+    const effectiveLimit = isGuest ? 3 : limit;
+    if (effectiveLimit !== 'all') {
+      sessionQs = sessionQs.slice(0, effectiveLimit);
+    }
+    setMarketingReviewSessionPool(sessionQs);
+    setAppMode('marketing_review_quiz');
+  };
+
 
   useEffect(() => {
     const initApp = async () => {
@@ -888,6 +937,11 @@ ${input}`;
               localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(data.progress_data.wisor_eco_progress));
             } else {
               localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
+            }
+            if (data.progress_data.marketing_review_progress) {
+              localStorage.setItem('ap2_marketing_review_progress', JSON.stringify(data.progress_data.marketing_review_progress));
+            } else {
+              localStorage.setItem('ap2_marketing_review_progress', JSON.stringify({}));
             }
             if (data.progress_data.learning_analytics) {
               const remoteAnalytics = {
@@ -959,6 +1013,7 @@ ${input}`;
             // Removed: localStorage.setItem('ap2_quiz_progress', JSON.stringify({})); // Keep local progress intact as fallback
             localStorage.setItem('ap2_wisor_progress', JSON.stringify({}));
             localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
+            localStorage.setItem('ap2_marketing_review_progress', JSON.stringify({}));
             localStorage.setItem('ap2_saved_notes', JSON.stringify({}));
             if (data.progress_data.project_m_progress) {
               localStorage.setItem('project_m_progress_v1', JSON.stringify(data.progress_data.project_m_progress));
@@ -1176,6 +1231,10 @@ ${input}`;
       localStorage.removeItem('ap2_marketing_review_progress');
       setCompletedMarketingReview({});
       clearAnalyticsByMode('marketing_review');
+      if (authUser?.id) {
+        syncProgressToSupabase({ marketing_review_progress: {} }).catch(() => { });
+      }
+      setMarketingReviewSessionPool([]);
       setResetModalVisible(false);
     } else if (resetTarget === 'klr') {
       localStorage.removeItem('klr_game_progress_v1');
@@ -1207,6 +1266,7 @@ ${input}`;
       localStorage.removeItem('ap2_quiz_progress');
       localStorage.removeItem('ap2_wisor_progress');
       localStorage.removeItem('ap2_wisor_eco_progress');
+      localStorage.removeItem('ap2_marketing_review_progress');
       localStorage.removeItem('ap2_saved_notes');
       localStorage.removeItem('klr_game_progress_v1');
       localStorage.removeItem('project_m_progress_v1');
@@ -1216,6 +1276,7 @@ ${input}`;
       // Reset progress state (keep customQuizQuestions intact)
       setCompletedWisors({});
       setCompletedWisorsEco({});
+      setCompletedMarketingReview({});
       setQuizProgressView({});
       setLearningAnalytics(createEmptyAnalytics());
       setStats({ learnedToday: 0, totalDue: 0 });
@@ -1268,7 +1329,7 @@ ${input}`;
     if (pomodoroActive) {
       const questionText = q.question?.substring(0, 100) || q.id || 'WisoR-Frage';
       const topicLabel = activeWisorMode === 'wisor1' ? 'WisoR' : 
-                         activeWisorMode === 'wisorEco' ? 'WisoR E-Commerce' : 'Review Marketing';
+                         activeWisorMode === 'wisorEco' ? 'WisoR E-Commerce' : 'IHK Extras';
       setPomodoroSessionLog(prev => [...prev, { correct, questionText, topic: topicLabel }]);
     }
 
@@ -1281,11 +1342,19 @@ ${input}`;
 
       const updateProg = prev => {
         const next = { ...prev, [q.id]: true };
-        const key = activeWisorMode === 'wisor1' ? 'ap2_wisor_progress' : 'ap2_wisor_eco_progress';
+        const key = activeWisorMode === 'wisor1'
+          ? 'ap2_wisor_progress'
+          : activeWisorMode === 'wisorEco'
+            ? 'ap2_wisor_eco_progress'
+            : 'ap2_marketing_review_progress';
         localStorage.setItem(key, JSON.stringify(next));
 
         if (authUser?.id) {
-          const dbKey = activeWisorMode === 'wisor1' ? 'wisor_progress' : 'wisor_eco_progress';
+          const dbKey = activeWisorMode === 'wisor1'
+            ? 'wisor_progress'
+            : activeWisorMode === 'wisorEco'
+              ? 'wisor_eco_progress'
+              : 'marketing_review_progress';
           syncProgressToSupabase({ [dbKey]: next }).catch(() => { });
         }
         return next;
@@ -1876,7 +1945,7 @@ ${input}`;
             </button>
           </div>
 
-          <div id="card-marketing-review" className="dash-card" onClick={() => startWisor('marketing_review')}>
+          <div id="card-marketing-review" className="dash-card" onClick={() => setAppMode('marketing_review_setup')}>
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
               <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -1886,8 +1955,8 @@ ${input}`;
                 <polyline points="10 9 9 9 8 9"></polyline>
               </svg>
             </div>
-            <h2>Marketing<br />Review</h2>
-            <p>IHK-Review: Influencer, Live-Shopping, 4P's und Funnel-Strategien.</p>
+            <h2>IHK<br />Extras</h2>
+            <p>IHK Review: Influencer, Live Shopping, 4 PS und Funnel Strategien.</p>
             <div className="chip">
               {Object.keys(completedMarketingReview).length === marketingReview.questions.length ? 'Alles gemeistert! 🎉' : 
                `${marketingReview.questions.length - Object.keys(completedMarketingReview).length} Fragen offen`}
@@ -2300,6 +2369,30 @@ ${input}`;
     );
   }
 
+  if (appMode === 'marketing_review_setup') {
+    return (
+      <React.Suspense fallback={<div className="loading-overlay">Lade IHK Extras...</div>}>
+        <QuizSetup
+          selectedQuizTopic={'all'}
+          setSelectedQuizTopic={() => { }}
+          getDueQuizzesByTopic={getDueMarketingReviewByTopic}
+          getQuizTopicGroup={getQuizTopicGroup}
+          feynmanModeEnabled={feynmanModeEnabled}
+          setFeynmanModeEnabled={setFeynmanModeEnabled}
+          quizCountSelection={marketingReviewCountSelection}
+          setQuizCountSelection={setMarketingReviewCountSelection}
+          startQuiz={() => startMarketingReviewSession(marketingReviewCountSelection, 'all')}
+          setAppMode={setAppMode}
+          burgerMenuPortal={burgerMenuPortal}
+          title="Wieviele Fragen?"
+          description="Wähle die Anzahl fälliger Fragen in „IHK Extras“ und starte den Durchgang."
+          showTopicSelect={false}
+          backMode="dashboard"
+        />
+      </React.Suspense>
+    );
+  }
+
   if (appMode === 'quiz') {
     return (
       <React.Suspense fallback={<div className="loading-overlay">Lade Quiz...</div>}>
@@ -2343,6 +2436,53 @@ ${input}`;
       </React.Suspense>
     );
   }
+
+  if (appMode === 'marketing_review_quiz') {
+    return (
+      <React.Suspense fallback={<div className="loading-overlay">Lade IHK Extras...</div>}>
+        <QuizSession
+          quizDuePool={getDueMarketingReviewByTopic('all')}
+          initialSessionPool={marketingReviewSessionPool}
+          onComplete={() => {
+            setMarketingReviewSessionPool([]);
+            setAppMode('dashboard');
+          }}
+          onCancel={() => {
+            setMarketingReviewSessionPool([]);
+            setAppMode('dashboard');
+          }}
+          feynmanModeEnabled={feynmanModeEnabled}
+          onLearningEvent={appendLearningEvent}
+          onQuizAnswer={handleMarketingReviewAnswerUpdate}
+          handleGeminiAsk={handleGeminiAsk}
+          geminiResponse={geminiResponse}
+          geminiLoading={geminiLoading}
+          setGeminiQuery={setGeminiQuery}
+          geminiQuery={geminiQuery}
+          setGeminiVisible={setGeminiVisible}
+          geminiVisible={geminiVisible}
+          pomodoroPortal={pomodoroPortal}
+          burgerMenuPortal={burgerMenuPortal}
+          handleToggleVideos={handleToggleVideos}
+          wisorVideoOpen={wisorVideoOpen}
+          setWisorVideoOpen={setWisorVideoOpen}
+          wisorVideoLoading={wisorVideoLoading}
+          wisorVideos={wisorVideos}
+          wisorVideoError={wisorVideoError}
+          selectedWisorVideo={selectedWisorVideo}
+          setSelectedWisorVideo={setSelectedWisorVideo}
+          showConfetti={showConfetti}
+          triggerConfetti={() => triggerConfetti()}
+          lastQuizCorrect={lastQuizCorrect}
+          setAppMode={setAppMode}
+          handleFeynmanCheck={handleFeynmanCheck}
+          learningMode="marketing_review"
+          setupMode="marketing_review_setup"
+        />
+      </React.Suspense>
+    );
+  }
+
   if (appMode === 'wisor') {
     return (
       <React.Suspense fallback={<div className="app-container" style={{ zIndex: 10 }}>WisoR lädt...</div>}>

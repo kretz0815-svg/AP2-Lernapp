@@ -149,7 +149,7 @@ const WisorSession = ({
   };
 
   const modeTitle = isWisor1Mode ? 'WisoR I' : 
-                   isWisorEcoMode ? 'WisoR E-Commerce' : 'Marketing Review';
+                   isWisorEcoMode ? 'WisoR E-Commerce' : 'IHK Extras';
 
   return (
     <div className="app-container" style={{ zIndex: 10 }}>

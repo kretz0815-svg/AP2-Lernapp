@@ -1,3 +1,179 @@
 {
-  "questions": []
+  "title": "IHK Extras",
+  "questions": [
+    {
+      "id": "mr_001",
+      "question": "Die \"Urban-Peak AG\" überlegt, ihr Marketingbudget massiv in Social-Media-Kanäle zu verschieben. Ein Auszubildender fragt nach den konkreten strategischen Vorteilen dieser Kanäle gegenüber klassischer Bannerwerbung. Welche der folgenden Aussagen fasst die Vorteile von Social Media Marketing fachlich korrekt zusammen?",
+      "answerOptions": [
+        {
+          "text": "Die Werbung wird den Nutzern als störendes Pop-up angezeigt, was zwar zu einer hohen Ablehnung, aber auch zu einer garantierten Sichtbarkeit führt.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt störende Werbeformen und nicht die typischen strategischen Vorteile von Social Media Marketing."
+        },
+        {
+          "text": "Die Kanäle bieten eine gezielte Ansprache durch genaue Nutzerdaten, ermöglichen eine hohe Interaktion mit der Zielgruppe, stärken die Marke (Branding) und bieten die Chance auf virale Verbreitung.",
+          "isCorrect": true,
+          "rationale": "Richtig: Social-Media-Marketing ermöglicht zielgerichtete Ansprache, hohe Interaktion, Branding-Effekte und virale Reichweitensteigerung."
+        },
+        {
+          "text": "Social Media Kanäle sind gesetzlich von der DSGVO ausgenommen, wodurch Kundendaten dort völlig frei für das Marketing genutzt werden dürfen.",
+          "isCorrect": false,
+          "rationale": "Falsch: Auch auf Social-Media-Plattformen gelten Datenschutzvorgaben wie die DSGVO."
+        },
+        {
+          "text": "Die Nutzer müssen für die Interaktion mit der Werbung bezahlen, was dem Unternehmen direkte Zusatzeinnahmen generiert.",
+          "isCorrect": false,
+          "rationale": "Das entspricht nicht der Funktionsweise von Social Media Marketing."
+        }
+      ],
+      "hint": "Denke an Zielgruppenansprache, Interaktion, Branding und virale Effekte.",
+      "youtubeQuery": "Vorteile Social Media Marketing zielgerichtete Ansprache Branding viral",
+      "topic": "Online-Marketing Kanäle"
+    },
+    {
+      "id": "mr_002",
+      "question": "Die \"Eco-Camp GmbH\" launcht ein neues Familienzelt. Das Marketing-Team erstellt dazu ein interaktives Erlebnis-Event auf Facebook. Das Ziel ist es, dass die Nutzer dieses Event so spannend finden, dass sie die Informationen von sich aus an ihre Freunde und Netzwerke weiterleiten. Wie wird dieses Phänomen im Fachjargon genannt?",
+      "answerOptions": [
+        {
+          "text": "Suchmaschinenmarketing (SEM)",
+          "isCorrect": false,
+          "rationale": "SEM bezieht sich auf Marketingmaßnahmen in Suchmaschinen und nicht auf freiwilliges Weiterverbreiten in sozialen Netzwerken."
+        },
+        {
+          "text": "Push-Marketing",
+          "isCorrect": false,
+          "rationale": "Push-Marketing beschreibt das aktive Ausspielen von Botschaften, nicht das selbstständige Teilen durch Nutzer."
+        },
+        {
+          "text": "Affiliate-Marketing",
+          "isCorrect": false,
+          "rationale": "Affiliate-Marketing basiert auf Partnerprovisionen und ist nicht gleichbedeutend mit dem beschriebenen Effekt."
+        },
+        {
+          "text": "Virales Marketing (Empfehlungsmarketing)",
+          "isCorrect": true,
+          "rationale": "Richtig: Beim viralen Marketing verbreiten Nutzer Inhalte freiwillig weiter und erhöhen so die Reichweite stark."
+        }
+      ],
+      "hint": "Die Nutzer verbreiten Inhalte freiwillig in ihren Netzwerken weiter.",
+      "youtubeQuery": "Virales Marketing Empfehlungsmarketing Social Media Reichweite",
+      "topic": "Online-Marketing Kanäle"
+    },
+    {
+      "id": "mr_003",
+      "question": "Im wöchentlichen Meeting der \"Next-Gen Retail UG\" wird über Suchmaschinenmarketing (SEM) diskutiert. Der Marketingleiter fragt, ob SEM strategisch dem Push- oder dem Pull-Marketing zuzuordnen ist. Wie lautet die fachlich korrekte Einordnung inklusive der passenden Begründung?",
+      "answerOptions": [
+        {
+          "text": "Es ist Push-Marketing, da die Werbeanzeigen den Nutzern unaufgefordert in den Suchergebnissen aufgedrängt werden.",
+          "isCorrect": false,
+          "rationale": "Der zentrale Impuls geht bei Suchanfragen vom Nutzer aus, daher ist diese Zuordnung nicht korrekt."
+        },
+        {
+          "text": "Es ist Pull-Marketing, da die Nutzer die Suchmaschine aktiv benutzen und eigenständig nach einem Begriff oder Bedürfnis suchen (sie werden selbst tätig).",
+          "isCorrect": true,
+          "rationale": "Richtig: SEM ist Pull-Marketing, weil der Nutzer aktiv sucht und damit den Kontaktimpuls auslöst."
+        },
+        {
+          "text": "Es ist Push-Marketing, da das Unternehmen die Keywords in die Suchmaschine \"drücken\" muss.",
+          "isCorrect": false,
+          "rationale": "Keyword-Planung ändert nichts daran, dass die Suche nutzerinitiiert ist."
+        },
+        {
+          "text": "Es ist Pull-Marketing, da die Suchmaschine automatisch E-Mails an die Kunden zieht.",
+          "isCorrect": false,
+          "rationale": "Das hat nichts mit der Funktionsweise von SEM zu tun."
+        }
+      ],
+      "hint": "Wer gibt den ersten Impuls: Unternehmen oder Nutzer?",
+      "youtubeQuery": "SEM Pull Marketing Unterschied Push Pull einfach erklärt",
+      "topic": "Push- und Pull-Marketing"
+    },
+    {
+      "id": "mr_004",
+      "question": "Die \"Garden-Pro GmbH\" möchte eine komplett neue Kategorie einführen und deren Akzeptanz im Online-Shop in einem 5-Schritte-Modell testen. Die Ziele (z.B. Umsatzsteigerung) wurden bereits ermittelt. In welchem Prozessschritt muss zwingend das Kennzahlensystem für die Erfolgsmessung festgelegt werden?",
+      "answerOptions": [
+        {
+          "text": "Erst nach dem Ende des Testzeitraums, um die Daten nicht zu verfälschen.",
+          "isCorrect": false,
+          "rationale": "Kennzahlen müssen vor dem Test definiert werden, damit die Erfolgsmessung strukturiert erfolgen kann."
+        },
+        {
+          "text": "Direkt im zweiten Schritt, zusammen mit der Festlegung der konkreten Marketingmaßnahmen, also noch bevor die Kategorie im Shop überhaupt eingerichtet wird.",
+          "isCorrect": true,
+          "rationale": "Richtig: Im 5-Schritte-Modell wird das Kennzahlensystem im zweiten Schritt vor Umsetzung/Testbetrieb festgelegt."
+        },
+        {
+          "text": "Erst während das A/B-Testing bereits läuft.",
+          "isCorrect": false,
+          "rationale": "Dann fehlen saubere Ausgangsdefinitionen für Vergleich und Bewertung."
+        },
+        {
+          "text": "Das Kennzahlensystem wird automatisch von Google Analytics vorgegeben und muss nicht geplant werden.",
+          "isCorrect": false,
+          "rationale": "Tools liefern Daten, die strategische KPI-Auswahl muss aber fachlich geplant werden."
+        }
+      ],
+      "hint": "Man muss vorher wissen, was gemessen werden soll.",
+      "youtubeQuery": "Kennzahlensystem Online Shop Akzeptanztest 5 Schritte",
+      "topic": "Akzeptanz-Testing im Shop"
+    },
+    {
+      "id": "mr_005",
+      "question": "Im 4. Schritt des Akzeptanz-Modells richtet die \"Garden-Pro GmbH\" ein sogenanntes A/B-Testing ein. Welchen konkreten analytischen Zweck erfüllt diese spezifische Testmethode bei der Einführung einer neuen Kategorie?",
+      "answerOptions": [
+        {
+          "text": "Es dient dazu, die Ladezeiten des Servers zu halbieren.",
+          "isCorrect": false,
+          "rationale": "A/B-Testing dient primär dem Wirkungsvergleich von Varianten, nicht der direkten Serveroptimierung."
+        },
+        {
+          "text": "Es testet, ob die Produkte in Halle A oder Halle B des Lagers schneller verpackt werden.",
+          "isCorrect": false,
+          "rationale": "Das wäre ein logistischer Test, kein klassischer A/B-Test im Frontend-/Marketingkontext."
+        },
+        {
+          "text": "Es ermöglicht den direkten Vergleich (\"vorher/nachher\" bzw. Version A gegen Version B), um datenbasiert auswerten zu können, welche Variante bei den Nutzern besser ankommt.",
+          "isCorrect": true,
+          "rationale": "Richtig: A/B-Testing macht den Wirkungsunterschied zwischen zwei Varianten messbar und vergleichbar."
+        },
+        {
+          "text": "Es ist eine gesetzliche Vorgabe für die Preisgestaltung.",
+          "isCorrect": false,
+          "rationale": "A/B-Testing ist eine methodische Optimierungstechnik und keine gesetzliche Pflicht."
+        }
+      ],
+      "hint": "A/B-Testing bedeutet: Variantenvergleich auf Basis von Daten.",
+      "youtubeQuery": "A B Testing Vergleich Version A Version B Conversion",
+      "topic": "Akzeptanz-Testing im Shop"
+    },
+    {
+      "id": "mr_006",
+      "question": "Die \"Tech-Nova UG\" beauftragt eine Agentur mit der Entwicklung einer neuen Shop-App. Die Agentur rät dringend zu agilem Projektmanagement statt zur klassischen Wasserfall-Methode. Welche zwei schlagkräftigen Argumente sprechen laut E-Commerce-Standards für den agilen Ansatz bei solchen Software-Projekten?",
+      "answerOptions": [
+        {
+          "text": "Es gibt keinerlei Dokumentationspflicht und die App ist in jedem Fall nach 2 Wochen komplett fertig.",
+          "isCorrect": false,
+          "rationale": "Agile Methoden bedeuten weder automatisch keine Dokumentation noch garantierte Fertigstellung in zwei Wochen."
+        },
+        {
+          "text": "Es liegen frühzeitig erste Ergebnisse zum Testen vor (Rapid Prototyping) und das Modell bietet ein hohes Maß an Flexibilität, um auf unvorhergesehene Einflüsse (wie Technologie-Wechsel oder Datenschutzänderungen) reagieren zu können.",
+          "isCorrect": true,
+          "rationale": "Richtig: Frühe testbare Ergebnisse und hohe Anpassungsfähigkeit sind zentrale Vorteile agiler Vorgehensmodelle."
+        },
+        {
+          "text": "Das Budget ist bei agilen Projekten gesetzlich gedeckelt und es können keine Fehler im Code entstehen.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine solche gesetzliche Deckelung und Fehlerfreiheit ist nicht garantiert."
+        },
+        {
+          "text": "Der Kunde muss sich während der gesamten Entwicklungszeit überhaupt nicht in das Projekt einbringen.",
+          "isCorrect": false,
+          "rationale": "Agile Methoden setzen gerade auf regelmäßige Abstimmung und Feedback mit Stakeholdern."
+        }
+      ],
+      "hint": "Achte auf frühe Ergebnisse und flexible Reaktion auf Änderungen.",
+      "youtubeQuery": "Agiles Projektmanagement Vorteile Rapid Prototyping Flexibilitaet",
+      "topic": "Agiles Projektmanagement"
+    }
+  ]
 }

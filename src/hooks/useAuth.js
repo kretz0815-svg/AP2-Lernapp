@@ -20,6 +20,7 @@ export const useAuth = (setAppMode) => {
         localStorage.removeItem('ap2_quiz_progress');
         localStorage.removeItem('ap2_wisor_progress');
         localStorage.removeItem('ap2_wisor_eco_progress');
+        localStorage.removeItem('ap2_marketing_review_progress');
         localStorage.removeItem('ap2_saved_notes');
         localStorage.removeItem(getAnalyticsStorageKey(null));
         localStorage.removeItem(getCustomQuizStorageKey(null));

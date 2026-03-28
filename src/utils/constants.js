@@ -25,6 +25,7 @@ export const createEmptyAnalytics = () => ({
 export const createEmptyMemberProgressData = () => ({
     wisor_progress: {},
     wisor_eco_progress: {},
+    marketing_review_progress: {},
     saved_notes: {},
     learning_analytics: createEmptyAnalytics(),
     custom_quiz_questions: [],

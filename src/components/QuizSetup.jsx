@@ -11,7 +11,11 @@ const QuizSetup = ({
   setQuizCountSelection,
   startQuiz,
   setAppMode,
-  burgerMenuPortal
+  burgerMenuPortal,
+  title = 'Wieviele Fragen?',
+  description = 'Wähle deinen Themenblock innerhalb von „Wissen testen“ und dann die Anzahl fälliger Fragen.',
+  showTopicSelect = true,
+  backMode = 'dashboard'
 }) => {
   const dueByTopicMap = getDueQuizzesByTopic('all').reduce((acc, q) => {
     const groupedTopic = getQuizTopicGroup(q.topic);
@@ -31,40 +35,42 @@ const QuizSetup = ({
       <div className="blob blob-1"></div>
       <div className="blob blob-2"></div>
       <header>
-        <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
+        <button className="btn-nav" onClick={() => setAppMode(backMode)}>&larr; Menü</button>
       </header>
       <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-        <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Wieviele Fragen?</h2>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Wähle deinen Themenblock innerhalb von „Wissen testen“ und dann die Anzahl fälliger Fragen.</p>
+        <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>{title}</h2>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>{description}</p>
 
-        <div style={{ marginBottom: '1.3rem', textAlign: 'left' }}>
-          <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '0.45rem' }}>
-            Themenblock
-          </label>
-          <select
-            value={selectedQuizTopic}
-            onChange={(e) => setSelectedQuizTopic(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '0.7rem 0.9rem',
-              borderRadius: '10px',
-              border: '1px solid var(--glass-border)',
-              background: 'rgba(255,255,255,0.05)',
-              color: 'var(--text-light)',
-              fontSize: '0.92rem'
-            }}
-          >
-            <option value="all">Alle Themen ({getDueQuizzesByTopic('all').length} fällig)</option>
-            {dueByTopicEntries.map(([topic, count]) => (
-              <option key={topic} value={topic}>{topic} ({count} fällig)</option>
-            ))}
-          </select>
-          {selectedTopicDueCount === 0 && (
-            <p style={{ color: 'var(--text-muted)', marginTop: '0.6rem', marginBottom: 0, fontSize: '0.83rem' }}>
-              Für diesen Themenblock sind aktuell keine Fragen fällig.
-            </p>
-          )}
-        </div>
+        {showTopicSelect && (
+          <div style={{ marginBottom: '1.3rem', textAlign: 'left' }}>
+            <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '0.45rem' }}>
+              Themenblock
+            </label>
+            <select
+              value={selectedQuizTopic}
+              onChange={(e) => setSelectedQuizTopic(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '0.7rem 0.9rem',
+                borderRadius: '10px',
+                border: '1px solid var(--glass-border)',
+                background: 'rgba(255,255,255,0.05)',
+                color: 'var(--text-light)',
+                fontSize: '0.92rem'
+              }}
+            >
+              <option value="all">Alle Themen ({getDueQuizzesByTopic('all').length} fällig)</option>
+              {dueByTopicEntries.map(([topic, count]) => (
+                <option key={topic} value={topic}>{topic} ({count} fällig)</option>
+              ))}
+            </select>
+            {selectedTopicDueCount === 0 && (
+              <p style={{ color: 'var(--text-muted)', marginTop: '0.6rem', marginBottom: 0, fontSize: '0.83rem' }}>
+                Für diesen Themenblock sind aktuell keine Fragen fällig.
+              </p>
+            )}
+          </div>
+        )}
 
         <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.7rem', marginBottom: '1.3rem', textAlign: 'left', color: 'var(--text-light)', cursor: 'pointer' }}>
           <input
