@@ -34,6 +34,7 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   const [nextRoundLoading, setNextRoundLoading] = useState(false);
   const submittedRoundKeyRef = useRef('');
   const scoredRoundKeyRef = useRef('');
+  const evaluationRetryRef = useRef(null);
 
   const roundKey = `${room.id}:${roomData.current_round_num}:${player.id}`;
 
@@ -80,18 +81,18 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   /**
    * AI Validation Placeholder
    */
-  const calculatePoints = useCallback(async (results, myAnswers) => {
+  const calculatePoints = useCallback(async (results, myAnswers, responsesForRound = null) => {
     try {
       if (scoredRoundKeyRef.current === roundKey) return;
 
       // Get all responses to compare
-      const allResponses = await slfService.fetchResponses(room.id);
+      const allResponses = responsesForRound || await slfService.fetchResponses(room.id);
       let roundTotal = 0;
 
       categories.forEach(cat => {
         if (results[cat] !== 'Richtig') return;
         
-        const myVal = myAnswers[cat].trim().toLowerCase();
+        const myVal = String(myAnswers[cat] || '').trim().toLowerCase();
         const otherVals = allResponses
           .filter(r => r.player_id !== player.id)
           .map(r => r.data[cat]?.trim().toLowerCase() || '');
@@ -115,6 +116,17 @@ const SLFGameContainer = ({ room, player, onClose }) => {
     } catch (err) { console.error('Score calculation error:', err); }
   }, [roundKey, room.id, player.id, refreshPlayers, categories]);
 
+  const localFallbackValidation = useCallback((answersObj) => {
+    const currentLetter = String(roomData.current_letter || '').toLowerCase();
+    const fallback = {};
+    categories.forEach((cat) => {
+      const val = String(answersObj?.[cat] || '').trim().toLowerCase();
+      const isCorrect = !!val && !!currentLetter && val.startsWith(currentLetter);
+      fallback[cat] = isCorrect ? 'Richtig' : 'Falsch';
+    });
+    return fallback;
+  }, [categories, roomData.current_letter]);
+
   const validateAnswersWithAI = useCallback(async (answersObj) => {
     try {
       const lines = categories
@@ -126,7 +138,11 @@ const SLFGameContainer = ({ room, player, onClose }) => {
       Werte pro Key sind NUR "correct" oder "wrong". Sei streng und prüfe den Anfangsbuchstaben.`;
       const response = await askGemini(prompt);
       const jsonMatch = response.match(/\{.*\}/s);
-      if (!jsonMatch) return;
+      if (!jsonMatch) {
+        const fallback = localFallbackValidation(answersObj);
+        setAiResults(fallback);
+        return fallback;
+      }
 
       const raw = JSON.parse(jsonMatch[0]);
       const translated = {};
@@ -134,11 +150,14 @@ const SLFGameContainer = ({ room, player, onClose }) => {
         translated[cat] = String(raw?.[cat] || '').toLowerCase() === 'correct' ? 'Richtig' : 'Falsch';
       });
       setAiResults(translated);
-      await calculatePoints(translated, answersObj);
+      return translated;
     } catch (err) {
       console.error('AI Eval error:', err);
+      const fallback = localFallbackValidation(answersObj);
+      setAiResults(fallback);
+      return fallback;
     }
-  }, [categories, roomData.current_letter, calculatePoints]);
+  }, [categories, roomData.current_letter, localFallbackValidation]);
 
   const startNextRoundOrFinish = async () => {
     setNextRoundLoading(true);
@@ -175,6 +194,10 @@ const SLFGameContainer = ({ room, player, onClose }) => {
     setAnswers(buildEmptyAnswers(categories));
     submittedRoundKeyRef.current = '';
     scoredRoundKeyRef.current = '';
+    if (evaluationRetryRef.current) {
+      clearTimeout(evaluationRetryRef.current);
+      evaluationRetryRef.current = null;
+    }
   }, [roomData.current_round_num, categories]);
 
   useEffect(() => {
@@ -182,6 +205,8 @@ const SLFGameContainer = ({ room, player, onClose }) => {
 
     const ensureSubmissionAndScore = async () => {
       try {
+        if (scoredRoundKeyRef.current === roundKey) return;
+
         if (submittedRoundKeyRef.current !== roundKey) {
           await slfService.submitAnswers(room.id, player.id, {
             ...answers,
@@ -189,16 +214,35 @@ const SLFGameContainer = ({ room, player, onClose }) => {
           });
           submittedRoundKeyRef.current = roundKey;
         }
-        if (!aiResults) {
-          await validateAnswersWithAI(answers);
+
+        const allResponses = await slfService.fetchResponses(room.id);
+        const roundResponses = allResponses.filter(
+          (r) => Number(r?.data?._round || roomData.current_round_num) === roomData.current_round_num
+        );
+        if (roundResponses.length < players.length) {
+          evaluationRetryRef.current = setTimeout(ensureSubmissionAndScore, 600);
+          return;
         }
+
+        const myRow = roundResponses.find((r) => r.player_id === player.id);
+        const myRoundAnswers = myRow?.data ? { ...myRow.data } : { ...answers };
+        delete myRoundAnswers._round;
+
+        const resolvedResults = aiResults || await validateAnswersWithAI(myRoundAnswers);
+        await calculatePoints(resolvedResults, myRoundAnswers, roundResponses);
       } catch (err) {
         console.error('Submission/evaluation sync error:', err);
       }
     };
 
     ensureSubmissionAndScore();
-  }, [roomData.game_phase, room.id, player.id, roomData.current_round_num, roundKey, aiResults, answers, validateAnswersWithAI]);
+    return () => {
+      if (evaluationRetryRef.current) {
+        clearTimeout(evaluationRetryRef.current);
+        evaluationRetryRef.current = null;
+      }
+    };
+  }, [roomData.game_phase, room.id, player.id, roomData.current_round_num, roundKey, aiResults, answers, validateAnswersWithAI, calculatePoints, players.length]);
 
   /** ───────── Phase Logic ───────── **/
 
