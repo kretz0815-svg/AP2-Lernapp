@@ -1785,7 +1785,7 @@ ${input}`;
           <p className="subtitle" style={{ marginTop: '0.8rem' }}>Wähle deinen Lernmodus</p>
         </header>
         <div className="dashboard-grid">
-          <div id="card-learning-suite" className="dash-card" style={{ gridColumn: 'span 2' }}>
+          <div id="card-learning-suite" className="dash-card dash-card-wide">
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>🧠</div>
             <h2>IHK Lernwelt</h2>
             <p>Wissen testen, Projekt M Mastery, Journey Architect und IHK Extras gebündelt in einer Kategorie.</p>
@@ -1805,7 +1805,7 @@ ${input}`;
             </div>
           </div>
 
-          <div id="card-calculation-suite" className="dash-card rechen-card" style={{ gridColumn: 'span 2' }}>
+          <div id="card-calculation-suite" className="dash-card rechen-card dash-card-wide">
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>📊</div>
             <h2>Rechenwelt</h2>
             <p>KPI's, Kalkulations-Boss, Break Even Point und KLR Startup Survival in einer Kategorie.</p>

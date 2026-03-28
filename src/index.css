@@ -278,6 +278,10 @@ h1 {
   overflow: hidden;
 }
 
+.dash-card-wide {
+  grid-column: span 2;
+}
+
 .dash-card::before {
   content: '';
   position: absolute;
@@ -1060,6 +1064,10 @@ button {
   .dash-card {
     border-radius: 16px;
     padding: 1.2rem;
+  }
+
+  .dash-card-wide {
+    grid-column: auto;
   }
 
   .quiz-container {
