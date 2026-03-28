@@ -141,7 +141,7 @@
 }
 
 .timeline-slot::after {
-  content: "Phase";
+  content: "";
   position: absolute;
   top: -25px;
   font-size: 0.75rem;
@@ -204,6 +204,64 @@
   border-radius: 4px;
 }
 
+.pm-assign-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.pm-target-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pm-target-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 0.6rem;
+  align-items: stretch;
+}
+
+.pm-target-index {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid rgba(110, 220, 255, 0.35);
+  background: rgba(9, 24, 38, 0.65);
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.pm-source-column {
+  border: 1px solid rgba(110, 220, 255, 0.25);
+  border-radius: 14px;
+  background: rgba(6, 18, 28, 0.5);
+  padding: 0.8rem;
+  height: fit-content;
+}
+
+.pm-source-column h4 {
+  margin: 0 0 0.65rem;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pm-source-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.pm-source-grid .pm-card {
+  width: 100%;
+}
+
 
 
 @media (max-width: 600px) {
@@ -224,7 +282,15 @@
     flex-direction: column;
     overflow-x: visible;
   }
-  
+
+  .pm-assign-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .pm-target-row {
+    grid-template-columns: 34px minmax(0, 1fr);
+  }
+
   .timeline-slot {
     width: 100%;
     min-height: 60px;

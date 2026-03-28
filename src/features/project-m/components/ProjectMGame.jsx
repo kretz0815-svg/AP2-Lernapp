@@ -79,6 +79,7 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
       const v = L1_VARIANTS[Math.floor(Math.random() * L1_VARIANTS.length)];
       setL1Variant(v);
       setL1Dropped(Array(v.cards.length).fill(null));
+      setL1Pool([...v.cards].sort(() => Math.random() - 0.5));
       setL1Mistakes({});
       setL1QuizGate(false);
       setScreen('level1');
@@ -86,6 +87,7 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
       const v = L2_VARIANTS[Math.floor(Math.random() * L2_VARIANTS.length)];
       setL2Variant(v);
       setL2Dropped({ A: [], B: [], C: [], D: [] });
+      setL2Pool([...v.cards].sort(() => Math.random() - 0.5));
       setL2Mistakes({});
       setL2QuizGate(false);
       setScreen('level2');
@@ -147,9 +149,11 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
   const [l1Dropped, setL1Dropped] = useState(Array(7).fill(null));
   const [l1Mistakes, setL1Mistakes] = useState({}); // per card id
   const [l1QuizGate, setL1QuizGate] = useState(false);
+  const [l1Pool, setL1Pool] = useState([]);
 
   const renderLevel1 = () => {
     const isCompleted = l1Dropped.every(val => val !== null);
+    const remainingCards = l1Pool.filter(card => !l1Dropped.some(d => d?.id === card.id));
     
     const handleDragStart = (e, card) => {
       e.dataTransfer.setData('cardId', card.id);
@@ -198,38 +202,43 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
             <p style={{ color: 'var(--text-muted)' }}>{l1Variant.scenario}</p>
           </div>
 
-          <div className="timeline-container">
-            {l1Dropped.map((item, idx) => (
-              <div 
-                key={idx} 
-                className={`timeline-slot ${item ? 'pm-card--correct' : ''} ${selectedCard && !item ? 'pm-slot--interactive' : ''}`}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => !item && handleDrop(e, idx)}
-                onClick={() => !item && handleSlotClick(idx)}
-              >
-                {item ? item.label : (selectedCard ? 'Ablegen' : '')}
-              </div>
-            ))}
-          </div>
+          <div className="pm-assign-layout">
+            <div className="pm-target-column">
+              {l1Dropped.map((item, idx) => (
+                <div key={idx} className="pm-target-row">
+                  <div className="pm-target-index">{idx + 1}</div>
+                  <div
+                    className={`timeline-slot ${item ? 'pm-card--correct' : ''} ${selectedCard && !item ? 'pm-slot--interactive' : ''}`}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => !item && handleDrop(e, idx)}
+                    onClick={() => !item && handleSlotClick(idx)}
+                  >
+                    {item ? item.label : (selectedCard ? 'Hier ablegen' : 'Leeres Feld')}
+                  </div>
+                </div>
+              ))}
+            </div>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', marginTop: '3rem' }}>
-            {l1Variant.cards.map(card => {
-               const alreadyPlaced = l1Dropped.some(d => d?.id === card.id);
-               if (alreadyPlaced) return null;
-               const isSelected = selectedCard?.id === card.id;
-               return (
-                 <div 
-                   key={card.id} 
-                   className={`pm-card ${isSelected ? 'pm-card--selected' : ''}`} 
-                   draggable 
-                   onDragStart={(e) => handleDragStart(e, card)}
-                   onClick={() => setSelectedCard(isSelected ? null : card)}
-                 >
-                   {card.label}
-                   {l1Mistakes[card.id] >= 3 && <div className="hint-icon" title="Tipp: Beginne immer mit der Vorbereitung.">❓</div>}
-                 </div>
-               );
-            })}
+            <div className="pm-source-column">
+              <h4>Kartenpool (zufällig)</h4>
+              <div className="pm-source-grid">
+                {remainingCards.map(card => {
+                  const isSelected = selectedCard?.id === card.id;
+                  return (
+                    <div
+                      key={card.id}
+                      className={`pm-card ${isSelected ? 'pm-card--selected' : ''}`}
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, card)}
+                      onClick={() => setSelectedCard(isSelected ? null : card)}
+                    >
+                      {card.label}
+                      {l1Mistakes[card.id] >= 3 && <div className="hint-icon" title="Tipp: Beginne immer mit der Vorbereitung.">❓</div>}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
           {isCompleted && !l1QuizGate && (
@@ -271,9 +280,10 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
   const [l2Dropped, setL2Dropped] = useState({ A: [], B: [], C: [], D: [] });
   const [l2Mistakes, setL2Mistakes] = useState({});
   const [l2QuizGate, setL2QuizGate] = useState(false);
+  const [l2Pool, setL2Pool] = useState([]);
 
   const renderLevel2 = () => {
-    const remainingCards = l2Variant.cards.filter(c => !Object.values(l2Dropped).flat().some(d => d.id === c.id));
+    const remainingCards = l2Pool.filter(c => !Object.values(l2Dropped).flat().some(d => d.id === c.id));
     const allPlaced = remainingCards.length === 0;
 
     const handleDragStart = (e, card) => {
@@ -320,44 +330,50 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
             <p style={{ color: 'var(--text-muted)' }}>{l2Variant.scenario}</p>
           </div>
 
-          <div className="pm-category-grid">
-            {l2Variant.categories.map(cat => (
-              <div 
-                key={cat.id} 
-                className={`pm-category-box ${selectedCard ? 'pm-box--interactive' : ''}`}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => handleDrop(e, cat.id)}
-                onClick={() => handleBoxClick(cat.id)}
-                style={{ cursor: selectedCard ? 'pointer' : 'default' }}
-              >
-                <h3>{cat.title}</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                   {l2Dropped[cat.id].map(card => (
-                     <div key={card.id} className="pm-card pm-card--correct" style={{ fontSize: '0.75rem', padding: '0.5rem' }}>{card.label}</div>
-                   ))}
-                   {selectedCard && <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)', textAlign: 'center', border: '1px dashed rgba(255,255,255,0.1)', padding: '0.5rem', borderRadius: '8px' }}>Hier ablegen</div>}
+          <div className="pm-assign-layout">
+            <div className="pm-target-column">
+              {l2Variant.categories.map((cat, idx) => (
+                <div key={cat.id} className="pm-target-row">
+                  <div className="pm-target-index">{idx + 1}</div>
+                  <div
+                    className={`pm-category-box ${selectedCard ? 'pm-box--interactive' : ''}`}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => handleDrop(e, cat.id)}
+                    onClick={() => handleBoxClick(cat.id)}
+                    style={{ cursor: selectedCard ? 'pointer' : 'default' }}
+                  >
+                    <h3>{cat.title}</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                      {l2Dropped[cat.id].map(card => (
+                        <div key={card.id} className="pm-card pm-card--correct" style={{ fontSize: '0.75rem', padding: '0.5rem' }}>{card.label}</div>
+                      ))}
+                      {selectedCard && <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)', textAlign: 'center', border: '1px dashed rgba(255,255,255,0.1)', padding: '0.5rem', borderRadius: '8px' }}>Hier ablegen</div>}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem', justifyContent: 'center', marginTop: '2rem' }}>
-            {!l2QuizGate && remainingCards.map(card => {
-              const isSelected = selectedCard?.id === card.id;
-              return (
-              <div 
-                key={card.id} 
-                className={`pm-card ${isSelected ? 'pm-card--selected' : ''}`} 
-                draggable 
-                onDragStart={(e) => handleDragStart(e, card)}
-                onClick={() => setSelectedCard(isSelected ? null : card)}
-                style={{ width: '180px' }}
-              >
-                {card.label}
-                {l2Mistakes[card.id] >= 3 && <div className="hint-icon">❓</div>}
+            <div className="pm-source-column">
+              <h4>Kartenpool (zufällig)</h4>
+              <div className="pm-source-grid">
+                {!l2QuizGate && remainingCards.map(card => {
+                  const isSelected = selectedCard?.id === card.id;
+                  return (
+                    <div
+                      key={card.id}
+                      className={`pm-card ${isSelected ? 'pm-card--selected' : ''}`}
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, card)}
+                      onClick={() => setSelectedCard(isSelected ? null : card)}
+                    >
+                      {card.label}
+                      {l2Mistakes[card.id] >= 3 && <div className="hint-icon">❓</div>}
+                    </div>
+                  );
+                })}
               </div>
-            );
-            })}
+            </div>
           </div>
 
           {l2QuizGate && (
@@ -624,7 +640,7 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
       case 'level4': return renderLevel4();
       default: return renderHome();
     }
-  }, [screen, l1Dropped, l1Mistakes, l1QuizGate, l2Dropped, l2Mistakes, l2QuizGate, l3Answers, l4Current]);
+  }, [screen, l1Dropped, l1Mistakes, l1QuizGate, l1Pool, l2Dropped, l2Mistakes, l2QuizGate, l2Pool, l3Answers, l4Current]);
 
   return (
     <div className={`project-m-container ${assistantState === 'success' ? 'project-m-theme--success' : ''}`}>
