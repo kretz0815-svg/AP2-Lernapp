@@ -1,5 +1,59 @@
 import { supabase } from '../../supabaseClient';
 
+const ROOM_META_MARKER = '||CATS:';
+export const DEFAULT_SLF_CATEGORIES = ['stadt', 'land', 'fluss', 'tier', 'beruf'];
+
+const normalizeCategoryKey = (value) => (
+  String(value || '')
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+);
+
+export const parseCategoryInput = (raw) => {
+  const base = Array.isArray(raw)
+    ? raw
+    : String(raw || '')
+      .split(',');
+
+  const seen = new Set();
+  const normalized = [];
+  base.forEach((entry) => {
+    const key = normalizeCategoryKey(entry);
+    if (!key || seen.has(key)) return;
+    seen.add(key);
+    normalized.push(key);
+  });
+
+  return normalized.length ? normalized.slice(0, 8) : [...DEFAULT_SLF_CATEGORIES];
+};
+
+export const serializeRoomNameWithCategories = (roomName, categories = DEFAULT_SLF_CATEGORIES) => {
+  const cleanName = String(roomName || '').trim() || 'SLF Raum';
+  const cleanCategories = parseCategoryInput(categories);
+  return `${cleanName}${ROOM_META_MARKER}${cleanCategories.join(',')}`;
+};
+
+export const parseRoomMeta = (roomNameRaw) => {
+  const roomName = String(roomNameRaw || '').trim();
+  const markerIndex = roomName.indexOf(ROOM_META_MARKER);
+  if (markerIndex < 0) {
+    return {
+      displayName: roomName,
+      categories: [...DEFAULT_SLF_CATEGORIES]
+    };
+  }
+  const displayName = roomName.slice(0, markerIndex).trim() || 'SLF Raum';
+  const rawCategories = roomName.slice(markerIndex + ROOM_META_MARKER.length);
+  return {
+    displayName,
+    categories: parseCategoryInput(rawCategories.split(','))
+  };
+};
+
 /**
  * Service to handle the SLF gameplay flow using Supabase DB and Realtime.
  */
@@ -24,13 +78,26 @@ export const slfService = {
   },
 
   async joinRoom(searchString) {
+    const normalized = String(searchString || '').trim();
+    const upperCode = normalized.toUpperCase();
     const { data, error } = await supabase
       .from('slf_rooms')
       .select('*')
-      .or(`room_code.eq."${searchString.toUpperCase()}",room_name.eq."${searchString}"`)
-      .single();
+      .or(`room_code.eq."${upperCode}",room_name.ilike."${normalized}%",room_name.eq."${normalized}"`)
+      .limit(20);
     if (error) throw error;
-    return data;
+    if (!data || data.length === 0) throw new Error('Room not found');
+
+    const exactCode = data.find((r) => (r.room_code || '').toUpperCase() === upperCode);
+    if (exactCode) return exactCode;
+
+    const exactName = data.find((r) => {
+      const { displayName } = parseRoomMeta(r.room_name);
+      return displayName.toLowerCase() === normalized.toLowerCase();
+    });
+    if (exactName) return exactName;
+
+    return data[0];
   },
 
   async setGamePhase(roomId, phase, extraUpdates = {}) {
@@ -76,6 +143,14 @@ export const slfService = {
    * Submit logic
    */
   async submitAnswers(roomId, playerId, payload) {
+    // Keep exactly one response per player for the current room/round snapshot.
+    const { error: deleteError } = await supabase
+      .from('slf_responses')
+      .delete()
+      .eq('room_id', roomId)
+      .eq('player_id', playerId);
+    if (deleteError) throw deleteError;
+
     const { error } = await supabase
       .from('slf_responses')
       .insert([{ room_id: roomId, player_id: playerId, data: payload }]);
@@ -98,6 +173,14 @@ export const slfService = {
       .eq('room_id', roomId);
     if (error) throw error;
     return data;
+  },
+
+  async clearResponses(roomId) {
+    const { error } = await supabase
+      .from('slf_responses')
+      .delete()
+      .eq('room_id', roomId);
+    if (error) throw error;
   },
 
   async triggerBuzzer(roomId, playerId) {

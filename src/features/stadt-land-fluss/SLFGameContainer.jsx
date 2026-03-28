@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { slfService } from './slfSupabaseService';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { slfService, parseRoomMeta } from './slfSupabaseService';
 import Confetti from '../../components/Confetti';
 import { askGemini } from '../../geminiClient';
 
@@ -13,6 +13,10 @@ import { askGemini } from '../../geminiClient';
  * 6. AI Evaluation
  */
 const SLFGameContainer = ({ room, player, onClose }) => {
+  const getCategoryKeys = (roomName) => parseRoomMeta(roomName).categories;
+  const buildEmptyAnswers = (keys) => keys.reduce((acc, key) => ({ ...acc, [key]: '' }), {});
+  const toCategoryLabel = (key) => key.replace(/_/g, ' ').toUpperCase();
+
   const [roomData, setRoomData] = useState(room);
   const [players, setPlayers] = useState([]);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -21,14 +25,27 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   const [localRoll, setLocalRoll] = useState(null);
   const [isRollingDice, setIsRollingDice] = useState(false);
   const [visualRoll, setVisualRoll] = useState('?');
-  const [answers, setAnswers] = useState({ stadt: '', land: '', fluss: '', tier: '', beruf: '' });
+  const categories = useMemo(() => getCategoryKeys(roomData.room_name), [roomData.room_name]);
+  const [answers, setAnswers] = useState(() => buildEmptyAnswers(getCategoryKeys(room.room_name)));
   const [aiResults, setAiResults] = useState(null);
   const [rouletteLetter, setRouletteLetter] = useState('A');
   const [isRolling, setIsRolling] = useState(false);
   const [calculatedPoints, setCalculatedPoints] = useState(0);
   const [nextRoundLoading, setNextRoundLoading] = useState(false);
+  const submittedRoundKeyRef = useRef('');
+  const scoredRoundKeyRef = useRef('');
 
-  const categories = ['stadt', 'land', 'fluss', 'tier', 'beruf'];
+  const roundKey = `${room.id}:${roomData.current_round_num}:${player.id}`;
+
+  useEffect(() => {
+    setAnswers((prev) => {
+      const next = {};
+      categories.forEach((cat) => {
+        next[cat] = prev[cat] || '';
+      });
+      return next;
+    });
+  }, [categories]);
 
   const refreshPlayers = useCallback(async () => {
     try {
@@ -63,31 +80,10 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   /**
    * AI Validation Placeholder
    */
-  const validateAnswersWithAI = async (answersObj) => {
+  const calculatePoints = useCallback(async (results, myAnswers) => {
     try {
-      const prompt = `Validiere Stadt Land Fluss für Buchstabe '${roomData.current_letter}': 
-      STADT: ${answersObj.stadt}, LAND: ${answersObj.land}, FLUSS: ${answersObj.fluss}, TIER: ${answersObj.tier}, BERUF: ${answersObj.beruf}.
-      Antworte als JSON: { "stadt": "correct/wrong", ... }. 
-      Sei STRENG. Gib NUR 'correct' oder 'wrong' zurück. Keine Neutral-Werte. Buchstabe muss stimmen.`;
-      const response = await askGemini(prompt);
-      const jsonMatch = response.match(/\{.*\}/s);
-      if (jsonMatch) {
-        const raw = JSON.parse(jsonMatch[0]);
-        // Translate to German
-        const translated = {};
-        Object.keys(raw).forEach(k => {
-          translated[k] = raw[k] === 'correct' ? 'Richtig' : 'Falsch';
-        });
-        setAiResults(translated);
-        calculatePoints(translated, answersObj);
-      }
-    } catch (err) {
-      console.error('AI Eval error:', err);
-    }
-  };
+      if (scoredRoundKeyRef.current === roundKey) return;
 
-  const calculatePoints = async (results, myAnswers) => {
-    try {
       // Get all responses to compare
       const allResponses = await slfService.fetchResponses(room.id);
       let roundTotal = 0;
@@ -114,9 +110,35 @@ const SLFGameContainer = ({ room, player, onClose }) => {
 
       setCalculatedPoints(roundTotal);
       await slfService.addPlayerScore(player.id, roundTotal);
+      scoredRoundKeyRef.current = roundKey;
       refreshPlayers();
     } catch (err) { console.error('Score calculation error:', err); }
-  };
+  }, [roundKey, room.id, player.id, refreshPlayers, categories]);
+
+  const validateAnswersWithAI = useCallback(async (answersObj) => {
+    try {
+      const lines = categories
+        .map((cat) => `${toCategoryLabel(cat)}: ${answersObj[cat] || '-'}`)
+        .join(', ');
+      const keyList = categories.map((cat) => `"${cat}"`).join(', ');
+      const prompt = `Validiere Stadt Land Fluss für Buchstabe '${roomData.current_letter}': ${lines}.
+      Antworte nur als JSON mit exakt diesen Keys: { ${keyList} }.
+      Werte pro Key sind NUR "correct" oder "wrong". Sei streng und prüfe den Anfangsbuchstaben.`;
+      const response = await askGemini(prompt);
+      const jsonMatch = response.match(/\{.*\}/s);
+      if (!jsonMatch) return;
+
+      const raw = JSON.parse(jsonMatch[0]);
+      const translated = {};
+      categories.forEach((cat) => {
+        translated[cat] = String(raw?.[cat] || '').toLowerCase() === 'correct' ? 'Richtig' : 'Falsch';
+      });
+      setAiResults(translated);
+      await calculatePoints(translated, answersObj);
+    } catch (err) {
+      console.error('AI Eval error:', err);
+    }
+  }, [categories, roomData.current_letter, calculatePoints]);
 
   const startNextRoundOrFinish = async () => {
     setNextRoundLoading(true);
@@ -134,10 +156,11 @@ const SLFGameContainer = ({ room, player, onClose }) => {
          for (const p of players) {
            await slfService.updateDiceRoll(p.id, 0);
          }
+         await slfService.clearResponses(room.id);
          // Local resets
          setLocalRoll(null);
          setAiResults(null);
-         setAnswers({ stadt: '', land: '', fluss: '', tier: '', beruf: '' });
+         setAnswers(buildEmptyAnswers(categories));
       }
     } catch (err) { alert(err.message); }
     finally { setNextRoundLoading(false); }
@@ -149,14 +172,33 @@ const SLFGameContainer = ({ room, player, onClose }) => {
     setVisualRoll('?');
     setAiResults(null);
     setCalculatedPoints(0);
-    setAnswers({ stadt: '', land: '', fluss: '', tier: '', beruf: '' });
-  }, [roomData.current_round_num]);
+    setAnswers(buildEmptyAnswers(categories));
+    submittedRoundKeyRef.current = '';
+    scoredRoundKeyRef.current = '';
+  }, [roomData.current_round_num, categories]);
 
   useEffect(() => {
-    if (roomData.game_phase === 'evaluating' && !aiResults) {
-      validateAnswersWithAI(answers);
-    }
-  }, [roomData.game_phase]);
+    if (roomData.game_phase !== 'evaluating') return;
+
+    const ensureSubmissionAndScore = async () => {
+      try {
+        if (submittedRoundKeyRef.current !== roundKey) {
+          await slfService.submitAnswers(room.id, player.id, {
+            ...answers,
+            _round: roomData.current_round_num
+          });
+          submittedRoundKeyRef.current = roundKey;
+        }
+        if (!aiResults) {
+          await validateAnswersWithAI(answers);
+        }
+      } catch (err) {
+        console.error('Submission/evaluation sync error:', err);
+      }
+    };
+
+    ensureSubmissionAndScore();
+  }, [roomData.game_phase, room.id, player.id, roomData.current_round_num, roundKey, aiResults, answers, validateAnswersWithAI]);
 
   /** ───────── Phase Logic ───────── **/
 
@@ -193,21 +235,16 @@ const SLFGameContainer = ({ room, player, onClose }) => {
       const allRolled = updatedPlayers.length > 0 && updatedPlayers.every(p => p.dice_roll > 0);
       
       if (allRolled) {
-        const sorted = [...updatedPlayers].sort((a, b) => b.dice_roll - a.dice_roll);
-        
-        // TIE CHECK: If the top two have the same roll
-        if (updatedPlayers.length > 1 && sorted[0].dice_roll === sorted[1].dice_roll) {
-           alert(`Unentschieden (${sorted[0].dice_roll})! Bitte würfelt noch einmal.`);
-           // Reset all rolls to 0 via a helper or bulk update
-           for (const p of updatedPlayers) {
-             await slfService.updateDiceRoll(p.id, 0);
-           }
-           setLocalRoll(null);
-           refreshPlayers();
-           return;
-        }
-
-        const winnerId = sorted[0].id;
+        const sorted = [...updatedPlayers].sort((a, b) => {
+          const rollDiff = (b.dice_roll || 0) - (a.dice_roll || 0);
+          if (rollDiff !== 0) return rollDiff;
+          const aCreated = new Date(a.created_at || 0).getTime();
+          const bCreated = new Date(b.created_at || 0).getTime();
+          if (aCreated !== bCreated) return aCreated - bCreated;
+          return String(a.id).localeCompare(String(b.id));
+        });
+        const winnerId = sorted[0]?.id;
+        if (!winnerId) return;
         // The last player to roll triggers the advance for everyone
         await advanceToLetterRoulette(winnerId);
       }
@@ -238,8 +275,12 @@ const SLFGameContainer = ({ room, player, onClose }) => {
 
   const submitGame = async () => {
     setShowConfetti(true);
+    await slfService.submitAnswers(room.id, player.id, {
+      ...answers,
+      _round: roomData.current_round_num
+    });
+    submittedRoundKeyRef.current = roundKey;
     await slfService.triggerBuzzer(room.id, player.id);
-    await slfService.submitAnswers(room.id, player.id, answers);
     setTimeout(() => setShowConfetti(false), 3000);
   };
 
@@ -247,7 +288,7 @@ const SLFGameContainer = ({ room, player, onClose }) => {
 
   const renderLobby = () => (
     <div className="slf-section">
-      <h3>🚀 Lobby: {roomData.room_name}</h3>
+      <h3>🚀 Lobby: {parseRoomMeta(roomData.room_name).displayName}</h3>
       <p className="slf-highlight-code">Beitritts-Code: <span>{roomData.room_code}</span></p>
       
       <div className="slf-p-list">
@@ -317,7 +358,7 @@ const SLFGameContainer = ({ room, player, onClose }) => {
       <div className="slf-inputs">
         {categories.map(cat => (
           <div key={cat} className="slf-field">
-            <label>{cat.toUpperCase()}</label>
+            <label>{toCategoryLabel(cat)}</label>
             <input 
               value={answers[cat]} 
               onChange={e => setAnswers({ ...answers, [cat]: e.target.value })} 
@@ -342,7 +383,7 @@ const SLFGameContainer = ({ room, player, onClose }) => {
          {categories.map(cat => (
            <div key={cat} className="slf-res-row">
              <div className="slf-res-left">
-                <span className="slf-cat-label">{cat.toUpperCase()}</span>
+                <span className="slf-cat-label">{toCategoryLabel(cat)}</span>
                 <span className="slf-val-text">{answers[cat] || '—'}</span>
              </div>
              {aiResults ? (
