@@ -52,6 +52,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const [rouletteLetter, setRouletteLetter] = useState('A');
   const [calculatedPoints, setCalculatedPoints] = useState(0);
   const [isScoring, setIsScoring] = useState(false);
+  const [roundScored, setRoundScored] = useState(false);
   const [roundBreakdown, setRoundBreakdown] = useState(null);
   const [timeLeftMs, setTimeLeftMs] = useState(null);
   const [roundHistory, setRoundHistory] = useState([]);
@@ -64,7 +65,13 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const evaluationRetryRef = useRef(null);
   const gameOverPersistedRef = useRef(false);
 
-  const roundKey = `${room.id}:${roomData.current_round_num}:${player.id}`;
+  const roomMeta = useMemo(() => parseRoomMeta(roomData.room_name), [roomData.room_name]);
+  const rawCurrentRound = Number(roomData.current_round_num ?? room.current_round_num ?? 1);
+  const rawTotalRounds = Number(roomData.total_rounds ?? room.total_rounds ?? 5);
+  const currentRoundNum = Number.isFinite(rawCurrentRound) && rawCurrentRound > 0 ? rawCurrentRound : 1;
+  const totalRounds = Number.isFinite(rawTotalRounds) && rawTotalRounds > 0 ? rawTotalRounds : 5;
+  const timerSeconds = Math.max(0, Number(roomMeta.timerSeconds || 0));
+  const roundKey = `${room.id}:${currentRoundNum}:${player.id}`;
   const sortedPlayers = useMemo(
     () => [...players].sort((a, b) => {
       const aCreated = new Date(a.created_at || 0).getTime();
@@ -77,9 +84,6 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const hostPlayerId = sortedPlayers[0]?.id || player.id;
   const isHost = player.id === hostPlayerId;
   const effectiveMinFilled = Math.min(MIN_FILLED_FIELDS, categories.length);
-
-  const roomMeta = useMemo(() => parseRoomMeta(roomData.room_name), [roomData.room_name]);
-  const timerSeconds = Math.max(0, Number(roomMeta.timerSeconds || 0));
 
   const stringToSeed = (str) => {
     let hash = 2166136261;
@@ -150,7 +154,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     const sub = slfService.subscribeToRoom(room.id, 
       (newRoom) => {
         if (newRoom && newRoom.id) {
-          setRoomData(newRoom);
+          setRoomData((prev) => ({ ...prev, ...newRoom }));
           refreshPlayers(); // Re-sync players when phase changes
         }
       }, 
@@ -188,6 +192,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     try {
       if (scoredRoundKeyRef.current === roundKey) {
         setIsScoring(false);
+        setRoundScored(true);
         return;
       }
 
@@ -233,8 +238,14 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
 
       setRoundBreakdown(breakdown);
       setCalculatedPoints(roundTotal);
-      await slfService.addPlayerScore(player.id, roundTotal);
+      try {
+        await slfService.addPlayerScore(player.id, roundTotal);
+      } catch (scoreErr) {
+        // Keep UI progression responsive even if score write retries are needed.
+        console.error('Score write error:', scoreErr);
+      }
       scoredRoundKeyRef.current = roundKey;
+      setRoundScored(true);
       refreshPlayers();
       setIsScoring(false);
     } catch (err) {
@@ -294,12 +305,12 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const startNextRoundOrFinish = async () => {
     setNextRoundLoading(true);
     try {
-      if (roomData.current_round_num >= roomData.total_rounds) {
+      if (currentRoundNum >= totalRounds) {
          await slfService.setGamePhase(room.id, 'game_over');
       } else {
          // Reset for next round
          await slfService.setGamePhase(room.id, 'dice', { 
-           current_round_num: roomData.current_round_num + 1,
+           current_round_num: currentRoundNum + 1,
            current_letter: null,
            dice_winner_id: null
          });
@@ -323,6 +334,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     setVisualRoll('?');
     setAiResults(null);
     setCalculatedPoints(0);
+    setRoundScored(false);
     setRoundBreakdown(null);
     setIsScoring(false);
     setTimeLeftMs(null);
@@ -335,7 +347,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
       evaluationRetryRef.current = null;
     }
     gameOverPersistedRef.current = false;
-  }, [roomData.current_round_num, categories]);
+  }, [currentRoundNum, categories]);
 
   useEffect(() => {
     if (roomData.game_phase !== 'evaluating') return;
@@ -345,20 +357,21 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
       try {
         if (scoredRoundKeyRef.current === roundKey) {
           setIsScoring(false);
+          setRoundScored(true);
           return;
         }
 
         if (submittedRoundKeyRef.current !== roundKey) {
           await slfService.submitAnswers(room.id, player.id, {
             ...answers,
-            _round: roomData.current_round_num
+            _round: currentRoundNum
           });
           submittedRoundKeyRef.current = roundKey;
         }
 
         const allResponses = await slfService.fetchResponses(room.id);
         const roundResponses = allResponses.filter(
-          (r) => Number(r?.data?._round || roomData.current_round_num) === roomData.current_round_num
+          (r) => Number(r?.data?._round || currentRoundNum) === currentRoundNum
         );
         if (roundResponses.length < players.length) {
           evaluationRetryRef.current = setTimeout(ensureSubmissionAndScore, 600);
@@ -369,7 +382,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         const myRoundAnswers = myRow?.data ? { ...myRow.data } : { ...answers };
         delete myRoundAnswers._round;
 
-        const roundNum = roomData.current_round_num;
+        const roundNum = currentRoundNum;
         if (!roundHistoryRef.current[roundNum]) {
           const snapshot = {
             round: roundNum,
@@ -404,12 +417,12 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         evaluationRetryRef.current = null;
       }
     };
-  }, [roomData.game_phase, room.id, player.id, roomData.current_round_num, roundKey, aiResults, answers, validateAnswersWithAI, calculatePoints, players.length]);
+  }, [roomData.game_phase, room.id, player.id, currentRoundNum, roundKey, aiResults, answers, validateAnswersWithAI, calculatePoints, players.length]);
 
   useEffect(() => {
     if (roomData.game_phase !== 'roulette') return undefined;
     if (roomData.dice_winner_id === player.id) {
-      setRouletteLetter(getLetterForRound(roomData.current_round_num));
+      setRouletteLetter(getLetterForRound(currentRoundNum));
       return undefined;
     }
     const interval = setInterval(() => {
@@ -417,7 +430,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
       setRouletteLetter(letterPool[randomIdx] || 'A');
     }, 90);
     return () => clearInterval(interval);
-  }, [roomData.game_phase, roomData.dice_winner_id, roomData.current_round_num, player.id, letterPool, getLetterForRound]);
+  }, [roomData.game_phase, roomData.dice_winner_id, currentRoundNum, player.id, letterPool, getLetterForRound]);
 
   useEffect(() => {
     if (roomData.game_phase !== 'playing' || timerSeconds <= 0) {
@@ -469,7 +482,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         const nextMatches = [
           {
             played_at: new Date().toISOString(),
-            rounds: roomData.total_rounds,
+            rounds: totalRounds,
             ranking
           },
           ...previousMatches
@@ -524,7 +537,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     };
 
     persistRoomResult();
-  }, [roomData.game_phase, roomData.room_code, roomData.room_name, roomData.total_rounds, authUser?.id, players]);
+  }, [roomData.game_phase, roomData.room_code, roomData.room_name, totalRounds, authUser?.id, players]);
 
   /** ───────── Phase Logic ───────── **/
 
@@ -615,7 +628,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   };
 
   const spinRoulette = () => {
-    const targetLetter = getLetterForRound(roomData.current_round_num);
+    const targetLetter = getLetterForRound(currentRoundNum);
     setRouletteLetter(targetLetter);
     slfService.setGamePhase(room.id, 'playing', { current_letter: targetLetter });
   };
@@ -624,9 +637,9 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     const filledCount = categories.filter((cat) => String(answers[cat] || '').trim()).length;
     if (!forced && filledCount < effectiveMinFilled) return;
     setShowConfetti(true);
-    await slfService.submitAnswers(room.id, player.id, {
-      ...answers,
-      _round: roomData.current_round_num
+      await slfService.submitAnswers(room.id, player.id, {
+        ...answers,
+      _round: currentRoundNum
     });
     submittedRoundKeyRef.current = roundKey;
     await slfService.triggerBuzzer(room.id, player.id);
@@ -734,7 +747,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const renderPlaying = () => (
     <div className="slf-section">
       <div className="slf-game-header">
-        Buchstabe: <span key={`${roomData.current_round_num}-${roomData.current_letter}`}>{roomData.current_letter}</span>
+        Buchstabe: <span key={`${currentRoundNum}-${roomData.current_letter}`}>{roomData.current_letter}</span>
       </div>
       {timerSeconds > 0 && (
         <div className="slf-timer-box">
@@ -804,9 +817,9 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
          ))}
       </div>
       
-      {aiResults && !isScoring && (
+      {!isScoring && (roundScored || !!roundBreakdown) && (
         <button onClick={startNextRoundOrFinish} disabled={nextRoundLoading} className="slf-prime-btn">
-          {roomData.current_round_num < roomData.total_rounds ? 'Nächste Runde' : 'Zum Endergebnis'}
+          {currentRoundNum < totalRounds ? 'Nächste Runde' : 'Zum Endergebnis'}
         </button>
       )}
     </div>
@@ -894,7 +907,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
       {roomData.game_phase === 'game_over' && renderGameOver()}
 
       <div className="slf-game-meta">
-         <span>Runde {roomData.current_round_num} / {roomData.total_rounds} · Timer {timerSeconds > 0 ? `${timerSeconds}s` : 'Aus'}</span>
+         <span>Runde {currentRoundNum} / {totalRounds} · Timer {timerSeconds > 0 ? `${timerSeconds}s` : 'Aus'}</span>
       </div>
 
       <style>{`
