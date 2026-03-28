@@ -17,12 +17,12 @@ const WisorSession = ({
   marketingReview,
   completedMarketingReview,
   onComplete,
-  onReset,
   onLearningEvent,
   pomodoroPortal,
   burgerMenuPortal,
   handleToggleVideos,
   wisorVideoOpen,
+  setWisorVideoOpen,
   wisorVideoLoading,
   wisorVideos,
   wisorVideoError,
@@ -108,7 +108,7 @@ const WisorSession = ({
     if (e) e.preventDefault();
     if (wisorEvaluated || !wisorInput.trim()) return;
 
-    const normalize = (str) => String(str || '').replace(/[\[\],.\s&und-]/gi, '').toUpperCase();
+    const normalize = (str) => String(str || '').replace(/[[\],.\s&und-]/gi, '').toUpperCase();
     const normalizedInput = normalize(wisorInput);
     
     let correct = false;

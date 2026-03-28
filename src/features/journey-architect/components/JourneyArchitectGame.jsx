@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useJourneyArchitect } from '../state/JourneyArchitectProvider';
 import { L1_SCENARIOS, L2_SCENARIOS, L3_SCENARIOS, L4_SCENARIOS } from '../data/scenarios';
 import Confetti from '../../../components/Confetti';
@@ -64,7 +64,7 @@ export default function JourneyArchitectGame({ onBack }) {
             const contextMsg = "Beziehe dich auf Customer Journeys im E-Commerce. Frage: " + geminiQuery;
             const res = await askGemini(contextMsg, "Du bist der Experte für Customer Journeys.");
             setGeminiResponse(res || "Entschuldigung, es gab einen Fehler.");
-        } catch (err) {
+        } catch (_err) {
             setGeminiResponse("Fehler bei der KI-Anfrage.");
         }
         setGeminiLoading(false);
@@ -168,7 +168,7 @@ WICHTIG: Antworte am Ende ENTWEDER mit dem Wort "KORREKT" (wenn alles passt) ODE
             const results = await fetchYouTubeVideos(query, YOUTUBE_API_KEY, 4);
             setWisorVideos(results);
             if (results.length === 0) setWisorVideoError("Keine passenden Videos gefunden.");
-        } catch (e) {
+        } catch (_e) {
             setWisorVideoError("Fehler beim Laden der Videos.");
         } finally {
             setWisorVideoLoading(false);
@@ -403,4 +403,3 @@ WICHTIG: Antworte am Ende ENTWEDER mit dem Wort "KORREKT" (wenn alles passt) ODE
         </div>
     );
 }
-

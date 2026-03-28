@@ -15,7 +15,6 @@ import { askGemini } from '../../geminiClient';
 const SLFGameContainer = ({ room, player, onClose }) => {
   const [roomData, setRoomData] = useState(room);
   const [players, setPlayers] = useState([]);
-  const [isLocked, setIsLocked] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   
   // Round Specific State
@@ -238,7 +237,6 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   };
 
   const submitGame = async () => {
-    setIsLocked(true);
     setShowConfetti(true);
     await slfService.triggerBuzzer(room.id, player.id);
     await slfService.submitAnswers(room.id, player.id, answers);
@@ -363,7 +361,6 @@ const SLFGameContainer = ({ room, player, onClose }) => {
   );
 
   const renderGameOver = () => {
-    const winner = [...players].sort((a,b) => b.score - a.score)[0];
     return (
       <div className="slf-section">
         <h2 className="slf-win-title">🏆 Spiel Beendet!</h2>

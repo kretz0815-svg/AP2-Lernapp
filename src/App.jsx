@@ -8,7 +8,6 @@ import flashcards2 from './data/flashcards_2.json';
 import flashcards3 from './data/flashcards_3.json';
 
 import wissenTesten from './data/wissen_testen.json';
-import rechenAufgaben from './data/rechen_aufgaben.json';
 import notesIcon from './assets/book-line-icon.png';
 
 import wisor1 from './data/wisor_1.json';
@@ -34,7 +33,7 @@ import Confetti from './components/Confetti';
 import { KLRGameHub, useKLRGame } from './features/klr';
 import { ProjectMGame, useProjectM } from './features/project-m';
 import { JourneyArchitectGame, useJourneyArchitect } from './features/journey-architect';
-import { mapQuizAnswerToRating, mapWisorAnswerToRating, mapFlashcardQualityToRating } from './services/srsFeedbackMapper';
+import { mapWisorAnswerToRating } from './services/srsFeedbackMapper';
 import { reviewTaskWithDSR, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
 
 const LearningDashboard = React.lazy(() => import('./components/LearningDashboard'));
@@ -56,16 +55,12 @@ import {
   getAnalyticsStorageKey, getCustomQuizStorageKey,
   loadAnalyticsForUser, loadCustomQuizForUser, getLearningEventKey
 } from './utils/analytics';
-import {
-  isValidHexColor, applyEffectStrength, applyBackgroundEffectsVisibility,
-  applyCustomBackgroundColor, applyPresetBackground, applyUploadedBackground, clearBackgroundLayers
-} from './utils/appearance';
 import { formatLatex } from './utils/formatting';
 import { detectQuizTopic, getQuizTopicGroup } from './utils/quizTopics';
 import { computeNextQuizProgress, filterDueQuizzes } from './utils/quizDue';
 import { useAuth } from './hooks/useAuth';
 import { useAppearance } from './hooks/useAppearance';
-import { isRechenTask, categorizeRechenTask, getAllQuizQuestions, getRechenTasks } from './utils/quizUtils';
+import { isRechenTask, categorizeRechenTask, getRechenTasks } from './utils/quizUtils';
 
 
 function App() {
@@ -81,7 +76,6 @@ function App() {
   const {
     authUser,
     setAuthUser,
-    authError,
     setAuthError,
     email,
     setEmail,
@@ -89,7 +83,6 @@ function App() {
     setPassword,
     authLoading,
     authMsg,
-    setAuthMsg,
     captchaError,
     setCaptchaError,
     captchaToken,
@@ -105,16 +98,13 @@ function App() {
   const {
     themePreference,
     setThemePref,
-    toggleTheme,
     isLightMode,
-    customBackgroundColor,
     backgroundMode,
     backgroundPresetId,
     backgroundImageData,
     backgroundEffectsEnabled,
     backgroundEffectsIntensity,
     appearanceNotice,
-    setAppearanceNotice,
     activeBackgroundColor,
     colorPickerValue,
     handleBackgroundColorChange,
@@ -163,7 +153,7 @@ function App() {
   const [quizProgressView, setQuizProgressView] = useState(() => JSON.parse(localStorage.getItem('ap2_quiz_progress') || '{}'));
   const [selectedQuizTopic, setSelectedQuizTopic] = useState('all');
   const [feynmanModeEnabled, setFeynmanModeEnabled] = useState(false);
-  const [lastQuizCorrect, setLastQuizCorrect] = useState(false);
+  const [lastQuizCorrect] = useState(false);
   const [quizCountSelection, setQuizCountSelection] = useState(10);
 
   // --- WISOR STATE ---
@@ -339,7 +329,6 @@ function App() {
   const [geminiQuery, setGeminiQuery] = useState('');
   const [geminiResponse, setGeminiResponse] = useState('');
   const [geminiLoading, setGeminiLoading] = useState(false);
-  const [deepLearningLoading, setDeepLearningLoading] = useState(null);
 
   // --- YOUTUBE STATE ---
   const [wisorVideos, setWisorVideos] = useState([]);
@@ -347,13 +336,6 @@ function App() {
   const [lastWisorCorrect, setLastWisorCorrect] = useState(false);
   const [selectedWisorVideo, setSelectedWisorVideo] = useState(null);
   const [wisorVideoError, setWisorVideoError] = useState('');
-  const [analyticsExpanded, setAnalyticsExpanded] = useState({
-    periods: false,
-    topics: false,
-    radar: false,
-    swot: false,
-    mistakes: false
-  });
 
   useEffect(() => {
     setWisorVideos([]);
@@ -368,41 +350,6 @@ function App() {
   }, [currentWisorIndex]);
 
   // formatLatex imported from utils/formatting.js
-
-  const toggleAnalyticsPanel = (panelKey) => {
-    setAnalyticsExpanded(prev => ({
-      ...prev,
-      [panelKey]: !prev[panelKey]
-    }));
-  };
-
-  const analyticsToggleButtonStyle = {
-    width: '100%',
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid var(--glass-border)',
-    borderRadius: '10px',
-    padding: '0.45rem 0.6rem',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    cursor: 'pointer'
-  };
-
-  const analyticsToggleBadgeStyle = {
-    color: 'var(--text-light)',
-    fontWeight: 700,
-    fontSize: '1rem',
-    minWidth: '1.9rem',
-    height: '1.9rem',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-    borderRadius: '999px',
-    border: '1px solid var(--glass-border)',
-    background: 'rgba(255,255,255,0.06)',
-    padding: 0
-  };
 
   const getLocalProgressData = (overrides = {}) => {
     const srsProgress = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
@@ -611,7 +558,7 @@ function App() {
     });
   };
 
-  const refreshQuizDuePool = async ({ customData = null } = {}) => {
+  const refreshQuizDuePool = async () => {
     const rawQuizzes = [
       ...(wissenTesten.questions || []),
       ...(customQuizQuestions || []).filter(q => !isRechenTask(q))
@@ -714,7 +661,7 @@ function App() {
     localStorage.setItem(getCustomQuizStorageKey(authUser), JSON.stringify(updatedCustom));
     await syncProgressToSupabase({ custom_quiz_questions: updatedCustom });
 
-    await refreshQuizDuePool({ customData: updatedCustom });
+      await refreshQuizDuePool();
 
     return { ok: true };
   };
@@ -1062,7 +1009,7 @@ ${input}`;
       setStats({ learnedToday: 0, totalDue: dueCount });
 
       // 4. Setup Quizzes
-      await refreshQuizDuePool({ customData: customQuizData });
+      await refreshQuizDuePool();
 
       // 5. Setup Wisor
       const rawWisors = [
@@ -1222,10 +1169,6 @@ ${input}`;
         .catch(() => refreshQuizDuePool());
 
       if (appMode === 'quiz' || appMode === 'quiz_setup') setAppMode('dashboard');
-    } else if (resetTarget === 'wisorEco') {
-      localStorage.removeItem('ap2_wisor_eco_progress');
-      setCompletedWisorsEco({});
-      setResetModalVisible(false);
     } else if (resetTarget === 'marketing_review') {
       localStorage.removeItem('ap2_marketing_review_progress');
       setCompletedMarketingReview({});
@@ -1585,7 +1528,6 @@ ${input}`;
         handleLogout={handleLogout}
         stats={globalStats}
         isLightMode={isLightMode}
-        toggleTheme={toggleTheme}
         themePreference={themePreference}
         setThemePref={setThemePref}
         onOpenQuestionManager={(cat) => setQuestionManagerCategory(cat)}
@@ -2174,7 +2116,7 @@ ${input}`;
     
     const now = Date.now();
     const preparedAll = buildPreparedQuizzes(calcTasks, quizProg);
-    const dueAll = filterDueQuizzes(preparedAll, quizProg, now);
+    filterDueQuizzes(preparedAll, quizProg, now);
 
     const getTopicStats = (t) => {
       const topicTasks = t === 'Alle' ? calcTasks : calcTasks.filter(q => categorizeRechenTask(q) === t);
@@ -2383,6 +2325,7 @@ ${input}`;
           burgerMenuPortal={burgerMenuPortal}
           handleToggleVideos={handleToggleVideos}
           wisorVideoOpen={wisorVideoOpen}
+          setWisorVideoOpen={setWisorVideoOpen}
           wisorVideoLoading={wisorVideoLoading}
           wisorVideos={wisorVideos}
           wisorVideoError={wisorVideoError}

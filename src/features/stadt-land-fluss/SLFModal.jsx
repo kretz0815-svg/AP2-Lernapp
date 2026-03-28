@@ -58,7 +58,7 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
       setCurrentRoom(room);
       setCurrentPlayer(player);
       setStep('ingame');
-    } catch (err) { alert('Raum Code ungültig'); } finally { setLoading(false); }
+    } catch (_err) { alert('Raum Code ungültig'); } finally { setLoading(false); }
   };
 
   if (!isOpen) return null;

@@ -38,7 +38,7 @@ const QuizSession = ({
   handleFeynmanCheck,
   onQuizAnswer
 }) => {
-  const [internalQuizzes, setInternalQuizzes] = useState(initialSessionPool);
+  const [internalQuizzes] = useState(initialSessionPool);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });

@@ -8,7 +8,6 @@ export default function FloatingNotes({
     questionText, 
     currentAppMode,
     inlineMode = false,
-    mobileTopOverride = null,
     isMobileOverride = null
 }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -376,13 +375,6 @@ export default function FloatingNotes({
     }[activeResizeHandle];
 
     // Mobile Styling Konstanten
-    const mobileHeight = Math.min(280, vvState.height * 0.45);
-    const visibleTop = vvState.offsetTop;
-    const visibleHeight = vvState.height;
-    const preferredTop = visibleTop + Math.round(visibleHeight * 0.22) + 70;
-    const minTop = visibleTop + 142;
-    const maxTop = visibleTop + Math.max(160, visibleHeight - 110);
-    const mobileTop = mobileTopOverride !== null ? mobileTopOverride : Math.max(minTop, Math.min(preferredTop, maxTop));
     let mobileToggleStyle = avoidInput
         ? {
             position: inlineMode ? 'relative' : 'fixed',

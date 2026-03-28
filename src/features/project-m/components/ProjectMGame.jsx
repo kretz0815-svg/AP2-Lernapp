@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useProjectM } from '../state/ProjectMProvider';
 import Confetti from '../../../components/Confetti';
 import FloatingPortal from '../../../components/FloatingPortal';
@@ -46,7 +46,7 @@ const LEVELS = [
   { id: 4, title: 'Die Meisterprüfung', subtitle: 'Fehlersuche & Transfer', objective: 'Korrigiere den fehlerhaften Projektplan und baue die fehlenden Phasen ein.' }
 ];
 
-export default function ProjectMGame({ onBack, onLearningEvent }) {
+export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent }) {
   const { progress, grantXp, unlockLevel } = useProjectM();
   const [screen, setScreen] = useState('home');
   const [showConfetti, setShowConfetti] = useState(false);
@@ -68,7 +68,7 @@ export default function ProjectMGame({ onBack, onLearningEvent }) {
     setTimeout(() => setAssistantState('idle'), 3000);
   };
 
-  const triggerError = (msg) => {
+  const triggerError = (_msg) => {
     playSound('error');
     setAssistantState('error');
     setTimeout(() => setAssistantState('idle'), 3000);

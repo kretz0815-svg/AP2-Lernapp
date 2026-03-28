@@ -5,7 +5,6 @@
 
 import wissenTesten from '../data/wissen_testen.json';
 import rechenAufgaben from '../data/rechen_aufgaben.json';
-import { generateId } from './constants';
 
 export const isRechenTask = (q) => {
   if (q.forceKnowledge) return false;

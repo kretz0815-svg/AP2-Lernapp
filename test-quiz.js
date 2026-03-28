@@ -1,5 +1,4 @@
 import { computeNextQuizProgress, isQuizDue } from './src/utils/quizDue.js';
-import { generateId } from './src/utils/constants.js';
 
 const now = Date.now();
 const prev = { rep: 0, ef: 2.5, interval: 0, nextReview: 0 };

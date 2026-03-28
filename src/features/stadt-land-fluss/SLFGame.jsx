@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { slfService } from './slfSupabaseService';
 import Confetti from '../../components/Confetti';
 import { askGemini } from '../../geminiClient';
 
-const SLFGame = ({ room, player, deviceId, onClose }) => {
+const SLFGame = ({ room, player }) => {
   const [gameState, setGameState] = useState(room);
   const [players, setPlayers] = useState([]);
   const [responses, setResponses] = useState({ stadt: '', land: '', fluss: '', tier: '', beruf: '' });
@@ -12,8 +12,6 @@ const SLFGame = ({ room, player, deviceId, onClose }) => {
   const [results, setResults] = useState(null);
   const [loadingAI, setLoadingAI] = useState(false);
   
-  const lastUpdateRef = useRef(Date.now());
-
   // Categories defined as per request
   const categories = ['stadt', 'land', 'fluss', 'tier', 'beruf'];
 

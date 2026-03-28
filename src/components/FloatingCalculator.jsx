@@ -24,7 +24,6 @@ const getMobileWindowDimensions = (vvState) => {
 export default function FloatingCalculator({ 
     currentAppMode,
     isMobileOverride = null,
-    mobileTopOverride = null,
     inlineMode = false
 }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -420,12 +419,6 @@ export default function FloatingCalculator({
         'br': { cursor: 'nwse-resize', vBorder: 'borderBottom', hBorder: 'borderRight', vPos: 'bottom', hPos: 'right' }
     }[activeResizeHandle];
 
-    const visibleTop = vvState.offsetTop;
-    const visibleHeight = vvState.height;
-    const preferredTop = visibleTop + Math.round(visibleHeight * 0.22);
-    const minTop = visibleTop + 72;
-    const maxTop = visibleTop + Math.max(92, visibleHeight - 180);
-    const mobileTop = mobileTopOverride !== null ? mobileTopOverride : Math.max(minTop, Math.min(preferredTop, maxTop));
     let mobileToggleStyle = avoidInput
         ? {
             position: inlineMode ? 'relative' : 'fixed',

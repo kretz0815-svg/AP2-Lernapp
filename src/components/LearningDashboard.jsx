@@ -2,7 +2,6 @@ import React from 'react';
 import Confetti from './Confetti';
 import { getLearningEventKey } from '../utils/analytics';
 import { detectQuizTopic, getQuizTopicGroup } from '../utils/quizTopics';
-import { formatLatex } from '../utils/formatting';
 import { generateId } from '../utils/constants';
 import { getAllQuizQuestions, getRechenTasks } from '../utils/quizUtils';
 import flashcards1 from '../data/flashcards_1.json';
@@ -233,7 +232,7 @@ const LearningDashboard = ({
     return 'Allgemein';
   };
 
-  const thematicWeaknessGroups = topMistakes.reduce((acc, entry) => {
+  const _thematicWeaknessGroups = topMistakes.reduce((acc, entry) => {
     const topic = getMistakeTopic(entry);
     if (!acc[topic]) acc[topic] = { topic, count: 0, entries: [], terms: {} };
     acc[topic].count += (entry.count || 0);

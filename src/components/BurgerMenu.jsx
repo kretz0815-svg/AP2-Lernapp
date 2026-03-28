@@ -1,7 +1,7 @@
 import React, { useState, memo } from 'react';
 import { PomodoroIcon, SettingsIcon, InfoIcon } from './IconLibrary';
 
-const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, toggleTheme, themePreference, setThemePref, onOpenQuestionManager, onOpenLearningDashboard, onStartPomodoro, pomodoroRunning, pomodoroTimeLeft, onStopPomodoro, onOpenAppearanceSettings }) => {
+const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePreference, setThemePref, onOpenQuestionManager, onOpenLearningDashboard, onStartPomodoro, pomodoroRunning, pomodoroTimeLeft, onStopPomodoro, onOpenAppearanceSettings }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const formatPomodoroTime = (seconds) => {

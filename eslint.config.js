@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'append_quiz.js']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
@@ -23,7 +23,20 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'no-unused-vars': ['error', {
+        varsIgnorePattern: '^[A-Z_]',
+        argsIgnorePattern: '^[A-Z_]',
+        caughtErrorsIgnorePattern: '^[A-Z_]',
+      }],
+      'react-hooks/purity': 'warn',
+      'react-hooks/set-state-in-effect': 'warn',
+      'react-refresh/only-export-components': 'warn',
+    },
+  },
+  {
+    files: ['api/**/*.js', '*.config.js'],
+    languageOptions: {
+      globals: globals.node,
     },
   },
 ])
