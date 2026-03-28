@@ -15,6 +15,7 @@ import { askGemini } from '../../geminiClient';
  */
 const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const MIN_FILLED_FIELDS = 3;
+  const ROULETTE_TICK_MS = 90;
   const EASY_LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'Z', 'J'];
   const KNOWN_COUNTRIES = new Set([
     'deutschland', 'oesterreich', 'schweiz', 'frankreich', 'spanien', 'italien', 'portugal', 'niederlande',
@@ -25,6 +26,10 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     'australien', 'neuseeland',
     'aegypten', 'marokko', 'suedafrika', 'kenia', 'nigeria', 'tunesien',
     'tuerkei', 'griechenland', 'kroatien', 'tschechien', 'slowakei', 'ungarn', 'rumaenien', 'bulgarien', 'ukraine'
+  ]);
+  const KNOWN_RIVERS = new Set([
+    'nil', 'niger', 'rhein', 'donau', 'elbe', 'weser', 'oder', 'main', 'mosel', 'inn', 'neckar',
+    'amazonas', 'mississippi', 'mekong', 'ganges', 'yangtze', 'euphrat', 'tigris', 'po', 'seine', 'themse'
   ]);
   const getCategoryKeys = (roomName) => parseRoomMeta(roomName).categories;
   const buildEmptyAnswers = (keys) => keys.reduce((acc, key) => ({ ...acc, [key]: '' }), {});
@@ -289,8 +294,10 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         const answerVal = normalizeText(answersObj?.[cat] || '');
         const startsWithLetter = answerVal.startsWith(String(roomData.current_letter || '').toLowerCase());
         const isCountryCategory = /land|country/i.test(cat);
+        const isRiverCategory = /fluss|river/i.test(cat);
         const knownCountryHit = isCountryCategory && KNOWN_COUNTRIES.has(answerVal);
-        translated[cat] = (aiCorrect || (startsWithLetter && knownCountryHit)) ? 'Richtig' : 'Falsch';
+        const knownRiverHit = isRiverCategory && KNOWN_RIVERS.has(answerVal);
+        translated[cat] = (aiCorrect || (startsWithLetter && (knownCountryHit || knownRiverHit))) ? 'Richtig' : 'Falsch';
       });
       setAiResults(translated);
       return translated;
@@ -421,16 +428,18 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
 
   useEffect(() => {
     if (roomData.game_phase !== 'roulette') return undefined;
-    if (roomData.dice_winner_id === player.id) {
-      setRouletteLetter(getLetterForRound(currentRoundNum));
-      return undefined;
-    }
-    const interval = setInterval(() => {
-      const randomIdx = Math.floor(Math.random() * letterPool.length);
-      setRouletteLetter(letterPool[randomIdx] || 'A');
-    }, 90);
+    const startedAt = new Date(roomData.updated_at || Date.now()).getTime();
+    const roundOffset = Math.max(0, currentRoundNum - 1);
+    const tick = () => {
+      const elapsed = Math.max(0, Date.now() - startedAt);
+      const step = Math.floor(elapsed / ROULETTE_TICK_MS);
+      const idx = (roundOffset + step) % Math.max(1, letterPool.length);
+      setRouletteLetter(letterPool[idx] || 'A');
+    };
+    tick();
+    const interval = setInterval(tick, ROULETTE_TICK_MS);
     return () => clearInterval(interval);
-  }, [roomData.game_phase, roomData.dice_winner_id, currentRoundNum, player.id, letterPool, getLetterForRound]);
+  }, [roomData.game_phase, roomData.updated_at, currentRoundNum, letterPool]);
 
   useEffect(() => {
     if (roomData.game_phase !== 'playing' || timerSeconds <= 0) {
@@ -628,9 +637,10 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   };
 
   const spinRoulette = () => {
-    const targetLetter = getLetterForRound(currentRoundNum);
-    setRouletteLetter(targetLetter);
-    slfService.setGamePhase(room.id, 'playing', { current_letter: targetLetter });
+    const fallbackLetter = getLetterForRound(currentRoundNum);
+    const selectedLetter = rouletteLetter || fallbackLetter;
+    setRouletteLetter(selectedLetter);
+    slfService.setGamePhase(room.id, 'playing', { current_letter: selectedLetter });
   };
 
   const submitGame = async ({ forced = false } = {}) => {
