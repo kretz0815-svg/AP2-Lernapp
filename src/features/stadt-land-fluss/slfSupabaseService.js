@@ -2,9 +2,26 @@ import { supabase } from '../../supabaseClient';
 
 const ROOM_META_MARKER = '||CATS:';
 export const DEFAULT_SLF_CATEGORIES = ['stadt', 'land', 'fluss', 'tier', 'beruf'];
+const CATEGORY_ALIASES = {
+  stufe: 'tier',
+  animal: 'tier',
+  job: 'beruf',
+  profession: 'beruf',
+  city: 'stadt',
+  country: 'land',
+  river: 'fluss'
+};
 
 const normalizeCategoryKey = (value) => (
-  String(value || '')
+  CATEGORY_ALIASES[
+    String(value || '')
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '')
+  ] || String(value || '')
     .trim()
     .toLowerCase()
     .normalize('NFD')
