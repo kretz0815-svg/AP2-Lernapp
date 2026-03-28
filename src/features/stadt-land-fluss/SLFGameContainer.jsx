@@ -15,9 +15,28 @@ import { askGemini } from '../../geminiClient';
  */
 const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const MIN_FILLED_FIELDS = 3;
+  const EASY_LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'Z', 'J'];
+  const KNOWN_COUNTRIES = new Set([
+    'deutschland', 'oesterreich', 'schweiz', 'frankreich', 'spanien', 'italien', 'portugal', 'niederlande',
+    'belgien', 'polen', 'daenemark', 'schweden', 'norwegen', 'finnland', 'island', 'irland',
+    'uk', 'grossbritannien', 'england', 'wales', 'schottland', 'usa', 'vereinigte_staaten', 'kanada', 'mexiko',
+    'brasilien', 'argentinien', 'chile', 'kolumbien', 'peru',
+    'china', 'japan', 'suedkorea', 'indien', 'thailand', 'vietnam', 'indonesien', 'malaysia', 'philippinen',
+    'australien', 'neuseeland',
+    'aegypten', 'marokko', 'suedafrika', 'kenia', 'nigeria', 'tunesien',
+    'tuerkei', 'griechenland', 'kroatien', 'tschechien', 'slowakei', 'ungarn', 'rumaenien', 'bulgarien', 'ukraine'
+  ]);
   const getCategoryKeys = (roomName) => parseRoomMeta(roomName).categories;
   const buildEmptyAnswers = (keys) => keys.reduce((acc, key) => ({ ...acc, [key]: '' }), {});
   const toCategoryLabel = (key) => key.replace(/_/g, ' ').toUpperCase();
+  const normalizeText = (value) => String(value || '')
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[ß]/g, 'ss')
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
 
   const [roomData, setRoomData] = useState(room);
   const [players, setPlayers] = useState([]);
@@ -31,14 +50,17 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const [answers, setAnswers] = useState(() => buildEmptyAnswers(getCategoryKeys(room.room_name)));
   const [aiResults, setAiResults] = useState(null);
   const [rouletteLetter, setRouletteLetter] = useState('A');
-  const [isRolling, setIsRolling] = useState(false);
   const [calculatedPoints, setCalculatedPoints] = useState(0);
   const [isScoring, setIsScoring] = useState(false);
   const [roundBreakdown, setRoundBreakdown] = useState(null);
+  const [timeLeftMs, setTimeLeftMs] = useState(null);
+  const [roundHistory, setRoundHistory] = useState([]);
   const [nextRoundLoading, setNextRoundLoading] = useState(false);
   const [roomRecord, setRoomRecord] = useState(null);
   const submittedRoundKeyRef = useRef('');
   const scoredRoundKeyRef = useRef('');
+  const roundHistoryRef = useRef({});
+  const timeoutHandledRoundRef = useRef('');
   const evaluationRetryRef = useRef(null);
   const gameOverPersistedRef = useRef(false);
 
@@ -56,16 +78,46 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const isHost = player.id === hostPlayerId;
   const effectiveMinFilled = Math.min(MIN_FILLED_FIELDS, categories.length);
 
-  const pickWeightedLetter = () => {
-    const weightedAlphabet = [
-      ...'AAAAABBCCCDDDEEEEFFFGGGHHHIIIIJKKLLLMMMNNNOOOOPPRRRSSSTTTUUUVVWW',
-      'X',
-      'Y',
-      'Q'
-    ];
-    const idx = Math.floor(Math.random() * weightedAlphabet.length);
-    return weightedAlphabet[idx];
+  const roomMeta = useMemo(() => parseRoomMeta(roomData.room_name), [roomData.room_name]);
+  const timerSeconds = Math.max(0, Number(roomMeta.timerSeconds || 0));
+
+  const stringToSeed = (str) => {
+    let hash = 2166136261;
+    for (let i = 0; i < str.length; i += 1) {
+      hash ^= str.charCodeAt(i);
+      hash = Math.imul(hash, 16777619);
+    }
+    return hash >>> 0;
   };
+
+  const createRng = (seed) => {
+    let value = seed >>> 0;
+    return () => {
+      value = (value + 0x6D2B79F5) | 0;
+      let t = Math.imul(value ^ (value >>> 15), 1 | value);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  };
+
+  const letterPool = useMemo(() => {
+    const seed = stringToSeed(`${roomData.id || ''}_${roomData.room_code || ''}`);
+    const rng = createRng(seed);
+    const shuffled = [...EASY_LETTERS];
+    for (let i = shuffled.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(rng() * (i + 1));
+      const tmp = shuffled[i];
+      shuffled[i] = shuffled[j];
+      shuffled[j] = tmp;
+    }
+    return shuffled;
+  }, [roomData.id, roomData.room_code]);
+
+  const getLetterForRound = useCallback((roundNum) => {
+    if (!letterPool.length) return 'A';
+    const idx = Math.max(0, Number(roundNum || 1) - 1) % letterPool.length;
+    return letterPool[idx];
+  }, [letterPool]);
 
   useEffect(() => {
     setAnswers((prev) => {
@@ -222,7 +274,12 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
       const raw = JSON.parse(jsonMatch[0]);
       const translated = {};
       categories.forEach((cat) => {
-        translated[cat] = String(raw?.[cat] || '').toLowerCase() === 'correct' ? 'Richtig' : 'Falsch';
+        const aiCorrect = String(raw?.[cat] || '').toLowerCase() === 'correct';
+        const answerVal = normalizeText(answersObj?.[cat] || '');
+        const startsWithLetter = answerVal.startsWith(String(roomData.current_letter || '').toLowerCase());
+        const isCountryCategory = /land|country/i.test(cat);
+        const knownCountryHit = isCountryCategory && KNOWN_COUNTRIES.has(answerVal);
+        translated[cat] = (aiCorrect || (startsWithLetter && knownCountryHit)) ? 'Richtig' : 'Falsch';
       });
       setAiResults(translated);
       return translated;
@@ -268,6 +325,8 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     setCalculatedPoints(0);
     setRoundBreakdown(null);
     setIsScoring(false);
+    setTimeLeftMs(null);
+    timeoutHandledRoundRef.current = '';
     setAnswers(buildEmptyAnswers(categories));
     submittedRoundKeyRef.current = '';
     scoredRoundKeyRef.current = '';
@@ -310,6 +369,26 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         const myRoundAnswers = myRow?.data ? { ...myRow.data } : { ...answers };
         delete myRoundAnswers._round;
 
+        const roundNum = roomData.current_round_num;
+        if (!roundHistoryRef.current[roundNum]) {
+          const snapshot = {
+            round: roundNum,
+            letter: roomData.current_letter,
+            responses: roundResponses.map((r) => {
+              const playerInfo = players.find((p) => p.id === r.player_id);
+              const data = { ...(r.data || {}) };
+              delete data._round;
+              return {
+                playerId: r.player_id,
+                playerName: playerInfo?.name || r?.slf_players?.name || 'Unbekannt',
+                data
+              };
+            })
+          };
+          roundHistoryRef.current[roundNum] = true;
+          setRoundHistory((prev) => [...prev, snapshot].sort((a, b) => a.round - b.round));
+        }
+
         const resolvedResults = aiResults || await validateAnswersWithAI(myRoundAnswers);
         await calculatePoints(resolvedResults, myRoundAnswers, roundResponses);
       } catch (err) {
@@ -326,6 +405,42 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
       }
     };
   }, [roomData.game_phase, room.id, player.id, roomData.current_round_num, roundKey, aiResults, answers, validateAnswersWithAI, calculatePoints, players.length]);
+
+  useEffect(() => {
+    if (roomData.game_phase !== 'roulette') return undefined;
+    if (roomData.dice_winner_id === player.id) {
+      setRouletteLetter(getLetterForRound(roomData.current_round_num));
+      return undefined;
+    }
+    const interval = setInterval(() => {
+      const randomIdx = Math.floor(Math.random() * letterPool.length);
+      setRouletteLetter(letterPool[randomIdx] || 'A');
+    }, 90);
+    return () => clearInterval(interval);
+  }, [roomData.game_phase, roomData.dice_winner_id, roomData.current_round_num, player.id, letterPool, getLetterForRound]);
+
+  useEffect(() => {
+    if (roomData.game_phase !== 'playing' || timerSeconds <= 0) {
+      setTimeLeftMs(null);
+      return undefined;
+    }
+
+    const phaseStartedAt = new Date(roomData.updated_at || Date.now()).getTime();
+    const totalMs = timerSeconds * 1000;
+    const tick = () => {
+      const elapsed = Math.max(0, Date.now() - phaseStartedAt);
+      const remaining = Math.max(0, totalMs - elapsed);
+      setTimeLeftMs(remaining);
+      if (remaining <= 0 && timeoutHandledRoundRef.current !== roundKey) {
+        timeoutHandledRoundRef.current = roundKey;
+        submitGame({ forced: true });
+      }
+    };
+
+    tick();
+    const interval = setInterval(tick, 200);
+    return () => clearInterval(interval);
+  }, [roomData.game_phase, roomData.updated_at, timerSeconds, roundKey]);
 
   useEffect(() => {
     if (roomData.game_phase !== 'game_over' || !authUser?.id || players.length === 0) return;
@@ -416,7 +531,6 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const startDicePhase = () => slfService.setGamePhase(room.id, 'dice');
 
   const restartMatch = async () => {
-    if (!isHost) return;
     setNextRoundLoading(true);
     try {
       await slfService.clearResponses(room.id);
@@ -432,6 +546,9 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
       setLocalRoll(null);
       setAiResults(null);
       setCalculatedPoints(0);
+      setRoundHistory([]);
+      roundHistoryRef.current = {};
+      timeoutHandledRoundRef.current = '';
       setAnswers(buildEmptyAnswers(categories));
       submittedRoundKeyRef.current = '';
       scoredRoundKeyRef.current = '';
@@ -498,22 +615,14 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   };
 
   const spinRoulette = () => {
-    setIsRolling(true);
-    let count = 0;
-    const interval = setInterval(() => {
-      setRouletteLetter(pickWeightedLetter());
-      count++;
-      if (count > 20) {
-        clearInterval(interval);
-        const finalLetter = pickWeightedLetter();
-        setRouletteLetter(finalLetter);
-        setIsRolling(false);
-        slfService.setGamePhase(room.id, 'playing', { current_letter: finalLetter });
-      }
-    }, 100);
+    const targetLetter = getLetterForRound(roomData.current_round_num);
+    setRouletteLetter(targetLetter);
+    slfService.setGamePhase(room.id, 'playing', { current_letter: targetLetter });
   };
 
-  const submitGame = async () => {
+  const submitGame = async ({ forced = false } = {}) => {
+    const filledCount = categories.filter((cat) => String(answers[cat] || '').trim()).length;
+    if (!forced && filledCount < effectiveMinFilled) return;
     setShowConfetti(true);
     await slfService.submitAnswers(room.id, player.id, {
       ...answers,
@@ -562,6 +671,9 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         ))}
       </div>
       <button className="slf-prime-btn" onClick={startDicePhase}>Engagement starten! (Würfeln)</button>
+      <p className="slf-hint" style={{ marginTop: '0.6rem' }}>
+        Timer: {timerSeconds > 0 ? `${timerSeconds}s` : 'Aus'}
+      </p>
       <p className="slf-hint" style={{ marginTop: '1rem' }}>Sende den Code oben an deine Freunde, damit sie beitreten können.</p>
     </div>
   );
@@ -614,16 +726,21 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
       <h3>🎰 Buchstaben-Roulette</h3>
       <div className="slf-slot-display">{rouletteLetter}</div>
       {roomData.dice_winner_id === player.id ? (
-        <button disabled={isRolling} onClick={spinRoulette} className="slf-prime-btn slf-spin-btn">
-          {isRolling ? '🎰 Rattert...' : '🛑 STOPP!'}
-        </button>
+        <button onClick={spinRoulette} className="slf-prime-btn slf-spin-btn">🛑 STOPP!</button>
       ) : <p className="slf-hint">Warte auf {players.find(p => p.id === roomData.dice_winner_id)?.name || 'Gewinner'}...</p>}
     </div>
   );
 
   const renderPlaying = () => (
     <div className="slf-section">
-      <div className="slf-game-header">Buchstabe: <span>{roomData.current_letter}</span></div>
+      <div className="slf-game-header">
+        Buchstabe: <span key={`${roomData.current_round_num}-${roomData.current_letter}`}>{roomData.current_letter}</span>
+      </div>
+      {timerSeconds > 0 && (
+        <div className="slf-timer-box">
+          ⏱️ {Math.ceil((timeLeftMs || 0) / 1000)}s
+        </div>
+      )}
       <div className="slf-inputs">
         {categories.map(cat => (
           <div key={cat} className="slf-field">
@@ -642,7 +759,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         const canFinish = filledCount >= effectiveMinFilled;
         return (
           <>
-            <button className="slf-buzzer" onClick={submitGame} disabled={!canFinish}>
+            <button className="slf-buzzer" onClick={() => submitGame()} disabled={!canFinish}>
               FERTIG! 🚨
             </button>
             {!canFinish && (
@@ -730,13 +847,33 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
           </div>
         ) : null}
 
-        {isHost ? (
-          <button onClick={restartMatch} disabled={nextRoundLoading} className="slf-prime-btn" style={{ marginTop: '1.2rem' }}>
-            {nextRoundLoading ? 'Starte...' : 'Neue Partie starten'}
-          </button>
-        ) : (
-          <p className="slf-hint" style={{ marginTop: '1.2rem' }}>Warte auf den Host für die nächste Partie…</p>
-        )}
+        {roundHistory.length > 0 ? (
+          <details className="slf-protocol">
+            <summary>Rundenprotokoll anzeigen</summary>
+            {roundHistory.map((entry) => (
+              <div key={`round_${entry.round}`} className="slf-protocol-round">
+                <h5>Runde {entry.round} · Buchstabe {entry.letter || '-'}</h5>
+                <div className="slf-protocol-grid">
+                  {entry.responses.map((res) => (
+                    <div key={`${entry.round}_${res.playerId}`} className="slf-protocol-player">
+                      <strong>{res.playerName}</strong>
+                      {categories.map((cat) => (
+                        <div key={`${res.playerId}_${cat}`} className="slf-protocol-row">
+                          <span>{toCategoryLabel(cat)}</span>
+                          <span>{res.data?.[cat] || '—'}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </details>
+        ) : null}
+
+        <button onClick={restartMatch} disabled={nextRoundLoading} className="slf-prime-btn" style={{ marginTop: '1.2rem' }}>
+          {nextRoundLoading ? 'Starte...' : (isHost ? 'Neue Partie starten' : 'Neue Partie vorschlagen')}
+        </button>
 
         <button onClick={onClose} className="slf-prime-btn slf-secondary-btn" style={{ marginTop: '0.8rem' }}>Dashboard</button>
       </div>
@@ -757,7 +894,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
       {roomData.game_phase === 'game_over' && renderGameOver()}
 
       <div className="slf-game-meta">
-         <span>Runde {roomData.current_round_num} / {roomData.total_rounds}</span>
+         <span>Runde {roomData.current_round_num} / {roomData.total_rounds} · Timer {timerSeconds > 0 ? `${timerSeconds}s` : 'Aus'}</span>
       </div>
 
       <style>{`
@@ -799,7 +936,8 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
 
         /* Playing */
         .slf-game-header { font-size: 1.5rem; margin-bottom: 2rem; }
-        .slf-game-header span { font-size: 3rem; color: #a855f7; font-weight: 900; }
+        .slf-game-header span { font-size: 3rem; color: #a855f7; font-weight: 900; display: inline-block; animation: letterPop 450ms ease-out; }
+        .slf-timer-box { margin: -1rem 0 1.2rem; font-weight: 900; font-size: 1.1rem; color: #fbbf24; background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.35); border-radius: 10px; padding: 0.45rem 0.8rem; }
         .slf-inputs { display: grid; gap: 1rem; width: 100%; }
         .slf-field { display: flex; flex-direction: column; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
         .slf-field label { font-size: 0.7rem; font-weight: 800; color: #a855f7; margin-bottom: 0.5rem; }
@@ -835,9 +973,17 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         .slf-toplist { width: 100%; margin-top: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.8rem 1rem; }
         .slf-toplist h4 { margin: 0 0 0.6rem 0; font-size: 0.95rem; opacity: 0.85; }
         .slf-top-row { display: flex; justify-content: space-between; gap: 0.8rem; font-size: 0.86rem; opacity: 0.9; padding: 0.22rem 0; }
+        .slf-protocol { width: 100%; margin-top: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 0.85rem 1rem; }
+        .slf-protocol summary { cursor: pointer; font-weight: 700; margin-bottom: 0.8rem; }
+        .slf-protocol-round { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.7rem; margin-top: 0.7rem; }
+        .slf-protocol-round h5 { margin: 0 0 0.6rem; opacity: 0.9; }
+        .slf-protocol-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.7rem; }
+        .slf-protocol-player { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 10px; padding: 0.6rem 0.7rem; }
+        .slf-protocol-row { display: flex; justify-content: space-between; gap: 0.6rem; font-size: 0.8rem; padding: 0.12rem 0; opacity: 0.9; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounce { from { transform: scale(1); } to { transform: scale(1.1); } }
+        @keyframes letterPop { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
       `}</style>
     </div>
   );

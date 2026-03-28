@@ -1,6 +1,7 @@
 import { supabase } from '../../supabaseClient';
 
 const ROOM_META_MARKER = '||CATS:';
+const ROOM_CFG_MARKER = '||CFG:';
 export const DEFAULT_SLF_CATEGORIES = ['stadt', 'land', 'fluss', 'tier', 'beruf'];
 const CATEGORY_ALIASES = {
   stufe: 'tier',
@@ -48,10 +49,15 @@ export const parseCategoryInput = (raw) => {
   return normalized.length ? normalized.slice(0, 8) : [...DEFAULT_SLF_CATEGORIES];
 };
 
-export const serializeRoomNameWithCategories = (roomName, categories = DEFAULT_SLF_CATEGORIES) => {
+export const serializeRoomNameWithCategories = (
+  roomName,
+  categories = DEFAULT_SLF_CATEGORIES,
+  options = {}
+) => {
   const cleanName = String(roomName || '').trim() || 'SLF Raum';
   const cleanCategories = parseCategoryInput(categories);
-  return `${cleanName}${ROOM_META_MARKER}${cleanCategories.join(',')}`;
+  const timerSeconds = Math.max(0, Number(options?.timerSeconds || 0));
+  return `${cleanName}${ROOM_META_MARKER}${cleanCategories.join(',')}${ROOM_CFG_MARKER}timer=${timerSeconds}`;
 };
 
 export const parseRoomMeta = (roomNameRaw) => {
@@ -60,14 +66,21 @@ export const parseRoomMeta = (roomNameRaw) => {
   if (markerIndex < 0) {
     return {
       displayName: roomName,
-      categories: [...DEFAULT_SLF_CATEGORIES]
+      categories: [...DEFAULT_SLF_CATEGORIES],
+      timerSeconds: 0
     };
   }
   const displayName = roomName.slice(0, markerIndex).trim() || 'SLF Raum';
-  const rawCategories = roomName.slice(markerIndex + ROOM_META_MARKER.length);
+  const afterCats = roomName.slice(markerIndex + ROOM_META_MARKER.length);
+  const cfgIndex = afterCats.indexOf(ROOM_CFG_MARKER);
+  const rawCategories = cfgIndex >= 0 ? afterCats.slice(0, cfgIndex) : afterCats;
+  const rawCfg = cfgIndex >= 0 ? afterCats.slice(cfgIndex + ROOM_CFG_MARKER.length) : '';
+  const timerMatch = rawCfg.match(/timer=(\d+)/i);
+  const timerSeconds = timerMatch ? Math.max(0, Number(timerMatch[1])) : 0;
   return {
     displayName,
-    categories: parseCategoryInput(rawCategories.split(','))
+    categories: parseCategoryInput(rawCategories.split(',')),
+    timerSeconds
   };
 };
 

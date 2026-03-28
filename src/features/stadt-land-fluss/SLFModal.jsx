@@ -34,6 +34,7 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
   const [roomNameInput, setRoomNameInput] = useState('');
   const [categoryInput, setCategoryInput] = useState(DEFAULT_SLF_CATEGORIES.join(', '));
   const [totalRounds, setTotalRounds] = useState(5);
+  const [timerSeconds, setTimerSeconds] = useState(0);
   const [roomCode, setRoomCode] = useState('');
   const [currentRoom, setCurrentRoom] = useState(null);
   const [currentPlayer, setCurrentPlayer] = useState(null);
@@ -186,7 +187,7 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
     try {
       const code = Math.random().toString(36).substring(2, 7).toUpperCase();
       const categories = parseCategoryInput(categoryInput);
-      const serializedRoomName = serializeRoomNameWithCategories(roomNameInput, categories);
+      const serializedRoomName = serializeRoomNameWithCategories(roomNameInput, categories, { timerSeconds });
       const room = await slfService.createRoom(code, serializedRoomName, totalRounds);
       const player = await slfService.registerPlayer(room.id, deviceId, playerName);
       await saveRoomForUser(room, categories);
@@ -272,6 +273,15 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
                          <option value={5}>5 Runden</option>
                          <option value={10}>10 Runden</option>
                          <option value={15}>15 Runden</option>
+                      </select>
+                   </div>
+                   <div className="slf-round-selector">
+                      <label>Timer:</label>
+                      <select value={timerSeconds} onChange={e => setTimerSeconds(parseInt(e.target.value))}>
+                         <option value={0}>Aus</option>
+                         <option value={60}>60 Sekunden</option>
+                         <option value={90}>90 Sekunden</option>
+                         <option value={120}>120 Sekunden</option>
                       </select>
                    </div>
 
