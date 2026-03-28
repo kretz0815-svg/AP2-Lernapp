@@ -9,6 +9,17 @@ import {
 } from './slfSupabaseService';
 import SLFGameContainer from './SLFGameContainer';
 
+const RANDOM_LOBBY_NAMES = [
+  'Quantensprung',
+  'Quasar',
+  'Neon Nexus',
+  'Pixelsturm',
+  'Lernblitz',
+  'Nova Squad',
+  'Hyperdrive',
+  'Starlight Crew'
+];
+
 /**
  * SLFModal: Entry point for the "VIP" feature Stadt, Land, Fluss.
  * - Handles Password Check ("pingsta")
@@ -36,6 +47,13 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
   useEffect(() => {
      if (!localStorage.getItem('slf_device_id')) localStorage.setItem('slf_device_id', deviceId);
   }, [deviceId]);
+
+  useEffect(() => {
+    if (step !== 'lobby_setup') return;
+    if (roomNameInput.trim()) return;
+    const randomName = RANDOM_LOBBY_NAMES[Math.floor(Math.random() * RANDOM_LOBBY_NAMES.length)];
+    setRoomNameInput(randomName);
+  }, [step, roomNameInput]);
 
   const handlePassword = (e) => {
     e.preventDefault();

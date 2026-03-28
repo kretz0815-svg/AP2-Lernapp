@@ -14,6 +14,7 @@ import { askGemini } from '../../geminiClient';
  * 6. AI Evaluation
  */
 const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
+  const MIN_FILLED_FIELDS = 3;
   const getCategoryKeys = (roomName) => parseRoomMeta(roomName).categories;
   const buildEmptyAnswers = (keys) => keys.reduce((acc, key) => ({ ...acc, [key]: '' }), {});
   const toCategoryLabel = (key) => key.replace(/_/g, ' ').toUpperCase();
@@ -32,6 +33,8 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const [rouletteLetter, setRouletteLetter] = useState('A');
   const [isRolling, setIsRolling] = useState(false);
   const [calculatedPoints, setCalculatedPoints] = useState(0);
+  const [isScoring, setIsScoring] = useState(false);
+  const [roundBreakdown, setRoundBreakdown] = useState(null);
   const [nextRoundLoading, setNextRoundLoading] = useState(false);
   const [roomRecord, setRoomRecord] = useState(null);
   const submittedRoundKeyRef = useRef('');
@@ -51,6 +54,18 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   );
   const hostPlayerId = sortedPlayers[0]?.id || player.id;
   const isHost = player.id === hostPlayerId;
+  const effectiveMinFilled = Math.min(MIN_FILLED_FIELDS, categories.length);
+
+  const pickWeightedLetter = () => {
+    const weightedAlphabet = [
+      ...'AAAAABBCCCDDDEEEEFFFGGGHHHIIIIJKKLLLMMMNNNOOOOPPRRRSSSTTTUUUVVWW',
+      'X',
+      'Y',
+      'Q'
+    ];
+    const idx = Math.floor(Math.random() * weightedAlphabet.length);
+    return weightedAlphabet[idx];
+  };
 
   useEffect(() => {
     setAnswers((prev) => {
@@ -119,16 +134,32 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
    */
   const calculatePoints = useCallback(async (results, myAnswers, responsesForRound = null) => {
     try {
-      if (scoredRoundKeyRef.current === roundKey) return;
+      if (scoredRoundKeyRef.current === roundKey) {
+        setIsScoring(false);
+        return;
+      }
 
       // Get all responses to compare
       const allResponses = responsesForRound || await slfService.fetchResponses(room.id);
       let roundTotal = 0;
+      const breakdown = {};
+      const currentLetter = String(roomData.current_letter || '').toLowerCase();
 
       categories.forEach(cat => {
-        if (results[cat] !== 'Richtig') return;
-        
         const myVal = String(myAnswers[cat] || '').trim().toLowerCase();
+        if (!myVal) {
+          breakdown[cat] = { status: 'wrong', label: '❌ Ungültig', reason: 'Leer gelassen.', points: 0 };
+          return;
+        }
+
+        if (results[cat] !== 'Richtig') {
+          const startsWithLetter = !!currentLetter && myVal.startsWith(currentLetter);
+          breakdown[cat] = startsWithLetter
+            ? { status: 'partial', label: '⚠️ Teilpunkt', reason: `Buchstabe passt (${roomData.current_letter}), aber KI konnte den Begriff nicht sicher bestätigen.`, points: 0 }
+            : { status: 'wrong', label: '❌ Ungültig', reason: `Beginnt nicht mit ${roomData.current_letter}.`, points: 0 };
+          return;
+        }
+
         const otherVals = allResponses
           .filter(r => r.player_id !== player.id)
           .map(r => r.data[cat]?.trim().toLowerCase() || '');
@@ -137,20 +168,28 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         const hasSame = otherVals.some(v => v === myVal);
 
         if (!hasOthers) {
-           roundTotal += 20; // Ich habe was, andere nichts
+           roundTotal += 20;
+           breakdown[cat] = { status: 'correct', label: '✅ Gültig', reason: 'Einziger gültiger Begriff in dieser Kategorie.', points: 20 };
         } else if (hasSame) {
-           roundTotal += 5; // Gleiches Wort
+           roundTotal += 0;
+           breakdown[cat] = { status: 'wrong', label: '❌ Ungültig', reason: 'Doppelte Antwort mit Mitspieler: 0 Punkte.', points: 0 };
         } else {
-           roundTotal += 10; // Unterschiedliche richtige Wörter
+           roundTotal += 10;
+           breakdown[cat] = { status: 'correct', label: '✅ Gültig', reason: 'Gültig und nicht doppelt vergeben.', points: 10 };
         }
       });
 
+      setRoundBreakdown(breakdown);
       setCalculatedPoints(roundTotal);
       await slfService.addPlayerScore(player.id, roundTotal);
       scoredRoundKeyRef.current = roundKey;
       refreshPlayers();
-    } catch (err) { console.error('Score calculation error:', err); }
-  }, [roundKey, room.id, player.id, refreshPlayers, categories]);
+      setIsScoring(false);
+    } catch (err) {
+      console.error('Score calculation error:', err);
+      setIsScoring(false);
+    }
+  }, [roundKey, room.id, player.id, refreshPlayers, categories, roomData.current_letter]);
 
   const localFallbackValidation = useCallback((answersObj) => {
     const currentLetter = String(roomData.current_letter || '').toLowerCase();
@@ -227,6 +266,8 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     setVisualRoll('?');
     setAiResults(null);
     setCalculatedPoints(0);
+    setRoundBreakdown(null);
+    setIsScoring(false);
     setAnswers(buildEmptyAnswers(categories));
     submittedRoundKeyRef.current = '';
     scoredRoundKeyRef.current = '';
@@ -239,10 +280,14 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
 
   useEffect(() => {
     if (roomData.game_phase !== 'evaluating') return;
+    setIsScoring(true);
 
     const ensureSubmissionAndScore = async () => {
       try {
-        if (scoredRoundKeyRef.current === roundKey) return;
+        if (scoredRoundKeyRef.current === roundKey) {
+          setIsScoring(false);
+          return;
+        }
 
         if (submittedRoundKeyRef.current !== roundKey) {
           await slfService.submitAnswers(room.id, player.id, {
@@ -269,6 +314,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         await calculatePoints(resolvedResults, myRoundAnswers, roundResponses);
       } catch (err) {
         console.error('Submission/evaluation sync error:', err);
+        setIsScoring(false);
       }
     };
 
@@ -455,11 +501,11 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     setIsRolling(true);
     let count = 0;
     const interval = setInterval(() => {
-      setRouletteLetter(String.fromCharCode(65 + Math.floor(Math.random() * 26)));
+      setRouletteLetter(pickWeightedLetter());
       count++;
       if (count > 20) {
         clearInterval(interval);
-        const finalLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+        const finalLetter = pickWeightedLetter();
         setRouletteLetter(finalLetter);
         setIsRolling(false);
         slfService.setGamePhase(room.id, 'playing', { current_letter: finalLetter });
@@ -478,12 +524,35 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     setTimeout(() => setShowConfetti(false), 3000);
   };
 
+  const renderScoreboard = () => {
+    const ranked = [...players].sort((a, b) => (b.score || 0) - (a.score || 0));
+    return (
+      <div className="slf-scoreboard">
+        {ranked.map((p) => (
+          <div key={p.id} className={`slf-score-chip ${p.id === player.id ? 'me' : ''}`}>
+            <span>{p.name}{p.id === player.id ? ' (Du)' : ''}</span>
+            <strong>{p.score || 0} Pkt.</strong>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const copyRoomCode = async () => {
+    try {
+      await navigator.clipboard.writeText(String(roomData.room_code || ''));
+    } catch (err) {
+      console.error('Clipboard copy failed:', err);
+    }
+  };
+
   /** ───────── PHASE VIEWS ───────── **/
 
   const renderLobby = () => (
     <div className="slf-section">
       <h3>🚀 Lobby: {parseRoomMeta(roomData.room_name).displayName}</h3>
       <p className="slf-highlight-code">Beitritts-Code: <span>{roomData.room_code}</span></p>
+      <button className="slf-prime-btn slf-copy-btn" onClick={copyRoomCode}>Code kopieren 📋</button>
       
       <div className="slf-p-list">
         {players.map((p) => (
@@ -501,6 +570,8 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     const sorted = [...players].sort((a, b) => b.dice_roll - a.dice_roll);
     const winner = sorted[0]?.dice_roll > 0 ? sorted[0] : null;
     const allReady = players.every(p => p.dice_roll > 0);
+    const myPlayer = players.find((p) => p.id === player.id);
+    const myRolled = (myPlayer?.dice_roll || 0) > 0;
 
     return (
       <div className="slf-section">
@@ -520,13 +591,13 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
              );
            }) : <p className="slf-hint">Lade Spieler...</p>}
         </div>
-        {!localRoll && (
-          <button onClick={rollDice} className="slf-prime-btn slf-dice-btn" style={{ marginTop: '2rem' }}>
-            🎲 JETZT WÜRFELN!
+        {!allReady && (
+          <button onClick={rollDice} disabled={isRollingDice} className="slf-prime-btn slf-dice-btn" style={{ marginTop: '2rem' }}>
+            {myRolled ? '🎲 ERNEUT WÜRFELN' : '🎲 JETZT WÜRFELN!'}
           </button>
         )}
         
-        {localRoll && !allReady && <div className="slf-waiting-box">Warten auf Mitspieler... ⏳</div>}
+        {myRolled && !allReady && <div className="slf-waiting-box">Warten auf Mitspieler... ⏳</div>}
         
         {winner && winner.dice_roll > 0 && allReady && (
            <div className="slf-winner-announcement">
@@ -566,16 +637,36 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
           </div>
         ))}
       </div>
-      {roomData.game_phase !== 'evaluating' && (
-        <button className="slf-buzzer" onClick={submitGame}>FERTIG! 🚨</button>
-      )}
+      {roomData.game_phase !== 'evaluating' && (() => {
+        const filledCount = categories.filter((cat) => String(answers[cat] || '').trim()).length;
+        const canFinish = filledCount >= effectiveMinFilled;
+        return (
+          <>
+            <button className="slf-buzzer" onClick={submitGame} disabled={!canFinish}>
+              FERTIG! 🚨
+            </button>
+            {!canFinish && (
+              <p className="slf-hint" style={{ marginTop: '0.8rem' }}>
+                Mindestens {effectiveMinFilled} von {categories.length} Feldern ausfüllen.
+              </p>
+            )}
+          </>
+        );
+      })()}
     </div>
   );
 
   const renderResults = () => (
     <div className="slf-section">
       <h3>🤖 KI Auswertung</h3>
-      <p className="slf-points-info">Diese Runde: <span>+{calculatedPoints} Punkte</span></p>
+      <p className="slf-points-info">
+        Diese Runde:{' '}
+        {isScoring ? (
+          <span className="slf-points-pending">Punkte werden berechnet...</span>
+        ) : (
+          <span>+{calculatedPoints} Punkte</span>
+        )}
+      </p>
       
       <div className="slf-results-grid">
          {categories.map(cat => (
@@ -583,15 +674,20 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
              <div className="slf-res-left">
                 <span className="slf-cat-label">{toCategoryLabel(cat)}</span>
                 <span className="slf-val-text">{answers[cat] || '—'}</span>
+                {roundBreakdown?.[cat]?.reason ? (
+                  <span className="slf-eval-reason">{roundBreakdown[cat].reason}</span>
+                ) : null}
              </div>
              {aiResults ? (
-               <span className={`slf-badge ${aiResults[cat] === 'Richtig' ? 'correct' : 'wrong'}`}>{aiResults[cat]}</span>
+               <span className={`slf-badge ${roundBreakdown?.[cat]?.status === 'correct' ? 'correct' : roundBreakdown?.[cat]?.status === 'partial' ? 'partial' : 'wrong'}`}>
+                 {roundBreakdown?.[cat]?.label || (aiResults[cat] === 'Richtig' ? '✅ Gültig' : '❌ Ungültig')}
+               </span>
              ) : <div className="slf-loader-mini">Analysiere...</div>}
            </div>
          ))}
       </div>
       
-      {aiResults && (
+      {aiResults && !isScoring && (
         <button onClick={startNextRoundOrFinish} disabled={nextRoundLoading} className="slf-prime-btn">
           {roomData.current_round_num < roomData.total_rounds ? 'Nächste Runde' : 'Zum Endergebnis'}
         </button>
@@ -650,6 +746,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   return (
     <div className="slf-container">
       {showConfetti && <Confetti />}
+      {renderScoreboard()}
       
       {/* State Machine Switch */}
       {roomData.game_phase === 'lobby' && renderLobby()}
@@ -670,6 +767,10 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         .slf-hint { opacity: 0.6; font-size: 0.9rem; text-align: center; }
         .slf-highlight-code { background: rgba(168, 85, 247, 0.1); border: 2px dashed #a855f7; padding: 1rem 2rem; border-radius: 12px; font-size: 1.1rem; margin-bottom: 2rem; }
         .slf-highlight-code span { font-weight: 900; font-family: monospace; font-size: 2rem; color: #a855f7; display: block; margin-top: 0.2rem; }
+        .slf-copy-btn { max-width: 260px; margin: -1.2rem auto 1.2rem; padding: 0.75rem 1rem; font-size: 0.95rem; }
+        .slf-scoreboard { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-bottom: 1rem; }
+        .slf-score-chip { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 0.35rem 0.75rem; display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.82rem; }
+        .slf-score-chip.me { border-color: #a855f7; background: rgba(168,85,247,0.2); }
         
         /* Lobby */
         .slf-p-list { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; justify-content: center; }
@@ -705,6 +806,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         .slf-field input { background: transparent; border: none; color: white; font-size: 1.4rem; padding: 0; outline: none; }
         .slf-buzzer { margin-top: 2rem; width: 120px; height: 120px; border-radius: 50%; background: #ef4444; border: 4px solid #991b1b; color: white; font-weight: 900; box-shadow: 0 8px 0 #991b1b, 0 15px 30px rgba(239, 68, 68, 0.3); transition: 0.1s; cursor: pointer; }
         .slf-buzzer:active { transform: translateY(6px); box-shadow: 0 2px 0 #991b1b; }
+        .slf-buzzer:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; border-color: #5f5f5f; }
 
         /* Results */
         .slf-results-grid { width: 100%; margin: 2rem 0; display: grid; gap: 0.8rem; }
@@ -712,11 +814,14 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         .slf-res-left { display: flex; flex-direction: column; }
         .slf-cat-label { font-size: 0.6rem; opacity: 0.5; font-weight: 900; }
         .slf-val-text { font-size: 1.2rem; font-weight: 700; }
+        .slf-eval-reason { margin-top: 0.2rem; font-size: 0.72rem; opacity: 0.8; }
         .slf-badge { font-size: 0.8rem; padding: 0.3rem 0.8rem; border-radius: 6px; font-weight: 900; text-transform: uppercase; }
         .slf-badge.correct { background: #22c55e; box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+        .slf-badge.partial { background: #f59e0b; color: #2b1700; }
         .slf-badge.wrong { background: #ef4444; opacity: 0.8; }
         .slf-points-info { margin-bottom: 1rem; font-size: 1.1rem; }
         .slf-points-info span { color: #22c55e; font-weight: 800; font-size: 1.5rem; }
+        .slf-points-pending { color: #fbbf24 !important; font-size: 1rem !important; }
 
         /* Game Over */
         .slf-win-title { font-size: 2.5rem; margin-bottom: 2rem; color: #fbbf24; }
