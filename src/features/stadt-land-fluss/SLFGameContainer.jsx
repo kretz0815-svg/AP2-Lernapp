@@ -25,11 +25,57 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     'china', 'japan', 'suedkorea', 'indien', 'thailand', 'vietnam', 'indonesien', 'malaysia', 'philippinen',
     'australien', 'neuseeland',
     'aegypten', 'marokko', 'suedafrika', 'kenia', 'nigeria', 'tunesien',
-    'tuerkei', 'griechenland', 'kroatien', 'tschechien', 'slowakei', 'ungarn', 'rumaenien', 'bulgarien', 'ukraine'
+    'tuerkei', 'griechenland', 'kroatien', 'tschechien', 'slowakei', 'ungarn', 'rumaenien', 'bulgarien', 'ukraine',
+    'tansania', 'tanzania', 'namibia', 'ghana', 'angola', 'algerien', 'libyen', 'sudan',
+    'saudi_arabien', 'vereinigte_arabische_emirate', 'katar', 'qatar', 'oman', 'jemen', 'iran', 'irak',
+    'israel', 'jordanien', 'libanon', 'syrien', 'afghanistan', 'pakistan', 'bangladesch', 'nepal', 'sri_lanka',
+    'myanmar', 'kambodscha', 'laos', 'singapur', 'brunei',
+    'mongolei', 'kasachstan', 'usbekistan', 'kirgisistan', 'tadschikistan',
+    'russland', 'belarus', 'litauen', 'lettland', 'estland', 'moldawien',
+    'serbien', 'bosnien_und_herzegowina', 'montenegro', 'nordmazedonien', 'albanien', 'slowenien',
+    'zypern', 'malta', 'luxemburg', 'liechtenstein',
+    'ecuador', 'bolivien', 'uruguay', 'paraguay', 'venezuela', 'costa_rica', 'panama',
+    'guatemala', 'honduras', 'nicaragua', 'el_salvador', 'kuba', 'jamaika',
+    'dominikanische_republik', 'haiti'
   ]);
   const KNOWN_RIVERS = new Set([
     'nil', 'niger', 'rhein', 'donau', 'elbe', 'weser', 'oder', 'main', 'mosel', 'inn', 'neckar',
-    'amazonas', 'mississippi', 'mekong', 'ganges', 'yangtze', 'euphrat', 'tigris', 'po', 'seine', 'themse'
+    'amazonas', 'mississippi', 'mekong', 'ganges', 'yangtze', 'euphrat', 'tigris', 'po', 'seine', 'themse',
+    'nile', 'danube', 'rhine', 'thames', 'amazon', 'volga', 'wolga', 'dnepr', 'dnister', 'dnjepr',
+    'sambesi', 'zambezi', 'limpopo', 'senegal', 'congo', 'kongo', 'orinoco', 'parana', 'okavango',
+    'murray', 'darling', 'yenisei', 'jenaisei', 'ob', 'lena', 'amur', 'indus', 'brahmaputra',
+    'huang_he', 'yellow_river', 'jiamuna', 'jamuna', 'salween', 'irrawaddy'
+  ]);
+  const KNOWN_CITIES = new Set([
+    'berlin', 'hamburg', 'muenchen', 'koeln', 'frankfurt', 'stuttgart', 'duesseldorf', 'leipzig',
+    'dresden', 'hannover', 'nuernberg', 'wien', 'zuerich', 'genf', 'paris', 'london',
+    'rom', 'madrid', 'lissabon', 'amsterdam', 'bruessel', 'kopenhagen', 'stockholm', 'oslo',
+    'helsinki', 'dublin', 'prag', 'budapest', 'warschau', 'athen', 'ankara', 'istanbul',
+    'kairo', 'tokio', 'seoul', 'peking', 'bangkok', 'jakarta', 'canberra', 'ottawa',
+    'washington', 'mexiko_stadt', 'buenos_aires', 'santiago', 'lima', 'bogota',
+    'bern', 'luxemburg', 'valletta', 'nicosia', 'vilnius', 'riga', 'tallinn', 'moskau',
+    'kiew', 'kyiv', 'minsk', 'belgrad', 'sarajevo', 'skopje', 'tirana', 'podgorica', 'zagreb', 'ljubljana',
+    'bratislava', 'bukarest', 'sofia', 'tiflis', 'georgia', 'erewan', 'baku',
+    'abu_dhabi', 'doha', 'muscat', 'amman', 'beirut', 'damaskus', 'teheran', 'bagdad', 'riyadh',
+    'new_delhi', 'dhaka', 'kathmandu', 'colombo', 'islamabad', 'karachi', 'lahore',
+    'singapur_stadt', 'kuala_lumpur', 'manila', 'hanoi', 'ho_chi_minh_stadt', 'phnom_penh', 'vientiane',
+    'beijing', 'shanghai', 'hongkong', 'taipeh', 'tokyo', 'osaka', 'kyoto',
+    'new_york', 'los_angeles', 'chicago', 'toronto', 'vancouver', 'montreal',
+    'rio_de_janeiro', 'sao_paulo', 'montevideo', 'asuncion', 'quito', 'caracas', 'la_paz',
+    'kapstadt', 'pretoria', 'johannesburg', 'nairobi', 'lagos', 'accra', 'algiers', 'algier',
+    'casablanca', 'rabat', 'tunis', 'tripolis'
+  ]);
+  const KNOWN_ANIMALS = new Set([
+    'hund', 'katze', 'maus', 'hase', 'pferd', 'kuh', 'schaf', 'ziege', 'schwein', 'huhn',
+    'ente', 'gans', 'fuchs', 'wolf', 'baer', 'loewe', 'tiger', 'elefant', 'giraffe', 'zebra',
+    'nilpferd', 'nashorn', 'affe', 'gorilla', 'krokodil', 'schildkroete', 'hai', 'delfin',
+    'wal', 'pinguin', 'adler', 'falke', 'eule', 'spatz', 'amsel', 'frosch', 'otter', 'reh',
+    'hirsch', 'wildschwein', 'igel', 'biene', 'hummel', 'ameise',
+    'esel', 'marder', 'dachs', 'luchs', 'waschbaer', 'meerschweinchen', 'hamster', 'kaninchen',
+    'alpaka', 'lama', 'kamel', 'puma', 'leopard', 'gepard', 'hyena', 'schakal',
+    'robbe', 'seehund', 'seeloewe', 'orca', 'narwal', 'rochen', 'tintenfisch',
+    'papagei', 'wellensittich', 'storch', 'kranich', 'schwan', 'rabe', 'kraehe',
+    'eichhoernchen', 'maulwurf', 'dromedar', 'gazelle', 'antilope', 'koala', 'krokodile'
   ]);
   const getCategoryKeys = (roomName) => parseRoomMeta(roomName).categories;
   const buildEmptyAnswers = (keys) => keys.reduce((acc, key) => ({ ...acc, [key]: '' }), {});
@@ -293,11 +339,18 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         const aiCorrect = String(raw?.[cat] || '').toLowerCase() === 'correct';
         const answerVal = normalizeText(answersObj?.[cat] || '');
         const startsWithLetter = answerVal.startsWith(String(roomData.current_letter || '').toLowerCase());
+        const isCityCategory = /stadt|city|hauptstadt|capital/i.test(cat);
         const isCountryCategory = /land|country/i.test(cat);
         const isRiverCategory = /fluss|river/i.test(cat);
+        const isAnimalCategory = /tier|animal/i.test(cat);
+        const knownCityHit = isCityCategory && KNOWN_CITIES.has(answerVal);
         const knownCountryHit = isCountryCategory && KNOWN_COUNTRIES.has(answerVal);
         const knownRiverHit = isRiverCategory && KNOWN_RIVERS.has(answerVal);
-        translated[cat] = (aiCorrect || (startsWithLetter && (knownCountryHit || knownRiverHit))) ? 'Richtig' : 'Falsch';
+        const knownAnimalHit = isAnimalCategory && KNOWN_ANIMALS.has(answerVal);
+        translated[cat] = (
+          aiCorrect
+          || (startsWithLetter && (knownCityHit || knownCountryHit || knownRiverHit || knownAnimalHit))
+        ) ? 'Richtig' : 'Falsch';
       });
       setAiResults(translated);
       return translated;

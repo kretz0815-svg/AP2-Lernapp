@@ -1785,189 +1785,44 @@ ${input}`;
           <p className="subtitle" style={{ marginTop: '0.8rem' }}>Wähle deinen Lernmodus</p>
         </header>
         <div className="dashboard-grid">
-          <div id="card-quiz" className="dash-card" onClick={() => { setAppMode('quiz_setup'); }}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <svg width="0.9em" height="0.9em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="85" cy="85" r="50" fill="none" stroke="var(--text-light)" strokeWidth="35" />
-                <circle cx="85" cy="85" r="25" fill="var(--text-light)" />
-                <rect x="190" y="45" width="290" height="80" rx="10" fill="var(--text-light)" />
-                <circle cx="85" cy="256" r="50" fill="none" stroke="var(--text-light)" strokeWidth="35" />
-                <rect x="190" y="216" width="290" height="80" rx="10" fill="var(--text-light)" />
-                <circle cx="85" cy="427" r="50" fill="none" stroke="var(--text-light)" strokeWidth="35" />
-                <rect x="190" y="387" width="290" height="80" rx="10" fill="var(--text-light)" />
-              </svg>
-            </div>
-            <h2>Wissen testen<br />(Quiz)</h2>
-            <p>Multiple-Choice Fragen zum Überprüfen deines Wissensstands.</p>
-            {!authUser ? (
-              <div className="chip">🔒 3 Testfragen (Gast)</div>
-            ) : (
-              <div className="chip">{quizDuePool.length === 0 ? 'Alles gemeistert! 🎉' : `${quizDuePool.length} Fragen fällig`}</div>
-            )}
-
-            {(Object.keys(quizProg || {}).length > 0 || !!authUser?.id) && (
-              <button
-                className="btn-secondary"
-                style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem' }}
-                onClick={(e) => { e.stopPropagation(); openResetModal(e, 'quiz'); }}
-              >
-                🔄 Lernfortschritt zurücksetzen
+          <div id="card-learning-suite" className="dash-card" style={{ gridColumn: 'span 2' }}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>🧠</div>
+            <h2>IHK Lernwelt</h2>
+            <p>Wissen testen, Projekt M Mastery, Journey Architect und IHK Extras gebündelt in einer Kategorie.</p>
+            <div style={{ display: 'grid', gap: '0.55rem', width: '100%', marginTop: '0.4rem' }}>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('quiz_setup')}>
+                Wissen testen {(!authUser ? '(Gast)' : `(${quizDuePool.length} fällig)`)}
               </button>
-            )}
-          </div>
-
-          <div id="card-kpis" className="dash-card rechen-card" onClick={() => { setAppMode('rechen_tasks_setup'); }}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="9" y1="9" x2="15" y2="15"></line>
-                <line x1="15" y1="9" x2="9" y2="15"></line>
-                <line x1="8" y1="12" x2="16" y2="12"></line>
-                <line x1="12" y1="8" x2="12" y2="16"></line>
-              </svg>
-            </div>
-            <h2>KPI's</h2>
-            <p>Gezieltes Training für IHK-relevante Rechen- und KPI-Aufgaben.</p>
-            <div className="chip">
-              {rechenLearned === rechenTotal && rechenTotal > 0 ? 'Alles gemeistert! 🎉' : 
-               `${rechenTotal - rechenLearned} Aufgaben fällig`}
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('project_m')}>
+                Projekt M Mastery (XP: {pmProgress?.xp || 0})
+              </button>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('journey_architect')}>
+                Journey Architect (XP: {jaProgress?.xp || 0})
+              </button>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('marketing_review_setup')}>
+                IHK Extras ({marketingReview.questions.length - Object.keys(completedMarketingReview).length} offen)
+              </button>
             </div>
           </div>
 
-
-          <div id="card-kalkulation" className="dash-card" onClick={() => setAppMode('kalkulation')}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <svg width="1.1em" height="1.1em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round">
-                <rect x="2" y="2" width="20" height="20" rx="3" />
-                <line x1="12" y1="2" x2="12" y2="22" strokeWidth="1.5" />
-                <line x1="2" y1="12" x2="22" y2="12" strokeWidth="1.5" />
-                <line x1="7" y1="5" x2="7" y2="9" />
-                <line x1="5" y1="7" x2="9" y2="7" />
-                <line x1="15" y1="7" x2="19" y2="7" />
-                <line x1="15" y1="15.5" x2="19" y2="19" />
-                <line x1="19" y1="15.5" x2="15" y2="19" />
-                <line x1="5" y1="16" x2="9" y2="16" />
-                <line x1="5" y1="18.5" x2="9" y2="18.5" />
-              </svg>
+          <div id="card-calculation-suite" className="dash-card rechen-card" style={{ gridColumn: 'span 2' }}>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>📊</div>
+            <h2>Rechenwelt</h2>
+            <p>KPI's, Kalkulations-Boss, Break Even Point und KLR Startup Survival in einer Kategorie.</p>
+            <div style={{ display: 'grid', gap: '0.55rem', width: '100%', marginTop: '0.4rem' }}>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('rechen_tasks_setup')}>
+                KPI's ({Math.max(0, rechenTotal - rechenLearned)} fällig)
+              </button>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('kalkulation')}>
+                Kalkulations-Boss
+              </button>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('break_even')}>
+                Break Even Point
+              </button>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('klr')}>
+                KLR Startup Survival (XP: {klrProgress?.xp || 0})
+              </button>
             </div>
-            <h2>Kalkulations-<br />Boss</h2>
-            <p>Meistere Vorwärts-, Rückwärts- und Differenzkalkulation spielerisch.</p>
-            {!authUser ? (
-              <div className="chip">🔒 Level 1 frei (Gast)</div>
-            ) : (
-              <div className="chip">3 Level</div>
-            )}
-            <button
-              className="btn-secondary"
-              style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
-              onClick={(e) => { e.stopPropagation(); openResetModal(e, 'kalkulation'); }}
-            >
-              🔄 Lernfortschritt zurücksetzen
-            </button>
-          </div>
-
-          <div id="card-breakeven" className="dash-card" onClick={() => setAppMode('break_even')}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="3" y1="3" x2="3" y2="21" />
-                <line x1="3" y1="21" x2="21" y2="21" />
-                <line x1="4" y1="17" x2="9" y2="17" />
-                <line x1="9" y1="17" x2="13" y2="12" />
-                <line x1="13" y1="12" x2="20" y2="12" />
-                <circle cx="9" cy="17" r="1.2" fill="var(--text-light)" stroke="none" />
-                <circle cx="13" cy="12" r="1.2" fill="var(--text-light)" stroke="none" />
-              </svg>
-            </div>
-            <h2>Break Even<br />Point</h2>
-            <p>Trainiere Deckungsbeitrag, Gewinnschwelle in Stück und kritischen Umsatz.</p>
-            <div className="chip">Neuer Raum</div>
-            <button
-              className="btn-secondary"
-              style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
-              onClick={(e) => { e.stopPropagation(); openResetModal(e, 'breakEven'); }}
-            >
-              🔄 Lernfortschritt zurücksetzen
-            </button>
-          </div>
-
-          <div id="card-klr" className="dash-card" onClick={() => setAppMode('klr')}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2.5" />
-                <line x1="7" y1="9" x2="17" y2="9" />
-                <line x1="7" y1="13" x2="12" y2="13" />
-                <line x1="7" y1="17" x2="10" y2="17" />
-                <line x1="16" y1="13" x2="16" y2="18" />
-                <line x1="14" y1="15.5" x2="18" y2="15.5" />
-              </svg>
-            </div>
-            <h2>KLR Startup<br />Survival</h2>
-            <p>Gamifizierte Kosten- und Leistungsrechnung im E-Commerce-Setting.</p>
-            <div className="chip">XP: {klrProgress?.xp || 0}</div>
-          </div>
-
-          <div id="card-project-m" className="dash-card" onClick={() => setAppMode('project_m')}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-                <path d="M12 11v6" />
-                <path d="M9 14h6" />
-              </svg>
-            </div>
-            <h2>Projekt m<br />Mastery</h2>
-            <p>Beherrsche den Projektlebenszyklus und Fachbegriffe im E-Commerce.</p>
-            <div className="chip">XP: {pmProgress?.xp || 0}</div>
-            <button
-               className="btn-secondary"
-               style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
-               onClick={(e) => { e.stopPropagation(); openResetModal(e, 'project_m'); }}
-            >
-               🔄 Lernfortschritt zurücksetzen
-            </button>
-          </div>
-
-          <div id="card-journey-architect" className="dash-card" onClick={() => setAppMode('journey_architect')}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                <path d="M8 11l3 3 5-5" />
-              </svg>
-            </div>
-            <h2>Journey<br />Architect</h2>
-            <p>Werde zum Meister der Kundenreisen (5, 7 und 8 Phasen).</p>
-            <div className="chip">XP: {jaProgress?.xp || 0}</div>
-            <button
-               className="btn-secondary"
-               style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
-               onClick={(e) => { e.stopPropagation(); openResetModal(e, 'journey_architect'); }}
-            >
-               🔄 Lernfortschritt zurücksetzen
-            </button>
-          </div>
-
-          <div id="card-marketing-review" className="dash-card" onClick={() => setAppMode('marketing_review_setup')}>
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <svg width="1.15em" height="1.15em" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
-              </svg>
-            </div>
-            <h2>IHK<br />Extras</h2>
-            <p>IHK Review: Influencer, Live Shopping, 4 PS und Funnel Strategien.</p>
-            <div className="chip">
-              {Object.keys(completedMarketingReview).length === marketingReview.questions.length ? 'Alles gemeistert! 🎉' : 
-               `${marketingReview.questions.length - Object.keys(completedMarketingReview).length} Fragen offen`}
-            </div>
-            <button
-               className="btn-secondary"
-               style={{ width: '100%', fontSize: '0.8rem', padding: '0.5rem', marginTop: '0.5rem' }}
-               onClick={(e) => { e.stopPropagation(); openResetModal(e, 'marketing_review'); }}
-            >
-               🔄 Lernfortschritt zurücksetzen
-            </button>
           </div>
 
           <div id="card-notes" className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
