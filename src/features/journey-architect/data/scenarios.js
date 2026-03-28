@@ -44,7 +44,7 @@ export const L2_SCENARIOS = [
   {
     id: 'l2',
     title: 'Die 7-Phasen-Journey',
-    scenario: 'Das "Deep Dive"-Modell für komplexere Prozesse. Es betrachtet den Vorgang viel detaillierter.',
+    scenario: 'Das "Deep Dive"-Modell für komplexere Prozesse. Es betrachtet den Vorgang detailliert von der Vorwahrnehmung bis zur Loyalität.',
     challenges: [
       {
         id: 'c1',
@@ -52,33 +52,33 @@ export const L2_SCENARIOS = [
         title: 'Challenge 1: Phasen-Sortierung',
         task: 'Die 7 Phasen werden ungeordnet angezeigt. Sortiere sie korrekt.',
         cards: [
-          { id: 'p1', label: 'Awareness', order: 0 },
-          { id: 'p2', label: 'Knowledge', order: 1 },
+          { id: 'p1', label: 'Pre awareness', order: 0 },
+          { id: 'p2', label: 'Awareness', order: 1 },
           { id: 'p3', label: 'Consideration', order: 2 },
-          { id: 'p4', label: 'Selection/Purchase', order: 3 },
-          { id: 'p5', label: 'Service/Experience', order: 4 },
-          { id: 'p6', label: 'Loyalty', order: 5 },
-          { id: 'p7', label: 'Expansion/Evangelism', order: 6 }
+          { id: 'p4', label: 'Preference', order: 3 },
+          { id: 'p5', label: 'Purchase/ Conversion', order: 4 },
+          { id: 'p6', label: 'Retention', order: 5 },
+          { id: 'p7', label: 'Loyality', order: 6 }
         ]
       },
       {
         id: 'c2',
         type: 'mc',
         title: 'Challenge 2: Unterscheidung',
-        task: 'Welches Element ist ein wesentlicher Unterschied zwischen der \'Knowledge\'-Phase in diesem Modell und der \'Awareness\'-Phase im 5-Phasen-Modell?',
+        task: 'Was beschreibt den Unterschied zwischen \'Pre awareness\' und \'Awareness\' in diesem 7-Phasen-Modell am besten?',
         answers: [
-          { text: 'Die \'Knowledge\'-Phase ist passiv, Awareness ist aktiv.', correct: false },
-          { text: 'In der \'Knowledge\'-Phase vergleicht der Kunde aktiv Produkte, während er in der \'Awareness\'-Phase nur das Problem erkennt.', correct: true },
-          { text: '\'Knowledge\' ist der Kaufprozess, Awareness ist die Nachbetreuung.', correct: false },
-          { text: 'Es gibt keinen Unterschied.', correct: false }
+          { text: '\'Pre awareness\' bedeutet, dass der Kunde die Marke noch nicht bewusst wahrgenommen hat; in \'Awareness\' erkennt er Marke oder Bedürfnis aktiv.', correct: true },
+          { text: '\'Pre awareness\' ist bereits der Kaufabschluss, \'Awareness\' ist der Versandprozess.', correct: false },
+          { text: 'Es gibt keinen Unterschied, beide Phasen meinen exakt dasselbe.', correct: false },
+          { text: '\'Pre awareness\' beginnt erst nach dem Kauf, \'Awareness\' endet vor der Conversion.', correct: false }
         ]
       },
       {
         id: 'c3',
         type: 'oq',
         title: 'Challenge 3: B2B-Kontext',
-        task: 'Du verkaufst eine teure SaaS-Software. Beschreibe eine Marketing-Maßnahme für die \'Service/Experience\'-Phase und erkläre, warum sie entscheidend ist.',
-        youtubeQuery: 'B2B SaaS Customer Service Experience Phase'
+        task: 'Du verkaufst eine teure SaaS-Software. Beschreibe eine konkrete Marketing-Maßnahme für die Phase \'Preference\' und erkläre, warum sie den Schritt zu \'Purchase/ Conversion\' erhöht.',
+        youtubeQuery: 'B2B SaaS Preference zu Purchase Conversion Customer Journey'
       }
     ]
   }
@@ -148,7 +148,7 @@ export const L4_SCENARIOS = [
           },
           {
             id: 't7', name: '7-Phasen-Modell', phases: [
-              'Awareness (7)', 'Knowledge', 'Consideration (7)', 'Selection/Purchase', 'Service/Experience', 'Loyalty (7)', 'Expansion/Evangelism'
+              'Pre awareness', 'Awareness (7)', 'Consideration (7)', 'Preference', 'Purchase/ Conversion', 'Retention (7)', 'Loyality (7)'
             ]
           },
           {
