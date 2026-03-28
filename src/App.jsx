@@ -8,7 +8,6 @@ import flashcards2 from './data/flashcards_2.json';
 import flashcards3 from './data/flashcards_3.json';
 
 import wissenTesten from './data/wissen_testen.json';
-import notesIcon from './assets/book-line-icon.png';
 
 import wisor1 from './data/wisor_1.json';
 import wisorEco from './data/wisor_eco.json';
@@ -1786,7 +1785,9 @@ ${input}`;
         </header>
         <div className="dashboard-grid">
           <div id="card-learning-suite" className="dash-card dash-card-wide">
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>🧠</div>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
+              <img src="/EinsteinOrange.webp" alt="IHK Lernwelt" style={{ width: '1.05em', height: '1.05em', objectFit: 'contain' }} />
+            </div>
             <h2>IHK Lernwelt</h2>
             <p>Wissen testen, Projekt M Mastery, Journey Architect und IHK Extras gebündelt in einer Kategorie.</p>
             <div style={{ display: 'grid', gap: '0.55rem', width: '100%', marginTop: '0.4rem' }}>
@@ -1806,7 +1807,9 @@ ${input}`;
           </div>
 
           <div id="card-calculation-suite" className="dash-card rechen-card dash-card-wide">
-            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>📊</div>
+            <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
+              <img src="/EinsteinRot.webp" alt="Rechenwelt" style={{ width: '1.05em', height: '1.05em', objectFit: 'contain' }} />
+            </div>
             <h2>Rechenwelt</h2>
             <p>KPI's, Kalkulations-Boss, Break Even Point und KLR Startup Survival in einer Kategorie.</p>
             <div style={{ display: 'grid', gap: '0.55rem', width: '100%', marginTop: '0.4rem' }}>
@@ -1827,16 +1830,7 @@ ${input}`;
 
           <div id="card-notes" className="dash-card" onClick={() => { setAppMode('notes_manager'); }}>
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <img
-                src={notesIcon}
-                alt="Notizen"
-                style={{
-                  width: '1.05em',
-                  height: '1.05em',
-                  objectFit: 'contain',
-                  filter: isLightMode ? 'none' : 'invert(1)'
-                }}
-              />
+              <img src="/einstein.webp" alt="Meine Notizen" style={{ width: '1.05em', height: '1.05em', objectFit: 'contain' }} />
             </div>
             <h2>Meine Notizen</h2>
             <p>Deine gespeicherten Notizen ansehen und als PDF exportieren.</p>
@@ -1846,7 +1840,7 @@ ${input}`;
           {/* VIP Bereich: Stadt Land Fluss Multiplayer */}
           <div id="card-vip" className="dash-card" onClick={() => setIsSLFOpen(true)}>
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
-              <span>👑</span>
+              <img src="/EinsteinGold.webp" alt="VIP Bereich" style={{ width: '1.05em', height: '1.05em', objectFit: 'contain' }} />
             </div>
             <h2>VIP Bereich</h2>
             <p>Exklusive Zusatzfunktionen für MasterPat Premium Mitglieder.</p>
