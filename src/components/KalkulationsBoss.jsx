@@ -503,10 +503,17 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
             const nextIdx = selectedLevel.steps.findIndex((s, i) => i > stepIdx && !s.given && !validated[i]);
             if (nextIdx >= 0) {
                 setActiveStep(nextIdx);
-                setTimeout(() => {
-                    inputRefs.current[nextIdx]?.focus();
-                    inputRefs.current[nextIdx]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
+                // Keep focus transition close to the Enter interaction; delayed timeouts are
+                // unreliable on some mobile keyboards (especially iOS).
+                const focusNext = () => {
+                    const el = inputRefs.current[nextIdx];
+                    if (!el) return;
+                    el.focus({ preventScroll: true });
+                    el.select?.();
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                };
+                requestAnimationFrame(focusNext);
+                setTimeout(focusNext, 0);
             } else {
                 // All done!
                 setCompleted(true);
