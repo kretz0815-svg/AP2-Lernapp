@@ -274,7 +274,19 @@ function App() {
           questionText: m.questionText,
           expectedAnswer: m.expectedAnswer || '',
           lastUserAnswer: m.lastUserAnswer || '',
-          topic: m.mode === 'quiz' ? '' : m.mode === 'wisor' ? 'WisoR Grundlagen' : m.mode === 'wisorEco' ? 'WisoR E-Commerce' : m.mode === 'klr' ? 'KLR' : ''
+          topic: m.mode === 'quiz'
+            ? ''
+            : m.mode === 'wisor'
+              ? 'WisoR Grundlagen'
+              : m.mode === 'wisorEco'
+                ? 'WisoR E-Commerce'
+                : m.mode === 'klr'
+                  ? 'KLR'
+                  : m.mode === 'project_m'
+                    ? 'Projekt M'
+                    : m.mode === 'journey_architect'
+                      ? 'Journey Architect'
+                      : ''
         }));
       if (allMistakeData.length > 0) {
         setDashboardAiLoading(true);
@@ -365,6 +377,7 @@ function App() {
     const theme = localStorage.getItem(getThemeKey(authUser)) || 'dark';
     const klrProgress = JSON.parse(localStorage.getItem('klr_game_progress_v1') || 'null');
     const projectMProgress = JSON.parse(localStorage.getItem('project_m_progress_v1') || 'null');
+    const journeyArchitectProgress = JSON.parse(localStorage.getItem('journey_architect_progress_v1') || 'null');
 
     return {
       ...srsProgress,
@@ -378,6 +391,7 @@ function App() {
       theme_mode: theme,
       klr_progress: klrProgress,
       project_m_progress: projectMProgress,
+      journey_architect_progress: journeyArchitectProgress,
       ...overrides
     };
   };
@@ -537,11 +551,13 @@ function App() {
   };
 
   const refreshMistakeAnalysis = () => {
+    const excludedModes = new Set(['vip', 'slf', 'premium']);
     setLearningAnalytics(prev => {
       const safePrev = prev && Array.isArray(prev.events) ? prev : createEmptyAnalytics();
       const rebuiltMistakes = {};
 
       for (const event of safePrev.events) {
+        if (excludedModes.has(String(event.mode || '').toLowerCase())) continue;
         if (event.correct) continue;
         const key = getLearningEventKey({
           mode: event.mode,
@@ -1003,6 +1019,15 @@ ${input}`;
             if (data.progress_data.theme_mode) {
               localStorage.setItem(getThemeKey(session.user), data.progress_data.theme_mode);
             }
+            if (data.progress_data.project_m_progress) {
+              localStorage.setItem('project_m_progress_v1', JSON.stringify(data.progress_data.project_m_progress));
+            }
+            if (data.progress_data.klr_progress) {
+              localStorage.setItem('klr_game_progress_v1', JSON.stringify(data.progress_data.klr_progress));
+            }
+            if (data.progress_data.journey_architect_progress) {
+              localStorage.setItem('journey_architect_progress_v1', JSON.stringify(data.progress_data.journey_architect_progress));
+            }
           } else if (!data) {
             // Init empty row for this authenticated user
             const emptyProgress = createEmptyMemberProgressData();
@@ -1014,12 +1039,9 @@ ${input}`;
             localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
             localStorage.setItem('ap2_marketing_review_progress', JSON.stringify({}));
             localStorage.setItem('ap2_saved_notes', JSON.stringify({}));
-            if (data.progress_data.project_m_progress) {
-              localStorage.setItem('project_m_progress_v1', JSON.stringify(data.progress_data.project_m_progress));
-            }
-            if (data.progress_data.klr_progress) {
-              localStorage.setItem('klr_game_progress_v1', JSON.stringify(data.progress_data.klr_progress));
-            }
+            localStorage.removeItem('project_m_progress_v1');
+            localStorage.removeItem('klr_game_progress_v1');
+            localStorage.removeItem('journey_architect_progress_v1');
             // Trigger local update for providers
             window.dispatchEvent(new Event('storage'));
 
@@ -1153,7 +1175,7 @@ ${input}`;
   };
 
   const openResetModal = (e, target = 'wisor') => {
-    e.stopPropagation();
+    if (e?.stopPropagation) e.stopPropagation();
     setResetTarget(target);
     setResetModalVisible(true);
   };
@@ -1257,6 +1279,7 @@ ${input}`;
       window.location.reload();
     } else if (resetTarget === 'journey_architect') {
       localStorage.removeItem('journey_architect_progress_v1');
+      clearAnalyticsByMode('journey_architect');
       setResetModalVisible(false);
       window.location.reload();
     } else if (resetTarget === 'fullAccount') {
@@ -2134,7 +2157,7 @@ ${input}`;
         {pomodoroPortal}
         {burgerMenuPortal}
         <React.Suspense fallback={<div className="loading-overlay">Lade Journey Architect...</div>}>
-          <JourneyArchitectGame onBack={() => setAppMode('dashboard')} />
+          <JourneyArchitectGame onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
         </React.Suspense>
       </div>
     );
@@ -2185,6 +2208,7 @@ ${input}`;
           setAppMode={setAppMode}
           learningAnalytics={learningAnalytics}
           refreshMistakeAnalysis={refreshMistakeAnalysis}
+          onResetLearningProgress={() => openResetModal(null, 'fullAccount')}
           dashboardAiTopics={dashboardAiTopics}
           dashboardAiLoading={dashboardAiLoading}
           calcAiInsights={calcAiInsights}
@@ -2193,6 +2217,13 @@ ${input}`;
           einsteinRef={einsteinRef}
           burgerMenuPortal={burgerMenuPortal}
           customQuizQuestions={customQuizQuestions}
+        />
+        <ResetModal
+          isOpen={resetModalVisible}
+          onClose={() => setResetModalVisible(false)}
+          onConfirm={handleResetExecute}
+          title="Lernstand wirklich löschen?"
+          description="Dein kompletter Lernstand und die Analyse werden zurückgesetzt. Löse die Aufgabe, um fortzufahren:"
         />
       </React.Suspense>
     );

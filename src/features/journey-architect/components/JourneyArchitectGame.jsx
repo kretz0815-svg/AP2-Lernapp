@@ -18,7 +18,7 @@ const LEVEL_DATA = {
     4: { id: 4, title: 'Level 4: Mastermind', scenarios: L4_SCENARIOS, xpPoints: 300 }
 };
 
-export default function JourneyArchitectGame({ onBack }) {
+export default function JourneyArchitectGame({ onBack, onLearningEvent }) {
     const { progress, grantXp, unlockLevel } = useJourneyArchitect();
     const [view, setView] = useState('menu'); // 'menu', 'level', 'end'
 
@@ -56,6 +56,19 @@ export default function JourneyArchitectGame({ onBack }) {
     // Feedback
     const [feedback, setFeedback] = useState(null);
     const [showConfetti, setShowConfetti] = useState(false);
+
+    const emitJourneyEvent = ({ challenge, correct, userAnswer = '', expectedAnswer = '', topic = '' }) => {
+        if (!currentScenario || !challenge) return;
+        onLearningEvent?.({
+            mode: 'journey_architect',
+            questionId: `ja_${currentScenario.id}_${challenge.id}`,
+            questionText: challenge.task || challenge.title || currentScenario.title,
+            correct,
+            userAnswer,
+            expectedAnswer,
+            topic: topic || `Journey Architect · ${currentScenario.title}`
+        });
+    };
 
     const handleGeminiAsk = async () => {
         if (!geminiQuery.trim()) return;
@@ -111,8 +124,22 @@ export default function JourneyArchitectGame({ onBack }) {
                 setFeedback({ type: 'error', text: 'Bitte alle Plätze belegen!' }); return;
             }
             if(JSON.stringify(correctIds) === JSON.stringify(userIds)) {
+                emitJourneyEvent({
+                    challenge,
+                    correct: true,
+                    userAnswer: slots.map((item) => item?.label).join(' > '),
+                    expectedAnswer: [...challenge.cards].sort((a, b) => a.order - b.order).map((item) => item.label).join(' > '),
+                    topic: `Journey Architect · ${currentScenario.title} · DnD`
+                });
                 setFeedback({ type: 'success', text: 'Korrekt sortiert!' });
             } else {
+                emitJourneyEvent({
+                    challenge,
+                    correct: false,
+                    userAnswer: slots.map((item) => item?.label).join(' > '),
+                    expectedAnswer: [...challenge.cards].sort((a, b) => a.order - b.order).map((item) => item.label).join(' > '),
+                    topic: `Journey Architect · ${currentScenario.title} · DnD`
+                });
                 setFeedback({ type: 'error', text: 'Die Reihenfolge stimmt noch nicht. Versuch es noch einmal.' });
             }
         } else if (challenge.type === 'oq') {
@@ -137,6 +164,13 @@ WICHTIG: Antworte am Ende ENTWEDER mit dem Wort "KORREKT" (wenn alles passt) ODE
                 const reallyCorrect = isCorrect && !res.trim().endsWith("INKORREKT");
 
                 setOqFeedback({ text: res.replace(/KORREKT|INKORREKT/g, '').trim(), correct: reallyCorrect });
+                emitJourneyEvent({
+                    challenge,
+                    correct: reallyCorrect,
+                    userAnswer: oqAnswer,
+                    expectedAnswer: 'Inhaltlich korrekte, begründete Antwort',
+                    topic: `Journey Architect · ${currentScenario.title} · Offene Frage`
+                });
                 
                 if(reallyCorrect) {
                   setFeedback({ type: 'success', text: 'Klasse Antwort!' });
@@ -145,10 +179,24 @@ WICHTIG: Antworte am Ende ENTWEDER mit dem Wort "KORREKT" (wenn alles passt) ODE
                 }
             } catch {
                 setOqFeedback({ text: 'KI konnte nicht antworten. Wir werten es als richtig!', correct: true });
+                emitJourneyEvent({
+                    challenge,
+                    correct: true,
+                    userAnswer: oqAnswer,
+                    expectedAnswer: 'Inhaltlich korrekte, begründete Antwort',
+                    topic: `Journey Architect · ${currentScenario.title} · Offene Frage`
+                });
                 setFeedback({ type: 'success', text: 'Weiter gehts!' });
             }
             setOqLoading(false);
         } else if (challenge.type === 'dnd-master') {
+            emitJourneyEvent({
+                challenge,
+                correct: true,
+                userAnswer: 'Master-Challenge bestätigt',
+                expectedAnswer: 'Master-Challenge bestanden',
+                topic: `Journey Architect · ${currentScenario.title} · Master`
+            });
             setFeedback({ type: 'success', text: 'Master-Challenge bestanden! Du hast die 3 Modelle verstanden.' });
         }
     };
@@ -331,6 +379,13 @@ WICHTIG: Antworte am Ende ENTWEDER mit dem Wort "KORREKT" (wenn alles passt) ODE
                                         onClick={() => {
                                             setMcSelected(idx);
                                             setMcRevealed(true);
+                                            emitJourneyEvent({
+                                                challenge: currentScenario.challenges[activeChallengeIdx],
+                                                correct: !!ans.correct,
+                                                userAnswer: ans.text,
+                                                expectedAnswer: currentScenario.challenges[activeChallengeIdx].answers.find((a) => a.correct)?.text || '',
+                                                topic: `Journey Architect · ${currentScenario.title} · Multiple Choice`
+                                            });
                                             if(ans.correct) setFeedback({type:'success', text:'Richtig!'});
                                             else setFeedback({type:'error', text:'Leider falsch. Versuch es weiter oder frage die KI.'});
                                         }}

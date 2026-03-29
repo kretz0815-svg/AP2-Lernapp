@@ -30,7 +30,8 @@ export const createEmptyMemberProgressData = () => ({
     learning_analytics: createEmptyAnalytics(),
     custom_quiz_questions: [],
     klr_progress: null,
-    project_m_progress: null
+    project_m_progress: null,
+    journey_architect_progress: null
 });
 
 // ─── ID Generation ──────────────────────────────────────────────

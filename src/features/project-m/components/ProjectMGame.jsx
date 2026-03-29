@@ -46,7 +46,7 @@ const LEVELS = [
   { id: 4, title: 'Die Meisterprüfung', subtitle: 'Fehlersuche & Transfer', objective: 'Korrigiere den fehlerhaften Projektplan und baue die fehlenden Phasen ein.' }
 ];
 
-export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent }) {
+export default function ProjectMGame({ onBack, onLearningEvent }) {
   const { progress, grantXp, unlockLevel } = useProjectM();
   const [screen, setScreen] = useState('home');
   const [showConfetti, setShowConfetti] = useState(false);
@@ -58,6 +58,18 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
   const [l2Variant, setL2Variant] = useState(L2_VARIANTS[0]);
   const [l3Variant, setL3Variant] = useState(L3_VARIANTS[0]);
   const [l4Variant, setL4Variant] = useState(L4_VARIANTS[0]);
+
+  const emitProjectEvent = ({ questionId, questionText, correct, userAnswer = '', expectedAnswer = '', topic = 'Projekt M Mastery' }) => {
+    onLearningEvent?.({
+      mode: 'project_m',
+      questionId,
+      questionText,
+      correct,
+      userAnswer,
+      expectedAnswer,
+      topic
+    });
+  };
 
   // Confetti trigger
   const triggerSuccess = () => {
@@ -167,6 +179,14 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
       if (!card) return;
       
       if (card.order === slotIndex) {
+        emitProjectEvent({
+          questionId: `pm_l1_sort_${l1Variant.id}_${card.id}`,
+          questionText: `Level 1 Reihenfolge: ${card.label}`,
+          correct: true,
+          userAnswer: `Slot ${slotIndex + 1}`,
+          expectedAnswer: `Slot ${card.order + 1}`,
+          topic: 'Projekt M · Level 1'
+        });
         setL1Dropped(prev => {
           const next = [...prev];
           next[slotIndex] = card;
@@ -181,6 +201,14 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
            playSound('success');
         }
       } else {
+        emitProjectEvent({
+          questionId: `pm_l1_sort_${l1Variant.id}_${card.id}`,
+          questionText: `Level 1 Reihenfolge: ${card.label}`,
+          correct: false,
+          userAnswer: `Slot ${slotIndex + 1}`,
+          expectedAnswer: `Slot ${card.order + 1}`,
+          topic: 'Projekt M · Level 1'
+        });
         triggerError('Die Reihenfolge stimmt so nicht. Denk an den Zyklus!');
         setL1Mistakes(prev => ({ ...prev, [cardId]: (prev[cardId] || 0) + 1 }));
       }
@@ -251,6 +279,14 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
                         key={i} 
                         className="btn-secondary" 
                         onClick={() => {
+                            emitProjectEvent({
+                              questionId: `pm_l1_quiz_${l1Variant.id}`,
+                              questionText: l1Variant.quizQuestion,
+                              correct: !!ans.correct,
+                              userAnswer: ans.text,
+                              expectedAnswer: l1Variant.quizAnswers.find((a) => a.correct)?.text || '',
+                              topic: 'Projekt M · Level 1 Quiz'
+                            });
                             if (ans.correct) {
                                 triggerSuccess();
                                 setL1QuizGate(true);
@@ -298,6 +334,14 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
       if(!card) return;
 
       if (card.category === catId) {
+        emitProjectEvent({
+          questionId: `pm_l2_sort_${l2Variant.id}_${card.id}`,
+          questionText: `Level 2 Zuordnung: ${card.label}`,
+          correct: true,
+          userAnswer: catId,
+          expectedAnswer: card.category,
+          topic: 'Projekt M · Level 2'
+        });
         setL2Dropped(prev => {
            const next = { ...prev, [catId]: [...prev[catId], card] };
            if (catId === l2Variant.quizTriggerCategory && next[catId].length === l2Variant.quizTriggerCount && !l2QuizGate) {
@@ -309,6 +353,14 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
         setSelectedCard(null);
         playSound('success');
       } else {
+        emitProjectEvent({
+          questionId: `pm_l2_sort_${l2Variant.id}_${card.id}`,
+          questionText: `Level 2 Zuordnung: ${card.label}`,
+          correct: false,
+          userAnswer: catId,
+          expectedAnswer: card.category,
+          topic: 'Projekt M · Level 2'
+        });
         triggerError('Inkorrekte Zuordnung. Überlege genau, in was diese Aufgabe mündet.');
         setL2Mistakes(prev => ({ ...prev, [cardId]: (prev[cardId] || 0) + 1 }));
       }
@@ -386,6 +438,14 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
                           key={i} 
                           className="btn-secondary" 
                           onClick={() => {
+                              emitProjectEvent({
+                                questionId: `pm_l2_quiz_${l2Variant.id}`,
+                                questionText: l2Variant.quizQuestion,
+                                correct: !!ans.correct,
+                                userAnswer: ans.text,
+                                expectedAnswer: l2Variant.quizAnswers.find((a) => a.correct)?.text || '',
+                                topic: 'Projekt M · Level 2 Quiz'
+                              });
                               if(ans.correct) {
                                   triggerSuccess();
                                   setL2QuizGate(false);
@@ -422,6 +482,14 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
       if (!val) return;
 
       if (val === l3Variant.cloze[index].gap) {
+        emitProjectEvent({
+          questionId: `pm_l3_cloze_${l3Variant.id}_${index}`,
+          questionText: l3Variant.cloze[index].text,
+          correct: true,
+          userAnswer: val,
+          expectedAnswer: l3Variant.cloze[index].gap,
+          topic: 'Projekt M · Level 3'
+        });
         setL3Answers(prev => {
           const next = [...prev];
           next[index] = val;
@@ -430,6 +498,14 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
         setSelectedCard(null);
         playSound('success');
       } else {
+        emitProjectEvent({
+          questionId: `pm_l3_cloze_${l3Variant.id}_${index}`,
+          questionText: l3Variant.cloze[index].text,
+          correct: false,
+          userAnswer: val,
+          expectedAnswer: l3Variant.cloze[index].gap,
+          topic: 'Projekt M · Level 3'
+        });
         triggerError('Dieser Begriff passt semantisch oder technisch nicht.');
       }
     };
@@ -624,7 +700,20 @@ export default function ProjectMGame({ onBack, onLearningEvent: _onLearningEvent
 
           {isWin && (
              <div style={{ marginTop: '3rem', textAlign: 'center' }}>
-                <button className="btn-primary" style={{ padding: '1rem 3rem' }} onClick={() => { triggerSuccess(); grantXp(150); setScreen('home'); setSelectedCard(null); }}>Meisterprüfung Bestanden! 🏆</button>
+                <button className="btn-primary" style={{ padding: '1rem 3rem' }} onClick={() => {
+                  emitProjectEvent({
+                    questionId: `pm_l4_master_${l4Variant.id}`,
+                    questionText: 'Level 4 Meisterprüfung',
+                    correct: true,
+                    userAnswer: 'Bestanden',
+                    expectedAnswer: 'Bestanden',
+                    topic: 'Projekt M · Level 4'
+                  });
+                  triggerSuccess();
+                  grantXp(150);
+                  setScreen('home');
+                  setSelectedCard(null);
+                }}>Meisterprüfung Bestanden! 🏆</button>
              </div>
           )}
         </div>

@@ -10,12 +10,15 @@ import flashcards3 from '../data/flashcards_3.json';
 import wisor1 from '../data/wisor_1.json';
 import wisorEco from '../data/wisor_eco.json';
 import marketingReview from '../data/marketing_review.json';
+import { L1_VARIANTS, L2_VARIANTS, L3_VARIANTS, L4_VARIANTS } from '../features/project-m/data/scenarios';
+import { L1_SCENARIOS, L2_SCENARIOS, L3_SCENARIOS, L4_SCENARIOS } from '../features/journey-architect/data/scenarios';
 
 const LearningDashboard = ({
   authUser,
   setAppMode,
   learningAnalytics,
   refreshMistakeAnalysis,
+  onResetLearningProgress,
   dashboardAiTopics,
   dashboardAiLoading,
   calcAiInsights,
@@ -42,8 +45,23 @@ const LearningDashboard = ({
     );
   }
 
-  const events = learningAnalytics?.events || [];
-  const mistakes = learningAnalytics?.mistakes || {};
+  const includedModes = new Set([
+    'quiz',
+    'wisor',
+    'wisorEco',
+    'flashcard',
+    'kalkulation',
+    'breakEven',
+    'rechen',
+    'klr',
+    'marketing_review',
+    'project_m',
+    'journey_architect'
+  ]);
+  const events = (learningAnalytics?.events || []).filter((event) => includedModes.has(event?.mode));
+  const mistakes = Object.fromEntries(
+    Object.entries(learningAnalytics?.mistakes || {}).filter(([, entry]) => includedModes.has(entry?.mode))
+  );
   const nowTs = Date.now();
 
   const periodStart = {
@@ -68,6 +86,8 @@ const LearningDashboard = ({
       rechen: byMode('rechen'),
       klr: byMode('klr'),
       marketing_review: byMode('marketing_review'),
+      project_m: byMode('project_m'),
+      journey_architect: byMode('journey_architect'),
     };
   };
 
@@ -88,7 +108,9 @@ const LearningDashboard = ({
     breakEven: 'Break-Even-Point',
     klr: 'KLR-Modul',
     rechen: "KPI's",
-    marketing_review: 'IHK Extras'
+    marketing_review: 'IHK Extras',
+    project_m: 'Projekt M Mastery',
+    journey_architect: 'Journey Architect'
   };
 
   const modeTotals = events.reduce((acc, event) => {
@@ -99,7 +121,19 @@ const LearningDashboard = ({
     return acc;
   }, {});
 
-  const questionEvents = events.filter(e => e.mode === 'quiz' || e.mode === 'wisor' || e.mode === 'wisorEco' || e.mode === 'kalkulation' || e.mode === 'breakEven' || e.mode === 'klr' || e.mode === 'rechen');
+  const questionEvents = events.filter(e => (
+    e.mode === 'quiz'
+    || e.mode === 'wisor'
+    || e.mode === 'wisorEco'
+    || e.mode === 'flashcard'
+    || e.mode === 'kalkulation'
+    || e.mode === 'breakEven'
+    || e.mode === 'klr'
+    || e.mode === 'rechen'
+    || e.mode === 'marketing_review'
+    || e.mode === 'project_m'
+    || e.mode === 'journey_architect'
+  ));
   const totalAnswers = events.length;
   const totalCorrect = events.filter(e => e.correct).length;
   const hitRate = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
@@ -112,7 +146,15 @@ const LearningDashboard = ({
     (wisor1.questions || []).length +
     (wisorEco.questions || []).length +
     (marketingReview.questions || []).length +
-    getRechenTasks(customQuizQuestions).length;
+    getRechenTasks(customQuizQuestions).length +
+    ((L1_VARIANTS[0]?.cards?.length || 0) + 1) +
+    ((L2_VARIANTS[0]?.cards?.length || 0) + 1) +
+    (L3_VARIANTS[0]?.cloze?.length || 0) +
+    1 +
+    (L1_SCENARIOS[0]?.challenges?.length || 0) +
+    (L2_SCENARIOS[0]?.challenges?.length || 0) +
+    (L3_SCENARIOS[0]?.challenges?.length || 0) +
+    (L4_SCENARIOS[0]?.challenges?.length || 0);
 
   const latestByQuestion = {};
   for (const ev of events) {
@@ -147,10 +189,13 @@ const LearningDashboard = ({
     if (event.mode === 'quiz') return quizTopicById.get(String(event.questionId)) || getQuizTopicGroup(detectQuizTopic({ question: event.questionText || '', hint: '', youtubeQuery: '' })) || 'Quiz Allgemein';
     if (event.mode === 'wisor') return 'WisoR Grundlagen';
     if (event.mode === 'wisorEco') return 'WisoR E-Commerce';
+    if (event.mode === 'flashcard') return event.topic || 'Lernkarten Wissen';
     if (event.mode === 'kalkulation') return 'Kalkulations-Boss';
     if (event.mode === 'breakEven') return 'Break-Even-Point';
     if (event.mode === 'klr') return event.topic || 'KLR-Modul';
     if (event.mode === 'marketing_review') return 'IHK Extras';
+    if (event.mode === 'project_m') return 'Projekt M Mastery';
+    if (event.mode === 'journey_architect') return 'Journey Architect';
     return 'Allgemein';
   };
 
@@ -228,7 +273,10 @@ const LearningDashboard = ({
     if (entry.mode === 'wisor') return 'WisoR Grundlagen';
     if (entry.mode === 'wisorEco') return 'WisoR E-Commerce';
     if (entry.mode === 'flashcard') return 'Lernkarten Wissen';
+    if (entry.mode === 'marketing_review') return 'IHK Extras';
     if (entry.mode === 'klr') return entry.topic || 'KLR-Modul';
+    if (entry.mode === 'project_m') return 'Projekt M Mastery';
+    if (entry.mode === 'journey_architect') return 'Journey Architect';
     return 'Allgemein';
   };
 
@@ -286,7 +334,7 @@ const LearningDashboard = ({
   const circleRadius = 62;
   const circleCircumference = 2 * Math.PI * circleRadius;
   const circleOffset = circleCircumference * (1 - overallAccuracy / 100);
-  const allModeKeys = ['quiz', 'wisor', 'wisorEco', 'kalkulation', 'breakEven', 'klr', 'flashcard'];
+  const allModeKeys = ['quiz', 'wisor', 'wisorEco', 'kalkulation', 'breakEven', 'klr', 'rechen', 'flashcard', 'marketing_review', 'project_m', 'journey_architect'];
   const dayTotalCount = allModeKeys.reduce((s, m) => s + day[m].correct + day[m].wrong, 0);
   const dayCorrectCount = allModeKeys.reduce((s, m) => s + day[m].correct, 0);
   const dayAccuracy = dayTotalCount > 0 ? Math.round((dayCorrectCount / dayTotalCount) * 100) : 0;
@@ -349,9 +397,13 @@ const LearningDashboard = ({
           <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Men&uuml;</button>
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-          <button className="btn-secondary" onClick={refreshMistakeAnalysis}>{'\uD83D\uDD04'} Analyse aktualisieren</button>
+          <button type="button" className="btn-secondary" onClick={refreshMistakeAnalysis}>{'\uD83D\uDD04'} Analyse aktualisieren</button>
+          <button type="button" className="btn-secondary" style={{ background: 'rgba(239,68,68,0.12)', borderColor: 'rgba(239,68,68,0.45)', color: '#fecaca' }} onClick={onResetLearningProgress}>🧹 Lernstand löschen</button>
           <button className="btn-primary" onClick={() => window.print()}>{'\uD83D\uDCC4'} Lernstand als PDF</button>
         </div>
+        <p style={{ marginTop: '0.65rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.78rem' }}>
+          Letzte Aktualisierung: {learningAnalytics?.lastRefreshedAt ? new Date(learningAnalytics.lastRefreshedAt).toLocaleString('de-DE') : 'noch nie'}
+        </p>
       </header>
 
       <h1 className="print-only-title" style={{ margin: 0, textAlign: 'center', color: 'var(--text-light)', fontSize: '2.35rem', fontWeight: 900, letterSpacing: '0.02em' }}>
