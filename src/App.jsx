@@ -478,7 +478,7 @@ function App() {
     const localProg = JSON.parse(localStorage.getItem('ap2_quiz_progress') || '{}');
     const prevProg = localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 };
     const nextProg = computeNextQuizProgress(prevProg, isCorrect);
-    
+
     localProg[q.id] = nextProg;
     localStorage.setItem('ap2_quiz_progress', JSON.stringify(localProg));
     setQuizProgressView(localProg);
@@ -486,7 +486,7 @@ function App() {
     // 2. Supabase DSR update
     if (authUser?.id) {
       // Mapping correct answer to a 4 (Good), otherwise 2 (Hard) if incorrect.
-      const rating = isCorrect ? 4 : 2; 
+      const rating = isCorrect ? 4 : 2;
       reviewTaskWithDSR({
         supabase,
         userId: authUser.id,
@@ -732,7 +732,7 @@ function App() {
     setCustomQuizQuestions(updatedCustom);
     localStorage.setItem(getCustomQuizStorageKey(authUser), JSON.stringify(updatedCustom));
     await syncProgressToSupabase({ custom_quiz_questions: updatedCustom });
-      await refreshQuizDuePool();
+    await refreshQuizDuePool();
 
     return { ok: true };
   };
@@ -1374,14 +1374,14 @@ ${input}`;
 
   const startWisor = (mode = 'wisor1') => {
     setActiveWisorMode(mode);
-    const rawWisors = mode === 'wisor1' ? [...wisor1.questions] : 
-                    mode === 'wisorEco' ? [...(wisorEco.questions || [])] :
-                    [...(marketingReview.questions || [])];
-    
-    const key = mode === 'wisor1' ? 'ap2_wisor_progress' : 
-                mode === 'wisorEco' ? 'ap2_wisor_eco_progress' :
-                'ap2_marketing_review_progress';
-                
+    const rawWisors = mode === 'wisor1' ? [...wisor1.questions] :
+      mode === 'wisorEco' ? [...(wisorEco.questions || [])] :
+        [...(marketingReview.questions || [])];
+
+    const key = mode === 'wisor1' ? 'ap2_wisor_progress' :
+      mode === 'wisorEco' ? 'ap2_wisor_eco_progress' :
+        'ap2_marketing_review_progress';
+
     const wisorProg = JSON.parse(localStorage.getItem(key)) || {};
     const uncompleted = rawWisors.filter(q => !wisorProg[q.id]);
     const shuffled = (mode === 'wisor1' || mode === 'marketing_review') ? [...uncompleted].sort(() => Math.random() - 0.5) : [...uncompleted];
@@ -1575,8 +1575,8 @@ ${input}`;
     setLastWisorCorrect(correct);
 
     appendLearningEvent({
-      mode: activeWisorMode === 'wisor1' ? 'wisor' : 
-            activeWisorMode === 'wisorEco' ? 'wisorEco' : 'marketing_review',
+      mode: activeWisorMode === 'wisor1' ? 'wisor' :
+        activeWisorMode === 'wisorEco' ? 'wisorEco' : 'marketing_review',
       questionId: q.id,
       questionText: q.question,
       correct,
@@ -1587,8 +1587,8 @@ ${input}`;
     // Pomodoro session logging
     if (pomodoroActive) {
       const questionText = q.question?.substring(0, 100) || q.id || 'WisoR-Frage';
-      const topicLabel = activeWisorMode === 'wisor1' ? 'WisoR Grundlagen' : 
-                         activeWisorMode === 'wisorEco' ? 'WisoR E-Commerce' : 'IHK Extras';
+      const topicLabel = activeWisorMode === 'wisor1' ? 'WisoR Grundlagen' :
+        activeWisorMode === 'wisorEco' ? 'WisoR E-Commerce' : 'IHK Extras';
       setPomodoroSessionLog(prev => [...prev, { correct, questionText, topic: topicLabel }]);
     }
 
@@ -1645,8 +1645,8 @@ ${input}`;
         userId: authUser.id,
         taskId: activeWisorMode + ":" + q.id,
         rating,
-        taskType: activeWisorMode === 'marketing_review' ? 'marketing_review' : 
-                 activeWisorMode === 'wisorEco' ? 'wisorEco' : 'wisor',
+        taskType: activeWisorMode === 'marketing_review' ? 'marketing_review' :
+          activeWisorMode === 'wisorEco' ? 'wisorEco' : 'wisor',
         category: activeWisorMode,
         metadata: { source: activeWisorMode, question: q.question }
       }).catch(err => console.error('DSR wisor review failed:', err));
@@ -1758,7 +1758,7 @@ ${input}`;
               style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}
             >
               Mit Google anmelden
-              </button>
+            </button>
             {currentHost === 'localhost' && (
               <button
                 type="button"
@@ -1825,39 +1825,39 @@ ${input}`;
   );
 
   // --- GLOBAL STATS + BURGER MENU (available in ALL modes) ---
-    const allQuizQuestions = [
-      ...(wissenTesten.questions || []),
-      ...(customQuizQuestions || []).filter(q => !isRechenTask(q))
-    ];
-    const quizProg = quizProgressView || {};
-    const nowTs = Date.now();
-    
-    const calculateLearnedCount = (questionsArray) => questionsArray.reduce((count, question) => {
-      const questionId = question.id || generateId(question.question);
-      const progress = quizProg[questionId];
-      if (!progress) return count;
-      return count + ((progress.nextReview || 0) > nowTs ? 1 : 0);
-    }, 0);
+  const allQuizQuestions = [
+    ...(wissenTesten.questions || []),
+    ...(customQuizQuestions || []).filter(q => !isRechenTask(q))
+  ];
+  const quizProg = quizProgressView || {};
+  const nowTs = Date.now();
 
-    const quizLearnedCount = calculateLearnedCount(allQuizQuestions);
-    const wisorQuestions = wisor1.questions || [];
-    const wisorEcoQuestions = wisorEco.questions || [];
-    const rechenTasks = getRechenTasks(customQuizQuestions);
-    const rechenTotal = rechenTasks.length;
-    const rechenLearned = calculateLearnedCount(rechenTasks);
+  const calculateLearnedCount = (questionsArray) => questionsArray.reduce((count, question) => {
+    const questionId = question.id || generateId(question.question);
+    const progress = quizProg[questionId];
+    if (!progress) return count;
+    return count + ((progress.nextReview || 0) > nowTs ? 1 : 0);
+  }, 0);
 
-    const globalStats = {
-      quizTotal: allQuizQuestions.length,
-      quizLearned: Math.min(quizLearnedCount, allQuizQuestions.length),
-      wisorTotal: wisorQuestions.length,
-      wisorLearned: Object.keys(completedWisors).length,
-      wisorEcoTotal: wisorEcoQuestions.length,
-      wisorEcoLearned: Object.keys(completedWisorsEco).length,
-      reviewTotal: allMarketingReviewQuestions.length,
-      reviewLearned: Object.keys(completedMarketingReview).length,
-      rechenTotal,
-      rechenLearned
-    };
+  const quizLearnedCount = calculateLearnedCount(allQuizQuestions);
+  const wisorQuestions = wisor1.questions || [];
+  const wisorEcoQuestions = wisorEco.questions || [];
+  const rechenTasks = getRechenTasks(customQuizQuestions);
+  const rechenTotal = rechenTasks.length;
+  const rechenLearned = calculateLearnedCount(rechenTasks);
+
+  const globalStats = {
+    quizTotal: allQuizQuestions.length,
+    quizLearned: Math.min(quizLearnedCount, allQuizQuestions.length),
+    wisorTotal: wisorQuestions.length,
+    wisorLearned: Object.keys(completedWisors).length,
+    wisorEcoTotal: wisorEcoQuestions.length,
+    wisorEcoLearned: Object.keys(completedWisorsEco).length,
+    reviewTotal: allMarketingReviewQuestions.length,
+    reviewLearned: Object.keys(completedMarketingReview).length,
+    rechenTotal,
+    rechenLearned
+  };
 
   const burgerMenuPortal = createPortal(
     <>
@@ -1882,15 +1882,15 @@ ${input}`;
           category={questionManagerCategory}
           questions={
             questionManagerCategory === 'quiz' ? allQuizQuestions :
-              questionManagerCategory === 'wisor' ? wisorQuestions : 
-              questionManagerCategory === 'wisorEco' ? wisorEcoQuestions :
-              questionManagerCategory === 'marketing_review' ? allMarketingReviewQuestions : rechenTasks
+              questionManagerCategory === 'wisor' ? wisorQuestions :
+                questionManagerCategory === 'wisorEco' ? wisorEcoQuestions :
+                  questionManagerCategory === 'marketing_review' ? allMarketingReviewQuestions : rechenTasks
           }
           authUser={authUser}
           progress={
             questionManagerCategory === 'quiz' || questionManagerCategory === 'rechen' ? quizProg :
               questionManagerCategory === 'wisor' ? completedWisors :
-              questionManagerCategory === 'wisorEco' ? completedWisorsEco : completedMarketingReview
+                questionManagerCategory === 'wisorEco' ? completedWisorsEco : completedMarketingReview
           }
           formatLatex={formatLatex}
           onClose={() => setQuestionManagerCategory(null)}
@@ -2059,7 +2059,7 @@ ${input}`;
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
               <img src="/EinsteinOrange.webp" alt="IHK Lernwelt" style={{ width: '1.05em', height: '1.05em', objectFit: 'contain' }} />
             </div>
-            <h2>IHK Lernwelt</h2>
+            <h2>E-Commerce 2026</h2>
             <p>Wissen testen, Projekt M Mastery, Journey Architect und IHK Extras gebündelt in einer Kategorie.</p>
             <div style={{ display: 'grid', gap: '0.55rem', width: '100%', marginTop: '0.4rem' }}>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('quiz_setup')}>
@@ -2345,7 +2345,7 @@ ${input}`;
     if (topic && topic !== 'Alle') {
       filtered = filtered.filter(q => categorizeRechenTask(q) === topic);
     }
-    
+
     const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
     const prepared = buildPreparedQuizzes(filtered, quizProg);
     const now = Date.now();
@@ -2360,7 +2360,7 @@ ${input}`;
       const remaining = prepared.filter(p => !due.some(d => d.id === p.id));
       pool = [...due, ...remaining.sort(() => Math.random() - 0.5)].slice(0, parseInt(count));
     }
-    
+
     if (pool.length === 0) {
       alert('Keine fälligen Aufgaben für dieses Thema gefunden.');
       return;
@@ -2373,7 +2373,7 @@ ${input}`;
   if (appMode === 'rechen_tasks_setup') {
     const calcTasks = getRechenTasks(customQuizQuestions);
     const topics = ['Alle', 'KPI', 'Handelskalkulation', 'Conversion', 'ROAS', 'Allgemein'];
-    
+
     const now = Date.now();
     const preparedAll = buildPreparedQuizzes(calcTasks, quizProg);
     filterDueQuizzes(preparedAll, quizProg, now);
@@ -2434,7 +2434,7 @@ ${input}`;
               {getTopicStats(rechenSetup.topic).due} fällige starten
             </button>
           </div>
-          
+
           <p style={{ marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
             Inklusive Video-Vorschlägen & KI-Assistent
           </p>
@@ -2753,7 +2753,7 @@ ${input}`;
   // Final safety: if no condition matched, return dashboard
   return (
     <div className="app-container" style={{ zIndex: 10 }}>
-        <button className="btn-primary" onClick={() => setAppMode('dashboard')}>Return to Dashboard</button>
+      <button className="btn-primary" onClick={() => setAppMode('dashboard')}>Return to Dashboard</button>
     </div>
   );
 }
