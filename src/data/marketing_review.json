@@ -174,6 +174,267 @@
       "hint": "Achte auf frühe Ergebnisse und flexible Reaktion auf Änderungen.",
       "youtubeQuery": "Agiles Projektmanagement Vorteile Rapid Prototyping Flexibilitaet",
       "topic": "Agiles Projektmanagement"
+    },
+    {
+      "id": "mr_007",
+      "question": "Die „Urban-Peak AG“ arbeitet mit einem bekannten Influencer zusammen. Plötzlich äußert sich dieser in seinen Storys extrem abfällig und politisch hochgradig kontrovers. Welche mittel- bis langfristigen negativen Auswirkungen drohen dem E-Commerce-Unternehmen durch dieses Fehlverhalten in erster Linie?",
+      "answerOptions": [
+        {
+          "text": "Ein rapider Anstieg der eigenen Serverkosten.",
+          "isCorrect": false,
+          "rationale": "Das Verhalten des Influencers hat keine direkten Auswirkungen auf die Serverkosten."
+        },
+        {
+          "text": "Ein massiver Verlust der Firmenreputation, der Absprung von Stammkunden (die zu anderen Anbietern wechseln) und der mögliche Rückzug von Partnerunternehmen.",
+          "isCorrect": true,
+          "rationale": "Das Fehlverhalten eines Markenbotschafters strahlt direkt auf das Unternehmen ab. Die schwerwiegendsten Folgen sind der Verlust des öffentlichen Ansehens (Reputation), sinkende Umsätze durch abwandernde Kunden und der Verlust von Sponsoring- oder Lieferantenpartnern."
+        },
+        {
+          "text": "Eine automatische rechtliche Sperrung des eigenen Webshops durch die Aufsichtsbehörden.",
+          "isCorrect": false,
+          "rationale": "Eine Sperrung des Webshops aufgrund von Äußerungen eines Dritten erfolgt nicht automatisch."
+        },
+        {
+          "text": "Eine dauerhafte, positive Steigerung der organischen Reichweite, da Kontroversen Klicks generieren.",
+          "isCorrect": false,
+          "rationale": "Kurzfristige Klicks aufgrund von Kontroversen führen meist zu langfristigen negativen Auswirkungen auf das Markenimage."
+        }
+      ],
+      "hint": "Denke an den Verlust des Ansehens und die Reaktionen von Kunden und Partnern.",
+      "youtubeQuery": "Influencer Marketing Reputationsverlust Skandal Folgen",
+      "topic": "Influencer Marketing"
+    },
+    {
+      "id": "mr_008",
+      "question": "Um genau solche Image-Katastrophen zu vermeiden, prüft die „Eco-Wear GmbH“ potenzielle Influencer vor einem Vertragsabschluss sehr genau. Welche Aspekte gehören zwingend zu den unternehmensethischen Auswahlkriterien?",
+      "answerOptions": [
+        {
+          "text": "Die geforderten Honorare und die Klickpreise des Influencers.",
+          "isCorrect": false,
+          "rationale": "Dies sind vertriebsbezogene und wirtschaftliche Kriterien, keine ethischen."
+        },
+        {
+          "text": "Die Überprüfung des bisherigen Verhaltens betreffend politische, religiöse und ethische Postings sowie die Tonalität und der Sprachstil.",
+          "isCorrect": true,
+          "rationale": "Bei der ethischen Prüfung geht es um die „Passform“ zur Unternehmensbotschaft. Der Influencer muss auf sein bisheriges Verhalten (Politik, Religion, Ethik) und auf die Grundlagen der Kommunikation (Sprachstil, Höflichkeit) analysiert werden, um Imageschäden zu vermeiden."
+        },
+        {
+          "text": "Die verwendete Kameraausrüstung und die Ladezeit des Blogs.",
+          "isCorrect": false,
+          "rationale": "Dies sind technische Kriterien."
+        },
+        {
+          "text": "Der Wohnort und die regionale Reichweite des Influencers.",
+          "isCorrect": false,
+          "rationale": "Dies sind eher zielgruppen- oder reichweitenbasierte Kriterien, keine primär ethischen."
+        }
+      ],
+      "hint": "Es geht um Werte, Verhalten und die Passform zur Unternehmensbotschaft.",
+      "youtubeQuery": "Influencer Auswahlkriterien Ethik Passgenauigkeit",
+      "topic": "Influencer Marketing"
+    },
+    {
+      "id": "mr_009",
+      "question": "Die Vertriebsabteilung der „Next-Gen Retail UG“ soll ebenfalls Kriterien für die Auswahl eines Influencers definieren, allerdings aus rein vertrieblicher und wirtschaftlicher Sicht. Welche der folgenden Kriterien sind hierbei am wichtigsten?",
+      "answerOptions": [
+        {
+          "text": "Der Bekanntheitsgrad (Anzahl der Follower), die genaue Reichweite (national/global), die genutzten Social-Media-Kanäle sowie die geforderten Honorare.",
+          "isCorrect": true,
+          "rationale": "Während die PR-Abteilung auf Ethik achtet, fokussiert sich der Vertrieb auf die harte Reichweite, den Bekanntheitsgrad, das Engagement (Umfang der Aktivitäten mit Followern) und die Kosten (Honorare), um den Return on Investment zu berechnen."
+        },
+        {
+          "text": "Die rein optische Gestaltung des Instagram-Feeds.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein qualitatives/ästhetisches Merkmal, aber kein primär vertriebliches Kriterium wie Reichweite oder Kosten."
+        },
+        {
+          "text": "Die religiösen Ansichten und politischen Statements des Influencers.",
+          "isCorrect": false,
+          "rationale": "Dies sind ethische und PR-bezogene Aspekte, keine rein vertrieblichen."
+        },
+        {
+          "text": "Der akademische Abschluss und der familiäre Hintergrund des Influencers.",
+          "isCorrect": false,
+          "rationale": "Oft irrelevant für den vertrieblichen und wirtschaftlichen Erfolg der Kampagne."
+        }
+      ],
+      "hint": "Achte auf Zahlen, Kosten und den Return on Investment (ROI).",
+      "youtubeQuery": "Influencer Marketing Vertrieb Return on Investment Kriterien",
+      "topic": "Influencer Marketing"
+    },
+    {
+      "id": "mr_010",
+      "question": "Die „Trail-Blazer AG“ launcht einen neuen Kletterschuh. Das Marketing stellt die Kampagne so ein, dass die Werbe-Inhalte nur an Personen ausgespielt werden, die in ihren Online-Profilen „Wandern“ und „Outdoor-Abenteuer“ als Interessengebiete angegeben haben. Welches Targeting-Verfahren wird hier konkret angewendet?",
+      "answerOptions": [
+        {
+          "text": "Geo-Targeting",
+          "isCorrect": false,
+          "rationale": "Geo-Targeting basiert auf dem Standort des Nutzers, nicht auf angegebenen Interessen in Profilen."
+        },
+        {
+          "text": "Keyword-Targeting",
+          "isCorrect": false,
+          "rationale": "Keyword-Targeting basiert auf konkreten Suchbegriffen, die eingegeben werden."
+        },
+        {
+          "text": "Social Media-Targeting",
+          "isCorrect": true,
+          "rationale": "Beim Social Media-Targeting erfolgt die Ausspielung von Werbecontent gezielt an Social-Media-Nutzer, die in ihren Profilen entsprechende passende Interessengebiete (Hobbies, Vorlieben) angegeben haben."
+        },
+        {
+          "text": "Retargeting",
+          "isCorrect": false,
+          "rationale": "Retargeting zielt auf Nutzer ab, die bereits mit einer Website oder Marke interagiert haben."
+        }
+      ],
+      "hint": "Die Ausspielung basiert auf Angaben aus Nutzerprofilen (Likes/Interessen) in sozialen Netzwerken.",
+      "youtubeQuery": "Social Media Targeting Interessenbasierte Werbung",
+      "topic": "Targeting-Verfahren"
+    },
+    {
+      "id": "mr_011",
+      "question": "Ein Nutzer gibt in einer großen Suchmaschine den genauen Begriff „Wasserdichtes Familienzelt kaufen“ ein. Im selben Bruchteil einer Sekunde wird ihm ganz oben in den Suchergebnissen eine passende Werbeanzeige der „Camp & Hike GmbH“ angezeigt. Welches Targeting-Verfahren liegt dieser exakten Werbeausspielung zugrunde?",
+      "answerOptions": [
+        {
+          "text": "Social Media-Targeting",
+          "isCorrect": false,
+          "rationale": "Dieses Verfahren basiert auf Profil-Aktivitäten von Netzwerken und nicht primär auf Suchanfragen."
+        },
+        {
+          "text": "Keyword-Targeting",
+          "isCorrect": true,
+          "rationale": "Das Keyword-Targeting basiert auf der konkreten Eingabe bestimmter Begriffe (Keywords) durch den Nutzer in Suchmaschinen, Market-Places oder Blogs. Die Anzeige wird exakt auf diesen Suchbegriff abgestimmt ausgespielt."
+        },
+        {
+          "text": "Geo-Targeting",
+          "isCorrect": false,
+          "rationale": "Beim Geo-Targeting ist der Aufenthaltsort ausschlaggebend."
+        },
+        {
+          "text": "Influencer-Targeting",
+          "isCorrect": false,
+          "rationale": "Diese Form der Werbung läuft über Personen (Influencer), nicht über Suchanfragen."
+        }
+      ],
+      "hint": "Der Nutzer sucht nach einem genauen Wortstamm / Suchbegriff.",
+      "youtubeQuery": "Keyword Targeting Suchmaschinenwerbung SEA",
+      "topic": "Targeting-Verfahren"
+    },
+    {
+      "id": "mr_012",
+      "question": "Die „Style-Nova UG“ eröffnet nächste Woche einen neuen Pop-up-Store mitten in Berlin. Werbeanzeigen für dieses Eröffnungs-Event sollen ausschließlich an Nutzer ausgespielt werden, die sich auch wirklich aktuell im Großraum Berlin aufhalten. Durch welches Targeting-Verfahren, das in der Regel über IP-Adressen funktioniert, wird dies technisch realisiert?",
+      "answerOptions": [
+        {
+          "text": "Geo-Targeting",
+          "isCorrect": true,
+          "rationale": "Geo-Targeting ermöglicht eine regional exakt abgestimmte Ausspielung von Werbecontent. Das System erkennt (meist anhand der IP-Adresse oder GPS-Daten), wo sich der Nutzer befindet, und spielt nur lokal relevante Werbung aus."
+        },
+        {
+          "text": "Affiliate-Targeting",
+          "isCorrect": false,
+          "rationale": "Affiliate-Marketing beruht auf einem Partnernetzwerk mit Vermittlungsprovisionen."
+        },
+        {
+          "text": "Keyword-Targeting",
+          "isCorrect": false,
+          "rationale": "Hier liegt keine Aussteuerung rein nach Region vor, sondern primär nach Suchbegriffen."
+        },
+        {
+          "text": "Social Media-Targeting",
+          "isCorrect": false,
+          "rationale": "Ohne regionale Einschränkung richtet sich dies nach Interessen und verknüpften Daten."
+        }
+      ],
+      "hint": "Die Werbeausspielung erfolgt gebunden an einen lokalen Standort.",
+      "youtubeQuery": "Geo Targeting IP Adresse regional Werbung",
+      "topic": "Targeting-Verfahren"
+    },
+    {
+      "id": "mr_013",
+      "question": "Das Marketing-Team gestaltet eine neue Landingpage für ein komplexes E-Bike. Anstatt nur Text zu verwenden, binden sie große, hochauflösende Bilder und ein 360-Grad-Video des Fahrrads ein. Welche primäre Funktion erfüllen diese Elemente laut E-Commerce-Standards auf einer Landingpage?",
+      "answerOptions": [
+        {
+          "text": "Sie dienen der Abgrenzung von Mitbewerbern.",
+          "isCorrect": false,
+          "rationale": "Dafür sind USPs und Alleinstellungsmerkmale da."
+        },
+        {
+          "text": "Sie dienen ausschließlich der Vertrauenssteigerung.",
+          "isCorrect": false,
+          "rationale": "Vertrauenssteigerung wird primär durch Siegel, Zertifikate und Bewertungen erzielt."
+        },
+        {
+          "text": "Sie dienen der visuellen Unterstützung der Nutzer, um das Produkt greifbar und verständlich zu machen.",
+          "isCorrect": true,
+          "rationale": "Bilder und Videos zum Produkt dienen auf einer Landingpage primär der visuellen Unterstützung. Sie helfen dem Nutzer, das Produkt schnell zu erfassen und Details zu verstehen, die reiner Text nicht vermitteln kann."
+        },
+        {
+          "text": "Sie erzwingen eine direkte Bestellung.",
+          "isCorrect": false,
+          "rationale": "Bilder allein erzwingen keine Bestellung, sie unterstützen die Entscheidung."
+        }
+      ],
+      "hint": "Multimedia-Inhalte machen abstrakte Produkte erlebbarer.",
+      "youtubeQuery": "Landingpage Elemente Bilder Videos visuelle Unterstuetzung",
+      "topic": "Landing Page"
+    },
+    {
+      "id": "mr_014",
+      "question": "Auf derselben Landingpage wird in dicken Buchstaben hervorgehoben: „Das weltweit einzige E-Bike mit integriertem Solar-Akku und lebenslanger Rahmengarantie!“ Was ist die wichtigste Marketing-Funktion dieser Alleinstellungsmerkmale (USP) auf der Landingpage?",
+      "answerOptions": [
+        {
+          "text": "Die rechtliche Absicherung gegenüber dem Finanzamt.",
+          "isCorrect": false,
+          "rationale": "Das Finanzamt interessiert sich nicht für Marketing-Vorteile."
+        },
+        {
+          "text": "Die klare Abgrenzung von den Mitbewerbern durch Vorteilshervorhebung.",
+          "isCorrect": true,
+          "rationale": "Alleinstellungsmerkmale (Unique Selling Propositions) und die Hervorhebung von klaren Vorteilen dienen dazu, das Produkt oder den Anbieter deutlich von der Konkurrenz (den Mitbewerbern) abzugrenzen."
+        },
+        {
+          "text": "Die Erhöhung der Suchmaschinen-Ladezeit.",
+          "isCorrect": false,
+          "rationale": "Eine hohe Ladezeit ist ein technischer Nachteil und kein Ziel des Marketings."
+        },
+        {
+          "text": "Die Reduzierung der Conversion Rate.",
+          "isCorrect": false,
+          "rationale": "Genau das Gegenteil ist der Fall, USPs sollen die Conversion Rate steigern."
+        }
+      ],
+      "hint": "Die Besonderheit (USP) eines Produkts unterscheidet es von anderen.",
+      "youtubeQuery": "USP Alleinstellungsmerkmal Landingpage Marketing",
+      "topic": "Landing Page"
+    },
+    {
+      "id": "mr_015",
+      "question": "Im unteren Bereich der Landingpage platziert der Designer die Logos von „Trusted Shops“, „TÜV Süd“ sowie fünf 5-Sterne-Bewertungen. Direkt darunter befindet sich ein großer, auffälliger Button mit der Aufschrift „Jetzt zahlungspflichtig bestellen“. Welche zwei Funktionen werden hier kombiniert?",
+      "answerOptions": [
+        {
+          "text": "Geo-Targeting und Keyword-Optimierung.",
+          "isCorrect": false,
+          "rationale": "Das hat nichts mit der Platzierung von Siegeln und Buttons zu tun."
+        },
+        {
+          "text": "Vertrauenssteigerung (durch Siegel/Bewertungen) und die Herbeiführung der gewünschten Nutzer-Reaktion (durch den Call-to-Action-Button).",
+          "isCorrect": true,
+          "rationale": "Siegel, Zertifikate und Bewertungen haben die primäre Funktion der Vertrauenssteigerung beim potenziellen Käufer. Der CTA-Button (Call to Action) dient als Handlungsaufforderung, um die finale, gewünschte Reaktion (hier: die Bestellung) herbeizuführen."
+        },
+        {
+          "text": "Influencer-Auswahl und Social Media-Targeting.",
+          "isCorrect": false,
+          "rationale": "Solche Inhalte dienen nicht zur Auswahl von Influencern."
+        },
+        {
+          "text": "Visuelle Unterstützung und Abgrenzung von Mitbewerbern.",
+          "isCorrect": false,
+          "rationale": "Visuelle Unterstützung erfolgt eher durch Produktbilder/Videos. Siegel sind primär vertrauensbildend."
+        }
+      ],
+      "hint": "Überlege, welchen Zweck Zertifikate/Bewertungen und ein Bestell-Button haben.",
+      "youtubeQuery": "Landingpage Vertrauenssteigerung Call To Action Siegel",
+      "topic": "Landing Page"
     }
   ]
 }
