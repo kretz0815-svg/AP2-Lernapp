@@ -89,6 +89,103 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     .replace(/[^a-z0-9]+/g, '_')
     .replace(/^_+|_+$/g, '');
 
+  const getCategoryKind = useCallback((cat) => {
+    const key = String(cat || '').toLowerCase();
+    if (/stadt|city|hauptstadt|capital/.test(key)) return 'city';
+    if (/land|country/.test(key)) return 'country';
+    if (/fluss|river/.test(key)) return 'river';
+    if (/tier|animal/.test(key)) return 'animal';
+    return 'other';
+  }, []);
+
+  const levenshteinDistance = useCallback((aRaw, bRaw) => {
+    const a = String(aRaw || '');
+    const b = String(bRaw || '');
+    if (!a) return b.length;
+    if (!b) return a.length;
+
+    const dp = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+    for (let i = 0; i <= a.length; i += 1) dp[i][0] = i;
+    for (let j = 0; j <= b.length; j += 1) dp[0][j] = j;
+
+    for (let i = 1; i <= a.length; i += 1) {
+      for (let j = 1; j <= b.length; j += 1) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        dp[i][j] = Math.min(
+          dp[i - 1][j] + 1,
+          dp[i][j - 1] + 1,
+          dp[i - 1][j - 1] + cost
+        );
+      }
+    }
+    return dp[a.length][b.length];
+  }, []);
+
+  const findClosestKnownTerm = useCallback((normalizedTerm, knownSet) => {
+    if (!normalizedTerm || !knownSet?.size) return null;
+    let best = null;
+    let bestDist = Number.POSITIVE_INFINITY;
+    knownSet.forEach((candidate) => {
+      const dist = levenshteinDistance(normalizedTerm, candidate);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = candidate;
+      }
+    });
+    const maxAllowed = normalizedTerm.length >= 8 ? 3 : 2;
+    if (best == null || bestDist > maxAllowed) return null;
+    return { candidate: best, distance: bestDist };
+  }, [levenshteinDistance]);
+
+  const prettyKnownTerm = useCallback((value) => {
+    const spaced = String(value || '').replace(/_/g, ' ');
+    return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+  }, []);
+
+  const buildCategoryReason = useCallback((cat, originalValue, currentLetter) => {
+    const normalized = normalizeText(originalValue);
+    const catKind = getCategoryKind(cat);
+    const primarySet = catKind === 'city'
+      ? KNOWN_CITIES
+      : catKind === 'country'
+        ? KNOWN_COUNTRIES
+        : catKind === 'river'
+          ? KNOWN_RIVERS
+          : catKind === 'animal'
+            ? KNOWN_ANIMALS
+            : null;
+
+    const otherSets = [
+      { kind: 'city', label: 'STADT', set: KNOWN_CITIES },
+      { kind: 'country', label: 'LAND', set: KNOWN_COUNTRIES },
+      { kind: 'river', label: 'FLUSS', set: KNOWN_RIVERS },
+      { kind: 'animal', label: 'TIER', set: KNOWN_ANIMALS }
+    ].filter((entry) => entry.kind !== catKind);
+
+    if (primarySet && primarySet.has(normalized)) {
+      return `Buchstabe passt (${currentLetter}), aber KI markierte den Begriff uneindeutig. Begriff wirkt für ${toCategoryLabel(cat)} gültig.`;
+    }
+
+    if (primarySet) {
+      const sameCategoryGuess = findClosestKnownTerm(normalized, primarySet);
+      if (sameCategoryGuess) {
+        return `Buchstabe passt (${currentLetter}), aber vermutlich Schreibfehler. Meintest du "${prettyKnownTerm(sameCategoryGuess.candidate)}"?`;
+      }
+    }
+
+    for (const entry of otherSets) {
+      if (entry.set.has(normalized)) {
+        return `Buchstabe passt (${currentLetter}), aber Begriff gehört eher zur Kategorie ${entry.label}.`;
+      }
+      const crossGuess = findClosestKnownTerm(normalized, entry.set);
+      if (crossGuess) {
+        return `Buchstabe passt (${currentLetter}), aber Begriff wirkt wie "${prettyKnownTerm(crossGuess.candidate)}" (${entry.label}) statt ${toCategoryLabel(cat)}.`;
+      }
+    }
+
+    return `Buchstabe passt (${currentLetter}), aber der Begriff konnte für ${toCategoryLabel(cat)} nicht sicher verifiziert werden (evtl. Schreibweise oder Kategorie).`;
+  }, [findClosestKnownTerm, getCategoryKind, normalizeText, prettyKnownTerm]);
+
   const [roomData, setRoomData] = useState(room);
   const [players, setPlayers] = useState([]);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -264,7 +361,12 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         if (results[cat] !== 'Richtig') {
           const startsWithLetter = !!currentLetter && myVal.startsWith(currentLetter);
           breakdown[cat] = startsWithLetter
-            ? { status: 'partial', label: '⚠️ Teilpunkt', reason: `Buchstabe passt (${roomData.current_letter}), aber KI konnte den Begriff nicht sicher bestätigen.`, points: 0 }
+            ? {
+                status: 'partial',
+                label: '⚠️ Teilpunkt',
+                reason: buildCategoryReason(cat, myAnswers[cat], roomData.current_letter),
+                points: 0
+              }
             : { status: 'wrong', label: '❌ Ungültig', reason: `Beginnt nicht mit ${roomData.current_letter}.`, points: 0 };
           return;
         }
@@ -304,7 +406,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
       console.error('Score calculation error:', err);
       setIsScoring(false);
     }
-  }, [roundKey, room.id, player.id, refreshPlayers, categories, roomData.current_letter]);
+  }, [roundKey, room.id, player.id, refreshPlayers, categories, roomData.current_letter, buildCategoryReason]);
 
   const localFallbackValidation = useCallback((answersObj) => {
     const currentLetter = String(roomData.current_letter || '').toLowerCase();
