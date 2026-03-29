@@ -47,14 +47,33 @@ const ResetModal = ({ isOpen, onClose, onConfirm, title = "Fortschritt zurückse
                             type="button"
                             className="btn-secondary"
                             onClick={onClose}
-                            style={{ minWidth: 0, width: '100%', padding: '0.85rem 1rem', borderRadius: '14px' }}
+                            style={{
+                                minWidth: 0,
+                                width: '100%',
+                                padding: '0.85rem 1rem',
+                                borderRadius: '14px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                textAlign: 'center'
+                            }}
                         >
                             Abbrechen
                         </button>
                         <button
                             type="submit"
                             className="btn-primary"
-                            style={{ minWidth: 0, width: '100%', padding: '0.85rem 1rem', borderRadius: '14px', background: 'var(--error)' }}
+                            style={{
+                                minWidth: 0,
+                                width: '100%',
+                                padding: '0.85rem 1rem',
+                                borderRadius: '14px',
+                                background: 'var(--error)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                textAlign: 'center'
+                            }}
                         >
                             Löschen
                         </button>
