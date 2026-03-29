@@ -915,6 +915,17 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
         );
     } else if (selectedLevel.direction === 'critical_revenue') {
         const round = criticalRound;
+        const levelCardStyle = {
+            position: 'relative',
+            width: '100%',
+            height: 'auto',
+            background: 'var(--glass-bg)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            borderRadius: '18px',
+            border: '1px solid var(--glass-border)',
+            boxShadow: '0 16px 35px rgba(0,0,0,0.35)'
+        };
         view = (
             <div className="app-container" style={{ zIndex: 10, maxWidth: '860px', padding: 0 }}>
                 {criticalConfetti && <Confetti amount={65} />}
@@ -930,10 +941,10 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
 
                 <div style={{ width: '100%', padding: '1.2rem 1.25rem 2rem 1.25rem', display: 'grid', gap: '0.9rem' }}>
                     {!round ? (
-                        <div className="card-face" style={{ padding: '1.5rem', textAlign: 'center' }}>Lade Szenario…</div>
+                        <div style={{ ...levelCardStyle, padding: '1.5rem', textAlign: 'center' }}>Lade Szenario…</div>
                     ) : (
                         <>
-                            <div className="card-face fade-in" style={{ border: `1px solid ${selectedLevel.color}55`, padding: '1.2rem', display: 'grid', gap: '0.75rem' }}>
+                            <div className="fade-in" style={{ ...levelCardStyle, border: `1px solid ${selectedLevel.color}55`, padding: '1.2rem', display: 'grid', gap: '0.75rem' }}>
                                 <h2 style={{ margin: '0 0 0.35rem 0', color: selectedLevel.color }}>{round.title}</h2>
                                 <p style={{ margin: '0 0 0.9rem 0', color: 'var(--text-muted)' }}>{round.story}</p>
                                 <div style={{ display: 'grid', gap: '0.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
@@ -950,7 +961,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                                 </div>
                             </div>
 
-                            <div className="card-face fade-in" style={{ padding: '1rem' }}>
+                            <div className="fade-in" style={{ ...levelCardStyle, padding: '1rem' }}>
                                 <div style={{ marginBottom: '0.8rem', color: 'var(--text-light)', fontWeight: 700, fontSize: '0.95rem' }}>Bei welchem Umsatz sind beide Alternativen gleich teuer (kritischer Umsatz)?</div>
                                 <div style={{ display: 'flex', gap: '0.55rem', flexWrap: 'wrap', marginBottom: '0.8rem' }}>
                                     <input
@@ -998,7 +1009,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                             </div>
 
                             {criticalShowSolution && (
-                                <div className="card-face fade-in" style={{ marginTop: '0.9rem', padding: '1rem' }}>
+                                <div className="fade-in" style={{ ...levelCardStyle, marginTop: '0.9rem', padding: '1rem' }}>
                                     <h3 style={{ margin: '0 0 0.6rem 0', color: '#22c55e' }}>Rechenweg (100%)</h3>
                                     <div style={{ display: 'grid', gap: '0.35rem' }}>
                                         {round.solutionSteps.map((line) => (
@@ -1013,7 +1024,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
 
                 {criticalShowHintModal && round && (
                     <div style={{ position: 'fixed', inset: 0, zIndex: 5000, background: 'rgba(0,0,0,0.58)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
-                        <div className="card-face fade-in" style={{ maxWidth: '520px', width: '100%', border: '1px solid #f59e0b66', background: 'rgba(17,17,17,0.95)' }}>
+                        <div className="fade-in" style={{ ...levelCardStyle, maxWidth: '520px', width: '100%', border: '1px solid #f59e0b66', background: 'rgba(17,17,17,0.95)', padding: '1.2rem' }}>
                             <h3 style={{ marginTop: 0, color: '#f59e0b' }}>💡 Hinweis freigeschaltet</h3>
                             <p style={{ color: 'var(--text-light)', lineHeight: 1.55, marginBottom: '1rem' }}>{round.monthlyHint}</p>
                             <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: 0 }}>
