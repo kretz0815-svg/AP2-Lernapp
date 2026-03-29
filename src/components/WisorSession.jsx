@@ -70,7 +70,7 @@ const WisorSession = ({
         <div className="card-face fade-in" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
           {wisorDueMastered && <Confetti />}
           <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Alles geschafft! 🎉</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Du hast alle Wisor-Fragen erfolgreich gemeistert.</p>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Du hast alle WisoR-Fragen erfolgreich gemeistert.</p>
           <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
           <button className="btn-primary" onClick={(e) => openResetModal(e, isWisor1Mode ? 'wisor' : isWisorEcoMode ? 'wisorEco' : 'marketing_review')} style={{ marginLeft: '1rem' }}>Fortschritt zurücksetzen</button>
         </div>
@@ -148,7 +148,7 @@ const WisorSession = ({
     setCurrentWisorIndex(prev => prev + 1);
   };
 
-  const modeTitle = isWisor1Mode ? 'WisoR I' : 
+  const modeTitle = isWisor1Mode ? 'WisoR Grundlagen' : 
                    isWisorEcoMode ? 'WisoR E-Commerce' : 'IHK Extras';
 
   return (

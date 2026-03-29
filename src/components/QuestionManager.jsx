@@ -50,7 +50,7 @@ export default function QuestionManager({ category, questions, progress, formatL
             isLearned: (id, prog) => prog[id] && prog[id].nextReview > Date.now(),
         },
         wisor: {
-            title: 'WisoR (Eingabe)',
+            title: 'WisoR Grundlagen',
             color: 'var(--primary)',
             progressKey: 'ap2_wisor_progress',
             isLearned: (id, prog) => !!prog[id],

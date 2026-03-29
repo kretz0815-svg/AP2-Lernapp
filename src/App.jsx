@@ -1350,7 +1350,7 @@ ${input}`;
     // Pomodoro session logging
     if (pomodoroActive) {
       const questionText = q.question?.substring(0, 100) || q.id || 'WisoR-Frage';
-      const topicLabel = activeWisorMode === 'wisor1' ? 'WisoR' : 
+      const topicLabel = activeWisorMode === 'wisor1' ? 'WisoR Grundlagen' : 
                          activeWisorMode === 'wisorEco' ? 'WisoR E-Commerce' : 'IHK Extras';
       setPomodoroSessionLog(prev => [...prev, { correct, questionText, topic: topicLabel }]);
     }
@@ -2001,7 +2001,7 @@ ${input}`;
           <div style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--glass-border)' }}>
             <h3 style={{ marginTop: 0, marginBottom: '0.5rem', color: 'var(--error, #ef4444)' }}>Gesamten Fortschritt zurücksetzen</h3>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginBottom: '1rem' }}>
-              Setzt deinen kompletten Lernfortschritt auf Null zurück: Quiz, Wisor, Karteikarten, Statistiken und Notizen.
+              Setzt deinen kompletten Lernfortschritt auf Null zurück: Quiz, WisoR, Karteikarten, Statistiken und Notizen.
             </p>
             <button
               className="btn-secondary"

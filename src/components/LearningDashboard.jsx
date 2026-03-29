@@ -101,7 +101,7 @@ const LearningDashboard = ({
 
   const modeLabel = {
     quiz: 'Quiz',
-    wisor: 'WisoR',
+    wisor: 'WisoR Grundlagen',
     wisorEco: 'WisoR E-Commerce',
     flashcard: 'Lernkarten',
     kalkulation: 'Kalkulations-Boss',
