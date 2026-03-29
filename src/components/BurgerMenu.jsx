@@ -3,6 +3,7 @@ import { PomodoroIcon, SettingsIcon, InfoIcon } from './IconLibrary';
 
 const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePreference, setThemePref, onOpenQuestionManager, onOpenLearningDashboard, onStartPomodoro, pomodoroRunning, pomodoroTimeLeft, onStopPomodoro, onOpenAppearanceSettings }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const toolIconColor = isLightMode ? '#0f172a' : '#f8fafc';
 
     const formatPomodoroTime = (seconds) => {
         const m = Math.floor(seconds / 60);
@@ -76,7 +77,7 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                         }}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'start', gap: '0.6rem', marginBottom: '1rem' }}>
                             <div style={{
                                 display: 'flex', gap: '2px', background: 'rgba(128,128,128,0.15)', borderRadius: '10px', padding: '2px',
                                 opacity: isGuest ? 0.35 : 1, pointerEvents: isGuest ? 'none' : 'auto'
@@ -109,7 +110,8 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                                     );
                                 })}
                             </div>
-                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.4rem' }}>
+                                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                                 <button
                                     onClick={isGuest ? undefined : () => { if (onStartPomodoro) onStartPomodoro(); setIsOpen(false); }}
                                     disabled={pomodoroRunning || isGuest}
@@ -129,7 +131,7 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                                     onMouseOver={(e) => { if (!pomodoroRunning) e.currentTarget.style.transform = 'scale(1.15)'; }}
                                     onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                                 >
-                                    <PomodoroIcon size="1.4em" style={{ color: 'var(--text-light)' }} />
+                                    <PomodoroIcon size="1.4em" style={{ color: toolIconColor }} />
                                 </button>
                                 <button
                                     onClick={isGuest ? undefined : () => { if (onOpenAppearanceSettings) onOpenAppearanceSettings(); setIsOpen(false); }}
@@ -149,7 +151,7 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                                     onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.15)'; }}
                                     onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                                 >
-                                    <SettingsIcon size="1.4em" style={{ color: 'var(--text-light)' }} />
+                                    <SettingsIcon size="1.4em" style={{ color: toolIconColor }} />
                                 </button>
                                 <a
                                     href="/Beschreibung.pdf"
@@ -171,19 +173,33 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                                     onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.15)'; }}
                                     onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                                 >
-                                    <InfoIcon size="1.4em" style={{ color: 'var(--text-light)' }} />
+                                    <InfoIcon size="1.4em" style={{ color: toolIconColor }} />
                                 </a>
-                            </div>
+                                <button
+                                    onClick={() => setIsOpen(false)}
+                                    style={{
+                                        background: 'transparent',
+                                        border: 'none',
+                                        color: toolIconColor,
+                                        fontSize: '1.25rem',
+                                        cursor: 'pointer',
+                                        padding: '2px 4px'
+                                    }}
+                                    title="Menü schließen"
+                                >
+                                    ✕
+                                </button>
+                                </div>
 
-                            {pomodoroRunning && (
+                                {pomodoroRunning && (
                                 <div style={
-                                    { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.2rem' }
+                                    { display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.2rem' }
                                 }>
                                     <span style={{
                                         fontFamily: 'monospace',
                                         fontSize: '0.75rem',
                                         fontWeight: 'bold',
-                                        color: pomodoroTimeLeft <= 60 ? '#ef4444' : 'var(--text-light)',
+                                        color: pomodoroTimeLeft <= 60 ? '#ef4444' : toolIconColor,
                                         animation: pomodoroTimeLeft <= 60 ? 'pomoPulse 1s ease-in-out infinite' : 'none'
                                     }}>
                                         {formatPomodoroTime(pomodoroTimeLeft)}
@@ -206,15 +222,7 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                                     </button>
                                 </div>
                             )}
-
-                            <button
-                                onClick={() => setIsOpen(false)}
-                                style={{
-                                    background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: '1.25rem', cursor: 'pointer', marginLeft: 'auto'
-                                }}
-                            >
-                                ✕
-                            </button>
+                            </div>
                         </div>
 
                         <h3 style={{ color: 'var(--text-light)', marginBottom: '0.5rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Account</h3>

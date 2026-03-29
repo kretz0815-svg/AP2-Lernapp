@@ -80,7 +80,6 @@ export default function FloatingNotes({
     useEffect(() => {
         // Immediately load from localStorage
         const saved = getAllNotes();
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setNotes(saved[questionId]?.text || '');
 
         // Then try to pull latest from Supabase (only for authenticated users)
@@ -115,8 +114,8 @@ export default function FloatingNotes({
                     if (changed) {
                         localStorage.setItem('ap2_saved_notes', JSON.stringify(merged));
                         // Update the current note if it changed
-                        if (merged[questionId]?.text && merged[questionId].text !== notes) {
-                            setNotes(merged[questionId].text);
+                        if (merged[questionId]?.text) {
+                            setNotes((prev) => (prev === merged[questionId].text ? prev : merged[questionId].text));
                         }
                     }
                 }
@@ -155,7 +154,7 @@ export default function FloatingNotes({
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [size]);
+    }, [size, isMobileOverride]);
 
     // Visual Viewport tracking for mobile keyboard
     useEffect(() => {

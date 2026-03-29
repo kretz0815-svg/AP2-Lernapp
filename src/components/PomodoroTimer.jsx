@@ -101,7 +101,6 @@ export default function PomodoroTimer({ isActive, onStart, onStop, onTimeUp, onT
     const prevIsActiveRef = useRef(false);
     useEffect(() => {
         if (isActive && !prevIsActiveRef.current && !isRunning) {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             handleStart();
         }
         prevIsActiveRef.current = isActive;

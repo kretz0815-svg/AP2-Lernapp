@@ -11,17 +11,13 @@ const FloatingImage = ({ svgCode, isLightMode }) => {
     // Resolve placeholders if any
     const finalSvg = ASSETS[svgCode] || svgCode;
 
-    // Desktop & Mobile: unified drag & resize state
-    const MathMax = Math.max;
-    const MathMin = Math.min;
-
     // Initial size and position. If on a very small screen, make it smaller.
-    const initialWidth = typeof window !== 'undefined' ? MathMin(700, window.innerWidth - 40) : 700;
-    const initialHeight = typeof window !== 'undefined' ? MathMin(500, window.innerHeight - 40) : 500;
+    const initialWidth = typeof window !== 'undefined' ? Math.min(700, window.innerWidth - 40) : 700;
+    const initialHeight = typeof window !== 'undefined' ? Math.min(500, window.innerHeight - 40) : 500;
 
     const [position, setPosition] = useState({
-        x: typeof window !== 'undefined' ? MathMax(20, window.innerWidth / 2 - initialWidth / 2) : 100,
-        y: typeof window !== 'undefined' ? MathMax(20, window.innerHeight / 2 - initialHeight / 2) : 100
+        x: typeof window !== 'undefined' ? Math.max(20, window.innerWidth / 2 - initialWidth / 2) : 100,
+        y: typeof window !== 'undefined' ? Math.max(20, window.innerHeight / 2 - initialHeight / 2) : 100
     });
 
     const [size, setSize] = useState({ width: initialWidth, height: initialHeight });
@@ -36,8 +32,8 @@ const FloatingImage = ({ svgCode, isLightMode }) => {
     useEffect(() => {
         const handleResize = () => {
             setPosition(p => ({
-                x: MathMin(MathMax(-size.width + 80, p.x), window.innerWidth - 80),
-                y: MathMin(MathMax(0, p.y), window.innerHeight - 80)
+                    x: Math.min(Math.max(-size.width + 80, p.x), window.innerWidth - 80),
+                    y: Math.min(Math.max(0, p.y), window.innerHeight - 80)
             }));
         };
         window.addEventListener('resize', handleResize);
@@ -79,8 +75,8 @@ const FloatingImage = ({ svgCode, isLightMode }) => {
                 const dx = clientX - startMouseRef.current.x;
                 const dy = clientY - startMouseRef.current.y;
                 setPosition({
-                    x: MathMin(MathMax(-size.width + 50, startPosRef.current.x + dx), window.innerWidth - 50),
-                    y: MathMin(MathMax(0, startPosRef.current.y + dy), window.innerHeight - 50)
+                    x: Math.min(Math.max(-size.width + 50, startPosRef.current.x + dx), window.innerWidth - 50),
+                    y: Math.min(Math.max(0, startPosRef.current.y + dy), window.innerHeight - 50)
                 });
             } else if (resizeRef.current) {
                 if (e.cancelable) e.preventDefault();

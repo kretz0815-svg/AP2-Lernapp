@@ -74,7 +74,7 @@ export default function FloatingCalculator({
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [size]);
+    }, [size, isMobileOverride]);
 
     useEffect(() => {
         if (!isMobile) return;
