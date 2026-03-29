@@ -1243,24 +1243,38 @@ ${input}`;
     if (!authUser?.id) return;
 
     flushPendingMemberSync();
+    pullProgressFromSupabase();
     const interval = setInterval(() => {
       flushPendingMemberSync();
+      pullProgressFromSupabase();
     }, 20000);
 
     const handleOnline = () => {
       flushPendingMemberSync();
+      pullProgressFromSupabase();
     };
 
     const handleExternalUpdate = () => {
       syncProgressToSupabase();
     };
 
+    const handleVisibilityOrFocus = () => {
+      if (document.visibilityState === 'visible') {
+        flushPendingMemberSync();
+        pullProgressFromSupabase();
+      }
+    };
+
     window.addEventListener('ap2_progress_updated', handleExternalUpdate);
     window.addEventListener('online', handleOnline);
+    window.addEventListener('focus', handleVisibilityOrFocus);
+    document.addEventListener('visibilitychange', handleVisibilityOrFocus);
     return () => {
       clearInterval(interval);
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('ap2_progress_updated', handleExternalUpdate);
+      window.removeEventListener('focus', handleVisibilityOrFocus);
+      document.removeEventListener('visibilitychange', handleVisibilityOrFocus);
     };
     // syncProgressToSupabase and flushPendingMemberSync are intentionally not deps here:
     // adding them would recreate the interval/listeners on every render.
@@ -1269,6 +1283,60 @@ ${input}`;
 
   const syncProgressToSupabaseAction = async () => {
     await syncProgressToSupabase().catch(() => { });
+  };
+
+  const pullProgressFromSupabase = async () => {
+    if (!authUser?.id) return;
+    try {
+      await flushPendingMemberSync();
+
+      const { data, error } = await supabase
+        .from('user_data')
+        .select('progress_data')
+        .eq('user_id', authUser.id)
+        .maybeSingle();
+
+      if (error || !data?.progress_data) return;
+
+      const remote = data.progress_data;
+      const remoteWisor = remote.wisor_progress && typeof remote.wisor_progress === 'object' ? remote.wisor_progress : {};
+      const remoteWisorEco = remote.wisor_eco_progress && typeof remote.wisor_eco_progress === 'object' ? remote.wisor_eco_progress : {};
+      const remoteMarketing = remote.marketing_review_progress && typeof remote.marketing_review_progress === 'object' ? remote.marketing_review_progress : {};
+      const remoteAnalytics = remote.learning_analytics && typeof remote.learning_analytics === 'object'
+        ? { ...createEmptyAnalytics(), ...remote.learning_analytics }
+        : createEmptyAnalytics();
+      const remoteCustomQuiz = Array.isArray(remote.custom_quiz_questions) ? remote.custom_quiz_questions : [];
+      const remoteCustomMarketingReview = Array.isArray(remote.custom_marketing_review_questions) ? remote.custom_marketing_review_questions : [];
+      const remoteProfile = remote.profile_settings && typeof remote.profile_settings === 'object'
+        ? remote.profile_settings
+        : null;
+
+      localStorage.setItem('ap2_wisor_progress', JSON.stringify(remoteWisor));
+      localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(remoteWisorEco));
+      localStorage.setItem('ap2_marketing_review_progress', JSON.stringify(remoteMarketing));
+      localStorage.setItem(getAnalyticsStorageKey(authUser), JSON.stringify(remoteAnalytics));
+      localStorage.setItem(getCustomQuizStorageKey(authUser), JSON.stringify(remoteCustomQuiz));
+      localStorage.setItem(getCustomMarketingReviewStorageKey(authUser), JSON.stringify(remoteCustomMarketingReview));
+      if (remoteProfile) {
+        localStorage.setItem(getProfileSettingsStorageKey(authUser), JSON.stringify(remoteProfile));
+      } else {
+        localStorage.removeItem(getProfileSettingsStorageKey(authUser));
+      }
+
+      setCompletedWisors(remoteWisor);
+      setCompletedWisorsEco(remoteWisorEco);
+      setCompletedMarketingReview(remoteMarketing);
+      setLearningAnalytics(remoteAnalytics);
+      setCustomQuizQuestions(remoteCustomQuiz);
+      setCustomMarketingReviewQuestions(remoteCustomMarketingReview);
+      setProfileSettings(remoteProfile);
+      setProfileNameInput(String(remoteProfile?.displayName || resolveDisplayName(authUser, remoteProfile)));
+
+      await refreshQuizDuePool().catch(() => { });
+      window.dispatchEvent(new CustomEvent('ap2_progress_synced'));
+    } catch (err) {
+      console.error('Pull sync failed:', err);
+    }
   };
 
 
