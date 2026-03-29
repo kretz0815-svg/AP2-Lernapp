@@ -879,7 +879,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
     if (!selectedLevel) {
         // --- LEVEL AUSWAHL ---
         view = (
-            <div className="app-container" style={{ zIndex: 10 }}>
+            <div className="app-container" style={{ zIndex: 10, overflow: 'visible', padding: '2rem 2.6rem' }}>
                 <div className="blob blob-1"></div>
                 <div className="blob blob-2"></div>
                 <header style={{ width: '100%', textAlign: 'center', position: 'relative', zIndex: 20, paddingTop: '3.5rem' }}>
@@ -892,13 +892,13 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                     <p className="subtitle" style={{ marginBottom: '2rem' }}>Meistere die Handelskalkulation Schritt für Schritt</p>
                 </header>
 
-                <div className="dashboard-grid" style={{ maxWidth: '900px' }}>
+                <div className="dashboard-grid" style={{ maxWidth: '980px', padding: '0.3rem', marginTop: '1.2rem' }}>
                     {LEVEL_CONFIG.map(config => {
                         const done = completedLevels.includes(config.id);
                         const locked = isGuest && config.id > 1 && config.id < 5;
                         return (
                             <div key={config.id} className="dash-card" onClick={() => { if (!locked) startLevel(config); }}
-                                style={{ borderColor: done ? config.color : undefined, boxShadow: done ? `0 0 20px ${config.color}33` : undefined, opacity: locked ? 0.55 : 1, cursor: locked ? 'not-allowed' : 'pointer' }}>
+                                style={{ borderColor: done ? '#22c55e' : undefined, boxShadow: done ? '0 0 20px rgba(34,197,94,0.22)' : undefined, opacity: locked ? 0.55 : 1, cursor: locked ? 'not-allowed' : 'pointer' }}>
                                 <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>
                                     {locked ? '🔒' : config.id === 1 ? '⬇️' : config.id === 2 ? '⬆️' : config.id === 3 ? '🔀' : config.id === 5 ? '🎯' : config.id === 6 ? '🧠' : '👑'}
                                 </div>
