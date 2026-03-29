@@ -228,6 +228,7 @@ body.no-bg-effects .blob {
 .app-container {
   width: 100%;
   max-width: 800px;
+  margin-inline: auto;
   padding: 2rem;
   display: flex;
   flex-direction: column;
