@@ -2081,7 +2081,7 @@ ${input}`;
             <div className="dash-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '1.2em' }}>
               <img src="/EinsteinRot.webp" alt="Rechenwelt" style={{ width: '1.05em', height: '1.05em', objectFit: 'contain' }} />
             </div>
-            <h2>Rechenwelt</h2>
+            <h2>Zahlen</h2>
             <p>KPI's, Kalkulations-Boss, Break Even Point und KLR Startup Survival in einer Kategorie.</p>
             <div style={{ display: 'grid', gap: '0.55rem', width: '100%', marginTop: '0.4rem' }}>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('rechen_tasks_setup')}>
