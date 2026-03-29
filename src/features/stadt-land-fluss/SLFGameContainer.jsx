@@ -120,7 +120,8 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const rawCurrentRound = Number(roomData.current_round_num ?? room.current_round_num ?? 1);
   const rawTotalRounds = Number(roomData.total_rounds ?? room.total_rounds ?? 5);
   const currentRoundNum = Number.isFinite(rawCurrentRound) && rawCurrentRound > 0 ? rawCurrentRound : 1;
-  const totalRounds = Number.isFinite(rawTotalRounds) && rawTotalRounds > 0 ? rawTotalRounds : 5;
+  // Legacy rooms may still carry old values like 3 rounds. Normalize to current minimum.
+  const totalRounds = Number.isFinite(rawTotalRounds) && rawTotalRounds > 0 ? Math.max(5, rawTotalRounds) : 5;
   const timerSeconds = Math.max(0, Number(roomMeta.timerSeconds || 0));
   const roundKey = `${room.id}:${currentRoundNum}:${player.id}`;
   const sortedPlayers = useMemo(

@@ -133,7 +133,7 @@ export const slfService = {
   async setGamePhase(roomId, phase, extraUpdates = {}) {
     const { error } = await supabase
       .from('slf_rooms')
-      .update({ game_phase: phase, ...extraUpdates })
+      .update({ game_phase: phase, ...extraUpdates, updated_at: new Date().toISOString() })
       .eq('id', roomId);
     if (error) throw error;
   },
