@@ -462,9 +462,34 @@ function createCriticalRevenueRound(scenarioIndex = 0) {
     const externalFix = totalInternalCost - diff;
     const revenue = Math.round((diff * 100) / pct);
 
-    const distractorForgot12 = Math.max(1000, Math.round(((generated.internalFix + generated.internalMonthly - externalFix) / (pct / 100)) / 100) * 100);
-    const distractorAdded = Math.max(1000, Math.round(((totalInternalCost + externalFix) / (pct / 100)) / 100) * 100);
-    const distractorRandom = Math.random() < 0.5 ? Math.round((revenue * 1.5) / 100) * 100 : Math.round((revenue / 2) / 100) * 100;
+    const plausibleFallbacks = [
+        Math.round((revenue * 0.6) / 100) * 100,
+        Math.round((revenue * 0.8) / 100) * 100,
+        Math.round((revenue * 1.25) / 100) * 100,
+        Math.round((revenue * 1.5) / 100) * 100
+    ];
+    let fallbackIdx = 0;
+    const nextFallback = () => {
+        const candidate = plausibleFallbacks[fallbackIdx % plausibleFallbacks.length];
+        fallbackIdx += 1;
+        return Math.max(1000, candidate);
+    };
+    const normalizeDistractor = (value) => {
+        const rounded = Math.round(Number(value || 0) / 100) * 100;
+        // Keep options realistic relative to the true solution.
+        if (!Number.isFinite(rounded) || rounded <= 0 || rounded < revenue * 0.35 || rounded > revenue * 2.2) {
+            return nextFallback();
+        }
+        return rounded;
+    };
+
+    const distractorForgot12Raw = (generated.internalFix + generated.internalMonthly - externalFix) / (pct / 100);
+    const distractorAddedRaw = (totalInternalCost + externalFix) / (pct / 100);
+    const distractorRandomRaw = Math.random() < 0.5 ? revenue * 1.4 : revenue * 0.55;
+
+    const distractorForgot12 = normalizeDistractor(distractorForgot12Raw);
+    const distractorAdded = normalizeDistractor(distractorAddedRaw);
+    const distractorRandom = normalizeDistractor(distractorRandomRaw);
 
     const optionsRaw = [revenue, distractorForgot12, distractorAdded, distractorRandom]
         .map((v) => Math.max(1000, Math.round(v / 100) * 100));
@@ -891,7 +916,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
     } else if (selectedLevel.direction === 'critical_revenue') {
         const round = criticalRound;
         view = (
-            <div className="app-container" style={{ zIndex: 10, maxWidth: '760px', padding: 0 }}>
+            <div className="app-container" style={{ zIndex: 10, maxWidth: '860px', padding: 0 }}>
                 {criticalConfetti && <Confetti amount={65} />}
                 <div style={{ position: 'sticky', top: 0, zIndex: 200, width: '100%', background: 'rgba(0, 0, 0, 0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.12)', padding: '0.75rem 1.2rem 0.6rem 1.2rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.8rem' }}>
@@ -903,22 +928,30 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                     </div>
                 </div>
 
-                <div style={{ width: '100%', padding: '1.2rem 1.25rem 2rem 1.25rem' }}>
+                <div style={{ width: '100%', padding: '1.2rem 1.25rem 2rem 1.25rem', display: 'grid', gap: '0.9rem' }}>
                     {!round ? (
                         <div className="card-face" style={{ padding: '1.5rem', textAlign: 'center' }}>Lade Szenario…</div>
                     ) : (
                         <>
-                            <div className="card-face fade-in" style={{ border: `1px solid ${selectedLevel.color}55`, padding: '1.2rem' }}>
+                            <div className="card-face fade-in" style={{ border: `1px solid ${selectedLevel.color}55`, padding: '1.2rem', display: 'grid', gap: '0.75rem' }}>
                                 <h2 style={{ margin: '0 0 0.35rem 0', color: selectedLevel.color }}>{round.title}</h2>
                                 <p style={{ margin: '0 0 0.9rem 0', color: 'var(--text-muted)' }}>{round.story}</p>
-                                <div style={{ display: 'grid', gap: '0.5rem' }}>
-                                    <div style={{ fontSize: '0.9rem' }}>• <strong>{round.externalLabel}</strong>: {round.externalFixLabel} = <strong>{formatEuro(round.externalFix)} €</strong>, Provision = <strong>{round.provisionPercent}%</strong> vom Umsatz</div>
-                                    <div style={{ fontSize: '0.9rem' }}>• <strong>{round.internalLabel}</strong>: Einmalig + monatliche Kosten über 12 Monate (dynamisch generiert)</div>
+                                <div style={{ display: 'grid', gap: '0.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
+                                    <div style={{ fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '12px', padding: '0.65rem 0.75rem' }}>
+                                        <div style={{ opacity: 0.75, fontSize: '0.78rem', marginBottom: '0.2rem' }}>{round.externalLabel}</div>
+                                        <div style={{ color: 'var(--text-light)' }}>{round.externalFixLabel}: <strong>{formatEuro(round.externalFix)} €</strong></div>
+                                        <div style={{ color: 'var(--text-light)' }}>Provision: <strong>{round.provisionPercent}%</strong> vom Umsatz</div>
+                                    </div>
+                                    <div style={{ fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '12px', padding: '0.65rem 0.75rem' }}>
+                                        <div style={{ opacity: 0.75, fontSize: '0.78rem', marginBottom: '0.2rem' }}>{round.internalLabel}</div>
+                                        <div style={{ color: 'var(--text-light)' }}>Interne Kosten = Einmalig + monatlich × 12</div>
+                                        <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>Die Werte werden pro Runde neu generiert.</div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="card-face fade-in" style={{ marginTop: '0.9rem', padding: '1rem' }}>
-                                <div style={{ marginBottom: '0.6rem', color: 'var(--text-light)', fontWeight: 700 }}>Bei welchem Umsatz sind beide Alternativen gleich teuer (kritischer Umsatz)?</div>
+                            <div className="card-face fade-in" style={{ padding: '1rem' }}>
+                                <div style={{ marginBottom: '0.8rem', color: 'var(--text-light)', fontWeight: 700, fontSize: '0.95rem' }}>Bei welchem Umsatz sind beide Alternativen gleich teuer (kritischer Umsatz)?</div>
                                 <div style={{ display: 'flex', gap: '0.55rem', flexWrap: 'wrap', marginBottom: '0.8rem' }}>
                                     <input
                                         className="wisor-input"
@@ -928,22 +961,23 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                                         value={criticalInput}
                                         onChange={(e) => setCriticalInput(e.target.value)}
                                         onKeyDown={(e) => { if (e.key === 'Enter') validateCriticalRevenueAnswer(); }}
-                                        style={{ flex: '1 1 260px', minHeight: '42px', textAlign: 'right' }}
+                                        style={{ flex: '1 1 320px', minHeight: '44px', textAlign: 'right' }}
                                         disabled={criticalSolved}
                                     />
-                                    <button className="btn-primary" disabled={criticalSolved} onClick={() => validateCriticalRevenueAnswer()}>Prüfen</button>
+                                    <button className="btn-primary" style={{ minWidth: '140px' }} disabled={criticalSolved} onClick={() => validateCriticalRevenueAnswer()}>Prüfen</button>
                                 </div>
 
-                                <div style={{ display: 'grid', gap: '0.45rem', marginBottom: '0.8rem' }}>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.55rem', marginBottom: '0.8rem' }}>
                                     {round.options.map((opt, idx) => (
                                         <button
                                             key={opt.id}
                                             className="btn-secondary"
                                             disabled={criticalSolved}
                                             onClick={() => validateCriticalRevenueAnswer(opt.value)}
-                                            style={{ textAlign: 'left', justifyContent: 'flex-start', minHeight: '42px' }}
+                                            style={{ textAlign: 'left', justifyContent: 'flex-start', minHeight: '46px', borderRadius: '12px', padding: '0.6rem 0.9rem', fontSize: '0.96rem' }}
                                         >
-                                            {String.fromCharCode(65 + idx)}) {formatEuro(opt.value)} €
+                                            <span style={{ fontWeight: 800, marginRight: '0.45rem' }}>{String.fromCharCode(65 + idx)})</span>
+                                            <span>{formatEuro(opt.value)} €</span>
                                         </button>
                                     ))}
                                 </div>
