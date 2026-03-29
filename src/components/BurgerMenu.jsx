@@ -77,10 +77,128 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                         }}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'start', gap: '0.6rem', marginBottom: '1rem' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', marginBottom: '1rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
+                                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                    <button
+                                        onClick={isGuest ? undefined : () => { if (onStartPomodoro) onStartPomodoro(); setIsOpen(false); }}
+                                        disabled={pomodoroRunning || isGuest}
+                                        style={{
+                                            background: pomodoroRunning ? 'rgba(239,68,68,0.15)' : 'transparent',
+                                            border: pomodoroRunning ? '1px solid rgba(239,68,68,0.3)' : 'none',
+                                            cursor: (pomodoroRunning || isGuest) ? 'not-allowed' : 'pointer',
+                                            padding: '4px',
+                                            borderRadius: '8px',
+                                            transition: 'transform 0.2s',
+                                            opacity: (pomodoroRunning || isGuest) ? 0.35 : 1,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }}
+                                        title={isGuest ? 'Nur für registrierte Nutzer' : (pomodoroRunning ? 'Pomodoro läuft bereits' : 'Pomodoro Timer starten (25 Min)')}
+                                        onMouseOver={(e) => { if (!pomodoroRunning) e.currentTarget.style.transform = 'scale(1.15)'; }}
+                                        onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                    >
+                                        <PomodoroIcon size="1.4em" style={{ color: toolIconColor }} />
+                                    </button>
+                                    <button
+                                        onClick={isGuest ? undefined : () => { if (onOpenAppearanceSettings) onOpenAppearanceSettings(); setIsOpen(false); }}
+                                        style={{
+                                            background: 'transparent',
+                                            border: 'none',
+                                            cursor: isGuest ? 'not-allowed' : 'pointer',
+                                            padding: '4px',
+                                            borderRadius: '8px',
+                                            transition: 'transform 0.2s',
+                                            opacity: isGuest ? 0.35 : 1,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }}
+                                        title={isGuest ? 'Nur für registrierte Nutzer' : 'Darstellung anpassen'}
+                                        onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.15)'; }}
+                                        onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                    >
+                                        <SettingsIcon size="1.4em" style={{ color: toolIconColor }} />
+                                    </button>
+                                    <a
+                                        href="/Beschreibung.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{
+                                            background: 'transparent',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                            padding: '4px',
+                                            borderRadius: '8px',
+                                            transition: 'transform 0.2s',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            textDecoration: 'none'
+                                        }}
+                                        title="App-Beschreibung (PDF) öffnen"
+                                        onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.15)'; }}
+                                        onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                    >
+                                        <InfoIcon size="1.4em" style={{ color: toolIconColor }} />
+                                    </a>
+                                </div>
+                                <button
+                                    onClick={() => setIsOpen(false)}
+                                    style={{
+                                        background: 'transparent',
+                                        border: 'none',
+                                        color: toolIconColor,
+                                        fontSize: '1.25rem',
+                                        cursor: 'pointer',
+                                        padding: '2px 4px'
+                                    }}
+                                    title="Menü schließen"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+
+                            {pomodoroRunning && (
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
+                                    <span style={{
+                                        fontFamily: 'monospace',
+                                        fontSize: '0.75rem',
+                                        fontWeight: 'bold',
+                                        color: pomodoroTimeLeft <= 60 ? '#ef4444' : toolIconColor,
+                                        animation: pomodoroTimeLeft <= 60 ? 'pomoPulse 1s ease-in-out infinite' : 'none'
+                                    }}>
+                                        {formatPomodoroTime(pomodoroTimeLeft)}
+                                    </span>
+                                    <button
+                                        onClick={() => { if (onStopPomodoro) onStopPomodoro(); setIsOpen(false); }}
+                                        style={{
+                                            padding: '0.15rem 0.45rem',
+                                            borderRadius: '5px',
+                                            border: '1px solid rgba(239,68,68,0.4)',
+                                            background: 'rgba(239,68,68,0.1)',
+                                            color: '#ef4444',
+                                            fontSize: '0.6rem',
+                                            cursor: 'pointer',
+                                            fontWeight: 'bold',
+                                            whiteSpace: 'nowrap'
+                                        }}
+                                    >
+                                        Beenden
+                                    </button>
+                                </div>
+                            )}
+
                             <div style={{
-                                display: 'flex', gap: '2px', background: 'rgba(128,128,128,0.15)', borderRadius: '10px', padding: '2px',
-                                opacity: isGuest ? 0.35 : 1, pointerEvents: isGuest ? 'none' : 'auto'
+                                display: 'flex',
+                                gap: '2px',
+                                background: 'rgba(128,128,128,0.15)',
+                                borderRadius: '10px',
+                                padding: '2px',
+                                opacity: isGuest ? 0.35 : 1,
+                                pointerEvents: isGuest ? 'none' : 'auto',
+                                alignSelf: 'flex-start'
                             }}>
                                 {[
                                     { key: 'system', label: '🖥️', title: 'Systemstandard' },
@@ -109,119 +227,6 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                                         </button>
                                     );
                                 })}
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.4rem' }}>
-                                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                                <button
-                                    onClick={isGuest ? undefined : () => { if (onStartPomodoro) onStartPomodoro(); setIsOpen(false); }}
-                                    disabled={pomodoroRunning || isGuest}
-                                    style={{
-                                        background: pomodoroRunning ? 'rgba(239,68,68,0.15)' : 'transparent',
-                                        border: pomodoroRunning ? '1px solid rgba(239,68,68,0.3)' : 'none',
-                                        cursor: (pomodoroRunning || isGuest) ? 'not-allowed' : 'pointer',
-                                        padding: '4px',
-                                        borderRadius: '8px',
-                                        transition: 'transform 0.2s',
-                                        opacity: (pomodoroRunning || isGuest) ? 0.35 : 1,
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center'
-                                    }}
-                                    title={isGuest ? 'Nur für registrierte Nutzer' : (pomodoroRunning ? 'Pomodoro läuft bereits' : 'Pomodoro Timer starten (25 Min)')}
-                                    onMouseOver={(e) => { if (!pomodoroRunning) e.currentTarget.style.transform = 'scale(1.15)'; }}
-                                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                                >
-                                    <PomodoroIcon size="1.4em" style={{ color: toolIconColor }} />
-                                </button>
-                                <button
-                                    onClick={isGuest ? undefined : () => { if (onOpenAppearanceSettings) onOpenAppearanceSettings(); setIsOpen(false); }}
-                                    style={{
-                                        background: 'transparent',
-                                        border: 'none',
-                                        cursor: isGuest ? 'not-allowed' : 'pointer',
-                                        padding: '4px',
-                                        borderRadius: '8px',
-                                        transition: 'transform 0.2s',
-                                        opacity: isGuest ? 0.35 : 1,
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center'
-                                    }}
-                                    title={isGuest ? 'Nur für registrierte Nutzer' : 'Darstellung anpassen'}
-                                    onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.15)'; }}
-                                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                                >
-                                    <SettingsIcon size="1.4em" style={{ color: toolIconColor }} />
-                                </button>
-                                <a
-                                    href="/Beschreibung.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{
-                                        background: 'transparent',
-                                        border: 'none',
-                                        cursor: 'pointer',
-                                        padding: '4px',
-                                        borderRadius: '8px',
-                                        transition: 'transform 0.2s',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        textDecoration: 'none'
-                                    }}
-                                    title="App-Beschreibung (PDF) öffnen"
-                                    onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.15)'; }}
-                                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                                >
-                                    <InfoIcon size="1.4em" style={{ color: toolIconColor }} />
-                                </a>
-                                <button
-                                    onClick={() => setIsOpen(false)}
-                                    style={{
-                                        background: 'transparent',
-                                        border: 'none',
-                                        color: toolIconColor,
-                                        fontSize: '1.25rem',
-                                        cursor: 'pointer',
-                                        padding: '2px 4px'
-                                    }}
-                                    title="Menü schließen"
-                                >
-                                    ✕
-                                </button>
-                                </div>
-
-                                {pomodoroRunning && (
-                                <div style={
-                                    { display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.2rem' }
-                                }>
-                                    <span style={{
-                                        fontFamily: 'monospace',
-                                        fontSize: '0.75rem',
-                                        fontWeight: 'bold',
-                                        color: pomodoroTimeLeft <= 60 ? '#ef4444' : toolIconColor,
-                                        animation: pomodoroTimeLeft <= 60 ? 'pomoPulse 1s ease-in-out infinite' : 'none'
-                                    }}>
-                                        {formatPomodoroTime(pomodoroTimeLeft)}
-                                    </span>
-                                    <button
-                                        onClick={() => { if (onStopPomodoro) onStopPomodoro(); setIsOpen(false); }}
-                                        style={{
-                                            padding: '0.15rem 0.45rem',
-                                            borderRadius: '5px',
-                                            border: '1px solid rgba(239,68,68,0.4)',
-                                            background: 'rgba(239,68,68,0.1)',
-                                            color: '#ef4444',
-                                            fontSize: '0.6rem',
-                                            cursor: 'pointer',
-                                            fontWeight: 'bold',
-                                            whiteSpace: 'nowrap'
-                                        }}
-                                    >
-                                        Beenden
-                                    </button>
-                                </div>
-                            )}
                             </div>
                         </div>
 
