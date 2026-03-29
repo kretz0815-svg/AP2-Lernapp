@@ -2060,7 +2060,7 @@ ${input}`;
               <img src="/EinsteinOrange.webp" alt="IHK Lernwelt" style={{ width: '1.05em', height: '1.05em', objectFit: 'contain' }} />
             </div>
             <h2>E-Commerce 2026</h2>
-            <p>Wissen testen, Projekt M Mastery, Journey Architect und IHK Extras gebündelt in einer Kategorie.</p>
+            <p>Trainiere dein Wissen</p>
             <div style={{ display: 'grid', gap: '0.55rem', width: '100%', marginTop: '0.4rem' }}>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('quiz_setup')}>
                 Wissen testen {(!authUser ? '(Gast)' : `(${quizDuePool.length} fällig)`)}
