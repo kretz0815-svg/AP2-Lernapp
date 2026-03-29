@@ -1,6 +1,7 @@
 // ─── Storage Key Prefixes ───────────────────────────────────────
 export const ANALYTICS_STORAGE_PREFIX = 'ap2_learning_analytics_';
 export const CUSTOM_QUIZ_STORAGE_PREFIX = 'ap2_custom_quiz_questions_';
+export const CUSTOM_MARKETING_REVIEW_STORAGE_PREFIX = 'ap2_custom_marketing_review_questions_';
 export const MEMBER_SYNC_PENDING_PREFIX = 'ap2_member_pending_sync_';
 export const ACCESS_MODE_KEY = 'masterpat_access_mode';
 export const CUSTOM_BACKGROUND_COLOR_KEY = 'masterpat_custom_background_color';
@@ -29,6 +30,7 @@ export const createEmptyMemberProgressData = () => ({
     saved_notes: {},
     learning_analytics: createEmptyAnalytics(),
     custom_quiz_questions: [],
+    custom_marketing_review_questions: [],
     klr_progress: null,
     project_m_progress: null,
     journey_architect_progress: null

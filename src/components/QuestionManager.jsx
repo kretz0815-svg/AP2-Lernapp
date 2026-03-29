@@ -76,6 +76,8 @@ export default function QuestionManager({ category, questions, progress, formatL
     };
 
     const config = categoryConfig[category];
+    const supportsMultipleChoice = category === 'quiz' || category === 'rechen' || category === 'marketing_review';
+    const supportsOwnQuestions = supportsMultipleChoice;
 
     // Build question list
     const questionList = questions
@@ -88,7 +90,7 @@ export default function QuestionManager({ category, questions, progress, formatL
         })
         .filter(Boolean);
 
-    const availableFilterModes = (category === 'quiz' || category === 'rechen')
+    const availableFilterModes = supportsOwnQuestions
         ? ['all', 'learned', 'unlearned', 'own']
         : ['all', 'learned', 'unlearned'];
 
@@ -166,7 +168,7 @@ export default function QuestionManager({ category, questions, progress, formatL
         setEditingId(id);
         setEditText(text);
         // For quiz questions, also load answer options for editing
-        if ((category === 'quiz' || category === 'rechen') && raw.answerOptions) {
+        if (supportsMultipleChoice && raw.answerOptions) {
             setEditAnswers(raw.answerOptions.map(a => ({ ...a })));
         } else {
             setEditAnswers([]);
@@ -178,7 +180,7 @@ export default function QuestionManager({ category, questions, progress, formatL
         // Save question text override
         updated[id] = editText;
         // Save answer overrides if quiz
-        if ((category === 'quiz' || category === 'rechen') && editAnswers.length > 0) {
+        if (supportsMultipleChoice && editAnswers.length > 0) {
             updated[`${id}_answers`] = editAnswers;
         }
         setEditOverrides(updated);
@@ -229,7 +231,7 @@ export default function QuestionManager({ category, questions, progress, formatL
     };
 
     const handleSubmitCustomQuestion = async () => {
-        if (category !== 'quiz') return;
+        if (!supportsOwnQuestions) return;
         if (!onAddCustomQuizQuestion) {
             setAddFormError('Hinzufügen ist momentan nicht verfügbar.');
             return;
@@ -256,6 +258,7 @@ export default function QuestionManager({ category, questions, progress, formatL
         setAddFormLoading(true);
         try {
             const result = await onAddCustomQuizQuestion({
+                category,
                 question: trimmedQuestion,
                 topic: newQuestionTopic,
                 hint: newQuestionHint,
@@ -340,7 +343,7 @@ export default function QuestionManager({ category, questions, progress, formatL
                         </div>
                     </div>
                 </div>
-                {(category === 'quiz' || category === 'rechen') && (
+                {supportsOwnQuestions && (
                     <button
                         onClick={() => {
                             if (!authUser?.email) {
@@ -426,7 +429,7 @@ export default function QuestionManager({ category, questions, progress, formatL
                 </div>
             </div>
 
-            {(category === 'quiz' || category === 'rechen') && showAddForm && (
+            {supportsOwnQuestions && showAddForm && (
                 <div style={{
                     padding: '0.9rem 1.5rem',
                     borderBottom: '1px solid var(--glass-border)',
@@ -733,7 +736,7 @@ export default function QuestionManager({ category, questions, progress, formatL
                                         )}
 
                                         {/* Quiz Answer Options (collapsible) */}
-                                        {(category === 'quiz' || category === 'rechen') && q.raw.answerOptions && editingId !== q.id && (
+                                        {supportsMultipleChoice && q.raw.answerOptions && editingId !== q.id && (
                                             <div style={{ marginTop: '0.6rem' }}>
                                                 <button
                                                     onClick={() => setExpandedQuestionId(expandedQuestionId === q.id ? null : q.id)}
@@ -813,7 +816,7 @@ export default function QuestionManager({ category, questions, progress, formatL
                                         )}
 
                                         {/* Quiz answers inline editing */}
-                                        {(category === 'quiz' || category === 'rechen') && editingId === q.id && editAnswers.length > 0 && (
+                                        {supportsMultipleChoice && editingId === q.id && editAnswers.length > 0 && (
                                             <div style={{ marginTop: '1rem' }}>
                                                 <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Antwortoptionen bearbeiten:</h4>
                                                 {editAnswers.map((opt, i) => (

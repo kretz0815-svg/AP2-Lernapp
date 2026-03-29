@@ -1,6 +1,7 @@
 import {
     ANALYTICS_STORAGE_PREFIX,
     CUSTOM_QUIZ_STORAGE_PREFIX,
+    CUSTOM_MARKETING_REVIEW_STORAGE_PREFIX,
     createEmptyAnalytics
 } from './constants.js';
 
@@ -38,6 +39,11 @@ export const getCustomQuizStorageKey = (user) => {
     return `${CUSTOM_QUIZ_STORAGE_PREFIX}${normalizeAnalyticsIdentity(identity)}`;
 };
 
+export const getCustomMarketingReviewStorageKey = (user) => {
+    const identity = resolveStorageIdentity(user);
+    return `${CUSTOM_MARKETING_REVIEW_STORAGE_PREFIX}${normalizeAnalyticsIdentity(identity)}`;
+};
+
 // ─── Load from localStorage ─────────────────────────────────────
 export const loadAnalyticsForUser = (user) => {
     try {
@@ -50,6 +56,15 @@ export const loadAnalyticsForUser = (user) => {
 export const loadCustomQuizForUser = (user) => {
     try {
         const raw = JSON.parse(localStorage.getItem(getCustomQuizStorageKey(user)) || '[]');
+        return Array.isArray(raw) ? raw : [];
+    } catch {
+        return [];
+    }
+};
+
+export const loadCustomMarketingReviewForUser = (user) => {
+    try {
+        const raw = JSON.parse(localStorage.getItem(getCustomMarketingReviewStorageKey(user)) || '[]');
         return Array.isArray(raw) ? raw : [];
     } catch {
         return [];

@@ -51,8 +51,8 @@ import {
 } from './utils/constants';
 import {
   getAppearanceKey, getThemeKey,
-  getAnalyticsStorageKey, getCustomQuizStorageKey,
-  loadAnalyticsForUser, loadCustomQuizForUser, getLearningEventKey
+  getAnalyticsStorageKey, getCustomQuizStorageKey, getCustomMarketingReviewStorageKey,
+  loadAnalyticsForUser, loadCustomQuizForUser, loadCustomMarketingReviewForUser, getLearningEventKey
 } from './utils/analytics';
 import { formatLatex } from './utils/formatting';
 import { detectQuizTopic, getQuizTopicGroup } from './utils/quizTopics';
@@ -174,6 +174,7 @@ function App() {
   const [questionManagerCategory, setQuestionManagerCategory] = useState(null);
   const [learningAnalytics, setLearningAnalytics] = useState(createEmptyAnalytics());
   const [customQuizQuestions, setCustomQuizQuestions] = useState([]);
+  const [customMarketingReviewQuestions, setCustomMarketingReviewQuestions] = useState([]);
   const [pomodoroActive, setPomodoroActive] = useState(false);
   const [pomodoroSessionLog, setPomodoroSessionLog] = useState([]);
   const [pomodoroTimeLeft, setPomodoroTimeLeft] = useState(25 * 60);
@@ -372,6 +373,7 @@ function App() {
     const savedNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
     const analytics = loadAnalyticsForUser(authUser);
     const customQuiz = loadCustomQuizForUser(authUser);
+    const customMarketingReview = loadCustomMarketingReviewForUser(authUser);
     const appearanceRaw = localStorage.getItem(getAppearanceKey(authUser));
     const appearance = appearanceRaw ? JSON.parse(appearanceRaw) : null;
     const theme = localStorage.getItem(getThemeKey(authUser)) || 'dark';
@@ -387,6 +389,7 @@ function App() {
       saved_notes: savedNotes,
       learning_analytics: analytics,
       custom_quiz_questions: customQuiz,
+      custom_marketing_review_questions: customMarketingReview,
       appearance_settings: appearance,
       theme_mode: theme,
       klr_progress: klrProgress,
@@ -680,6 +683,7 @@ function App() {
   };
 
   const handleAddCustomQuizQuestion = async (payload) => {
+    const targetCategory = payload?.category === 'marketing_review' ? 'marketing_review' : 'quiz';
     const normalizedAnswers = (payload.answerOptions || [])
       .filter(opt => String(opt.text || '').trim())
       .map(opt => ({
@@ -703,11 +707,18 @@ function App() {
       createdAt: new Date().toISOString()
     };
 
+    if (targetCategory === 'marketing_review') {
+      const updatedCustom = [...(customMarketingReviewQuestions || []), newQuestion];
+      setCustomMarketingReviewQuestions(updatedCustom);
+      localStorage.setItem(getCustomMarketingReviewStorageKey(authUser), JSON.stringify(updatedCustom));
+      await syncProgressToSupabase({ custom_marketing_review_questions: updatedCustom });
+      return { ok: true };
+    }
+
     const updatedCustom = [...(customQuizQuestions || []), newQuestion];
     setCustomQuizQuestions(updatedCustom);
     localStorage.setItem(getCustomQuizStorageKey(authUser), JSON.stringify(updatedCustom));
     await syncProgressToSupabase({ custom_quiz_questions: updatedCustom });
-
       await refreshQuizDuePool();
 
     return { ok: true };
@@ -719,8 +730,13 @@ function App() {
     return due.filter(q => getQuizTopicGroup(q.topic) === topic);
   };
 
+  const allMarketingReviewQuestions = [
+    ...(marketingReview.questions || []),
+    ...(customMarketingReviewQuestions || [])
+  ];
+
   const getDueMarketingReviewByTopic = (topic = 'all') => {
-    const due = (marketingReview.questions || []).filter(q => !completedMarketingReview[q.id]);
+    const due = allMarketingReviewQuestions.filter(q => !completedMarketingReview[q.id]);
     if (topic === 'all') return due;
     return due.filter(q => getQuizTopicGroup(q.topic) === topic);
   };
@@ -927,6 +943,7 @@ ${input}`;
       let progressData = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
       let analyticsData = loadAnalyticsForUser(session?.user || null);
       let customQuizData = loadCustomQuizForUser(session?.user || null);
+      let customMarketingReviewData = loadCustomMarketingReviewForUser(session?.user || null);
 
       // 2. Fetch from Supabase (only for authenticated users)
       if (session?.user) {
@@ -999,6 +1016,13 @@ ${input}`;
               customQuizData = [];
               localStorage.setItem(getCustomQuizStorageKey(session.user), JSON.stringify([]));
             }
+            if (Array.isArray(data.progress_data.custom_marketing_review_questions)) {
+              customMarketingReviewData = data.progress_data.custom_marketing_review_questions;
+              localStorage.setItem(getCustomMarketingReviewStorageKey(session.user), JSON.stringify(customMarketingReviewData));
+            } else {
+              customMarketingReviewData = [];
+              localStorage.setItem(getCustomMarketingReviewStorageKey(session.user), JSON.stringify([]));
+            }
             // Merge saved notes from Supabase into localStorage
             if (data.progress_data.saved_notes) {
               const localNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
@@ -1048,9 +1072,11 @@ ${input}`;
             if (session?.user) {
               localStorage.setItem(getAnalyticsStorageKey(session.user), JSON.stringify(createEmptyAnalytics()));
               localStorage.setItem(getCustomQuizStorageKey(session.user), JSON.stringify([]));
+              localStorage.setItem(getCustomMarketingReviewStorageKey(session.user), JSON.stringify([]));
             }
             analyticsData = createEmptyAnalytics();
             customQuizData = [];
+            customMarketingReviewData = [];
           }
           // After loading we might want to tell the providers to refresh
           window.dispatchEvent(new CustomEvent('ap2_progress_synced'));
@@ -1066,6 +1092,7 @@ ${input}`;
       setCompletedWisorsEco(wisorEcoProg);
       setLearningAnalytics(analyticsData);
       setCustomQuizQuestions(customQuizData);
+      setCustomMarketingReviewQuestions(customMarketingReviewData);
 
       // 3. Setup Flashcards with loaded progress
       const rawCards = [
@@ -1106,6 +1133,7 @@ ${input}`;
   useEffect(() => {
     setLearningAnalytics(loadAnalyticsForUser(authUser));
     setCustomQuizQuestions(loadCustomQuizForUser(authUser));
+    setCustomMarketingReviewQuestions(loadCustomMarketingReviewForUser(authUser));
   }, [authUser]);
 
   useEffect(() => {
@@ -1306,7 +1334,11 @@ ${input}`;
       // Clear Supabase progress but preserve custom questions
       const resetTasks = [];
       if (authUser?.id) {
-        const preservedData = { ...createEmptyMemberProgressData(), custom_quiz_questions: customQuizQuestions };
+        const preservedData = {
+          ...createEmptyMemberProgressData(),
+          custom_quiz_questions: customQuizQuestions,
+          custom_marketing_review_questions: customMarketingReviewQuestions
+        };
         resetTasks.push(syncProgressToSupabase(preservedData, { queueOnFail: false }));
         resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'quiz'));
       }
@@ -1609,7 +1641,7 @@ ${input}`;
       wisorLearned: Object.keys(completedWisors).length,
       wisorEcoTotal: wisorEcoQuestions.length,
       wisorEcoLearned: Object.keys(completedWisorsEco).length,
-      reviewTotal: (marketingReview.questions || []).length,
+      reviewTotal: allMarketingReviewQuestions.length,
       reviewLearned: Object.keys(completedMarketingReview).length,
       rechenTotal,
       rechenLearned
@@ -1639,7 +1671,7 @@ ${input}`;
             questionManagerCategory === 'quiz' ? allQuizQuestions :
               questionManagerCategory === 'wisor' ? wisorQuestions : 
               questionManagerCategory === 'wisorEco' ? wisorEcoQuestions :
-              questionManagerCategory === 'marketing_review' ? (marketingReview.questions || []) : rechenTasks
+              questionManagerCategory === 'marketing_review' ? allMarketingReviewQuestions : rechenTasks
           }
           authUser={authUser}
           progress={
@@ -1827,7 +1859,7 @@ ${input}`;
                 Journey Architect (XP: {jaProgress?.xp || 0})
               </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('marketing_review_setup')}>
-                IHK Extras ({marketingReview.questions.length - Object.keys(completedMarketingReview).length} offen)
+                IHK Extras ({Math.max(0, allMarketingReviewQuestions.length - Object.keys(completedMarketingReview).length)} offen)
               </button>
             </div>
           </div>
