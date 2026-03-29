@@ -82,9 +82,9 @@ const CRITICAL_REVENUE_SCENARIOS = [
                 internalFix: development,
                 internalMonthly: operationMonthly + serverMonthly,
                 parts: [
-                    { label: 'Entwicklung (einmalig)', value: development },
-                    { label: `Betrieb (${operationMonthly.toLocaleString('de-DE')} € × 12)`, value: operationMonthly * 12 },
-                    { label: `Server (${serverMonthly.toLocaleString('de-DE')} € × 12)`, value: serverMonthly * 12 },
+                    { label: 'Entwicklung (einmalig)', value: development, monthly: false },
+                    { label: 'Betrieb', monthlyValue: operationMonthly, value: operationMonthly * 12, monthly: true },
+                    { label: 'Server', monthlyValue: serverMonthly, value: serverMonthly * 12, monthly: true },
                 ]
             };
         }
@@ -105,9 +105,9 @@ const CRITICAL_REVENUE_SCENARIOS = [
                 internalFix: development,
                 internalMonthly: maintenanceMonthly + apiMonthly,
                 parts: [
-                    { label: 'Entwicklung (einmalig)', value: development },
-                    { label: `Wartung (${maintenanceMonthly.toLocaleString('de-DE')} € × 12)`, value: maintenanceMonthly * 12 },
-                    { label: `API-Lizenzen (${apiMonthly.toLocaleString('de-DE')} € × 12)`, value: apiMonthly * 12 },
+                    { label: 'Entwicklung (einmalig)', value: development, monthly: false },
+                    { label: 'Wartung', monthlyValue: maintenanceMonthly, value: maintenanceMonthly * 12, monthly: true },
+                    { label: 'API-Lizenzen', monthlyValue: apiMonthly, value: apiMonthly * 12, monthly: true },
                 ]
             };
         }
@@ -129,8 +129,8 @@ const CRITICAL_REVENUE_SCENARIOS = [
                 internalFix: development,
                 internalMonthly: cloudMonthly,
                 parts: [
-                    { label: `Entwicklung (${devDays} Tage × ${dayRate.toLocaleString('de-DE')} €)`, value: development },
-                    { label: `Cloud-Server (${cloudMonthly.toLocaleString('de-DE')} € × 12)`, value: cloudMonthly * 12 },
+                    { label: `Entwicklung (${devDays} Tage × ${dayRate.toLocaleString('de-DE')} €)`, value: development, monthly: false },
+                    { label: 'Cloud-Server', monthlyValue: cloudMonthly, value: cloudMonthly * 12, monthly: true },
                 ]
             };
         }
@@ -451,6 +451,7 @@ function generateLevel(config) {
 function createCriticalRevenueRound(scenarioIndex = 0) {
     const scenario = CRITICAL_REVENUE_SCENARIOS[scenarioIndex] || CRITICAL_REVENUE_SCENARIOS[0];
     const generated = scenario.generateInternal();
+    const showExplicitTwelve = Math.random() < 0.5;
 
     const totalInternalCost = generated.internalFix + generated.internalMonthly * 12;
     const pct = scenario.provisionPercent;
@@ -508,6 +509,22 @@ function createCriticalRevenueRound(scenarioIndex = 0) {
         .map((value) => ({ id: `${value}_${Math.random()}`, value, isCorrect: value === revenue }))
         .sort(() => Math.random() - 0.5);
 
+    const displayParts = generated.parts.map((part) => {
+        if (!part.monthly) {
+            return { label: part.label, valueText: formatEuroWithSymbol(part.value) };
+        }
+        if (showExplicitTwelve) {
+            return {
+                label: `${part.label} (${formatEuro(part.monthlyValue).replace(',00', '')} € × 12)`,
+                valueText: formatEuroWithSymbol(part.value)
+            };
+        }
+        return {
+            label: `${part.label} (monatlich)`,
+            valueText: formatEuroWithSymbol(part.monthlyValue)
+        };
+    });
+
     return {
         scenarioIndex,
         ...scenario,
@@ -517,6 +534,9 @@ function createCriticalRevenueRound(scenarioIndex = 0) {
         externalFix,
         provisionPercent: pct,
         totalInternalCost,
+        showExplicitTwelve,
+        showInternalTotal: showExplicitTwelve,
+        displayParts,
         revenue,
         options,
         solutionSteps: [
@@ -956,14 +976,20 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                                     </div>
                                     <div style={{ fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '12px', padding: '0.65rem 0.75rem' }}>
                                         <div style={{ opacity: 0.75, fontSize: '0.78rem', marginBottom: '0.2rem' }}>{round.internalLabel}</div>
-                                        {round.internalParts?.map((part) => (
+                                        {round.displayParts?.map((part) => (
                                             <div key={part.label} style={{ color: 'var(--text-light)', fontSize: '0.86rem', lineHeight: 1.35 }}>
-                                                • {part.label}: <strong>{formatEuroWithSymbol(part.value)}</strong>
+                                                • {part.label}: <strong>{part.valueText}</strong>
                                             </div>
                                         ))}
-                                        <div style={{ color: 'var(--text-light)', fontSize: '0.88rem', marginTop: '0.35rem' }}>
-                                            Interne Gesamtkosten (12 Monate): <strong>{formatEuroWithSymbol(round.totalInternalCost)}</strong>
-                                        </div>
+                                        {round.showInternalTotal ? (
+                                            <div style={{ color: 'var(--text-light)', fontSize: '0.88rem', marginTop: '0.35rem' }}>
+                                                Interne Gesamtkosten (12 Monate): <strong>{formatEuroWithSymbol(round.totalInternalCost)}</strong>
+                                            </div>
+                                        ) : (
+                                            <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginTop: '0.35rem' }}>
+                                                Interne Gesamtkosten (12 Monate): selbst berechnen.
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
