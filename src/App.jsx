@@ -63,6 +63,11 @@ import { isRechenTask, categorizeRechenTask, getRechenTasks } from './utils/quiz
 
 
 function App() {
+  const DB_KEY_WISOR_GRUNDLAGEN = 'wisor_grundlagen_progress';
+  const DB_KEY_WISOR_ECOMMERCE = 'wisor_ecommerce_progress';
+  const LEGACY_DB_KEY_WISOR = 'wisor_progress';
+  const LEGACY_DB_KEY_WISOR_ECO = 'wisor_eco_progress';
+
   const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'intro' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor', 'intro'
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
   const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || import.meta.env.VITE_HCAPTCHA_SITEKEY || '';
@@ -388,8 +393,10 @@ function App() {
 
     return {
       ...srsProgress,
-      wisor_progress: wisorProgress,
-      wisor_eco_progress: wisorEcoProgress,
+      [LEGACY_DB_KEY_WISOR]: wisorProgress,
+      [LEGACY_DB_KEY_WISOR_ECO]: wisorEcoProgress,
+      [DB_KEY_WISOR_GRUNDLAGEN]: wisorProgress,
+      [DB_KEY_WISOR_ECOMMERCE]: wisorEcoProgress,
       marketing_review_progress: marketingReviewProgress,
       saved_notes: savedNotes,
       learning_analytics: analytics,
@@ -1043,13 +1050,15 @@ ${input}`;
             localStorage.setItem('ap2_srs_progress', JSON.stringify(progressData));
             // Removed: localStorage.setItem('ap2_quiz_progress', JSON.stringify({})); // Keep local progress intact as fallback
 
-            if (data.progress_data.wisor_progress) {
-              localStorage.setItem('ap2_wisor_progress', JSON.stringify(data.progress_data.wisor_progress));
+            const remoteWisorProgress = data.progress_data[DB_KEY_WISOR_GRUNDLAGEN] || data.progress_data[LEGACY_DB_KEY_WISOR];
+            if (remoteWisorProgress) {
+              localStorage.setItem('ap2_wisor_progress', JSON.stringify(remoteWisorProgress));
             } else {
               localStorage.setItem('ap2_wisor_progress', JSON.stringify({}));
             }
-            if (data.progress_data.wisor_eco_progress) {
-              localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(data.progress_data.wisor_eco_progress));
+            const remoteWisorEcoProgress = data.progress_data[DB_KEY_WISOR_ECOMMERCE] || data.progress_data[LEGACY_DB_KEY_WISOR_ECO];
+            if (remoteWisorEcoProgress) {
+              localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(remoteWisorEcoProgress));
             } else {
               localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
             }
@@ -1299,8 +1308,10 @@ ${input}`;
       if (error || !data?.progress_data) return;
 
       const remote = data.progress_data;
-      const remoteWisor = remote.wisor_progress && typeof remote.wisor_progress === 'object' ? remote.wisor_progress : {};
-      const remoteWisorEco = remote.wisor_eco_progress && typeof remote.wisor_eco_progress === 'object' ? remote.wisor_eco_progress : {};
+      const remoteWisorRaw = remote[DB_KEY_WISOR_GRUNDLAGEN] || remote[LEGACY_DB_KEY_WISOR];
+      const remoteWisor = remoteWisorRaw && typeof remoteWisorRaw === 'object' ? remoteWisorRaw : {};
+      const remoteWisorEcoRaw = remote[DB_KEY_WISOR_ECOMMERCE] || remote[LEGACY_DB_KEY_WISOR_ECO];
+      const remoteWisorEco = remoteWisorEcoRaw && typeof remoteWisorEcoRaw === 'object' ? remoteWisorEcoRaw : {};
       const remoteMarketing = remote.marketing_review_progress && typeof remote.marketing_review_progress === 'object' ? remote.marketing_review_progress : {};
       const remoteAnalytics = remote.learning_analytics && typeof remote.learning_analytics === 'object'
         ? { ...createEmptyAnalytics(), ...remote.learning_analytics }
@@ -1390,7 +1401,10 @@ ${input}`;
       clearAnalyticsByMode('wisor');
 
       if (authUser?.id) {
-        syncProgressToSupabase({ wisor_progress: {} }).catch(() => { });
+        syncProgressToSupabase({
+          [LEGACY_DB_KEY_WISOR]: {},
+          [DB_KEY_WISOR_GRUNDLAGEN]: {}
+        }).catch(() => { });
       }
 
       setResetModalVisible(false);
@@ -1410,7 +1424,10 @@ ${input}`;
       clearAnalyticsByMode('wisorEco');
 
       if (authUser?.id) {
-        syncProgressToSupabase({ wisor_eco_progress: {} }).catch(() => { });
+        syncProgressToSupabase({
+          [LEGACY_DB_KEY_WISOR_ECO]: {},
+          [DB_KEY_WISOR_ECOMMERCE]: {}
+        }).catch(() => { });
       }
 
       setResetModalVisible(false);
@@ -1571,12 +1588,19 @@ ${input}`;
         localStorage.setItem(key, JSON.stringify(next));
 
         if (authUser?.id) {
-          const dbKey = activeWisorMode === 'wisor1'
-            ? 'wisor_progress'
-            : activeWisorMode === 'wisorEco'
-              ? 'wisor_eco_progress'
-              : 'marketing_review_progress';
-          syncProgressToSupabase({ [dbKey]: next }).catch(() => { });
+          if (activeWisorMode === 'wisor1') {
+            syncProgressToSupabase({
+              [LEGACY_DB_KEY_WISOR]: next,
+              [DB_KEY_WISOR_GRUNDLAGEN]: next
+            }).catch(() => { });
+          } else if (activeWisorMode === 'wisorEco') {
+            syncProgressToSupabase({
+              [LEGACY_DB_KEY_WISOR_ECO]: next,
+              [DB_KEY_WISOR_ECOMMERCE]: next
+            }).catch(() => { });
+          } else {
+            syncProgressToSupabase({ marketing_review_progress: next }).catch(() => { });
+          }
         }
         return next;
       };

@@ -136,12 +136,15 @@ export default function QuestionManager({ category, questions, progress, formatL
                 } else {
                     const { data } = await supabase.from('user_data').select('progress_data').eq('user_id', userId).single();
                     if (data?.progress_data) {
-                        const key = category === 'wisor'
-                            ? 'wisor_progress'
-                            : category === 'wisorEco'
-                                ? 'wisor_eco_progress'
-                                : 'marketing_review_progress';
-                        data.progress_data[key] = updatedProgress;
+                        if (category === 'wisor') {
+                            data.progress_data.wisor_progress = updatedProgress;
+                            data.progress_data.wisor_grundlagen_progress = updatedProgress;
+                        } else if (category === 'wisorEco') {
+                            data.progress_data.wisor_eco_progress = updatedProgress;
+                            data.progress_data.wisor_ecommerce_progress = updatedProgress;
+                        } else {
+                            data.progress_data.marketing_review_progress = updatedProgress;
+                        }
                         await supabase.from('user_data').update({ progress_data: data.progress_data, updated_at: new Date().toISOString() }).eq('user_id', userId);
                     }
                 }
