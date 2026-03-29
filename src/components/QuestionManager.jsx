@@ -61,6 +61,12 @@ export default function QuestionManager({ category, questions, progress, formatL
             progressKey: 'ap2_wisor_eco_progress',
             isLearned: (id, prog) => !!prog[id],
         },
+        marketing_review: {
+            title: 'IHK Extras',
+            color: 'var(--accent)',
+            progressKey: 'ap2_marketing_review_progress',
+            isLearned: (id, prog) => !!prog[id],
+        },
         rechen: {
             title: "KPI's",
             color: 'var(--primary)',
@@ -128,7 +134,11 @@ export default function QuestionManager({ category, questions, progress, formatL
                 } else {
                     const { data } = await supabase.from('user_data').select('progress_data').eq('user_id', userId).single();
                     if (data?.progress_data) {
-                        const key = category === 'wisor' ? 'wisor_progress' : 'wisor_eco_progress';
+                        const key = category === 'wisor'
+                            ? 'wisor_progress'
+                            : category === 'wisorEco'
+                                ? 'wisor_eco_progress'
+                                : 'marketing_review_progress';
                         data.progress_data[key] = updatedProgress;
                         await supabase.from('user_data').update({ progress_data: data.progress_data, updated_at: new Date().toISOString() }).eq('user_id', userId);
                     }

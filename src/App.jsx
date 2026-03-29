@@ -1638,12 +1638,14 @@ ${input}`;
           questions={
             questionManagerCategory === 'quiz' ? allQuizQuestions :
               questionManagerCategory === 'wisor' ? wisorQuestions : 
-              questionManagerCategory === 'wisorEco' ? wisorEcoQuestions : rechenTasks
+              questionManagerCategory === 'wisorEco' ? wisorEcoQuestions :
+              questionManagerCategory === 'marketing_review' ? (marketingReview.questions || []) : rechenTasks
           }
           authUser={authUser}
           progress={
             questionManagerCategory === 'quiz' || questionManagerCategory === 'rechen' ? quizProg :
-              questionManagerCategory === 'wisor' ? completedWisors : completedWisorsEco
+              questionManagerCategory === 'wisor' ? completedWisors :
+              questionManagerCategory === 'wisorEco' ? completedWisorsEco : completedMarketingReview
           }
           formatLatex={formatLatex}
           onClose={() => setQuestionManagerCategory(null)}
@@ -1652,6 +1654,7 @@ ${input}`;
             if (cat === 'quiz' || cat === 'rechen') refreshQuizDuePool().catch(() => { });
             else if (cat === 'wisor') setCompletedWisors(updatedProgress);
             else if (cat === 'wisorEco') setCompletedWisorsEco(updatedProgress);
+            else if (cat === 'marketing_review') setCompletedMarketingReview(updatedProgress);
           }}
         />
       )}
