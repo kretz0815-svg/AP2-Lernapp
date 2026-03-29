@@ -1144,12 +1144,18 @@ ${input}`;
             }
             if (data.progress_data.project_m_progress) {
               localStorage.setItem('project_m_progress_v1', JSON.stringify(data.progress_data.project_m_progress));
+            } else {
+              localStorage.removeItem('project_m_progress_v1');
             }
             if (data.progress_data.klr_progress) {
               localStorage.setItem('klr_game_progress_v1', JSON.stringify(data.progress_data.klr_progress));
+            } else {
+              localStorage.removeItem('klr_game_progress_v1');
             }
             if (data.progress_data.journey_architect_progress) {
               localStorage.setItem('journey_architect_progress_v1', JSON.stringify(data.progress_data.journey_architect_progress));
+            } else {
+              localStorage.removeItem('journey_architect_progress_v1');
             }
           } else if (!data) {
             // Init empty row for this authenticated user
@@ -1321,6 +1327,15 @@ ${input}`;
       const remoteProfile = remote.profile_settings && typeof remote.profile_settings === 'object'
         ? remote.profile_settings
         : null;
+      const remoteProjectM = remote.project_m_progress && typeof remote.project_m_progress === 'object'
+        ? remote.project_m_progress
+        : null;
+      const remoteKLR = remote.klr_progress && typeof remote.klr_progress === 'object'
+        ? remote.klr_progress
+        : null;
+      const remoteJourneyArchitect = remote.journey_architect_progress && typeof remote.journey_architect_progress === 'object'
+        ? remote.journey_architect_progress
+        : null;
 
       localStorage.setItem('ap2_wisor_progress', JSON.stringify(remoteWisor));
       localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(remoteWisorEco));
@@ -1328,6 +1343,12 @@ ${input}`;
       localStorage.setItem(getAnalyticsStorageKey(authUser), JSON.stringify(remoteAnalytics));
       localStorage.setItem(getCustomQuizStorageKey(authUser), JSON.stringify(remoteCustomQuiz));
       localStorage.setItem(getCustomMarketingReviewStorageKey(authUser), JSON.stringify(remoteCustomMarketingReview));
+      if (remoteProjectM) localStorage.setItem('project_m_progress_v1', JSON.stringify(remoteProjectM));
+      else localStorage.removeItem('project_m_progress_v1');
+      if (remoteKLR) localStorage.setItem('klr_game_progress_v1', JSON.stringify(remoteKLR));
+      else localStorage.removeItem('klr_game_progress_v1');
+      if (remoteJourneyArchitect) localStorage.setItem('journey_architect_progress_v1', JSON.stringify(remoteJourneyArchitect));
+      else localStorage.removeItem('journey_architect_progress_v1');
       if (remoteProfile) {
         localStorage.setItem(getProfileSettingsStorageKey(authUser), JSON.stringify(remoteProfile));
       } else {
