@@ -206,6 +206,7 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   const [roundHistory, setRoundHistory] = useState([]);
   const [nextRoundLoading, setNextRoundLoading] = useState(false);
   const [roomRecord, setRoomRecord] = useState(null);
+  const [shareFeedback, setShareFeedback] = useState('');
   const submittedRoundKeyRef = useRef('');
   const scoredRoundKeyRef = useRef('');
   const roundHistoryRef = useRef({});
@@ -827,10 +828,41 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
   };
 
   const copyRoomCode = async () => {
+    const code = String(roomData.room_code || '');
+    if (!code) return;
     try {
-      await navigator.clipboard.writeText(String(roomData.room_code || ''));
+      await navigator.clipboard.writeText(code);
+      setShareFeedback('Code kopiert ✅');
+      setTimeout(() => setShareFeedback(''), 1800);
     } catch (err) {
       console.error('Clipboard copy failed:', err);
+      setShareFeedback('Kopieren fehlgeschlagen');
+      setTimeout(() => setShareFeedback(''), 1800);
+    }
+  };
+
+  const shareRoomCode = async () => {
+    const code = String(roomData.room_code || '');
+    if (!code) return;
+
+    const title = 'Stadt-Land-Fluss VIP';
+    const text = `Komm in meinen SLF-Raum 🚀\nRaumcode: ${code}`;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({ title, text });
+        setShareFeedback('Code geteilt ✅');
+      } else {
+        await navigator.clipboard.writeText(`${text}`);
+        setShareFeedback('Teilen nicht verfügbar – Code kopiert ✅');
+      }
+      setTimeout(() => setShareFeedback(''), 2200);
+    } catch (err) {
+      // User cancel on share sheet should be silent.
+      if (String(err?.name || '').toLowerCase() === 'aborterror') return;
+      console.error('Share failed:', err);
+      setShareFeedback('Teilen fehlgeschlagen');
+      setTimeout(() => setShareFeedback(''), 1800);
     }
   };
 
@@ -840,7 +872,11 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
     <div className="slf-section">
       <h3>🚀 Lobby: {parseRoomMeta(roomData.room_name).displayName}</h3>
       <p className="slf-highlight-code">Beitritts-Code: <span>{roomData.room_code}</span></p>
-      <button className="slf-prime-btn slf-copy-btn" onClick={copyRoomCode}>Code kopieren 📋</button>
+      <div className="slf-share-actions">
+        <button className="slf-prime-btn slf-copy-btn" onClick={copyRoomCode}>Code kopieren 📋</button>
+        <button className="slf-prime-btn slf-share-btn" onClick={shareRoomCode}>Code teilen 📤</button>
+      </div>
+      {shareFeedback && <p className="slf-share-feedback">{shareFeedback}</p>}
       
       <div className="slf-p-list">
         {players.map((p) => (
@@ -1083,7 +1119,11 @@ const SLFGameContainer = ({ room, player, onClose, authUser = null }) => {
         .slf-hint { opacity: 0.6; font-size: 0.9rem; text-align: center; }
         .slf-highlight-code { background: rgba(168, 85, 247, 0.1); border: 2px dashed #a855f7; padding: 1rem 2rem; border-radius: 12px; font-size: 1.1rem; margin-bottom: 2rem; }
         .slf-highlight-code span { font-weight: 900; font-family: monospace; font-size: 2rem; color: #a855f7; display: block; margin-top: 0.2rem; }
-        .slf-copy-btn { max-width: 260px; margin: -1.2rem auto 1.2rem; padding: 0.75rem 1rem; font-size: 0.95rem; }
+        .slf-share-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; margin: -1.2rem auto 0.6rem; }
+        .slf-copy-btn, .slf-share-btn { max-width: 260px; padding: 0.75rem 1rem; font-size: 0.95rem; }
+        .slf-share-btn { background: #0ea5e9; }
+        .slf-share-btn:hover { box-shadow: 0 5px 15px rgba(14,165,233,0.45); }
+        .slf-share-feedback { margin: 0.1rem 0 1rem; font-size: 0.85rem; color: #93c5fd; min-height: 1.2rem; text-align: center; }
         .slf-scoreboard { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-bottom: 1rem; }
         .slf-score-chip { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 0.35rem 0.75rem; display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.82rem; }
         .slf-score-chip.me { border-color: #a855f7; background: rgba(168,85,247,0.2); }
