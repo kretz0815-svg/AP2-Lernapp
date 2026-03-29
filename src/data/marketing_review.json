@@ -435,6 +435,122 @@
       "hint": "Überlege, welchen Zweck Zertifikate/Bewertungen und ein Bestell-Button haben.",
       "youtubeQuery": "Landingpage Vertrauenssteigerung Call To Action Siegel",
       "topic": "Landing Page"
+    },
+    {
+      "id": "mr_016",
+      "question": "Mission: Controlling-Chef. Hey! Die Google-Rechnung ist da (4.500 Euro). Wir haben durch genau 15.000 Besucher im Shop insgesamt 300 Verkäufe gemacht. Wie hoch ist unsere Conversion Rate? Ich brauche die Zahl in 5 Minuten fürs Meeting!",
+      "answerOptions": [
+        {
+          "text": "50,0 % – Das bedeutet, jeder zweite Klick hat zu einem Kauf geführt.",
+          "isCorrect": false,
+          "rationale": "Falsch gerechnet. Beachte die Formel für die Conversion Rate."
+        },
+        {
+          "text": "2,0 % – Das bedeutet, dass von 100 Besuchern im Durchschnitt genau 2 Personen einen Kauf abgeschlossen haben.",
+          "isCorrect": true,
+          "rationale": "Richtig gerechnet! Die Formel lautet: (Conversions / Traffic) * 100. Also (300 / 15.000) * 100 = 2,0 %. Die Kosten (4.500 Euro) sind für die Conversion Rate irrelevant!"
+        },
+        {
+          "text": "0,02 % – Das bedeutet, dass das Marketingbudget zu niedrig angesetzt war.",
+          "isCorrect": false,
+          "rationale": "Du hast vergessen, mit 100 zu multiplizieren."
+        },
+        {
+          "text": "15,0 % – Das bedeutet, dass 15 von 100 Käufern die Ware retournieren werden.",
+          "isCorrect": false,
+          "rationale": "Das ist nicht die Conversion Rate."
+        }
+      ],
+      "hint": "Formel-Spickzettel: CR = (Conversions / Traffic) * 100. Achtung, die Kosten sind eine Falle!",
+      "youtubeQuery": "Conversion Rate berechnen Formel",
+      "topic": "KPIs"
+    },
+    {
+      "id": "mr_017",
+      "question": "Mission: Controlling-Chef. Wir wissen bereits, dass wir 4.500 Euro für Werbung ausgegeben haben und dadurch 300 Bestellungen (Conversions) generiert wurden. Wie viel Geld an Marketingbudget mussten wir im Durchschnitt verbrennen, um genau EINE einzige Bestellung zu generieren? Welcher KPI wird gesucht und wie lautet das Ergebnis?",
+      "answerOptions": [
+        {
+          "text": "Der Return on Advertising Spend (ROAS) – Er liegt bei 15,00 Euro.",
+          "isCorrect": false,
+          "rationale": "Vorsicht! Der ROAS ist kein Euro-Betrag, sondern ein Faktor. Versuch es nochmal!"
+        },
+        {
+          "text": "Der Cost per Click (CPC) – Er liegt bei 30,00 Euro.",
+          "isCorrect": false,
+          "rationale": "Der CPC berechnet die Klickkosten, nicht die Kosten pro Bestellung."
+        },
+        {
+          "text": "Die Cost per Acquisition (CPA) – Sie liegt bei 15,00 Euro.",
+          "isCorrect": true,
+          "rationale": "Korrekt! Die Formel lautet: Gesamtkosten / Conversions. Also 4.500 Euro / 300 = 15,00 Euro pro Akquisition."
+        },
+        {
+          "text": "Die Click-Through-Rate (CTR) – Sie liegt bei 0,15 Euro.",
+          "isCorrect": false,
+          "rationale": "Die CTR ist ein Prozentsatz, kein Euro-Betrag."
+        }
+      ],
+      "hint": "Formel-Spickzettel: CPA = Gesamtkosten / Conversions.",
+      "youtubeQuery": "Cost per Acquisition CPA berechnen",
+      "topic": "KPIs"
+    },
+    {
+      "id": "mr_018",
+      "question": "Mission: Controlling-Chef. Wir haben eine Influencer-Kampagne auf Instagram für exakt 2.000 Euro gebucht. Die Auswertung zeigt, dass diese Kampagne einen direkten Umsatz von 10.000 Euro im Shop erzielt hat. Wie hoch ist der ROAS (Return on Advertising Spend)?",
+      "answerOptions": [
+        {
+          "text": "20 % – Das bedeutet, dass 20 % des Budgets verschwendet wurden.",
+          "isCorrect": false,
+          "rationale": "Falsch berechnet."
+        },
+        {
+          "text": "5 – Das bedeutet, dass für jeden investierten Werbe-Euro genau 5 Euro Umsatz generiert wurden.",
+          "isCorrect": true,
+          "rationale": "Genau! Die Formel lautet: Umsatz / Kosten. Also 10.000 / 2.000 = 5. Der ROAS ist ein Faktor, kein Prozentwert."
+        },
+        {
+          "text": "8.000 Euro – Das ist der reine Gewinn, den das Unternehmen gemacht hat.",
+          "isCorrect": false,
+          "rationale": "Vorsicht! Das ist nur der Marketing-Rohertrag. Der ROAS ist immer ein Faktor, kein Euro-Betrag."
+        },
+        {
+          "text": "0,2 – Das bedeutet, dass die Kampagne hochgradig unrentabel war.",
+          "isCorrect": false,
+          "rationale": "Falsche Formel verwendet (Kosten / Umsatz statt Umsatz / Kosten)."
+        }
+      ],
+      "hint": "Formel-Spickzettel: ROAS = Umsatz / Kosten.",
+      "youtubeQuery": "ROAS berechnen Formel",
+      "topic": "KPIs"
+    },
+    {
+      "id": "mr_019",
+      "question": "Mission: Controlling-Chef. Ein neuer Werbe-Newsletter ging an 8.000 registrierte Abonnenten (alle zugestellt). Das Analysetool zeigt, dass exakt 400 Empfänger auf den Link geklickt haben. Wie hoch ist die Click-Through-Rate (CTR)?",
+      "answerOptions": [
+        {
+          "text": "5,0 %",
+          "isCorrect": true,
+          "rationale": "Exakt! Die Formel lautet: (Klicks / Impressionen) * 100. Also (400 / 8.000) * 100 = 5,0 %."
+        },
+        {
+          "text": "20,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch berechnet."
+        },
+        {
+          "text": "0,05 %",
+          "isCorrect": false,
+          "rationale": "Achtung: Du hast vergessen, mit 100 zu multiplizieren, um den Prozentwert zu erhalten."
+        },
+        {
+          "text": "4,0 %",
+          "isCorrect": false,
+          "rationale": "Falsch berechnet."
+        }
+      ],
+      "hint": "Formel-Spickzettel: CTR = (Klicks / Impressionen) * 100.",
+      "youtubeQuery": "Click Through Rate CTR berechnen",
+      "topic": "KPIs"
     }
   ]
 }
