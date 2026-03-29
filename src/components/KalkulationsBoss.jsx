@@ -955,8 +955,14 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                                     </div>
                                     <div style={{ fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '12px', padding: '0.65rem 0.75rem' }}>
                                         <div style={{ opacity: 0.75, fontSize: '0.78rem', marginBottom: '0.2rem' }}>{round.internalLabel}</div>
-                                        <div style={{ color: 'var(--text-light)' }}>Interne Kosten = Einmalig + monatlich × 12</div>
-                                        <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>Die Werte werden pro Runde neu generiert.</div>
+                                        {round.internalParts?.map((part) => (
+                                            <div key={part.label} style={{ color: 'var(--text-light)', fontSize: '0.86rem', lineHeight: 1.35 }}>
+                                                • {part.label}: <strong>{formatEuro(part.value)} €</strong>
+                                            </div>
+                                        ))}
+                                        <div style={{ color: 'var(--text-light)', fontSize: '0.88rem', marginTop: '0.35rem' }}>
+                                            Interne Gesamtkosten (12 Monate): <strong>{formatEuro(round.totalInternalCost)} €</strong>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
