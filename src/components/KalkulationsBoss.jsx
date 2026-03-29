@@ -22,6 +22,7 @@ const randPrice = (min, max) => commercialRound(randInt(Math.round(min * 100), M
 
 // Format helper for hints
 const fmt = (v) => v.toFixed(2).replace('.', ',');
+const formatEuro = (v) => Number(v).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 // ── Level-Metadaten (statisch, nur Darstellung) ─────────────
 const LEVEL_CONFIG = [
@@ -55,6 +56,84 @@ const LEVEL_CONFIG = [
         direction: 'retail_margin', color: '#0ea5e9',
         youtubeQuery: 'Handelsspanne berechnen Handelskalkulation einfach erklärt',
     },
+    {
+        id: 6, title: 'Mathe-Boss-Modus: Break-Even-Point', subtitle: 'Kritischer Umsatz',
+        story: 'Drei E-Commerce-Entscheidungen: Finde den kritischen Umsatz, bei dem intern und extern gleich teuer sind.',
+        direction: 'critical_revenue', color: '#14b8a6',
+        youtubeQuery: 'Break-Even-Point kritischer Umsatz E-Commerce einfach erklärt',
+    },
+];
+
+const CRITICAL_REVENUE_SCENARIOS = [
+    {
+        title: 'Level 1: Das CRM-Dilemma',
+        story: 'Wir brauchen ein neues Kundenbindungsprogramm für die nächsten 12 Monate.',
+        internalLabel: 'Interne IT-Abteilung',
+        externalLabel: 'Externe Agentur',
+        externalFixLabel: 'Einrichtungspauschale extern',
+        monthlyHint: 'Tipp: Hast du daran gedacht, alle monatlichen internen Kosten mit 12 zu multiplizieren?',
+        provisionPercent: 5,
+        generateInternal: () => {
+            const development = randInt(6, 12) * 1000;
+            const operationMonthly = randInt(10, 20) * 100;
+            const serverMonthly = randInt(4, 10) * 100;
+            return {
+                internalFix: development,
+                internalMonthly: operationMonthly + serverMonthly,
+                parts: [
+                    { label: 'Entwicklung (einmalig)', value: development },
+                    { label: `Betrieb (${operationMonthly.toLocaleString('de-DE')} € × 12)`, value: operationMonthly * 12 },
+                    { label: `Server (${serverMonthly.toLocaleString('de-DE')} € × 12)`, value: serverMonthly * 12 },
+                ]
+            };
+        }
+    },
+    {
+        title: 'Level 2: Der KI-Retourenmanager',
+        story: 'Wir wollen eine KI zur Retourenvermeidung für ein Jahr einbinden.',
+        internalLabel: 'Eigenentwicklung',
+        externalLabel: 'SaaS-Provider',
+        externalFixLabel: 'Setup-Gebühr extern',
+        monthlyHint: 'Tipp: Wartung + API-Lizenzen sind monatlich – beide Positionen über 12 Monate einrechnen.',
+        provisionPercent: 2,
+        generateInternal: () => {
+            const development = randInt(10, 16) * 1000;
+            const maintenanceMonthly = randInt(8, 14) * 100;
+            const apiMonthly = randInt(2, 6) * 100;
+            return {
+                internalFix: development,
+                internalMonthly: maintenanceMonthly + apiMonthly,
+                parts: [
+                    { label: 'Entwicklung (einmalig)', value: development },
+                    { label: `Wartung (${maintenanceMonthly.toLocaleString('de-DE')} € × 12)`, value: maintenanceMonthly * 12 },
+                    { label: `API-Lizenzen (${apiMonthly.toLocaleString('de-DE')} € × 12)`, value: apiMonthly * 12 },
+                ]
+            };
+        }
+    },
+    {
+        title: 'Level 3: Der 3D-Konfigurator',
+        story: 'Wir bauen einen 3D-Konfigurator für individualisierte Produkte (Kalkulation auf 12 Monate).',
+        internalLabel: 'Eigenes Entwickler-Team',
+        externalLabel: 'Externe Agentur',
+        externalFixLabel: 'Basiszahlung extern',
+        monthlyHint: 'Tipp: Vergiss nicht: interne Entwicklung = Personentage × Tagessatz, plus Cloud-Server über 12 Monate.',
+        provisionPercent: 4,
+        generateInternal: () => {
+            const devDays = randInt(80, 140);
+            const dayRate = randInt(25, 40) * 10;
+            const cloudMonthly = randInt(20, 35) * 100;
+            const development = devDays * dayRate;
+            return {
+                internalFix: development,
+                internalMonthly: cloudMonthly,
+                parts: [
+                    { label: `Entwicklung (${devDays} Tage × ${dayRate.toLocaleString('de-DE')} €)`, value: development },
+                    { label: `Cloud-Server (${cloudMonthly.toLocaleString('de-DE')} € × 12)`, value: cloudMonthly * 12 },
+                ]
+            };
+        }
+    }
 ];
 
 // ══════════════════════════════════════════════════════════════
@@ -304,6 +383,13 @@ function generateLevel(config) {
         };
     }
 
+    if (config.direction === 'critical_revenue') {
+        return {
+            ...config,
+            steps: []
+        };
+    }
+
     // ── Differenzkalkulation: Zangengriff ──
     const ep = randPrice(100, 500);
     const lvp = randPrice(Math.max(ep + 50, ep * 1.1), ep * 1.8);
@@ -361,6 +447,66 @@ function generateLevel(config) {
     };
 }
 
+function createCriticalRevenueRound(scenarioIndex = 0) {
+    const scenario = CRITICAL_REVENUE_SCENARIOS[scenarioIndex] || CRITICAL_REVENUE_SCENARIOS[0];
+    const generated = scenario.generateInternal();
+
+    const totalInternalCost = generated.internalFix + generated.internalMonthly * 12;
+    const pct = scenario.provisionPercent;
+
+    const diffCandidates = [];
+    for (let diff = 10000; diff <= 20000; diff += 1000) {
+        if (diff < totalInternalCost && (diff * 100) % pct === 0) diffCandidates.push(diff);
+    }
+    const diff = diffCandidates.length ? diffCandidates[randInt(0, diffCandidates.length - 1)] : (Math.floor((Math.min(totalInternalCost - 1000, 15000)) / pct) * pct);
+    const externalFix = totalInternalCost - diff;
+    const revenue = Math.round((diff * 100) / pct);
+
+    const distractorForgot12 = Math.max(1000, Math.round(((generated.internalFix + generated.internalMonthly - externalFix) / (pct / 100)) / 100) * 100);
+    const distractorAdded = Math.max(1000, Math.round(((totalInternalCost + externalFix) / (pct / 100)) / 100) * 100);
+    const distractorRandom = Math.random() < 0.5 ? Math.round((revenue * 1.5) / 100) * 100 : Math.round((revenue / 2) / 100) * 100;
+
+    const optionsRaw = [revenue, distractorForgot12, distractorAdded, distractorRandom]
+        .map((v) => Math.max(1000, Math.round(v / 100) * 100));
+
+    const optionsUnique = [];
+    optionsRaw.forEach((opt, idx) => {
+        let candidate = opt;
+        while (optionsUnique.includes(candidate)) {
+            candidate += (idx + 1) * 1000;
+        }
+        optionsUnique.push(candidate);
+    });
+
+    const options = optionsUnique
+        .map((value) => ({ id: `${value}_${Math.random()}`, value, isCorrect: value === revenue }))
+        .sort(() => Math.random() - 0.5);
+
+    return {
+        scenarioIndex,
+        ...scenario,
+        internalFix: generated.internalFix,
+        internalMonthly: generated.internalMonthly,
+        internalParts: generated.parts,
+        externalFix,
+        provisionPercent: pct,
+        totalInternalCost,
+        revenue,
+        options,
+        solutionSteps: [
+            `Schritt 1: Interne Gesamtkosten für 12 Monate berechnen`,
+            ...generated.parts.map((p) => `• ${p.label}: ${formatEuro(p.value)} €`),
+            `• Gesamtkosten intern: ${formatEuro(totalInternalCost)} €`,
+            `Schritt 2: Gleichung aufstellen`,
+            `${formatEuro(totalInternalCost)} = ${formatEuro(externalFix)} + ${(pct / 100).toFixed(2).replace('.', ',')} · U`,
+            `Schritt 3: Nach U auflösen`,
+            `${formatEuro(totalInternalCost - externalFix)} = ${(pct / 100).toFixed(2).replace('.', ',')} · U`,
+            `U = ${formatEuro(totalInternalCost - externalFix)} / ${(pct / 100).toFixed(2).replace('.', ',')}`,
+            `Ergebnis: U = ${formatEuro(revenue)} €`
+        ]
+    };
+}
+
 // ── Phase Labels für Level 3 ───
 const PHASE_LABELS = {
     1: { title: '⬇ Schritt 1: Vorwärts', color: '#22c55e', desc: 'Vom Einstandspreis bis zu den Selbstkosten' },
@@ -393,6 +539,15 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
     const [floatingPoints, setFloatingPoints] = useState(null); // { idx, points }
     const inputRefs = useRef({});
     const containerRef = useRef(null);
+    const [criticalRoundIndex, setCriticalRoundIndex] = useState(0);
+    const [criticalRound, setCriticalRound] = useState(null);
+    const [criticalInput, setCriticalInput] = useState('');
+    const [criticalMistakes, setCriticalMistakes] = useState(0);
+    const [criticalFeedback, setCriticalFeedback] = useState('');
+    const [criticalSolved, setCriticalSolved] = useState(false);
+    const [criticalShowHintModal, setCriticalShowHintModal] = useState(false);
+    const [criticalShowSolution, setCriticalShowSolution] = useState(false);
+    const [criticalConfetti, setCriticalConfetti] = useState(false);
 
     // Video & KI state
     const [videoOpen, setVideoOpen] = useState(false);
@@ -439,6 +594,18 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
         setGeminiVisible(false);
         setGeminiQuery('');
         setGeminiResponse('');
+        setCriticalRoundIndex(0);
+        setCriticalInput('');
+        setCriticalMistakes(0);
+        setCriticalFeedback('');
+        setCriticalSolved(false);
+        setCriticalShowHintModal(false);
+        setCriticalShowSolution(false);
+        setCriticalConfetti(false);
+        if (config.direction === 'critical_revenue') {
+            setCriticalRound(createCriticalRevenueRound(0));
+            return;
+        }
         // Pre-fill given values
         const pre = {};
         level.steps.forEach((s, i) => {
@@ -453,6 +620,73 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
         // Find first non-given step
         const firstInput = level.steps.findIndex(s => !s.given);
         setActiveStep(firstInput >= 0 ? firstInput : 0);
+    };
+
+    const validateCriticalRevenueAnswer = (presetValue = null) => {
+        if (!criticalRound || criticalSolved) return;
+        const parsed = presetValue !== null
+            ? Number(presetValue)
+            : Number(String(criticalInput || '').replace(/\./g, '').replace(',', '.').replace(/[^0-9.-]/g, ''));
+        if (!Number.isFinite(parsed)) {
+            setCriticalFeedback('Bitte gib einen gültigen Umsatz in Euro ein.');
+            return;
+        }
+
+        if (Math.round(parsed) === criticalRound.revenue) {
+            setCriticalSolved(true);
+            setCriticalShowSolution(true);
+            setCriticalConfetti(true);
+            setCriticalFeedback(`Richtig! Kritischer Umsatz: ${formatEuro(criticalRound.revenue)} €`);
+            setScore((prev) => prev + Math.max(80, 200 - criticalMistakes * 30));
+            if (onLearningEvent) {
+                onLearningEvent({
+                    mode: 'kalkulation',
+                    questionId: `kalk_6_${criticalRound.scenarioIndex}`,
+                    questionText: `${criticalRound.title}: Kritischer Umsatz`,
+                    correct: true,
+                    userAnswer: String(parsed),
+                    expectedAnswer: String(criticalRound.revenue),
+                    topic: 'Kalkulationsboss Level 6 · Break-Even-Point'
+                });
+            }
+            setTimeout(() => setCriticalConfetti(false), 2200);
+            return;
+        }
+
+        const nextMistakes = criticalMistakes + 1;
+        setCriticalMistakes(nextMistakes);
+        setLevelHadErrors(true);
+        setCriticalFeedback('Noch nicht korrekt. Prüfe interne Jahreskosten und die Gleichung.');
+        if (nextMistakes === 2) {
+            setCriticalShowHintModal(true);
+        }
+        if (onLearningEvent) {
+            onLearningEvent({
+                mode: 'kalkulation',
+                questionId: `kalk_6_${criticalRound.scenarioIndex}`,
+                questionText: `${criticalRound.title}: Kritischer Umsatz`,
+                correct: false,
+                userAnswer: String(parsed),
+                expectedAnswer: String(criticalRound.revenue),
+                topic: 'Kalkulationsboss Level 6 · Break-Even-Point'
+            });
+        }
+    };
+
+    const goToNextCriticalRound = () => {
+        if (criticalRoundIndex >= CRITICAL_REVENUE_SCENARIOS.length - 1) {
+            setCompleted(true);
+            return;
+        }
+        const nextIndex = criticalRoundIndex + 1;
+        setCriticalRoundIndex(nextIndex);
+        setCriticalRound(createCriticalRevenueRound(nextIndex));
+        setCriticalInput('');
+        setCriticalMistakes(0);
+        setCriticalFeedback('');
+        setCriticalSolved(false);
+        setCriticalShowHintModal(false);
+        setCriticalShowSolution(false);
     };
 
     const handleInput = (idx, value) => {
@@ -640,7 +874,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                             <div key={config.id} className="dash-card" onClick={() => { if (!locked) startLevel(config); }}
                                 style={{ borderColor: done ? config.color : undefined, boxShadow: done ? `0 0 20px ${config.color}33` : undefined, opacity: locked ? 0.55 : 1, cursor: locked ? 'not-allowed' : 'pointer' }}>
                                 <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>
-                                    {locked ? '🔒' : config.id === 1 ? '⬇️' : config.id === 2 ? '⬆️' : config.id === 3 ? '🔀' : config.id === 5 ? '🎯' : '👑'}
+                                    {locked ? '🔒' : config.id === 1 ? '⬇️' : config.id === 2 ? '⬆️' : config.id === 3 ? '🔀' : config.id === 5 ? '🎯' : config.id === 6 ? '🧠' : '👑'}
                                 </div>
                                 <h2 style={{ color: 'var(--text-light)', margin: 0 }}>Level {config.id}</h2>
                                 <h3 style={{ color: config.color, margin: '0.2rem 0', fontWeight: 700, fontSize: '1.1rem' }}>{config.title}</h3>
@@ -652,6 +886,113 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                         );
                     })}
                 </div>
+            </div>
+        );
+    } else if (selectedLevel.direction === 'critical_revenue') {
+        const round = criticalRound;
+        view = (
+            <div className="app-container" style={{ zIndex: 10, maxWidth: '760px', padding: 0 }}>
+                {criticalConfetti && <Confetti amount={65} />}
+                <div style={{ position: 'sticky', top: 0, zIndex: 200, width: '100%', background: 'rgba(0, 0, 0, 0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.12)', padding: '0.75rem 1.2rem 0.6rem 1.2rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.8rem' }}>
+                        <button onClick={() => setSelectedLevel(null)} className="btn-nav" style={{ minHeight: '38px', padding: '0 0.9rem', fontSize: '0.85rem' }}>← Auswahl</button>
+                        <div style={{ textAlign: 'right' }}>
+                            <div style={{ color: selectedLevel.color, fontWeight: 900, fontSize: '1.1rem' }}>Level 6 · Mathe-Boss</div>
+                            <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Szenario {criticalRoundIndex + 1} / {CRITICAL_REVENUE_SCENARIOS.length} · Fehler: {criticalMistakes}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style={{ width: '100%', padding: '1.2rem 1.25rem 2rem 1.25rem' }}>
+                    {!round ? (
+                        <div className="card-face" style={{ padding: '1.5rem', textAlign: 'center' }}>Lade Szenario…</div>
+                    ) : (
+                        <>
+                            <div className="card-face fade-in" style={{ border: `1px solid ${selectedLevel.color}55`, padding: '1.2rem' }}>
+                                <h2 style={{ margin: '0 0 0.35rem 0', color: selectedLevel.color }}>{round.title}</h2>
+                                <p style={{ margin: '0 0 0.9rem 0', color: 'var(--text-muted)' }}>{round.story}</p>
+                                <div style={{ display: 'grid', gap: '0.5rem' }}>
+                                    <div style={{ fontSize: '0.9rem' }}>• <strong>{round.externalLabel}</strong>: {round.externalFixLabel} = <strong>{formatEuro(round.externalFix)} €</strong>, Provision = <strong>{round.provisionPercent}%</strong> vom Umsatz</div>
+                                    <div style={{ fontSize: '0.9rem' }}>• <strong>{round.internalLabel}</strong>: Einmalig + monatliche Kosten über 12 Monate (dynamisch generiert)</div>
+                                </div>
+                            </div>
+
+                            <div className="card-face fade-in" style={{ marginTop: '0.9rem', padding: '1rem' }}>
+                                <div style={{ marginBottom: '0.6rem', color: 'var(--text-light)', fontWeight: 700 }}>Bei welchem Umsatz sind beide Alternativen gleich teuer (kritischer Umsatz)?</div>
+                                <div style={{ display: 'flex', gap: '0.55rem', flexWrap: 'wrap', marginBottom: '0.8rem' }}>
+                                    <input
+                                        className="wisor-input"
+                                        type="text"
+                                        inputMode="decimal"
+                                        placeholder="z. B. 340000"
+                                        value={criticalInput}
+                                        onChange={(e) => setCriticalInput(e.target.value)}
+                                        onKeyDown={(e) => { if (e.key === 'Enter') validateCriticalRevenueAnswer(); }}
+                                        style={{ flex: '1 1 260px', minHeight: '42px', textAlign: 'right' }}
+                                        disabled={criticalSolved}
+                                    />
+                                    <button className="btn-primary" disabled={criticalSolved} onClick={() => validateCriticalRevenueAnswer()}>Prüfen</button>
+                                </div>
+
+                                <div style={{ display: 'grid', gap: '0.45rem', marginBottom: '0.8rem' }}>
+                                    {round.options.map((opt, idx) => (
+                                        <button
+                                            key={opt.id}
+                                            className="btn-secondary"
+                                            disabled={criticalSolved}
+                                            onClick={() => validateCriticalRevenueAnswer(opt.value)}
+                                            style={{ textAlign: 'left', justifyContent: 'flex-start', minHeight: '42px' }}
+                                        >
+                                            {String.fromCharCode(65 + idx)}) {formatEuro(opt.value)} €
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {criticalFeedback && (
+                                    <div style={{ padding: '0.65rem 0.75rem', borderRadius: '10px', background: criticalSolved ? 'rgba(34,197,94,0.15)' : 'rgba(245,158,11,0.12)', border: `1px solid ${criticalSolved ? '#22c55e66' : '#f59e0b66'}`, color: 'var(--text-light)' }}>
+                                        {criticalFeedback}
+                                    </div>
+                                )}
+
+                                {criticalSolved && (
+                                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '0.9rem' }}>
+                                        <button className="btn-primary" style={{ background: selectedLevel.color }} onClick={goToNextCriticalRound}>
+                                            {criticalRoundIndex >= CRITICAL_REVENUE_SCENARIOS.length - 1 ? 'Level abschließen' : 'Nächstes Szenario'}
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+
+                            {criticalShowSolution && (
+                                <div className="card-face fade-in" style={{ marginTop: '0.9rem', padding: '1rem' }}>
+                                    <h3 style={{ margin: '0 0 0.6rem 0', color: '#22c55e' }}>Rechenweg (100%)</h3>
+                                    <div style={{ display: 'grid', gap: '0.35rem' }}>
+                                        {round.solutionSteps.map((line) => (
+                                            <div key={line} style={{ fontSize: '0.88rem', color: 'var(--text-light)', lineHeight: 1.5 }}>{line}</div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </div>
+
+                {criticalShowHintModal && round && (
+                    <div style={{ position: 'fixed', inset: 0, zIndex: 5000, background: 'rgba(0,0,0,0.58)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+                        <div className="card-face fade-in" style={{ maxWidth: '520px', width: '100%', border: '1px solid #f59e0b66', background: 'rgba(17,17,17,0.95)' }}>
+                            <h3 style={{ marginTop: 0, color: '#f59e0b' }}>💡 Hinweis freigeschaltet</h3>
+                            <p style={{ color: 'var(--text-light)', lineHeight: 1.55, marginBottom: '1rem' }}>{round.monthlyHint}</p>
+                            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: 0 }}>
+                                Denkweg: Erst interne Jahreskosten vollständig berechnen, dann Gleichung lösen:
+                                <br />
+                                <strong style={{ color: 'var(--text-light)' }}>Kosten intern = Fix extern + Provision × Umsatz</strong>
+                            </p>
+                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <button className="btn-primary" onClick={() => setCriticalShowHintModal(false)}>Weiterrechnen</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         );
     } else if (gameOver && isBoss) {
