@@ -2,6 +2,7 @@ import {
     ANALYTICS_STORAGE_PREFIX,
     CUSTOM_QUIZ_STORAGE_PREFIX,
     CUSTOM_MARKETING_REVIEW_STORAGE_PREFIX,
+    PROFILE_SETTINGS_STORAGE_PREFIX,
     createEmptyAnalytics
 } from './constants.js';
 
@@ -44,6 +45,11 @@ export const getCustomMarketingReviewStorageKey = (user) => {
     return `${CUSTOM_MARKETING_REVIEW_STORAGE_PREFIX}${normalizeAnalyticsIdentity(identity)}`;
 };
 
+export const getProfileSettingsStorageKey = (user) => {
+    const identity = resolveStorageIdentity(user);
+    return `${PROFILE_SETTINGS_STORAGE_PREFIX}${normalizeAnalyticsIdentity(identity)}`;
+};
+
 // ─── Load from localStorage ─────────────────────────────────────
 export const loadAnalyticsForUser = (user) => {
     try {
@@ -68,6 +74,20 @@ export const loadCustomMarketingReviewForUser = (user) => {
         return Array.isArray(raw) ? raw : [];
     } catch {
         return [];
+    }
+};
+
+export const loadProfileSettingsForUser = (user) => {
+    try {
+        const raw = JSON.parse(localStorage.getItem(getProfileSettingsStorageKey(user)) || 'null');
+        if (!raw || typeof raw !== 'object') return null;
+        return {
+            displayName: String(raw.displayName || '').trim(),
+            avatarDataUrl: String(raw.avatarDataUrl || '').trim(),
+            updatedAt: raw.updatedAt || null
+        };
+    } catch {
+        return null;
     }
 };
 

@@ -1,7 +1,7 @@
 import React, { useState, memo } from 'react';
 import { PomodoroIcon, SettingsIcon, InfoIcon } from './IconLibrary';
 
-const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePreference, setThemePref, onOpenQuestionManager, onOpenLearningDashboard, onStartPomodoro, pomodoroRunning, pomodoroTimeLeft, onStopPomodoro, onOpenAppearanceSettings }) => {
+const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePreference, setThemePref, onOpenQuestionManager, onOpenLearningDashboard, onStartPomodoro, pomodoroRunning, pomodoroTimeLeft, onStopPomodoro, onOpenAppearanceSettings, profileSettings }) => {
     const [isOpen, setIsOpen] = useState(false);
     const toolIconColor = isLightMode ? '#0f172a' : '#f8fafc';
 
@@ -12,6 +12,14 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
     };
 
     const isGuest = !authUser;
+    const displayName = String(
+        profileSettings?.displayName
+        || authUser?.user_metadata?.full_name
+        || authUser?.user_metadata?.name
+        || authUser?.email?.split('@')[0]
+        || 'Gast'
+    ).trim();
+    const avatarUrl = String(profileSettings?.avatarDataUrl || '').trim();
 
     const handleCategoryClick = (category) => {
         if (isGuest) return;
@@ -233,7 +241,19 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                         <h3 style={{ color: 'var(--text-light)', marginBottom: '0.5rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Account</h3>
                         {authUser ? (
                             <div style={{ marginBottom: '1.5rem' }}>
-                                <p style={{ color: 'var(--primary)', fontWeight: 'bold', fontSize: '0.9rem', marginBottom: '0.5rem' }}>{authUser.email}</p>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
+                                    <div style={{ width: '34px', height: '34px', borderRadius: '50%', overflow: 'hidden', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                        {avatarUrl ? (
+                                            <img src={avatarUrl} alt="Profilbild" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        ) : (
+                                            <span style={{ color: 'var(--text-light)', fontWeight: 700 }}>{displayName.slice(0, 1).toUpperCase()}</span>
+                                        )}
+                                    </div>
+                                    <div style={{ minWidth: 0 }}>
+                                        <p style={{ color: 'var(--text-light)', fontWeight: 'bold', fontSize: '0.92rem', margin: 0, lineHeight: 1.2 }}>{displayName}</p>
+                                        <p style={{ color: 'var(--primary)', fontWeight: 'bold', fontSize: '0.82rem', margin: 0, marginTop: '0.2rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{authUser.email}</p>
+                                    </div>
+                                </div>
                                 <button onClick={handleLogout} className="btn-secondary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.9rem' }}>Logout</button>
                             </div>
                         ) : (

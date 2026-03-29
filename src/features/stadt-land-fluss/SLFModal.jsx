@@ -26,10 +26,17 @@ const RANDOM_LOBBY_NAMES = [
  * - User Registration (Guest Mode)
  * - Game Instance Launching
  */
-const SLFModal = ({ isOpen, onClose, authUser }) => {
+const SLFModal = ({ isOpen, onClose, authUser, profileSettings }) => {
+  const fallbackName = String(
+    profileSettings?.displayName
+    || authUser?.user_metadata?.full_name
+    || authUser?.user_metadata?.name
+    || authUser?.email?.split('@')[0]
+    || 'Gast'
+  ).trim();
   const [step, setStep] = useState('password'); // password, session_choice, lobby_setup, ingame
   const [password, setPassword] = useState('');
-  const [playerName, setPlayerName] = useState(authUser?.email?.split('@')[0] || 'Gast');
+  const [playerName, setPlayerName] = useState(fallbackName);
   const [isInvalidPassword, setIsInvalidPassword] = useState(false);
   const [roomNameInput, setRoomNameInput] = useState('');
   const [categoryInput, setCategoryInput] = useState(DEFAULT_SLF_CATEGORIES.join(', '));
@@ -48,6 +55,11 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
   useEffect(() => {
      if (!localStorage.getItem('slf_device_id')) localStorage.setItem('slf_device_id', deviceId);
   }, [deviceId]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    setPlayerName((prev) => (String(prev || '').trim() ? prev : fallbackName));
+  }, [isOpen, fallbackName]);
 
   useEffect(() => {
     if (step !== 'lobby_setup') return;
@@ -183,13 +195,14 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
 
   const handleCreate = async () => {
     if (!roomNameInput.trim()) { alert('Bitte Raumnamen eingeben'); return; }
+    const safePlayerName = String(playerName || '').trim() || fallbackName;
     setLoading(true);
     try {
       const code = Math.random().toString(36).substring(2, 7).toUpperCase();
       const categories = parseCategoryInput(categoryInput);
       const serializedRoomName = serializeRoomNameWithCategories(roomNameInput, categories, { timerSeconds });
       const room = await slfService.createRoom(code, serializedRoomName, totalRounds);
-      const player = await slfService.registerPlayer(room.id, deviceId, playerName);
+      const player = await slfService.registerPlayer(room.id, deviceId, safePlayerName);
       await saveRoomForUser(room, categories);
       setCurrentRoom(room);
       setCurrentPlayer(player);
@@ -199,10 +212,11 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
 
   const handleJoin = async () => {
     if (!roomCode.trim()) return;
+    const safePlayerName = String(playerName || '').trim() || fallbackName;
     setLoading(true);
     try {
       const room = await slfService.joinRoom(roomCode.toUpperCase());
-      const player = await slfService.registerPlayer(room.id, deviceId, playerName);
+      const player = await slfService.registerPlayer(room.id, deviceId, safePlayerName);
       const meta = parseRoomMeta(room.room_name);
       await saveRoomForUser(room, meta.categories);
       setCurrentRoom(room);
@@ -213,10 +227,11 @@ const SLFModal = ({ isOpen, onClose, authUser }) => {
 
   const handleJoinSavedRoom = async (entry) => {
     if (!entry?.room_code) return;
+    const safePlayerName = String(playerName || '').trim() || fallbackName;
     setLoading(true);
     try {
       const room = await slfService.joinRoom(entry.room_code);
-      const player = await slfService.registerPlayer(room.id, deviceId, playerName);
+      const player = await slfService.registerPlayer(room.id, deviceId, safePlayerName);
       const meta = parseRoomMeta(room.room_name);
       await saveRoomForUser(room, meta.categories);
       setCurrentRoom(room);

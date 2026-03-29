@@ -51,8 +51,8 @@ import {
 } from './utils/constants';
 import {
   getAppearanceKey, getThemeKey,
-  getAnalyticsStorageKey, getCustomQuizStorageKey, getCustomMarketingReviewStorageKey,
-  loadAnalyticsForUser, loadCustomQuizForUser, loadCustomMarketingReviewForUser, getLearningEventKey
+  getAnalyticsStorageKey, getCustomQuizStorageKey, getCustomMarketingReviewStorageKey, getProfileSettingsStorageKey,
+  loadAnalyticsForUser, loadCustomQuizForUser, loadCustomMarketingReviewForUser, loadProfileSettingsForUser, getLearningEventKey
 } from './utils/analytics';
 import { formatLatex } from './utils/formatting';
 import { detectQuizTopic, getQuizTopicGroup } from './utils/quizTopics';
@@ -175,6 +175,10 @@ function App() {
   const [learningAnalytics, setLearningAnalytics] = useState(createEmptyAnalytics());
   const [customQuizQuestions, setCustomQuizQuestions] = useState([]);
   const [customMarketingReviewQuestions, setCustomMarketingReviewQuestions] = useState([]);
+  const [profileSettings, setProfileSettings] = useState(null);
+  const [profileNameInput, setProfileNameInput] = useState('');
+  const [profileNotice, setProfileNotice] = useState('');
+  const [appearancePanelOpen, setAppearancePanelOpen] = useState(false);
   const [pomodoroActive, setPomodoroActive] = useState(false);
   const [pomodoroSessionLog, setPomodoroSessionLog] = useState([]);
   const [pomodoroTimeLeft, setPomodoroTimeLeft] = useState(25 * 60);
@@ -374,6 +378,7 @@ function App() {
     const analytics = loadAnalyticsForUser(authUser);
     const customQuiz = loadCustomQuizForUser(authUser);
     const customMarketingReview = loadCustomMarketingReviewForUser(authUser);
+    const profile = loadProfileSettingsForUser(authUser);
     const appearanceRaw = localStorage.getItem(getAppearanceKey(authUser));
     const appearance = appearanceRaw ? JSON.parse(appearanceRaw) : null;
     const theme = localStorage.getItem(getThemeKey(authUser)) || 'dark';
@@ -390,6 +395,7 @@ function App() {
       learning_analytics: analytics,
       custom_quiz_questions: customQuiz,
       custom_marketing_review_questions: customMarketingReview,
+      profile_settings: profile,
       appearance_settings: appearance,
       theme_mode: theme,
       klr_progress: klrProgress,
@@ -918,6 +924,82 @@ ${input}`;
     setAppMode('marketing_review_quiz');
   };
 
+  const resolveDisplayName = (user, settings) => {
+    const fromProfile = String(settings?.displayName || '').trim();
+    if (fromProfile) return fromProfile;
+    const fromMeta = String(user?.user_metadata?.full_name || user?.user_metadata?.name || '').trim();
+    if (fromMeta) return fromMeta;
+    const fromEmail = String(user?.email || '').split('@')[0]?.trim();
+    return fromEmail || 'Gast';
+  };
+
+  const saveProfileSettings = async (nextSettings) => {
+    setProfileSettings(nextSettings);
+    setProfileNameInput(String(nextSettings?.displayName || ''));
+    localStorage.setItem(getProfileSettingsStorageKey(authUser), JSON.stringify(nextSettings));
+    if (authUser?.id) {
+      await syncProgressToSupabase({ profile_settings: nextSettings }).catch(() => { });
+    }
+  };
+
+  const handleSaveProfileName = async () => {
+    const cleanName = profileNameInput.trim();
+    if (!cleanName) {
+      setProfileNotice('Bitte gib einen Anzeigenamen ein.');
+      return;
+    }
+    const next = {
+      ...(profileSettings || {}),
+      displayName: cleanName,
+      updatedAt: new Date().toISOString()
+    };
+    await saveProfileSettings(next);
+    setProfileNotice('Anzeigename gespeichert.');
+  };
+
+  const handleProfileImageUpload = async (file) => {
+    if (!file) return;
+    const isImage = /^image\/(png|jpe?g|webp)$/i.test(file.type);
+    if (!isImage) {
+      setProfileNotice('Bitte nutze PNG, JPG oder WEBP für das Profilbild.');
+      return;
+    }
+    if (file.size > 1.8 * 1024 * 1024) {
+      setProfileNotice('Profilbild ist zu groß. Bitte unter 1.8 MB bleiben.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const dataUrl = String(reader.result || '');
+      if (!dataUrl) {
+        setProfileNotice('Profilbild konnte nicht geladen werden.');
+        return;
+      }
+      const next = {
+        ...(profileSettings || {}),
+        displayName: String(profileNameInput || profileSettings?.displayName || '').trim(),
+        avatarDataUrl: dataUrl,
+        updatedAt: new Date().toISOString()
+      };
+      await saveProfileSettings(next);
+      setProfileNotice('Profilbild gespeichert.');
+    };
+    reader.onerror = () => setProfileNotice('Profilbild konnte nicht gelesen werden.');
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveProfileImage = async () => {
+    const next = {
+      ...(profileSettings || {}),
+      displayName: String(profileNameInput || profileSettings?.displayName || '').trim(),
+      avatarDataUrl: '',
+      updatedAt: new Date().toISOString()
+    };
+    await saveProfileSettings(next);
+    setProfileNotice('Profilbild entfernt.');
+  };
+
 
   useEffect(() => {
     const initApp = async () => {
@@ -944,6 +1026,7 @@ ${input}`;
       let analyticsData = loadAnalyticsForUser(session?.user || null);
       let customQuizData = loadCustomQuizForUser(session?.user || null);
       let customMarketingReviewData = loadCustomMarketingReviewForUser(session?.user || null);
+      let profileData = loadProfileSettingsForUser(session?.user || null);
 
       // 2. Fetch from Supabase (only for authenticated users)
       if (session?.user) {
@@ -1023,6 +1106,13 @@ ${input}`;
               customMarketingReviewData = [];
               localStorage.setItem(getCustomMarketingReviewStorageKey(session.user), JSON.stringify([]));
             }
+            if (data.progress_data.profile_settings && typeof data.progress_data.profile_settings === 'object') {
+              profileData = data.progress_data.profile_settings;
+              localStorage.setItem(getProfileSettingsStorageKey(session.user), JSON.stringify(profileData));
+            } else {
+              profileData = null;
+              localStorage.removeItem(getProfileSettingsStorageKey(session.user));
+            }
             // Merge saved notes from Supabase into localStorage
             if (data.progress_data.saved_notes) {
               const localNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
@@ -1073,10 +1163,12 @@ ${input}`;
               localStorage.setItem(getAnalyticsStorageKey(session.user), JSON.stringify(createEmptyAnalytics()));
               localStorage.setItem(getCustomQuizStorageKey(session.user), JSON.stringify([]));
               localStorage.setItem(getCustomMarketingReviewStorageKey(session.user), JSON.stringify([]));
+              localStorage.removeItem(getProfileSettingsStorageKey(session.user));
             }
             analyticsData = createEmptyAnalytics();
             customQuizData = [];
             customMarketingReviewData = [];
+            profileData = null;
           }
           // After loading we might want to tell the providers to refresh
           window.dispatchEvent(new CustomEvent('ap2_progress_synced'));
@@ -1093,6 +1185,8 @@ ${input}`;
       setLearningAnalytics(analyticsData);
       setCustomQuizQuestions(customQuizData);
       setCustomMarketingReviewQuestions(customMarketingReviewData);
+      setProfileSettings(profileData);
+      setProfileNameInput(String(profileData?.displayName || resolveDisplayName(session?.user, profileData)));
 
       // 3. Setup Flashcards with loaded progress
       const rawCards = [
@@ -1134,6 +1228,10 @@ ${input}`;
     setLearningAnalytics(loadAnalyticsForUser(authUser));
     setCustomQuizQuestions(loadCustomQuizForUser(authUser));
     setCustomMarketingReviewQuestions(loadCustomMarketingReviewForUser(authUser));
+    const loadedProfile = loadProfileSettingsForUser(authUser);
+    setProfileSettings(loadedProfile);
+    setProfileNameInput(String(loadedProfile?.displayName || resolveDisplayName(authUser, loadedProfile)));
+    setProfileNotice('');
   }, [authUser]);
 
   useEffect(() => {
@@ -1337,7 +1435,8 @@ ${input}`;
         const preservedData = {
           ...createEmptyMemberProgressData(),
           custom_quiz_questions: customQuizQuestions,
-          custom_marketing_review_questions: customMarketingReviewQuestions
+          custom_marketing_review_questions: customMarketingReviewQuestions,
+          profile_settings: profileSettings
         };
         resetTasks.push(syncProgressToSupabase(preservedData, { queueOnFail: false }));
         resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'quiz'));
@@ -1663,6 +1762,7 @@ ${input}`;
         pomodoroTimeLeft={pomodoroTimeLeft}
         onStopPomodoro={() => setPomodoroForceStop(Date.now())}
         onOpenAppearanceSettings={() => { if (authUser) setAppMode('appearance_settings'); }}
+        profileSettings={profileSettings}
       />
       {questionManagerCategory && (
         <QuestionManager
@@ -1917,6 +2017,7 @@ ${input}`;
           isOpen={isSLFOpen}
           onClose={() => setIsSLFOpen(false)}
           authUser={authUser}
+          profileSettings={profileSettings}
         />
       </div>
     );
@@ -1935,103 +2036,170 @@ ${input}`;
             <button className="btn-nav" onClick={() => setAppMode('dashboard')}>&larr; Menü</button>
           </div>
           <h1 style={{ margin: 0, fontSize: '2.2rem', color: 'var(--text-light)' }}>Darstellung anpassen</h1>
-          <p className="subtitle" style={{ marginTop: '0.5rem' }}>Passe den Hintergrund im Hauptmenu an.</p>
+          <p className="subtitle" style={{ marginTop: '0.5rem' }}>Profil und Darstellung im Hauptmenü anpassen.</p>
         </header>
 
         <section className="appearance-panel" style={{ width: '100%', maxWidth: '760px' }}>
-          <h3 style={{ marginTop: 0, marginBottom: '0.9rem', color: 'var(--text-light)' }}>Backgroundfarbe</h3>
-          <div className="appearance-row">
-            <input
-              type="color"
-              value={colorPickerValue}
-              onChange={(e) => handleBackgroundColorChange(e.target.value)}
-              className="background-color-picker"
-              aria-label="Backgroundfarbe auswählen"
-            />
-            <input
-              type="text"
-              value={activeBackgroundColor}
-              onChange={(e) => handleCustomColorTextChange(e.target.value.trim())}
-              className="background-color-input"
-              placeholder="#0f172a"
-            />
-          </div>
-
-          <div className="appearance-toggle-row">
-            <label htmlFor="background-effects-toggle" style={{ color: 'var(--text-light)', fontSize: '0.92rem', fontWeight: 600 }}>
-              Fleckigen Effekt anzeigen
-            </label>
-            <input
-              id="background-effects-toggle"
-              type="checkbox"
-              checked={backgroundEffectsEnabled}
-              onChange={(e) => handleBackgroundEffectsToggle(e.target.checked)}
-              className="appearance-effects-toggle"
-            />
-          </div>
-
-          <div className="appearance-slider-row">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
-              <label htmlFor="background-effects-intensity" style={{ color: 'var(--text-light)', fontSize: '0.9rem', fontWeight: 600 }}>
-                Effekt-Staerke
-              </label>
-              <span style={{ color: 'var(--text-muted)', fontSize: '0.84rem' }}>{backgroundEffectsIntensity}%</span>
-            </div>
-            <input
-              id="background-effects-intensity"
-              type="range"
-              min="0"
-              max="100"
-              step="1"
-              value={backgroundEffectsIntensity}
-              onChange={(e) => handleBackgroundEffectsIntensityChange(e.target.value)}
-              disabled={!backgroundEffectsEnabled}
-              className="appearance-effects-slider"
-            />
-          </div>
-
-          <h3 style={{ marginTop: '1.1rem', marginBottom: '0.7rem', color: 'var(--text-light)' }}>Preset-Styles</h3>
-          <div className="appearance-presets">
-            {BACKGROUND_PRESETS.map((preset) => {
-              const isSelected = backgroundMode === 'preset' && backgroundPresetId === preset.id;
-              return (
-                <button
-                  key={preset.id}
-                  type="button"
-                  className={`appearance-preset-card ${isSelected ? 'active' : ''}`}
-                  onClick={() => handleBackgroundPresetChange(preset.id)}
-                >
-                  <span className="appearance-preset-swatch" style={{ background: `linear-gradient(135deg, ${preset.glow1}, ${preset.glow2}), ${preset.color}` }}></span>
-                  <span>{preset.name}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          <h3 style={{ marginTop: '1.1rem', marginBottom: '0.7rem', color: 'var(--text-light)' }}>Eigenes Hintergrundbild</h3>
-          <label className="appearance-upload-label">
-            Bild hochladen
-            <input
-              type="file"
-              accept="image/png,image/jpeg,image/webp,image/jpg"
-              className="appearance-upload-input"
-              onChange={(e) => handleBackgroundUpload(e.target.files?.[0])}
-            />
-          </label>
-          <p style={{ marginTop: '0.45rem', color: 'var(--text-muted)', fontSize: '0.82rem' }}>Empfehlung: max. 2.5 MB, Querformat für bestes Ergebnis.</p>
-          {backgroundMode === 'upload' && backgroundImageData ? (
-            <p style={{ marginTop: '0.35rem', color: 'var(--success)', fontSize: '0.84rem' }}>Eigenes Bild ist aktiv.</p>
-          ) : null}
-          {appearanceNotice ? (
-            <p style={{ marginTop: '0.35rem', color: appearanceNotice.includes('fehl') || appearanceNotice.includes('gross') || appearanceNotice.includes('Bitte') ? 'var(--error)' : 'var(--success)', fontSize: '0.84rem' }}>
-              {appearanceNotice}
+          <div style={{ marginBottom: '1.3rem', padding: '0.9rem', border: '1px solid var(--glass-border)', borderRadius: '14px', background: 'rgba(255,255,255,0.02)' }}>
+            <h3 style={{ marginTop: 0, marginBottom: '0.7rem', color: 'var(--text-light)' }}>Profil</h3>
+            <p style={{ margin: 0, marginBottom: '0.8rem', color: 'var(--text-muted)', fontSize: '0.86rem' }}>
+              Dieser Name wird z. B. in der SLF-Multiplayer-Lobby angezeigt.
             </p>
-          ) : null}
-
-          <div className="appearance-actions">
-            <button className="btn-secondary" onClick={resetBackgroundColor}>Standard wiederherstellen</button>
-            <button className="btn-primary" onClick={() => setAppMode('dashboard')}>Fertig</button>
+            <div style={{ display: 'grid', gridTemplateColumns: '72px 1fr', gap: '0.8rem', alignItems: 'center' }}>
+              <div style={{ width: '72px', height: '72px', borderRadius: '50%', overflow: 'hidden', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {profileSettings?.avatarDataUrl ? (
+                  <img src={profileSettings.avatarDataUrl} alt="Profilbild" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <span style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-light)' }}>
+                    {resolveDisplayName(authUser, profileSettings).slice(0, 1).toUpperCase()}
+                  </span>
+                )}
+              </div>
+              <div style={{ display: 'grid', gap: '0.55rem' }}>
+                <input
+                  type="text"
+                  value={profileNameInput}
+                  onChange={(e) => setProfileNameInput(e.target.value)}
+                  placeholder="Dein Anzeigename"
+                  style={{
+                    padding: '0.62rem 0.8rem',
+                    borderRadius: '10px',
+                    border: '1px solid var(--glass-border)',
+                    background: 'rgba(255,255,255,0.05)',
+                    color: 'var(--text-light)',
+                    fontSize: '0.9rem',
+                    outline: 'none'
+                  }}
+                />
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  <button className="btn-secondary" type="button" onClick={handleSaveProfileName}>Namen speichern</button>
+                  <label className="btn-secondary" style={{ cursor: 'pointer' }}>
+                    Bild wählen
+                    <input
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp,image/jpg"
+                      style={{ display: 'none' }}
+                      onChange={(e) => handleProfileImageUpload(e.target.files?.[0])}
+                    />
+                  </label>
+                  {profileSettings?.avatarDataUrl ? (
+                    <button className="btn-secondary" type="button" onClick={handleRemoveProfileImage}>Bild entfernen</button>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            {profileNotice ? (
+              <p style={{ marginTop: '0.65rem', marginBottom: 0, color: profileNotice.includes('Bitte') || profileNotice.includes('konnte') || profileNotice.includes('groß') || profileNotice.includes('gro') ? 'var(--error)' : 'var(--success)', fontSize: '0.84rem' }}>
+                {profileNotice}
+              </p>
+            ) : null}
           </div>
+
+          <details
+            open={appearancePanelOpen}
+            onToggle={(e) => setAppearancePanelOpen(e.currentTarget.open)}
+            style={{ marginBottom: '1.3rem', border: '1px solid var(--glass-border)', borderRadius: '14px', background: 'rgba(255,255,255,0.02)', overflow: 'hidden' }}
+          >
+            <summary style={{ listStyle: 'none', cursor: 'pointer', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--text-light)', fontWeight: 700 }}>
+              Darstellungsstil
+              <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{appearancePanelOpen ? '− zuklappen' : '+ aufklappen'}</span>
+            </summary>
+            <div style={{ padding: '0.2rem 1rem 1rem 1rem' }}>
+              <h3 style={{ marginTop: 0, marginBottom: '0.9rem', color: 'var(--text-light)' }}>Backgroundfarbe</h3>
+              <div className="appearance-row">
+                <input
+                  type="color"
+                  value={colorPickerValue}
+                  onChange={(e) => handleBackgroundColorChange(e.target.value)}
+                  className="background-color-picker"
+                  aria-label="Backgroundfarbe auswählen"
+                />
+                <input
+                  type="text"
+                  value={activeBackgroundColor}
+                  onChange={(e) => handleCustomColorTextChange(e.target.value.trim())}
+                  className="background-color-input"
+                  placeholder="#0f172a"
+                />
+              </div>
+
+              <div className="appearance-toggle-row">
+                <label htmlFor="background-effects-toggle" style={{ color: 'var(--text-light)', fontSize: '0.92rem', fontWeight: 600 }}>
+                  Fleckigen Effekt anzeigen
+                </label>
+                <input
+                  id="background-effects-toggle"
+                  type="checkbox"
+                  checked={backgroundEffectsEnabled}
+                  onChange={(e) => handleBackgroundEffectsToggle(e.target.checked)}
+                  className="appearance-effects-toggle"
+                />
+              </div>
+
+              <div className="appearance-slider-row">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
+                  <label htmlFor="background-effects-intensity" style={{ color: 'var(--text-light)', fontSize: '0.9rem', fontWeight: 600 }}>
+                    Effekt-Staerke
+                  </label>
+                  <span style={{ color: 'var(--text-muted)', fontSize: '0.84rem' }}>{backgroundEffectsIntensity}%</span>
+                </div>
+                <input
+                  id="background-effects-intensity"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value={backgroundEffectsIntensity}
+                  onChange={(e) => handleBackgroundEffectsIntensityChange(e.target.value)}
+                  disabled={!backgroundEffectsEnabled}
+                  className="appearance-effects-slider"
+                />
+              </div>
+
+              <h3 style={{ marginTop: '1.1rem', marginBottom: '0.7rem', color: 'var(--text-light)' }}>Preset-Styles</h3>
+              <div className="appearance-presets">
+                {BACKGROUND_PRESETS.map((preset) => {
+                  const isSelected = backgroundMode === 'preset' && backgroundPresetId === preset.id;
+                  return (
+                    <button
+                      key={preset.id}
+                      type="button"
+                      className={`appearance-preset-card ${isSelected ? 'active' : ''}`}
+                      onClick={() => handleBackgroundPresetChange(preset.id)}
+                    >
+                      <span className="appearance-preset-swatch" style={{ background: `linear-gradient(135deg, ${preset.glow1}, ${preset.glow2}), ${preset.color}` }}></span>
+                      <span>{preset.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <h3 style={{ marginTop: '1.1rem', marginBottom: '0.7rem', color: 'var(--text-light)' }}>Eigenes Hintergrundbild</h3>
+              <label className="appearance-upload-label">
+                Bild hochladen
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,image/jpg"
+                  className="appearance-upload-input"
+                  onChange={(e) => handleBackgroundUpload(e.target.files?.[0])}
+                />
+              </label>
+              <p style={{ marginTop: '0.45rem', color: 'var(--text-muted)', fontSize: '0.82rem' }}>Empfehlung: max. 2.5 MB, Querformat für bestes Ergebnis.</p>
+              {backgroundMode === 'upload' && backgroundImageData ? (
+                <p style={{ marginTop: '0.35rem', color: 'var(--success)', fontSize: '0.84rem' }}>Eigenes Bild ist aktiv.</p>
+              ) : null}
+              {appearanceNotice ? (
+                <p style={{ marginTop: '0.35rem', color: appearanceNotice.includes('fehl') || appearanceNotice.includes('gross') || appearanceNotice.includes('Bitte') ? 'var(--error)' : 'var(--success)', fontSize: '0.84rem' }}>
+                  {appearanceNotice}
+                </p>
+              ) : null}
+
+              <div className="appearance-actions">
+                <button className="btn-secondary" onClick={resetBackgroundColor}>Standard wiederherstellen</button>
+                <button className="btn-primary" onClick={() => setAppMode('dashboard')}>Fertig</button>
+              </div>
+            </div>
+          </details>
 
           <div style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--glass-border)' }}>
             <h3 style={{ marginTop: 0, marginBottom: '0.5rem', color: 'var(--error, #ef4444)' }}>Gesamten Fortschritt zurücksetzen</h3>
