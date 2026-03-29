@@ -2082,7 +2082,7 @@ ${input}`;
               <img src="/EinsteinRot.webp" alt="Rechenwelt" style={{ width: '1.05em', height: '1.05em', objectFit: 'contain' }} />
             </div>
             <h2>Zahlen</h2>
-            <p>KPI's, Kalkulations-Boss, Break Even Point und KLR Startup Survival in einer Kategorie.</p>
+            <p>KPI's, Break Even Point, Handelskalkulation und KLR </p>
             <div style={{ display: 'grid', gap: '0.55rem', width: '100%', marginTop: '0.4rem' }}>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('rechen_tasks_setup')}>
                 KPI's ({Math.max(0, rechenTotal - rechenLearned)} fällig)
