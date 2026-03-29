@@ -23,6 +23,7 @@ const randPrice = (min, max) => commercialRound(randInt(Math.round(min * 100), M
 // Format helper for hints
 const fmt = (v) => v.toFixed(2).replace('.', ',');
 const formatEuro = (v) => Number(v).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const formatEuroWithSymbol = (v) => `${formatEuro(v)}\u00A0€`;
 
 // ── Level-Metadaten (statisch, nur Darstellung) ─────────────
 const LEVEL_CONFIG = [
@@ -520,14 +521,14 @@ function createCriticalRevenueRound(scenarioIndex = 0) {
         options,
         solutionSteps: [
             `Schritt 1: Interne Gesamtkosten für 12 Monate berechnen`,
-            ...generated.parts.map((p) => `• ${p.label}: ${formatEuro(p.value)} €`),
-            `• Gesamtkosten intern: ${formatEuro(totalInternalCost)} €`,
+            ...generated.parts.map((p) => `• ${p.label}: ${formatEuroWithSymbol(p.value)}`),
+            `• Gesamtkosten intern: ${formatEuroWithSymbol(totalInternalCost)}`,
             `Schritt 2: Gleichung aufstellen`,
             `${formatEuro(totalInternalCost)} = ${formatEuro(externalFix)} + ${(pct / 100).toFixed(2).replace('.', ',')} · U`,
             `Schritt 3: Nach U auflösen`,
             `${formatEuro(totalInternalCost - externalFix)} = ${(pct / 100).toFixed(2).replace('.', ',')} · U`,
-            `U = ${formatEuro(totalInternalCost - externalFix)} / ${(pct / 100).toFixed(2).replace('.', ',')}`,
-            `Ergebnis: U = ${formatEuro(revenue)} €`
+            `U = ${formatEuroWithSymbol(totalInternalCost - externalFix)} / ${(pct / 100).toFixed(2).replace('.', ',')}`,
+            `Ergebnis: U = ${formatEuroWithSymbol(revenue)}`
         ]
     };
 }
@@ -661,7 +662,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
             setCriticalSolved(true);
             setCriticalShowSolution(true);
             setCriticalConfetti(true);
-            setCriticalFeedback(`Richtig! Kritischer Umsatz: ${formatEuro(criticalRound.revenue)} €`);
+            setCriticalFeedback(`Richtig! Kritischer Umsatz: ${formatEuroWithSymbol(criticalRound.revenue)}`);
             setScore((prev) => prev + Math.max(80, 200 - criticalMistakes * 30));
             if (onLearningEvent) {
                 onLearningEvent({
@@ -950,18 +951,18 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                                 <div style={{ display: 'grid', gap: '0.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
                                     <div style={{ fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '12px', padding: '0.65rem 0.75rem' }}>
                                         <div style={{ opacity: 0.75, fontSize: '0.78rem', marginBottom: '0.2rem' }}>{round.externalLabel}</div>
-                                        <div style={{ color: 'var(--text-light)' }}>{round.externalFixLabel}: <strong>{formatEuro(round.externalFix)} €</strong></div>
+                                        <div style={{ color: 'var(--text-light)' }}>{round.externalFixLabel}: <strong>{formatEuroWithSymbol(round.externalFix)}</strong></div>
                                         <div style={{ color: 'var(--text-light)' }}>Provision: <strong>{round.provisionPercent}%</strong> vom Umsatz</div>
                                     </div>
                                     <div style={{ fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '12px', padding: '0.65rem 0.75rem' }}>
                                         <div style={{ opacity: 0.75, fontSize: '0.78rem', marginBottom: '0.2rem' }}>{round.internalLabel}</div>
                                         {round.internalParts?.map((part) => (
                                             <div key={part.label} style={{ color: 'var(--text-light)', fontSize: '0.86rem', lineHeight: 1.35 }}>
-                                                • {part.label}: <strong>{formatEuro(part.value)} €</strong>
+                                                • {part.label}: <strong>{formatEuroWithSymbol(part.value)}</strong>
                                             </div>
                                         ))}
                                         <div style={{ color: 'var(--text-light)', fontSize: '0.88rem', marginTop: '0.35rem' }}>
-                                            Interne Gesamtkosten (12 Monate): <strong>{formatEuro(round.totalInternalCost)} €</strong>
+                                            Interne Gesamtkosten (12 Monate): <strong>{formatEuroWithSymbol(round.totalInternalCost)}</strong>
                                         </div>
                                     </div>
                                 </div>
@@ -994,7 +995,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                                             style={{ textAlign: 'left', justifyContent: 'flex-start', minHeight: '46px', borderRadius: '12px', padding: '0.6rem 0.9rem', fontSize: '0.96rem' }}
                                         >
                                             <span style={{ fontWeight: 800, marginRight: '0.45rem' }}>{String.fromCharCode(65 + idx)})</span>
-                                            <span>{formatEuro(opt.value)} €</span>
+                                            <span>{formatEuroWithSymbol(opt.value)}</span>
                                         </button>
                                     ))}
                                 </div>
