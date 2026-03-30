@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Confetti from './Confetti';
 import VideoPanel from './VideoPanel';
 import GeminiPanel from './GeminiPanel';
-import FloatingNotes from './FloatingNotes';
-import FloatingCalculator from './FloatingCalculator';
+import FloatingPortal from './FloatingPortal';
 import { formatLatex } from '../utils/formatting';
 import { createPortal } from 'react-dom';
 
@@ -359,12 +358,11 @@ const QuizSession = ({
           document.body
         )}
       </div>
-      <FloatingNotes
+      <FloatingPortal
         questionId={`quiz_${q.id || currentQuizIndex}`}
         questionText={q.question || 'Quiz Frage'}
         currentAppMode="quiz"
       />
-      <FloatingCalculator currentAppMode="quiz" />
     </div>
   );
 };

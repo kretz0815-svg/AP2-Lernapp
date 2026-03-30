@@ -16,8 +16,7 @@ import marketingReview from './data/marketing_review.json';
 import { supabase } from './supabaseClient';
 import { askGemini, extractFocusTopics, extractCalculationInsights } from './geminiClient';
 import { fetchYouTubeVideos } from './youtubeClient';
-import FloatingNotes from './components/FloatingNotes';
-import FloatingCalculator from './components/FloatingCalculator';
+import FloatingPortal from './components/FloatingPortal';
 import FloatingImage from './components/FloatingImage';
 import BurgerMenu from './components/BurgerMenu';
 import QuestionManager from './components/QuestionManager';
@@ -2438,12 +2437,11 @@ ${input}`;
             Inklusive Video-Vorschlägen & KI-Assistent
           </p>
         </div>
-        <FloatingNotes
+        <FloatingPortal
           questionId="rechen_tasks_setup"
           questionText="KPI Setup"
           currentAppMode="rechen_tasks_setup"
         />
-        <FloatingCalculator currentAppMode="rechen_tasks_setup" />
       </div>
     );
   }
