@@ -611,10 +611,9 @@ export default function FloatingCalculator({
                     </div>
                 )
             ) : (
-                // On mobile: portal the window to document.body so it escapes the
-                // FloatingPortal's pointerEvents:'none' container. On desktop it
-                // renders inline (already portalled by FloatingPortal or App).
-                isMobile && typeof document !== 'undefined'
+                // Always portal in inline mode (and on mobile) so the window
+                // reliably appears above KPI tray contexts.
+                (inlineMode || isMobile) && typeof document !== 'undefined'
                     ? createPortal(calcWindow, document.body)
                     : calcWindow
             )}

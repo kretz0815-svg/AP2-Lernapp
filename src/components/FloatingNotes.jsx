@@ -554,9 +554,9 @@ export default function FloatingNotes({
                     </div>
                 )
             ) : (
-                // On mobile: portal to document.body so it escapes the
-                // FloatingPortal's pointerEvents:'none' container.
-                isMobile && typeof document !== 'undefined'
+                // Always portal in inline mode (and on mobile) so the window
+                // reliably appears above KPI tray contexts.
+                (inlineMode || isMobile) && typeof document !== 'undefined'
                     ? createPortal(notesWindow, document.body)
                     : notesWindow
             )}
