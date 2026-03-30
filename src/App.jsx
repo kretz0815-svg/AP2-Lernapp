@@ -18,7 +18,6 @@ import { askGemini, extractFocusTopics, extractCalculationInsights } from './gem
 import { fetchYouTubeVideos } from './youtubeClient';
 import FloatingNotes from './components/FloatingNotes';
 import FloatingCalculator from './components/FloatingCalculator';
-import FloatingPortal from './components/FloatingPortal';
 import FloatingImage from './components/FloatingImage';
 import BurgerMenu from './components/BurgerMenu';
 import QuestionManager from './components/QuestionManager';
@@ -2439,11 +2438,12 @@ ${input}`;
             Inklusive Video-Vorschlägen & KI-Assistent
           </p>
         </div>
-        <FloatingPortal
+        <FloatingNotes
           questionId="rechen_tasks_setup"
           questionText="KPI Setup"
           currentAppMode="rechen_tasks_setup"
         />
+        <FloatingCalculator currentAppMode="rechen_tasks_setup" />
       </div>
     );
   }
