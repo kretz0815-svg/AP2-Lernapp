@@ -2439,6 +2439,11 @@ ${input}`;
             Inklusive Video-Vorschlägen & KI-Assistent
           </p>
         </div>
+        <FloatingPortal
+          questionId="rechen_tasks_setup"
+          questionText="KPI Setup"
+          currentAppMode="rechen_tasks_setup"
+        />
       </div>
     );
   }

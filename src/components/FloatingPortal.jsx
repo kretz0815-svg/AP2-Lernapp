@@ -15,37 +15,44 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
         const defaultY = Math.max(8, window.innerHeight - 70);
         return { x: defaultX, y: defaultY };
     });
+    const getDefaultTrayPos = () => {
+        if (typeof window === 'undefined') return { x: 16, y: 16 };
+        return {
+            x: Math.max(8, window.innerWidth - 220),
+            y: Math.max(8, window.innerHeight - 70)
+        };
+    };
 
     const clampToViewport = (candidatePos) => {
         if (typeof window === 'undefined') return candidatePos;
+        const fallback = getDefaultTrayPos();
+        const safeCandidate = {
+            x: Number.isFinite(candidatePos?.x) ? candidatePos.x : fallback.x,
+            y: Number.isFinite(candidatePos?.y) ? candidatePos.y : fallback.y
+        };
         const rect = trayRef.current?.getBoundingClientRect();
         const trayWidth = rect?.width || 206;
         const trayHeight = rect?.height || 62;
         const maxX = Math.max(8, window.innerWidth - trayWidth - 8);
         const maxY = Math.max(8, window.innerHeight - trayHeight - 8);
         return {
-            x: Math.max(8, Math.min(candidatePos.x, maxX)),
-            y: Math.max(8, Math.min(candidatePos.y, maxY))
+            x: Math.max(8, Math.min(safeCandidate.x, maxX)),
+            y: Math.max(8, Math.min(safeCandidate.y, maxY))
         };
     };
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
+        const fallback = getDefaultTrayPos();
         try {
             const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
-            if (saved && typeof saved.x === 'number' && typeof saved.y === 'number') {
+            if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)) {
                 setTrayPos(clampToViewport(saved));
             } else {
-                setTrayPos(clampToViewport({
-                    x: Math.max(8, window.innerWidth - 220),
-                    y: Math.max(8, window.innerHeight - 70)
-                }));
+                setTrayPos(clampToViewport(fallback));
             }
         } catch {
-            setTrayPos(clampToViewport({
-                x: Math.max(8, window.innerWidth - 220),
-                y: Math.max(8, window.innerHeight - 70)
-            }));
+            setTrayPos(clampToViewport(fallback));
         }
     }, [storageKey]);
 
