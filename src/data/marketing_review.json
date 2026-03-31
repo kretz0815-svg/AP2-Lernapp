@@ -2674,6 +2674,278 @@
       "hint": "Retourenquote = (Anzahl Retouren / Anzahl Gesamtverk\u00e4ufe) \u00d7 100.",
       "youtubeQuery": "Retourenquote berechnen E-Commerce Formel",
       "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_082",
+      "question": "Die \u201eUrban-Peak AG\u201c m\u00f6chte einen eigenen Marktplatz er\u00f6ffnen und anderen H\u00e4ndlern als Verkaufsfl\u00e4che dienen. Marktplatzbetreiber unterliegen strengen Auflagen. Pr\u00fcfen Sie, welche Information zur Haftung eines Marktplatzbetreibers rechtlich richtig ist!",
+      "answerOptions": [
+        {
+          "text": "Der Marktplatzbetreiber haftet f\u00fcr Sch\u00e4den, die durch mangelhafte Produkte eines Marktplatz-H\u00e4ndlers entstehen.",
+          "isCorrect": false,
+          "rationale": "Ein reiner Plattformbetreiber ist nicht der Verk\u00e4ufer der Ware und haftet daher nicht direkt f\u00fcr Produktm\u00e4ngel der Dritth\u00e4ndler."
+        },
+        {
+          "text": "Der Marktplatzbetreiber haftet unmittelbar f\u00fcr Urheberrechtsverletzungen eines Marktplatz-H\u00e4ndlers.",
+          "isCorrect": false,
+          "rationale": "Eine unmittelbare Haftung besteht nicht automatisch. Der Betreiber muss erst auf Verst\u00f6\u00dfe hingewiesen werden und unt\u00e4tig bleiben."
+        },
+        {
+          "text": "Der Marktplatzbetreiber haftet, wenn er nicht gegen ihm bekannte falsche Werbeaussagen eines Marktplatz-H\u00e4ndlers vorgeht.",
+          "isCorrect": true,
+          "rationale": "Richtig: Erl\u00e4sst der Betreiber keine Ma\u00dfnahmen (z.B. L\u00f6schung), wenn er aktiv auf Rechtsverst\u00f6\u00dfe wie falsche Werbeaussagen eines H\u00e4ndlers hingewiesen wurde (sog. St\u00f6rerhaftung), macht er sich haftbar."
+        },
+        {
+          "text": "Der Marktplatzbetreiber haftet stets f\u00fcr Umsatzsteuervergehen eines Marktplatz-H\u00e4ndlers.",
+          "isCorrect": false,
+          "rationale": "Eine pauschale Haftung f\u00fcr Steuervergehen besteht nicht. Es gibt jedoch spezielle Regelungen zur Aufzeichnungspflicht."
+        },
+        {
+          "text": "Der Marktplatzbetreiber haftet f\u00fcr Sch\u00e4den, die durch unsachgem\u00e4\u00dfe Lieferung eines Produkts eines Marktplatz-H\u00e4ndlers entstehen.",
+          "isCorrect": false,
+          "rationale": "Die Lieferung liegt in der Verantwortung des jeweiligen H\u00e4ndlers, nicht des Plattformbetreibers."
+        }
+      ],
+      "hint": "Stichwort: St\u00f6rerhaftung \u2013 der Betreiber muss handeln, wenn er von Verst\u00f6\u00dfen Kenntnis hat.",
+      "youtubeQuery": "Marktplatzbetreiber Haftung St\u00f6rerhaftung Plattform Recht",
+      "topic": "Plattform\u00f6konomie & Recht"
+    },
+    {
+      "id": "mr_083",
+      "question": "Stellen Sie weiterhin fest, welche handelsrechtliche Situation sich f\u00fcr die \u201eUrban-Peak AG\u201c exakt ergibt, wenn sie als reine Vermittlungsplattform auftritt!",
+      "answerOptions": [
+        {
+          "text": "Eine Vermittlungsplattform verkauft im eigenen Namen f\u00fcr eigene Rechnung.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt einen klassischen Eigenh\u00e4ndler, nicht eine Vermittlungsplattform."
+        },
+        {
+          "text": "Eine Vermittlungsplattform verkauft im eigenen Namen f\u00fcr fremde Rechnung.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt einen Kommission\u00e4r (z.B. Kommissionsverkauf), nicht eine reine Vermittlungsplattform."
+        },
+        {
+          "text": "Eine Vermittlungsplattform verkauft im fremden Namen f\u00fcr eigene Rechnung.",
+          "isCorrect": false,
+          "rationale": "Das ist keine g\u00e4ngige handelsrechtliche Konstellation f\u00fcr Vermittlungsplattformen."
+        },
+        {
+          "text": "Eine Vermittlungsplattform verkauft im fremden Namen f\u00fcr fremde Rechnung.",
+          "isCorrect": true,
+          "rationale": "Richtig: Als reine Vermittlungsplattform tritt man nur als Mittelsmann auf. Der Kaufvertrag kommt direkt zwischen dem Dritth\u00e4ndler (fremder Name) und dem Endkunden zustande, und der Umsatz flie\u00dft dem Dritth\u00e4ndler zu (fremde Rechnung)."
+        },
+        {
+          "text": "Eine Vermittlungsplattform verkauft weder im eigenen Namen noch im fremden Namen.",
+          "isCorrect": false,
+          "rationale": "Ein Verkauf findet \u00fcber die Plattform statt \u2013 er geschieht im fremden Namen des H\u00e4ndlers."
+        }
+      ],
+      "hint": "Reine Vermittlung = Mittelsmann. Der Kaufvertrag l\u00e4uft \u00fcber den Dritth\u00e4ndler.",
+      "youtubeQuery": "Vermittlungsplattform Handelsrecht eigener Name fremde Rechnung",
+      "topic": "Plattform\u00f6konomie & Recht"
+    },
+    {
+      "id": "mr_084",
+      "question": "Pr\u00fcfen Sie, welche klassische Kostenposition f\u00fcr Betreiber eines Online-Marktplatzes (ohne eigenen Verkauf) in der Regel grunds\u00e4tzlich entf\u00e4llt!",
+      "answerOptions": [
+        {
+          "text": "Marketingkosten",
+          "isCorrect": false,
+          "rationale": "Auch ein Marktplatzbetreiber muss in Marketing investieren, um H\u00e4ndler und K\u00e4ufer auf die Plattform zu ziehen."
+        },
+        {
+          "text": "Logistikkosten",
+          "isCorrect": true,
+          "rationale": "Richtig: Da ein reiner Marktplatzbetreiber (ohne Eigenhandel) die Waren seiner Dritth\u00e4ndler nicht selbst anfasst, lagert oder verschickt, fallen bei ihm keine direkten Logistikkosten an."
+        },
+        {
+          "text": "Hardware-Kosten",
+          "isCorrect": false,
+          "rationale": "Server und technische Infrastruktur verursachen Hardware-Kosten, die der Betreiber tragen muss."
+        },
+        {
+          "text": "Programmier-Kosten",
+          "isCorrect": false,
+          "rationale": "Die Entwicklung und Wartung der Plattform verursacht laufende Programmier-Kosten."
+        },
+        {
+          "text": "Hosting-Kosten",
+          "isCorrect": false,
+          "rationale": "Das Hosting der Plattform ist eine essenzielle Kostenposition f\u00fcr jeden Marktplatzbetreiber."
+        }
+      ],
+      "hint": "Ein reiner Marktplatzbetreiber lagert und verschickt keine Ware selbst.",
+      "youtubeQuery": "Online Marktplatz Betreiber Kostenstruktur Logistik",
+      "topic": "Plattform\u00f6konomie & Recht"
+    },
+    {
+      "id": "mr_085",
+      "question": "Im Controlling der \u201eEco-Wear GmbH\u201c wird regelm\u00e4\u00dfig die Handelsspanne der Sortimente \u00fcberpr\u00fcft. Geben Sie an, mit welcher Formel Sie die Handelsspanne berechnen k\u00f6nnen!",
+      "answerOptions": [
+        {
+          "text": "(Listenverkaufspreis - Bezugspreis) x 100 : Listenverkaufspreis",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Handelsspanne gibt an, wie viel Prozent vom Verkaufspreis (Listenverkaufspreis) dem H\u00e4ndler zur Deckung seiner Kosten und als Gewinn bleiben. Man zieht den Einkaufspreis (Bezugspreis) vom Verkaufspreis ab, multipliziert mit 100 und teilt durch den Verkaufspreis."
+        },
+        {
+          "text": "Bezugspreis x 100 : (Listenverkaufspreis - Bezugspreis)",
+          "isCorrect": false,
+          "rationale": "Diese Formel berechnet nicht die Handelsspanne. Z\u00e4hler und Nenner sind vertauscht."
+        },
+        {
+          "text": "(Bezugspreis - Listenverkaufspreis) x 100 : Listenverkaufspreis",
+          "isCorrect": false,
+          "rationale": "Die Subtraktion ist vertauscht \u2013 das w\u00fcrde einen negativen Wert ergeben."
+        },
+        {
+          "text": "Listenverkaufspreis x 100 : (Listenverkaufspreis x Bezugspreis - Bezugspreis)",
+          "isCorrect": false,
+          "rationale": "Diese Formel ist mathematisch nicht korrekt f\u00fcr die Handelsspanne."
+        },
+        {
+          "text": "(Listenverkaufspreis - Bezugspreis) x 100 : Bezugspreis",
+          "isCorrect": false,
+          "rationale": "Achtung: Diese Formel berechnet den Kalkulationszuschlag, nicht die Handelsspanne. Beim Zuschlag wird durch den Bezugspreis geteilt, bei der Spanne durch den Verkaufspreis."
+        }
+      ],
+      "hint": "Handelsspanne = (VK - EK) / VK \u00d7 100. Verwechslungsgefahr mit dem Kalkulationszuschlag (dort wird durch den EK geteilt)!",
+      "youtubeQuery": "Handelsspanne berechnen Formel Kalkulationszuschlag Unterschied",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_086",
+      "question": "Auch der Betriebsabrechnungsbogen ist ein wesentliches Element in der Kostenrechnung. Stellen Sie fest, welcher Sachverhalt \u00fcber den Betriebsabrechnungsbogen (BAB) korrekt dargestellt ist!",
+      "answerOptions": [
+        {
+          "text": "Der BAB dient in der Eco-Wear GmbH der Erfassung der Gemeinkosten und der Umlage der Einzelkosten auf die innerbetrieblichen Kostenstellen.",
+          "isCorrect": false,
+          "rationale": "Einzelkosten werden direkt den Kostentr\u00e4gern zugeordnet und nicht \u00fcber den BAB auf Kostenstellen umgelegt."
+        },
+        {
+          "text": "Der BAB erm\u00f6glicht es der Eco-Wear GmbH, die Gemeinkosten verursachungsgerecht auf die Kostenstellen zu verteilen.",
+          "isCorrect": true,
+          "rationale": "Richtig: Der Betriebsabrechnungsbogen (BAB) ist ein tabellarisches Instrument der Kostenstellenrechnung. Sein Hauptzweck ist es, die Gemeinkosten (Kosten, die man nicht direkt einem Produkt zuordnen kann, wie Miete oder Strom) verursachungsgerecht auf die verschiedenen Abteilungen (Kostenstellen) zu verteilen."
+        },
+        {
+          "text": "Der BAB dient der Eco-Wear GmbH zur Gewinnermittlung.",
+          "isCorrect": false,
+          "rationale": "Die Gewinnermittlung erfolgt in der Gewinn- und Verlustrechnung (GuV), nicht im BAB."
+        },
+        {
+          "text": "Der BAB wird in der Eco-Wear GmbH verwendet, um die Einzelkosten auf die Kostenstellen zu verteilen.",
+          "isCorrect": false,
+          "rationale": "Der BAB verteilt Gemeinkosten, nicht Einzelkosten. Einzelkosten sind direkt zurechenbar."
+        },
+        {
+          "text": "Der BAB gibt Auskunft \u00fcber die Konditionen wie Lieferantenrabatt und Lieferantenskonto der Eco-Wear GmbH.",
+          "isCorrect": false,
+          "rationale": "Lieferkonditionen wie Rabatte und Skonti geh\u00f6ren in die Kalkulation (Bezugskalkulation), nicht in den BAB."
+        }
+      ],
+      "hint": "BAB = Gemeinkosten auf Kostenstellen verteilen. Einzelkosten werden direkt zugeordnet.",
+      "youtubeQuery": "Betriebsabrechnungsbogen BAB Gemeinkosten Kostenstellen erkl\u00e4rt",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_087",
+      "question": "Die Kosten im Social-Media-Marketing sind vergleichsweise hoch. Deshalb will die \u201eTrail-Blazer UG\u201c ihre Abrechnungsmethode \u00fcberdenken. Pr\u00fcfen Sie, welche Angabe zu den verschiedenen Abrechnungsmodellen im E-Commerce richtig ist!",
+      "answerOptions": [
+        {
+          "text": "Bei der Abrechnungsmethode CPL wird der Werbende f\u00fcr Bestellungen \u00fcber die Werbeanzeige entlohnt.",
+          "isCorrect": false,
+          "rationale": "CPL steht f\u00fcr Cost per Lead \u2013 die Verg\u00fctung erfolgt f\u00fcr gewonnene Kontakte (Leads), nicht f\u00fcr Bestellungen."
+        },
+        {
+          "text": "Die Abrechnung nach dem CPM wird umso teurer f\u00fcr den Werbetreibenden, je h\u00f6her die Click-Through-Rate ausf\u00e4llt.",
+          "isCorrect": false,
+          "rationale": "CPM (Cost per Mille) rechnet nach Einblendungen (pro 1.000 Impressionen) ab. Die CTR hat keinen Einfluss auf den CPM-Preis."
+        },
+        {
+          "text": "Auch wenn keine Bestellungen \u00fcber die Werbeanzeige zustande kommen, erh\u00e4lt der Werbende nach der CPO-Abrechnungsmethode eine ausgemachte Provision.",
+          "isCorrect": false,
+          "rationale": "CPO steht f\u00fcr Cost per Order \u2013 die Provision wird nur bei tats\u00e4chlichen Bestellungen f\u00e4llig."
+        },
+        {
+          "text": "Bei der Abrechnungsform CPC zahlt der Werbetreibende nur, wenn ein Benutzer auf einen Textlink oder ein Banner klickt.",
+          "isCorrect": true,
+          "rationale": "Richtig: CPC steht f\u00fcr Cost per Click. Der Werbetreibende zahlt ausschlie\u00dflich f\u00fcr tats\u00e4chliche Klicks der Nutzer auf das Werbemittel. Ein blo\u00dfes Einblenden der Werbung ohne Klick verursacht keine Kosten."
+        },
+        {
+          "text": "Die Schaltung von Werbung nach den Abrechnungsmodellen CPM und CPC kommt immer auf denselben Endpreis, wenn genau 1000 Personen auf die Anzeige klicken.",
+          "isCorrect": false,
+          "rationale": "CPM und CPC sind unterschiedliche Modelle mit verschiedenen Preisstrukturen. Ein identischer Endpreis ist nicht garantiert."
+        }
+      ],
+      "hint": "CPC = Cost per Click. Nur bei Klick wird bezahlt. CPM = pro 1.000 Einblendungen. CPO = pro Bestellung.",
+      "youtubeQuery": "CPC CPM CPO CPL Abrechnungsmodelle Online Marketing Unterschied",
+      "topic": "Customer Journey & Online-Marketing"
+    },
+    {
+      "id": "mr_088",
+      "question": "Die \u201eTrail-Blazer UG\u201c stellt f\u00fcr das letzte Quartal eine Steigerung der Bounce-Rate fest. Ein Grund daf\u00fcr k\u00f6nnte die Gestaltung der Landingpages sein. Geben Sie an, worauf bei der Gestaltung von Landingpages geachtet werden sollte!",
+      "answerOptions": [
+        {
+          "text": "Es sollte auf die Einbettung von Videos auf der Landingpage verzichtet werden, da der User sonst zu lange auf der Seite verweilt, ohne weiterzusuchen.",
+          "isCorrect": false,
+          "rationale": "Videos k\u00f6nnen die Verweildauer erh\u00f6hen und den Nutzer besser informieren \u2013 das ist positiv, nicht negativ."
+        },
+        {
+          "text": "Call-to-Action-Buttons sollten vermieden werden, da sie den Kunden zum Kauf dr\u00e4ngen.",
+          "isCorrect": false,
+          "rationale": "CTAs sind essenziell f\u00fcr die Conversion. Ohne klare Handlungsaufforderung fehlt dem Nutzer die Orientierung."
+        },
+        {
+          "text": "Vertrauen bildende Elemente wie Zertifikate etc. wirken auf Kunden eher nervend und sind deshalb auf Landingpages zu vermeiden.",
+          "isCorrect": false,
+          "rationale": "Trust-Elemente (Siegel, Bewertungen, Zertifikate) sind ein wichtiger Bestandteil zur Conversion-Steigerung."
+        },
+        {
+          "text": "Eine aussagekr\u00e4ftige Headline above the fold erleichtert dem Kunden die Einordnung des Inhalts.",
+          "isCorrect": true,
+          "rationale": "Richtig: \u201eAbove the fold\u201c ist der Bereich der Webseite, den der Nutzer sofort sieht, ohne scrollen zu m\u00fcssen. Eine klare, treffende \u00dcberschrift (Headline) in genau diesem Bereich f\u00e4ngt den Nutzer auf, zeigt ihm, dass er richtig ist, und senkt so die Absprungrate (Bounce-Rate)."
+        },
+        {
+          "text": "Landingpages sollten nur zur Lead-Generierung eingerichtet werden.",
+          "isCorrect": false,
+          "rationale": "Landingpages dienen verschiedenen Zielen: Lead-Generierung, Produktverkauf, Event-Anmeldungen und mehr."
+        }
+      ],
+      "hint": "\u201eAbove the fold\u201c = der sofort sichtbare Bereich ohne Scrollen. Die Headline dort ist entscheidend.",
+      "youtubeQuery": "Landingpage Gestaltung Above the Fold Headline Bounce Rate",
+      "topic": "Customer Journey & Online-Marketing"
+    },
+    {
+      "id": "mr_089",
+      "question": "Bei der Auswertung der Quartalszahlen wird auch die Customer Journey betrachtet. Pr\u00fcfen Sie, welcher Sachverhalt zur Customer Journey korrekt ist!",
+      "answerOptions": [
+        {
+          "text": "Die Auswertung der Customer Journey erlaubt R\u00fcckschl\u00fcsse auf relevante Touchpoints der Kunden.",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Customer Journey betrachtet den gesamten Weg des Kunden, lange vor dem eigentlichen Checkout. Die Auswertung der Tracking-Daten hilft zu verstehen, \u00fcber welche Kontaktpunkte (Touchpoints wie z.B. Instagram, Google, Newsletter) die Nutzer mit der Marke in Ber\u00fchrung kommen, bevor sie kaufen."
+        },
+        {
+          "text": "Die Customer Journey beschreibt die Phasen, die der Kunde im Checkout-Prozess bis zum Kaufabschluss durchl\u00e4uft.",
+          "isCorrect": false,
+          "rationale": "Die Customer Journey umfasst viel mehr als nur den Checkout \u2013 sie beginnt bereits beim ersten Kontakt mit der Marke."
+        },
+        {
+          "text": "Mithilfe der Customer Journey wird immer eindeutig entschl\u00fcsselt, welcher Kontaktpunkt f\u00fcr den Kunden am wichtigsten war.",
+          "isCorrect": false,
+          "rationale": "Die Attribution (Zuordnung des Erfolgs auf einen Touchpoint) ist komplex und selten eindeutig bestimmbar."
+        },
+        {
+          "text": "Eine individuelle Betrachtung und Auswertung der Customer Journey ist nicht m\u00f6glich.",
+          "isCorrect": false,
+          "rationale": "Moderne Tracking-Tools erm\u00f6glichen durchaus eine individuelle Auswertung der Customer Journey."
+        },
+        {
+          "text": "Die Customer Journey legt fest, welche Marketingma\u00dfnahme f\u00fcr die Bestellung des Kunden ausschlaggebend sein wird.",
+          "isCorrect": false,
+          "rationale": "Die Customer Journey beschreibt und analysiert den Weg des Kunden, legt aber nicht im Voraus fest, was ausschlaggebend sein wird."
+        }
+      ],
+      "hint": "Die Customer Journey zeigt den gesamten Weg des Kunden \u00fcber alle Kontaktpunkte (Touchpoints) hinweg.",
+      "youtubeQuery": "Customer Journey Touchpoints Analyse Auswertung",
+      "topic": "Customer Journey & Online-Marketing"
     }
   ]
 }
