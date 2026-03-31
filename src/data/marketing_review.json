@@ -1391,6 +1391,361 @@
       "hint": "ROAS ist ein Umsatz-Faktor: Umsatz / Werbekosten.",
       "youtubeQuery": "ROAS Interpretation Umsatzfaktor einfach erklaert",
       "topic": "Performance-Marketing & Banner-Platzierung"
+    },
+    {
+      "id": "mr_045",
+      "question": "Influencer berechnen ihre Dienstleistung in der Regel auf Basis ihrer aktiven Follower. Prüfen Sie, welche 2 Risiken in diesem Zusammenhang für die „Urban-Peak AG“ bei einer Kooperation bestehen! (Wählen Sie 2 Antworten)",
+      "answerOptions": [
+        {
+          "text": "Bei ungenauer Mediadatenanalyse kann die Urban-Peak AG zu keiner korrekten Einschätzung der von den Influencern gestellten Rechnungen gelangen.",
+          "isCorrect": false,
+          "rationale": "Das ist kein typisches Kernrisiko aus der Aufgabenstellung im Vergleich zu Fake-Followern und Streuverlusten."
+        },
+        {
+          "text": "Influencer können Fake-Follower besitzen, welche nicht den Unternehmenszielen dienlich sind.",
+          "isCorrect": true,
+          "rationale": "Richtig: Fake-Follower erzeugen nur scheinbare Reichweite ohne relevanten Marketingwert."
+        },
+        {
+          "text": "Sämtliche denkbaren, auch fachfremde Zielgruppen werden angesprochen, können aber nicht bedient werden.",
+          "isCorrect": true,
+          "rationale": "Richtig: Zu breite bzw. fachfremde Ansprache führt zu Streuverlusten und ineffizientem Budgeteinsatz."
+        },
+        {
+          "text": "Die beworbenen Artikel müssen trotz Personalkostensteigerung zu Dumpingpreisen veräußert werden.",
+          "isCorrect": false,
+          "rationale": "Das ist kein direktes, typisches Risiko der Influencer-Kooperation."
+        },
+        {
+          "text": "Die Urban-Peak AG kann die Dienstleistungen buchhalterisch nicht ordnungsgemäß abrechnen.",
+          "isCorrect": false,
+          "rationale": "Das ist kein allgemeines, strukturelles Influencer-Marketing-Risiko."
+        },
+        {
+          "text": "Es kommt für die Urban-Peak AG in jedem Fall zu einer extrem hohen Kostensteigerung im Personalbereich.",
+          "isCorrect": false,
+          "rationale": "Das folgt nicht zwingend aus einer Influencer-Kampagne."
+        }
+      ],
+      "hint": "Achte auf Reichweitenqualität und Zielgruppen-Passung.",
+      "youtubeQuery": "Influencer Marketing Risiken Fake Follower Streuverluste",
+      "topic": "Influencer-Marketing & Social Media"
+    },
+    {
+      "id": "mr_046",
+      "question": "Influencer sind auf Plattformen angewiesen, auf denen sie ihre Follower erreichen können. Prüfen Sie, auf welchen 2 Plattformen Influencer die Zielgruppen der „Eco-Gear GmbH“ im Endkunden-Bereich (B2C) eher nicht ansprechen können, da diese Plattformen dazu ungeeignet sind! (Wählen Sie 2 Antworten)",
+      "answerOptions": [
+        {
+          "text": "Facebook",
+          "isCorrect": false,
+          "rationale": "Facebook eignet sich grundsätzlich für B2C-Ansprache."
+        },
+        {
+          "text": "Tik Tok",
+          "isCorrect": false,
+          "rationale": "TikTok ist ein typischer B2C-Kanal für Influencer."
+        },
+        {
+          "text": "LinkedIn",
+          "isCorrect": true,
+          "rationale": "Richtig: LinkedIn ist primär beruflich/B2B geprägt und für klassisches B2C-Influencer-Marketing oft ungeeignet."
+        },
+        {
+          "text": "Pinterest",
+          "isCorrect": false,
+          "rationale": "Pinterest kann im B2C-Kontext gut funktionieren."
+        },
+        {
+          "text": "Blogs",
+          "isCorrect": false,
+          "rationale": "Blogs können je nach Thema sehr wohl B2C-Zielgruppen erreichen."
+        },
+        {
+          "text": "Xing",
+          "isCorrect": true,
+          "rationale": "Richtig: Xing ist ebenfalls ein B2B-/Business-Netzwerk und weniger geeignet für klassische B2C-Influencer-Reichweite."
+        }
+      ],
+      "hint": "Suche die zwei beruflich geprägten Business-Netzwerke.",
+      "youtubeQuery": "B2C Influencer Plattformen LinkedIn Xing Unterschied",
+      "topic": "Influencer-Marketing & Social Media"
+    },
+    {
+      "id": "mr_047",
+      "question": "Abschließend betrachtet kann Influencer-Marketing gegenüber anderen Marketingmaßnahmen für das Start-up auch verschiedene Vorteile besitzen. Stellen Sie fest, in welchen 2 Fällen solche Vorteile gegeben sind! (Wählen Sie 2 Antworten)",
+      "answerOptions": [
+        {
+          "text": "Garantiert überdurchschnittliche Umsatzsteigerung",
+          "isCorrect": false,
+          "rationale": "Marketing garantiert keine Umsätze."
+        },
+        {
+          "text": "Hohe Reichweite",
+          "isCorrect": true,
+          "rationale": "Richtig: Influencer können sehr hohe organische Reichweiten erzielen."
+        },
+        {
+          "text": "Allgemeine Ansprache vieler, breit gefächerter Zielgruppen",
+          "isCorrect": false,
+          "rationale": "Ein zentraler Vorteil ist eher die passgenaue Nischenansprache statt unspezifischer Breite."
+        },
+        {
+          "text": "Extrem hohe Generierung aller möglichen Zielgruppen",
+          "isCorrect": false,
+          "rationale": "Nicht alle Zielgruppen werden gleichermaßen erreicht."
+        },
+        {
+          "text": "Zielgenaue Ansprache spezieller Zielgruppen",
+          "isCorrect": true,
+          "rationale": "Richtig: Influencer bedienen oft klare Nischen und ermöglichen präzise Zielgruppenansprache."
+        },
+        {
+          "text": "Garantierte Werbeplatzierung vor allem im öffentlichen Fernsehen",
+          "isCorrect": false,
+          "rationale": "Das hat nichts mit typischem Influencer-Marketing zu tun."
+        }
+      ],
+      "hint": "Typische Pluspunkte sind Reichweite und Nischenfit.",
+      "youtubeQuery": "Vorteile Influencer Marketing Reichweite Zielgruppe",
+      "topic": "Influencer-Marketing & Social Media"
+    },
+    {
+      "id": "mr_048",
+      "question": "Um die Verkäufe in der Peak-Saison zu forcieren, überlegt die „Trail-Blazer UG“, zusätzlich zu den bestehenden Online-Vertriebskanälen sogenanntes Live-Shopping per Streaming über Social Media anzubieten. Prüfen Sie, welche Beschreibung für diesen neuen Online-Vertriebskanal zutrifft!",
+      "answerOptions": [
+        {
+          "text": "Live-Shopping per Streaming via Social Media wird nicht als Rundfunk, sondern als Mediendienst eingestuft und im Mediendienste-Staatsvertrag reguliert.",
+          "isCorrect": false,
+          "rationale": "Diese Aussage ist in der gegebenen Aufgabenlogik nicht die treffende Kernaussage zum Erfolgsprinzip."
+        },
+        {
+          "text": "Live-Shopping wird im Studio vor Publikum aufgezeichnet und danach zum Download über Social Media-Portale bereitgestellt.",
+          "isCorrect": false,
+          "rationale": "Live-Shopping setzt auf Echtzeit-Interaktion, nicht primär auf nachträglichen Download."
+        },
+        {
+          "text": "Live-Shopping eignet sich nur für wenig erklärungsbedürftige Basic-Produkte, da der Hauptzweck der Abverkauf großer Mengen ist.",
+          "isCorrect": false,
+          "rationale": "Auch erklärungsbedürftige Produkte können im Live-Format erfolgreich präsentiert werden."
+        },
+        {
+          "text": "Beim Live-Shopping sind die Exklusivität des Angebots und das verkäuferische Geschick der Präsentatoren Erfolgsfaktoren.",
+          "isCorrect": true,
+          "rationale": "Live-Shopping lebt von der Interaktion in Echtzeit, dem Charisma und Verkaufsgeschick des Präsentators (oft Influencer) und künstlicher Verknappung (z. B. exklusive Rabatte nur während des Streams)."
+        },
+        {
+          "text": "Live-Shopping benötigt keine besondere Vorbereitung in Logistik und Einkauf, da bei erschöpftem Bestand der Präsentator einfach ein anderes Produkt vorstellen kann.",
+          "isCorrect": false,
+          "rationale": "Gerade Live-Formate erfordern enge Planung von Bestand, Logistik und Abläufen."
+        }
+      ],
+      "hint": "Echtzeit, Exklusivität und Presenter-Skills sind zentral.",
+      "youtubeQuery": "Live Shopping Erfolgsfaktoren Social Media",
+      "topic": "Live-Shopping & Vertriebskanäle"
+    },
+    {
+      "id": "mr_049",
+      "question": "Der E-Commerce-Leiter will die Risiken begrenzen und schlägt deshalb vor, Live-Shopping zunächst mit dem Sortiment einer bekannten Zelt-Marke zu testen. Geben Sie an, welche Kennzahl für die Erfolgsbewertung der Marketing-Aktion in diesem spezifischen Test zu vernachlässigen ist!",
+      "answerOptions": [
+        {
+          "text": "Warenbezugspreis",
+          "isCorrect": true,
+          "rationale": "Zuschauerzahl, Conversion-Rate, Retouren und der erzielte Verkaufspreis sind direkte Indikatoren dafür, wie gut der Kanal „Live-Shopping“ bei den Kunden ankommt. Der „Warenbezugspreis“ (Einkaufspreis des Zeltes) ist eine fixe, interne Kostengröße des Einkaufs und sagt nichts über die Performance des Marketing-Tests aus."
+        },
+        {
+          "text": "Erzielter Verkaufspreis",
+          "isCorrect": false,
+          "rationale": "Der erzielte Verkaufspreis ist für die Kanalbewertung relevant."
+        },
+        {
+          "text": "Retourenquote",
+          "isCorrect": false,
+          "rationale": "Retouren sind ein wichtiger Erfolgsindikator der Aktion."
+        },
+        {
+          "text": "Zuschauerzahl",
+          "isCorrect": false,
+          "rationale": "Reichweite/Zuschauerzahl ist für Live-Shopping zentral."
+        },
+        {
+          "text": "Conversion-Rate",
+          "isCorrect": false,
+          "rationale": "Conversion ist eine Kernkennzahl für die Wirkung der Maßnahme."
+        }
+      ],
+      "hint": "Gesucht ist die interne Einkaufskosten-Größe, nicht die Kanalperformance.",
+      "youtubeQuery": "Live Shopping KPI Zuschauer Conversion Retouren",
+      "topic": "Live-Shopping & Vertriebskanäle"
+    },
+    {
+      "id": "mr_050",
+      "question": "Nach einem Test stellt die „Camp & Hike GmbH“ fest, dass sich Wurfzelte nicht gut verkaufen, Kuppelzelte hingegen sehr gut angenommen werden. Die Wurfzelte werden somit dem sogenannten „Randsortiment“ zugeordnet. Geben Sie an, welche Darstellung in diesem Zusammenhang den Begriff Randsortiment richtig erfasst!",
+      "answerOptions": [
+        {
+          "text": "Ein Randsortiment wird immer nur zu bestimmten Aktionszeiträumen angeboten.",
+          "isCorrect": false,
+          "rationale": "Das ist keine allgemeine Definition von Randsortiment."
+        },
+        {
+          "text": "Ein Randsortiment trägt wesentlich zum wirtschaftlichen Erfolg bei.",
+          "isCorrect": false,
+          "rationale": "Wesentliche Umsatz- und Erfolgsbeiträge kommen eher aus dem Kernsortiment."
+        },
+        {
+          "text": "Ein Randsortiment kann einen großen Teil der im Geschäftsjahr eingebrachten Bestellpositionen ausmachen.",
+          "isCorrect": false,
+          "rationale": "Das entspricht eher nicht der typischen Rolle eines Randsortiments."
+        },
+        {
+          "text": "Ein Randsortiment dient zur Ergänzung des bestehenden Sortiments.",
+          "isCorrect": true,
+          "rationale": "Das Randsortiment ist nicht der Umsatztreiber (Kernsortiment), sondern dient lediglich der Abrundung und Ergänzung des Angebots, um den Kunden einen zusätzlichen Service (One-Stop-Shopping) zu bieten."
+        },
+        {
+          "text": "Ein Randsortiment muss keinen Gewinn erzielen.",
+          "isCorrect": false,
+          "rationale": "Auch Ergänzungssortimente sollen wirtschaftlich sinnvoll geführt werden."
+        }
+      ],
+      "hint": "Randsortiment = Abrundung/Ergänzung, nicht Hauptumsatzträger.",
+      "youtubeQuery": "Randsortiment Kernsortiment Unterschied",
+      "topic": "Sortiment & Affiliate-Marketing"
+    },
+    {
+      "id": "mr_051",
+      "question": "Für ein neues Snowboard wird eine spezielle, informative Landingpage gebaut. Auf welche Funnel-Phase (Trichter-Phase der Customer Journey) zielt eine solche geplante Produkt-Landingpage als Marketing-Instrument primär ab?",
+      "answerOptions": [
+        {
+          "text": "Pre-Awareness",
+          "isCorrect": false,
+          "rationale": "Landingpages adressieren meist Nutzer, die bereits auf einen Impuls reagiert haben."
+        },
+        {
+          "text": "Consideration",
+          "isCorrect": true,
+          "rationale": "Eine Landingpage fängt Nutzer auf, die bereits auf eine Anzeige geklickt haben (Awareness ist also schon passiert). In der „Consideration“-Phase (Abwägung) liefert die Landingpage alle nötigen Argumente und Infos, um den Kunden von der Kaufentscheidung (Purchase) zu überzeugen."
+        },
+        {
+          "text": "Purchase",
+          "isCorrect": false,
+          "rationale": "Purchase folgt typischerweise nach der Abwägung/Informationsphase."
+        },
+        {
+          "text": "Retention",
+          "isCorrect": false,
+          "rationale": "Retention betrifft die Bindung nach dem Kauf."
+        },
+        {
+          "text": "Advocacy",
+          "isCorrect": false,
+          "rationale": "Advocacy betrifft Weiterempfehlung/Loyalität nach positiver Erfahrung."
+        }
+      ],
+      "hint": "Landingpage liefert Entscheidungsargumente vor dem Kaufabschluss.",
+      "youtubeQuery": "Funnel Phase Consideration Landingpage",
+      "topic": "Sortiment & Affiliate-Marketing"
+    },
+    {
+      "id": "mr_052",
+      "question": "Sie haben die Idee, auf der Snowboard-Landingpage Reise-Angebote eines Partnerunternehmens aufzunehmen und Interessenten beim Klick auf dessen Website zu verlinken. Dafür würden Sie als Affiliate eine Provision erhalten. Prüfen Sie, welcher Sachverhalt zu diesen Abrechnungsmodellen richtig dargestellt ist!",
+      "answerOptions": [
+        {
+          "text": "Das Pay-per-Click-Modell liegt am ehesten im Interesse des Reiseveranstalters.",
+          "isCorrect": false,
+          "rationale": "Aus Merchant-Sicht ist oft Pay-per-Sale risikoärmer."
+        },
+        {
+          "text": "Beim Pay-per-Lead-Modell wird die Urban-Peak AG für jeden Besucher der Ziel-Website vergütet.",
+          "isCorrect": false,
+          "rationale": "Pay-per-Lead vergütet qualifizierte Leads, nicht bloß jeden Besuch."
+        },
+        {
+          "text": "Da die Urban-Peak AG keine Erfahrung mit der Vermittlung von Reisen hat, ist eine Pay-per-Sale-Abrechnung in ihrem Interesse.",
+          "isCorrect": false,
+          "rationale": "Für Affiliates ist Pay-per-Click oft attraktiver, weil keine Buchung nötig ist."
+        },
+        {
+          "text": "Beim Pay-per-Click-Modell steigt Ihr Affiliate-Umsatz mit der Anzahl von Website-Besuchern, die Sie auf die Angebote des Partners lenken.",
+          "isCorrect": true,
+          "rationale": "Wenn die Urban-Peak AG nach „Pay-per-Click“ (PPC) bezahlt wird, erhält sie für jeden weitergeleiteten Klick Geld – völlig unabhängig davon, ob der Nutzer am Ende eine Reise bucht. Je mehr Traffic geschickt wird, desto höher der Umsatz. (Falle A: Der Reiseveranstalter bevorzugt Pay-per-Sale, um das Risiko zu minimieren)."
+        },
+        {
+          "text": "Bei der Vermittlung von Reiseangeboten lohnt sich die Vereinbarung einer Lifetime-Provision für beide Partner am meisten.",
+          "isCorrect": false,
+          "rationale": "Das ist pauschal nicht immer zutreffend."
+        }
+      ],
+      "hint": "PPC vergütet den Klick, unabhängig vom Abschluss.",
+      "youtubeQuery": "Affiliate Pay per Click vs Pay per Sale",
+      "topic": "Sortiment & Affiliate-Marketing"
+    },
+    {
+      "id": "mr_053",
+      "question": "Sie erklären einem neuen Auszubildenden im E-Commerce einige Fachbegriffe im Zusammenhang mit der Kennzahlenermittlung. Wie beschreiben Sie den Begriff „Rentabilität“ fachlich korrekt?",
+      "answerOptions": [
+        {
+          "text": "Rentabilität bedeutet, günstige Einkaufskonditionen auszuhandeln.",
+          "isCorrect": false,
+          "rationale": "Das ist Beschaffungsmanagement, nicht die Definition von Rentabilität."
+        },
+        {
+          "text": "Rentabilität bedeutet, das Sortiment durch Sortimentserweiterung zu optimieren.",
+          "isCorrect": false,
+          "rationale": "Das betrifft Sortimentspolitik, nicht die Rentabilitätskennzahl."
+        },
+        {
+          "text": "Rentabilität bedeutet, effizient das Kapital des Unternehmens zu erweitern.",
+          "isCorrect": false,
+          "rationale": "Zu unscharf und nicht die definitorische Aussage."
+        },
+        {
+          "text": "Rentabilität bedeutet, Ökonomie und Ökologie aufeinander abzustimmen.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt eher Nachhaltigkeitsziele."
+        },
+        {
+          "text": "Rentabilität bedeutet, dass das im Unternehmen eingesetzte Kapital verzinst wird.",
+          "isCorrect": true,
+          "rationale": "Die Rentabilität (z. B. Eigenkapitalrentabilität) ist die Messgröße für den finanziellen Erfolg. Sie zeigt in Prozent an, wie stark sich das in das Unternehmen investierte Kapital innerhalb eines Jahres verzinst hat."
+        }
+      ],
+      "hint": "Rentabilität misst die Verzinsung des eingesetzten Kapitals.",
+      "youtubeQuery": "Rentabilitaet Definition Eigenkapitalrentabilitaet",
+      "topic": "Betriebswirtschaftliche Grundlagen"
+    },
+    {
+      "id": "mr_054",
+      "question": "Sie erklären dem Auszubildenden zudem, welche Funktion/Aufgabe dem „Break-Even-Point“ im Controlling zukommt. Geben Sie diese an!",
+      "answerOptions": [
+        {
+          "text": "Der Break-Even-Point gibt den Zielpunkt für die Kalkulation des Angebotspreises an.",
+          "isCorrect": false,
+          "rationale": "Der Break-Even-Point ist keine direkte Preisfestlegung."
+        },
+        {
+          "text": "Der Break-Even-Point stellt den Punkt dar, ab wann ein Artikel Verluste macht.",
+          "isCorrect": false,
+          "rationale": "Am Break-Even-Punkt ist das Ergebnis null, nicht negativ."
+        },
+        {
+          "text": "Der Break-Even-Point stellt den Punkt dar, ab wann alle variablen Kosten eines Artikels gedeckt sind.",
+          "isCorrect": false,
+          "rationale": "Es müssen sowohl fixe als auch variable Kosten gedeckt sein."
+        },
+        {
+          "text": "Der Break-Even-Point stellt den Punkt dar, ab wann alle fixen Kosten eines Artikels gedeckt sind.",
+          "isCorrect": false,
+          "rationale": "Nur Fixkosten zu decken reicht nicht für Break-Even."
+        },
+        {
+          "text": "Der Break-Even-Point stellt den Punkt dar, ab wann alle Kosten eines Artikels gedeckt sind.",
+          "isCorrect": true,
+          "rationale": "Der Break-Even-Point (die Gewinnschwelle) ist exakt der Punkt (die Absatzmenge), an dem die generierten Erlöse exakt so hoch sind wie die gesamten Kosten (Fixkosten + variable Kosten). Ab jedem weiteren verkauften Stück macht das Unternehmen Gewinn."
+        }
+      ],
+      "hint": "Break-Even = Erlöse = Gesamtkosten.",
+      "youtubeQuery": "Break Even Point Gewinnschwelle erklaert",
+      "topic": "Betriebswirtschaftliche Grundlagen"
     }
   ]
 }
