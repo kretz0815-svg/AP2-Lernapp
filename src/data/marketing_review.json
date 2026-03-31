@@ -2402,6 +2402,278 @@
       "hint": "Liquidität 1. Grades = flüssige Mittel / kurzfristige Verbindlichkeiten × 100.",
       "youtubeQuery": "Liquidität 1 Grades Barliquidität Kennzahlen Bilanzanalyse",
       "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_074",
+      "question": "Unter Benutzerfreundlichkeit (Usability) versteht man die vom Kunden empfundene Nutzerqualit\u00e4t. Die \u201eUrban-Kicks GmbH\u201c m\u00f6chte ihren Warenkorb optimieren. Geben Sie an, worauf Sie folglich bei der Gestaltung der Benutzeroberfl\u00e4che im Checkout besonders achten m\u00fcssen!",
+      "answerOptions": [
+        {
+          "text": "Jedes einzelne Produkt im Warenkorb sollte immer mit mindestens f\u00fcnf Abbildungen dargestellt werden.",
+          "isCorrect": false,
+          "rationale": "Zu viele Abbildungen im Warenkorb lenken vom Kaufabschluss ab und verlangsamen die Seite unn\u00f6tig."
+        },
+        {
+          "text": "Die Produktbeschreibung im Warenkorb sollte m\u00f6glichst umfangreich und detailliert gestaltet sein, damit der Kunde bestens \u00fcber die ausgew\u00e4hlten Produkte informiert ist.",
+          "isCorrect": false,
+          "rationale": "Umfangreiche Produktbeschreibungen geh\u00f6ren auf die Produktdetailseite, nicht in den Checkout. Im Warenkorb f\u00fchren sie zu Un\u00fcbersichtlichkeit."
+        },
+        {
+          "text": "Die Kosten aller im Warenkorb aufgelisteten Produkte sollten immer detailliert einzeln bei jedem Produkt in brutto und netto ausgewiesen werden, zuz\u00fcglich eventuell gew\u00e4hrter Rabatte, jedoch ohne etwaige Versandkosten.",
+          "isCorrect": false,
+          "rationale": "Versandkosten m\u00fcssen im Checkout transparent dargestellt werden. Das Fehlen dieser Information ist ein h\u00e4ufiger Grund f\u00fcr Kaufabbr\u00fcche."
+        },
+        {
+          "text": "Bei der Checkout-Seite sollten im Warenkorb lediglich noch die Produktnamen und die Versandkosten dargestellt sein, da alle weiteren Informationen bereits auf den vorherigen Seiten enthalten sind.",
+          "isCorrect": false,
+          "rationale": "Zu wenig Information (z.B. fehlende Preise oder Mengen) verunsichert den Kunden und ist nicht benutzerfreundlich."
+        },
+        {
+          "text": "Die Benutzeroberfl\u00e4che im Checkout sollte im Warenkorb alle f\u00fcr den Kaufabschluss erforderlichen Daten \u00fcbersichtlich erfassen und dem Kunden somit in wenigen Schritten den Kaufabschluss erm\u00f6glichen.",
+          "isCorrect": true,
+          "rationale": "Richtig: Ein guter Checkout muss reibungslos und \u00fcbersichtlich funktionieren. Alle relevanten kaufm\u00e4nnischen Daten (inklusive Versandkosten) m\u00fcssen auf einen Blick erfassbar sein, um Kaufabbr\u00fcche zu minimieren."
+        }
+      ],
+      "hint": "Der Checkout soll \u00fcbersichtlich sein und den Kaufabschluss in wenigen Schritten erm\u00f6glichen.",
+      "youtubeQuery": "Usability Checkout Warenkorb Benutzerfreundlichkeit Online-Shop",
+      "topic": "Usability & Sortimentspolitik"
+    },
+    {
+      "id": "mr_075",
+      "question": "Ein Mitarbeiter merkt an, dass die Absatzzahlen der Kfz-Dachzelte bei der \u201eEco-Camp UG\u201c insgesamt gering sind und gleichzeitig die Lagerkosten sowie die Kapitalbindung hoch ausfallen. Er regt an, das Sortiment zu verschlanken und diese Zelte komplett auszulisten. Pr\u00fcfen Sie, welches Argument f\u00fcr die vorgeschlagene Sortimentsbereinigung (Eliminierung) spricht!",
+      "answerOptions": [
+        {
+          "text": "Die Kunden der Eco-Camp UG erwarten Kfz-Dachzelte im Sortiment.",
+          "isCorrect": false,
+          "rationale": "Dieses Argument spricht f\u00fcr den Verbleib im Sortiment, nicht f\u00fcr die Eliminierung."
+        },
+        {
+          "text": "K\u00e4ufer von Kfz-Dachzelten k\u00f6nnen der Eco-Camp UG Ums\u00e4tze durch Zusatzverk\u00e4ufe bringen.",
+          "isCorrect": false,
+          "rationale": "Cross-Selling-Potenzial ist ein Argument f\u00fcr den Verbleib im Sortiment."
+        },
+        {
+          "text": "Die Eco-Camp UG kann ihre Stellung als Vollsortimenter gegen\u00fcber dem Wettbewerb st\u00e4rken.",
+          "isCorrect": false,
+          "rationale": "Sortimentsbreite als Wettbewerbsvorteil spricht f\u00fcr den Verbleib, nicht f\u00fcr die Eliminierung."
+        },
+        {
+          "text": "Die Eco-Camp UG verbreitert ihr Sortiment durch die Kfz-Dachzelte.",
+          "isCorrect": false,
+          "rationale": "Eine Sortimentsverbreiterung ist ein strategischer Vorteil und spricht gegen die Eliminierung."
+        },
+        {
+          "text": "Kfz-Dachzelte haben einen hohen Beratungsbedarf und verursachen hohe Transportkosten.",
+          "isCorrect": true,
+          "rationale": "Richtig: Hoher Beratungsaufwand und hohe Logistikkosten bei gleichzeitig geringem Absatz sind ein stichhaltiges Argument f\u00fcr die Sortimentsbereinigung (Eliminierung)."
+        }
+      ],
+      "hint": "Nur eines der Argumente spricht f\u00fcr die Eliminierung \u2013 alle anderen f\u00fcr den Verbleib im Sortiment.",
+      "youtubeQuery": "Sortimentsbereinigung Eliminierung Sortimentspolitik Argumente",
+      "topic": "Usability & Sortimentspolitik"
+    },
+    {
+      "id": "mr_076",
+      "question": "Die \u201eTrail-Blazer AG\u201c plant eine neue E-Mail-Kampagne. Pr\u00fcfen Sie, welche rechtliche Darstellung zum Newsletter-Marketing korrekt ist!",
+      "answerOptions": [
+        {
+          "text": "Der H\u00e4ndler ist verpflichtet, mit der Anmeldung zum E-Mail-Newsletter Name und Adresse des Kunden abzufragen.",
+          "isCorrect": false,
+          "rationale": "F\u00fcr die Newsletter-Anmeldung ist nur die E-Mail-Adresse zwingend erforderlich. Weitere Daten d\u00fcrfen nicht verpflichtend abgefragt werden (Datensparsamkeit nach DSGVO)."
+        },
+        {
+          "text": "Eine Einwilligung der Empf\u00e4nger ist bei Werbung mit \u00e4hnlichen Produkten an aktive Bestandskunden per E-Mail-Newsletter nicht zwingend erforderlich.",
+          "isCorrect": true,
+          "rationale": "Richtig: Nach \u00a7 7 Abs. 3 UWG (Bestandskundenausnahme) darf ein Unternehmen einem bestehenden Kunden Werbung f\u00fcr \u00e4hnliche eigene Produkte per E-Mail schicken, solange der Kunde dem nicht widersprochen hat."
+        },
+        {
+          "text": "Die Datenschutzgrundverordnung DSGVO hat im Hinblick auf die Einwilligung Vorrang vor den Regelungen des UWG.",
+          "isCorrect": false,
+          "rationale": "DSGVO und UWG greifen parallel. Das UWG enth\u00e4lt f\u00fcr den E-Mail-Versand an Bestandskunden eine eigene Ausnahme."
+        },
+        {
+          "text": "Im Checkout darf die Werbeeinwilligung per H\u00e4kchen vorausgew\u00e4hlt sein.",
+          "isCorrect": false,
+          "rationale": "Eine vorausgew\u00e4hlte Checkbox (Opt-Out) ist nach DSGVO und UWG nicht zul\u00e4ssig. Es muss eine aktive Einwilligung (Opt-In) erfolgen."
+        },
+        {
+          "text": "Wenn der Interessent aktiv ein H\u00e4kchen gesetzt hat, entf\u00e4llt der Versand einer Anmeldebest\u00e4tigung an die eingegebene E-Mail-Adresse.",
+          "isCorrect": false,
+          "rationale": "Das Double-Opt-In-Verfahren (Best\u00e4tigungs-E-Mail) ist in Deutschland Standard und juristisch empfohlen, um die Einwilligung nachweisen zu k\u00f6nnen."
+        }
+      ],
+      "hint": "Es gibt eine gesetzliche Ausnahme f\u00fcr Werbung an Bestandskunden (\u00a7 7 Abs. 3 UWG).",
+      "youtubeQuery": "Newsletter Marketing Bestandskundenausnahme UWG DSGVO Opt-In",
+      "topic": "Marketing & Werbeplanung"
+    },
+    {
+      "id": "mr_077",
+      "question": "Im Rahmen der Kampagnenplanung erstellen Sie f\u00fcr die \u201eNext-Gen Retail GmbH\u201c eine professionelle Werbeplanung. Jedem Element der Werbeplanung (z. B. Werbeobjekt, Streukreis) liegt eine klassische Leitfrage zugrunde. Welcher Leitfrage ordnen Sie das Element \u201eWerbemittel\u201c fachlich korrekt zu?",
+      "answerOptions": [
+        {
+          "text": "Was soll erreicht werden?",
+          "isCorrect": false,
+          "rationale": "Diese Leitfrage geh\u00f6rt zum Element \u201eWerbeziel\u201c."
+        },
+        {
+          "text": "Wof\u00fcr soll geworben werden?",
+          "isCorrect": false,
+          "rationale": "Diese Leitfrage geh\u00f6rt zum Element \u201eWerbeobjekt\u201c."
+        },
+        {
+          "text": "Wer soll erreicht werden?",
+          "isCorrect": false,
+          "rationale": "Diese Leitfrage geh\u00f6rt zum Element \u201eStreukreis\u201c (Zielgruppe)."
+        },
+        {
+          "text": "Mit welchen Medien wird geworben?",
+          "isCorrect": false,
+          "rationale": "Diese Leitfrage geh\u00f6rt zum Element \u201eWerbetr\u00e4ger\u201c."
+        },
+        {
+          "text": "Womit wird geworben?",
+          "isCorrect": true,
+          "rationale": "Richtig: Das Werbemittel beantwortet die Frage \u201eWomit wird geworben?\u201c (z.B. mit einem Banner, einem Video, einem Flyer). Die anderen Leitfragen geh\u00f6ren zu: Werbeziel (Was?), Werbeobjekt (Wof\u00fcr?), Streukreis (Wer?) und Werbetr\u00e4ger (Mit welchen Medien?)."
+        }
+      ],
+      "hint": "Werbemittel = das konkrete Werkzeug (Banner, Video, Flyer). Werbetr\u00e4ger = das Medium (Website, TV, Zeitung).",
+      "youtubeQuery": "Werbeplanung Elemente Werbemittel Werbetr\u00e4ger Leitfragen",
+      "topic": "Marketing & Werbeplanung"
+    },
+    {
+      "id": "mr_078",
+      "question": "Sie \u00fcberlegen auch die M\u00f6glichkeit, Bannerwerbung f\u00fcr die \u201eVanguard-Style UG\u201c einzusetzen. Pr\u00fcfen Sie, bei welcher Beschreibung es sich konkret um das Format eines \u201eSuperbanners\u201c (oft auch Leaderboard genannt) handelt!",
+      "answerOptions": [
+        {
+          "text": "Nutzt die gesamte Seitenbreite einer Website und bietet dadurch viel Raum f\u00fcr eine kreative Umsetzung der Werbebotschaft.",
+          "isCorrect": true,
+          "rationale": "Richtig: Ein Superbanner (Leaderboard) platziert sich horizontal \u00fcber die gesamte Breite der Website, meist direkt oben im Kopfbereich, und bietet maximalen Raum f\u00fcr die Werbebotschaft."
+        },
+        {
+          "text": "Banner, die besonders hoch sind und meist links oder rechts am Rand der Website angebracht sind.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt das Format \u201eSkyscraper\u201c (ein vertikales Hochformat am Seitenrand)."
+        },
+        {
+          "text": "Werden direkt im redaktionellen Umfeld der Websites platziert (hohe Aufmerksamkeit).",
+          "isCorrect": false,
+          "rationale": "Das beschreibt \u201eContent Ads\u201c oder \u201eNative Advertising\u201c, nicht speziell das Superbanner-Format."
+        },
+        {
+          "text": "Werbung, die sich mit dem eigentlichen Inhalt der Website verbindet, sodass der Kunde die Werbung nicht immer sofort bemerkt.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt \u201eNative Advertising\u201c \u2013 Werbung, die sich nahtlos in den Content einf\u00fcgt."
+        },
+        {
+          "text": "Hierbei wird das Banner selbst erst aktiv, wenn ein Nutzer auf einer Website mit seiner Maus \u00fcber das Banner scrollt.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt ein \u201eMouse-Over-Banner\u201c oder \u201eExpandable Banner\u201c, nicht das Superbanner-Format."
+        }
+      ],
+      "hint": "Der Superbanner (Leaderboard) ist das breite, horizontale Werbebanner ganz oben auf der Seite.",
+      "youtubeQuery": "Superbanner Leaderboard Display Werbung Bannerformate",
+      "topic": "Marketing & Werbeplanung"
+    },
+    {
+      "id": "mr_079",
+      "question": "Sie rechnen am Markt f\u00fcr Fitnesstrainer mit starker Konkurrenz und hartem Preisdruck. Pr\u00fcfen Sie, welche Darstellung zur kurzfristigen Preisuntergrenze in diesem Zusammenhang zutreffend ist!",
+      "answerOptions": [
+        {
+          "text": "Die kurzfristige Preisuntergrenze tr\u00e4gt zur Deckung der fixen Kosten bei.",
+          "isCorrect": false,
+          "rationale": "Die kurzfristige Preisuntergrenze deckt nur die variablen Kosten. Die Fixkosten werden dabei bewusst nicht gedeckt."
+        },
+        {
+          "text": "Die kurzfristige Preisuntergrenze errechnet sich durch Abzug der variablen Kosten von der Absatzmenge.",
+          "isCorrect": false,
+          "rationale": "Das ist keine korrekte Formel. Die kurzfristige Preisuntergrenze entspricht den variablen St\u00fcckkosten."
+        },
+        {
+          "text": "Die kurzfristige Preisuntergrenze deckt nur die variablen Kosten im Unternehmen ab.",
+          "isCorrect": true,
+          "rationale": "Richtig: Die kurzfristige (absolute) Preisuntergrenze ist erreicht, wenn der Verkaufspreis gerade noch die variablen Kosten (z.B. den reinen Wareneinkaufspreis) abdeckt. Die Fixkosten werden hierbei vor\u00fcbergehend nicht gedeckt."
+        },
+        {
+          "text": "Die kurzfristige Preisuntergrenze deckt s\u00e4mtliche im Unternehmen entstandenen Kosten ab.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt eher die langfristige Preisuntergrenze, bei der sowohl variable als auch fixe Kosten gedeckt werden."
+        },
+        {
+          "text": "Die kurzfristige Preisuntergrenze spielt in der Sortimentspolitik keine Rolle.",
+          "isCorrect": false,
+          "rationale": "Die Preisuntergrenze ist ein wichtiges Instrument der Sortiments- und Preispolitik, insbesondere bei Verdr\u00e4ngungswettbewerb."
+        }
+      ],
+      "hint": "Kurzfristige Preisuntergrenze = variable St\u00fcckkosten. Fixkosten werden dabei nicht gedeckt.",
+      "youtubeQuery": "Kurzfristige Preisuntergrenze variable Kosten einfach erkl\u00e4rt",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_080",
+      "question": "Im Controlling der \u201eSmart-Gear GmbH\u201c wird neben dem Deckungsbeitrag mit weiteren Key Performance Indicators (KPIs) bzw. Kennzahlen gearbeitet. Geben Sie an, welcher Sachverhalt zu diesen Kennzahlen zutreffend ist!",
+      "answerOptions": [
+        {
+          "text": "Kennzahlen werden ausschlie\u00dflich in der Produktion verwendet.",
+          "isCorrect": false,
+          "rationale": "Kennzahlen werden in allen Unternehmensbereichen eingesetzt, nicht nur in der Produktion."
+        },
+        {
+          "text": "Kennzahlen werden nur im Marketing verwendet.",
+          "isCorrect": false,
+          "rationale": "Marketing nutzt KPIs, aber sie sind nicht auf diesen Bereich beschr\u00e4nkt."
+        },
+        {
+          "text": "Es werden absolute, relative und latente Kennzahlen unterschieden.",
+          "isCorrect": false,
+          "rationale": "Die g\u00e4ngige Unterscheidung ist in absolute Kennzahlen (z.B. Umsatz in Euro) und relative Kennzahlen (z.B. Prozents\u00e4tze). \u201eLatente Kennzahlen\u201c ist kein Fachbegriff."
+        },
+        {
+          "text": "Kennzahlen werden nur in Gro\u00dfkonzernen ausgewertet.",
+          "isCorrect": false,
+          "rationale": "Auch KMU und Einzelunternehmer nutzen Kennzahlen f\u00fcr die Unternehmenssteuerung."
+        },
+        {
+          "text": "Kennzahlen dienen der Steuerung des Unternehmens im Rahmen des Controllings.",
+          "isCorrect": true,
+          "rationale": "Richtig: KPIs (Leistungskennzahlen) sind das Herzst\u00fcck des Controllings. Sie dienen dem Management dazu, den aktuellen Erfolg des Unternehmens in Zahlen zu messen, Abweichungen zu erkennen und das Unternehmen zielgerichtet zu steuern."
+        }
+      ],
+      "hint": "KPIs sind das zentrale Werkzeug des Controllings zur Unternehmenssteuerung.",
+      "youtubeQuery": "Key Performance Indicators KPI Controlling Unternehmenssteuerung",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_081",
+      "question": "Nach Auswertung der Kostensituation hat das Controlling die Anzahl der Retouren als einen stark zu vermindernden Kostenfaktor im Unternehmen identifiziert. Pr\u00fcfen Sie, welche Darstellung zur Berechnung der Retourenquote betriebswirtschaftlich korrekt ist!",
+      "answerOptions": [
+        {
+          "text": "Die Retourenquote wird berechnet, indem die Anzahl der Retouren durch die Anzahl der Gesamtverk\u00e4ufe dividiert wird.",
+          "isCorrect": true,
+          "rationale": "Richtig: Die klassische Retourenquote berechnet man, indem man die Anzahl der zur\u00fcckgesendeten Artikel (Retouren) durch die Gesamtzahl der versendeten bzw. verkauften Artikel teilt (und anschlie\u00dfend mit 100 multipliziert, um einen Prozentwert zu erhalten)."
+        },
+        {
+          "text": "Die Retourenquote kann nur in Geldeinheiten berechnet werden.",
+          "isCorrect": false,
+          "rationale": "Die Retourenquote kann sowohl mengenm\u00e4\u00dfig (St\u00fcckzahl) als auch wertm\u00e4\u00dfig (Euro) berechnet werden."
+        },
+        {
+          "text": "Die Retourenquote wird berechnet, indem die Anzahl der Gesamtverk\u00e4ufe durch die Anzahl der Retouren dividiert wird.",
+          "isCorrect": false,
+          "rationale": "Die Formel ist genau umgekehrt: Retouren / Gesamtverk\u00e4ufe, nicht Gesamtverk\u00e4ufe / Retouren."
+        },
+        {
+          "text": "Die Retourenquote kann nur gesch\u00e4tzt und nicht genauer berechnet werden.",
+          "isCorrect": false,
+          "rationale": "Die Retourenquote ist eine exakt berechenbare Kennzahl auf Basis realer Verkaufs- und Retourdaten."
+        },
+        {
+          "text": "Die Retourenquote kann nur auf den einzelnen Artikel hin berechnet werden.",
+          "isCorrect": false,
+          "rationale": "Die Retourenquote kann sowohl artikelbezogen als auch f\u00fcr das gesamte Sortiment, einzelne Kategorien oder Zeitr\u00e4ume berechnet werden."
+        }
+      ],
+      "hint": "Retourenquote = (Anzahl Retouren / Anzahl Gesamtverk\u00e4ufe) \u00d7 100.",
+      "youtubeQuery": "Retourenquote berechnen E-Commerce Formel",
+      "topic": "Rechnungswesen & Controlling"
     }
   ]
 }
