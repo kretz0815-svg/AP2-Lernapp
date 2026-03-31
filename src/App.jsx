@@ -2571,23 +2571,34 @@ ${input}`;
   if (appMode === 'marketing_review_setup') {
     return (
       <React.Suspense fallback={<div className="loading-overlay">Lade IHK Extras...</div>}>
-        <QuizSetup
-          selectedQuizTopic={'all'}
-          setSelectedQuizTopic={() => { }}
-          getDueQuizzesByTopic={getDueMarketingReviewByTopic}
-          getQuizTopicGroup={getQuizTopicGroup}
-          feynmanModeEnabled={feynmanModeEnabled}
-          setFeynmanModeEnabled={setFeynmanModeEnabled}
-          quizCountSelection={marketingReviewCountSelection}
-          setQuizCountSelection={setMarketingReviewCountSelection}
-          startQuiz={() => startMarketingReviewSession(marketingReviewCountSelection, 'all')}
-          setAppMode={setAppMode}
-          burgerMenuPortal={burgerMenuPortal}
-          title="Wieviele Fragen?"
-          description="Wähle die Anzahl fälliger Fragen in „IHK Extras“ und starte den Durchgang."
-          showTopicSelect={false}
-          backMode="dashboard"
-        />
+        <>
+          <QuizSetup
+            selectedQuizTopic={'all'}
+            setSelectedQuizTopic={() => { }}
+            getDueQuizzesByTopic={getDueMarketingReviewByTopic}
+            getQuizTopicGroup={getQuizTopicGroup}
+            feynmanModeEnabled={feynmanModeEnabled}
+            setFeynmanModeEnabled={setFeynmanModeEnabled}
+            quizCountSelection={marketingReviewCountSelection}
+            setQuizCountSelection={setMarketingReviewCountSelection}
+            startQuiz={() => startMarketingReviewSession(marketingReviewCountSelection, 'all')}
+            setAppMode={setAppMode}
+            burgerMenuPortal={burgerMenuPortal}
+            title="Wieviele Fragen?"
+            description="Wähle die Anzahl fälliger Fragen in „IHK Extras“ und starte den Durchgang."
+            showTopicSelect={false}
+            backMode="dashboard"
+            showResetProgressButton
+            onResetProgress={() => openResetModal(null, 'marketing_review')}
+          />
+          <ResetModal
+            isOpen={resetModalVisible}
+            onClose={() => setResetModalVisible(false)}
+            onConfirm={handleResetExecute}
+            title="IHK-Extras-Lernstand zurücksetzen?"
+            description="Dein Fortschritt in „IHK Extras“ wird gelöscht. Löse die Rechenaufgabe zur Bestätigung:"
+          />
+        </>
       </React.Suspense>
     );
   }

@@ -15,7 +15,9 @@ const QuizSetup = ({
   title = 'Wieviele Fragen?',
   description = 'Wähle deinen Themenblock innerhalb von „Wissen testen“ und dann die Anzahl fälliger Fragen.',
   showTopicSelect = true,
-  backMode = 'dashboard'
+  backMode = 'dashboard',
+  showResetProgressButton = false,
+  onResetProgress = null
 }) => {
   const dueByTopicMap = getDueQuizzesByTopic('all').reduce((acc, q) => {
     const groupedTopic = getQuizTopicGroup(q.topic);
@@ -113,6 +115,24 @@ const QuizSetup = ({
         >
           Los geht's &rarr;
         </button>
+        {showResetProgressButton && typeof onResetProgress === 'function' && (
+          <button
+            className="btn-secondary"
+            style={{
+              width: '100%',
+              marginTop: '0.7rem',
+              padding: '1rem',
+              fontSize: '0.98rem',
+              fontWeight: 700,
+              borderColor: 'rgba(239,68,68,0.45)',
+              background: 'rgba(239,68,68,0.12)',
+              color: '#fecaca'
+            }}
+            onClick={onResetProgress}
+          >
+            Lernstand zurücksetzen
+          </button>
+        )}
       </div>
     </div>
   );
