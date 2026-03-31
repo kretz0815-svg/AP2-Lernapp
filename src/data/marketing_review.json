@@ -551,6 +551,336 @@
       "hint": "Formel-Spickzettel: CTR = (Klicks / Impressionen) * 100.",
       "youtubeQuery": "Click Through Rate CTR berechnen",
       "topic": "KPIs"
+    },
+    {
+      "id": "mr_020",
+      "question": "Um das Nutzerverhalten auf ihren Websites besser zu verstehen, analysiert die „Urban-Kicks GmbH“ unter anderem die Customer-Journey, die Bounce-Rates und das Klickmuster der Besucher. Bei der Auswertung spielt die Bounce-Rate eine wichtige Rolle. Geben Sie an, wofür diese Kennzahl steht!",
+      "answerOptions": [
+        {
+          "text": "Die Bounce-Rate legt fest, welche Funktionen des Web-Shops dem Nutzer zugänglich gemacht werden.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt keine Web-Analytics-Kennzahl."
+        },
+        {
+          "text": "Die Bounce-Rate ist ein übliches erfolgsabhängiges Abrechnungsverfahren. Hierbei zahlt der Werbetreibende je Klick auf eine von ihm geschaltete Online-Werbung einen bestimmten Preis an den Seitenbetreiber.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt Cost per Click (CPC), nicht die Bounce-Rate."
+        },
+        {
+          "text": "Die Bounce-Rate beschreibt den Wert eines Kunden für die Urban-Kicks GmbH, bei dem nicht nur vergangene, sondern auch zukünftige Aktionen berücksichtigt werden.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt eher den Customer Lifetime Value (CLV)."
+        },
+        {
+          "text": "Die Bounce-Rate beschreibt, wie Investitionen in die individuelle Geschäftsbeziehung bzw. Kundenbetreuung getätigt werden, die sich im Verlaufe der Zeit durch potenziell höhere Kundeneinzahlungen exponentiell entwickeln.",
+          "isCorrect": false,
+          "rationale": "Das ist keine Definition der Bounce-Rate."
+        },
+        {
+          "text": "Die Bounce-Rate ist eine Kennzahl aus dem Bereich Web Analytics und beschreibt, wie viele Nutzer die Website der Urban-Kicks GmbH betreten und, ohne eine weitere (festgelegte) Aktion auszuführen, wieder verlassen.",
+          "isCorrect": true,
+          "rationale": "Die Bounce-Rate (Absprungrate) misst den Anteil der Besucher, die auf eine Website kommen und sie sofort wieder verlassen, ohne auf einen weiteren Link zu klicken oder eine andere Aktion auszuführen."
+        }
+      ],
+      "hint": "Eine Bounce ist eine Sitzung ohne weitere Interaktion nach dem Einstieg.",
+      "youtubeQuery": "Bounce Rate Definition Web Analytics einfach erklaert",
+      "topic": "Web-Analytics & Kennzahlen"
+    },
+    {
+      "id": "mr_021",
+      "question": "Zusammen mit Ihren Kollegen werten Sie das Web-Analytics-Dashboard aus. Das System zeigt für den aktuellen Monat eine durchschnittliche Besuchszeit von 00:01:47 Minuten und eine Absprungrate von 47,70 % an. Geben Sie an, was in diesem Kontext genau unter der Absprungrate verstanden wird!",
+      "answerOptions": [
+        {
+          "text": "Die Absprungrate ist der Anteil der Besucher, die nichts bestellt haben.",
+          "isCorrect": false,
+          "rationale": "Nicht jede nicht abgeschlossene Bestellung ist ein Bounce."
+        },
+        {
+          "text": "Die Absprungrate ist der Anteil der Besucher, die nichts in den Warenkorb gelegt haben.",
+          "isCorrect": false,
+          "rationale": "Das ist nicht die technische Definition einer Absprungrate."
+        },
+        {
+          "text": "Die Absprungrate ist der Anteil der Besucher, die lediglich eine Minute auf der Webseite waren.",
+          "isCorrect": false,
+          "rationale": "Die Dauer allein definiert keine Bounce-Session."
+        },
+        {
+          "text": "Die Absprungrate ist der Anteil der Besucher, die sich nur eine einzige Seite angeschaut und diese gleich wieder verlassen haben.",
+          "isCorrect": true,
+          "rationale": "Im Web-Controlling ist die Absprungrate exakt so definiert: Ein Nutzer ruft eine einzige Seite auf (Single-Page-Session) und verlässt den Shop danach wieder, ohne weiter zu klicken."
+        },
+        {
+          "text": "Die Absprungrate ist der Anteil der Besucher, die sich mehrere Seiten innerhalb von 30 Sekunden angeschaut haben.",
+          "isCorrect": false,
+          "rationale": "Mehrere Seitenaufrufe sind gerade kein Bounce."
+        }
+      ],
+      "hint": "Single-Page-Session ist das Schlüsselwort.",
+      "youtubeQuery": "Absprungrate Single Page Session Bedeutung",
+      "topic": "Web-Analytics & Kennzahlen"
+    },
+    {
+      "id": "mr_022",
+      "question": "In der gleichen Analytics-Übersicht fällt Ihnen unter anderem die \"Conversion Rate zu den Zielvorhaben\" auf. Was gibt diese Conversion Rate exakt an?",
+      "answerOptions": [
+        {
+          "text": "Diese Conversion Rate gibt den prozentualen Anteil der Besucher wieder, die irgendeine Handlung auf der Webseite getätigt (auf einen Link geklickt/ein Bild angeschaut) haben.",
+          "isCorrect": false,
+          "rationale": "Es geht nicht um irgendeine, sondern um eine definierte Zielhandlung."
+        },
+        {
+          "text": "Diese Conversion Rate gibt den prozentualen Anteil der Besucher wieder, die eine zuvor festgelegte Handlung auf der Webseite getätigt haben.",
+          "isCorrect": true,
+          "rationale": "Eine Conversion (Konversion) ist nicht zwingend nur ein Kauf. Es ist immer die Erreichung einer zuvor vom Unternehmen festgelegten Handlung (z. B. Kauf, Newsletter-Anmeldung, Download eines Katalogs)."
+        },
+        {
+          "text": "Diese Conversion Rate gibt den prozentualen Anteil der Besucher wieder, die nur eine Bestellung getätigt haben.",
+          "isCorrect": false,
+          "rationale": "Eine Bestellung kann ein Ziel sein, ist aber nicht die einzig mögliche Conversion."
+        },
+        {
+          "text": "Diese Conversion Rate gibt den prozentualen Anteil der Besucher wieder, die nur etwas in den Warenkorb gelegt haben.",
+          "isCorrect": false,
+          "rationale": "Das kann ein Ziel sein, ist aber nicht generell die Definition."
+        },
+        {
+          "text": "Diese Conversion Rate gibt den prozentualen Anteil der Besucher wieder, die Sie von einem Mitbewerber abgeworben haben.",
+          "isCorrect": false,
+          "rationale": "Das ist kein Standardverständnis der Conversion Rate."
+        }
+      ],
+      "hint": "Conversion = Erreichen eines vorher definierten Ziels.",
+      "youtubeQuery": "Conversion Rate Zielvorhaben Definition",
+      "topic": "Web-Analytics & Kennzahlen"
+    },
+    {
+      "id": "mr_023",
+      "question": "Neben qualitativen spielen auch quantitative Merkmale bei der Auswertung des Nutzerverhaltens eine wichtige Rolle. Prüfen Sie, in welcher Alternative der Unterschied zwischen qualitativen und quantitativen Merkmalen richtig beschrieben bzw. genannt ist!",
+      "answerOptions": [
+        {
+          "text": "Beispiele für quantitative Merkmale: Nutzerzufriedenheit, Nutzererfahrung.",
+          "isCorrect": false,
+          "rationale": "Das sind qualitative Merkmale."
+        },
+        {
+          "text": "Beispiele für qualitative Merkmale: Nutzerzufriedenheit, Nutzererfahrung.",
+          "isCorrect": true,
+          "rationale": "Qualitative Merkmale beschreiben Eigenschaften, Gefühle oder Zustände (wie Zufriedenheit oder Erfahrung). Quantitative Merkmale sind nackte, messbare Zahlen (wie Umsatz, Klickraten oder Absatz)."
+        },
+        {
+          "text": "Beispiele für qualitative Merkmale: Umsatz, Absatz.",
+          "isCorrect": false,
+          "rationale": "Umsatz und Absatz sind quantitative Merkmale."
+        },
+        {
+          "text": "Qualitative Merkmale sind immer sofort und eindeutig bestimmbar in Mengen und Werten.",
+          "isCorrect": false,
+          "rationale": "Das ist die Eigenschaft quantitativer, nicht qualitativer Merkmale."
+        },
+        {
+          "text": "Quantitative Merkmale sind nicht eindeutig bestimmbar und müssen zunächst in Qualitäten wie z. B. Menge und Wert transformiert werden.",
+          "isCorrect": false,
+          "rationale": "Genau umgekehrt: Quantitative Merkmale sind als Zahlen klar bestimmbar."
+        }
+      ],
+      "hint": "Qualitativ = Eigenschaften, quantitativ = messbare Zahlen.",
+      "youtubeQuery": "qualitative quantitative Merkmale Unterschied",
+      "topic": "Zielgruppen & Customer Experience"
+    },
+    {
+      "id": "mr_024",
+      "question": "Ihr Ausbilder erklärt Ihnen, dass die Analyse des Kundenverhaltens ein wichtiges Instrument im Customer-Experience-Management ist. Welche Erläuterung spiegelt den Customer-Experience-Managementansatz (Kundenerfahrungsmanagement) richtig wider?",
+      "answerOptions": [
+        {
+          "text": "Das Customer-Experience-Management erfolgt als Alternative zum Web-Shop rein über das Telefon. Die Mitarbeiter beraten die Kunden passgenau und schlagen ihnen individuelle Angebote vor.",
+          "isCorrect": false,
+          "rationale": "CXM umfasst alle relevanten Touchpoints, nicht nur Telefonberatung."
+        },
+        {
+          "text": "Beim Customer-Experience-Management geht es nur darum, welche Produkte häufig zusammen gekauft werden, um ein standardisiertes Beschaffungswesen zu entwickeln.",
+          "isCorrect": false,
+          "rationale": "Das ist zu eng und beschreibt eher Teile der Warenkorbanalyse."
+        },
+        {
+          "text": "Als Management-Ansatz geht es beim Customer-Experience-Management um die Schaffung positiver Kundenerlebnisse zum Aufbau einer langfristigen und emotionalen Bindung zwischen Kunden/Nutzer und dem Unternehmen.",
+          "isCorrect": true,
+          "rationale": "Customer-Experience-Management (CXM) zielt darauf ab, an jedem Kontaktpunkt (Touchpoint) ein so positives Erlebnis zu schaffen, dass eine emotionale und langfristige Bindung zwischen dem Kunden und der Marke entsteht."
+        },
+        {
+          "text": "Das Customer-Experience-Management fördert aufgrund des demographischen Wandels barrierefreie Produkte.",
+          "isCorrect": false,
+          "rationale": "Barrierefreiheit kann Teilaspekt sein, ist aber nicht die zentrale Definition von CXM."
+        },
+        {
+          "text": "Das Customer-Experience-Management ist eine Weiterentwicklung des Managements der Vielfalt und findet seinen Schwerpunkt rein in der Produktpolitik.",
+          "isCorrect": false,
+          "rationale": "CXM ist kein rein produktpolitischer Ansatz."
+        }
+      ],
+      "hint": "CXM denkt in Touchpoints und langfristiger Bindung.",
+      "youtubeQuery": "Customer Experience Management Touchpoints emotionale Bindung",
+      "topic": "Zielgruppen & Customer Experience"
+    },
+    {
+      "id": "mr_025",
+      "question": "Um das Angebot erfolgreich nach Kundenbedürfnissen auszurichten, werden Kunden anhand verschiedener Segmentierungsebenen analysiert. Welche der folgenden Antworten ordnet die vier Merkmale \"Alter\", \"Wünsche\", \"Region\" und \"Beruf\" in der exakten Reihenfolge den Segmentierungsebenen (1. Demografisch, 2. Psychografisch, 3. Geografisch, 4. Sozioökonomisch) korrekt zu?",
+      "answerOptions": [
+        {
+          "text": "1. Beruf, 2. Region, 3. Wünsche, 4. Alter",
+          "isCorrect": false,
+          "rationale": "Diese Zuordnung entspricht nicht den Segmentierungsebenen."
+        },
+        {
+          "text": "1. Alter, 2. Wünsche, 3. Region, 4. Beruf",
+          "isCorrect": true,
+          "rationale": "Demografisch = Alter (Alter, Geschlecht, Familienstand). Psychografisch = Wünsche (Lebensstil, Werte, Vorlieben). Geografisch = Region (Wohnort, Land, Klima). Sozioökonomisch = Beruf (Bildung, Einkommen, Beruf)."
+        },
+        {
+          "text": "1. Wünsche, 2. Alter, 3. Beruf, 4. Region",
+          "isCorrect": false,
+          "rationale": "Psychografisch und demografisch sind hier vertauscht, ebenso geografisch und sozioökonomisch."
+        },
+        {
+          "text": "1. Region, 2. Beruf, 3. Alter, 4. Wünsche",
+          "isCorrect": false,
+          "rationale": "Diese Zuordnung passt nicht zu den vier geforderten Ebenen."
+        }
+      ],
+      "hint": "Demografisch zuerst, dann psychografisch, geografisch, sozioökonomisch.",
+      "youtubeQuery": "Kundensegmentierung demografisch psychografisch geografisch soziooekonomisch",
+      "topic": "Zielgruppen & Customer Experience"
+    },
+    {
+      "id": "mr_026",
+      "question": "Mit einem Teilsortiment wird die „Eco-Wear AG“ auf einem großen, wettbewerbsintensiven Marktplatz aktiv. Wegen der guten Einkaufskonditionen strebt Ihr Unternehmen eine Preisführer-Position an. Prüfen Sie, welcher Sachverhalt zum \"Dynamic Pricing\" richtig ist!",
+      "answerOptions": [
+        {
+          "text": "Beim Dynamic Pricing bietet der Kunde im Rahmen einer Auktion auf ein Produkt.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt ein Auktionsverfahren, nicht Dynamic Pricing."
+        },
+        {
+          "text": "Dynamic Pricing ist die dynamische Anpassung des Verkaufspreises als Reaktion auf Veränderungen im Markt.",
+          "isCorrect": true,
+          "rationale": "Dynamic Pricing (dynamische Preisgestaltung) bedeutet, dass Preise nicht fest sind, sondern algorithmisch und vollautomatisch an Marktveränderungen (wie Konkurrenzpreise, Tageszeit oder aktuelle Nachfrage) angepasst werden."
+        },
+        {
+          "text": "Dynamic Pricing ist ein echtzeitgesteuertes Zahlverfahren.",
+          "isCorrect": false,
+          "rationale": "Es geht um Preissteuerung, nicht um Zahlungsabwicklung."
+        },
+        {
+          "text": "Beim Dynamic Pricing ermittelt der Händler den Angebotspreis regelmäßig auf Grundlage des abnehmenden Grenznutzens.",
+          "isCorrect": false,
+          "rationale": "Der Begriff Grenznutzen ist hier nicht die typische Definition im E-Commerce-Kontext."
+        },
+        {
+          "text": "Dynamic Pricing beschreibt die Preis-Elastizität der Kunden.",
+          "isCorrect": false,
+          "rationale": "Preiselastizität ist ein Nachfragekonzept, nicht die Methode selbst."
+        }
+      ],
+      "hint": "Preise reagieren dynamisch auf Marktbedingungen.",
+      "youtubeQuery": "Dynamic Pricing E Commerce einfach erklaert",
+      "topic": "Marketing & Preisstrategien"
+    },
+    {
+      "id": "mr_027",
+      "question": "Ein sehr bekanntes Werbewirkungsprinzip im Marketing ist das Stufenmodell AIDA. Geben Sie die englischen Begriffe an, die fachlich korrekt hinter dieser Abkürzung stehen!",
+      "answerOptions": [
+        {
+          "text": "Affect, Interest, Desire und Action",
+          "isCorrect": false,
+          "rationale": "AIDA beginnt nicht mit Affect."
+        },
+        {
+          "text": "Attention, Interest, Desire und Action",
+          "isCorrect": true,
+          "rationale": "Das AIDA-Modell beschreibt die 4 Phasen der Werbewirkung: Attention (Aufmerksamkeit wecken), Interest (Interesse wecken), Desire (Kaufwunsch auslösen) und Action (Handlung/Kauf ausführen)."
+        },
+        {
+          "text": "Attention, Interest, Defining und Action",
+          "isCorrect": false,
+          "rationale": "Das dritte Element lautet Desire, nicht Defining."
+        },
+        {
+          "text": "Advertising, Interest, Desire und Action",
+          "isCorrect": false,
+          "rationale": "Das erste Element lautet Attention, nicht Advertising."
+        },
+        {
+          "text": "Attention, Infect, Desire und Action",
+          "isCorrect": false,
+          "rationale": "Infect gehört nicht zum AIDA-Modell."
+        }
+      ],
+      "hint": "AIDA: Aufmerksamkeit, Interesse, Wunsch, Handlung.",
+      "youtubeQuery": "AIDA Modell Attention Interest Desire Action",
+      "topic": "Marketing & Preisstrategien"
+    },
+    {
+      "id": "mr_028",
+      "question": "Der CPM (Cost per Mille / auch TKP genannt) ist ein Modell, mit dem der Preis für Werbemittel errechnet werden kann. Geben Sie an, wie dieser mathematisch ermittelt wird!",
+      "answerOptions": [
+        {
+          "text": "Der CPM wird berechnet, indem man die Werbekosten durch die Gesamtzahl der Aufrufe teilt und anschließend das Ergebnis mit 1000 multipliziert.",
+          "isCorrect": true,
+          "rationale": "Der Cost per Mille (Tausenderkontaktpreis) gibt an, wie viel es kostet, 1.000 Sichtkontakte (Impressions) mit einer Werbeanzeige zu generieren. Formel: (Kosten / Impressions) * 1.000."
+        },
+        {
+          "text": "Der CPM errechnet sich aus der Differenz zwischen den erzielten Erlösen und den variablen Kosten.",
+          "isCorrect": false,
+          "rationale": "Das ist keine CPM-Formel."
+        },
+        {
+          "text": "Der CPM errechnet sich aus den Ausgaben für Werbung aller Leads beziehungsweise Anzahl aller Leads geteilt durch 1000.",
+          "isCorrect": false,
+          "rationale": "Das ist keine korrekte Herleitung für CPM/TKP."
+        },
+        {
+          "text": "Der CPM errechnet sich aus den durchschnittlichen Kosten je erreichter Reaktion mal 1000, z. B. einer Bestellung oder eines abgeschlossenen Abonnements.",
+          "isCorrect": false,
+          "rationale": "Das wäre näher an Cost per Action, nicht an Impressions-basiertem CPM."
+        }
+      ],
+      "hint": "CPM/TKP bezieht sich auf 1.000 Impressionen.",
+      "youtubeQuery": "CPM TKP Formel Kosten Impressionen",
+      "topic": "Marketing & Preisstrategien"
+    },
+    {
+      "id": "mr_029",
+      "question": "Sie analysieren ein Kuchendiagramm der „Top-Channels“ Ihres Webshops. Die Zugriffe teilen sich auf in Direct, Paid Search, Referral, Social und Organic Search. Ihr Abteilungsleiter bittet Sie um Empfehlungen, wie Sie den Anteil der „Organic Search“-Quelle (organische Suche) für Ihre Webseite erhöhen können. Geben Sie die korrekte Empfehlung!",
+      "answerOptions": [
+        {
+          "text": "Sie schalten bezahlte Anzeigen bei Google und Bing.",
+          "isCorrect": false,
+          "rationale": "Das fällt unter Paid Search (SEA), nicht Organic Search."
+        },
+        {
+          "text": "Sie schalten bezahlte Anzeigen in den Social-Media-Kanälen des Unternehmens.",
+          "isCorrect": false,
+          "rationale": "Das erhöht Social/Paid-Traffic, nicht organische Suchzugriffe."
+        },
+        {
+          "text": "Sie erzielen mit Search Engine Optimization (SEO)-Maßnahmen bessere Rankings bei den Suchmaschinen.",
+          "isCorrect": true,
+          "rationale": "Organic Search bedeutet, dass Nutzer über unbezahlte (organische) Suchergebnisse bei Suchmaschinen auf die Seite kommen. Um diesen Bereich zu pushen, nutzt man Search Engine Optimization (SEO), also die klassische Suchmaschinenoptimierung. Bezahlte Anzeigen fallen unter Paid Search (SEA)."
+        },
+        {
+          "text": "Sie schicken per E-Mail allen Ihren Bestandskunden einen direkten Link auf Ihre Webseite.",
+          "isCorrect": false,
+          "rationale": "Das wäre Direct/Email-Traffic, nicht Organic Search."
+        },
+        {
+          "text": "Sie erstellen einen QR-Code, den Sie auf allen Katalogen abdrucken mit einem direkten Link auf Ihre Webseite.",
+          "isCorrect": false,
+          "rationale": "Das erzeugt direkten oder kampagnengetrackten Traffic, nicht organische Suche."
+        }
+      ],
+      "hint": "Organic Search wird über SEO gestärkt, nicht über Ads.",
+      "youtubeQuery": "Organic Search steigern SEO Massnahmen",
+      "topic": "Marketing & Preisstrategien"
     }
   ]
 }
