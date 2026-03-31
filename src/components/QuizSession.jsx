@@ -40,7 +40,8 @@ const QuizSession = ({
 }) => {
   const [internalQuizzes] = useState(initialSessionPool);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  // Umbau: Mehrfachauswahl unterstützen
+  const [selectedAnswers, setSelectedAnswers] = useState([]); // Array von Indizes
   const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
   const [feynmanInput, setFeynmanInput] = useState('');
   const [feynmanLoading, setFeynmanLoading] = useState(false);
@@ -51,12 +52,12 @@ const QuizSession = ({
   const shuffledAnswersRef = useRef({});
 
   useEffect(() => {
-    // Reset state on index change (if handled externally, but here we handle it internally)
+    // Reset state on index change (if handled externally, aber hier intern)
     setFeynmanFeedback('');
     setFeynmanFeedbackLevel(null);
     setFeynmanInput('');
     setQuizExplanationRevealed(false);
-    setSelectedAnswer(null);
+    setSelectedAnswers([]);
   }, [currentQuizIndex]);
 
   if (!internalQuizzes || internalQuizzes.length === 0) {
@@ -107,42 +108,65 @@ const QuizSession = ({
   }
   const currentAnswers = shuffledAnswersRef.current[q.id];
 
-  const selectedOption = selectedAnswer !== null ? currentAnswers[selectedAnswer] : null;
-  const shouldGateExplanation = selectedAnswer !== null
-    && feynmanModeEnabled
-    && !!selectedOption?.isCorrect
-    && !quizExplanationRevealed;
-  const requireFeynmanCompletion = selectedAnswer !== null
-    && feynmanModeEnabled
-    && !!selectedOption?.isCorrect;
-  const canProceedToNextQuizQuestion = !requireFeynmanCompletion
-    || quizExplanationRevealed
-    || !!feynmanFeedback;
+  // Multiple-Choice-Erkennung: Mehr als eine richtige Antwort?
+  const correctIndices = currentAnswers.map((a, i) => a.isCorrect ? i : null).filter(i => i !== null);
+  const isMultipleChoice = correctIndices.length > 1;
+
+  // Für Single-Choice: selectedAnswers[0] als Index, für Multi: alle gewählten
+  const selectedOptions = selectedAnswers.map(idx => currentAnswers[idx]);
+  const allSelected = isMultipleChoice ? (selectedAnswers.length === correctIndices.length) : (selectedAnswers.length === 1);
+  const isSelectionCorrect = allSelected &&
+    correctIndices.length === selectedAnswers.length &&
+    correctIndices.every(idx => selectedAnswers.includes(idx));
+
+  const shouldGateExplanation = allSelected && feynmanModeEnabled && isSelectionCorrect && !quizExplanationRevealed;
+  const requireFeynmanCompletion = allSelected && feynmanModeEnabled && isSelectionCorrect;
+  const canProceedToNextQuizQuestion = !requireFeynmanCompletion || quizExplanationRevealed || !!feynmanFeedback;
   const remainingInSession = Math.max(internalQuizzes.length - currentQuizIndex, 0);
 
   const handleQuizAnswer = (idx) => {
-    if (selectedAnswer !== null) return;
-    const isCorrect = currentAnswers[idx].isCorrect;
-    setSelectedAnswer(idx);
-    setQuizScore(prev => ({ correct: prev.correct + (isCorrect ? 1 : 0), total: prev.total + 1 }));
+    if (allSelected) return; // Nach Auswertung keine weitere Auswahl
+    // Toggle Auswahl
+    setSelectedAnswers(prev => {
+      if (prev.includes(idx)) {
+        // Deselektieren
+        return prev.filter(i => i !== idx);
+      } else {
+        // Hinzufügen (maximal so viele wie richtige Antworten)
+        if (isMultipleChoice && prev.length < correctIndices.length) {
+          return [...prev, idx];
+        } else if (!isMultipleChoice && prev.length === 0) {
+          return [idx];
+        }
+        return prev;
+      }
+    });
+  };
+
+  // Auswertung nach vollständiger Auswahl
+  useEffect(() => {
+    if (!allSelected) return;
+    // Bewertung
     if (onLearningEvent) {
       onLearningEvent({
         mode: learningMode,
         questionId: q.id,
         questionText: q.question,
-        correct: isCorrect,
-        userAnswer: currentAnswers[idx].text,
-        expectedAnswer: q.answerOptions.find(o => o.isCorrect)?.text || '',
+        correct: isSelectionCorrect,
+        userAnswer: selectedAnswers.map(i => currentAnswers[i]?.text).join(', '),
+        expectedAnswer: correctIndices.map(i => currentAnswers[i]?.text).join(', '),
         topic: q.topic || ''
       });
     }
-    if (isCorrect && currentQuizIndex === internalQuizzes.length - 1) {
+    if (isSelectionCorrect && currentQuizIndex === internalQuizzes.length - 1) {
       if (triggerConfetti) triggerConfetti();
     }
     if (onQuizAnswer) {
-      onQuizAnswer(q, isCorrect);
+      onQuizAnswer(q, isSelectionCorrect);
     }
-  };
+    setQuizScore(prev => ({ correct: prev.correct + (isSelectionCorrect ? 1 : 0), total: prev.total + 1 }));
+    // eslint-disable-next-line
+  }, [allSelected]);
 
   const nextQuizQuestion = () => {
     setCurrentQuizIndex(prev => prev + 1);
@@ -209,16 +233,20 @@ const QuizSession = ({
         <div className="quiz-options">
           {currentAnswers.map((opt, idx) => {
             let btnClass = "quiz-btn";
-            if (selectedAnswer !== null) {
-              if (opt.isCorrect) btnClass += " correct";
-              else if (selectedAnswer === idx) btnClass += " wrong";
+            // Nach Auswertung: Markierung
+            if (allSelected) {
+              if (opt.isCorrect && selectedAnswers.includes(idx)) btnClass += " correct";
+              else if (!opt.isCorrect && selectedAnswers.includes(idx)) btnClass += " wrong";
+              else if (opt.isCorrect) btnClass += " correct-unselected";
+            } else if (selectedAnswers.includes(idx)) {
+              btnClass += " selected";
             }
             return (
               <button
                 key={opt.text + idx}
                 className={btnClass}
                 onClick={() => handleQuizAnswer(idx)}
-                disabled={selectedAnswer !== null}
+                disabled={allSelected}
               >
                 {formatLatex(opt.text)}
               </button>
@@ -226,10 +254,10 @@ const QuizSession = ({
           })}
         </div>
 
-        {selectedAnswer !== null && (
+        {allSelected && (
           <div className="quiz-rationale fade-in">
             {!shouldGateExplanation ? (
-              <p><strong>Erklärung:</strong> {formatLatex(currentAnswers[selectedAnswer].rationale || 'Keine Erklärung vorhanden.')}</p>
+              <p><strong>Erklärung:</strong> {formatLatex(selectedOptions.map(opt => opt.rationale).filter(Boolean).join(' | ') || 'Keine Erklärung vorhanden.')}</p>
             ) : (
               <div style={{ marginBottom: '0.4rem', textAlign: 'left', border: '1px dashed var(--glass-border)', borderRadius: '10px', padding: '0.85rem', background: 'rgba(255,255,255,0.02)' }}>
                 <p style={{ margin: 0, color: 'var(--text-muted)' }}>
@@ -245,7 +273,7 @@ const QuizSession = ({
               </div>
             )}
 
-            {feynmanModeEnabled && currentAnswers[selectedAnswer].isCorrect && (
+            {feynmanModeEnabled && isSelectionCorrect && (
               <div style={{ marginTop: '1rem', textAlign: 'left', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '1rem', background: 'rgba(255,255,255,0.03)' }}>
                 <label style={{ display: 'block', color: 'var(--text-light)', marginBottom: '0.55rem', fontWeight: 600 }}>
                   Feynman-Check
@@ -298,7 +326,7 @@ const QuizSession = ({
                           setFeynmanFeedbackLevel(null);
                           setFeynmanInput('');
                         }}
-                      >
+                        >
                         🔄 Nochmal<br /><span style={{ fontSize: '0.8em', opacity: 0.85 }}>erklären</span>
                       </button>
                       <button
@@ -315,7 +343,7 @@ const QuizSession = ({
               </div>
             )}
 
-            {!(feynmanModeEnabled && currentAnswers[selectedAnswer]?.isCorrect && feynmanFeedback) && (
+            {!(feynmanModeEnabled && isSelectionCorrect && feynmanFeedback) && (
               <button
                 className="btn-primary"
                 style={{ marginTop: '1rem' }}
