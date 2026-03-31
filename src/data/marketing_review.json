@@ -2946,6 +2946,312 @@
       "hint": "Die Customer Journey zeigt den gesamten Weg des Kunden \u00fcber alle Kontaktpunkte (Touchpoints) hinweg.",
       "youtubeQuery": "Customer Journey Touchpoints Analyse Auswertung",
       "topic": "Customer Journey & Online-Marketing"
+    },
+    {
+      "id": "mr_090",
+      "question": "Drei verschiedene Online-Marktpl\u00e4tze weisen f\u00fcr die \u201eUrban-Peak AG\u201c eine vergleichbare Bounce-Rate aus. Stellen Sie fest, welcher Sachverhalt zur Bounce-Rate im Web-Controlling richtig ist!",
+      "answerOptions": [
+        {
+          "text": "Die Bounce-Rate gibt an, wie viele Nutzer nur die Homepage des Anbieters angesehen haben.",
+          "isCorrect": false,
+          "rationale": "Die Bounce-Rate bezieht sich nicht nur auf die Homepage, sondern auf jede beliebige Einstiegsseite."
+        },
+        {
+          "text": "Je h\u00f6her die Bounce-Rate, desto seltener haben Nutzer die Website nach einem Kaufabschluss verlassen.",
+          "isCorrect": false,
+          "rationale": "Eine hohe Bounce-Rate bedeutet, dass viele Nutzer sofort wieder gehen \u2013 das hat nichts mit Kaufabschl\u00fcssen zu tun."
+        },
+        {
+          "text": "Die Bounce-Rate gibt an, wie viele Nutzer nur eine Seite des Webangebots angesehen haben.",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Bounce-Rate (Absprungrate) ist der Prozentsatz der Besucher, die eine Website betreten und sie sofort wieder verlassen, ohne eine weitere Seite aufzurufen oder einen Klick zu t\u00e4tigen (Single-Page-Session)."
+        },
+        {
+          "text": "Die Bounce-Rate kann vom Betreiber des Online-Vertriebskanals nicht beeinflusst werden.",
+          "isCorrect": false,
+          "rationale": "Die Bounce-Rate kann durch bessere Inhalte, schnellere Ladezeiten und relevantere Landingpages aktiv gesenkt werden."
+        },
+        {
+          "text": "Die Bounce-Rate wird auch als Ausstiegs-Rate bezeichnet.",
+          "isCorrect": false,
+          "rationale": "Achtung Falle: Die Ausstiegsrate (Exit-Rate) ist etwas anderes. Sie misst, auf welcher Seite Nutzer den Shop irgendwann verlassen haben, auch nach mehreren Seitenaufrufen."
+        }
+      ],
+      "hint": "Bounce-Rate = Prozentsatz der Besucher, die nur eine einzige Seite ansehen und dann sofort gehen.",
+      "youtubeQuery": "Bounce Rate Absprungrate Exit Rate Unterschied Web Analytics",
+      "topic": "Web-Analytics & Marktplatz-Management"
+    },
+    {
+      "id": "mr_091",
+      "question": "Ein gro\u00dfer Marktplatz gleicht die Artikel der \u201eEco-Wear GmbH\u201c mit der GTIN von bereits auf dem Marktplatz gelisteten Waren ab, um sie eindeutig zuzuordnen. Geben Sie an, wof\u00fcr die Abk\u00fcrzung GTIN steht!",
+      "answerOptions": [
+        {
+          "text": "Global Trade Item Number",
+          "isCorrect": true,
+          "rationale": "Richtig: GTIN steht f\u00fcr Global Trade Item Number. Sie hat die fr\u00fchere EAN (European Article Number) abgel\u00f6st und dient der weltweit eindeutigen Identifikation von Handelsartikeln."
+        },
+        {
+          "text": "General Trade Identification Number",
+          "isCorrect": false,
+          "rationale": "Diese Abk\u00fcrzung existiert nicht als offizieller Fachbegriff."
+        },
+        {
+          "text": "German Tax Identity Number",
+          "isCorrect": false,
+          "rationale": "Das w\u00e4re eine Steueridentifikationsnummer und hat nichts mit der Artikelkennzeichnung zu tun."
+        },
+        {
+          "text": "Global Tax ID Number",
+          "isCorrect": false,
+          "rationale": "Eine globale Steuer-ID hat nichts mit der Produktidentifikation im Handel zu tun."
+        },
+        {
+          "text": "German Trade Item Notification",
+          "isCorrect": false,
+          "rationale": "Diese Abk\u00fcrzung existiert nicht. Die GTIN ist zudem ein internationaler, kein rein deutscher Standard."
+        }
+      ],
+      "hint": "Die GTIN hat die fr\u00fchere EAN (European Article Number) abgel\u00f6st.",
+      "youtubeQuery": "GTIN Global Trade Item Number EAN Barcode erkl\u00e4rt",
+      "topic": "Web-Analytics & Marktplatz-Management"
+    },
+    {
+      "id": "mr_092",
+      "question": "Bei Produkten, die schon auf einem Marktplatz vorhanden sind, wird die \u201eSmart-Gear UG\u201c einfach als weiterer Lieferant f\u00fcr das bereits mit Bild und Text dargestellte Produkt angeh\u00e4ngt. Pr\u00fcfen Sie, welche Angabe zum Urheberrecht und der Haftung in diesem speziellen Fall korrekt ist!",
+      "answerOptions": [
+        {
+          "text": "Auf Onlinemarktpl\u00e4tzen ist der Marktplatzbetreiber allein f\u00fcr die Wahrung des Urheberrechts verantwortlich.",
+          "isCorrect": false,
+          "rationale": "Der Marktplatzbetreiber ist nicht allein verantwortlich \u2013 auch jeder H\u00e4ndler, der sich an ein Angebot anh\u00e4ngt, tr\u00e4gt Mitverantwortung."
+        },
+        {
+          "text": "Beim Verkauf auf Onlinemarktpl\u00e4tzen tr\u00e4gt derjenige die alleinige Verantwortung, der die Bilder und Texte urspr\u00fcnglich eingestellt hat.",
+          "isCorrect": false,
+          "rationale": "Nicht nur der Ersteller, sondern auch jeder, der sich an das Angebot anh\u00e4ngt, macht sich die Inhalte zu eigen."
+        },
+        {
+          "text": "Gem\u00e4\u00df Urheberrecht ist der Marktplatzbetreiber von der Inanspruchnahme f\u00fcr Urheberrechtsverletzungen, die ein Marktplatzh\u00e4ndler begeht, generell freigestellt.",
+          "isCorrect": false,
+          "rationale": "Eine generelle Freistellung gibt es nicht. Bei Kenntnis von Verst\u00f6\u00dfen hat der Betreiber Handlungspflichten (St\u00f6rerhaftung)."
+        },
+        {
+          "text": "Die Verantwortung des Marktplatzh\u00e4ndlers f\u00fcr Markenverletzungen endet, sobald der Marktplatzbetreiber das Produkt in sein Sortiment aufnimmt.",
+          "isCorrect": false,
+          "rationale": "Die Verantwortung des H\u00e4ndlers endet nicht durch die Aufnahme in das Marktplatz-Sortiment."
+        },
+        {
+          "text": "Auf Onlinemarktpl\u00e4tzen haftet jeder Marktplatzh\u00e4ndler bei Urheberrechtsverletzungen als Mitst\u00f6rer, der als Anbieter f\u00fcr das entsprechende Produkt gelistet ist.",
+          "isCorrect": true,
+          "rationale": "Richtig (BGH-Rechtsprechung): Wer sich an ein fremdes Angebot auf einem Marktplatz (z.B. Amazon) anh\u00e4ngt, macht sich die dortigen Bilder und Texte zu eigen. Versto\u00dfen diese gegen das Urheber- oder Markenrecht, haftet auch der angeh\u00e4ngte H\u00e4ndler als sogenannter Mitst\u00f6rer."
+        }
+      ],
+      "hint": "Wer sich an ein bestehendes Listing anh\u00e4ngt, macht sich die Inhalte (Bilder, Texte) rechtlich zu eigen.",
+      "youtubeQuery": "Marktplatz Anh\u00e4ngen Urheberrecht Mitst\u00f6rer Amazon Listing Haftung",
+      "topic": "Web-Analytics & Marktplatz-Management"
+    },
+    {
+      "id": "mr_093",
+      "question": "In einem englischsprachigen Marktforschungsreport \u00fcber Influencer-Marketing lesen Sie folgenden Satz \u00fcber die Altersstruktur: \u201eWith digital content creation being a relatively new profession, almost 90% of all influencers on the major platforms are between 18 and 34 years old, with TikTok taking a strong lead at 79%.\u201c Pr\u00fcfen Sie, welcher Sachverhalt auf Basis dieses Textes zutrifft!",
+      "answerOptions": [
+        {
+          "text": "79% der 18-34-J\u00e4hrigen folgen TikTok-Influencern.",
+          "isCorrect": false,
+          "rationale": "Der Text spricht \u00fcber das Alter der Influencer selbst, nicht \u00fcber die Follower."
+        },
+        {
+          "text": "Die 18-34-J\u00e4hrigen stehen f\u00fcr 79% der TikTok-Influencer.",
+          "isCorrect": true,
+          "rationale": "Richtig: Der Satz \u201ewith TikTok taking a strong lead at 79%\u201c bezieht sich direkt auf das Alter der Content-Ersteller. Er bedeutet, dass 79% aller Influencer, die auf TikTok aktiv sind, in die Altersgruppe der 18- bis 34-J\u00e4hrigen fallen."
+        },
+        {
+          "text": "Nur 18-34-J\u00e4hrige erreicht man auf TikTok.",
+          "isCorrect": false,
+          "rationale": "Der Text spricht \u00fcber die Altersstruktur der Influencer, nicht der Nutzer oder Zuschauer."
+        },
+        {
+          "text": "TikTok steht f\u00fcr 79% des Influencer-Marketings bei 18-34-J\u00e4hrigen.",
+          "isCorrect": false,
+          "rationale": "Der Text sagt nicht, dass TikTok 79% des gesamten Influencer-Marketings ausmacht."
+        },
+        {
+          "text": "Auf TikTok kann man nur 21% derjenigen erreichen, die \u00e4lter als 18-34 sind.",
+          "isCorrect": false,
+          "rationale": "Die 79% beziehen sich auf die Influencer, nicht auf die erreichbare Zielgruppe."
+        }
+      ],
+      "hint": "Der Text spricht \u00fcber das Alter der Influencer (Content-Ersteller), nicht der Follower oder Zuschauer.",
+      "youtubeQuery": "Influencer Marketing Altersstruktur TikTok Statistik",
+      "topic": "Social Media & Videomarketing"
+    },
+    {
+      "id": "mr_094",
+      "question": "Die \u201eNext-Gen Retail GmbH\u201c m\u00f6chte die auf den Social Networks geposteten Videos der Influencer direkt im eigenen Shop bei den Produkten einbetten (Embedding). Pr\u00fcfen Sie, welcher Sachverhalt in diesem Zusammenhang nicht zutrifft (also falsch ist)!",
+      "answerOptions": [
+        {
+          "text": "Die Next-Gen Retail GmbH muss im Vorfeld die Erlaubnis der verbreitenden Plattform einholen.",
+          "isCorrect": true,
+          "rationale": "Richtig (= diese Aussage ist falsch): Wenn man offizielle Embed-Codes von YouTube oder TikTok nutzt, ist die Erlaubnis der Plattform durch deren AGB bereits pauschal erteilt. Man muss also nicht extra vorher anfragen."
+        },
+        {
+          "text": "Die Next-Gen Retail GmbH muss im Consent Management die Zustimmung der Nutzer einholen, mit der Anzeige der Videos Daten an die verbreitenden Plattformen zu \u00fcbertragen.",
+          "isCorrect": false,
+          "rationale": "Das ist korrekt und trifft zu \u2013 die DSGVO verlangt eine Einwilligung des Nutzers, bevor Daten an Drittplattformen \u00fcbertragen werden."
+        },
+        {
+          "text": "Die Next-Gen Retail GmbH muss die Aussagen der Creator/Influencer auf Verst\u00f6\u00dfe gegen das Wettbewerbsrecht pr\u00fcfen.",
+          "isCorrect": false,
+          "rationale": "Das ist korrekt \u2013 der Shopbetreiber ist mitverantwortlich f\u00fcr wettbewerbsrechtlich problematische Aussagen in eingebetteten Inhalten."
+        },
+        {
+          "text": "Die Next-Gen Retail GmbH muss in ihrer Datenschutzerkl\u00e4rung auf die Einbindung der Inhalte von Social Networks hinweisen.",
+          "isCorrect": false,
+          "rationale": "Das ist korrekt \u2013 die Datenschutzerkl\u00e4rung muss \u00fcber alle eingebundenen Drittanbieter-Inhalte informieren."
+        },
+        {
+          "text": "Die Next-Gen Retail GmbH muss die Zustimmung der Nutzer zur Anzeige von Social Media Inhalten dokumentieren.",
+          "isCorrect": false,
+          "rationale": "Das ist korrekt \u2013 die DSGVO verlangt eine nachweisbare Dokumentation der Einwilligung."
+        }
+      ],
+      "hint": "Achtung: Gefragt ist, welche Aussage NICHT zutrifft. Offizielle Embed-Codes beinhalten bereits die Plattform-Erlaubnis.",
+      "youtubeQuery": "Video Embedding Datenschutz DSGVO Consent Management Recht",
+      "topic": "Social Media & Videomarketing"
+    },
+    {
+      "id": "mr_095",
+      "question": "Anstelle der Handelsspanne zeigt das eingesetzte Analysetool den Deckungsbeitrag als produktbezogene KPI an. Geben Sie an, welcher Sachverhalt zum Deckungsbeitrag korrekt ist!",
+      "answerOptions": [
+        {
+          "text": "Der Deckungsbeitrag eines Artikels entspricht exakt dessen Rohgewinn.",
+          "isCorrect": false,
+          "rationale": "Der Rohgewinn (Bruttogewinn) und der Deckungsbeitrag k\u00f6nnen sich unterscheiden, je nachdem welche Kostenbestandteile einbezogen werden."
+        },
+        {
+          "text": "Der Deckungsbeitrag eines Artikels berechnet sich als Differenz aus Verkaufspreis und st\u00fcckfixen Kosten.",
+          "isCorrect": false,
+          "rationale": "Der Deckungsbeitrag wird durch Abzug der variablen Kosten berechnet, nicht der st\u00fcckfixen Kosten."
+        },
+        {
+          "text": "Der Deckungsbeitrag eines Artikels wird grunds\u00e4tzlich in Prozent angegeben.",
+          "isCorrect": false,
+          "rationale": "Der Deckungsbeitrag wird in der Regel als absoluter Betrag (Euro) angegeben. Es gibt zwar auch eine relative Angabe (DB-Marge), aber das ist nicht die Grundform."
+        },
+        {
+          "text": "Der Deckungsbeitrag eines Artikels berechnet sich als Differenz aus Verkaufspreis und variablen Kosten.",
+          "isCorrect": true,
+          "rationale": "Richtig: Der St\u00fcckdeckungsbeitrag ist der Betrag, der \u00fcbrig bleibt, wenn man vom Netto-Verkaufspreis die variablen Kosten (wie den Wareneinkaufspreis) abzieht. Dieser Betrag dient dazu, die Fixkosten des Unternehmens zu decken."
+        },
+        {
+          "text": "Der Deckungsbeitrag eines Artikels kann nicht negativ sein.",
+          "isCorrect": false,
+          "rationale": "Ein negativer Deckungsbeitrag ist m\u00f6glich und bedeutet, dass das Produkt nicht einmal seine variablen Kosten deckt."
+        }
+      ],
+      "hint": "Deckungsbeitrag = Verkaufspreis - variable Kosten. Er dient zur Deckung der Fixkosten.",
+      "youtubeQuery": "Deckungsbeitrag St\u00fcck berechnen variable Kosten Verkaufspreis",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_096",
+      "question": "Eine neue Warengruppe im Sortiment verursacht kalkulierte fixe Kosten in H\u00f6he von 800,00 \u20ac. Pr\u00fcfen Sie, welches der folgenden Beispiele keine fixen Kosten darstellt, die in diesem Betrag enthalten sein k\u00f6nnten!",
+      "answerOptions": [
+        {
+          "text": "Die Geh\u00e4lter der Angestellten im B\u00fcro",
+          "isCorrect": false,
+          "rationale": "Geh\u00e4lter f\u00fcr B\u00fcroangestellte sind typische Fixkosten \u2013 sie fallen unabh\u00e4ngig von der Auftragslage an."
+        },
+        {
+          "text": "Die L\u00f6hne der Arbeiter im Lager",
+          "isCorrect": true,
+          "rationale": "Richtig: In der klassischen Kostenrechnung gelten L\u00f6hne (im Lager/Produktion) oft als variable Kosten, da sie direkt an die Arbeitsleistung oder Menge gekoppelt sein k\u00f6nnen (z.B. Akkordlohn, Stundenlohn bei Mehrarbeit durch mehr Bestellungen)."
+        },
+        {
+          "text": "Die zu zahlenden betrieblichen Steuern",
+          "isCorrect": false,
+          "rationale": "Betriebliche Steuern (z.B. Grundsteuer, Gewerbesteuer) z\u00e4hlen in der Regel zu den Fixkosten."
+        },
+        {
+          "text": "Die zu zahlende Miete der Lagerhalle",
+          "isCorrect": false,
+          "rationale": "Miete ist ein klassisches Beispiel f\u00fcr Fixkosten \u2013 sie f\u00e4llt unabh\u00e4ngig von der Absatzmenge an."
+        },
+        {
+          "text": "Die Abschreibungen auf das Anlageverm\u00f6gen",
+          "isCorrect": false,
+          "rationale": "Abschreibungen sind zeitabh\u00e4ngig und z\u00e4hlen zu den typischen Fixkosten."
+        }
+      ],
+      "hint": "Geh\u00e4lter (B\u00fcro) = Fixkosten. L\u00f6hne (Lager/Produktion) = oft variable Kosten (mengenabh\u00e4ngig).",
+      "youtubeQuery": "Fixe variable Kosten Unterschied Geh\u00e4lter L\u00f6hne Fixkosten",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_097",
+      "question": "Geben Sie an, welche betriebswirtschaftliche Information zur Gewinnschwelle (Break-Even-Point) richtig ist!",
+      "answerOptions": [
+        {
+          "text": "Die Gewinnschwelle tr\u00e4gt zur Deckung der fixen Kosten bei.",
+          "isCorrect": false,
+          "rationale": "Die Gewinnschwelle ist ein Punkt (Absatzmenge), kein Deckungsinstrument. Zur Deckung der Fixkosten tr\u00e4gt der Deckungsbeitrag bei."
+        },
+        {
+          "text": "In der Gewinnschwellenmenge erzielt das Unternehmen Gewinn.",
+          "isCorrect": false,
+          "rationale": "An der exakten Gewinnschwelle ist der Gewinn genau 0 \u2013 die Umsatzarl\u00f6se entsprechen exakt den Gesamtkosten."
+        },
+        {
+          "text": "Oberhalb der Gewinnschwellenmenge erzielt das Unternehmen Gewinn.",
+          "isCorrect": true,
+          "rationale": "Richtig: Erst bei jeder Einheit, die oberhalb der Gewinnschwelle (Break-Even-Point) verkauft wird, erzielt das Unternehmen echten Gewinn, da ab hier die Umsatzarl\u00f6se die Gesamtkosten \u00fcbersteigen."
+        },
+        {
+          "text": "Unterhalb der Gewinnschwellenmenge erzielt das Unternehmen Gewinn.",
+          "isCorrect": false,
+          "rationale": "Unterhalb der Gewinnschwelle macht das Unternehmen Verlust, da die Kosten die Umsatzarl\u00f6se \u00fcbersteigen."
+        },
+        {
+          "text": "Die Gewinnschwelle tr\u00e4gt zur Deckung der variablen Kosten bei.",
+          "isCorrect": false,
+          "rationale": "Die Gewinnschwelle ist eine Kennzahl (Absatzmenge), kein Instrument zur Kostendeckung."
+        }
+      ],
+      "hint": "Am Break-Even-Point ist Gewinn = 0. Oberhalb davon entsteht Gewinn, unterhalb Verlust.",
+      "youtubeQuery": "Break Even Point Gewinnschwelle oberhalb unterhalb Gewinn Verlust",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_098",
+      "question": "Im Rahmen des Controllings f\u00fchrt die Buchhaltung am Ende des Quartals eine Abweichungsanalyse durch. Pr\u00fcfen Sie, welche Darstellung zur Abweichungsanalyse richtig ist!",
+      "answerOptions": [
+        {
+          "text": "Die Abweichungsanalyse wird im Rahmen der Vorkalkulation durchgef\u00fchrt.",
+          "isCorrect": false,
+          "rationale": "Die Abweichungsanalyse ist Teil der Nachkalkulation (Soll-Ist-Vergleich), nicht der Vorkalkulation."
+        },
+        {
+          "text": "Die Abweichung beruht nur auf h\u00f6heren Einkaufspreisen.",
+          "isCorrect": false,
+          "rationale": "Abweichungen k\u00f6nnen viele Ursachen haben, nicht nur Preisver\u00e4nderungen."
+        },
+        {
+          "text": "Die Abweichungsanalyse geh\u00f6rt zur Durchf\u00fchrungsphase im Managementprozess.",
+          "isCorrect": false,
+          "rationale": "Die Abweichungsanalyse geh\u00f6rt zur Kontrollphase (Soll-Ist-Vergleich), nicht zur Durchf\u00fchrungsphase."
+        },
+        {
+          "text": "Die Abweichungen k\u00f6nnen im Preis, Material- oder Zeitverbrauch begr\u00fcndet sein.",
+          "isCorrect": true,
+          "rationale": "Richtig: Bei einer Abweichungsanalyse werden die Soll-Werte (Planung) mit den Ist-Werten (Realit\u00e4t) verglichen. Die Gr\u00fcnde f\u00fcr Abweichungen sind vielf\u00e4ltig: Preis\u00e4nderungen, h\u00f6herer Materialverbrauch als geplant oder erh\u00f6hter Zeitaufwand (Personalkosten)."
+        },
+        {
+          "text": "Die Abweichungsanalyse spielt kaufm\u00e4nnisch keine Rolle.",
+          "isCorrect": false,
+          "rationale": "Die Abweichungsanalyse ist ein zentrales Instrument des Controllings zur Unternehmenssteuerung."
+        }
+      ],
+      "hint": "Abweichungsanalyse = Soll-Ist-Vergleich in der Kontrollphase. Ursachen: Preis, Menge, Zeit.",
+      "youtubeQuery": "Abweichungsanalyse Soll Ist Vergleich Controlling Ursachen",
+      "topic": "Rechnungswesen & Controlling"
     }
   ]
 }
