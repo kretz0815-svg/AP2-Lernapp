@@ -1153,6 +1153,244 @@
       "hint": "Kurzfristige absolute Preisuntergrenze = Deckung der variablen Kosten.",
       "youtubeQuery": "kurzfristige Preisuntergrenze Deckungsbeitragsrechnung",
       "topic": "BWA, Controlling & Kalkulation"
+    },
+    {
+      "id": "mr_038",
+      "question": "Die „Urban-Peak AG“ unterbreitet den Vorschlag, die firmeneigene App mit Werbemaßnahmen in der kostenfreien Version zu subventionieren. Als Abrechnungsmethode sehen Sie das Verfahren Cost per Click (CPC) vor. Welche Beschreibung trifft auf diese Abrechnungsmethode zu?",
+      "answerOptions": [
+        {
+          "text": "CPC ist keine Abrechnungsmethode im Online-Marketing, sondern bezieht sich auf die Klickrate innerhalb der App.",
+          "isCorrect": false,
+          "rationale": "CPC ist sehr wohl ein etabliertes Abrechnungsmodell im Online-Marketing."
+        },
+        {
+          "text": "Je häufiger in der App geklickt wird, desto mehr muss an den Entwickler für die Nutzung gezahlt werden.",
+          "isCorrect": false,
+          "rationale": "CPC bezieht sich auf Klicks auf Werbemittel, nicht auf App-Nutzungskosten für Entwickler."
+        },
+        {
+          "text": "CPC ist eine Abrechnungsmethode im Online-Marketing, die nur bei Lastschriftverfahren eingesetzt wird.",
+          "isCorrect": false,
+          "rationale": "Die Zahlungsmethode ist unabhängig vom CPC-Modell."
+        },
+        {
+          "text": "CPC beschreibt eine Abrechnungsmethode im Online-Marketing, bei der pro Klick auf ein Werbemittel abgerechnet wird.",
+          "isCorrect": true,
+          "rationale": "Cost per Click (Kosten pro Klick) ist das Standard-Abrechnungsmodell im Performance-Marketing (z. B. bei Google Ads). Der Werbetreibende zahlt nicht für die reine Einblendung der Werbung, sondern nur dann, wenn ein Nutzer tatsächlich auf das Werbemittel (Banner, Textanzeige) klickt."
+        },
+        {
+          "text": "Durch CPC spart man sich Inkasso.",
+          "isCorrect": false,
+          "rationale": "CPC hat keinen direkten Bezug zu Inkasso-Prozessen."
+        }
+      ],
+      "hint": "Bei CPC wird nicht pro Einblendung, sondern pro tatsächlichem Klick gezahlt.",
+      "youtubeQuery": "Cost per Click CPC Definition Performance Marketing",
+      "topic": "Online-Marketing & Abrechnungsmodelle"
+    },
+    {
+      "id": "mr_039",
+      "question": "Ein Teil der Sortimente der „Eco-Wear GmbH“ wird bereits über sogenannte Marktplätze (z.B. Amazon, eBay) vertrieben. Prüfen Sie, welcher Sachverhalt in diesem Zusammenhang richtig beschrieben ist!",
+      "answerOptions": [
+        {
+          "text": "Ein Marktplatz ist ein anderer Ausdruck für einen Online-Shop, der nur einem Händler gehört.",
+          "isCorrect": false,
+          "rationale": "Ein Marktplatz bündelt typischerweise mehrere Händler."
+        },
+        {
+          "text": "Über Marktplätze werden online ausschließlich Dienstleistungen angeboten, für den Warenverkehr lohnt sich das nicht.",
+          "isCorrect": false,
+          "rationale": "Marktplätze sind gerade im Warenhandel weit verbreitet."
+        },
+        {
+          "text": "Ein Marktplatz stellt einen virtuellen Ort innerhalb eines übergeordneten Datennetzes dar, innerhalb dessen virtuelle Geschäftstransaktionen ausschließlich zwischen Marktplatzbetreiber und Marktplatzhändler durchgeführt werden.",
+          "isCorrect": false,
+          "rationale": "Transaktionen erfolgen in der Regel zwischen Händler und Endkunde über die Plattform."
+        },
+        {
+          "text": "Marktplätze unterscheiden sich von Online-Shops nicht, außer dass die Nutzer hier ausschließlich bar zahlen können.",
+          "isCorrect": false,
+          "rationale": "Das ist fachlich falsch."
+        },
+        {
+          "text": "Marktplätze vertreiben unter anderem Produkte und Waren von verschiedenen Händlern und verfolgen das Ziel, über Provisionen die Infrastruktur zu finanzieren.",
+          "isCorrect": true,
+          "rationale": "Ein Online-Marktplatz ist eine Plattform, auf der viele verschiedene, unabhängige Händler ihre Waren anbieten können. Der Plattformbetreiber (z.B. Amazon) stellt die technische Infrastruktur und Reichweite zur Verfügung und finanziert sich im Gegenzug meist über Verkaufsgebühren und Provisionen."
+        }
+      ],
+      "hint": "Marktplätze sind Multi-Händler-Plattformen mit Provisionsmodell.",
+      "youtubeQuery": "E Commerce Marktplatz vs Online Shop Unterschied",
+      "topic": "Online-Marketing & Abrechnungsmodelle"
+    },
+    {
+      "id": "mr_040",
+      "question": "Für die Bewertung der verschiedenen Vertriebskanäle wird im Controlling auch der durchschnittliche Warenkorb (Average Order Value) herangezogen. Prüfen Sie, welcher Sachverhalt auf diese Kennzahl zutrifft!",
+      "answerOptions": [
+        {
+          "text": "Der durchschnittliche Warenkorbwert ist eine Kennzahl, die es ermöglicht, die Cost per Sale zu berechnen.",
+          "isCorrect": false,
+          "rationale": "AOV kann in Analysen einfließen, ist aber nicht die eigentliche Definition."
+        },
+        {
+          "text": "Mit dem durchschnittlichen Warenkorbwert ermittelt man die Kosten für die jeweilige Transaktion im Online-Shop.",
+          "isCorrect": false,
+          "rationale": "AOV beschreibt den Bestellwert, nicht die Transaktionskosten."
+        },
+        {
+          "text": "Durchschnittliche Warenkorbwerte sind im Online-Handel nur bei Marktplätzen relevant.",
+          "isCorrect": false,
+          "rationale": "AOV ist in allen Shop- und Kanalmodellen relevant."
+        },
+        {
+          "text": "Der durchschnittliche Warenkorbwert erhöht sich durch Up-Selling und verringert sich durch Cross-Selling.",
+          "isCorrect": false,
+          "rationale": "Cross-Selling erhöht den Warenkorbwert typischerweise ebenfalls."
+        },
+        {
+          "text": "Der durchschnittliche Warenkorb gibt an, mit welchem Bestellwert die Eco-Wear GmbH pro Kunde rechnen kann.",
+          "isCorrect": true,
+          "rationale": "Der Average Order Value (AOV) beschreibt den durchschnittlichen Bestellwert aller Einkäufe in einem bestimmten Zeitraum. Er zeigt dem Händler, wie viel Geld ein Kunde im Durchschnitt pro Bestellung im Shop ausgibt. (Achtung Falle bei D: Auch Cross-Selling erhöht den Warenkorbwert!)."
+        }
+      ],
+      "hint": "AOV = durchschnittlicher Bestellwert pro Order.",
+      "youtubeQuery": "Average Order Value AOV Bedeutung berechnen",
+      "topic": "Online-Marketing & Abrechnungsmodelle"
+    },
+    {
+      "id": "mr_041",
+      "question": "Die „Trail-Blazer UG“ hat festgestellt, dass ihre Outdoor-Hosen vermehrt auch von Garten- und Landschaftsbau-Betrieben (GaLaBau-Betriebe) für deren Mitarbeiter bestellt werden. Daher überlegt das Unternehmen, künftig gezielt GaLaBau-Betriebe anzusprechen und das Angebot um berufsspezifische Produkte (wie Schnittschutzhosen) zu ergänzen. Geben Sie an, um welche Art der Sortimentsentwicklung es sich hierbei handelt!",
+      "answerOptions": [
+        {
+          "text": "Sortimentserweiterung",
+          "isCorrect": true,
+          "rationale": "Wenn ein Unternehmen neue, verwandte Produkte in sein bestehendes Sortiment aufnimmt (hier: berufsspezifische Outdoor-Kleidung zu den normalen Outdoor-Hosen), spricht man in der Handelspolitik von einer Sortimentserweiterung. Das Sortiment wird in die Breite oder Tiefe ausgebaut."
+        },
+        {
+          "text": "Sortimentsdiversifikation",
+          "isCorrect": false,
+          "rationale": "Diversifikation zielt stärker auf neue, teils fachfremde Geschäftsfelder ab."
+        },
+        {
+          "text": "Sortimentsbereinigung",
+          "isCorrect": false,
+          "rationale": "Bereinigung bedeutet eher Reduktion/Optimierung des Sortiments."
+        },
+        {
+          "text": "Sortimentselimination",
+          "isCorrect": false,
+          "rationale": "Elimination bedeutet Entfernen von Artikeln."
+        },
+        {
+          "text": "Sortimentsdiffusion",
+          "isCorrect": false,
+          "rationale": "Das ist kein üblicher Standardbegriff für diese Maßnahme."
+        }
+      ],
+      "hint": "Es kommen verwandte, zusätzliche Produkte ins bestehende Angebot.",
+      "youtubeQuery": "Sortimentserweiterung Handelspolitik Beispiel",
+      "topic": "Sortimentsstrategie & B2B-Handel"
+    },
+    {
+      "id": "mr_042",
+      "question": "Nach einem erfolgreichen Test soll das Sortiment nun gezielt an Garten- und Landschaftsbaubetriebe über einen eigens dafür eingerichteten B2B-Online-Shop angeboten werden. Prüfen Sie, welcher Sachverhalt zum Thema B2B-Handel (Business-to-Business) richtig beschrieben ist!",
+      "answerOptions": [
+        {
+          "text": "Gewerbliche Kunden kaufen grundsätzlich zu ihren eigenen AGB ein.",
+          "isCorrect": false,
+          "rationale": "AGB-Regelungen sind vertraglich zu vereinbaren, nicht automatisch einseitig vorgegeben."
+        },
+        {
+          "text": "Die im Onlineshop gezeigten Preise stellen gegenüber gewerblichen Kunden ein bindendes Angebot dar.",
+          "isCorrect": false,
+          "rationale": "Auch im B2B sind Shopdarstellungen regelmäßig invitatio ad offerendum."
+        },
+        {
+          "text": "Gewerblichen Kunden werden in der Regel die Netto-Preise angezeigt.",
+          "isCorrect": true,
+          "rationale": "Im B2B-Bereich (Geschäftskunden) ist es üblich und rechtlich zulässig, alle Preise netto (ohne Umsatzsteuer) anzuzeigen, da Unternehmen vorsteuerabzugsberechtigt sind und die Umsatzsteuer für sie ein durchlaufender Posten ist. Bei Endverbrauchern (B2C) müssen zwingend Bruttopreise ausgewiesen werden."
+        },
+        {
+          "text": "Gewerbliche Kunden, die in einem B2B-Onlineshop einkaufen, sind gegenüber dem Endverbraucher im Nachteil.",
+          "isCorrect": false,
+          "rationale": "Das ist pauschal fachlich nicht haltbar."
+        },
+        {
+          "text": "Gewerbliche Kunden fordern mit dem Klick auf den Bestellbutton ein Angebot an.",
+          "isCorrect": false,
+          "rationale": "Der Bestellbutton ist regelmäßig ein Vertragsangebot des Käufers, keine Angebotsanfrage."
+        }
+      ],
+      "hint": "Im B2B-Kontext ist Netto-Preisangabe der Standard.",
+      "youtubeQuery": "B2B Onlineshop Netto Preise Unterschied B2C",
+      "topic": "Sortimentsstrategie & B2B-Handel"
+    },
+    {
+      "id": "mr_043",
+      "question": "Beim Online-Marketing ist auch die Platzierung von Anzeigen wie Bannern oder Native Advertising von großer Bedeutung für die Förderung des Bekanntheitsgrades der „Urban-Peak AG“. Welchen Aspekt müssen Sie bei der Platzierung solcher visuellen Formate beim Werbepartner besonders beachten?",
+      "answerOptions": [
+        {
+          "text": "Opt-In-Erklärung der Kunden bei der Rechnungsbuchung",
+          "isCorrect": false,
+          "rationale": "Das betrifft nicht die technische Bannerplatzierung beim Publisher."
+        },
+        {
+          "text": "Erforderliche technische Vorgaben für z. B. die Platzierung von Text und Bild",
+          "isCorrect": true,
+          "rationale": "Bei der Einbuchung von Display-Kampagnen oder Native Ads auf Fremdseiten (Publishern) müssen zwingend die technischen Spezifikationen des Anbieters (wie Pixel-Maße, Dateigröße, Zeichenbeschränkung bei Texten) exakt beachtet werden, damit die Werbemittel korrekt ausgeliefert werden können."
+        },
+        {
+          "text": "Druckauflage der Werbepartner",
+          "isCorrect": false,
+          "rationale": "Druckauflage ist für digitale Bannerplatzierung nicht maßgeblich."
+        },
+        {
+          "text": "Kunden-Adresslisten mit Doppelungen für eine möglichst breite Streuung",
+          "isCorrect": false,
+          "rationale": "Das ist kein Qualitätskriterium für Bannerauslieferung."
+        },
+        {
+          "text": "Gestaltung der Landingpages möglichst ohne Text",
+          "isCorrect": false,
+          "rationale": "Das ist keine allgemeingültige technische Vorgabe für Banner/Native Ads."
+        }
+      ],
+      "hint": "Publisher geben meist klare technische Ad-Spezifikationen vor.",
+      "youtubeQuery": "Bannerwerbung technische Spezifikationen Pixel Dateigroesse",
+      "topic": "Performance-Marketing & Banner-Platzierung"
+    },
+    {
+      "id": "mr_044",
+      "question": "Mit dem Return On Advertising Spend ermittelt das Controlling die Rentabilität von Werbeausgaben. Die „Urban-Peak AG“ gibt 1.000,00 € im Monat für Social-Media-Marketing aus und erzielt damit einen direkt zuordenbaren Umsatz von 10.000,00 €. Dies ergibt einen ROAS von 10,00. Prüfen Sie, welche Interpretation dazu korrekt ist!",
+      "answerOptions": [
+        {
+          "text": "Das Social-Media-Marketing finanziert sich komplett selbst.",
+          "isCorrect": false,
+          "rationale": "Das ist zu ungenau und nicht die konkrete Bedeutung eines ROAS von 10."
+        },
+        {
+          "text": "Der Return On Advertising Spend von 10,00 € wird als Spende verbucht.",
+          "isCorrect": false,
+          "rationale": "Fachlich falsch."
+        },
+        {
+          "text": "Der Umsatz von 10.000,00 € muss zur Hälfte wieder in Werbemaßnahmen investiert werden.",
+          "isCorrect": false,
+          "rationale": "Das folgt nicht aus der ROAS-Kennzahl."
+        },
+        {
+          "text": "Für jeden €, der in Social-Marketing investiert wurde, erhält die Urban-Peak AG den 10-fachen Gewinn.",
+          "isCorrect": false,
+          "rationale": "ROAS bezieht sich auf Umsatz, nicht auf Gewinn."
+        },
+        {
+          "text": "Für jeden €, der für Social-Media-Marketing investiert wurde, wird ein Umsatz von 10,00 € erzielt.",
+          "isCorrect": true,
+          "rationale": "Der ROAS ist eine simple Verhältniszahl (Faktor). Ein Wert von 10 bedeutet: 1 investierter Werbe-Euro bringt 10 Euro an Umsatz zurück. (Achtung, IHK-Falle bei Option D: Der ROAS bezieht sich immer auf den Umsatz, niemals auf den Gewinn, da Marge und Einkaufskosten hier noch nicht abgezogen sind!)."
+        }
+      ],
+      "hint": "ROAS ist ein Umsatz-Faktor: Umsatz / Werbekosten.",
+      "youtubeQuery": "ROAS Interpretation Umsatzfaktor einfach erklaert",
+      "topic": "Performance-Marketing & Banner-Platzierung"
     }
   ]
 }
