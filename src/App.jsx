@@ -2611,7 +2611,7 @@ ${input}`;
           initialSessionPool={quizSessionPool}
           onComplete={() => {
             refreshQuizDuePool();
-            setAppMode('dashboard');
+            setAppMode('quiz_setup');
           }}
           onCancel={() => {
             refreshQuizDuePool();
@@ -2655,7 +2655,7 @@ ${input}`;
           initialSessionPool={marketingReviewSessionPool}
           onComplete={() => {
             setMarketingReviewSessionPool([]);
-            setAppMode('dashboard');
+            setAppMode('marketing_review_setup');
           }}
           onCancel={() => {
             setMarketingReviewSessionPool([]);
