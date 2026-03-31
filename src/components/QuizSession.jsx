@@ -51,14 +51,7 @@ const QuizSession = ({
   const [quizRevealConfirmVisible, setQuizRevealConfirmVisible] = useState(false);
   const shuffledAnswersRef = useRef({});
 
-  useEffect(() => {
-    // Reset state on index change (if handled externally, aber hier intern)
-    setFeynmanFeedback('');
-    setFeynmanFeedbackLevel(null);
-    setFeynmanInput('');
-    setQuizExplanationRevealed(false);
-    setSelectedAnswers([]);
-  }, [currentQuizIndex]);
+
 
   if (!internalQuizzes || internalQuizzes.length === 0) {
     return (
@@ -169,6 +162,11 @@ const QuizSession = ({
   }, [allSelected]);
 
   const nextQuizQuestion = () => {
+    setFeynmanFeedback('');
+    setFeynmanFeedbackLevel(null);
+    setFeynmanInput('');
+    setQuizExplanationRevealed(false);
+    setSelectedAnswers([]);
     setCurrentQuizIndex(prev => prev + 1);
   };
 
