@@ -2086,6 +2086,322 @@
       "hint": "Kostenträgerrechnung ist sowohl als Voll- als auch Teilkostenansatz möglich.",
       "youtubeQuery": "Kostentraegerrechnung Vollkosten Teilkosten Unterschied",
       "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_065",
+      "question": "Die „Urban-Peak AG“ plant die Implementierung einer neuen Produktkategorie in die bestehende Shop-Software. Sie werden mit der Erstellung eines Lastenhefts beauftragt. Geben Sie an, welche 2 Darstellungen mit einem Lastenheft übereinstimmen! (Wählen Sie 2 Antworten)",
+      "answerOptions": [
+        {
+          "text": "Das Lastenheft beschreibt die gesamte Funktionalität, die eine Software erfüllen soll, und dient als Grundlage für die Einholung von Angeboten.",
+          "isCorrect": true,
+          "rationale": "Richtig: Das Lastenheft wird vom Auftraggeber erstellt und enthält die Beschreibung aller geforderten Funktionalitäten als Grundlage für die Angebotseinholung."
+        },
+        {
+          "text": "Das Lastenheft enthält eine vollständige Anforderungsbeschreibung des Auftraggebers an die Lieferungen und Leistungen eines Auftragnehmers.",
+          "isCorrect": true,
+          "rationale": "Richtig: Per Definition nach DIN 69901 beschreibt das Lastenheft die Gesamtheit der Forderungen des Auftraggebers an die Lieferungen und Leistungen eines Auftragnehmers."
+        },
+        {
+          "text": "Das Lastenheft enthält eine spezifizierte Beschreibung des Auftragnehmers, wie er die Anforderungen des Auftraggebers lösen möchte.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt das Pflichtenheft, nicht das Lastenheft. Das Pflichtenheft wird vom Auftragnehmer erstellt und beschreibt das „Wie“."
+        },
+        {
+          "text": "Das Lastenheft ist der vom Auftraggeber erstellte Projektplan, mit dem das Pflichtenheft des Auftraggebers erfüllt wird.",
+          "isCorrect": false,
+          "rationale": "Das Lastenheft ist kein Projektplan. Das Pflichtenheft gehört zudem dem Auftragnehmer, nicht dem Auftraggeber."
+        },
+        {
+          "text": "Das Lastenheft enthält das detaillierte Arbeitskonzept für die gesamte Umsetzung eines Projekts.",
+          "isCorrect": false,
+          "rationale": "Ein detailliertes Arbeitskonzept zur Umsetzung gehört eher in das Pflichtenheft oder die Projektplanung."
+        },
+        {
+          "text": "Das Lastenheft beschreibt die Vorgehensweise des Auftragnehmers, wie er die Anforderungen des Auftraggebers umsetzen möchte.",
+          "isCorrect": false,
+          "rationale": "Die Beschreibung der Vorgehensweise des Auftragnehmers ist Inhalt des Pflichtenhefts, nicht des Lastenhefts."
+        }
+      ],
+      "hint": "Das Lastenheft wird vom Auftraggeber erstellt und beschreibt das „Was und Wofür“. Das Pflichtenheft wird vom Auftragnehmer erstellt und beschreibt das „Wie“.",
+      "youtubeQuery": "Lastenheft Pflichtenheft Unterschied einfach erklärt",
+      "topic": "Projektmanagement"
+    },
+    {
+      "id": "mr_066",
+      "question": "Die IT-Abteilung der „Eco-Wear GmbH“ stellt auf agiles Projektmanagement (Scrum) um. Geben Sie an, was neben der Rolle des Scrum-Masters die 2 weiteren formalen Rollen im offiziellen Scrum-Prozess sind! (Wählen Sie 2 Antworten)",
+      "answerOptions": [
+        {
+          "text": "Product Owner",
+          "isCorrect": true,
+          "rationale": "Richtig: Der Product Owner ist verantwortlich für den geschäftlichen Wert und die Priorisierung des Product Backlogs."
+        },
+        {
+          "text": "Macher",
+          "isCorrect": false,
+          "rationale": "„Macher“ ist keine offizielle Rolle im Scrum-Framework."
+        },
+        {
+          "text": "Kritiker",
+          "isCorrect": false,
+          "rationale": "„Kritiker“ ist keine offizielle Rolle im Scrum-Framework."
+        },
+        {
+          "text": "Ablehnender",
+          "isCorrect": false,
+          "rationale": "„Ablehnender“ ist keine offizielle Rolle im Scrum-Framework."
+        },
+        {
+          "text": "Kreativer",
+          "isCorrect": false,
+          "rationale": "„Kreativer“ ist keine offizielle Rolle im Scrum-Framework."
+        },
+        {
+          "text": "Entwickler",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Entwickler (Developer) sind das Team, das die eigentliche Arbeit umsetzt und die Sprint-Ziele liefert."
+        }
+      ],
+      "hint": "Das klassische Scrum-Framework kennt exakt drei formale Rollen: Scrum Master, Product Owner und Entwickler (Developer).",
+      "youtubeQuery": "Scrum Rollen Product Owner Entwickler Scrum Master",
+      "topic": "Agiles Projektmanagement"
+    },
+    {
+      "id": "mr_067",
+      "question": "Bei der Auswertung von Marktforschungsdaten der „Trail-Blazer UG“ diskutieren Sie die methodische Qualität der Ergebnisse. Geben Sie neben der Validität (Gültigkeit) ein weiteres klassisches Kriterium für eine methodische Bewertung an!",
+      "answerOptions": [
+        {
+          "text": "Unterschiedlichkeit",
+          "isCorrect": false,
+          "rationale": "„Unterschiedlichkeit“ ist kein anerkanntes wissenschaftliches Gütekriterium."
+        },
+        {
+          "text": "Subjektivität",
+          "isCorrect": false,
+          "rationale": "Subjektivität ist das Gegenteil des Gütekriteriums Objektivität und daher kein positives Qualitätsmerkmal."
+        },
+        {
+          "text": "Objektivität",
+          "isCorrect": true,
+          "rationale": "Richtig: Die drei wissenschaftlichen Hauptgütekriterien sind: 1. Objektivität (die Ergebnisse sind unabhängig davon, wer testet), 2. Reliabilität (Zuverlässigkeit / Messgenauigkeit) und 3. Validität (Gültigkeit / es wird wirklich das gemessen, was gemessen werden soll)."
+        },
+        {
+          "text": "Geeicht",
+          "isCorrect": false,
+          "rationale": "„Geeicht“ ist eine Eigenschaft von Messgeräten, kein allgemeines Gütekriterium der Sozialforschung."
+        },
+        {
+          "text": "Transparenz",
+          "isCorrect": false,
+          "rationale": "Transparenz ist ein wichtiges Forschungsprinzip, aber kein klassisches der drei Hauptgütekriterien."
+        }
+      ],
+      "hint": "Es gibt drei klassische Gütekriterien: Objektivität, Reliabilität und Validität.",
+      "youtubeQuery": "Gütekriterien Objektivität Reliabilität Validität einfach erklärt",
+      "topic": "Beschaffung & Analysemethoden"
+    },
+    {
+      "id": "mr_068",
+      "question": "Sie überlegen, bei der Auswahl eines neuen Software-Anbieters für die „Next-Gen Retail GmbH“ zusätzlich eine Nutzwertanalyse vorzunehmen. Geben Sie an, welche Darstellung zu dieser Analysemethode korrekt ist!",
+      "answerOptions": [
+        {
+          "text": "Die Nutzwertanalyse ist eine qualitative, nicht-monetäre Analysemethode.",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Nutzwertanalyse (auch Scoring-Modell genannt) dient dazu, weiche, qualitative Kriterien (wie Benutzerfreundlichkeit, Service-Qualität, Design) bewertbar zu machen. Das geschieht durch die Vergabe von Punkten, also ausdrücklich nicht-monetär (nicht in Euro)."
+        },
+        {
+          "text": "Die Nutzwertanalyse ist eine monetäre, nicht-qualitative Analysemethode.",
+          "isCorrect": false,
+          "rationale": "Die Nutzwertanalyse arbeitet gerade nicht mit monetären Werten, sondern mit Punkten für qualitative Kriterien."
+        },
+        {
+          "text": "Die Nutzwertanalyse ist ausschließlich eine monetäre Analysemethode.",
+          "isCorrect": false,
+          "rationale": "Das ist falsch – die Nutzwertanalyse nutzt Punktwerte, keine Euro-Beträge."
+        },
+        {
+          "text": "Die Nutzwertanalyse ist eine zukunftsorientierte Analysemethode aus der Betriebswirtschaftslehre zur Betrachtung abgeschlossener Projekte.",
+          "isCorrect": false,
+          "rationale": "Die Nutzwertanalyse dient der Entscheidungsfindung vor der Auswahl, nicht der Betrachtung abgeschlossener Projekte."
+        },
+        {
+          "text": "Die Nutzwertanalyse ist eine bildhafte Darstellung einer zukünftigen Situation.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt eher ein Szenario oder eine Visualisierung, nicht die Nutzwertanalyse."
+        }
+      ],
+      "hint": "Die Nutzwertanalyse macht weiche Kriterien durch Punktevergabe vergleichbar – ohne Euro.",
+      "youtubeQuery": "Nutzwertanalyse Scoring Modell qualitativ nicht monetär",
+      "topic": "Beschaffung & Analysemethoden"
+    },
+    {
+      "id": "mr_069",
+      "question": "Die „Vanguard-Style UG“ geht davon aus, dass sich Nutzer, die über eine Suchmaschinen-Anzeige (SEA) in den Online-Shop gelangen, bereits mit Produktalternativen und dem anstehenden Kauf eines Rucksacks bewusst auseinandersetzen. Geben Sie an, in welcher Funnel-Phase diese Nutzer primär zu verorten sind!",
+      "answerOptions": [
+        {
+          "text": "Awareness",
+          "isCorrect": false,
+          "rationale": "In der Awareness-Phase wird das Problem oder Bedürfnis erst erkannt. Die beschriebenen Nutzer sind bereits darüber hinaus."
+        },
+        {
+          "text": "Retention",
+          "isCorrect": false,
+          "rationale": "Retention bezieht sich auf die Kundenbindung nach dem Kauf und ist hier nicht zutreffend."
+        },
+        {
+          "text": "Consideration",
+          "isCorrect": true,
+          "rationale": "Richtig: Wenn ein Nutzer aktiv nach einem Produkt sucht und Alternativen vergleicht, hat er die Awareness-Phase bereits hinter sich. Er befindet sich in der Consideration-Phase (Abwägung) und sucht nach Argumenten, um bald in die Purchase-Phase überzugehen."
+        },
+        {
+          "text": "Purchase",
+          "isCorrect": false,
+          "rationale": "In der Purchase-Phase wird der Kauf bereits abgeschlossen. Die Nutzer vergleichen hier noch."
+        },
+        {
+          "text": "Advocacy",
+          "isCorrect": false,
+          "rationale": "Advocacy beschreibt die Phase, in der zufriedene Kunden das Produkt weiterempfehlen – das ist hier noch nicht der Fall."
+        }
+      ],
+      "hint": "Wer aktiv sucht und vergleicht, hat die Aufmerksamkeitsphase hinter sich und wägt noch ab.",
+      "youtubeQuery": "Customer Journey Funnel Consideration Phase einfach erklärt",
+      "topic": "Customer Journey & Online-Marketing"
+    },
+    {
+      "id": "mr_070",
+      "question": "Im Search-Engine-Marketing (SEA), also bei bezahlten Suchmaschinenanzeigen, rechnet die „Urban-Peak AG“ üblicherweise per „CPC“ ab. Geben Sie an, wofür dieses Abrechnungsmodell steht!",
+      "answerOptions": [
+        {
+          "text": "Cost-per-Conversion",
+          "isCorrect": false,
+          "rationale": "Cost-per-Conversion (auch CPA) beschreibt die Kosten pro abgeschlossener Zielhandlung, nicht pro Klick."
+        },
+        {
+          "text": "Cost-per-Click",
+          "isCorrect": true,
+          "rationale": "Richtig: Cost-per-Click (Kosten pro Klick) ist das absolute Standardmodell im Suchmaschinenmarketing (wie Google Ads). Das Unternehmen zahlt nicht dafür, dass die Anzeige angezeigt wird, sondern nur dann, wenn der Nutzer tatsächlich darauf klickt."
+        },
+        {
+          "text": "Cost-per-Contact",
+          "isCorrect": false,
+          "rationale": "Cost-per-Contact ist kein gängiges Abrechnungsmodell im SEA."
+        },
+        {
+          "text": "Cost-per-Cooperation",
+          "isCorrect": false,
+          "rationale": "Cost-per-Cooperation ist kein etabliertes Abrechnungsmodell im Online-Marketing."
+        },
+        {
+          "text": "Cost-per-Cost",
+          "isCorrect": false,
+          "rationale": "Cost-per-Cost existiert als Fachbegriff nicht."
+        }
+      ],
+      "hint": "CPC steht für das klickbasierte Abrechnungsmodell – bezahlt wird pro Klick auf die Anzeige.",
+      "youtubeQuery": "CPC Cost per Click SEA Abrechnungsmodell erklärt",
+      "topic": "Customer Journey & Online-Marketing"
+    },
+    {
+      "id": "mr_071",
+      "question": "Sie werden beauftragt, auf Basis vorliegender Verkaufsdaten eine Deckungsbeitragsrechnung durchzuführen. Geben Sie an, welche Darstellung zum Deckungsbeitrag betriebswirtschaftlich richtig ist!",
+      "answerOptions": [
+        {
+          "text": "Der Deckungsbeitrag trägt zur Deckung der variablen Kosten bei.",
+          "isCorrect": false,
+          "rationale": "Der Deckungsbeitrag trägt zur Deckung der Fixkosten bei, nicht der variablen Kosten."
+        },
+        {
+          "text": "Der Deckungsbeitrag deckt sämtliche im Unternehmen entstandenen Kosten ab.",
+          "isCorrect": false,
+          "rationale": "Der Deckungsbeitrag deckt zunächst nur die Fixkosten. Die variablen Kosten sind bereits abgezogen."
+        },
+        {
+          "text": "Der Deckungsbeitrag errechnet sich durch Abzug der variablen Kosten von der Absatzmenge.",
+          "isCorrect": false,
+          "rationale": "Die Formel lautet: Umsatz minus variable Kosten, nicht Absatzmenge minus variable Kosten."
+        },
+        {
+          "text": "Ein negativer Deckungsbeitrag bedeutet Verlust für das Unternehmen.",
+          "isCorrect": true,
+          "rationale": "Richtig: Der Deckungsbeitrag ist der Betrag, der nach Abzug der variablen Kosten vom Umsatz übrig bleibt, um die Fixkosten zu decken. Ist der Deckungsbeitrag negativ, kostet das Produkt in der Herstellung oder im Einkauf mehr, als es beim Verkauf einbringt – jedes verkaufte Stück erzeugt also direkt einen Verlust."
+        },
+        {
+          "text": "Der Deckungsbeitrag spielt in der Sortimentsgestaltung keine Rolle.",
+          "isCorrect": false,
+          "rationale": "Der Deckungsbeitrag ist eines der wichtigsten Instrumente der Sortimentsgestaltung, um unprofitable Produkte zu identifizieren."
+        }
+      ],
+      "hint": "Der Deckungsbeitrag = Umsatz minus variable Kosten. Er dient zur Deckung der Fixkosten.",
+      "youtubeQuery": "Deckungsbeitrag Teilkostenrechnung einfach erklärt negativer DB",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_072",
+      "question": "In einer Präsentation erklären Sie den Begriff der „Gewinnschwelle“. Geben Sie in diesem Zusammenhang an, welche Darstellung zur Gewinnschwelle korrekt ist!",
+      "answerOptions": [
+        {
+          "text": "Die Gewinnschwelle errechnet sich durch Abzug der fixen Kosten von den variablen Kosten.",
+          "isCorrect": false,
+          "rationale": "Das ist keine korrekte Formel für die Gewinnschwelle."
+        },
+        {
+          "text": "Die Gewinnschwelle gibt das Verhältnis der fixen Kosten zu den variablen Kosten an.",
+          "isCorrect": false,
+          "rationale": "Die Gewinnschwelle ist kein reines Verhältnis, sondern eine bestimmte Absatzmenge."
+        },
+        {
+          "text": "Die Gewinnschwelle gibt die Absatzmenge an, ab der alle Kosten durch die Umsatzerlöse gedeckt sind.",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Gewinnschwelle (Break-Even-Point) ist exakt die Absatzmenge, bei der die Umsatzerlöse genauso hoch sind wie die Gesamtkosten (Fixkosten + variable Kosten). Ab diesem Punkt macht das Unternehmen keinen Verlust mehr, und jede weitere verkaufte Einheit generiert Gewinn."
+        },
+        {
+          "text": "Die Gewinnschwelle ist der Punkt, an dem die Nutzkosten zu Leerkosten werden.",
+          "isCorrect": false,
+          "rationale": "Nutzkosten und Leerkosten beziehen sich auf die Kapazitätsauslastung, nicht auf die Gewinnschwelle."
+        },
+        {
+          "text": "Die Gewinnschwelle spielt im E-Commerce überhaupt keine Rolle.",
+          "isCorrect": false,
+          "rationale": "Die Gewinnschwelle ist für jedes Geschäftsmodell relevant, auch im E-Commerce."
+        }
+      ],
+      "hint": "Break-Even-Point = Fixkosten / Deckungsbeitrag pro Stück. Der Punkt, ab dem Gewinn entsteht.",
+      "youtubeQuery": "Break Even Point Gewinnschwelle berechnen einfach erklärt",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_073",
+      "question": "Für die Beurteilung des wirtschaftlichen Erfolgs sollen auch Kennzahlen aus dem externen Rechnungswesen (Bilanzanalyse) der „Smart-Gear GmbH“ betrachtet werden. Prüfen Sie, welche Kennziffer korrekt beschrieben ist!",
+      "answerOptions": [
+        {
+          "text": "Bei der Umsatzrentabilität werden die Kapitalanteile aller Gesellschafter ins Verhältnis zum nicht ausgeschütteten Gewinn gesetzt.",
+          "isCorrect": false,
+          "rationale": "Das ist keine korrekte Definition der Umsatzrentabilität. Diese setzt den Gewinn ins Verhältnis zum Umsatz."
+        },
+        {
+          "text": "Bei der Eigenkapitalrentabilität wird das Fremdkapital ins Verhältnis zum Eigenkapital gesetzt.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt den Verschuldungsgrad, nicht die Eigenkapitalrentabilität."
+        },
+        {
+          "text": "Bei der Liquidität 1. Grades werden die flüssigen Mittel ins Verhältnis zu den kurzfristigen Verbindlichkeiten gesetzt.",
+          "isCorrect": true,
+          "rationale": "Richtig: Die Liquidität 1. Grades (Barliquidität) prüft die sofortige Zahlungsfähigkeit eines Unternehmens. Dafür werden die sofort verfügbaren flüssigen Mittel (Kasse, Bankguthaben) durch die kurzfristigen Verbindlichkeiten (Schulden, die schnell bezahlt werden müssen) geteilt."
+        },
+        {
+          "text": "Bei der Liquidität 2. Grades werden alle Werte der Aktivseite ins Verhältnis zu den kurzfristigen Verbindlichkeiten gesetzt.",
+          "isCorrect": false,
+          "rationale": "Bei der Liquidität 2. Grades werden nur die flüssigen Mittel plus kurzfristige Forderungen ins Verhältnis gesetzt, nicht alle Aktiva."
+        },
+        {
+          "text": "Bei der Eigenkapitalrentabilität wird das Eigenkapital ins Verhältnis zum Fremdkapital gesetzt.",
+          "isCorrect": false,
+          "rationale": "Das ist der Eigenkapitalanteil oder eine Kennzahl der Kapitalstruktur, nicht die Eigenkapitalrentabilität (= Gewinn / Eigenkapital)."
+        }
+      ],
+      "hint": "Liquidität 1. Grades = flüssige Mittel / kurzfristige Verbindlichkeiten × 100.",
+      "youtubeQuery": "Liquidität 1 Grades Barliquidität Kennzahlen Bilanzanalyse",
+      "topic": "Rechnungswesen & Controlling"
     }
   ]
 }
