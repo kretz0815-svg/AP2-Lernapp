@@ -1746,6 +1746,346 @@
       "hint": "Break-Even = Erlöse = Gesamtkosten.",
       "youtubeQuery": "Break Even Point Gewinnschwelle erklaert",
       "topic": "Betriebswirtschaftliche Grundlagen"
+    },
+    {
+      "id": "mr_055",
+      "question": "Prüfen Sie, welche Darstellung zur Erweiterung des Mobile-Vertriebs der „Urban-Peak AG“ durch den Social-Media-Kanal falsch ist!",
+      "answerOptions": [
+        {
+          "text": "Durch die Nutzung unterschiedlicher mobiler Vertriebskanäle kann die Urban-Peak AG gezielt unterschiedliche Kundengruppen ansprechen.",
+          "isCorrect": false,
+          "rationale": "Diese Aussage beschreibt einen typischen Vorteil kanalübergreifender Ansprache."
+        },
+        {
+          "text": "Über Social-Media kann die Urban-Peak AG neue Kunden akquirieren.",
+          "isCorrect": false,
+          "rationale": "Auch das ist ein klassischer Nutzen von Social-Commerce."
+        },
+        {
+          "text": "Beim Vertrieb über Social-Media-Kanäle können Conversion-Pfade mit nur wenigen Touchpoints entstehen.",
+          "isCorrect": false,
+          "rationale": "Direkte Plattform-Interaktion kann kurze Conversion-Pfade ermöglichen."
+        },
+        {
+          "text": "Aufgrund der grundsätzlich geringen Reichweiten von Social-Media-Plattformen sind diese als Vertriebskanal für die Urban-Peak AG ungeeignet.",
+          "isCorrect": true,
+          "rationale": "Diese Aussage ist falsch, da Social-Media-Plattformen (wie Instagram, Facebook, TikTok) extrem hohe Reichweiten erzielen und somit als Vertriebskanal hervorragend geeignet sind. Alle anderen Aussagen beschreiben korrekte Vorteile des Social-Commerce."
+        },
+        {
+          "text": "Über Social-Media können die Nutzer zu Impulskäufen motiviert werden.",
+          "isCorrect": false,
+          "rationale": "Impulskauf-Effekte sind im Social-Commerce gut bekannt."
+        }
+      ],
+      "hint": "Gesucht ist die fachlich falsche Aussage über Social-Media-Reichweite.",
+      "youtubeQuery": "Social Commerce Reichweite Impulskauf Vorteile",
+      "topic": "Mobile Vertriebskanäle & Social Media"
+    },
+    {
+      "id": "mr_056",
+      "question": "Geben Sie an, wozu der „Eco-Wear GmbH“ ein Angebotsvergleich im Einkauf dient bzw. welche Kriterien Sie dabei zwingend berücksichtigen müssen!",
+      "answerOptions": [
+        {
+          "text": "Der Angebotsvergleich wird zur Kalkulation des Angebotspreises eines Artikels benötigt.",
+          "isCorrect": false,
+          "rationale": "Der Angebotsvergleich dient primär der Lieferanten-/Angebotsbewertung."
+        },
+        {
+          "text": "Der Angebotsvergleich wird nur nach quantitativen Kriterien durchgeführt.",
+          "isCorrect": false,
+          "rationale": "Nur Zahlen zu betrachten ist unvollständig."
+        },
+        {
+          "text": "Der Angebotsvergleich wird nur nach qualitativen Kriterien durchgeführt.",
+          "isCorrect": false,
+          "rationale": "Nur qualitative Bewertung reicht ebenfalls nicht aus."
+        },
+        {
+          "text": "Der Angebotsvergleich wird nach quantitativen und qualitativen Kriterien durchgeführt.",
+          "isCorrect": true,
+          "rationale": "Ein professioneller Angebotsvergleich im Handel berücksichtigt immer quantitative Kriterien (wie Preis, Rabatte, Frachtkosten) UND qualitative Kriterien (wie Qualität, Lieferzuverlässigkeit, Nachhaltigkeit)."
+        },
+        {
+          "text": "Der Angebotsvergleich dient der Ermittlung der Bezugskosten eines Artikels.",
+          "isCorrect": false,
+          "rationale": "Bezugskosten sind ein Teilaspekt, aber nicht die vollständige Zielsetzung."
+        }
+      ],
+      "hint": "Im Einkauf zählen harte Zahlen und weiche Faktoren.",
+      "youtubeQuery": "Angebotsvergleich quantitativ qualitativ Einkauf",
+      "topic": "Beschaffung & Angebotsbewertung"
+    },
+    {
+      "id": "mr_057",
+      "question": "Die „Trail-Blazer UG“ verwendet im Einkauf verschiedene Methoden und Kalkulationsinstrumente. Unter anderem wird die sogenannte Nutzwertanalyse angewandt. Prüfen Sie, welcher Sachverhalt dazu richtig beschrieben ist!",
+      "answerOptions": [
+        {
+          "text": "Die Nutzwertanalyse ist der quantitative Teil des Angebotsvergleichs.",
+          "isCorrect": false,
+          "rationale": "Sie zielt vorrangig auf qualitative Kriterien."
+        },
+        {
+          "text": "Die Nutzwertanalyse wird im Rahmen der Kundengewinnung eingesetzt.",
+          "isCorrect": false,
+          "rationale": "Sie ist primär ein Instrument zur Entscheidungsunterstützung im Einkauf."
+        },
+        {
+          "text": "Die Nutzwertanalyse beurteilt qualitative Kriterien der Kaufentscheidung.",
+          "isCorrect": true,
+          "rationale": "Die Nutzwertanalyse ist ein klassisches Instrument im Beschaffungsprozess, um weiche, qualitative Faktoren (z.B. Servicequalität, Umweltfreundlichkeit des Lieferanten) bewertbar und vergleichbar zu machen."
+        },
+        {
+          "text": "Die Nutzwertanalyse dient zur Messung des Produktnutzens für den Kunden.",
+          "isCorrect": false,
+          "rationale": "Hier geht es um Entscheidungsbewertung, nicht um direkte Kundennutzungsmessung."
+        },
+        {
+          "text": "Die Nutzwertanalyse kann Sachverhalte nicht in Geldwert ausweisen.",
+          "isCorrect": false,
+          "rationale": "Die Aussage ist zu pauschal und nicht der definierende Kern der Methode."
+        }
+      ],
+      "hint": "Nutzwertanalyse macht qualitative Kriterien vergleichbar.",
+      "youtubeQuery": "Nutzwertanalyse qualitative Kriterien Einkauf",
+      "topic": "Beschaffung & Angebotsbewertung"
+    },
+    {
+      "id": "mr_058",
+      "question": "Sie stellen fest, dass sich die Kunden hauptsächlich für die günstigeren Mountainbikes entscheiden. Sie erwägen, durch eine andere Gestaltung der Category-Page den höheren Nutzwert der teureren Mountainbikes hervorzuheben. Dies soll im Rahmen eines A/B-Tests geprüft werden. Was müssen Sie bei der Vorbereitung der Testvariante des A/B-Tests zwingend beachten?",
+      "answerOptions": [
+        {
+          "text": "Sie müssen möglichst viele verschiedene Elemente der Category-Page verändern.",
+          "isCorrect": false,
+          "rationale": "Zu viele Änderungen verhindern klare Ursachenzuordnung."
+        },
+        {
+          "text": "Sie sollen möglichst nur kleine Details ändern.",
+          "isCorrect": true,
+          "rationale": "Die goldene Regel beim A/B-Testing lautet: Verändere immer nur ein oder wenige kleine Details gleichzeitig (z.B. nur die Button-Farbe oder nur das Bild). Verändert man zu viel auf einmal, weiß man später nicht, welches Element für die Umsatzsteigerung verantwortlich war."
+        },
+        {
+          "text": "Sie können die Ladezeit der Website vernachlässigen.",
+          "isCorrect": false,
+          "rationale": "Ladezeit bleibt ein wichtiger Einflussfaktor."
+        },
+        {
+          "text": "Sie müssen die Usability nicht beachten, da sie eine untergeordnete Rolle spielt.",
+          "isCorrect": false,
+          "rationale": "Usability ist zentral für Testqualität und Conversion."
+        },
+        {
+          "text": "Sie sollten die Website möglichst übersichtlich gestalten.",
+          "isCorrect": false,
+          "rationale": "Das ist sinnvoll, aber nicht die zentrale A/B-Test-Regel dieser Frage."
+        }
+      ],
+      "hint": "A/B-Test-Regel: Kleine, isolierte Änderungen.",
+      "youtubeQuery": "A B Testing nur ein Element aendern",
+      "topic": "Website-Optimierung & Werbeplanung"
+    },
+    {
+      "id": "mr_059",
+      "question": "Werbung ist für die „Next-Gen Retail GmbH“ als Verkaufsmaßnahme von wesentlicher Bedeutung und bedarf einer präzisen Planung. Welches der folgenden Elemente ordnen Sie fachlich richtig der Werbeplanung zu?",
+      "answerOptions": [
+        {
+          "text": "Streudreieck",
+          "isCorrect": false,
+          "rationale": "Das ist kein klassischer Standardbegriff der Werbeplanungsleitfragen."
+        },
+        {
+          "text": "Werbepause",
+          "isCorrect": false,
+          "rationale": "Keine grundlegende Planungsdimension im hier gemeinten Sinne."
+        },
+        {
+          "text": "Werbekreis",
+          "isCorrect": false,
+          "rationale": "Nicht die gesuchte Kernkategorie."
+        },
+        {
+          "text": "Werbeobjekt",
+          "isCorrect": true,
+          "rationale": "Zur klassischen Werbeplanung gehören Leitfragen wie: Werbeobjekt (Was wird beworben?), Werbesubjekt (Wer wird beworben?), Werbebudget (Wie viel wird ausgegeben?) und Werbemittel (Womit wird geworben?)."
+        },
+        {
+          "text": "Marketingmix",
+          "isCorrect": false,
+          "rationale": "Der Marketingmix ist übergeordnet und nicht das konkret gesuchte Planelement."
+        }
+      ],
+      "hint": "Gefragt ist ein konkretes Grundelement der Werbeplanung.",
+      "youtubeQuery": "Werbeplanung Werbeobjekt Werbesubjekt",
+      "topic": "Website-Optimierung & Werbeplanung"
+    },
+    {
+      "id": "mr_060",
+      "question": "Bei der Prüfung der Suchmaschinen-Präsenzen fällt Ihnen auf, dass eine Filiale der „Peak-Adventures AG“ kein vollständiges Google My Business (GMB)-Profil aufweist. Geben Sie in diesem Zusammenhang an, welche Darstellung zu GMB-Profilen falsch ist!",
+      "answerOptions": [
+        {
+          "text": "Google erstellt zu jedem Unternehmen in Google My Business eine eigene redaktionelle Beschreibung.",
+          "isCorrect": false,
+          "rationale": "Diese Aussage ist im Aufgabenkontext nicht die gesuchte falsche Kernaussage."
+        },
+        {
+          "text": "Die Informationen, die ein Unternehmen in GMB zur Verfügung stellen kann, unterscheiden sich nach Branche.",
+          "isCorrect": false,
+          "rationale": "Branchenabhängig können unterschiedliche Felder/Funktionen relevant sein."
+        },
+        {
+          "text": "Je mehr Angaben ein GMB-Profil beinhaltet, umso teurer sind die Gebühren, die an Google zu zahlen sind.",
+          "isCorrect": true,
+          "rationale": "Diese Aussage ist falsch, da das Anlegen und Pflegen eines Google My Business-Profils (Local SEO) für Unternehmen grundsätzlich kostenlos ist. Es fallen keine Gebühren für mehr Informationen an."
+        },
+        {
+          "text": "Im GMB-Profil kann man aktuelle Informationen einspielen, die nur zeitlich begrenzt angezeigt werden.",
+          "isCorrect": false,
+          "rationale": "Zeitlich begrenzte Beiträge/Updates sind möglich."
+        },
+        {
+          "text": "Im GMB-Profil kann man selbstständig festlegen, wie groß das Einzugsgebiet des Unternehmens ist.",
+          "isCorrect": false,
+          "rationale": "Servicebereiche können in GMB definiert werden."
+        }
+      ],
+      "hint": "GMB ist grundsätzlich kostenlos.",
+      "youtubeQuery": "Google My Business kostenlos Profil Vorteile",
+      "topic": "Local SEO & Kundenbindung"
+    },
+    {
+      "id": "mr_061",
+      "question": "Die „Vanguard-Style UG“ setzt unterschiedliche Werbemittel für die Kundengewinnung (Neukunden) und Kundenbindung (Bestandskunden) ein. Geben Sie an, welche Werbemaßnahme sich ausschließlich für die Kundenbindung eignet!",
+      "answerOptions": [
+        {
+          "text": "Newsletter",
+          "isCorrect": false,
+          "rationale": "Newsletter können je nach Ausgestaltung auch zur Neukundengewinnung eingesetzt werden."
+        },
+        {
+          "text": "SEA (Search Engine Advertising)",
+          "isCorrect": false,
+          "rationale": "SEA zielt typischerweise stark auf Neukundenakquise."
+        },
+        {
+          "text": "Guerilla Marketing",
+          "isCorrect": false,
+          "rationale": "Guerilla-Maßnahmen sind nicht exklusiv auf Bestandskunden ausgelegt."
+        },
+        {
+          "text": "Bonusprogramme",
+          "isCorrect": true,
+          "rationale": "Ein Bonusprogramm (oder Loyalty-Programm) richtet sich immer und ausschließlich an Bestandskunden, um diese für wiederholte Käufe zu belohnen und langfristig an das Unternehmen zu binden (Kundenbindung). SEA oder Guerilla-Marketing zielen auf Neukunden ab."
+        },
+        {
+          "text": "Paketbeilagen",
+          "isCorrect": false,
+          "rationale": "Paketbeilagen können auch gemischt eingesetzt werden und sind nicht exklusiv."
+        }
+      ],
+      "hint": "Gesucht ist eine reine Loyalty-Maßnahme.",
+      "youtubeQuery": "Kundenbindung Bonusprogramm Loyalty",
+      "topic": "Local SEO & Kundenbindung"
+    },
+    {
+      "id": "mr_062",
+      "question": "Der Break-Even-Point ist eine wichtige Kennzahl für die Steuerungs- und Kontrollprozesse im Rechnungswesen. Prüfen Sie, welche Beschreibung dazu fachlich korrekt ist!",
+      "answerOptions": [
+        {
+          "text": "Der Break-Even-Point errechnet sich durch Abzug der variablen Kosten von den fixen Kosten.",
+          "isCorrect": false,
+          "rationale": "Das ist keine korrekte allgemeine Break-Even-Definition."
+        },
+        {
+          "text": "Der Break-Even-Point gibt das Verhältnis der variablen Kosten zu den fixen Kosten an.",
+          "isCorrect": false,
+          "rationale": "Der Break-Even ist keine bloße Verhältniskennzahl dieser beiden Kostenarten."
+        },
+        {
+          "text": "Der Break-Even-Point ist der Punkt, an dem die Leerkosten zu Nutzkosten werden.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt nicht die Gewinnschwelle im Controlling."
+        },
+        {
+          "text": "Der Break-Even-Point spielt in Handelsunternehmen überhaupt keine Rolle.",
+          "isCorrect": false,
+          "rationale": "Der Break-Even ist auch im Handel zentral."
+        },
+        {
+          "text": "Der Break-Even-Point gibt die Absatzmenge an, ab der alle Kosten durch die Umsatzerlöse gedeckt sind.",
+          "isCorrect": true,
+          "rationale": "Der Break-Even-Point (Gewinnschwelle) bezeichnet exakt den Punkt, an dem die Erlöse (Umsatz) genau so hoch sind wie die gesamten Kosten (Fix + Variabel). Ab der darauffolgenden abgesetzten Einheit macht das Unternehmen Gewinn."
+        }
+      ],
+      "hint": "Gewinnschwelle = Erlöse decken gesamte Kosten.",
+      "youtubeQuery": "Break Even Point Absatzmenge Gewinnschwelle",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_063",
+      "question": "Geben Sie an, welche Darstellung zur Kennzahl des Customer Lifetime Value (CLV) im E-Commerce richtig ist!",
+      "answerOptions": [
+        {
+          "text": "Der CLV ermittelt den Deckungsbeitrag, den der einzelne Kunde über alle Bestellungen einbringt.",
+          "isCorrect": true,
+          "rationale": "Der Customer Lifetime Value (Kundenwert) berechnet den potenziellen wirtschaftlichen Wert (Deckungsbeitrag) eines Kunden für das Unternehmen während der gesamten Dauer seiner aktiven Kundenbeziehung."
+        },
+        {
+          "text": "Der CLV ist eine Kennzahl im Rahmen der Sortimentsgestaltung über die aktiven Saisons.",
+          "isCorrect": false,
+          "rationale": "CLV ist primär eine kundenwertbezogene Kennzahl, nicht saisonale Sortimentskennzahl."
+        },
+        {
+          "text": "Der CLV errechnet sich auf Basis des Average Order Value (AOV) und der Brutto-Gewinnspanne.",
+          "isCorrect": false,
+          "rationale": "Das kann Teil von Modellen sein, ist aber nicht die fachlich eindeutige Kerndefinition hier."
+        },
+        {
+          "text": "Der CLV basiert in der Berechnung auf der Bounce-Rate (BR) über alle Werbemaßnahmen.",
+          "isCorrect": false,
+          "rationale": "Bounce-Rate ist keine direkte CLV-Basisgröße."
+        },
+        {
+          "text": "Der CLV wird nur in produzierenden Unternehmen ausgewertet.",
+          "isCorrect": false,
+          "rationale": "CLV ist branchenübergreifend relevant, besonders im E-Commerce."
+        }
+      ],
+      "hint": "CLV betrachtet den gesamten Kundenwert über die Beziehungsdauer.",
+      "youtubeQuery": "Customer Lifetime Value CLV erklaert",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_064",
+      "question": "Prüfen Sie, welcher Sachverhalt auf die Kostenträgerrechnung als Teil des internen Rechnungswesens zutrifft!",
+      "answerOptions": [
+        {
+          "text": "Die Kostenträgerrechnung wird immer als Vollkostenrechnung betrieben.",
+          "isCorrect": false,
+          "rationale": "Sie kann auch als Teilkostenrechnung ausgeführt werden."
+        },
+        {
+          "text": "Die Vollkostenrechnung umfasst die volle Kostenkontrolle im Unternehmen.",
+          "isCorrect": false,
+          "rationale": "Das ist unscharf und nicht die gesuchte korrekte Aussage."
+        },
+        {
+          "text": "Die Kostenträgerrechnung kann als Voll- oder Teilkostenrechnung durchgeführt werden.",
+          "isCorrect": true,
+          "rationale": "Die Kostenträgerrechnung (\"Wofür sind die Kosten angefallen?\") ist flexibel: Sie kann entweder als Vollkostenrechnung (alle fixen und variablen Kosten werden auf die Produkte umgelegt) oder als Teilkostenrechnung (nur variable Kosten werden umgelegt) durchgeführt werden."
+        },
+        {
+          "text": "Die Deckungsbeitragsrechnung ist eine Form der Vollkostenrechnung.",
+          "isCorrect": false,
+          "rationale": "Deckungsbeitragsrechnung gehört zur Teilkostenrechnung."
+        },
+        {
+          "text": "Die Vollkostenrechnung unterscheidet die Kosten in fixe und variable Bestandteile.",
+          "isCorrect": false,
+          "rationale": "Diese Unterscheidung steht methodisch stärker bei der Teilkostenrechnung im Fokus."
+        }
+      ],
+      "hint": "Kostenträgerrechnung ist sowohl als Voll- als auch Teilkostenansatz möglich.",
+      "youtubeQuery": "Kostentraegerrechnung Vollkosten Teilkosten Unterschied",
+      "topic": "Rechnungswesen & Controlling"
     }
   ]
 }
