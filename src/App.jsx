@@ -16,6 +16,7 @@ import marketingReview from './data/marketing_review.json';
 import { supabase } from './supabaseClient';
 import { askGemini, extractFocusTopics, extractCalculationInsights } from './geminiClient';
 import { fetchYouTubeVideos } from './youtubeClient';
+import QuizErrorBoundary from './components/QuizErrorBoundary';
 import FloatingPortal from './components/FloatingPortal';
 import FloatingImage from './components/FloatingImage';
 import BurgerMenu from './components/BurgerMenu';
@@ -2606,43 +2607,47 @@ ${input}`;
   if (appMode === 'quiz') {
     return (
       <React.Suspense fallback={<div className="loading-overlay">Lade Quiz...</div>}>
-        <QuizSession
-          quizDuePool={quizDuePool}
-          initialSessionPool={quizSessionPool}
-          onComplete={() => {
-            refreshQuizDuePool();
-            setAppMode('quiz_setup');
-          }}
-          onCancel={() => {
-            refreshQuizDuePool();
-            setAppMode('dashboard');
-          }}
-          feynmanModeEnabled={feynmanModeEnabled}
-          onLearningEvent={appendLearningEvent}
-          onQuizAnswer={handleQuizAnswerUpdate}
-          handleGeminiAsk={handleGeminiAsk}
-          geminiResponse={geminiResponse}
-          geminiLoading={geminiLoading}
-          setGeminiQuery={setGeminiQuery}
-          geminiQuery={geminiQuery}
-          setGeminiVisible={setGeminiVisible}
-          geminiVisible={geminiVisible}
-          pomodoroPortal={pomodoroPortal}
-          burgerMenuPortal={burgerMenuPortal}
-          handleToggleVideos={handleToggleVideos}
-          wisorVideoOpen={wisorVideoOpen}
-          setWisorVideoOpen={setWisorVideoOpen}
-          wisorVideoLoading={wisorVideoLoading}
-          wisorVideos={wisorVideos}
-          wisorVideoError={wisorVideoError}
-          selectedWisorVideo={selectedWisorVideo}
-          setSelectedWisorVideo={setSelectedWisorVideo}
-          showConfetti={showConfetti}
-          triggerConfetti={() => triggerConfetti()}
-          lastQuizCorrect={lastQuizCorrect}
-          setAppMode={setAppMode}
-          handleFeynmanCheck={handleFeynmanCheck}
-        />
+        <QuizErrorBoundary onReset={() => setAppMode('quiz_setup')}>
+          <QuizSession
+            quizDuePool={quizDuePool}
+            initialSessionPool={quizSessionPool}
+            onComplete={() => {
+              refreshQuizDuePool();
+              setAppMode('quiz_setup');
+            }}
+            onCancel={() => {
+              refreshQuizDuePool();
+              setAppMode('dashboard');
+            }}
+            feynmanModeEnabled={feynmanModeEnabled}
+            onLearningEvent={appendLearningEvent}
+            onQuizAnswer={handleQuizAnswerUpdate}
+            handleGeminiAsk={handleGeminiAsk}
+            geminiResponse={geminiResponse}
+            geminiLoading={geminiLoading}
+            setGeminiQuery={setGeminiQuery}
+            geminiQuery={geminiQuery}
+            setGeminiVisible={setGeminiVisible}
+            geminiVisible={geminiVisible}
+            pomodoroPortal={pomodoroPortal}
+            burgerMenuPortal={burgerMenuPortal}
+            handleToggleVideos={handleToggleVideos}
+            wisorVideoOpen={wisorVideoOpen}
+            setWisorVideoOpen={setWisorVideoOpen}
+            wisorVideoLoading={wisorVideoLoading}
+            wisorVideos={wisorVideos}
+            wisorVideoError={wisorVideoError}
+            selectedWisorVideo={selectedWisorVideo}
+            setSelectedWisorVideo={setSelectedWisorVideo}
+            showConfetti={showConfetti}
+            triggerConfetti={() => triggerConfetti()}
+            lastQuizCorrect={lastQuizCorrect}
+            setAppMode={setAppMode}
+            handleFeynmanCheck={handleFeynmanCheck}
+            learningMode="quiz"
+            setupMode="quiz_setup"
+          />
+        </QuizErrorBoundary>
       </React.Suspense>
     );
   }
@@ -2650,45 +2655,47 @@ ${input}`;
   if (appMode === 'marketing_review_quiz') {
     return (
       <React.Suspense fallback={<div className="loading-overlay">Lade IHK Extras...</div>}>
-        <QuizSession
-          quizDuePool={getDueMarketingReviewByTopic('all')}
-          initialSessionPool={marketingReviewSessionPool}
-          onComplete={() => {
-            setMarketingReviewSessionPool([]);
-            setAppMode('marketing_review_setup');
-          }}
-          onCancel={() => {
-            setMarketingReviewSessionPool([]);
-            setAppMode('dashboard');
-          }}
-          feynmanModeEnabled={feynmanModeEnabled}
-          onLearningEvent={appendLearningEvent}
-          onQuizAnswer={handleMarketingReviewAnswerUpdate}
-          handleGeminiAsk={handleGeminiAsk}
-          geminiResponse={geminiResponse}
-          geminiLoading={geminiLoading}
-          setGeminiQuery={setGeminiQuery}
-          geminiQuery={geminiQuery}
-          setGeminiVisible={setGeminiVisible}
-          geminiVisible={geminiVisible}
-          pomodoroPortal={pomodoroPortal}
-          burgerMenuPortal={burgerMenuPortal}
-          handleToggleVideos={handleToggleVideos}
-          wisorVideoOpen={wisorVideoOpen}
-          setWisorVideoOpen={setWisorVideoOpen}
-          wisorVideoLoading={wisorVideoLoading}
-          wisorVideos={wisorVideos}
-          wisorVideoError={wisorVideoError}
-          selectedWisorVideo={selectedWisorVideo}
-          setSelectedWisorVideo={setSelectedWisorVideo}
-          showConfetti={showConfetti}
-          triggerConfetti={() => triggerConfetti()}
-          lastQuizCorrect={lastQuizCorrect}
-          setAppMode={setAppMode}
-          handleFeynmanCheck={handleFeynmanCheck}
-          learningMode="marketing_review"
-          setupMode="marketing_review_setup"
-        />
+        <QuizErrorBoundary onReset={() => setAppMode('marketing_review_setup')}>
+          <QuizSession
+            quizDuePool={getDueMarketingReviewByTopic('all')}
+            initialSessionPool={marketingReviewSessionPool}
+            onComplete={() => {
+              setMarketingReviewSessionPool([]);
+              setAppMode('marketing_review_setup');
+            }}
+            onCancel={() => {
+              setMarketingReviewSessionPool([]);
+              setAppMode('dashboard');
+            }}
+            feynmanModeEnabled={feynmanModeEnabled}
+            onLearningEvent={appendLearningEvent}
+            onQuizAnswer={handleMarketingReviewAnswerUpdate}
+            handleGeminiAsk={handleGeminiAsk}
+            geminiResponse={geminiResponse}
+            geminiLoading={geminiLoading}
+            setGeminiQuery={setGeminiQuery}
+            geminiQuery={geminiQuery}
+            setGeminiVisible={setGeminiVisible}
+            geminiVisible={geminiVisible}
+            pomodoroPortal={pomodoroPortal}
+            burgerMenuPortal={burgerMenuPortal}
+            handleToggleVideos={handleToggleVideos}
+            wisorVideoOpen={wisorVideoOpen}
+            setWisorVideoOpen={setWisorVideoOpen}
+            wisorVideoLoading={wisorVideoLoading}
+            wisorVideos={wisorVideos}
+            wisorVideoError={wisorVideoError}
+            selectedWisorVideo={selectedWisorVideo}
+            setSelectedWisorVideo={setSelectedWisorVideo}
+            showConfetti={showConfetti}
+            triggerConfetti={() => triggerConfetti()}
+            lastQuizCorrect={lastQuizCorrect}
+            setAppMode={setAppMode}
+            handleFeynmanCheck={handleFeynmanCheck}
+            learningMode="marketing_review"
+            setupMode="marketing_review_setup"
+          />
+        </QuizErrorBoundary>
       </React.Suspense>
     );
   }
