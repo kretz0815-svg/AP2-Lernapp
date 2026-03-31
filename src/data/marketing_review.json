@@ -3252,6 +3252,312 @@
       "hint": "Abweichungsanalyse = Soll-Ist-Vergleich in der Kontrollphase. Ursachen: Preis, Menge, Zeit.",
       "youtubeQuery": "Abweichungsanalyse Soll Ist Vergleich Controlling Ursachen",
       "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_099",
+      "question": "Der Vertriebsleiter der \u201eSmart-Gear UG\u201c sagt: \u201eWenn wir mit Kunden \u00fcber einen Messenger kommunizieren, gewinnen wir viele Mobilnummern. Das gibt uns die M\u00f6glichkeit, ihnen Werbung direkt per SMS zu senden.\u201c Pr\u00fcfen Sie, welcher Sachverhalt zur SMS-Werbung demzufolge falsch ist!",
+      "answerOptions": [
+        {
+          "text": "Das Unternehmen darf eine SMS an die Kunden senden, wenn diese bei der Erhebung der Mobilnummer und bei jeder Verwendung darauf hingewiesen werden, dass sie der Verwendung jederzeit widersprechen k\u00f6nnen.",
+          "isCorrect": false,
+          "rationale": "Das ist korrekt \u2013 bei jeder Kontaktaufnahme muss auf das Widerspruchsrecht hingewiesen werden."
+        },
+        {
+          "text": "Das Unternehmen darf die Kunden, die ihnen die Mobilnummer im Rahmen eines Kaufs mitgeteilt haben, per SMS auf eigene Waren und Dienstleistungen ansprechen.",
+          "isCorrect": true,
+          "rationale": "Richtig (= diese Aussage ist falsch): Die Bestandskundenausnahme (\u00a7 7 Abs. 3 UWG) erlaubt Werbung ohne ausdr\u00fcckliche Einwilligung nur f\u00fcr \u00e4hnliche Waren und Dienstleistungen, die der Kunde bereits gekauft hat. Die Formulierung \u201eauf eigene Waren\u201c ist rechtlich zu weit gefasst."
+        },
+        {
+          "text": "Das Unternehmen darf eine SMS an die Kunden senden, wenn diese dem ausdr\u00fccklich zugestimmt und seitdem nicht widersprochen haben.",
+          "isCorrect": false,
+          "rationale": "Das ist korrekt \u2013 mit ausdr\u00fccklicher Einwilligung (Opt-In) und ohne Widerspruch ist SMS-Werbung zul\u00e4ssig."
+        },
+        {
+          "text": "Das Unternehmen muss die missbr\u00e4uchliche oder irrt\u00fcmliche Eingabe von Mobilnummern durch ein geeignetes Verfahren ausschlie\u00dfen.",
+          "isCorrect": false,
+          "rationale": "Das ist korrekt \u2013 ein Verifizierungsverfahren (z.B. SMS-TAN) ist erforderlich, um Missbrauch zu verhindern."
+        },
+        {
+          "text": "Das Unternehmen darf die Kunden nicht per SMS zu Zwecken der Markt- und Meinungsforschung ansprechen.",
+          "isCorrect": false,
+          "rationale": "Das ist korrekt \u2013 Markt- und Meinungsforschung per SMS ohne Einwilligung ist nicht zul\u00e4ssig."
+        }
+      ],
+      "hint": "Achtung: Gefragt ist, welche Aussage FALSCH ist. Die Bestandskundenausnahme gilt nur f\u00fcr \u00e4hnliche Produkte, nicht f\u00fcr alle eigenen Waren!",
+      "youtubeQuery": "SMS Werbung UWG Bestandskundenausnahme Einwilligung Recht",
+      "topic": "Mobile Marketing & Recht"
+    },
+    {
+      "id": "mr_100",
+      "question": "Die \u201eUrban-Peak AG\u201c m\u00f6chte Smartphone-Nutzer gezielt ansprechen, wenn sich diese in der N\u00e4he einer ihrer Filialen befinden. Die Fachabteilung nutzt hierf\u00fcr sogenanntes LBS. L\u00f6sen Sie die Abk\u00fcrzung LBS im Werbekontext richtig auf!",
+      "answerOptions": [
+        {
+          "text": "Leveraged Bid on Sale",
+          "isCorrect": false,
+          "rationale": "Diese Abk\u00fcrzung existiert nicht im Marketing-Kontext."
+        },
+        {
+          "text": "Location Based Selling",
+          "isCorrect": false,
+          "rationale": "Der korrekte Fachbegriff lautet \u201eLocation Based Services\u201c, nicht \u201eSelling\u201c."
+        },
+        {
+          "text": "Location Based Services",
+          "isCorrect": true,
+          "rationale": "Richtig: LBS steht f\u00fcr Location Based Services (standortbezogene Dienste). Diese Dienste nutzen die GPS- oder WLAN-Positionsdaten von Mobilger\u00e4ten, um Nutzern ortsspezifische Informationen oder Werbung auszuspielen."
+        },
+        {
+          "text": "Lead Building Services",
+          "isCorrect": false,
+          "rationale": "Diese Abk\u00fcrzung existiert nicht als etablierter Fachbegriff."
+        },
+        {
+          "text": "Lead Based Sales",
+          "isCorrect": false,
+          "rationale": "Diese Abk\u00fcrzung existiert nicht im Mobile-Marketing-Kontext."
+        }
+      ],
+      "hint": "LBS nutzt GPS-/WLAN-Daten, um standortbezogene Werbung auszuspielen.",
+      "youtubeQuery": "Location Based Services LBS Mobile Marketing GPS Werbung",
+      "topic": "Mobile Marketing & Recht"
+    },
+    {
+      "id": "mr_101",
+      "question": "Geben Sie in diesem Zusammenhang an, welche Darstellung zur Nutzung solcher Geo-Daten (Standortdaten) f\u00fcr das Mobile Marketing korrekt ist!",
+      "answerOptions": [
+        {
+          "text": "Standortdaten beziehen sich auf Ger\u00e4te und fallen daher nicht unter Regelungen, die personenbezogene Daten sch\u00fctzen.",
+          "isCorrect": false,
+          "rationale": "Standortdaten sind nach der DSGVO personenbezogene Daten, da sie R\u00fcckschl\u00fcsse auf eine identifizierbare Person erlauben."
+        },
+        {
+          "text": "Werbeausspielungen unter Nutzung des konkreten Standorts eines Empf\u00e4ngers sind wettbewerbsrechtlich grunds\u00e4tzlich unbedenklich.",
+          "isCorrect": false,
+          "rationale": "Standortbezogene Werbung unterliegt strengen wettbewerbs- und datenschutzrechtlichen Anforderungen."
+        },
+        {
+          "text": "Der Standort eines Mobilger\u00e4tes darf als personenbeziehbares Datum in keiner Weise f\u00fcr Werbezwecke genutzt werden.",
+          "isCorrect": false,
+          "rationale": "Standortdaten d\u00fcrfen genutzt werden \u2013 aber nur mit ausdr\u00fccklicher, informierter Einwilligung des Nutzers."
+        },
+        {
+          "text": "Die Installation einer App, die Standortdaten zwingend auslesen muss, gilt als konkludenter Hinweis auf die Einwilligung f\u00fcr standortbezogene Werbung.",
+          "isCorrect": false,
+          "rationale": "Eine App-Installation allein reicht nicht als Einwilligung. Es bedarf einer aktiven, freiwilligen und informierten Zustimmung (Opt-In)."
+        },
+        {
+          "text": "Wenn der Nutzer die Zustimmung zur Nutzung seiner Standort-Daten gibt und der H\u00e4ndler die Nutzung zu Werbezwecken dargelegt hat, darf er Standort-bezogene Werbung ausspielen.",
+          "isCorrect": true,
+          "rationale": "Richtig: Standortdaten sind nach der DSGVO hochsensible, personenbezogene Daten. Sie d\u00fcrfen f\u00fcr Werbung genutzt werden, aber nur, wenn der Nutzer im Vorfeld vollst\u00e4ndig informiert wurde und der Nutzung ausdr\u00fccklich, freiwillig und aktiv zugestimmt hat (Opt-In)."
+        }
+      ],
+      "hint": "Standortdaten = personenbezogene Daten nach DSGVO. Nutzung nur mit ausdr\u00fccklicher Einwilligung (Opt-In).",
+      "youtubeQuery": "Geo Daten Standortdaten DSGVO Einwilligung Mobile Marketing",
+      "topic": "Mobile Marketing & Recht"
+    },
+    {
+      "id": "mr_102",
+      "question": "Im Rahmen einer Sortimentsanalyse sollen f\u00fcr die \u201eTrail-Blazer GmbH\u201c zwei spezifische Erkenntnisse gewonnen werden: (1.) Die Ermittlung der Top-Seller-Produkte und (2.) die Ermittlung von Sortimentsbereichen mit besonderem Marktpotenzial. Welche zwei Instrumente setzen Sie f\u00fcr diese Ziele korrekterweise ein?",
+      "answerOptions": [
+        {
+          "text": "1. Nulltreffer-Analyse & 2. Nutzwert-Analyse",
+          "isCorrect": false,
+          "rationale": "Die Nulltreffer-Analyse zeigt nicht gefundene Suchanfragen, die Nutzwert-Analyse bewertet qualitative Kriterien \u2013 beides passt hier nicht."
+        },
+        {
+          "text": "1. ABC-Analyse & 2. Portfolio-Analyse",
+          "isCorrect": true,
+          "rationale": "Richtig: Die ABC-Analyse kategorisiert Produkte nach ihrer Umsatzst\u00e4rke (A-Artikel sind die Top-Seller). Die Portfolio-Analyse (z.B. BCG-Matrix mit Stars und Question Marks) dient strategisch dazu, das zuk\u00fcnftige Marktpotenzial und Marktwachstum von Sortimenten zu bewerten."
+        },
+        {
+          "text": "1. Produktlebenszyklus-Analyse & 2. ABC-Analyse",
+          "isCorrect": false,
+          "rationale": "Der Produktlebenszyklus zeigt die Phase eines Produkts, identifiziert aber keine Top-Seller. Die Zuordnung ist vertauscht."
+        },
+        {
+          "text": "1. Portfolio-Analyse & 2. Nulltreffer-Analyse",
+          "isCorrect": false,
+          "rationale": "Die Portfolio-Analyse identifiziert Marktpotenzial, aber die Nulltreffer-Analyse zeigt fehlende Produkte \u2013 nicht Top-Seller."
+        },
+        {
+          "text": "1. Nutzwert-Analyse & 2. Produktlebenszyklus-Analyse",
+          "isCorrect": false,
+          "rationale": "Keines dieser Instrumente ist f\u00fcr die genannten Ziele (Top-Seller und Marktpotenzial) das richtige Werkzeug."
+        }
+      ],
+      "hint": "ABC-Analyse = Umsatzranking (Top-Seller). Portfolio-Analyse = Marktpotenzial und Marktwachstum.",
+      "youtubeQuery": "ABC Analyse Portfolio Analyse BCG Matrix Sortimentsanalyse",
+      "topic": "Sortimentsstrategie & Logistik"
+    },
+    {
+      "id": "mr_103",
+      "question": "Die \u201eNext-Gen Retail UG\u201c \u00fcberlegt, hochpreisige E-Mountainbikes zuk\u00fcnftig vor allem per Drop-Shipping (Streckengesch\u00e4ft) zum Kauf anzubieten. Geben Sie an, bei welcher der folgenden Aussagen es sich nicht um einen Vorteil von Drop-Shipping handelt (also um eine falsche Annahme)!",
+      "answerOptions": [
+        {
+          "text": "Das Unternehmen kann durch Drop-Shipping Lagerkosten einsparen.",
+          "isCorrect": false,
+          "rationale": "Das ist ein echter Vorteil \u2013 beim Drop-Shipping entf\u00e4llt die eigene Lagerhaltung."
+        },
+        {
+          "text": "Durch Drop-Shipping kann das Unternehmen das Absatzrisiko verringern.",
+          "isCorrect": false,
+          "rationale": "Das ist ein Vorteil \u2013 da keine Ware vorfinanziert wird, sinkt das Risiko bei schlechtem Absatz."
+        },
+        {
+          "text": "Das Unternehmen kann Drop-Shipping-Artikel ohne Initialkosten f\u00fcr das Anlegen im Warenwirtschafts-, Shop- und PIM-System ins Sortiment aufnehmen.",
+          "isCorrect": true,
+          "rationale": "Richtig (= diese Aussage ist falsch): Der H\u00e4ndler muss die Produkte dennoch aufwendig mit Texten, Bildern und Metadaten in sein eigenes PIM-, Shop- und ERP-System einpflegen. Initialkosten f\u00fcr die Datenanlage entstehen also trotzdem!"
+        },
+        {
+          "text": "Beim Drop-Shipping kann das Unternehmen seine lagerbestandsbedingten Kapitalbindungskosten senken.",
+          "isCorrect": false,
+          "rationale": "Das ist ein Vorteil \u2013 ohne eigene Lagerhaltung entf\u00e4llt die Kapitalbindung in Warenbestand."
+        },
+        {
+          "text": "Drop-Shipping-Artikel k\u00f6nnen vom Unternehmen leichter ausgelistet werden als Artikel mit hohem Lagerbestand.",
+          "isCorrect": false,
+          "rationale": "Das ist ein Vorteil \u2013 ohne Restbest\u00e4nde im Lager kann ein Produkt einfacher aus dem Sortiment genommen werden."
+        }
+      ],
+      "hint": "Achtung: Gefragt ist, welche Aussage KEIN Vorteil ist. Auch beim Drop-Shipping muss man Produktdaten einpflegen.",
+      "youtubeQuery": "Drop Shipping Streckengesch\u00e4ft Vorteile Nachteile E-Commerce",
+      "topic": "Sortimentsstrategie & Logistik"
+    },
+    {
+      "id": "mr_104",
+      "question": "Die \u201eEco-Wear GmbH\u201c m\u00f6chte durch Investitionen in mobile Werbung in den ersten 6 Monaten insbesondere neue Interessenten/Kunden gewinnen. Pr\u00fcfen Sie, welche Kennzahl im Performance-Marketing besonders geeignet ist, den finanziellen Erfolg der Neukundengewinnung darzustellen!",
+      "answerOptions": [
+        {
+          "text": "ROAS",
+          "isCorrect": false,
+          "rationale": "ROAS (Return on Ad Spend) misst den Gesamtumsatz pro Werbe-Euro, nicht spezifisch die Kosten pro Neukunde."
+        },
+        {
+          "text": "CLV",
+          "isCorrect": false,
+          "rationale": "CLV (Customer Lifetime Value) betrachtet den Gesamtwert eines Kunden \u00fcber die gesamte Gesch\u00e4ftsbeziehung, nicht die Akquisitionskosten."
+        },
+        {
+          "text": "CPM",
+          "isCorrect": false,
+          "rationale": "CPM (Cost per Mille) misst die Kosten pro 1.000 Einblendungen \u2013 das sagt nichts \u00fcber die Neukundengewinnung aus."
+        },
+        {
+          "text": "CPA",
+          "isCorrect": true,
+          "rationale": "Richtig: CPA steht f\u00fcr Cost per Acquisition (oder Cost per Action). Diese Kennzahl sagt dem Controlling exakt, wie viel Werbebudget ausgegeben werden musste, um einen einzigen neuen Kunden (oder Lead/Kauf) zu generieren."
+        },
+        {
+          "text": "CPC",
+          "isCorrect": false,
+          "rationale": "CPC (Cost per Click) misst die Kosten pro Klick, nicht pro gewonnenem Kunden."
+        }
+      ],
+      "hint": "CPA = Cost per Acquisition = Kosten pro gewonnenem Neukunden.",
+      "youtubeQuery": "CPA Cost per Acquisition Neukundengewinnung Performance Marketing",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_105",
+      "question": "Geben Sie im Rahmen der Unternehmensplanung den wesentlichen Hauptzweck einer Budgetierung im E-Commerce an!",
+      "answerOptions": [
+        {
+          "text": "Steuerung der finanziellen Ressourcen",
+          "isCorrect": true,
+          "rationale": "Richtig: Ein Budget ist ein in Zahlen gefasster Plan. Der prim\u00e4re Zweck der Budgetierung im Management ist die Zuweisung, Planung und zielgerichtete Steuerung der verf\u00fcgbaren finanziellen Ressourcen f\u00fcr kommende Perioden."
+        },
+        {
+          "text": "Kontrolle der Marketingaktivit\u00e4ten",
+          "isCorrect": false,
+          "rationale": "Die Kontrolle von Marketingaktivit\u00e4ten ist ein Teilaspekt, aber nicht der Hauptzweck der Budgetierung."
+        },
+        {
+          "text": "Messung der Rentabilit\u00e4t von Produkten",
+          "isCorrect": false,
+          "rationale": "Die Rentabilit\u00e4tsmessung geh\u00f6rt zum Controlling, nicht zur Budgetierung als solcher."
+        },
+        {
+          "text": "Optimierung der Lagerhaltung",
+          "isCorrect": false,
+          "rationale": "Lagerhaltungsoptimierung ist eine operative Aufgabe, kein Zweck der Budgetierung."
+        },
+        {
+          "text": "Kl\u00e4rung der Sortimentsgestaltung",
+          "isCorrect": false,
+          "rationale": "Sortimentsgestaltung ist eine strategische Entscheidung, die zwar Budget ben\u00f6tigt, aber nicht der Hauptzweck der Budgetierung ist."
+        }
+      ],
+      "hint": "Budget = in Zahlen gefasster Plan. Hauptzweck = Steuerung der finanziellen Mittel.",
+      "youtubeQuery": "Budgetierung Hauptzweck finanzielle Ressourcen Unternehmensplanung",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_106",
+      "question": "Die Preisuntergrenze ist eine wesentliche Bezugsgr\u00f6\u00dfe im E-Commerce. Stellen Sie fest, welche Darstellung in Bezug auf Preisuntergrenzen in der Kosten- und Leistungsrechnung (KLR) absolut korrekt ist!",
+      "answerOptions": [
+        {
+          "text": "Die kurzfristige Preisuntergrenze ist bei fehlenden Fixkosten immer niedriger als die langfristige Preisuntergrenze.",
+          "isCorrect": false,
+          "rationale": "Ohne Fixkosten w\u00e4ren kurz- und langfristige Preisuntergrenze identisch, da beide nur die variablen Kosten umfassen w\u00fcrden."
+        },
+        {
+          "text": "Die langfristige Preisuntergrenze ist immer gleich den Gesamtkosten pro Verkaufseinheit.",
+          "isCorrect": true,
+          "rationale": "Richtig: Die langfristige Preisuntergrenze deckt exakt die vollen Selbstkosten (variable Kosten + anteilige Fixkosten) ab. An diesem Punkt macht das Unternehmen weder Verlust noch Gewinn."
+        },
+        {
+          "text": "Die kurzfristige Preisuntergrenze ist der Mindestpreis, zu dem ein Unternehmen ein Produkt verkaufen kann, ohne weitere Verluste in der langen Frist zu erleiden.",
+          "isCorrect": false,
+          "rationale": "Die kurzfristige Preisuntergrenze deckt nur die variablen Kosten. Langfristig f\u00fchrt das zu Verlusten, da die Fixkosten nicht gedeckt werden."
+        },
+        {
+          "text": "Die langfristige Preisuntergrenze ist der Mindestpreis, zu dem ein Unternehmen ein Produkt verkaufen muss, um alle Kosten zu decken und langfristig Gewinne zu erzielen.",
+          "isCorrect": false,
+          "rationale": "Achtung Falle: Bei der langfristigen Preisuntergrenze wird eben noch kein Gewinn erzielt \u2013 es werden lediglich alle Kosten gedeckt (Gewinn = 0)."
+        },
+        {
+          "text": "Die kurzfristige Preisuntergrenze und die langfristige Preisuntergrenze sind beide f\u00fcr Preisentscheidungen irrelevant.",
+          "isCorrect": false,
+          "rationale": "Preisuntergrenzen sind zentrale Instrumente der Preispolitik und Kalkulation."
+        }
+      ],
+      "hint": "Langfristige Preisuntergrenze = Selbstkosten (variable + fixe Kosten). Gewinn = 0 an diesem Punkt.",
+      "youtubeQuery": "Langfristige kurzfristige Preisuntergrenze Selbstkosten KLR",
+      "topic": "Rechnungswesen & Controlling"
+    },
+    {
+      "id": "mr_107",
+      "question": "Im Rahmen der Vollkostenrechnung m\u00fcssen Sie verschiedene Vorgaben und Begriffe beachten. Pr\u00fcfen Sie, welche der folgenden Darstellungen nicht zutrifft (falsch ist)!",
+      "answerOptions": [
+        {
+          "text": "Kostenarten beschreiben Kategorien, in die Kosten eingeteilt werden k\u00f6nnen.",
+          "isCorrect": false,
+          "rationale": "Das ist korrekt \u2013 Kostenarten (z.B. Personalkosten, Materialkosten) sind die Kategorien der Kostenartenrechnung."
+        },
+        {
+          "text": "Kostenstellen sind klar abgegrenzte Bereiche im Unternehmen, in denen Kosten anfallen.",
+          "isCorrect": false,
+          "rationale": "Das ist korrekt \u2013 Kostenstellen (z.B. Abteilungen) beantworten die Frage: \u201eWo\u201c sind die Kosten entstanden?"
+        },
+        {
+          "text": "Kostentr\u00e4ger stellen dar, wo die Kosten entstanden sind.",
+          "isCorrect": true,
+          "rationale": "Richtig (= diese Aussage ist falsch): Kostentr\u00e4ger (z.B. ein konkretes Produkt) beantworten die Frage \u201eWof\u00fcr\u201c die Kosten entstanden sind. Die Frage nach dem \u201eWo\u201c (Abteilung/Ort) wird durch die Kostenstellenrechnung beantwortet."
+        },
+        {
+          "text": "Kostenartenrechnung ist der erste Schritt in der Kostenanalyse.",
+          "isCorrect": false,
+          "rationale": "Das ist korrekt \u2013 die Reihenfolge lautet: 1. Kostenartenrechnung (Welche Kosten?), 2. Kostenstellenrechnung (Wo?), 3. Kostentr\u00e4gerrechnung (Wof\u00fcr?)."
+        },
+        {
+          "text": "Kostenarten k\u00f6nnen dem internen Rechnungswesen entnommen werden.",
+          "isCorrect": false,
+          "rationale": "Das ist korrekt \u2013 die Kostenrechnung ist Teil des internen Rechnungswesens."
+        }
+      ],
+      "hint": "Kostentr\u00e4ger = \u201eWof\u00fcr?\u201c (Produkt). Kostenstellen = \u201eWo?\u201c (Abteilung). Nicht verwechseln!",
+      "youtubeQuery": "Kostentr\u00e4ger Kostenstellen Kostenarten Vollkostenrechnung Unterschied",
+      "topic": "Rechnungswesen & Controlling"
     }
   ]
 }
