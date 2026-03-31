@@ -881,6 +881,278 @@
       "hint": "Organic Search wird über SEO gestärkt, nicht über Ads.",
       "youtubeQuery": "Organic Search steigern SEO Massnahmen",
       "topic": "Marketing & Preisstrategien"
+    },
+    {
+      "id": "mr_030",
+      "question": "Es ist wichtig, dass sich die Kunden beim Einkauf im Online-Shop der „Urban-Peak GmbH“ schnell zurechtfinden. Daher soll die Benutzeroberfläche anwenderfreundlich weiterentwickelt werden. Sie analysieren dazu die Prozessabläufe und werten die Seitenbesuche der Nutzer aus. Was beschreibt in diesem Zusammenhang der Begriff Customer Journey?",
+      "answerOptions": [
+        {
+          "text": "Damit wird der Absprungpunkt im Online-Shop ermittelt.",
+          "isCorrect": false,
+          "rationale": "Das ist nur ein möglicher Teilaspekt, nicht die gesamte Customer Journey."
+        },
+        {
+          "text": "Darunter versteht man die Herkunft nach Browsern.",
+          "isCorrect": false,
+          "rationale": "Browser-Herkunft ist eine technische Segmentierung, nicht die Customer Journey."
+        },
+        {
+          "text": "Damit wird der Einsprungpunkt im Online-Shop ermittelt.",
+          "isCorrect": false,
+          "rationale": "Der Einsprungpunkt ist nur ein einzelner Touchpoint."
+        },
+        {
+          "text": "Darunter versteht man das Bewegungsprofil des Kunden auf dem Weg zur Kaufentscheidung.",
+          "isCorrect": true,
+          "rationale": "Die Customer Journey (Kundenreise) bezeichnet im Marketing alle Berührungspunkte (Touchpoints) und das exakte Bewegungsprofil eines Konsumenten, bevor er sich für den Kauf eines Produktes entscheidet."
+        },
+        {
+          "text": "Damit ist die Verweildauer des Kunden auf der Landing Page pro Besuch gemeint.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt eine einzelne Kennzahl, nicht die gesamte Journey."
+        }
+      ],
+      "hint": "Denke an alle Touchpoints vom ersten Kontakt bis zur Entscheidung.",
+      "youtubeQuery": "Customer Journey Touchpoints einfach erklaert",
+      "topic": "Customer Journey & Web-Analytics"
+    },
+    {
+      "id": "mr_031",
+      "question": "Die „Eco-Wear AG“ setzt zur Messung ein bekanntes Analytics-Programm ein. Dort können Sie sogenannte „Zielvorhaben“ (Conversions/Goals) einstellen. Welcher der folgenden Begriffe beschreibt typischerweise kein sinnvolles Zielvorhaben?",
+      "answerOptions": [
+        {
+          "text": "Kosten",
+          "isCorrect": true,
+          "rationale": "Zielvorhaben (Goals) messen das Verhalten des Nutzers (z.B. wie lange er bleibt, welche URL er erreicht oder welchen Button er klickt). Die reinen „Kosten“ sind eine betriebswirtschaftliche Kennzahl des Unternehmens, aber kein Zielvorhaben, das ein Besucher auf der Website auslösen kann."
+        },
+        {
+          "text": "Session-Dauer",
+          "isCorrect": false,
+          "rationale": "Session-Dauer ist ein typisches verhaltensbezogenes Zielkriterium."
+        },
+        {
+          "text": "Ziel-URL",
+          "isCorrect": false,
+          "rationale": "Das Erreichen einer Ziel-URL ist ein klassisches Goal."
+        },
+        {
+          "text": "Seiten pro Sitzung",
+          "isCorrect": false,
+          "rationale": "Auch Seiten pro Sitzung kann als Zielbedingung definiert werden."
+        },
+        {
+          "text": "Ereignis/Event",
+          "isCorrect": false,
+          "rationale": "Events (z. B. Klicks) sind typische Goal-Auslöser."
+        }
+      ],
+      "hint": "Goals bilden Nutzeraktionen ab, nicht interne Unternehmenskosten.",
+      "youtubeQuery": "Analytics Goals Zielvorhaben Beispiele",
+      "topic": "Customer Journey & Web-Analytics"
+    },
+    {
+      "id": "mr_032",
+      "question": "Die „Trail-Blazer UG“ hat festgestellt, dass viele Mitbewerber neben den Online-Kanälen auch Printmedien nutzen. Passend zur Feriensaison soll daher ein gedruckter Themenkatalog „Wandern“ per Post verschickt werden. Prüfen Sie, welcher Sachverhalt in diesem Zusammenhang zutrifft!",
+      "answerOptions": [
+        {
+          "text": "Der Katalog ist ein zusätzliches Werbemittel, das in der Warendisposition nicht berücksichtigt werden muss.",
+          "isCorrect": false,
+          "rationale": "Katalogaktionen beeinflussen Nachfrage und müssen in der Disposition berücksichtigt werden."
+        },
+        {
+          "text": "Kosten entstehen in der Katalogwerbung für den Händler ausschließlich im Fall einer Bestellung.",
+          "isCorrect": false,
+          "rationale": "Druck, Gestaltung und Versand verursachen Kosten unabhängig von Bestellungen."
+        },
+        {
+          "text": "Gedruckte Werbung stellt, anders als der Online-Shop, ein verbindliches Angebot des Händlers dar, sodass er Bestellungen zwingend annehmen muss.",
+          "isCorrect": false,
+          "rationale": "Kataloge sind regelmäßig invitatio ad offerendum und kein zwingend bindendes Angebot."
+        },
+        {
+          "text": "Der Händler darf den Katalog an alle Bestandskunden verschicken, solange diese der Zusendung nicht aktiv widersprochen haben.",
+          "isCorrect": true,
+          "rationale": "Postalische Werbung (Briefpost/Kataloge) darf an Bestandskunden verschickt werden, sofern diese nicht explizit widersprochen haben (Opt-Out). Alle anderen Aussagen sind falsch: Kataloge sind kein verbindliches Angebot (Invitatio ad offerendum), Bilder aus dem Web reichen qualitativ für den Druck nie aus und die Warendisposition muss Katalog-Aktionen zwingend berücksichtigen."
+        },
+        {
+          "text": "Bilder aus dem Online-Shop (72 dpi) reichen in Qualität, Farbraum und Auflösung für den Druck (Print) regelmäßig aus.",
+          "isCorrect": false,
+          "rationale": "Webbilder sind für hochwertigen Druck meist ungeeignet."
+        }
+      ],
+      "hint": "Achte auf Opt-Out bei Bestandskunden und auf den Unterschied zwischen Werbung und verbindlichem Angebot.",
+      "youtubeQuery": "Katalogwerbung Bestandskunden Opt Out",
+      "topic": "Offline-Marketing & Zielgruppen-Selektion"
+    },
+    {
+      "id": "mr_033",
+      "question": "Für eine Marktanalyse bittet Sie der Vertriebsleiter, aus der gesamten Kundendatei eine repräsentative Menge von 1.000 Adressen zu selektieren. Was bedeutet in diesem statistischen Zusammenhang die Bezeichnung „repräsentativ“?",
+      "answerOptions": [
+        {
+          "text": "Die selektierten Kunden müssen zu gleichen Teilen Männer und Frauen sein.",
+          "isCorrect": false,
+          "rationale": "Das allein macht eine Stichprobe nicht repräsentativ."
+        },
+        {
+          "text": "Die selektierten Kunden müssen alle in gleicher Höhe bestellt haben.",
+          "isCorrect": false,
+          "rationale": "Gleiche Bestellhöhe ist kein Repräsentativitätskriterium."
+        },
+        {
+          "text": "Die selektierten Kunden müssen in ihrer Verteilung der Gesamtmenge aller Kunden entsprechen.",
+          "isCorrect": true,
+          "rationale": "Eine Stichprobe ist nur dann „repräsentativ“, wenn sie ein exaktes, verkleinertes Abbild der Grundgesamtheit ist. Die Verteilung der Merkmale (z.B. Alter, Wohnort) in den 1.000 selektierten Adressen muss exakt der Verteilung im gesamten Kundenstamm entsprechen."
+        },
+        {
+          "text": "Die selektierten Kunden müssen alle einem gewissen Schönheitsideal entsprechen.",
+          "isCorrect": false,
+          "rationale": "Das ist fachlich irrelevant."
+        },
+        {
+          "text": "Die selektierten Kunden müssen den Idealtypus eines profitablen Kunden repräsentieren.",
+          "isCorrect": false,
+          "rationale": "Das wäre eine gezielte Auswahl, aber keine repräsentative Stichprobe."
+        }
+      ],
+      "hint": "Repräsentativ = verkleinertes Abbild der Grundgesamtheit.",
+      "youtubeQuery": "repräsentative Stichprobe Grundgesamtheit einfach erklaert",
+      "topic": "Offline-Marketing & Zielgruppen-Selektion"
+    },
+    {
+      "id": "mr_034",
+      "question": "Die „Smart-Gear AG“ plant ein Affiliate-Programm. Die Risikoverteilung ist bei den verschiedenen Abrechnungsmodellen unterschiedlich gewichtet. Auf den Affiliate (Werbepartner) und den Merchant (Händler) aufgeteilt, ergibt sich eine unterschiedliche Risiko-Verteilung. Bei welchem Abrechnungsmodell liegt das finanzielle Risiko hauptsächlich beim Affiliate?",
+      "answerOptions": [
+        {
+          "text": "Cost per Click (CPC)",
+          "isCorrect": false,
+          "rationale": "Beim CPC erhält der Affiliate bereits bei Klicks eine Vergütung."
+        },
+        {
+          "text": "Cost per Lead (CPL)",
+          "isCorrect": false,
+          "rationale": "Beim CPL wird bereits ein Lead vergütet, auch ohne Kauf."
+        },
+        {
+          "text": "Cost per Mille (CPM / TKP)",
+          "isCorrect": false,
+          "rationale": "Beim CPM wird nach Sichtkontakten vergütet."
+        },
+        {
+          "text": "Cost per Order (CPO)",
+          "isCorrect": true,
+          "rationale": "Beim „Cost per Order“ erhält der Affiliate nur dann eine Provision, wenn der geworbene Kunde auch tatsächlich etwas kauft. Klickt der Kunde nur oder füllt er nur ein Formular aus (Lead) ohne zu kaufen, geht der Affiliate leer aus. Er trägt somit das volle Risiko der Conversion."
+        },
+        {
+          "text": "Lifetime-Vergütung",
+          "isCorrect": false,
+          "rationale": "Hier ist das Risiko-/Vergütungsprofil anders gelagert und nicht so eindeutig wie bei CPO."
+        }
+      ],
+      "hint": "Wer wird nur bei echtem Kauf bezahlt?",
+      "youtubeQuery": "Affiliate Modelle CPO CPC CPL Risiko",
+      "topic": "Affiliate Marketing & Risikoverteilung"
+    },
+    {
+      "id": "mr_035",
+      "question": "Beim Jahresabschluss stellen Sie fest, dass die aktuelle Liquidität 2. Grades (Quick Ratio) der „Vanguard-Outdoor GmbH“ deutlich geringer ist als die des Vorjahres. Welche betriebswirtschaftliche Ursache könnte diese negative Entwicklung unter sonst unveränderten Bedingungen haben?",
+      "answerOptions": [
+        {
+          "text": "Die langfristigen Verbindlichkeiten haben sich im Vergleich zum letzten Geschäftsjahr verringert.",
+          "isCorrect": false,
+          "rationale": "Liquidität 2. Grades bezieht sich auf kurzfristige Verbindlichkeiten."
+        },
+        {
+          "text": "Es sind mehr Forderungen aus Lieferungen und Leistungen in der Bilanz ausgewiesen als noch im letzten Geschäftsjahr.",
+          "isCorrect": false,
+          "rationale": "Mehr kurzfristige Forderungen erhöhen eher den Zähler der Kennzahl."
+        },
+        {
+          "text": "Die Bankguthaben sind im Vergleich zum letzten Geschäftsjahr deutlich gestiegen.",
+          "isCorrect": false,
+          "rationale": "Mehr liquide Mittel erhöhen eher die Liquidität 2. Grades."
+        },
+        {
+          "text": "Die Verbindlichkeiten aus Lieferungen und Leistungen (kurzfristige Verbindlichkeiten) sind im Vergleich zum letzten Geschäftsjahr entsprechend gestiegen.",
+          "isCorrect": true,
+          "rationale": "Die Liquidität 2. Grades setzt die liquiden Mittel plus kurzfristige Forderungen ins Verhältnis zu den kurzfristigen Verbindlichkeiten. Steigen die kurzfristigen Verbindlichkeiten (wie offene Rechnungen an Lieferanten), sinkt die Liquiditätskennzahl."
+        },
+        {
+          "text": "Das Eigenkapital ist im Vergleich zum letzten Geschäftsjahr gestiegen.",
+          "isCorrect": false,
+          "rationale": "Das erklärt nicht direkt einen Rückgang der Quick Ratio."
+        }
+      ],
+      "hint": "Quick Ratio reagiert stark auf kurzfristige Verbindlichkeiten im Nenner.",
+      "youtubeQuery": "Liquiditaet 2 Grades Quick Ratio erklaert",
+      "topic": "BWA, Controlling & Kalkulation"
+    },
+    {
+      "id": "mr_036",
+      "question": "Sie werten die Verkaufszahlen eines bestimmten Outdoor-Zeltes aus. Sie erstellen eine Tabelle, in der Sie die monatlichen tatsächlichen Verkäufe (z.B. Juli: 140 Stück) den im Vorfeld definierten Planzahlen (z.B. Juli: 130 Stück) direkt gegenüberstellen. Welches Controlling-Instrument liegt dieser Tabelle zugrunde?",
+      "answerOptions": [
+        {
+          "text": "Soll-/Ist-Vergleich",
+          "isCorrect": true,
+          "rationale": "Die Gegenüberstellung von Planzahlen (Soll) und den tatsächlich erreichten Verkaufszahlen (Ist) bezeichnet man im Controlling als den klassischen Soll-/Ist-Vergleich. Er dient dazu, Abweichungen schnell zu erkennen."
+        },
+        {
+          "text": "Berichtswesen",
+          "isCorrect": false,
+          "rationale": "Berichtswesen ist ein übergeordneter Rahmen, nicht die konkrete Vergleichsmethode."
+        },
+        {
+          "text": "Kennzahlensystem",
+          "isCorrect": false,
+          "rationale": "Ein Kennzahlensystem umfasst mehrere Kennzahlen, ist aber nicht die konkrete Gegenüberstellung Soll/Ist."
+        },
+        {
+          "text": "Budgetierung",
+          "isCorrect": false,
+          "rationale": "Budgetierung betrifft Planungsprozesse, nicht die beschriebene Vergleichstabelle."
+        },
+        {
+          "text": "Renditenvergleich",
+          "isCorrect": false,
+          "rationale": "Hier geht es nicht um Renditekennzahlen."
+        }
+      ],
+      "hint": "Soll = geplant, Ist = tatsächlich erreicht.",
+      "youtubeQuery": "Soll Ist Vergleich Controlling einfach",
+      "topic": "BWA, Controlling & Kalkulation"
+    },
+    {
+      "id": "mr_037",
+      "question": "Eine Aufgabe im internen Rechnungswesen ist die Kalkulation von Verkaufspreisen. Ein zu langes Festhalten an einem Preis kann zu Verlusten führen. Deshalb ermitteln Sie für die „Active-Life E-Commerce“ mithilfe der Deckungsbeitragsrechnung die kurzfristige Preisuntergrenze. Wie müssen Sie dabei vorgehen?",
+      "answerOptions": [
+        {
+          "text": "Sie ermitteln alle Einzelkosten eines bestimmten Artikels.",
+          "isCorrect": false,
+          "rationale": "Für die kurzfristige Preisuntergrenze sind nicht alle Einzelkosten relevant."
+        },
+        {
+          "text": "Sie ermitteln alle Gemeinkosten eines bestimmten Artikels.",
+          "isCorrect": false,
+          "rationale": "Gemeinkosten gehören nicht zur kurzfristigen absoluten Preisuntergrenze."
+        },
+        {
+          "text": "Sie ermitteln alle fixen Kosten eines bestimmten Artikels.",
+          "isCorrect": false,
+          "rationale": "Fixkosten werden in der kurzfristigen Betrachtung nicht gedeckt."
+        },
+        {
+          "text": "Sie ermitteln alle variablen Kosten eines bestimmten Artikels.",
+          "isCorrect": true,
+          "rationale": "Die kurzfristige (absolute) Preisuntergrenze ist genau der Punkt, an dem der Deckungsbeitrag null ist. Das bedeutet, der Preis deckt exakt nur noch die variablen Kosten (z.B. den reinen Einkaufspreis des Artikels). Fixkosten werden in dieser kurzfristigen Betrachtung ignoriert."
+        },
+        {
+          "text": "Sie ermitteln alle Stückkosten eines bestimmten Artikels.",
+          "isCorrect": false,
+          "rationale": "Stückkosten enthalten typischerweise auch fixe Bestandteile und sind nicht die kurzfristige Untergrenze."
+        }
+      ],
+      "hint": "Kurzfristige absolute Preisuntergrenze = Deckung der variablen Kosten.",
+      "youtubeQuery": "kurzfristige Preisuntergrenze Deckungsbeitragsrechnung",
+      "topic": "BWA, Controlling & Kalkulation"
     }
   ]
 }
