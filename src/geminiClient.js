@@ -324,3 +324,61 @@ ${eventList}`;
         return { insights: [] };
     }
 }
+
+export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, userMatrix, userRecommendation, userJustification }) {
+    if (!genAI && !deepSeekKey) {
+        return { isPassed: false, scoreAdjustment: 0, examinerFeedback: "KI-Prüfer offline." };
+    }
+
+    const payloadStr = JSON.stringify({
+        scenario: scenarioText,
+        masterSolution: masterSolution,
+        userSubmission: { 
+            matrix: userMatrix, 
+            recommendedProvider: userRecommendation, 
+            justification: userJustification 
+        }
+    }, null, 2);
+
+    const prompt = `Du bist ein fairer IHK-Prüfer. Werte die Nutzwertanalyse des Users aus. 
+1. Bei Kriterien des Typs 'qualitativ' akzeptierst du eine Abweichung von +/- 1 Punkt zur Musterlösung, sofern die Rangfolge der Anbieter in diesem Kriterium grob logisch bleibt.
+2. Bei 'quantitativen' Kriterien ist keine Abweichung erlaubt.
+3. Wenn der User durch vertretbare Abweichungen zu einem anderen, aber mathematisch und argumentativ korrekten Sieger kommt (basierend auf seinen eigenen Punkten und korrekt berechneten Teilnutzwerten), lasse dies gelten.
+4. Antworte AUSSCHLIESSLICH im JSON-Format: { "isPassed": boolean, "scoreAdjustment": number, "examinerFeedback": "dein kurzes feedback" }
+
+Nutzerdaten und Musterlösung:
+${payloadStr}
+
+Prüfe, ob die Berechnungen (Gewichtung * Punktzahl = Teilnutzwert) des Users in sich stimmig sind und das Endergebnis sowie die finale Wahl des Anbieters zur Eingabe des Users passen. 
+Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON.`;
+
+    try {
+        if (genAI) {
+            const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+            const result = await model.generateContent(prompt);
+            const text = result.response.text();
+            
+            const match = text.match(/\{[\s\S]*isPassed[\s\S]*scoreAdjustment[\s\S]*examinerFeedback[\s\S]*\}/i);
+            if (match) {
+                return JSON.parse(match[0]);
+            }
+        }
+    } catch(err) {
+        console.warn('evaluateNutzwertanalyse Gemini err:', err);
+    }
+    
+    // Fallback if genAI fails
+    try {
+        const dsRes = await askDeepSeek(prompt);
+        if (dsRes) {
+            const match = dsRes.match(/\{[\s\S]*isPassed[\s\S]*scoreAdjustment[\s\S]*examinerFeedback[\s\S]*\}/i);
+            if (match) {
+                return JSON.parse(match[0]);
+            }
+        }
+    } catch(err) {
+        console.warn('evaluateNutzwertanalyse DS err:', err);
+    }
+
+    return null;
+}

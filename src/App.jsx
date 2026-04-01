@@ -25,6 +25,7 @@ import PomodoroTimer from './components/PomodoroTimer';
 import KalkulationsBoss from './components/KalkulationsBoss';
 import BreakEvenPoint from './components/BreakEvenPoint';
 import ECommerceKalkulation from './components/ECommerceKalkulation';
+import NutzwertanalyseSimulator from './components/NutzwertanalyseSimulator';
 import ResetModal from './components/ResetModal';
 import VideoPanel from './components/VideoPanel';
 import GeminiPanel from './components/GeminiPanel';
@@ -1681,7 +1682,7 @@ ${input}`;
   // Fallback for unknown appMode
   // (Effect defined here — BEFORE any conditional return — to comply with React hooks rules)
   useEffect(() => {
-    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
+    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'nutzwertanalyse', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
       setAppMode('dashboard');
     }
   }, [appMode]);
@@ -2098,6 +2099,9 @@ ${input}`;
               </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('ecommerce_kalkulation')}>
                 E-Commerce Kalkulation
+              </button>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('nutzwertanalyse')}>
+                Nutzwertanalyse
               </button>
             </div>
           </div>
@@ -2517,6 +2521,16 @@ ${input}`;
         {pomodoroPortal}
         {burgerMenuPortal}
         <ECommerceKalkulation onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
+      </>
+    );
+  }
+
+  if (appMode === 'nutzwertanalyse') {
+    return (
+      <>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <NutzwertanalyseSimulator onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
       </>
     );
   }
