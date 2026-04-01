@@ -1278,6 +1278,214 @@ button {
   gap: 1rem;
 }
 
+/* Nutzwertanalyse specific UI improvements */
+.utility-scenario-box {
+  scroll-margin-top: 1rem;
+}
+
+.utility-scenario-text {
+  max-height: min(30vh, 250px);
+  overflow-y: auto;
+}
+
+.utility-table-scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  margin-inline: -0.75rem;
+  padding-inline: 0.75rem;
+}
+
+.utility-matrix-table {
+  min-width: 760px;
+}
+
+.utility-quiz-container {
+  padding: 1.25rem !important;
+}
+
+.utility-matrix-table th,
+.utility-matrix-table td {
+  white-space: normal;
+}
+
+.utility-back-row {
+  padding-left: 3.5rem;
+}
+
+.utility-level-selector .utility-level-button {
+  flex: 1 1 170px;
+}
+
+.utility-justification {
+  line-height: 1.4;
+}
+
+.utility-provider-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.utility-input {
+  min-width: 0;
+}
+
+.utility-input-weight {
+  width: 54px !important;
+}
+
+.utility-input-point,
+.utility-input-partial {
+  width: 50px !important;
+}
+
+.utility-input-total {
+  width: 76px !important;
+}
+
+@media (max-width: 768px) {
+  .utility-quiz-container {
+    padding: 0.85rem !important;
+  }
+
+  .utility-back-row {
+    padding: 0.35rem 0 0.4rem 0 !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .utility-scenario-box {
+    margin-bottom: 1rem !important;
+    padding: 0.9rem 1rem !important;
+  }
+
+  .utility-scenario-text {
+    max-height: 26vh !important;
+    font-size: 0.9rem !important;
+  }
+
+  .utility-table-scroll {
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+  }
+
+  .utility-matrix-table {
+    min-width: 680px;
+  }
+
+  .utility-th {
+    padding: 0.65rem 0.45rem !important;
+    font-size: 0.82rem;
+  }
+
+  .utility-th-provider span {
+    font-size: 0.66rem !important;
+  }
+
+  .utility-criterion-cell,
+  .utility-weight-cell,
+  .utility-provider-cell {
+    padding: 0.65rem 0.4rem !important;
+  }
+
+  .utility-criterion-cell {
+    min-width: 180px;
+    font-size: 0.82rem !important;
+  }
+
+  .utility-total-label {
+    padding: 0.85rem 0.5rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .utility-conclusion {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .utility-level-selector .utility-level-button {
+    min-width: 112px !important;
+    max-width: none !important;
+  }
+
+  .utility-provider-inputs {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .utility-multiply-symbol {
+    display: none;
+  }
+
+  .utility-input-point,
+  .utility-input-partial {
+    width: 46px !important;
+    padding: 0.35rem !important;
+    font-size: 0.82rem !important;
+  }
+
+  .utility-input-weight {
+    width: 50px !important;
+    padding: 0.35rem !important;
+    font-size: 0.82rem !important;
+  }
+
+  .utility-input-total {
+    width: 68px !important;
+    padding: 0.4rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .utility-scenario-box {
+    padding: 0.8rem 0.85rem !important;
+  }
+
+  .utility-scenario-text {
+    max-height: 24vh !important;
+    line-height: 1.45 !important;
+  }
+
+  .utility-level-selector {
+    gap: 0.3rem !important;
+  }
+
+  .utility-level-selector .utility-level-button {
+    min-width: 100% !important;
+  }
+
+  .utility-matrix-table {
+    min-width: 620px;
+  }
+
+  .utility-th {
+    font-size: 0.76rem;
+    line-height: 1.2;
+  }
+
+  .utility-criterion-cell {
+    min-width: 165px;
+  }
+
+  .utility-input-point,
+  .utility-input-partial,
+  .utility-input-weight {
+    width: 44px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .utility-input-total {
+    width: 64px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .utility-justification {
+    min-height: 72px !important;
+  }
+}
+
 /* Einstein header */
 .einstein-header-row {
   display: flex;

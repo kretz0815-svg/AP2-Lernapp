@@ -14,51 +14,51 @@ const CRITERIA_POOL = [
   {
     key: 'kosten', name: 'Anschaffungskosten', type: 'quantitativ',
     texts: {
-      1: "verlangt extrem hohe Anschaffungskosten, die weit über dem Budgetschnitt liegen",
-      2: "ist vergleichsweise teuer in der Anschaffung",
-      3: "liegt preislich im soliden Mittelfeld",
-      4: "bietet recht günstige Anschaffungskosten",
-      5: "ist extrem kostengünstig und schlägt alle Preisvergleiche"
+      1: 'sehr hohe Anschaffungskosten',
+      2: 'eher hohe Anschaffungskosten',
+      3: 'Anschaffungskosten im Mittelfeld',
+      4: 'gute Anschaffungskosten',
+      5: 'sehr niedrige Anschaffungskosten'
     }
   },
   {
     key: 'support', name: 'Support & Service', type: 'qualitativ',
     texts: {
-      1: "bietet leider gar keinen Support an",
-      2: "hat nur einen rudimentären E-Mail-Support mit langen Antwortzeiten",
-      3: "bietet einen Standard-Support zu den normalen Geschäftszeiten",
-      4: "stellt einen guten Support samt einer Service-Hotline bereit",
-      5: "glänzt mit herausragendem 24/7 Premium-Support durch feste Ansprechpartner"
+      1: 'praktisch kein Support verfügbar',
+      2: 'nur rudimentärer E-Mail-Support',
+      3: 'solider Standard-Support',
+      4: 'guter Support mit Hotline',
+      5: 'sehr starker 24/7 Premium-Support'
     }
   },
   {
     key: 'usability', name: 'Usability (Bedienbarkeit)', type: 'qualitativ',
     texts: {
-      1: "weist eine sehr veraltete und verwirrende Benutzeroberfläche auf",
-      2: "ist recht umständlich in der Einarbeitung",
-      3: "bietet eine durchschnittlich gute Bedienbarkeit",
-      4: "überzeugt durch ein klares und intuitives Design",
-      5: "gilt als absoluter Vorreiter in Sachen Nutzerfreundlichkeit und ist sofort verständlich"
+      1: 'sehr unübersichtliche Bedienung',
+      2: 'umständliche Einarbeitung',
+      3: 'durchschnittliche Bedienbarkeit',
+      4: 'intuitive und klare Bedienung',
+      5: 'sehr hohe Nutzerfreundlichkeit'
     }
   },
   {
     key: 'funktionsumfang', name: 'Funktionsumfang', type: 'quantitativ',
     texts: {
-      1: "bietet nur die absoluten Basic-Funktionen an",
-      2: "hat einen soliden, aber recht überschaubaren Funktionsumfang",
-      3: "deckt exakt die angeforderten Standard-Funktionen ab",
-      4: "verfügt über zahlreiche nützliche Zusatzpakete und Module",
-      5: "lässt mit einem riesigen All-in-One-Funktionsumfang keine Wünsche offen"
+      1: 'nur Basisfunktionen verfügbar',
+      2: 'überschaubarer Funktionsumfang',
+      3: 'deckt Standardfunktionen ab',
+      4: 'viele Zusatzmodule vorhanden',
+      5: 'sehr umfangreicher All-in-One-Funktionsumfang'
     }
   },
   {
     key: 'schnittstellen', name: 'Schnittstellen & Integration', type: 'qualitativ',
     texts: {
-      1: "bietet keinerlei vorgefertigte Schnittstellen",
-      2: "unterstützt nur wenige grundlegende Integrationen wie einfachen Datei-Export",
-      3: "verfügt über die wichtigsten Standard-Schnittstellen (CSV, XML)",
-      4: "bietet eine gute Auswahl an Schnittstellen und REST-APIs",
-      5: "lässt sich dank offener, hochmoderner API-Architektur nahtlos in jede Systemlandschaft integrieren"
+      1: 'keine vorgefertigten Schnittstellen',
+      2: 'nur wenige grundlegende Integrationen',
+      3: 'wichtige Standardschnittstellen vorhanden',
+      4: 'gute Auswahl inkl. REST-APIs',
+      5: 'nahtlose Integration mit offener API-Architektur'
     }
   }
 ];
@@ -117,26 +117,17 @@ function generateUtilityTask() {
   }
   masterSolution.winner = providers[winnerIdx];
 
-  // Build Scenario Text
-  let text = `Für ein neues E-Commerce-Projekt steht die Auswahl einer passenden Software an. Es stehen drei Anbieter zur Auswahl: ${providers.join(', ')}.\n\n`;
-  text += `Die Entscheidungsfindung soll über eine Nutzwertanalyse erfolgen. Im ProjektKickoff wurden folgende Gewichtungen festgelegt:\n`;
-  
-  criteriaData.forEach(c => {
-    text += `Das Kriterium "${c.name}" (Typ: ${c.type}) fließt mit glatt ${c.weight} % in die spätere Bewertung ein.\n`;
-  });
-
-  text += `\nNach einer intensiven Marktrecherche ergeben sich folgende Bewertungen:\n\n`;
-  
+  // Build Scenario Text (compact IHK style)
+  let text = `Für ein neues E-Commerce-Projekt stehen drei Anbieter zur Auswahl: ${providers.join(', ')}.\n\n`;
+  text += `Folgende Gewichtungen wurden festgelegt: ${criteriaData.map((c) => `${c.name} (${c.weight}%)`).join(', ')}.\n\n`;
+  text += 'Bewertungen je Anbieter:\n';
   providers.forEach((p, pIdx) => {
-    text += `Bezüglich *${p}*:\n`;
-    criteriaData.forEach(c => {
-      text += `- Das System ${c.texts[c.scores[pIdx]]} (Wertung: ${c.scores[pIdx]} Punkte).\n`;
-    });
-    text += '\n';
+    const compactRatings = criteriaData
+      .map((c) => `${c.name}: ${c.texts[c.scores[pIdx]]} (${c.scores[pIdx]} Pt.)`)
+      .join('; ');
+    text += `- ${p}: ${compactRatings}.\n`;
   });
-  
-  // Note: add the "Vergessen Sie nicht..." just to add flavor
-  text += `Bitte berechnen Sie die Einzel- sowie Gesamtnutzwerte und ermitteln Sie den optimalen Anbieter. Begründen Sie das Ergebnis kurz am Ende.`;
+  text += '\nBerechnen Sie die Teilnutzwerte und Gesamtnutzwerte und wählen Sie den besten Anbieter mit kurzer Begründung.';
 
   return {
     providers,
@@ -363,12 +354,12 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
   };
 
   return (
-    <div className="app-container" style={{ zIndex: 10, maxWidth: '980px' }}>
+    <div className="app-container" style={{ zIndex: 10, maxWidth: '1120px' }}>
       {showConfetti && <Confetti />}
       <div className="blob blob-1"></div>
       <div className="blob blob-2"></div>
 
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', padding: '0.5rem 0 0.5rem 3.5rem', marginBottom: '0.5rem' }}>
+      <div className="utility-back-row" style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', padding: '0.5rem 0 0.5rem 3.5rem', marginBottom: '0.5rem' }}>
         <button className="btn-nav" style={{ minHeight: '42px', zIndex: 10, padding: '0.4rem 1rem' }} onClick={onBack}>
           ← Zurück
         </button>
@@ -393,7 +384,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
       </header>
 
       {/* ── Level Selector ──────────────────── */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '0.4rem', marginBottom: '1.2rem', marginTop: '0.5rem', flexWrap: 'wrap', width: '100%' }}>
+      <div className="utility-level-selector" style={{ display: 'flex', justifyContent: 'center', gap: '0.4rem', marginBottom: '1.2rem', marginTop: '0.5rem', flexWrap: 'wrap', width: '100%' }}>
         {[
           { level: 1, label: 'Lernmodus', desc: 'Punkte gegeben, fokussiertes Rechnen' },
           { level: 2, label: 'Übungsmodus', desc: 'Leere Matrix, Tipps verfügbar' },
@@ -408,6 +399,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
               setShowHints({});
               setAiFeedback(null);
             }}
+            className="utility-level-button"
             style={{
               flex: '1', minWidth: '130px', maxWidth: '200px',
               padding: '0.6rem 0.5rem',
@@ -425,9 +417,9 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
         ))}
       </div>
 
-      <div className="quiz-container" style={{ width: '100%' }}>
+      <div className="quiz-container utility-quiz-container" style={{ width: '100%' }}>
         {/* ── Szenario ─────────────────────── */}
-        <div style={{
+        <div className="utility-scenario-box" style={{
           marginBottom: '1.5rem',
           padding: '1.2rem 1.4rem',
           borderRadius: '12px',
@@ -438,25 +430,28 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
           <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#818cf8', marginBottom: '0.8rem' }}>
             Szenario & Aufgabenstellung
           </div>
-          <div style={{
+          <div className="utility-scenario-text" style={{
             color: 'var(--text-light)',
             fontSize: '0.95rem',
-            lineHeight: 1.7,
+            lineHeight: 1.55,
             whiteSpace: 'pre-wrap',
+            maxHeight: 'min(30vh, 250px)',
+            overflowY: 'auto',
+            paddingRight: '0.35rem'
           }}>
             {task.scenarioText}
           </div>
         </div>
 
         {/* ── Tabelle ──────────────────────── */}
-        <div style={{ overflowX: 'auto', marginBottom: '2rem', paddingBottom: '1rem' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', overflow: 'hidden' }}>
+        <div className="utility-table-scroll" style={{ overflowX: 'auto', marginBottom: '2rem', paddingBottom: '1rem', whiteSpace: 'nowrap' }}>
+          <table className="utility-matrix-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '780px', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', overflow: 'hidden' }}>
             <thead>
               <tr style={{ background: 'rgba(99,102,241,0.2)', color: 'var(--text-light)', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
-                <th style={{ padding: '1rem', borderBottom: '2px solid rgba(99,102,241,0.5)', width: '22%' }}>Kriterium (Typ)</th>
-                <th style={{ padding: '1rem', borderBottom: '2px solid rgba(99,102,241,0.5)', width: '12%', textAlign: 'center' }}>Gewichtung</th>
+                <th className="utility-th utility-th-criterion" style={{ padding: '1rem', borderBottom: '2px solid rgba(99,102,241,0.5)', width: '22%' }}>Kriterium (Typ)</th>
+                <th className="utility-th utility-th-weight" style={{ padding: '1rem', borderBottom: '2px solid rgba(99,102,241,0.5)', width: '12%', textAlign: 'center' }}>Gewichtung</th>
                 {task.providers.map(p => (
-                  <th key={p} style={{ padding: '1rem', borderBottom: '2px solid rgba(99,102,241,0.5)', width: '22%', textAlign: 'center' }}>
+                  <th className="utility-th utility-th-provider" key={p} style={{ padding: '1rem', borderBottom: '2px solid rgba(99,102,241,0.5)', width: '22%', textAlign: 'center' }}>
                     {p}<br/><span style={{ fontSize: '0.75rem', fontWeight: 'normal', color: 'var(--text-muted)' }}>Punkte | Nutzen</span>
                   </th>
                 ))}
@@ -466,7 +461,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
               {task.criteriaData.map((c, cIdx) => (
                 <tr key={c.name} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s', ':hover': { background: 'rgba(255,255,255,0.05)' } }}>
                   {/* Name & Typ */}
-                  <td style={{ padding: '1rem', verticalAlign: 'middle', fontSize: '0.9rem', color: 'var(--text-light)', fontWeight: 500 }}>
+                  <td className="utility-criterion-cell" style={{ padding: '1rem', verticalAlign: 'middle', fontSize: '0.9rem', color: 'var(--text-light)', fontWeight: 500 }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <span>{c.name}</span>
                       {difficultyLevel < 3 && (
@@ -485,42 +480,42 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
                   </td>
 
                   {/* Weighting */}
-                  <td style={{ padding: '1rem', verticalAlign: 'middle', textAlign: 'center' }}>
+                  <td className="utility-weight-cell" style={{ padding: '1rem', verticalAlign: 'middle', textAlign: 'center' }}>
                     <div style={{ position: 'relative', display: 'inline-block' }}>
                       <input 
-                        className="wisor-input" 
+                        className="wisor-input utility-input utility-input-weight" 
                         type="text" 
                         placeholder="%" 
                         disabled={difficultyLevel === 1 || validationStates[`w_${cIdx}`] === 'correct'}
                         value={difficultyLevel === 1 ? c.weight : inputs[`w_${cIdx}`] || ''}
                         onChange={(e) => handleChange(`w_${cIdx}`, e.target.value)}
-                        style={{ width: '60px', padding: '0.4rem', textAlign: 'center', fontSize: '0.9rem', borderColor: difficultyLevel === 1 ? 'transparent' : getStateColor(`w_${cIdx}`) }}
+                        style={{ padding: '0.4rem', textAlign: 'center', fontSize: '0.9rem', borderColor: difficultyLevel === 1 ? 'transparent' : getStateColor(`w_${cIdx}`) }}
                       />
                     </div>
                   </td>
 
                   {/* Providers: Points and Partials */}
                   {task.providers.map((p, pIdx) => (
-                    <td key={pIdx} style={{ padding: '1rem', verticalAlign: 'middle', textAlign: 'center' }}>
-                      <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', alignItems: 'center' }}>
+                    <td className="utility-provider-cell" key={pIdx} style={{ padding: '1rem', verticalAlign: 'middle', textAlign: 'center' }}>
+                      <div className="utility-provider-inputs" style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', alignItems: 'center' }}>
                          <input 
-                           className="wisor-input" 
+                           className="wisor-input utility-input utility-input-point" 
                            type="text" 
                            placeholder="Pt." 
                            disabled={difficultyLevel === 1 || validationStates[`pt_${cIdx}_${pIdx}`] === 'correct'}
                            value={difficultyLevel === 1 ? c.scores[pIdx] : inputs[`pt_${cIdx}_${pIdx}`] || ''}
                            onChange={(e) => handleChange(`pt_${cIdx}_${pIdx}`, e.target.value)}
-                           style={{ width: '50px', padding: '0.4rem', textAlign: 'center', fontSize: '0.9rem', backgroundColor: difficultyLevel === 1 ? 'rgba(255,255,255,0.05)' : undefined, borderColor: difficultyLevel === 1 ? 'transparent' : getStateColor(`pt_${cIdx}_${pIdx}`) }}
+                           style={{ padding: '0.4rem', textAlign: 'center', fontSize: '0.9rem', backgroundColor: difficultyLevel === 1 ? 'rgba(255,255,255,0.05)' : undefined, borderColor: difficultyLevel === 1 ? 'transparent' : getStateColor(`pt_${cIdx}_${pIdx}`) }}
                          />
-                         <span style={{ color: 'var(--text-muted)' }}>×</span>
+                         <span className="utility-multiply-symbol" style={{ color: 'var(--text-muted)' }}>×</span>
                          <input 
-                           className="wisor-input" 
+                           className="wisor-input utility-input utility-input-partial" 
                            type="text" 
-                           placeholder="Nutzen" 
+                           placeholder="N" 
                            disabled={validationStates[`par_${cIdx}_${pIdx}`] === 'correct'}
                            value={inputs[`par_${cIdx}_${pIdx}`] || ''}
                            onChange={(e) => handleChange(`par_${cIdx}_${pIdx}`, e.target.value)}
-                           style={{ width: '60px', padding: '0.4rem', textAlign: 'center', fontSize: '0.9rem', borderColor: getStateColor(`par_${cIdx}_${pIdx}`) }}
+                           style={{ padding: '0.4rem', textAlign: 'center', fontSize: '0.9rem', borderColor: getStateColor(`par_${cIdx}_${pIdx}`) }}
                          />
                       </div>
                       {difficultyLevel === 1 && (
@@ -535,19 +530,19 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
               
               {/* Totals Row */}
               <tr style={{ background: 'rgba(99,102,241,0.05)' }}>
-                <td colSpan={2} style={{ padding: '1.2rem 1rem', fontWeight: 600, color: 'var(--text-light)', textAlign: 'right', fontSize: '1rem' }}>
+                <td className="utility-total-label" colSpan={2} style={{ padding: '1.2rem 1rem', fontWeight: 600, color: 'var(--text-light)', textAlign: 'right', fontSize: '1rem' }}>
                   Gesamtnutzwert:
                 </td>
                 {task.providers.map((p, pIdx) => (
                   <td key={pIdx} style={{ padding: '1rem', textAlign: 'center' }}>
                     <input 
-                      className="wisor-input" 
+                      className="wisor-input utility-input utility-input-total" 
                       type="text" 
                       placeholder="Total" 
                       disabled={validationStates[`total_${pIdx}`] === 'correct'}
                       value={inputs[`total_${pIdx}`] || ''}
                       onChange={(e) => handleChange(`total_${pIdx}`, e.target.value)}
-                      style={{ width: '80px', padding: '0.5rem', textAlign: 'center', fontWeight: 'bold', fontSize: '1rem', borderColor: getStateColor(`total_${pIdx}`), boxShadow: `0 0 10px ${getStateColor(`total_${pIdx}`)}44` }}
+                      style={{ padding: '0.5rem', textAlign: 'center', fontWeight: 'bold', fontSize: '1rem', borderColor: getStateColor(`total_${pIdx}`), boxShadow: `0 0 10px ${getStateColor(`total_${pIdx}`)}44` }}
                     />
                   </td>
                 ))}
@@ -557,7 +552,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
         </div>
 
         {/* ── Conclusion ──────────────── */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', background: 'rgba(0,0,0,0.2)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', marginBottom: '1.5rem' }}>
+        <div className="utility-conclusion" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', background: 'rgba(0,0,0,0.2)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', marginBottom: '1.5rem' }}>
           <label style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-light)' }}>Welchen Anbieter empfehlen Sie?</label>
           <select 
             className="wisor-input" 
@@ -573,7 +568,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
           
           <label style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--text-muted)' }}>Kurze Begründung (IHK-Style):</label>
           <textarea
-            className="wisor-input"
+            className="wisor-input utility-justification"
             value={justification}
             onChange={e => setJustification(e.target.value)}
             placeholder="z.B. Anbieter X hat den höchsten Nutzwert (3.8) und erfüllt insbesondere das wichtige Kriterium Y am besten..."
