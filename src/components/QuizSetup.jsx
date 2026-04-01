@@ -113,8 +113,8 @@ const QuizSetup = ({
                 event.stopPropagation();
                 setFeynmanInfoOpen(true);
               }}
-              aria-label="Feynman-Methode erklaeren"
-              title="Feynman-Methode erklaeren"
+              aria-label="Feynman-Methode erklären"
+              title="Feynman-Methode erklären"
             >
               i
             </button>
@@ -126,8 +126,8 @@ const QuizSetup = ({
             <div className="feynman-info-modal">
               <h3>Was ist die Feynman-Methode?</h3>
               <p>
-                Die Feynman-Methode: Erklaere ein Konzept so einfach, als wuerdest du es einem Kind beibringen.
-                So deckst du eigene Wissensluecken sofort auf.
+                Die Feynman-Methode: Erkläre ein Konzept so einfach, als würdest du es einem Kind beibringen.
+                So deckst du eigene Wissenslücken sofort auf.
               </p>
               <button className="btn-primary" onClick={closeFeynmanInfo}>Verstanden</button>
             </div>

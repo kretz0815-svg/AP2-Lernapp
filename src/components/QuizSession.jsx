@@ -236,7 +236,12 @@ const QuizSession = ({
   };
 
   const handleCancelWithConfirm = () => {
-    const hasProgress = quizScore.total > 0 || selectedAnswers.length > 0 || !!feynmanInput.trim();
+    const hasProgress =
+      quizScore.total > 0 ||
+      currentQuizIndex > 0 ||
+      answerHistory.length > 0 ||
+      selectedAnswers.length > 0 ||
+      !!feynmanInput.trim();
     if (!hasProgress) {
       if (onCancel) onCancel();
       else setAppMode('dashboard');
