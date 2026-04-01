@@ -35,6 +35,7 @@ const QuizSession = ({
   setAppMode,
   handleFeynmanCheck,
   onQuizAnswer,
+  onFinish,
   learningMode = 'quiz',
   setupMode = 'quiz_setup'
 }) => {
@@ -72,6 +73,7 @@ const QuizSession = ({
   const [feynmanFeedbackLevel, setFeynmanFeedbackLevel] = useState(null);
   const [quizExplanationRevealed, setQuizExplanationRevealed] = useState(false);
   const [quizRevealConfirmVisible, setQuizRevealConfirmVisible] = useState(false);
+  const [answerHistory, setAnswerHistory] = useState([]);
   const shuffledAnswersRef = useRef({});
 
 
@@ -141,6 +143,9 @@ const QuizSession = ({
   const requireFeynmanCompletion = allSelected && feynmanModeEnabled && isSelectionCorrect;
   const canProceedToNextQuizQuestion = !requireFeynmanCompletion || quizExplanationRevealed || !!feynmanFeedback;
   const remainingInSession = Math.max(internalQuizzes.length - currentQuizIndex, 0);
+  const completionPercent = internalQuizzes.length > 0
+    ? Math.round((Math.min(currentQuizIndex, internalQuizzes.length) / internalQuizzes.length) * 100)
+    : 0;
 
   const handleQuizAnswer = (idx) => {
     if (allSelected) return; // Nach Auswertung keine weitere Auswahl
@@ -190,11 +195,38 @@ const QuizSession = ({
         console.error('onQuizAnswer failed in QuizSession:', err);
       }
     }
+    setAnswerHistory((prev) => [
+      ...prev,
+      {
+        id: q.id,
+        question: q.question,
+        topic: q.topic || '',
+        isCorrect: isSelectionCorrect,
+        selectedAnswerText,
+        correctAnswerText
+      }
+    ]);
     setQuizScore(prev => ({ correct: prev.correct + (isSelectionCorrect ? 1 : 0), total: prev.total + 1 }));
     // eslint-disable-next-line
   }, [allSelected]);
 
   const nextQuizQuestion = () => {
+    const isLastQuestion = currentQuizIndex >= internalQuizzes.length - 1;
+
+    if (isLastQuestion && typeof onFinish === 'function') {
+      const safeHistory = Array.isArray(answerHistory) ? answerHistory : [];
+      onFinish({
+        mode: learningMode,
+        totalQuestions: internalQuizzes.length,
+        answeredQuestions: quizScore.total,
+        correct: quizScore.correct,
+        incorrect: Math.max(quizScore.total - quizScore.correct, 0),
+        incorrectQuestions: safeHistory.filter((entry) => !entry.isCorrect),
+        completedAt: new Date().toISOString()
+      });
+      return;
+    }
+
     setFeynmanFeedback('');
     setFeynmanFeedbackLevel(null);
     setFeynmanInput('');
@@ -213,8 +245,11 @@ const QuizSession = ({
       <header>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
           <button className="btn-nav" onClick={() => (onCancel ? onCancel() : setAppMode('dashboard'))}>&larr; Menü</button>
-          <p className="subtitle">Frage {currentQuizIndex + 1} · {remainingInSession} offen</p>
+          <p className="subtitle">Frage {Math.min(currentQuizIndex + 1, internalQuizzes.length)} / {internalQuizzes.length} · {remainingInSession} offen</p>
           <div className="score-badge">Score: {quizScore.correct}</div>
+        </div>
+        <div className="progress-container" style={{ marginTop: '0.75rem', maxWidth: '100%' }}>
+          <div className="progress-bar" style={{ width: `${completionPercent}%` }} />
         </div>
       </header>
 
@@ -308,7 +343,7 @@ const QuizSession = ({
             style={{ marginTop: '1rem' }}
             onClick={nextQuizQuestion}
           >
-            Nächste Frage &rarr;
+            {currentQuizIndex >= internalQuizzes.length - 1 ? 'Ergebnis anzeigen' : 'Nächste Frage →'}
           </button>
         )}
 
@@ -414,7 +449,7 @@ const QuizSession = ({
                 onClick={nextQuizQuestion}
                 disabled={!canProceedToNextQuizQuestion || feynmanLoading}
               >
-                Nächste Frage &rarr;
+                {currentQuizIndex >= internalQuizzes.length - 1 ? 'Ergebnis anzeigen' : 'Nächste Frage →'}
               </button>
             )}
             {!canProceedToNextQuizQuestion && (

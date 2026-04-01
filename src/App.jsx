@@ -42,6 +42,7 @@ const WisorSession = React.lazy(() => import('./components/WisorSession'));
 const NotesView = React.lazy(() => import('./components/NotesView'));
 const QuizSetup = React.lazy(() => import('./components/QuizSetup'));
 const FlashcardSession = React.lazy(() => import('./components/FlashcardSession'));
+const ResultSummary = React.lazy(() => import('./components/ResultSummary'));
 
 
 // ─── Extracted Utils ────────────────────────────────────────────
@@ -162,6 +163,7 @@ function App() {
   const [quizCountSelection, setQuizCountSelection] = useState(10);
   const [marketingReviewSessionPool, setMarketingReviewSessionPool] = useState([]);
   const [marketingReviewCountSelection, setMarketingReviewCountSelection] = useState(10);
+  const [marketingReviewResult, setMarketingReviewResult] = useState(null);
 
   // --- WISOR STATE ---
   const [allWisors, setAllWisors] = useState([]);
@@ -813,6 +815,55 @@ function App() {
     return due.filter(q => getQuizTopicGroup(q.topic) === topic);
   };
 
+  const normalizeQuizLimit = (limit, poolLength, isGuest) => {
+    if (isGuest) return Math.min(3, poolLength);
+    const parsed = Number(limit);
+    if (!Number.isFinite(parsed) || parsed <= 0) return poolLength;
+    return Math.min(Math.floor(parsed), poolLength);
+  };
+
+  const buildShuffledSession = (pool, limit, isGuest) => {
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    const normalizedLimit = normalizeQuizLimit(limit, shuffled.length, isGuest);
+    if (!Number.isFinite(normalizedLimit) || normalizedLimit <= 0) {
+      return [];
+    }
+    return shuffled.slice(0, normalizedLimit);
+  };
+
+  const getWeakTopicLabel = (summary) => {
+    const wrong = Array.isArray(summary?.incorrectQuestions) ? summary.incorrectQuestions : [];
+    if (wrong.length === 0) return '';
+
+    const counts = wrong.reduce((acc, entry) => {
+      const topic = String(entry?.topic || '').trim();
+      if (!topic) return acc;
+      acc[topic] = (acc[topic] || 0) + 1;
+      return acc;
+    }, {});
+
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    return sorted[0]?.[0] || '';
+  };
+
+  const openPracticeByTopic = (topic) => {
+    const safeTopic = String(topic || '').toLowerCase();
+    if (/nutzwert/.test(safeTopic)) {
+      setAppMode('nutzwertanalyse');
+      return;
+    }
+    if (/(kalkulation|deckungsbeitrag|kosten|break.?even)/.test(safeTopic)) {
+      setAppMode('kalkulation');
+      return;
+    }
+    if (/(projekt|agil|gantt|psp)/.test(safeTopic)) {
+      setAppMode('project_m');
+      return;
+    }
+    setSelectedQuizTopic(getQuizTopicGroup(topic));
+    setAppMode('marketing_review_setup');
+  };
+
   const handleToggleVideos = async (q) => {
     if (wisorVideoOpen) {
       setWisorVideoOpen(false);
@@ -840,6 +891,22 @@ function App() {
 
       const buildQueryCandidates = () => {
         const candidates = [];
+        const topicLabel = String(q?.topic || '').trim();
+
+        if (topicLabel) {
+          candidates.push(`${topicLabel} IHK einfach erklaert`);
+        }
+
+        if (/nutzwert/i.test(topicLabel)) {
+          candidates.push('Nutzwertanalyse einfach erklaert IHK');
+        } else if (/(kalkulation|deckungsbeitrag|break.?even|kostenrechnung)/i.test(topicLabel)) {
+          candidates.push('Kalkulation Deckungsbeitrag Break Even IHK erklaert');
+        } else if (/(influencer|social media)/i.test(topicLabel)) {
+          candidates.push('Influencer Marketing Social Media IHK einfach erklaert');
+        } else if (/(targeting|online-marketing|push|pull)/i.test(topicLabel)) {
+          candidates.push('Online Marketing Targeting Push Pull IHK');
+        }
+
         if (q?.youtubeQuery?.trim()) {
           candidates.push(q.youtubeQuery.trim());
         }
@@ -971,26 +1038,20 @@ ${input}`;
   };
 
   const startQuizSession = (limit, topic = 'all') => {
-    let sessionQs = [...getDueQuizzesByTopic(topic)].sort(() => Math.random() - 0.5);
-    // Guests: max 3 trial questions
     const isGuest = !authUser;
-    const effectiveLimit = isGuest ? 3 : limit;
-    if (effectiveLimit !== 'all') {
-      sessionQs = sessionQs.slice(0, effectiveLimit);
-    }
+    const duePool = getDueQuizzesByTopic(topic);
+    const sessionQs = buildShuffledSession(duePool, limit, isGuest);
 
     setQuizSessionPool(sessionQs);
     setAppMode('quiz');
   };
 
   const startMarketingReviewSession = (limit, topic = 'all') => {
-    let sessionQs = [...getDueMarketingReviewByTopic(topic)].sort(() => Math.random() - 0.5);
     const isGuest = !authUser;
-    const effectiveLimit = isGuest ? 3 : limit;
-    if (effectiveLimit !== 'all') {
-      sessionQs = sessionQs.slice(0, effectiveLimit);
-    }
+    const duePool = getDueMarketingReviewByTopic(topic);
+    const sessionQs = buildShuffledSession(duePool, limit, isGuest);
     setMarketingReviewSessionPool(sessionQs);
+    setMarketingReviewResult(null);
     setAppMode('marketing_review_quiz');
   };
 
@@ -1744,7 +1805,7 @@ ${input}`;
   // Fallback for unknown appMode
   // (Effect defined here — BEFORE any conditional return — to comply with React hooks rules)
   useEffect(() => {
-    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'nutzwertanalyse', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
+    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'marketing_review_result', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'nutzwertanalyse', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
       setAppMode('dashboard');
     }
   }, [appMode]);
@@ -2725,6 +2786,25 @@ ${input}`;
     );
   }
 
+  if (appMode === 'marketing_review_result') {
+    const weakTopic = getWeakTopicLabel(marketingReviewResult);
+    return (
+      <React.Suspense fallback={<div className="loading-overlay">Lade Ergebnis...</div>}>
+        <ResultSummary
+          title="IHK Extras - Ergebnis"
+          summary={marketingReviewResult}
+          weakTopic={weakTopic}
+          onPracticeWeakTopic={openPracticeByTopic}
+          onBack={() => {
+            setMarketingReviewResult(null);
+            setAppMode('dashboard');
+          }}
+          onRetry={() => startMarketingReviewSession(marketingReviewCountSelection, 'all')}
+        />
+      </React.Suspense>
+    );
+  }
+
   if (appMode === 'quiz') {
     return (
       <React.Suspense fallback={<div className="loading-overlay">Lade Quiz...</div>}>
@@ -2783,6 +2863,11 @@ ${input}`;
             onComplete={() => {
               setMarketingReviewSessionPool([]);
               setAppMode('marketing_review_setup');
+            }}
+            onFinish={(summary) => {
+              setMarketingReviewSessionPool([]);
+              setMarketingReviewResult(summary);
+              setAppMode('marketing_review_result');
             }}
             onCancel={() => {
               setMarketingReviewSessionPool([]);

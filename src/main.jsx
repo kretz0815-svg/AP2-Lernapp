@@ -5,6 +5,7 @@ import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scro
 import "mobile-drag-drop/default.css"
 import './index.css'
 import App from './App.jsx'
+import AppErrorBoundary from './components/AppErrorBoundary'
 import { KLRGameProvider } from './features/klr'
 import { ProjectMProvider } from './features/project-m'
 import { JourneyArchitectProvider } from './features/journey-architect'
@@ -22,7 +23,9 @@ createRoot(document.getElementById('root')).render(
     <KLRGameProvider>
       <ProjectMProvider>
         <JourneyArchitectProvider>
-          <App />
+          <AppErrorBoundary>
+            <App />
+          </AppErrorBoundary>
         </JourneyArchitectProvider>
       </ProjectMProvider>
     </KLRGameProvider>

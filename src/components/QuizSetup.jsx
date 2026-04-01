@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const QuizSetup = ({
   selectedQuizTopic,
@@ -19,6 +19,28 @@ const QuizSetup = ({
   showResetProgressButton = false,
   onResetProgress = null
 }) => {
+  const [feynmanInfoOpen, setFeynmanInfoOpen] = useState(false);
+
+  useEffect(() => {
+    try {
+      const seen = localStorage.getItem('ap2_feynman_onboarding_seen') === 'true';
+      if (!seen) {
+        setFeynmanInfoOpen(true);
+      }
+    } catch {
+      // Ignore localStorage failures and continue silently.
+    }
+  }, []);
+
+  const closeFeynmanInfo = () => {
+    setFeynmanInfoOpen(false);
+    try {
+      localStorage.setItem('ap2_feynman_onboarding_seen', 'true');
+    } catch {
+      // Ignore localStorage failures and continue silently.
+    }
+  };
+
   const dueByTopicMap = getDueQuizzesByTopic('all').reduce((acc, q) => {
     const groupedTopic = getQuizTopicGroup(q.topic);
     acc[groupedTopic] = (acc[groupedTopic] || 0) + 1;
@@ -81,10 +103,36 @@ const QuizSetup = ({
             onChange={(e) => setFeynmanModeEnabled(e.target.checked)}
             style={{ marginTop: '0.2rem' }}
           />
-          <span style={{ fontSize: '0.9rem', lineHeight: '1.4' }}>
+          <span style={{ fontSize: '0.9rem', lineHeight: '1.4', display: 'inline-flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
             Feynman-Methode: Antworten nach Erfolg selbst erklären (Empfohlen für tieferes Verständnis)
+            <button
+              type="button"
+              className="feynman-info-btn"
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                setFeynmanInfoOpen(true);
+              }}
+              aria-label="Feynman-Methode erklaeren"
+              title="Feynman-Methode erklaeren"
+            >
+              i
+            </button>
           </span>
         </label>
+
+        {feynmanInfoOpen && (
+          <div className="feynman-info-overlay" role="dialog" aria-modal="true">
+            <div className="feynman-info-modal">
+              <h3>Was ist die Feynman-Methode?</h3>
+              <p>
+                Die Feynman-Methode: Erklaere ein Konzept so einfach, als wuerdest du es einem Kind beibringen.
+                So deckst du eigene Wissensluecken sofort auf.
+              </p>
+              <button className="btn-primary" onClick={closeFeynmanInfo}>Verstanden</button>
+            </div>
+          </div>
+        )}
 
         <div className="quiz-select-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.8rem', marginBottom: '1.8rem' }}>
           {[5, 10, 15, 20].map(count => (
