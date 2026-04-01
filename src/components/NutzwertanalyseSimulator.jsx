@@ -64,6 +64,26 @@ const CRITERIA_POOL = [
 ];
 
 // ── SCENARIO GENERATOR ───────────────────────────────────────
+function buildScenarioText(criteriaData, providers, includeScores) {
+  let text = `Für ein neues E-Commerce-Projekt stehen drei Anbieter zur Auswahl: ${providers.join(', ')}.\n\n`;
+  text += `Folgende Gewichtungen wurden festgelegt: ${criteriaData.map((c) => `${c.name} (${c.weight}%)`).join(', ')}.\n\n`;
+  text += 'Bewertungen je Anbieter:\n';
+
+  providers.forEach((providerName, pIdx) => {
+    const compactRatings = criteriaData
+      .map((criterion) => {
+        const description = criterion.texts[criterion.scores[pIdx]];
+        if (!includeScores) return `${criterion.name}: ${description}`;
+        return `${criterion.name}: ${description} (${criterion.scores[pIdx]} Pt.)`;
+      })
+      .join('; ');
+    text += `- ${providerName}: ${compactRatings}.\n`;
+  });
+
+  text += '\nBerechnen Sie die Teilnutzwerte und Gesamtnutzwerte und wählen Sie den besten Anbieter mit kurzer Begründung.';
+  return text;
+}
+
 function generateUtilityTask() {
   const providers = ["ShopTrade", "CommerceHub", "eSell Pro"];
   
@@ -117,22 +137,9 @@ function generateUtilityTask() {
   }
   masterSolution.winner = providers[winnerIdx];
 
-  // Build Scenario Text (compact IHK style)
-  let text = `Für ein neues E-Commerce-Projekt stehen drei Anbieter zur Auswahl: ${providers.join(', ')}.\n\n`;
-  text += `Folgende Gewichtungen wurden festgelegt: ${criteriaData.map((c) => `${c.name} (${c.weight}%)`).join(', ')}.\n\n`;
-  text += 'Bewertungen je Anbieter:\n';
-  providers.forEach((p, pIdx) => {
-    const compactRatings = criteriaData
-      .map((c) => `${c.name}: ${c.texts[c.scores[pIdx]]} (${c.scores[pIdx]} Pt.)`)
-      .join('; ');
-    text += `- ${p}: ${compactRatings}.\n`;
-  });
-  text += '\nBerechnen Sie die Teilnutzwerte und Gesamtnutzwerte und wählen Sie den besten Anbieter mit kurzer Begründung.';
-
   return {
     providers,
     criteriaData,
-    scenarioText: text,
     masterSolution
   };
 }
@@ -159,6 +166,11 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
   const [showConfetti, setShowConfetti] = useState(false);
 
   const [showHints, setShowHints] = useState({});
+
+  const scenarioText = useMemo(
+    () => buildScenarioText(task.criteriaData, task.providers, difficultyLevel === 1),
+    [task.criteriaData, task.providers, difficultyLevel]
+  );
 
   const handleNewTask = useCallback(() => {
     setTask(generateUtilityTask());
@@ -335,7 +347,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
 
     try {
       const response = await evaluateNutzwertanalyse({
-        scenarioText: task.scenarioText,
+        scenarioText,
         masterSolution: task.masterSolution,
         userMatrix: {
           rows: userMatrix,
@@ -486,7 +498,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
             overflowY: 'auto',
             paddingRight: '0.35rem'
           }}>
-            {task.scenarioText}
+            {scenarioText}
           </div>
         </div>
 
