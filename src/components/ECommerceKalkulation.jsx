@@ -7,7 +7,8 @@ import Confetti from './Confetti';
 // IHK GAP 2 Standard: Betriebswirtschaftliche Kalkulationstabelle
 // ═══════════════════════════════════════════════════════════════
 
-// ── Kaufmännische Rundung auf 2 Nachkommastellen ─────────────
+// ── Kaufmännische Rundung auf 1 bzw. 2 Nachkommastellen ─────
+const round1 = (n) => Math.round((n + Number.EPSILON) * 10) / 10;
 const round2 = (n) => Math.round((n + Number.EPSILON) * 100) / 100;
 
 // ── Formatierung ─────────────────────────────────────────────
@@ -79,14 +80,14 @@ function generateECommerceTask() {
   // Begründung: Der Wareneinsatz (Einkaufspreis) wird vom Netto-Warenwert
   // berechnet, weil die MwSt durchlaufender Posten ist und nicht
   // in die Kostenkalkulation einfließt.
-  const wareneinsatzRate = round2(randBetween(35, 55));
+  const wareneinsatzRate = round1(randBetween(35, 55));
   const wareneinsatz = round2(netProductRevenue * wareneinsatzRate / 100);
 
   // PROVISION: 10-15% vom NETTO-Warenwert
   // Begründung: Die Marktplatz-Provision (z.B. Amazon, eBay) bezieht
   // sich auf den Netto-Verkaufspreis des Produkts. Die Umsatzsteuer
   // ist kein Erlös des Händlers, daher wird sie nicht provisioniert.
-  const provisionRate = round2(randBetween(10, 15));
+  const provisionRate = round1(randBetween(10, 15));
   const provision = round2(netProductRevenue * provisionRate / 100);
 
   // MARKETING & PAYMENT: 8-12% vom BRUTTO-Gesamtumsatz
@@ -94,7 +95,7 @@ function generateECommerceTask() {
   // immer auf den Brutto-Betrag berechnet, den der Kunde zahlt.
   // Marketing-KPIs wie ROAS beziehen sich ebenfalls auf Bruttoumsätze.
   // Deshalb ist die Basis hier der gesamte Bruttoumsatz.
-  const marketingPaymentRate = round2(randBetween(8, 12));
+  const marketingPaymentRate = round1(randBetween(8, 12));
   const marketingPayment = round2(totalGrossRevenue * marketingPaymentRate / 100);
 
   // LOGISTIKKOSTEN: 6,50-9,50 € pro Paket × Bestellanzahl
@@ -228,8 +229,8 @@ Kalkulieren Sie den kurzfristigen Erfolg des Quartals (Umsatzsteuer: ${Math.roun
   };
 }
 
-// ── Toleranz-Prüfung (±0,05 € wegen Rundungsdifferenzen) ──
-const TOLERANCE_CENTS = 5; // 0,05 €
+// ── Toleranz-Prüfung (±0,10 € wegen Rundungsdifferenzen) ──
+const TOLERANCE_CENTS = 10; // 0,10 €
 const isWithinTolerance = (userVal, expectedVal) => {
   return Math.abs(Math.round(userVal * 100) - Math.round(expectedVal * 100)) <= TOLERANCE_CENTS;
 };
