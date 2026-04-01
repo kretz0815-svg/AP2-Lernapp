@@ -1922,6 +1922,15 @@ ${input}`;
     rechenLearned
   };
 
+  const nutzwertEvents = (learningAnalytics?.events || []).filter(
+    (event) => String(event?.mode || '').toLowerCase() === 'nutzwertanalyse'
+  );
+  const nutzwertAttemptedCount = nutzwertEvents.length;
+  const nutzwertSolvedCount = nutzwertEvents.reduce(
+    (sum, event) => sum + (event?.correct ? 1 : 0),
+    0
+  );
+
   const burgerMenuPortal = createPortal(
     <>
       <BurgerMenu
@@ -2116,6 +2125,23 @@ ${input}`;
             <h1 style={{ fontFamily: '"Anton", sans-serif', textTransform: 'uppercase', letterSpacing: '0px', fontSize: '3.5rem', transform: 'scaleY(1.2)', transformOrigin: 'bottom', margin: '0 0 0 0', color: 'var(--text-light)', textShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>MASTERPAT APP</h1>
           </div>
           <p className="subtitle" style={{ marginTop: '0.8rem' }}>Wähle deinen Lernmodus</p>
+          <div
+            style={{
+              marginTop: '0.6rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              padding: '0.4rem 0.75rem',
+              borderRadius: '999px',
+              border: '1px solid rgba(99,102,241,0.35)',
+              background: 'rgba(99,102,241,0.12)',
+              color: 'var(--text-light)',
+              fontSize: '0.82rem',
+              fontWeight: 600
+            }}
+          >
+            Nutzwertanalyse: {nutzwertSolvedCount}/{nutzwertAttemptedCount} richtig gelöst
+          </div>
         </header>
         <div className="dashboard-grid">
           <div id="card-learning-suite" className="dash-card dash-card-wide">

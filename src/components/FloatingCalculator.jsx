@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import '../index.css';
 
@@ -59,6 +59,18 @@ export default function FloatingCalculator({
         startTouch: null,
         startWindow: null
     });
+
+    const resetCalculatorSession = useCallback(() => {
+        setCurrentValue('0');
+        setPrevValue(null);
+        setOperator(null);
+        setWaitingForNewValue(false);
+    }, []);
+
+    const closeCalculator = useCallback(() => {
+        setIsOpen(false);
+        resetCalculatorSession();
+    }, [resetCalculatorSession]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -148,7 +160,7 @@ export default function FloatingCalculator({
 
         const handleFocusIn = (e) => {
             if (isExternalFormField(e.target)) {
-                setIsOpen(false);
+                closeCalculator();
             }
         };
 
@@ -156,7 +168,7 @@ export default function FloatingCalculator({
         return () => {
             document.removeEventListener('focusin', handleFocusIn);
         };
-    }, [isMobile, isOpen]);
+    }, [isMobile, isOpen, closeCalculator]);
 
     useEffect(() => {
         if (!isMobile || !isOpen) return;
@@ -382,7 +394,18 @@ export default function FloatingCalculator({
     };
 
     const handlePercent = () => {
-        setCurrentValue(String(parseFloat(currentValue) / 100));
+        const currentNumeric = parseFloat(currentValue);
+        if (!Number.isFinite(currentNumeric)) return;
+
+        if (operator && Number.isFinite(prevValue) && !waitingForNewValue) {
+            // X % Y should be interpreted as (X / 100) * Y.
+            const result = (currentNumeric / 100) * prevValue;
+            setCurrentValue(String(result));
+            setWaitingForNewValue(true);
+            return;
+        }
+
+        setCurrentValue(String(currentNumeric / 100));
     };
 
     const handleDot = () => {
@@ -479,7 +502,7 @@ export default function FloatingCalculator({
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <button
                         className="floating-notes-close"
-                        onClick={() => setIsOpen(false)}
+                        onClick={closeCalculator}
                         style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', outline: 'none', padding: '0 5px' }}
                     > &times; </button>
                 </div>

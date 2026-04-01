@@ -161,6 +161,8 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
   const [totalWarnings, setTotalWarnings] = useState({});
   const [dropdownChoice, setDropdownChoice] = useState('');
   const [justification, setJustification] = useState('');
+  const [recommendationError, setRecommendationError] = useState('');
+  const [justificationError, setJustificationError] = useState('');
   const [difficultyLevel, setDifficultyLevel] = useState(2); // 1 = Lern, 2 = Übung, 3 = Prüfung
   
   const [aiFeedback, setAiFeedback] = useState(null);
@@ -248,6 +250,8 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
     setTotalWarnings({});
     setDropdownChoice('');
     setJustification('');
+    setRecommendationError('');
+    setJustificationError('');
     setAiFeedback(null);
     setValidationStates({});
     setFailedAttempts(0);
@@ -271,10 +275,24 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
   const handleChange = (key, val) => {
     setInputs(prev => ({ ...prev, [key]: val }));
     setValidationStates(prev => ({ ...prev, [key]: undefined }));
+    setAiFeedback(null);
     if (key.startsWith('total_')) {
       setTotalWarnings(prev => ({ ...prev, [key]: undefined }));
     }
+    if (key.startsWith('par_')) {
+      setPartialWarnings(prev => ({ ...prev, [key]: undefined }));
+    }
   };
+
+  const handleFieldFocus = useCallback((key) => {
+    setValidationStates(prev => ({ ...prev, [key]: undefined }));
+    if (key.startsWith('total_')) {
+      setTotalWarnings(prev => ({ ...prev, [key]: undefined }));
+    }
+    if (key.startsWith('par_')) {
+      setPartialWarnings(prev => ({ ...prev, [key]: undefined }));
+    }
+  }, []);
 
   const shouldWarnWeightOnly = (criterion, cIdx, pIdx, partialRaw, pointRaw = null) => {
     const partialVal = parseInput(partialRaw);
@@ -337,6 +355,8 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
 
     setInputs(newInputs);
     setDropdownChoice(task.masterSolution.winner);
+    setRecommendationError('');
+    setJustificationError('');
     setValidationStates({});
     setPartialWarnings({});
     setTotalWarnings({});
@@ -375,6 +395,42 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
         isPassed: false,
         exact: false,
         examinerFeedback: EMPTY_FIELDS_MESSAGE
+      });
+      return;
+    }
+
+    if (difficultyLevel > 1) {
+      const enteredWeights = task.criteriaData.map((_, cIdx) => parseInput(inputs[`w_${cIdx}`]));
+      const sumWeights = enteredWeights.reduce((sum, val) => sum + (Number.isFinite(val) ? val : 0), 0);
+      if (!isWithinTolerance(sumWeights, 100)) {
+        const weightStates = {};
+        task.criteriaData.forEach((_, cIdx) => {
+          weightStates[`w_${cIdx}`] = 'wrong';
+        });
+        setValidationStates(weightStates);
+        setAiFeedback({
+          isPassed: false,
+          exact: false,
+          examinerFeedback: `Achtung: Deine Gewichtungen ergeben ${fmt(sumWeights)} %, nicht 100 %.`
+        });
+        return;
+      }
+    }
+
+    const trimmedJustification = justification.trim();
+    const hasRecommendation = Boolean(dropdownChoice);
+    const hasValidJustification = trimmedJustification.length >= 30;
+
+    setRecommendationError(hasRecommendation ? '' : 'Bitte wähle einen Anbieter aus.');
+    setJustificationError(hasValidJustification ? '' : 'Bitte begründe deine Entscheidung mit mindestens 30 Zeichen.');
+
+    if (!hasRecommendation || !hasValidJustification) {
+      setAiFeedback({
+        isPassed: false,
+        exact: false,
+        examinerFeedback: !hasRecommendation
+          ? 'Bitte wähle zuerst einen empfohlenen Anbieter aus.'
+          : 'Bitte ergänze eine sinnvolle Begründung mit mindestens 30 Zeichen.'
       });
       return;
     }
@@ -454,38 +510,20 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
         newStates[`total_${pIdx}`] = 'wrong';
         allOk = false;
         totalErrors++;
-        if (providerPartialsAreCorrect) {
-          newTotalWarnings[`total_${pIdx}`] = 'Deine Teilwerte sind alle richtig, aber du hast dich beim Zusammenrechnen der Summe vertippt!';
-        }
+        const providerName = task.providers[pIdx];
+        newTotalWarnings[`total_${pIdx}`] = providerPartialsAreCorrect
+          ? `Dein Gesamtnutzwert für ${providerName} stimmt nicht. Deine Teilwerte sind korrekt, aber du hast dich beim Zusammenrechnen der Summe vertippt.`
+          : `Dein Gesamtnutzwert für ${providerName} stimmt nicht. Überprüfe deine Berechnung.`;
       } else {
         newStates[`total_${pIdx}`] = 'correct';
       }
     });
 
     const recommendationCorrect = dropdownChoice === task.masterSolution.winner;
+    const localExact = allOk && recommendationCorrect;
 
     setValidationStates(newStates);
     setTotalWarnings(newTotalWarnings);
-
-    if (allOk && recommendationCorrect) {
-      // 100% EXAKT Korrekt
-      setShowConfetti(true);
-      if (onLearningEvent) {
-        onLearningEvent({
-          mode: 'nutzwertanalyse',
-          questionId: 'nutzwert',
-          correct: true,
-          topic: 'Nutzwertanalyse'
-        });
-      }
-      setTimeout(() => setShowConfetti(false), 5500);
-      setAiFeedback({
-         isPassed: true,
-         exact: true,
-         examinerFeedback: "Hervorragend! Die Analyse entspricht exakt dem Erwartungshorizont der Musterlösung."
-      });
-      return;
-    }
 
     // Wenn nicht 100% korrekt (also Abweichungen bei Punkten oder finaler Auswahl),
     // fragen wir die KI als IHK-Prüfer.
@@ -495,6 +533,10 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
     const userTotals = task.providers.map((p, pIdx) => (
       difficultyLevel === 1 ? task.masterSolution.totals[pIdx] : parseInput(inputs[`total_${pIdx}`])
     ));
+    const bestTotal = Math.max(...userTotals.map((v) => Number.isFinite(v) ? v : Number.NEGATIVE_INFINITY));
+    const userCalculatedWinner = Number.isFinite(bestTotal)
+      ? task.providers.find((_, idx) => isWithinTolerance(userTotals[idx], bestTotal)) || null
+      : null;
 
     try {
       const response = await evaluateNutzwertanalyse({
@@ -504,15 +546,23 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
           rows: userMatrix,
           totals: userTotals
         },
+        userCalculatedWinner,
         userRecommendation: dropdownChoice,
-        userJustification: justification
+        userJustification: trimmedJustification
       });
 
       if (response && response.isPassed) {
+        const exactByMathAndChoice = localExact;
+        if (exactByMathAndChoice) {
+          setShowConfetti(true);
+          setTimeout(() => setShowConfetti(false), 5500);
+        }
         setAiFeedback({
            isPassed: true,
-           exact: false,
-           examinerFeedback: response.examinerFeedback || 'Trotz kleiner Abweichungen wurde deine Lösung akzeptiert!'
+           exact: exactByMathAndChoice,
+           examinerFeedback: response.examinerFeedback || (exactByMathAndChoice
+             ? 'Hervorragend! Die Analyse entspricht dem Erwartungshorizont.'
+             : 'Trotz kleiner Abweichungen wurde deine Lösung akzeptiert!')
         });
         if (onLearningEvent) {
           onLearningEvent({
@@ -698,6 +748,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
                         disabled={difficultyLevel === 1 || validationStates[`w_${cIdx}`] === 'correct'}
                         value={difficultyLevel === 1 ? c.weight : inputs[`w_${cIdx}`] || ''}
                         onChange={(e) => handleChange(`w_${cIdx}`, e.target.value)}
+                        onFocus={() => handleFieldFocus(`w_${cIdx}`)}
                         style={{ padding: '0.4rem', textAlign: 'center', fontSize: '0.9rem', borderColor: difficultyLevel === 1 ? 'transparent' : getStateColor(`w_${cIdx}`) }}
                       />
                     </div>
@@ -714,6 +765,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
                            disabled={difficultyLevel === 1 || validationStates[`pt_${cIdx}_${pIdx}`] === 'correct'}
                            value={difficultyLevel === 1 ? c.scores[pIdx] : inputs[`pt_${cIdx}_${pIdx}`] || ''}
                            onChange={(e) => handlePointsChange(c, cIdx, pIdx, e.target.value)}
+                           onFocus={() => handleFieldFocus(`pt_${cIdx}_${pIdx}`)}
                            style={{ padding: '0.4rem', textAlign: 'center', fontSize: '0.9rem', backgroundColor: difficultyLevel === 1 ? 'rgba(255,255,255,0.05)' : undefined, borderColor: difficultyLevel === 1 ? 'transparent' : getStateColor(`pt_${cIdx}_${pIdx}`) }}
                          />
                          <span className="utility-multiply-symbol" style={{ color: 'var(--text-muted)' }}>=</span>
@@ -724,6 +776,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
                            disabled={validationStates[`par_${cIdx}_${pIdx}`] === 'correct'}
                            value={inputs[`par_${cIdx}_${pIdx}`] || ''}
                            onChange={(e) => handlePartialChange(c, cIdx, pIdx, e.target.value)}
+                           onFocus={() => handleFieldFocus(`par_${cIdx}_${pIdx}`)}
                            style={{ padding: '0.4rem', textAlign: 'center', fontSize: '0.9rem', borderColor: getStateColor(`par_${cIdx}_${pIdx}`) }}
                          />
                       </div>
@@ -760,6 +813,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
                       disabled={difficultyLevel === 1 || validationStates[totalKey] === 'correct'}
                       value={difficultyLevel === 1 ? levelOneAutoTotal : (inputs[totalKey] || '')}
                       onChange={(e) => handleChange(totalKey, e.target.value)}
+                      onFocus={() => handleFieldFocus(totalKey)}
                       style={{ padding: '0.5rem', textAlign: 'center', fontWeight: 'bold', fontSize: '1rem', borderColor: getStateColor(totalKey), boxShadow: `0 0 10px ${getStateColor(totalKey)}44`, backgroundColor: difficultyLevel === 1 ? 'rgba(255,255,255,0.05)' : undefined }}
                     />
                       );
@@ -782,23 +836,41 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
           <select 
             className="wisor-input" 
             value={dropdownChoice}
-            onChange={e => setDropdownChoice(e.target.value)}
-            style={{ width: '100%', maxWidth: '400px', cursor: 'pointer', padding: '0.8rem', fontSize: '1rem', marginBottom: '0.5rem' }}
+            onChange={e => {
+              setDropdownChoice(e.target.value);
+              setRecommendationError('');
+            }}
+            onFocus={() => setRecommendationError('')}
+            style={{ width: '100%', maxWidth: '400px', cursor: 'pointer', padding: '0.8rem', fontSize: '1rem', marginBottom: '0.5rem', borderColor: recommendationError ? '#ef4444' : undefined }}
           >
             <option value="">Aussagekräftige Wahl treffen...</option>
             {task.providers.map(p => (
               <option key={p} value={p}>{p}</option>
             ))}
           </select>
+          {recommendationError && (
+            <div style={{ marginTop: '-0.2rem', marginBottom: '0.35rem', fontSize: '0.82rem', color: '#fca5a5' }}>
+              {recommendationError}
+            </div>
+          )}
           
           <label style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--text-muted)' }}>Kurze Begründung (IHK-Style):</label>
           <textarea
             className="wisor-input utility-justification"
             value={justification}
-            onChange={e => setJustification(e.target.value)}
+            onChange={e => {
+              setJustification(e.target.value);
+              setJustificationError('');
+            }}
+            onFocus={() => setJustificationError('')}
             placeholder="z.B. Anbieter X hat den höchsten Nutzwert (3.8) und erfüllt insbesondere das wichtige Kriterium Y am besten..."
-            style={{ width: '100%', minHeight: '80px', fontSize: '0.9rem', padding: '0.8rem' }}
+            style={{ width: '100%', minHeight: '80px', fontSize: '0.9rem', padding: '0.8rem', borderColor: justificationError ? '#ef4444' : undefined }}
           />
+          {justificationError && (
+            <div style={{ fontSize: '0.82rem', color: '#fca5a5' }}>
+              {justificationError}
+            </div>
+          )}
         </div>
 
         {/* ── KI Feedback ─────────────── */}
@@ -839,7 +911,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
             {isAiLoading ? 'KI prüft...' : 'Abgeben & Prüfen'}
           </button>
           
-          {failedAttempts > 0 && !aiFeedback?.exact && (
+          {difficultyLevel === 3 && aiFeedback && !aiFeedback.isPassed && (
              <button className="btn-secondary" onClick={handleInsertMasterSolution}>
                Musterlösung eintragen
              </button>

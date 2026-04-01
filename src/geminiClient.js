@@ -347,7 +347,7 @@ ${eventList}`;
     }
 }
 
-export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, userMatrix, userRecommendation, userJustification }) {
+export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, userMatrix, userCalculatedWinner, userRecommendation, userJustification }) {
     if (!genAI && !deepSeekKey) {
         return { isPassed: false, scoreAdjustment: 0, examinerFeedback: "KI-Prüfer offline." };
     }
@@ -357,6 +357,7 @@ export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, us
         masterSolution: masterSolution,
         userSubmission: { 
             matrix: userMatrix, 
+            calculatedWinner: userCalculatedWinner,
             recommendedProvider: userRecommendation, 
             justification: userJustification 
         }
@@ -366,12 +367,18 @@ export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, us
 1. Bei Kriterien des Typs 'qualitativ' akzeptierst du eine Abweichung von +/- 1 Punkt zur Musterlösung, sofern die Rangfolge der Anbieter in diesem Kriterium grob logisch bleibt.
 2. Bei 'quantitativen' Kriterien ist keine Abweichung erlaubt.
 3. Wenn der User durch vertretbare Abweichungen zu einem anderen, aber mathematisch und argumentativ korrekten Sieger kommt (basierend auf seinen eigenen Punkten und korrekt berechneten Teilnutzwerten), lasse dies gelten.
-4. Antworte AUSSCHLIESSLICH im JSON-Format: { "isPassed": boolean, "scoreAdjustment": number, "examinerFeedback": "dein kurzes feedback" }
+4. Prüfe zwingend die Begründung des Users:
+   - Mindestqualität: inhaltlich sinnvoll, fachlich nachvollziehbar und nicht nur Floskel.
+   - Prüfe, ob der im Text empfohlene Anbieter mit dem rechnerischen Sieger aus den User-Totals zusammenpasst.
+   - Wenn Empfehlung und berechneter Sieger nicht zusammenpassen oder die Begründung inhaltlich unplausibel ist, setze isPassed auf false.
+5. Wenn die Antwort falsch ist, gib klares Korrekturfeedback mit kurzer, konkreter Verbesserung.
+6. Antworte AUSSCHLIESSLICH im JSON-Format: { "isPassed": boolean, "scoreAdjustment": number, "examinerFeedback": "dein kurzes feedback" }
 
 Nutzerdaten und Musterlösung:
 ${payloadStr}
 
-Prüfe, ob die Berechnungen (Gewichtung * Punktzahl = Teilnutzwert) des Users in sich stimmig sind und das Endergebnis sowie die finale Wahl des Anbieters zur Eingabe des Users passen. 
+Prüfe, ob die Berechnungen (Gewichtung * Punktzahl = Teilnutzwert) des Users in sich stimmig sind und das Endergebnis sowie die finale Wahl des Anbieters zur Eingabe des Users passen.
+Die Begründung ist ein Pflichtkriterium für das Bestehen.
 Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON.`;
 
     try {
