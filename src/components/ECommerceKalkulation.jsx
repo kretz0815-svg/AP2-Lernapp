@@ -407,14 +407,17 @@ export default function ECommerceKalkulation({ onBack, onLearningEvent }) {
       <div className="blob blob-1"></div>
       <div className="blob blob-2"></div>
 
-      <header style={{ width: '100%', textAlign: 'center', position: 'relative' }}>
+      <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', padding: '0.5rem 0 0.5rem 3.5rem', marginBottom: '0.5rem' }}>
         <button
           className="btn-nav"
-          style={{ position: 'absolute', top: '0.2rem', left: '0.2rem', minHeight: '42px', zIndex: 10 }}
+          style={{ minHeight: '42px', zIndex: 10, padding: '0.4rem 1rem' }}
           onClick={onBack}
         >
           ← Zurück
         </button>
+      </div>
+
+      <header style={{ width: '100%', textAlign: 'center', position: 'relative' }}>
         <h1 style={{
           fontFamily: '"Anton", sans-serif',
           textTransform: 'uppercase',
