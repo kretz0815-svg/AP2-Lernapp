@@ -63,10 +63,14 @@ async function askDeepSeek(prompt) {
     }
 }
 
-export async function askGemini(question, contextQuestion, contextAnswer) {
+export async function askGemini(question, contextQuestion, contextAnswer, options = {}) {
     const safeQuestion = String(question ?? '').slice(0, 8000);
     const safeContextQ = String(contextQuestion ?? '').slice(0, 4000);
     const safeContextA = String(contextAnswer ?? '').slice(0, 4000);
+    const hasIsCorrect = typeof options?.isCorrect === 'boolean';
+    const safeIsCorrect = hasIsCorrect ? options.isCorrect : null;
+    const safeSelectedAnswer = String(options?.selectedAnswer ?? '').slice(0, 1200);
+    const safeCorrectAnswer = String(options?.correctAnswer ?? '').slice(0, 1200);
 
     // Zuerst über serverseitige API (Vercel) aufrufen – vermeidet CORS und schützt den API-Key
     try {
@@ -76,7 +80,10 @@ export async function askGemini(question, contextQuestion, contextAnswer) {
             body: JSON.stringify({
                 question: safeQuestion,
                 contextQuestion: safeContextQ,
-                contextAnswer: safeContextA
+                contextAnswer: safeContextA,
+                isCorrect: safeIsCorrect,
+                selectedAnswer: safeSelectedAnswer,
+                correctAnswer: safeCorrectAnswer
             })
         });
         const data = await res.json().catch(() => ({}));
@@ -90,10 +97,25 @@ export async function askGemini(question, contextQuestion, contextAnswer) {
     }
 
     // Fallback 1: direkter Gemini-Aufruf (z. B. lokale Entwicklung)
+    const correctnessBlock = hasIsCorrect
+        ? `
+Prüfkontext zur letzten Antwort:
+- isCorrect: ${safeIsCorrect}
+- Gewählte Antwort: "${safeSelectedAnswer || 'N/A'}"
+- Korrekte Antwort: "${safeCorrectAnswer || 'N/A'}"
+
+WICHTIGE REGEL:
+Du bist ein strenger, aber fairer IHK-Tutor.
+Wenn isCorrect = false, lobe den User NIEMALS.
+Sage klar, dass die Antwort falsch war, erkläre kurz warum die gewählte Option nicht stimmt und warum die korrekte Option richtig ist.
+Wenn isCorrect = true, gib kurzes, sachliches Lob und vertiefe den Kernpunkt fachlich.`
+        : '';
+
     const prompt = `Du bist ein hilfreicher Lern-Assistent für einen Lehrling in der Ausbildung, wahrscheinlich im IT-Bereich (Fachinformatiker o.ä.). 
 Der Azubi übt gerade Lernkarten und diese spezielle Frage aus einem Lernkatalog:
 "${safeContextQ}"
 Die erwartete korrekte Antwort lautet: "${safeContextA}"
+${correctnessBlock}
 
 Hier ist die konkrete Rückfrage / das Problem des Auszubildenden dazu:
 "${safeQuestion}"

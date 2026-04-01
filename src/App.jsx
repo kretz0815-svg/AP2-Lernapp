@@ -474,10 +474,33 @@ function App() {
     }
   };
 
+  const normalizeMasteryProgressEntry = (entry) => {
+    if (entry === true) {
+      return { correctAnswersCount: 2, isLearned: true, isActive: false };
+    }
+    if (!entry || typeof entry !== 'object') {
+      return { correctAnswersCount: 0, isLearned: false, isActive: true };
+    }
+
+    const count = Number(entry.correctAnswersCount ?? entry.rep ?? 0) || 0;
+    const learned = typeof entry.isLearned === 'boolean' ? entry.isLearned : count >= 2;
+
+    return {
+      ...entry,
+      correctAnswersCount: count,
+      isLearned: learned,
+      isActive: !learned,
+      rep: Number(entry.rep ?? count) || count,
+      nextReview: learned ? Number(entry.nextReview || Date.now()) : 0,
+    };
+  };
+
+  const isMasteryLearned = (entry) => normalizeMasteryProgressEntry(entry).isLearned;
+
   const handleQuizAnswerUpdate = async (q, isCorrect) => {
     // 1. Local progress update
     const localProg = JSON.parse(localStorage.getItem('ap2_quiz_progress') || '{}');
-    const prevProg = localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 };
+    const prevProg = normalizeMasteryProgressEntry(localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
     const nextProg = computeNextQuizProgress(prevProg, isCorrect);
 
     localProg[q.id] = nextProg;
@@ -495,7 +518,11 @@ function App() {
         rating,
         taskType: 'quiz',
         category: q.topic,
-        metadata: { question: q.question }
+        metadata: {
+          question: q.question,
+          correctAnswersCount: Number(nextProg.correctAnswersCount || 0),
+          isLearned: !!nextProg.isLearned,
+        }
       }).catch(err => console.error('DSR quiz review failed:', err));
     }
   };
@@ -503,15 +530,25 @@ function App() {
   const handleMarketingReviewAnswerUpdate = async (q, isCorrect) => {
     if (!q?.id) return;
 
-    if (isCorrect) {
-      const localProg = JSON.parse(localStorage.getItem('ap2_marketing_review_progress') || '{}');
-      const nextProg = { ...localProg, [q.id]: true };
-      localStorage.setItem('ap2_marketing_review_progress', JSON.stringify(nextProg));
-      setCompletedMarketingReview(nextProg);
+    const localProg = JSON.parse(localStorage.getItem('ap2_marketing_review_progress') || '{}');
+    const prevEntry = normalizeMasteryProgressEntry(localProg[q.id]);
+    const nextCount = prevEntry.correctAnswersCount + (isCorrect ? 1 : 0);
+    const nextEntry = {
+      ...prevEntry,
+      correctAnswersCount: nextCount,
+      rep: nextCount,
+      isLearned: nextCount >= 2,
+      isActive: nextCount < 2,
+      nextReview: nextCount >= 2 ? Date.now() : 0,
+      updatedAt: new Date().toISOString(),
+    };
 
-      if (authUser?.id) {
-        syncProgressToSupabase({ marketing_review_progress: nextProg }).catch(() => { });
-      }
+    const nextProg = { ...localProg, [q.id]: nextEntry };
+    localStorage.setItem('ap2_marketing_review_progress', JSON.stringify(nextProg));
+    setCompletedMarketingReview(nextProg);
+
+    if (authUser?.id) {
+      syncProgressToSupabase({ marketing_review_progress: nextProg }).catch(() => { });
     }
 
     if (authUser?.id) {
@@ -523,7 +560,11 @@ function App() {
         rating,
         taskType: 'marketing_review',
         category: q.topic,
-        metadata: { question: q.question }
+        metadata: {
+          question: q.question,
+          correctAnswersCount: Number(nextEntry.correctAnswersCount || 0),
+          isLearned: !!nextEntry.isLearned,
+        }
       }).catch(err => console.error('DSR marketing review failed:', err));
     }
   };
@@ -650,7 +691,8 @@ function App() {
         if (row) {
           const supabaseNextReview = row.due_date ? new Date(row.due_date).getTime() : 0;
           const localNextReview = localProg?.nextReview || 0;
-          const localLatestRep = localProg?.rep || 0;
+          const localLatestRep = Number(localProg?.correctAnswersCount ?? localProg?.rep ?? 0) || 0;
+          const remoteCount = Number(row?.metadata?.correctAnswersCount ?? 0) || 0;
 
           // Always trust local progress if it shows we answered it (nextReview in future)
           // or if it strictly has a later review date than Supabase. This fixes iOS
@@ -659,21 +701,28 @@ function App() {
 
           if (useLocal) {
             effectiveProgress[q.id] = {
-              rep: Math.max(localLatestRep, row.review_count || 0),
+              rep: Math.max(localLatestRep, remoteCount),
               ef: localProg.ef || 2.5,
               interval: localProg.interval || 0,
-              nextReview: localNextReview
+              nextReview: localNextReview,
+              correctAnswersCount: Math.max(localLatestRep, remoteCount),
+              isLearned: Math.max(localLatestRep, remoteCount) >= 2,
+              isActive: Math.max(localLatestRep, remoteCount) < 2,
             };
           } else {
+            const resolvedCount = remoteCount;
             effectiveProgress[q.id] = {
-              rep: row.review_count || 0,
+              rep: resolvedCount,
               ef: q.progress?.ef || 2.5,
               interval: row.scheduled_days || 0,
-              nextReview: supabaseNextReview
+              nextReview: supabaseNextReview,
+              correctAnswersCount: resolvedCount,
+              isLearned: resolvedCount >= 2,
+              isActive: resolvedCount < 2,
             };
           }
         } else {
-          effectiveProgress[q.id] = localProg || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 };
+          effectiveProgress[q.id] = normalizeMasteryProgressEntry(localProg || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
         }
       });
 
@@ -750,7 +799,7 @@ function App() {
   ];
 
   const getDueMarketingReviewByTopic = (topic = 'all') => {
-    const due = allMarketingReviewQuestions.filter(q => !completedMarketingReview[q.id]);
+    const due = allMarketingReviewQuestions.filter(q => !isMasteryLearned(completedMarketingReview[q.id]));
     if (topic === 'all') return due;
     return due.filter(q => getQuizTopicGroup(q.topic) === topic);
   };
@@ -851,7 +900,7 @@ function App() {
     }
   };
 
-  const handleGeminiAsk = async (activeQuestion = null) => {
+  const handleGeminiAsk = async (activeQuestion = null, answerContext = {}) => {
     if (!geminiQuery.trim()) return;
     setGeminiLoading(true);
     setGeminiResponse('');
@@ -872,7 +921,11 @@ function App() {
     }
     const answerInfo = "Geforderte Antwort(en): " + expectedAnswers + " | Erklärung: " + (q.rationale || 'N/A');
 
-    const response = await askGemini(geminiQuery, q.question, answerInfo);
+    const response = await askGemini(geminiQuery, q.question, answerInfo, {
+      isCorrect: typeof answerContext?.isCorrect === 'boolean' ? answerContext.isCorrect : null,
+      selectedAnswer: String(answerContext?.selectedAnswerText || '').slice(0, 1200),
+      correctAnswer: String(answerContext?.correctAnswerText || expectedAnswers).slice(0, 1200),
+    });
     setGeminiResponse(response);
     setGeminiLoading(false);
   };

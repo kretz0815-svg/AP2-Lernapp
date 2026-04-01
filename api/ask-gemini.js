@@ -74,11 +74,30 @@ export async function POST(request) {
     const question = String(body.question ?? '').slice(0, 8000);
     const contextQuestion = String(body.contextQuestion ?? '').slice(0, 4000);
     const contextAnswer = String(body.contextAnswer ?? '').slice(0, 4000);
+    const hasIsCorrect = typeof body.isCorrect === 'boolean';
+    const isCorrect = hasIsCorrect ? body.isCorrect : null;
+    const selectedAnswer = String(body.selectedAnswer ?? '').slice(0, 1200);
+    const correctAnswer = String(body.correctAnswer ?? '').slice(0, 1200);
+
+    const correctnessBlock = hasIsCorrect
+        ? `
+Zusatzkontext zur letzten Antwort:
+- isCorrect: ${isCorrect}
+- Gewählte Antwort: "${selectedAnswer || 'N/A'}"
+- Korrekte Antwort: "${correctAnswer || 'N/A'}"
+
+WICHTIGE REGEL:
+Du bist ein strenger, aber fairer IHK-Tutor.
+Wenn isCorrect = false, lobe den User NIEMALS.
+Sage klar, dass die Antwort falsch war, erkläre kurz, warum die gewählte Option nicht stimmt, und begründe, warum die korrekte Option die richtige ist.
+Wenn isCorrect = true, gib kurzes, sachliches Lob und eine präzise Vertiefung.`
+        : '';
 
     const prompt = `Du bist ein hilfreicher Lern-Assistent für einen Lehrling in der Ausbildung, wahrscheinlich im IT-Bereich (Fachinformatiker o.ä.). 
 Der Azubi übt gerade Lernkarten und diese spezielle Frage aus einem Lernkatalog:
 "${contextQuestion}"
 Die erwartete korrekte Antwort lautet: "${contextAnswer}"
+${correctnessBlock}
 
 Hier ist die konkrete Rückfrage / das Problem des Auszubildenden dazu:
 "${question}"

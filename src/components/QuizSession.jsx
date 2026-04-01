@@ -107,6 +107,8 @@ const QuizSession = ({
 
   // Für Single-Choice: selectedAnswers[0] als Index, für Multi: alle gewählten
   const selectedOptions = selectedAnswers.map(idx => currentAnswers[idx]);
+  const selectedAnswerText = selectedOptions.map(opt => opt?.text).filter(Boolean).join(', ');
+  const correctAnswerText = correctIndices.map(i => currentAnswers[i]?.text).filter(Boolean).join(', ');
   const allSelected = isMultipleChoice ? (selectedAnswers.length === correctIndices.length) : (selectedAnswers.length === 1);
   const isSelectionCorrect = allSelected &&
     correctIndices.length === selectedAnswers.length &&
@@ -220,7 +222,11 @@ const QuizSession = ({
           isOpen={geminiVisible}
           query={geminiQuery}
           onQueryChange={setGeminiQuery}
-          onAsk={() => handleGeminiAsk && handleGeminiAsk(q)}
+          onAsk={() => handleGeminiAsk && handleGeminiAsk(q, {
+            isCorrect: allSelected ? isSelectionCorrect : null,
+            selectedAnswerText,
+            correctAnswerText,
+          })}
           isLoading={geminiLoading}
           response={geminiResponse}
         />
@@ -231,11 +237,19 @@ const QuizSession = ({
         <div className="quiz-options">
           {currentAnswers.map((opt, idx) => {
             let btnClass = "quiz-btn";
+            let verdictIcon = '';
             // Nach Auswertung: Markierung
             if (allSelected) {
-              if (opt.isCorrect && selectedAnswers.includes(idx)) btnClass += " correct";
-              else if (!opt.isCorrect && selectedAnswers.includes(idx)) btnClass += " wrong";
-              else if (opt.isCorrect) btnClass += " correct-unselected";
+              if (opt.isCorrect && selectedAnswers.includes(idx)) {
+                btnClass += " correct";
+                verdictIcon = ' ✅';
+              } else if (!opt.isCorrect && selectedAnswers.includes(idx)) {
+                btnClass += " wrong";
+                verdictIcon = ' ❌';
+              } else if (opt.isCorrect) {
+                btnClass += " correct-unselected";
+                verdictIcon = ' ✅';
+              }
             } else if (selectedAnswers.includes(idx)) {
               btnClass += " selected";
             }
@@ -246,11 +260,17 @@ const QuizSession = ({
                 onClick={() => handleQuizAnswer(idx)}
                 disabled={allSelected}
               >
-                {formatLatex(opt.text)}
+                {formatLatex(opt.text)}{verdictIcon}
               </button>
             )
           })}
         </div>
+
+        {allSelected && !isSelectionCorrect && (
+          <div className="quiz-correct-answer-hint fade-in" role="status" aria-live="polite">
+            <strong>Richtig wäre gewesen:</strong> {formatLatex(correctAnswerText || 'Keine Musterlösung hinterlegt.')}
+          </div>
+        )}
 
         {allSelected && (
           <div className="quiz-rationale fade-in">

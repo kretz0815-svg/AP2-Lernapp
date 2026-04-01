@@ -4,11 +4,17 @@ export const DEFAULT_QUIZ_PROGRESS = {
   rep: 0,
   ef: 2.5,
   interval: 0,
-  nextReview: 0
+  nextReview: 0,
+  correctAnswersCount: 0,
+  isLearned: false,
+  isActive: true
 };
 
 export function isQuizDue(progress, now = Date.now()) {
-  return (progress?.nextReview || 0) <= now;
+  const learnedByFlag = !!progress?.isLearned;
+  const correctAnswersCount = Number(progress?.correctAnswersCount ?? progress?.rep ?? 0) || 0;
+  if (learnedByFlag) return false;
+  return correctAnswersCount < 2;
 }
 
 export function filterDueQuizzes(quizzes, progressById = {}, now = Date.now()) {
@@ -19,42 +25,33 @@ export function filterDueQuizzes(quizzes, progressById = {}, now = Date.now()) {
 }
 
 /**
- * Berechnet den nächsten Wiederholungs-Termin nach einer Quiz-Antwort.
+ * Berechnet den nächsten Lernstand nach einer Quiz-Antwort.
  *
  * Regeln (wie vom User gewünscht):
- *   1. Richtig beantwortet (rep 0 → 1): Frage verschwindet für 24 Stunden
- *   2. Richtig beantwortet (rep 1 → 2): Frage verschwindet für 365 Tage (~"raus aus Pool")
- *   3. Nochmal richtig danach: Intervall wächst weiter (ef * vorheriges Intervall)
- *   4. Falsch beantwortet: Reset, Frage kommt sofort wieder (1 Minute Cooldown)
+ *   1. Nur die Anzahl korrekter Antworten zählt (kein Zeitfaktor)
+ *   2. Nach zwei korrekten Antworten gilt eine Frage als gelernt und verlässt den aktiven Pool
+ *   3. Falsche Antworten reduzieren den Zähler nicht, die Frage bleibt aktiv bis 2x korrekt
  */
 export function computeNextQuizProgress(previousProgress, isCorrect, now = Date.now()) {
   const prior = previousProgress || DEFAULT_QUIZ_PROGRESS;
-  let rep = Number(prior.rep) || 0;
+  let correctAnswersCount = Number(prior.correctAnswersCount ?? prior.rep ?? 0) || 0;
   const ef = Number(prior.ef) || 2.5;
-  let interval = Number(prior.interval) || 0;
+  const interval = Number(prior.interval) || 0;
 
   if (isCorrect) {
-    if (rep === 0) {
-      // Erste richtige Antwort: 24 Stunden Cooldown
-      interval = 1;
-    } else if (rep === 1) {
-      // Zweite richtige Antwort: raus aus dem Pool (365 Tage)
-      interval = 365;
-    } else {
-      // Danach: normales Spaced-Repetition-Wachstum
-      interval = Math.round(interval * ef);
-    }
-    rep += 1;
-  } else {
-    // Falsch: komplett zurücksetzen
-    rep = 0;
-    interval = 1 / (24 * 60); // 1 Minute
+    correctAnswersCount += 1;
   }
 
+  const isLearned = correctAnswersCount >= 2;
+  const nextReview = isLearned ? now + (36500 * DAY_MS) : 0;
+
   return {
-    rep,
+    rep: correctAnswersCount,
     ef,
     interval,
-    nextReview: now + (interval * DAY_MS)
+    nextReview,
+    correctAnswersCount,
+    isLearned,
+    isActive: !isLearned
   };
 }

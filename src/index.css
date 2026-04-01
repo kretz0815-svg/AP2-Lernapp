@@ -59,6 +59,11 @@ body.light-theme .quiz-btn.correct {
   background: rgba(22, 163, 74, 0.1);
 }
 
+body.light-theme .quiz-btn.correct-unselected {
+  background: rgba(22, 163, 74, 0.08);
+  border-color: rgba(22, 163, 74, 0.55);
+}
+
 body.light-theme .quiz-btn.wrong {
   background: rgba(220, 38, 38, 0.1);
 }
@@ -73,6 +78,11 @@ body.light-theme .quiz-rationale.correct-rationale {
 
 body.light-theme .quiz-rationale.wrong-rationale {
   background: rgba(220, 38, 38, 0.06);
+}
+
+body.light-theme .quiz-correct-answer-hint {
+  background: rgba(22, 163, 74, 0.07);
+  border-color: rgba(22, 163, 74, 0.45);
 }
 
 body.light-theme .wisor-input {
@@ -394,6 +404,12 @@ h1 {
   color: var(--text-light);
 }
 
+.quiz-btn.correct-unselected {
+  background: rgba(34, 197, 94, 0.14);
+  border-color: rgba(34, 197, 94, 0.75);
+  color: var(--text-light);
+}
+
 .quiz-btn:disabled {
   cursor: default;
 }
@@ -417,6 +433,16 @@ h1 {
 .quiz-rationale.wrong-rationale {
   border-left-color: var(--error);
   background: rgba(239, 68, 68, 0.1);
+}
+
+.quiz-correct-answer-hint {
+  margin-top: 0.9rem;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(34, 197, 94, 0.45);
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--text-light);
+  line-height: 1.4;
 }
 
 .wisor-form {
