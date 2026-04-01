@@ -146,6 +146,7 @@ const isWithinTolerance = (userVal, expectedVal) => {
 export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
   const [task, setTask] = useState(() => generateUtilityTask());
   const [inputs, setInputs] = useState({});
+  const [partialWarnings, setPartialWarnings] = useState({});
   const [dropdownChoice, setDropdownChoice] = useState('');
   const [justification, setJustification] = useState('');
   const [difficultyLevel, setDifficultyLevel] = useState(2); // 1 = Lern, 2 = Übung, 3 = Prüfung
@@ -162,6 +163,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
   const handleNewTask = useCallback(() => {
     setTask(generateUtilityTask());
     setInputs({});
+    setPartialWarnings({});
     setDropdownChoice('');
     setJustification('');
     setAiFeedback(null);
@@ -174,6 +176,50 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
   const handleChange = (key, val) => {
     setInputs(prev => ({ ...prev, [key]: val }));
     setValidationStates(prev => ({ ...prev, [key]: undefined }));
+  };
+
+  const shouldWarnWeightOnly = (criterion, cIdx, pIdx, partialRaw, pointRaw = null) => {
+    const partialVal = parseInput(partialRaw);
+    if (!Number.isFinite(partialVal)) return false;
+
+    const weightDecimal = round2(criterion.weight / 100);
+    if (!isWithinTolerance(partialVal, weightDecimal)) return false;
+
+    const pointVal = pointRaw ?? (difficultyLevel === 1
+      ? criterion.scores[pIdx]
+      : parseInput(inputs[`pt_${cIdx}_${pIdx}`]));
+
+    // If points are exactly 1, partial can validly equal the weighting.
+    if (Number.isFinite(pointVal) && isWithinTolerance(pointVal, 1)) return false;
+    return true;
+  };
+
+  const handlePartialChange = (criterion, cIdx, pIdx, val) => {
+    const key = `par_${cIdx}_${pIdx}`;
+    handleChange(key, val);
+    setPartialWarnings((prev) => ({
+      ...prev,
+      [key]: shouldWarnWeightOnly(criterion, cIdx, pIdx, val)
+        ? 'Achtung: Du hast nur die Gewichtung eingetragen. Multipliziere sie mit der Punktzahl!'
+        : undefined
+    }));
+  };
+
+  const handlePointsChange = (criterion, cIdx, pIdx, val) => {
+    const pointKey = `pt_${cIdx}_${pIdx}`;
+    const partialKey = `par_${cIdx}_${pIdx}`;
+
+    handleChange(pointKey, val);
+    setPartialWarnings((prev) => {
+      const currentPartial = inputs[partialKey];
+      if (!currentPartial) return prev;
+      return {
+        ...prev,
+        [partialKey]: shouldWarnWeightOnly(criterion, cIdx, pIdx, currentPartial, parseInput(val))
+          ? 'Achtung: Du hast nur die Gewichtung eingetragen. Multipliziere sie mit der Punktzahl!'
+          : undefined
+      };
+    });
   };
 
   const parseInput = (raw) => {
@@ -397,6 +443,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
               setValidationStates({});
               setFailedAttempts(0);
               setShowHints({});
+              setPartialWarnings({});
               setAiFeedback(null);
             }}
             className="utility-level-button"
@@ -452,7 +499,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
                 <th className="utility-th utility-th-weight" style={{ padding: '1rem', borderBottom: '2px solid rgba(99,102,241,0.5)', width: '12%', textAlign: 'center' }}>Gewichtung</th>
                 {task.providers.map(p => (
                   <th className="utility-th utility-th-provider" key={p} style={{ padding: '1rem', borderBottom: '2px solid rgba(99,102,241,0.5)', width: '22%', textAlign: 'center' }}>
-                    {p}<br/><span style={{ fontSize: '0.75rem', fontWeight: 'normal', color: 'var(--text-muted)' }}>Punkte | Nutzen</span>
+                    {p}<br/><span style={{ fontSize: '0.75rem', fontWeight: 'normal', color: 'var(--text-muted)' }}>Pt. | NW</span>
                   </th>
                 ))}
               </tr>
@@ -504,20 +551,25 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
                            placeholder="Pt." 
                            disabled={difficultyLevel === 1 || validationStates[`pt_${cIdx}_${pIdx}`] === 'correct'}
                            value={difficultyLevel === 1 ? c.scores[pIdx] : inputs[`pt_${cIdx}_${pIdx}`] || ''}
-                           onChange={(e) => handleChange(`pt_${cIdx}_${pIdx}`, e.target.value)}
+                           onChange={(e) => handlePointsChange(c, cIdx, pIdx, e.target.value)}
                            style={{ padding: '0.4rem', textAlign: 'center', fontSize: '0.9rem', backgroundColor: difficultyLevel === 1 ? 'rgba(255,255,255,0.05)' : undefined, borderColor: difficultyLevel === 1 ? 'transparent' : getStateColor(`pt_${cIdx}_${pIdx}`) }}
                          />
-                         <span className="utility-multiply-symbol" style={{ color: 'var(--text-muted)' }}>×</span>
+                         <span className="utility-multiply-symbol" style={{ color: 'var(--text-muted)' }}>=</span>
                          <input 
                            className="wisor-input utility-input utility-input-partial" 
                            type="text" 
-                           placeholder="N" 
+                           placeholder="NW" 
                            disabled={validationStates[`par_${cIdx}_${pIdx}`] === 'correct'}
                            value={inputs[`par_${cIdx}_${pIdx}`] || ''}
-                           onChange={(e) => handleChange(`par_${cIdx}_${pIdx}`, e.target.value)}
+                           onChange={(e) => handlePartialChange(c, cIdx, pIdx, e.target.value)}
                            style={{ padding: '0.4rem', textAlign: 'center', fontSize: '0.9rem', borderColor: getStateColor(`par_${cIdx}_${pIdx}`) }}
                          />
                       </div>
+                      {partialWarnings[`par_${cIdx}_${pIdx}`] && (
+                        <div style={{ marginTop: '0.35rem', fontSize: '0.67rem', lineHeight: 1.35, color: '#fbbf24' }}>
+                          {partialWarnings[`par_${cIdx}_${pIdx}`]}
+                        </div>
+                      )}
                       {difficultyLevel === 1 && (
                         <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginTop: '0.4rem' }}>
                           Formel: {(c.weight / 100).toFixed(2)} × {c.scores[pIdx]}
