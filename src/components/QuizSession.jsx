@@ -38,7 +38,30 @@ const QuizSession = ({
   learningMode = 'quiz',
   setupMode = 'quiz_setup'
 }) => {
-  const [internalQuizzes] = useState(initialSessionPool);
+  const sanitizeQuestion = (question, index) => {
+    const fallbackId = `fallback_${learningMode}_${index}`;
+    const rawOptions = Array.isArray(question?.answerOptions) ? question.answerOptions : [];
+    const cleanOptions = rawOptions
+      .filter((opt) => opt && typeof opt === 'object')
+      .map((opt) => ({
+        text: String(opt.text || '').trim(),
+        isCorrect: !!opt.isCorrect,
+        rationale: String(opt.rationale || '').trim()
+      }))
+      .filter((opt) => opt.text.length > 0);
+
+    return {
+      ...question,
+      id: question?.id || fallbackId,
+      question: String(question?.question || 'Fragetext fehlt.'),
+      answerOptions: cleanOptions,
+      topic: String(question?.topic || '')
+    };
+  };
+
+  const [internalQuizzes] = useState(() => (Array.isArray(initialSessionPool)
+    ? initialSessionPool.map((q, index) => sanitizeQuestion(q, index))
+    : []));
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   // Umbau: Mehrfachauswahl unterstützen
   const [selectedAnswers, setSelectedAnswers] = useState([]); // Array von Indizes
@@ -99,7 +122,7 @@ const QuizSession = ({
     const opts = (q.answerOptions || []).map((opt, originalIndex) => ({ ...opt, originalIndex }));
     shuffledAnswersRef.current[q.id] = opts.sort(() => Math.random() - 0.5);
   }
-  const currentAnswers = shuffledAnswersRef.current[q.id];
+  const currentAnswers = Array.isArray(shuffledAnswersRef.current[q.id]) ? shuffledAnswersRef.current[q.id] : [];
 
   // Multiple-Choice-Erkennung: Mehr als eine richtige Antwort?
   const correctIndices = currentAnswers.map((a, i) => a.isCorrect ? i : null).filter(i => i !== null);
@@ -143,21 +166,29 @@ const QuizSession = ({
     if (!allSelected) return;
     // Bewertung
     if (onLearningEvent) {
-      onLearningEvent({
-        mode: learningMode,
-        questionId: q.id,
-        questionText: q.question,
-        correct: isSelectionCorrect,
-        userAnswer: selectedAnswers.map(i => currentAnswers[i]?.text).join(', '),
-        expectedAnswer: correctIndices.map(i => currentAnswers[i]?.text).join(', '),
-        topic: q.topic || ''
-      });
+      try {
+        onLearningEvent({
+          mode: learningMode,
+          questionId: q.id,
+          questionText: q.question,
+          correct: isSelectionCorrect,
+          userAnswer: selectedAnswers.map(i => currentAnswers[i]?.text).join(', '),
+          expectedAnswer: correctIndices.map(i => currentAnswers[i]?.text).join(', '),
+          topic: q.topic || ''
+        });
+      } catch (err) {
+        console.error('onLearningEvent failed in QuizSession:', err);
+      }
     }
     if (isSelectionCorrect && currentQuizIndex === internalQuizzes.length - 1) {
       if (triggerConfetti) triggerConfetti();
     }
     if (onQuizAnswer) {
-      onQuizAnswer(q, isSelectionCorrect);
+      try {
+        onQuizAnswer(q, isSelectionCorrect);
+      } catch (err) {
+        console.error('onQuizAnswer failed in QuizSession:', err);
+      }
     }
     setQuizScore(prev => ({ correct: prev.correct + (isSelectionCorrect ? 1 : 0), total: prev.total + 1 }));
     // eslint-disable-next-line
@@ -234,6 +265,11 @@ const QuizSession = ({
         <div className="quiz-question">
           {formatLatex(q.question || '')}
         </div>
+        {currentAnswers.length === 0 && (
+          <div className="quiz-correct-answer-hint fade-in" role="status" aria-live="polite">
+            <strong>Hinweis:</strong> Diese Frage ist unvollständig (keine Antwortoptionen) und wurde übersprungen.
+          </div>
+        )}
         <div className="quiz-options">
           {currentAnswers.map((opt, idx) => {
             let btnClass = "quiz-btn";
@@ -255,16 +291,26 @@ const QuizSession = ({
             }
             return (
               <button
-                key={opt.text + idx}
+                key={(opt?.text || 'option') + idx}
                 className={btnClass}
                 onClick={() => handleQuizAnswer(idx)}
                 disabled={allSelected}
               >
-                {formatLatex(opt.text)}{verdictIcon}
+                {formatLatex(opt?.text || 'Option fehlt')}{verdictIcon}
               </button>
             )
           })}
         </div>
+
+        {currentAnswers.length === 0 && (
+          <button
+            className="btn-primary"
+            style={{ marginTop: '1rem' }}
+            onClick={nextQuizQuestion}
+          >
+            Nächste Frage &rarr;
+          </button>
+        )}
 
         {allSelected && !isSelectionCorrect && (
           <div className="quiz-correct-answer-hint fade-in" role="status" aria-live="polite">

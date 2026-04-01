@@ -497,9 +497,18 @@ function App() {
 
   const isMasteryLearned = (entry) => normalizeMasteryProgressEntry(entry).isLearned;
 
+  const loadProgressObject = (storageKey) => {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+    } catch {
+      return {};
+    }
+  };
+
   const handleQuizAnswerUpdate = async (q, isCorrect) => {
     // 1. Local progress update
-    const localProg = JSON.parse(localStorage.getItem('ap2_quiz_progress') || '{}');
+    const localProg = loadProgressObject('ap2_quiz_progress');
     const prevProg = normalizeMasteryProgressEntry(localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
     const nextProg = computeNextQuizProgress(prevProg, isCorrect);
 
@@ -530,7 +539,7 @@ function App() {
   const handleMarketingReviewAnswerUpdate = async (q, isCorrect) => {
     if (!q?.id) return;
 
-    const localProg = JSON.parse(localStorage.getItem('ap2_marketing_review_progress') || '{}');
+    const localProg = loadProgressObject('ap2_marketing_review_progress');
     const prevEntry = normalizeMasteryProgressEntry(localProg[q.id]);
     const nextCount = prevEntry.correctAnswersCount + (isCorrect ? 1 : 0);
     const nextEntry = {
