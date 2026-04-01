@@ -150,6 +150,8 @@ const isWithinTolerance = (userVal, expectedVal) => {
   return Math.abs(parseFloat(userVal) - parseFloat(expectedVal)) <= (TOLERANCE_CENTS / 100);
 };
 
+const EMPTY_FIELDS_MESSAGE = 'Bitte fülle alle Eingabefelder aus, bevor du abgibst.';
+
 // ── COMPONENT ────────────────────────────────────────────────
 export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
   const rootRef = useRef(null);
@@ -174,18 +176,38 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
     let source = String(raw ?? '').trim();
     if (!source) return NaN;
 
-    source = source.replace(/\s+/g, '');
+    source = source.replace(/\s+/g, '').replace(/[−–]/g, '-');
 
-    // Handle German/English decimal separators while ignoring thousands separators.
-    if (source.includes(',') && source.includes('.')) {
-      source = source.replace(/\./g, '').replace(',', '.');
-    } else if (source.includes(',')) {
-      source = source.replace(',', '.');
+    // Accept typical numeric formats like 1, 1.0, 1,0, 1.00, 1.000,50.
+    if (!/^[+-]?[0-9.,]+$/.test(source)) return NaN;
+
+    let sign = '';
+    if (source[0] === '+' || source[0] === '-') {
+      sign = source[0];
+      source = source.slice(1);
     }
 
-    const cleaned = source.replace(/[^0-9.-]/g, '');
-    if (!cleaned) return NaN;
-    const parsed = parseFloat(cleaned);
+    const lastComma = source.lastIndexOf(',');
+    const lastDot = source.lastIndexOf('.');
+    const decimalSep = Math.max(lastComma, lastDot) >= 0
+      ? (lastComma > lastDot ? ',' : '.')
+      : null;
+
+    let intPart = source;
+    let decPart = '';
+    if (decimalSep) {
+      const idx = source.lastIndexOf(decimalSep);
+      intPart = source.slice(0, idx);
+      decPart = source.slice(idx + 1);
+    }
+
+    intPart = intPart.replace(/[.,]/g, '');
+    if (!intPart && !decPart) return NaN;
+
+    const normalized = `${sign}${intPart || '0'}${decPart ? `.${decPart}` : ''}`;
+    if (!/^[+-]?\d+(\.\d+)?$/.test(normalized)) return NaN;
+
+    const parsed = parseFloat(normalized);
     return Number.isFinite(parsed) ? parsed : NaN;
   };
 
@@ -198,6 +220,27 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
     const hasInputValues = Object.values(inputs).some((val) => String(val ?? '').trim() !== '');
     return hasInputValues || dropdownChoice !== '' || justification.trim() !== '';
   }, [inputs, dropdownChoice, justification]);
+
+  const expectedMatrixKeys = useMemo(() => {
+    const keys = [];
+    task.criteriaData.forEach((_, cIdx) => {
+      if (difficultyLevel > 1) {
+        keys.push(`w_${cIdx}`);
+      }
+      task.providers.forEach((__, pIdx) => {
+        if (difficultyLevel > 1) {
+          keys.push(`pt_${cIdx}_${pIdx}`);
+        }
+        keys.push(`par_${cIdx}_${pIdx}`);
+      });
+    });
+
+    if (difficultyLevel > 1) {
+      task.providers.forEach((__, pIdx) => keys.push(`total_${pIdx}`));
+    }
+
+    return keys;
+  }, [difficultyLevel, task.criteriaData, task.providers]);
 
   const resetWorkState = useCallback(() => {
     setInputs({});
@@ -214,7 +257,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
 
   const handleNewTask = useCallback(() => {
     if (hasUserProgress) {
-      const shouldDiscard = window.confirm('Willst du die aktuelle Aufgabe wirklich abbrechen? Dein Fortschritt geht verloren.');
+      const shouldDiscard = window.confirm('Willst du wirklich eine neue Aufgabe generieren? Deine Eingaben gehen verloren.');
       if (!shouldDiscard) return;
     }
     setTask(generateUtilityTask());
@@ -277,6 +320,29 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
     });
   };
 
+  const handleInsertMasterSolution = useCallback(() => {
+    const newInputs = {};
+
+    task.criteriaData.forEach((c, cIdx) => {
+      newInputs[`w_${cIdx}`] = String(c.weight);
+      task.providers.forEach((_, pIdx) => {
+        newInputs[`pt_${cIdx}_${pIdx}`] = String(c.scores[pIdx]);
+        newInputs[`par_${cIdx}_${pIdx}`] = String(round2((c.weight / 100) * c.scores[pIdx]));
+      });
+    });
+
+    task.masterSolution.totals.forEach((t, i) => {
+      newInputs[`total_${i}`] = String(round2(t));
+    });
+
+    setInputs(newInputs);
+    setDropdownChoice(task.masterSolution.winner);
+    setValidationStates({});
+    setPartialWarnings({});
+    setTotalWarnings({});
+    setAiFeedback(null);
+  }, [task]);
+
   useEffect(() => {
     const handlePointerDown = (event) => {
       if (!rootRef.current) return;
@@ -296,6 +362,23 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
   }, []);
 
   const validateAll = async () => {
+    const missingKeys = expectedMatrixKeys.filter((key) => String(inputs[key] ?? '').trim() === '');
+    if (missingKeys.length > 0) {
+      const missingStates = {};
+      missingKeys.forEach((key) => {
+        missingStates[key] = 'wrong';
+      });
+
+      setValidationStates(missingStates);
+      setTotalWarnings({});
+      setAiFeedback({
+        isPassed: false,
+        exact: false,
+        examinerFeedback: EMPTY_FIELDS_MESSAGE
+      });
+      return;
+    }
+
     let allOk = true;
     const newStates = {};
     const newTotalWarnings = {};
@@ -366,7 +449,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
         return isWithinTolerance(uPartial, expectedPartial);
       });
 
-      const uTotal = parseInput(inputs[`total_${pIdx}`]);
+      const uTotal = difficultyLevel === 1 ? task.masterSolution.totals[pIdx] : parseInput(inputs[`total_${pIdx}`]);
       if (!isWithinTolerance(uTotal, task.masterSolution.totals[pIdx])) {
         newStates[`total_${pIdx}`] = 'wrong';
         allOk = false;
@@ -409,7 +492,9 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
     setFailedAttempts(prev => prev + 1);
     setIsAiLoading(true);
 
-    const userTotals = task.providers.map((p, pIdx) => parseInput(inputs[`total_${pIdx}`]));
+    const userTotals = task.providers.map((p, pIdx) => (
+      difficultyLevel === 1 ? task.masterSolution.totals[pIdx] : parseInput(inputs[`total_${pIdx}`])
+    ));
 
     try {
       const response = await evaluateNutzwertanalyse({
@@ -664,15 +749,21 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
                 </td>
                 {task.providers.map((p, pIdx) => (
                   <td key={pIdx} style={{ padding: '1rem', textAlign: 'center' }}>
+                    {(() => {
+                      const totalKey = `total_${pIdx}`;
+                      const levelOneAutoTotal = fmt(task.masterSolution.totals[pIdx]);
+                      return (
                     <input 
                       className="wisor-input utility-input utility-input-total" 
                       type="text" 
                       placeholder="Total" 
-                      disabled={validationStates[`total_${pIdx}`] === 'correct'}
-                      value={inputs[`total_${pIdx}`] || ''}
-                      onChange={(e) => handleChange(`total_${pIdx}`, e.target.value)}
-                      style={{ padding: '0.5rem', textAlign: 'center', fontWeight: 'bold', fontSize: '1rem', borderColor: getStateColor(`total_${pIdx}`), boxShadow: `0 0 10px ${getStateColor(`total_${pIdx}`)}44` }}
+                      disabled={difficultyLevel === 1 || validationStates[totalKey] === 'correct'}
+                      value={difficultyLevel === 1 ? levelOneAutoTotal : (inputs[totalKey] || '')}
+                      onChange={(e) => handleChange(totalKey, e.target.value)}
+                      style={{ padding: '0.5rem', textAlign: 'center', fontWeight: 'bold', fontSize: '1rem', borderColor: getStateColor(totalKey), boxShadow: `0 0 10px ${getStateColor(totalKey)}44`, backgroundColor: difficultyLevel === 1 ? 'rgba(255,255,255,0.05)' : undefined }}
                     />
+                      );
+                    })()}
                     {totalWarnings[`total_${pIdx}`] && (
                       <div style={{ marginTop: '0.35rem', fontSize: '0.68rem', lineHeight: 1.35, color: '#fca5a5' }}>
                         {totalWarnings[`total_${pIdx}`]}
@@ -749,20 +840,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
           </button>
           
           {failedAttempts > 0 && !aiFeedback?.exact && (
-             <button className="btn-secondary" onClick={() => {
-                // autofill
-                const newInputs = {...inputs};
-                task.criteriaData.forEach((c, cIdx) => {
-                  newInputs[`w_${cIdx}`] = c.weight;
-                  task.providers.forEach((p, pIdx) => {
-                    newInputs[`pt_${cIdx}_${pIdx}`] = c.scores[pIdx];
-                    newInputs[`par_${cIdx}_${pIdx}`] = round2((c.weight/100) * c.scores[pIdx]);
-                  });
-                });
-                task.masterSolution.totals.forEach((t, i) => newInputs[`total_${i}`] = round2(t));
-                setInputs(newInputs);
-                setDropdownChoice(task.masterSolution.winner);
-             }}>
+             <button className="btn-secondary" onClick={handleInsertMasterSolution}>
                Musterlösung eintragen
              </button>
           )}
