@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
 import Confetti from './Confetti';
 import { evaluateNutzwertanalyse } from '../geminiClient';
 
@@ -146,14 +146,17 @@ function generateUtilityTask() {
 
 const TOLERANCE_CENTS = 2; // +/- 0.02
 const isWithinTolerance = (userVal, expectedVal) => {
-  return Math.abs(Math.round(userVal * 100) - Math.round(expectedVal * 100)) <= TOLERANCE_CENTS;
+  if (!Number.isFinite(userVal) || !Number.isFinite(expectedVal)) return false;
+  return Math.abs(parseFloat(userVal) - parseFloat(expectedVal)) <= (TOLERANCE_CENTS / 100);
 };
 
 // ── COMPONENT ────────────────────────────────────────────────
 export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
+  const rootRef = useRef(null);
   const [task, setTask] = useState(() => generateUtilityTask());
   const [inputs, setInputs] = useState({});
   const [partialWarnings, setPartialWarnings] = useState({});
+  const [totalWarnings, setTotalWarnings] = useState({});
   const [dropdownChoice, setDropdownChoice] = useState('');
   const [justification, setJustification] = useState('');
   const [difficultyLevel, setDifficultyLevel] = useState(2); // 1 = Lern, 2 = Übung, 3 = Prüfung
@@ -165,29 +168,69 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
   const [failedAttempts, setFailedAttempts] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
 
-  const [showHints, setShowHints] = useState({});
+  const [activeHintId, setActiveHintId] = useState(null);
+
+  const parseInput = (raw) => {
+    let source = String(raw ?? '').trim();
+    if (!source) return NaN;
+
+    source = source.replace(/\s+/g, '');
+
+    // Handle German/English decimal separators while ignoring thousands separators.
+    if (source.includes(',') && source.includes('.')) {
+      source = source.replace(/\./g, '').replace(',', '.');
+    } else if (source.includes(',')) {
+      source = source.replace(',', '.');
+    }
+
+    const cleaned = source.replace(/[^0-9.-]/g, '');
+    if (!cleaned) return NaN;
+    const parsed = parseFloat(cleaned);
+    return Number.isFinite(parsed) ? parsed : NaN;
+  };
 
   const scenarioText = useMemo(
     () => buildScenarioText(task.criteriaData, task.providers, difficultyLevel === 1),
     [task.criteriaData, task.providers, difficultyLevel]
   );
 
-  const handleNewTask = useCallback(() => {
-    setTask(generateUtilityTask());
+  const hasUserProgress = useMemo(() => {
+    const hasInputValues = Object.values(inputs).some((val) => String(val ?? '').trim() !== '');
+    return hasInputValues || dropdownChoice !== '' || justification.trim() !== '';
+  }, [inputs, dropdownChoice, justification]);
+
+  const resetWorkState = useCallback(() => {
     setInputs({});
     setPartialWarnings({});
+    setTotalWarnings({});
     setDropdownChoice('');
     setJustification('');
     setAiFeedback(null);
     setValidationStates({});
     setFailedAttempts(0);
     setShowConfetti(false);
-    setShowHints({});
+    setActiveHintId(null);
   }, []);
+
+  const handleNewTask = useCallback(() => {
+    if (hasUserProgress) {
+      const shouldDiscard = window.confirm('Willst du die aktuelle Aufgabe wirklich abbrechen? Dein Fortschritt geht verloren.');
+      if (!shouldDiscard) return;
+    }
+    setTask(generateUtilityTask());
+    resetWorkState();
+  }, [hasUserProgress, resetWorkState]);
+
+  const handleBack = useCallback(() => {
+    onBack?.();
+  }, [onBack]);
 
   const handleChange = (key, val) => {
     setInputs(prev => ({ ...prev, [key]: val }));
     setValidationStates(prev => ({ ...prev, [key]: undefined }));
+    if (key.startsWith('total_')) {
+      setTotalWarnings(prev => ({ ...prev, [key]: undefined }));
+    }
   };
 
   const shouldWarnWeightOnly = (criterion, cIdx, pIdx, partialRaw, pointRaw = null) => {
@@ -234,15 +277,28 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
     });
   };
 
-  const parseInput = (raw) => {
-    const cleaned = String(raw ?? '').trim().replace(/\./g, '').replace(',', '.').replace(/[^0-9.\-]/g, '');
-    if (!cleaned) return NaN;
-    return Number(cleaned);
-  };
+  useEffect(() => {
+    const handlePointerDown = (event) => {
+      if (!rootRef.current) return;
+      if (!rootRef.current.contains(event.target)) return;
+      const clickedHintElement = event.target.closest('.utility-hint-toggle, .utility-hint-box');
+      if (!clickedHintElement) {
+        setActiveHintId(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('touchstart', handlePointerDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('touchstart', handlePointerDown);
+    };
+  }, []);
 
   const validateAll = async () => {
     let allOk = true;
     const newStates = {};
+    const newTotalWarnings = {};
 
     let totalErrors = 0;
 
@@ -304,11 +360,20 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
     });
 
     task.providers.forEach((p, pIdx) => {
+      const providerPartialsAreCorrect = task.criteriaData.every((c, cIdx) => {
+        const uPartial = parseInput(inputs[`par_${cIdx}_${pIdx}`]);
+        const expectedPartial = round2((c.weight / 100) * c.scores[pIdx]);
+        return isWithinTolerance(uPartial, expectedPartial);
+      });
+
       const uTotal = parseInput(inputs[`total_${pIdx}`]);
       if (!isWithinTolerance(uTotal, task.masterSolution.totals[pIdx])) {
         newStates[`total_${pIdx}`] = 'wrong';
         allOk = false;
         totalErrors++;
+        if (providerPartialsAreCorrect) {
+          newTotalWarnings[`total_${pIdx}`] = 'Deine Teilwerte sind alle richtig, aber du hast dich beim Zusammenrechnen der Summe vertippt!';
+        }
       } else {
         newStates[`total_${pIdx}`] = 'correct';
       }
@@ -317,6 +382,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
     const recommendationCorrect = dropdownChoice === task.masterSolution.winner;
 
     setValidationStates(newStates);
+    setTotalWarnings(newTotalWarnings);
 
     if (allOk && recommendationCorrect) {
       // 100% EXAKT Korrekt
@@ -412,13 +478,13 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
   };
 
   return (
-    <div className="app-container" style={{ zIndex: 10, maxWidth: '1120px' }}>
+    <div ref={rootRef} className="app-container" style={{ zIndex: 10, maxWidth: '1120px' }}>
       {showConfetti && <Confetti />}
       <div className="blob blob-1"></div>
       <div className="blob blob-2"></div>
 
-      <div className="utility-back-row" style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', padding: '0.5rem 0 0.5rem 3.5rem', marginBottom: '0.5rem' }}>
-        <button className="btn-nav" style={{ minHeight: '42px', zIndex: 10, padding: '0.4rem 1rem' }} onClick={onBack}>
+      <div className="utility-back-row" style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', padding: '0.5rem 0 0.5rem 3.5rem', marginBottom: '0.5rem', position: 'relative', zIndex: 30 }}>
+        <button type="button" className="btn-nav" style={{ minHeight: '42px', zIndex: 30, padding: '0.4rem 1rem', position: 'relative' }} onClick={handleBack}>
           ← Zurück
         </button>
       </div>
@@ -452,11 +518,7 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
             key={lvl.level}
             onClick={() => {
               setDifficultyLevel(lvl.level);
-              setValidationStates({});
-              setFailedAttempts(0);
-              setShowHints({});
-              setPartialWarnings({});
-              setAiFeedback(null);
+              resetWorkState();
             }}
             className="utility-level-button"
             style={{
@@ -524,15 +586,18 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <span>{c.name}</span>
                       {difficultyLevel < 3 && (
-                        <button onClick={() => setShowHints(p => ({...p, [`hint_${cIdx}`]: !p[`hint_${cIdx}`]}))} 
+                        <button
+                                type="button"
+                                className="utility-hint-toggle"
+                                onClick={() => setActiveHintId((prev) => prev === `hint_${cIdx}` ? null : `hint_${cIdx}`)} 
                                 style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', opacity: 0.7 }}>💡</button>
                       )}
                     </div>
                     <div style={{ fontSize: '0.7rem', color: c.type === 'quantitativ' ? '#38bdf8' : '#a78bfa', textTransform: 'uppercase', marginTop: '0.2rem', letterSpacing: '0.5px' }}>
                       {c.type}
                     </div>
-                    {showHints[`hint_${cIdx}`] && difficultyLevel < 3 && (
-                       <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'var(--text-muted)', background: 'rgba(0,0,0,0.3)', padding: '0.5rem', borderRadius: '6px' }}>
+                      {activeHintId === `hint_${cIdx}` && difficultyLevel < 3 && (
+                        <div className="utility-hint-box" style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'var(--text-muted)', background: 'rgba(0,0,0,0.3)', padding: '0.5rem', borderRadius: '6px' }}>
                          Lies im Text nach den Schlagwörtern zu "{c.name}". Weiche Fakten (qualitativ) lassen etwas Interpretationsspielraum, harte (quantitativ) nicht.
                        </div>
                     )}
@@ -608,6 +673,11 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
                       onChange={(e) => handleChange(`total_${pIdx}`, e.target.value)}
                       style={{ padding: '0.5rem', textAlign: 'center', fontWeight: 'bold', fontSize: '1rem', borderColor: getStateColor(`total_${pIdx}`), boxShadow: `0 0 10px ${getStateColor(`total_${pIdx}`)}44` }}
                     />
+                    {totalWarnings[`total_${pIdx}`] && (
+                      <div style={{ marginTop: '0.35rem', fontSize: '0.68rem', lineHeight: 1.35, color: '#fca5a5' }}>
+                        {totalWarnings[`total_${pIdx}`]}
+                      </div>
+                    )}
                   </td>
                 ))}
               </tr>
