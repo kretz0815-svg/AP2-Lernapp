@@ -235,6 +235,21 @@ const QuizSession = ({
     setCurrentQuizIndex(prev => prev + 1);
   };
 
+  const handleCancelWithConfirm = () => {
+    const hasProgress = quizScore.total > 0 || selectedAnswers.length > 0 || !!feynmanInput.trim();
+    if (!hasProgress) {
+      if (onCancel) onCancel();
+      else setAppMode('dashboard');
+      return;
+    }
+
+    const shouldAbort = window.confirm('Möchtest du wirklich abbrechen? Dein Fortschritt geht verloren.');
+    if (!shouldAbort) return;
+
+    if (onCancel) onCancel();
+    else setAppMode('dashboard');
+  };
+
 
   return (
     <div className="app-container" style={{ zIndex: 10 }}>
@@ -244,7 +259,7 @@ const QuizSession = ({
       <div className="blob blob-2"></div>
       <header>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-          <button className="btn-nav" onClick={() => (onCancel ? onCancel() : setAppMode('dashboard'))}>&larr; Menü</button>
+          <button className="btn-nav" onClick={handleCancelWithConfirm}>&larr; Menü</button>
           <p className="subtitle">Frage {Math.min(currentQuizIndex + 1, internalQuizzes.length)} / {internalQuizzes.length} · {remainingInSession} offen</p>
           <div className="score-badge">Score: {quizScore.correct}</div>
         </div>

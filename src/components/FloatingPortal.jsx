@@ -5,18 +5,31 @@ import FloatingCalculator from './FloatingCalculator';
 
 export default function FloatingPortal({ questionId, questionText, currentAppMode }) {
     const trayRef = useRef(null);
+    const isQuizSessionMode = currentAppMode === 'quiz' || currentAppMode === 'marketing_review';
     const draggingRef = useRef(false);
     const startPointerRef = useRef({ x: 0, y: 0 });
     const startPosRef = useRef({ x: 0, y: 0 });
     const storageKey = useMemo(() => `ap2_floating_tray_pos_${currentAppMode || 'default'}`, [currentAppMode]);
     const [trayPos, setTrayPos] = useState(() => {
         if (typeof window === 'undefined') return { x: 16, y: 16 };
+        if (isQuizSessionMode) {
+            return {
+                x: Math.max(8, window.innerWidth - 220),
+                y: 84
+            };
+        }
         const defaultX = Math.max(8, window.innerWidth - 220);
         const defaultY = Math.max(8, window.innerHeight - 70);
         return { x: defaultX, y: defaultY };
     });
     const getDefaultTrayPos = () => {
         if (typeof window === 'undefined') return { x: 16, y: 16 };
+        if (isQuizSessionMode) {
+            return {
+                x: Math.max(8, window.innerWidth - 220),
+                y: 84
+            };
+        }
         return {
             x: Math.max(8, window.innerWidth - 220),
             y: Math.max(8, window.innerHeight - 70)
@@ -44,6 +57,10 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
     useEffect(() => {
         if (typeof window === 'undefined') return;
         const fallback = getDefaultTrayPos();
+        if (isQuizSessionMode) {
+            setTrayPos(clampToViewport(fallback));
+            return;
+        }
         try {
             const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
             if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)) {
@@ -54,7 +71,7 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
         } catch {
             setTrayPos(clampToViewport(fallback));
         }
-    }, [storageKey]);
+    }, [storageKey, isQuizSessionMode]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -70,6 +87,7 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
     }, [trayPos, storageKey]);
 
     const beginDrag = (clientX, clientY) => {
+        if (isQuizSessionMode) return;
         draggingRef.current = true;
         startPointerRef.current = { x: clientX, y: clientY };
         startPosRef.current = { ...trayPos };
@@ -151,31 +169,33 @@ export default function FloatingPortal({ questionId, questionText, currentAppMod
                 }}
                 ref={trayRef}
             >
-                <button
-                    type="button"
-                    aria-label="Floating Buttons verschieben"
-                    title="Ziehen zum Verschieben"
-                    onMouseDown={handleMouseDown}
-                    onTouchStart={handleTouchStart}
-                    style={{
-                        width: '28px',
-                        height: '42px',
-                        borderRadius: '10px',
-                        border: '1px solid rgba(255,255,255,0.18)',
-                        background: 'rgba(255,255,255,0.08)',
-                        color: 'rgba(255,255,255,0.9)',
-                        fontWeight: 700,
-                        letterSpacing: '0.08em',
-                        cursor: 'grab',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        padding: 0,
-                        touchAction: 'none'
-                    }}
-                >
-                    ⋮⋮
-                </button>
+                {!isQuizSessionMode && (
+                    <button
+                        type="button"
+                        aria-label="Floating Buttons verschieben"
+                        title="Ziehen zum Verschieben"
+                        onMouseDown={handleMouseDown}
+                        onTouchStart={handleTouchStart}
+                        style={{
+                            width: '28px',
+                            height: '42px',
+                            borderRadius: '10px',
+                            border: '1px solid rgba(255,255,255,0.18)',
+                            background: 'rgba(255,255,255,0.08)',
+                            color: 'rgba(255,255,255,0.9)',
+                            fontWeight: 700,
+                            letterSpacing: '0.08em',
+                            cursor: 'grab',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: 0,
+                            touchAction: 'none'
+                        }}
+                    >
+                        ⋮⋮
+                    </button>
+                )}
                 <FloatingNotes 
                     questionId={questionId} 
                     questionText={questionText} 

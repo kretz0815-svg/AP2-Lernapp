@@ -55,7 +55,7 @@ const ResultSummary = ({
         )}
 
         <div className="quiz-result-actions">
-          <button className="btn-secondary" onClick={onBack}>Zum Menue</button>
+          <button className="btn-secondary" onClick={onBack}>Zum Menü</button>
           <button className="btn-primary" onClick={onRetry}>Nochmal spielen</button>
         </div>
       </div>
