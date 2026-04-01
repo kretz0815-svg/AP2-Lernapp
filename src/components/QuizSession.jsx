@@ -53,6 +53,84 @@ const QuizSession = ({
 
 
 
+  const q = internalQuizzes && currentQuizIndex < internalQuizzes.length ? internalQuizzes[currentQuizIndex] : null;
+
+  // Initialize shuffled answers once per question to prevent layout thrashing and translation bugs
+  if (q && !shuffledAnswersRef.current[q.id]) {
+    const opts = (q.answerOptions || []).map((opt, originalIndex) => ({ ...opt, originalIndex }));
+    shuffledAnswersRef.current[q.id] = opts.sort(() => Math.random() - 0.5);
+  }
+  const currentAnswers = q && shuffledAnswersRef.current[q.id] ? shuffledAnswersRef.current[q.id] : [];
+
+  // Multiple-Choice-Erkennung: Mehr als eine richtige Antwort?
+  const correctIndices = currentAnswers.map((a, i) => a.isCorrect ? i : null).filter(i => i !== null);
+  const isMultipleChoice = correctIndices.length > 1;
+
+  // Für Single-Choice: selectedAnswers[0] als Index, für Multi: alle gewählten
+  const selectedOptions = selectedAnswers.map(idx => currentAnswers[idx]);
+  const allSelected = q ? (isMultipleChoice ? (selectedAnswers.length === correctIndices.length) : (selectedAnswers.length === 1)) : false;
+  const isSelectionCorrect = allSelected &&
+    correctIndices.length === selectedAnswers.length &&
+    correctIndices.every(idx => selectedAnswers.includes(idx));
+
+  const shouldGateExplanation = allSelected && feynmanModeEnabled && isSelectionCorrect && !quizExplanationRevealed;
+  const requireFeynmanCompletion = allSelected && feynmanModeEnabled && isSelectionCorrect;
+  const canProceedToNextQuizQuestion = !requireFeynmanCompletion || quizExplanationRevealed || !!feynmanFeedback;
+  const remainingInSession = Math.max((internalQuizzes?.length || 0) - currentQuizIndex, 0);
+
+  const handleQuizAnswer = (idx) => {
+    if (allSelected) return; // Nach Auswertung keine weitere Auswahl
+    // Toggle Auswahl
+    setSelectedAnswers(prev => {
+      if (prev.includes(idx)) {
+        // Deselektieren
+        return prev.filter(i => i !== idx);
+      } else {
+        // Hinzufügen (maximal so viele wie richtige Antworten)
+        if (isMultipleChoice && prev.length < correctIndices.length) {
+          return [...prev, idx];
+        } else if (!isMultipleChoice && prev.length === 0) {
+          return [idx];
+        }
+        return prev;
+      }
+    });
+  };
+
+  // Auswertung nach vollständiger Auswahl
+  useEffect(() => {
+    if (!allSelected || !q) return;
+    // Bewertung
+    if (onLearningEvent) {
+      onLearningEvent({
+        mode: learningMode,
+        questionId: q.id,
+        questionText: q.question,
+        correct: isSelectionCorrect,
+        userAnswer: selectedAnswers.map(i => currentAnswers[i]?.text).join(', '),
+        expectedAnswer: correctIndices.map(i => currentAnswers[i]?.text).join(', '),
+        topic: q.topic || ''
+      });
+    }
+    if (isSelectionCorrect && currentQuizIndex === (internalQuizzes?.length || 1) - 1) {
+      if (triggerConfetti) triggerConfetti();
+    }
+    if (onQuizAnswer) {
+      onQuizAnswer(q, isSelectionCorrect);
+    }
+    setQuizScore(prev => ({ correct: prev.correct + (isSelectionCorrect ? 1 : 0), total: prev.total + 1 }));
+    // eslint-disable-next-line
+  }, [allSelected]);
+
+  const nextQuizQuestion = () => {
+    setFeynmanFeedback('');
+    setFeynmanFeedbackLevel(null);
+    setFeynmanInput('');
+    setQuizExplanationRevealed(false);
+    setSelectedAnswers([]);
+    setCurrentQuizIndex(prev => prev + 1);
+  };
+
   if (!internalQuizzes || internalQuizzes.length === 0) {
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
@@ -91,84 +169,7 @@ const QuizSession = ({
     );
   }
 
-  const q = internalQuizzes[currentQuizIndex];
   if (!q) return null; // Safety check
-
-  // Initialize shuffled answers once per question to prevent layout thrashing and translation bugs
-  if (!shuffledAnswersRef.current[q.id]) {
-    const opts = (q.answerOptions || []).map((opt, originalIndex) => ({ ...opt, originalIndex }));
-    shuffledAnswersRef.current[q.id] = opts.sort(() => Math.random() - 0.5);
-  }
-  const currentAnswers = shuffledAnswersRef.current[q.id];
-
-  // Multiple-Choice-Erkennung: Mehr als eine richtige Antwort?
-  const correctIndices = currentAnswers.map((a, i) => a.isCorrect ? i : null).filter(i => i !== null);
-  const isMultipleChoice = correctIndices.length > 1;
-
-  // Für Single-Choice: selectedAnswers[0] als Index, für Multi: alle gewählten
-  const selectedOptions = selectedAnswers.map(idx => currentAnswers[idx]);
-  const allSelected = isMultipleChoice ? (selectedAnswers.length === correctIndices.length) : (selectedAnswers.length === 1);
-  const isSelectionCorrect = allSelected &&
-    correctIndices.length === selectedAnswers.length &&
-    correctIndices.every(idx => selectedAnswers.includes(idx));
-
-  const shouldGateExplanation = allSelected && feynmanModeEnabled && isSelectionCorrect && !quizExplanationRevealed;
-  const requireFeynmanCompletion = allSelected && feynmanModeEnabled && isSelectionCorrect;
-  const canProceedToNextQuizQuestion = !requireFeynmanCompletion || quizExplanationRevealed || !!feynmanFeedback;
-  const remainingInSession = Math.max(internalQuizzes.length - currentQuizIndex, 0);
-
-  const handleQuizAnswer = (idx) => {
-    if (allSelected) return; // Nach Auswertung keine weitere Auswahl
-    // Toggle Auswahl
-    setSelectedAnswers(prev => {
-      if (prev.includes(idx)) {
-        // Deselektieren
-        return prev.filter(i => i !== idx);
-      } else {
-        // Hinzufügen (maximal so viele wie richtige Antworten)
-        if (isMultipleChoice && prev.length < correctIndices.length) {
-          return [...prev, idx];
-        } else if (!isMultipleChoice && prev.length === 0) {
-          return [idx];
-        }
-        return prev;
-      }
-    });
-  };
-
-  // Auswertung nach vollständiger Auswahl
-  useEffect(() => {
-    if (!allSelected) return;
-    // Bewertung
-    if (onLearningEvent) {
-      onLearningEvent({
-        mode: learningMode,
-        questionId: q.id,
-        questionText: q.question,
-        correct: isSelectionCorrect,
-        userAnswer: selectedAnswers.map(i => currentAnswers[i]?.text).join(', '),
-        expectedAnswer: correctIndices.map(i => currentAnswers[i]?.text).join(', '),
-        topic: q.topic || ''
-      });
-    }
-    if (isSelectionCorrect && currentQuizIndex === internalQuizzes.length - 1) {
-      if (triggerConfetti) triggerConfetti();
-    }
-    if (onQuizAnswer) {
-      onQuizAnswer(q, isSelectionCorrect);
-    }
-    setQuizScore(prev => ({ correct: prev.correct + (isSelectionCorrect ? 1 : 0), total: prev.total + 1 }));
-    // eslint-disable-next-line
-  }, [allSelected]);
-
-  const nextQuizQuestion = () => {
-    setFeynmanFeedback('');
-    setFeynmanFeedbackLevel(null);
-    setFeynmanInput('');
-    setQuizExplanationRevealed(false);
-    setSelectedAnswers([]);
-    setCurrentQuizIndex(prev => prev + 1);
-  };
 
 
   return (
