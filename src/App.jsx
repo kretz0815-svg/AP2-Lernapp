@@ -24,6 +24,7 @@ import QuestionManager from './components/QuestionManager';
 import PomodoroTimer from './components/PomodoroTimer';
 import KalkulationsBoss from './components/KalkulationsBoss';
 import BreakEvenPoint from './components/BreakEvenPoint';
+import ECommerceKalkulation from './components/ECommerceKalkulation';
 import ResetModal from './components/ResetModal';
 import VideoPanel from './components/VideoPanel';
 import GeminiPanel from './components/GeminiPanel';
@@ -1680,7 +1681,7 @@ ${input}`;
   // Fallback for unknown appMode
   // (Effect defined here — BEFORE any conditional return — to comply with React hooks rules)
   useEffect(() => {
-    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
+    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
       setAppMode('dashboard');
     }
   }, [appMode]);
@@ -2081,7 +2082,7 @@ ${input}`;
               <img src="/EinsteinRot.webp" alt="Rechenwelt" style={{ width: '1.05em', height: '1.05em', objectFit: 'contain' }} />
             </div>
             <h2>Zahlen</h2>
-            <p>KPI's, Break Even Point, Handelskalkulation und KLR </p>
+            <p>KPI's, Break Even, Handelskalkulation, KLR & E-Commerce Kalkulation</p>
             <div style={{ display: 'grid', gap: '0.55rem', width: '100%', marginTop: '0.4rem' }}>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('rechen_tasks_setup')}>
                 KPI's ({Math.max(0, rechenTotal - rechenLearned)} fällig)
@@ -2094,6 +2095,9 @@ ${input}`;
               </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('klr')}>
                 KLR Startup Survival (XP: {klrProgress?.xp || 0})
+              </button>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('ecommerce_kalkulation')}>
+                E-Commerce Kalkulation
               </button>
             </div>
           </div>
@@ -2504,6 +2508,16 @@ ${input}`;
           <BreakEvenPoint onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
         </React.Suspense>
       </div>
+    );
+  }
+
+  if (appMode === 'ecommerce_kalkulation') {
+    return (
+      <>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <ECommerceKalkulation onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
+      </>
     );
   }
 
