@@ -2531,6 +2531,11 @@ ${input}`;
         {pomodoroPortal}
         {burgerMenuPortal}
         <NutzwertanalyseSimulator onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
+        <FloatingPortal
+          questionId="nutzwertanalyse"
+          questionText="Nutzwertanalyse"
+          currentAppMode="nutzwertanalyse"
+        />
       </>
     );
   }
