@@ -180,6 +180,12 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
 
     source = source.replace(/\s+/g, '').replace(/[−–]/g, '-');
 
+    // Accept optional trailing percent sign (e.g. "45%") for weighting fields.
+    if (source.endsWith('%')) {
+      source = source.slice(0, -1);
+    }
+    if (!source || source.includes('%')) return NaN;
+
     // Accept typical numeric formats like 1, 1.0, 1,0, 1.00, 1.000,50.
     if (!/^[+-]?[0-9.,]+$/.test(source)) return NaN;
 
@@ -458,11 +464,11 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
       };
     });
 
-    // We can do exact validation to highlight boxes
+    // Validate the user's arithmetic consistency inside their own matrix.
     task.criteriaData.forEach((c, cIdx) => {
-      const uWeight = parseInput(inputs[`w_${cIdx}`]);
+      const uWeight = difficultyLevel === 1 ? c.weight : parseInput(inputs[`w_${cIdx}`]);
       if (difficultyLevel > 1) {
-        if (!isWithinTolerance(uWeight, c.weight)) {
+        if (!Number.isFinite(uWeight)) {
           newStates[`w_${cIdx}`] = 'wrong';
           allOk = false;
           totalErrors++;
@@ -472,9 +478,10 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
       }
 
       task.providers.forEach((p, pIdx) => {
+        const uPts = difficultyLevel === 1 ? c.scores[pIdx] : parseInput(inputs[`pt_${cIdx}_${pIdx}`]);
+
         if (difficultyLevel > 1) {
-          const uPts = parseInput(inputs[`pt_${cIdx}_${pIdx}`]);
-          if (!isWithinTolerance(uPts, c.scores[pIdx])) {
+          if (!Number.isFinite(uPts)) {
             newStates[`pt_${cIdx}_${pIdx}`] = 'wrong';
             allOk = false;
             totalErrors++;
@@ -484,11 +491,11 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
         }
 
         const uPartial = parseInput(inputs[`par_${cIdx}_${pIdx}`]);
-        const expectedPartial = round2((c.weight / 100) * c.scores[pIdx]);
-        
-        // Wait, for AI evaluation, we check if uPartial matches their *own* logic, but 
-        // for exact standard validation we check strictly:
-        if (!isWithinTolerance(uPartial, expectedPartial)) {
+        const expectedPartialFromUserInputs = Number.isFinite(uWeight) && Number.isFinite(uPts)
+          ? round2((uWeight / 100) * uPts)
+          : NaN;
+
+        if (!isWithinTolerance(uPartial, expectedPartialFromUserInputs)) {
           newStates[`par_${cIdx}_${pIdx}`] = 'wrong';
           allOk = false;
           totalErrors++;
@@ -500,13 +507,22 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
 
     task.providers.forEach((p, pIdx) => {
       const providerPartialsAreCorrect = task.criteriaData.every((c, cIdx) => {
+        const uWeight = difficultyLevel === 1 ? c.weight : parseInput(inputs[`w_${cIdx}`]);
+        const uPts = difficultyLevel === 1 ? c.scores[pIdx] : parseInput(inputs[`pt_${cIdx}_${pIdx}`]);
         const uPartial = parseInput(inputs[`par_${cIdx}_${pIdx}`]);
-        const expectedPartial = round2((c.weight / 100) * c.scores[pIdx]);
-        return isWithinTolerance(uPartial, expectedPartial);
+        const expectedPartialFromUserInputs = Number.isFinite(uWeight) && Number.isFinite(uPts)
+          ? round2((uWeight / 100) * uPts)
+          : NaN;
+        return isWithinTolerance(uPartial, expectedPartialFromUserInputs);
       });
 
+      const expectedUserTotal = round2(task.criteriaData.reduce((sum, _, cIdx) => {
+        const partial = parseInput(inputs[`par_${cIdx}_${pIdx}`]);
+        return sum + (Number.isFinite(partial) ? partial : 0);
+      }, 0));
+
       const uTotal = difficultyLevel === 1 ? task.masterSolution.totals[pIdx] : parseInput(inputs[`total_${pIdx}`]);
-      if (!isWithinTolerance(uTotal, task.masterSolution.totals[pIdx])) {
+      if (!isWithinTolerance(uTotal, expectedUserTotal)) {
         newStates[`total_${pIdx}`] = 'wrong';
         allOk = false;
         totalErrors++;
