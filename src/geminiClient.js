@@ -321,8 +321,17 @@ Beispielstil: Achtung beim ROAS: Hier musst du den Umsatz durch die Werbekosten 
     return `Tipp zu ${safeMetric}: Nutze sauber die Formel ${safeFormula} und achte darauf, Zaehler und Nenner nicht zu vertauschen.`;
 }
 
+function randomSample(list, count) {
+    const copy = Array.isArray(list) ? [...list] : [];
+    for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy.slice(0, Math.max(0, Math.min(count, copy.length)));
+}
+
 function buildFallbackKpiTheoryQuestions() {
-    return [
+    const pool = [
         {
             id: 'risk_cpc',
             question: 'Wer traegt beim CPC-Modell das Risiko, wenn viele klicken, aber niemand kauft?',
@@ -358,8 +367,54 @@ function buildFallbackKpiTheoryQuestions() {
                 { id: 'b', text: 'Cost per Like', isCorrect: false },
                 { id: 'c', text: 'Campaign per Lead', isCorrect: false }
             ]
+        },
+        {
+            id: 'risk_cpm',
+            question: 'Welches Risiko hat der Merchant bei CPM besonders?',
+            options: [
+                { id: 'a', text: 'Er zahlt bereits fuer Sichtkontakte ohne Kaufgarantie', isCorrect: true },
+                { id: 'b', text: 'Er zahlt nur bei Bestellung', isCorrect: false },
+                { id: 'c', text: 'Er zahlt nur bei qualifiziertem Lead', isCorrect: false }
+            ]
+        },
+        {
+            id: 'trigger_cpl',
+            question: 'Welche Aktion loest beim CPL-Modell die Verguetung aus?',
+            options: [
+                { id: 'a', text: 'Ein qualifizierter Lead, z. B. Kontaktformular', isCorrect: true },
+                { id: 'b', text: 'Jede Impression', isCorrect: false },
+                { id: 'c', text: 'Nur ein Kaufabschluss', isCorrect: false }
+            ]
+        },
+        {
+            id: 'term_cpc',
+            question: 'Wofuer steht CPC?',
+            options: [
+                { id: 'a', text: 'Cost per Click', isCorrect: true },
+                { id: 'b', text: 'Cost per Conversion', isCorrect: false },
+                { id: 'c', text: 'Campaign per Customer', isCorrect: false }
+            ]
+        },
+        {
+            id: 'allocation_cpo',
+            question: 'Bei welchem Modell wird das Conversion-Risiko staerker auf den Publisher verlagert?',
+            options: [
+                { id: 'a', text: 'CPO', isCorrect: true },
+                { id: 'b', text: 'CPM', isCorrect: false },
+                { id: 'c', text: 'Flatrate mit fester Laufzeit', isCorrect: false }
+            ]
         }
     ];
+
+    const selected = randomSample(pool, 4);
+    return selected.map((q, idx) => ({
+        ...q,
+        id: `${q.id}_${Date.now()}_${idx}`,
+        options: randomSample(q.options, q.options.length).map((opt, optIdx) => ({
+            ...opt,
+            id: String.fromCharCode(97 + optIdx)
+        }))
+    }));
 }
 
 function normalizeTheoryQuestionSet(parsed) {
@@ -391,9 +446,13 @@ function normalizeTheoryQuestionSet(parsed) {
 }
 
 export async function generateKpiTheoryQuestions() {
+    const refreshSeed = `${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
     const prompt = `Du bist Pruefungsaufgaben-Generator fuer Kaufleute im E-Commerce (IHK-Niveau).
 Erzeuge 4 bis 6 abwechslungsreiche Theoriefragen zu Online-Marketing-Abrechnungsmodellen.
 Fokus: CPC, CPO, CPL, CPM, Risikoverteilung zwischen Merchant und Publisher.
+
+Session-Seed fuer diese Generierung (zur Varianz): ${refreshSeed}
+Erzeuge fuer jeden Aufruf neue Formulierungen und keine identischen Fragenfolge wie in vorherigen Aufrufen.
 
 Regeln:
 1) Jede Frage Multiple Choice mit 3 oder 4 Antwortoptionen.
@@ -417,7 +476,13 @@ Regeln:
     if (genAI) {
         for (const modelId of GEMINI_MODELS) {
             try {
-                const model = genAI.getGenerativeModel({ model: modelId });
+                const model = genAI.getGenerativeModel({
+                    model: modelId,
+                    generationConfig: {
+                        temperature: 1,
+                        topP: 0.95
+                    }
+                });
                 const result = await model.generateContent(prompt);
                 const text = extractTextFromResult(result);
                 const parsed = extractJsonObject(text);
