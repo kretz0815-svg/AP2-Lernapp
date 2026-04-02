@@ -640,3 +640,262 @@ Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON
             : ensureTipInFeedback('Die Eingabe ist noch nicht vollständig stimmig. Prüfe Teilnutzwerte, Gesamtsummen, Empfehlung und Begründung.', buildLocalTip())
     };
 }
+
+const SWOT_LETTERS = ['S', 'W', 'O', 'T'];
+const SWOT_PERSPECTIVE_BY_LETTER = {
+    S: 'Intern',
+    W: 'Intern',
+    O: 'Extern',
+    T: 'Extern'
+};
+
+const DEFAULT_SWOT_TIPS = {
+    S: 'Verknüpfe eine konkrete Stärke mit einem messbaren Nutzen (z. B. schnellere Lieferung, geringere Kosten).',
+    W: 'Nenne zusätzlich die Auswirkung der Schwäche auf Umsatz, Qualität oder Prozesse.',
+    O: 'Zeige auf, wie das Unternehmen die Chance aktiv nutzen kann (konkrete Maßnahme).',
+    T: 'Ergänze eine passende Gegenmaßnahme, um das Risiko frühzeitig zu reduzieren.'
+};
+
+const FALLBACK_SWOT_SCENARIOS = [
+    {
+        branche: 'Gastronomie',
+        szenario_text: 'Ein regionales Restaurant hat sehr gute Bewertungen und Stammkundschaft, aber zu wenig Lieferkapazität. Gleichzeitig steigt die Nachfrage nach Online-Bestellungen in der Stadt. Neue Lieferketten-Anbieter drängen mit aggressiven Preisen in den Markt.'
+    },
+    {
+        branche: 'Tech-Startup',
+        szenario_text: 'Ein SaaS-Startup überzeugt mit einer innovativen Produktidee und schneller Entwicklung, hat jedoch ein kleines Vertriebsteam. Der Markt wächst stark durch neue Digitalisierungsprogramme. Gleichzeitig bieten große Wettbewerber ähnliche Funktionen in Bundles an.'
+    },
+    {
+        branche: 'E-Commerce',
+        szenario_text: 'Ein Online-Shop hat eine starke Conversion-Rate und gute Produktdaten, kämpft aber mit hohen Retourenquoten. Der Trend zu personalisierten Angeboten eröffnet zusätzliche Umsatzchancen. Parallel steigen die Werbekosten auf den großen Plattformen deutlich.'
+    },
+    {
+        branche: 'Handwerk',
+        szenario_text: 'Ein Handwerksbetrieb hat hochqualifizierte Fachkräfte und einen guten Ruf, aber veraltete Terminplanung. In der Region gibt es neue Förderprogramme für energetische Sanierungen. Gleichzeitig verschärfen steigende Materialpreise den Wettbewerbsdruck.'
+    }
+];
+
+function getRandomFallbackSwotScenario() {
+    const idx = Math.floor(Math.random() * FALLBACK_SWOT_SCENARIOS.length);
+    return FALLBACK_SWOT_SCENARIOS[idx];
+}
+
+function normalizeSwotText(text) {
+    return String(text || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9äöüß\s]/gi, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function buildLocalSwotFeedback(swotEntries, scenarioText) {
+    const normalizedScenario = normalizeSwotText(scenarioText);
+    const scenarioTokens = new Set(
+        normalizedScenario
+            .split(' ')
+            .filter((token) => token.length >= 5)
+    );
+
+    return SWOT_LETTERS.map((letter) => {
+        const entry = swotEntries?.[letter] || {};
+        const term = normalizeSwotText(entry.term);
+        const perspective = String(entry.perspective || '').trim();
+        const argument = String(entry.argument || '').trim();
+        const justification = String(entry.justification || '').trim();
+
+        const requiredPerspective = SWOT_PERSPECTIVE_BY_LETTER[letter];
+        const expectedWords = letter === 'S'
+            ? ['strength', 'starke', 'starken', 'staerke', 'staerken', 'starke', 'stärken']
+            : letter === 'W'
+                ? ['weakness', 'schwache', 'schwachen', 'schwaeche', 'schwaechen', 'schwäche', 'schwächen']
+                : letter === 'O'
+                    ? ['opportunity', 'opportunities', 'chance', 'chancen']
+                    : ['threat', 'threats', 'risiko', 'risiken', 'gefahr', 'gefahren'];
+
+        const theoryTermCorrect = expectedWords.some((word) => term.includes(word));
+        const perspectiveCorrect = perspective === requiredPerspective;
+        const theoryCorrect = theoryTermCorrect && perspectiveCorrect;
+
+        const normalizedArgument = normalizeSwotText(argument);
+        const hasSubstance = argument.length >= 18 && justification.length >= 24;
+        const referencesScenario = normalizedArgument
+            .split(' ')
+            .some((token) => token.length >= 5 && scenarioTokens.has(token));
+        const practiceCorrect = hasSubstance && referencesScenario;
+
+        const theoryFeedback = theoryCorrect
+            ? `Theorie korrekt: ${letter} ist passend eingeordnet.`
+            : `Theorie noch unsauber: Für ${letter} muss der englische Begriff und die Perspektive (${requiredPerspective}) stimmen.`;
+
+        const practiceFeedback = practiceCorrect
+            ? 'Praxis passt: Argument und Begründung sind nachvollziehbar aus dem Szenario abgeleitet.'
+            : 'Praxis noch zu schwach: Leite dein Argument konkreter aus dem Szenario ab und begründe die Auswirkung klar.';
+
+        return {
+            letter,
+            theoryCorrect,
+            practiceCorrect,
+            theoryFeedback,
+            practiceFeedback,
+            profiTipp: DEFAULT_SWOT_TIPS[letter]
+        };
+    });
+}
+
+function normalizeSwotFeedbackItem(item, localItem) {
+    const letter = SWOT_LETTERS.includes(String(item?.letter || '').toUpperCase())
+        ? String(item.letter).toUpperCase()
+        : localItem.letter;
+    const perspectiveExpected = SWOT_PERSPECTIVE_BY_LETTER[letter];
+    const entryPerspective = String(localItem?.entryPerspective || '').trim();
+    const hardTheoryGate = perspectiveExpected === entryPerspective;
+
+    const theoryCorrect = Boolean(item?.theoryCorrect) && hardTheoryGate;
+    const practiceCorrect = Boolean(item?.practiceCorrect) && localItem.practiceMinimum;
+
+    return {
+        letter,
+        theoryCorrect,
+        practiceCorrect,
+        theoryFeedback: String(item?.theoryFeedback || localItem.theoryFeedback || '').trim() || 'Theorie-Feedback nicht verfügbar.',
+        practiceFeedback: String(item?.practiceFeedback || localItem.practiceFeedback || '').trim() || 'Praxis-Feedback nicht verfügbar.',
+        profiTipp: String(item?.profiTipp || localItem.profiTipp || DEFAULT_SWOT_TIPS[letter]).trim() || DEFAULT_SWOT_TIPS[letter]
+    };
+}
+
+export async function generateSwotScenario() {
+    const prompt = `Du bist ein Generator für BWL-Fallstudien. Erstelle ein kurzes, prägnantes Szenario (max. 3 Sätze) für eine SWOT-Analyse. Wechsle zufällig die Branchen (z.B. Gastronomie, Tech-Startup, E-Commerce, Handwerk). Das Szenario muss offensichtliche interne Stärken/Schwächen und externe Chancen/Risiken enthalten. Antworte AUSSCHLIESSLICH in diesem JSON-Format: {"branche": "String", "szenario_text": "String"}`;
+
+    const parseScenario = (text) => {
+        if (!text) return null;
+        const match = text.match(/\{[\s\S]*"branche"[\s\S]*"szenario_text"[\s\S]*\}/i);
+        if (!match) return null;
+        try {
+            const parsed = JSON.parse(match[0]);
+            const branche = String(parsed?.branche || '').trim();
+            const szenario_text = String(parsed?.szenario_text || '').trim();
+            if (!branche || !szenario_text) return null;
+            return { branche, szenario_text };
+        } catch {
+            return null;
+        }
+    };
+
+    if (genAI) {
+        for (const modelId of GEMINI_MODELS) {
+            try {
+                const model = genAI.getGenerativeModel({ model: modelId });
+                const result = await model.generateContent(prompt);
+                const parsed = parseScenario(extractTextFromResult(result));
+                if (parsed) return parsed;
+            } catch (error) {
+                console.warn(`generateSwotScenario ${modelId} failed:`, error?.message || error);
+            }
+        }
+    }
+
+    const deepSeekText = await askDeepSeek(prompt);
+    const deepSeekParsed = parseScenario(deepSeekText);
+    if (deepSeekParsed) return deepSeekParsed;
+
+    return getRandomFallbackSwotScenario();
+}
+
+export async function evaluateSwotAnalysis({ scenario, swotEntries }) {
+    const scenarioText = String(scenario?.szenario_text || scenario || '').trim();
+    const branche = String(scenario?.branche || '').trim();
+
+    const entries = SWOT_LETTERS.reduce((acc, letter) => {
+        const src = swotEntries?.[letter] || {};
+        acc[letter] = {
+            term: String(src.term || '').trim(),
+            perspective: String(src.perspective || '').trim(),
+            argument: String(src.argument || '').trim(),
+            justification: String(src.justification || '').trim()
+        };
+        return acc;
+    }, {});
+
+    const localFeedback = buildLocalSwotFeedback(entries, scenarioText).map((item) => ({
+        ...item,
+        entryPerspective: entries[item.letter]?.perspective || '',
+        practiceMinimum: entries[item.letter]?.argument?.length >= 18 && entries[item.letter]?.justification?.length >= 24
+    }));
+
+    if (!genAI && !deepSeekKey) {
+        return {
+            swot_feedback: localFeedback.map((item) => ({
+                letter: item.letter,
+                theoryCorrect: item.theoryCorrect,
+                practiceCorrect: item.practiceCorrect,
+                theoryFeedback: item.theoryFeedback,
+                practiceFeedback: item.practiceFeedback,
+                profiTipp: item.profiTipp
+            }))
+        };
+    }
+
+    const payload = JSON.stringify({
+        branche,
+        scenario_text: scenarioText,
+        swot_entries: entries
+    }, null, 2);
+
+    const prompt = `Du bist ein strenger, aber motivierender IHK-Dozent. Bewerte die vorliegende SWOT-Analyse des Studenten zum gegebenen Szenario. Bewerte jeden der vier Buchstaben (S, W, O, T) nach folgenden Kriterien: 1. Ist der englische Begriff korrekt? 2. Stimmt die Perspektive (S/W = intern, O/T = extern)? 3. Passt das Argument logisch zum Szenario und ist die Begründung schlüssig? Formuliere zudem für jeden Buchstaben einen 'Profi-Tipp', was man noch hätte erwähnen können. Antworte AUSSCHLIESSLICH in folgendem JSON-Format (Array mit 4 Objekten):\n{ "swot_feedback": [ { "letter": "S", "theoryCorrect": boolean, "practiceCorrect": boolean, "theoryFeedback": "String", "practiceFeedback": "String", "profiTipp": "String" }, { "letter": "W", "theoryCorrect": boolean, "practiceCorrect": boolean, "theoryFeedback": "String", "practiceFeedback": "String", "profiTipp": "String" }, { "letter": "O", "theoryCorrect": boolean, "practiceCorrect": boolean, "theoryFeedback": "String", "practiceFeedback": "String", "profiTipp": "String" }, { "letter": "T", "theoryCorrect": boolean, "practiceCorrect": boolean, "theoryFeedback": "String", "practiceFeedback": "String", "profiTipp": "String" } ] }\n\nSzenario und Nutzereingaben:\n${payload}`;
+
+    const parseTutorResponse = (text) => {
+        if (!text) return null;
+        const match = text.match(/\{[\s\S]*"swot_feedback"[\s\S]*\}/i);
+        if (!match) return null;
+        try {
+            const parsed = JSON.parse(match[0]);
+            if (!Array.isArray(parsed?.swot_feedback)) return null;
+
+            const byLetter = new Map();
+            parsed.swot_feedback.forEach((item) => {
+                const letter = String(item?.letter || '').toUpperCase();
+                if (SWOT_LETTERS.includes(letter) && !byLetter.has(letter)) {
+                    byLetter.set(letter, item);
+                }
+            });
+
+            const merged = SWOT_LETTERS.map((letter) => {
+                const localItem = localFeedback.find((entry) => entry.letter === letter);
+                const aiItem = byLetter.get(letter) || {};
+                return normalizeSwotFeedbackItem(aiItem, localItem);
+            });
+
+            return { swot_feedback: merged };
+        } catch {
+            return null;
+        }
+    };
+
+    if (genAI) {
+        for (const modelId of GEMINI_MODELS) {
+            try {
+                const model = genAI.getGenerativeModel({ model: modelId });
+                const result = await model.generateContent(prompt);
+                const parsed = parseTutorResponse(extractTextFromResult(result));
+                if (parsed) return parsed;
+            } catch (error) {
+                console.warn(`evaluateSwotAnalysis ${modelId} failed:`, error?.message || error);
+            }
+        }
+    }
+
+    const deepSeekText = await askDeepSeek(prompt);
+    const deepSeekParsed = parseTutorResponse(deepSeekText);
+    if (deepSeekParsed) return deepSeekParsed;
+
+    return {
+        swot_feedback: localFeedback.map((item) => ({
+            letter: item.letter,
+            theoryCorrect: item.theoryCorrect,
+            practiceCorrect: item.practiceCorrect,
+            theoryFeedback: item.theoryFeedback,
+            practiceFeedback: item.practiceFeedback,
+            profiTipp: item.profiTipp
+        }))
+    };
+}

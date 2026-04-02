@@ -26,6 +26,7 @@ import KalkulationsBoss from './components/KalkulationsBoss';
 import BreakEvenPoint from './components/BreakEvenPoint';
 import ECommerceKalkulation from './components/ECommerceKalkulation';
 import NutzwertanalyseSimulator from './components/NutzwertanalyseSimulator';
+import SWOTAnalyseSimulator from './components/SWOTAnalyseSimulator';
 import ResetModal from './components/ResetModal';
 import VideoPanel from './components/VideoPanel';
 import GeminiPanel from './components/GeminiPanel';
@@ -861,6 +862,10 @@ function App() {
 
   const openPracticeByTopic = (topic) => {
     const safeTopic = String(topic || '').toLowerCase();
+    if (/swot/.test(safeTopic)) {
+      setAppMode('swot_analyse');
+      return;
+    }
     if (/nutzwert/.test(safeTopic)) {
       setAppMode('nutzwertanalyse');
       return;
@@ -1818,7 +1823,7 @@ ${input}`;
   // Fallback for unknown appMode
   // (Effect defined here — BEFORE any conditional return — to comply with React hooks rules)
   useEffect(() => {
-    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'marketing_review_result', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'nutzwertanalyse', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
+    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'marketing_review_result', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'nutzwertanalyse', 'swot_analyse', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
       setAppMode('dashboard');
     }
   }, [appMode]);
@@ -2238,6 +2243,9 @@ ${input}`;
               </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('nutzwertanalyse')}>
                 Nutzwertanalyse
+              </button>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('swot_analyse')}>
+                SWOT-Analyse
               </button>
             </div>
           </div>
@@ -2672,6 +2680,16 @@ ${input}`;
           questionText="Nutzwertanalyse"
           currentAppMode="nutzwertanalyse"
         />
+      </>
+    );
+  }
+
+  if (appMode === 'swot_analyse') {
+    return (
+      <>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <SWOTAnalyseSimulator onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
       </>
     );
   }
