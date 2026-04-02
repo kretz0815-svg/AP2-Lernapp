@@ -23,7 +23,7 @@ const FALLBACK_THEORY_QUESTIONS = [
   },
   {
     id: 'model_cpo',
-    question: 'Wofuer steht CPO im Performance Marketing?',
+    question: 'Wofür steht CPO im Performance Marketing?',
     options: [
       { id: 'a', text: 'Cost per Order', isCorrect: true },
       { id: 'b', text: 'Cost per Opportunity', isCorrect: false },
@@ -61,13 +61,13 @@ const MODEL_FACTS = {
   CPC: {
     label: 'CPC (Cost per Click)',
     trigger: 'Kosten fallen pro Klick an.',
-    risk: 'Das Risiko fuer ausbleibende Conversions liegt beim Merchant, weil auch erfolglose Klicks bezahlt werden.',
+    risk: 'Das Risiko für ausbleibende Conversions liegt beim Merchant, weil auch erfolglose Klicks bezahlt werden.',
     fit: 'Passend, wenn Reichweite und Traffic im Fokus stehen.'
   },
   CPO: {
     label: 'CPO (Cost per Order)',
     trigger: 'Kosten fallen erst bei einer Bestellung an.',
-    risk: 'Das Conversion-Risiko liegt staerker beim Publisher/Partner, weil ohne Order keine Verguetung faellig ist.',
+    risk: 'Das Conversion-Risiko liegt stärker beim Publisher/Partner, weil ohne Order keine Vergütung fällig ist.',
     fit: 'Passend, wenn direkte Sales-Ziele im Mittelpunkt stehen.'
   },
   CPL: {
@@ -79,13 +79,13 @@ const MODEL_FACTS = {
   CPM: {
     label: 'CPM (Cost per Mille)',
     trigger: 'Kosten fallen pro 1.000 Sichtkontakte/Impressions an.',
-    risk: 'Merchant traegt ein hohes Effizienzrisiko, weil bereits fuer Sichtkontakte bezahlt wird.',
-    fit: 'Passend fuer Branding und Reichweitenziele.'
+    risk: 'Merchant trägt ein hohes Effizienzrisiko, weil bereits für Sichtkontakte bezahlt wird.',
+    fit: 'Passend für Branding und Reichweitenziele.'
   },
   FLATRATE: {
     label: 'Flatrate/Festpreis',
     trigger: 'Kosten sind pauschal und nicht direkt an Klicks, Leads oder Orders gekoppelt.',
-    risk: 'Effizienzrisiko liegt weitgehend beim Merchant, da die Zahlung unabhaengig vom Ergebnis erfolgt.',
+    risk: 'Effizienzrisiko liegt weitgehend beim Merchant, da die Zahlung unabhängig vom Ergebnis erfolgt.',
     fit: 'Passend bei fixen Platzierungen oder Sponsoring.'
   }
 };
@@ -113,7 +113,7 @@ function buildTheoryExplanation(selectedOption, correctOption) {
       correctFact
         ? `${correctFact.label}: ${correctFact.trigger} ${correctFact.risk} ${correctFact.fit}`
         : 'Die Option passt zur Aufgabenlogik und zur gefragten Risikoverteilung/Abrechnung.',
-      `Pruefungslogik: Ordne immer erst die ausloesende Aktion (Impression, Klick, Lead, Order) und leite dann die Risikoverteilung ab.`
+      `Prüfungslogik: Ordne immer erst die auslösende Aktion (Impression, Klick, Lead, Order) und leite dann die Risikoverteilung ab.`
     ].join(' ');
   }
 
@@ -121,12 +121,12 @@ function buildTheoryExplanation(selectedOption, correctOption) {
     `Deine Auswahl ${selectedOption.text} ist hier fachlich nicht passend.`,
     selectedFact
       ? `${selectedFact.label}: ${selectedFact.trigger} ${selectedFact.risk}`
-      : 'Diese Option loest ein anderes Abrechnungsmodell aus als in der Frage beschrieben.',
+      : 'Diese Option löst ein anderes Abrechnungsmodell aus als in der Frage beschrieben.',
     `Korrekt ist ${correctOption.text}, weil hier genau die in der Frage beschriebene Aktion/Logik getroffen wird.`,
     correctFact
       ? `${correctFact.label}: ${correctFact.trigger} ${correctFact.risk} ${correctFact.fit}`
       : 'Die korrekte Option passt konsistent zur geforderten KPI- bzw. Risiko-Logik.',
-    `Merksatz fuer die IHK: Erst die Aktion identifizieren, dann das Modell zuordnen, erst danach Risiko und Zielwirkung begruenden.`
+    `Merksatz für die IHK: Erst die Aktion identifizieren, dann das Modell zuordnen, erst danach Risiko und Zielwirkung begründen.`
   ].join(' ');
 }
 
@@ -175,11 +175,11 @@ function fmtNumber(value, digits = 2) {
 
 function buildMetricLocalExplanation(metricKey, actual, expected, scenario) {
   if (!Number.isFinite(actual)) {
-    return 'Deine Eingabe ist kein gueltiger Zahlenwert. Nutze nur Zahlen (optional mit Komma) und bei Prozenten das %-Zeichen.';
+    return 'Deine Eingabe ist kein gültiger Zahlenwert. Nutze nur Zahlen (optional mit Komma) und bei Prozenten das %-Zeichen.';
   }
 
   if (!scenario || !Number.isFinite(expected)) {
-    return 'Die Kampagnendaten fehlen. Starte bitte eine neue Kampagne und pruefe erneut.';
+    return 'Die Kampagnendaten fehlen. Starte bitte eine neue Kampagne und prüfe erneut.';
   }
 
   const roundedExpected = fmtNumber(expected, 2);
@@ -206,7 +206,7 @@ function buildMetricLocalExplanation(metricKey, actual, expected, scenario) {
     return `Du hast ${roundedActual} eingegeben. Richtig wird KUR mit (Werbekosten / Umsatz) * 100 gerechnet: (${fmtNumber(scenario.werbekosten_euro, 2)} / ${fmtNumber(scenario.umsatz_euro, 2)}) * 100 = ${fmtNumber(step, 2)}%.`;
   }
 
-  return `Du hast ${roundedActual} eingegeben, erwartet ist ca. ${roundedExpected}. Pruefe die Formel und den Nenner erneut.`;
+  return `Du hast ${roundedActual} eingegeben, erwartet ist ca. ${roundedExpected}. Prüfe die Formel und den Nenner erneut.`;
 }
 
 const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal }) => {
@@ -548,7 +548,7 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal }) => {
                       >
                         {(item.options.find((opt) => opt.id === theoryAnswers[item.id])?.isCorrect)
                           ? 'Richtig.'
-                          : 'Nicht ganz. Die korrekte Option ist gruen markiert.'}
+                          : 'Nicht ganz. Die korrekte Option ist grün markiert.'}
                       </p>
                     )}
                     {getTheoryAnswerState(item)?.explanation && (
@@ -667,7 +667,7 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal }) => {
             </div>
 
             <button className="btn-primary" style={{ marginTop: '1rem', width: '100%' }} onClick={submitCalculation} disabled={busy}>
-              Abgeben &amp; Pruefen
+              Abgeben &amp; Prüfen
             </button>
           </>
         )}

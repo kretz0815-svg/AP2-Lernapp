@@ -913,15 +913,15 @@ function App() {
         const topicLabel = String(q?.topic || '').trim();
 
         if (topicLabel) {
-          candidates.push(`${topicLabel} IHK einfach erklaert`);
+          candidates.push(`${topicLabel} IHK einfach erklärt`);
         }
 
         if (/nutzwert/i.test(topicLabel)) {
-          candidates.push('Nutzwertanalyse einfach erklaert IHK');
+          candidates.push('Nutzwertanalyse einfach erklärt IHK');
         } else if (/(kalkulation|deckungsbeitrag|break.?even|kostenrechnung)/i.test(topicLabel)) {
-          candidates.push('Kalkulation Deckungsbeitrag Break Even IHK erklaert');
+          candidates.push('Kalkulation Deckungsbeitrag Break Even IHK erklärt');
         } else if (/(influencer|social media)/i.test(topicLabel)) {
-          candidates.push('Influencer Marketing Social Media IHK einfach erklaert');
+          candidates.push('Influencer Marketing Social Media IHK einfach erklärt');
         } else if (/(targeting|online-marketing|push|pull)/i.test(topicLabel)) {
           candidates.push('Online Marketing Targeting Push Pull IHK');
         }

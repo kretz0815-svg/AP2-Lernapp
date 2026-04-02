@@ -197,7 +197,7 @@ function extractJsonObject(text) {
 }
 
 function buildFallbackKpiScenario() {
-    const products = ['Laufschuhe', 'Kuechenzubehoer', 'Yoga-Matten', 'Gaming-Maeuse', 'Outdoor-Jacken'];
+    const products = ['Laufschuhe', 'Küchenzubehör', 'Yoga-Matten', 'Gaming-Mäuse', 'Outdoor-Jacken'];
     const channels = ['Social-Media-Ads', 'Display-Kampagne', 'Video-Ads', 'Search-Ads'];
     const product = products[Math.floor(Math.random() * products.length)];
     const channel = channels[Math.floor(Math.random() * channels.length)];
@@ -212,7 +212,7 @@ function buildFallbackKpiScenario() {
     const umsatz = Math.round((bestellungen * aov) * 100) / 100;
 
     return {
-        kampagnen_szenario: `Du bewirbst ${product} ueber ${channel}. Dein Budget lag bei ${werbekosten.toFixed(2)} EUR. Die Anzeigen wurden ${impressions.toLocaleString('de-DE')} Mal ausgespielt, ${klicks.toLocaleString('de-DE')} Personen klickten, ${bestellungen.toLocaleString('de-DE')} Bestellungen wurden erzielt. Der Umsatz betraegt ${umsatz.toFixed(2)} EUR.`,
+        kampagnen_szenario: `Du bewirbst ${product} über ${channel}. Dein Budget lag bei ${werbekosten.toFixed(2)} EUR. Die Anzeigen wurden ${impressions.toLocaleString('de-DE')} Mal ausgespielt, ${klicks.toLocaleString('de-DE')} Personen klickten, ${bestellungen.toLocaleString('de-DE')} Bestellungen wurden erzielt. Der Umsatz beträgt ${umsatz.toFixed(2)} EUR.`,
         impressions,
         klicks,
         bestellungen,
@@ -240,9 +240,9 @@ function isValidKpiScenario(parsed) {
 }
 
 export async function generateOnlineMarketingScenario() {
-    const prompt = `Du bist ein Generator fuer E-Commerce Pruefungsaufgaben.
-Erstelle eine fiktive Online-Marketing-Kampagne (z. B. Social-Media-Ads fuer Laufschuhe).
-Generiere realistische Zahlenwerte fuer Impressions, Klicks, Bestellungen (Conversions), Werbekosten und generierten Umsatz.
+    const prompt = `Du bist ein Generator für E-Commerce Prüfungsaufgaben.
+Erstelle eine fiktive Online-Marketing-Kampagne (z. B. Social-Media-Ads für Laufschuhe).
+Generiere realistische Zahlenwerte für Impressions, Klicks, Bestellungen (Conversions), Werbekosten und generierten Umsatz.
 Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
 { "kampagnen_szenario": "String", "impressions": Number, "klicks": Number, "bestellungen": Number, "werbekosten_euro": Number, "umsatz_euro": Number }`;
 
@@ -292,8 +292,8 @@ export async function askKpiTutorFeedback({ metric, formula, userInput }) {
     const safeFormula = String(formula || '').slice(0, 180);
     const safeInput = String(userInput || '').slice(0, 80);
 
-    const prompt = `Der Schueler hat bei der Berechnung der Marketing-KPIs Fehler gemacht.
-Erklaere ihm in genau einem kurzen, motivierenden Satz die korrekte Formel fuer die falsche Metrik,
+    const prompt = `Der Schüler hat bei der Berechnung der Marketing-KPIs Fehler gemacht.
+Erkläre ihm in genau einem kurzen, motivierenden Satz die korrekte Formel für die falsche Metrik,
 ohne das genaue Endergebnis vorzusagen.
 
 Falsche Metrik: ${safeMetric}
@@ -318,7 +318,7 @@ Beispielstil: Achtung beim ROAS: Hier musst du den Umsatz durch die Werbekosten 
     const deepSeekResult = await askDeepSeek(prompt);
     if (deepSeekResult) return deepSeekResult;
 
-    return `Tipp zu ${safeMetric}: Nutze sauber die Formel ${safeFormula} und achte darauf, Zaehler und Nenner nicht zu vertauschen.`;
+    return `Tipp zu ${safeMetric}: Nutze sauber die Formel ${safeFormula} und achte darauf, Zähler und Nenner nicht zu vertauschen.`;
 }
 
 function randomSample(list, count) {
@@ -334,7 +334,7 @@ function buildFallbackKpiTheoryQuestions() {
     const pool = [
         {
             id: 'risk_cpc',
-            question: 'Wer traegt beim CPC-Modell das Risiko, wenn viele klicken, aber niemand kauft?',
+            question: 'Wer trägt beim CPC-Modell das Risiko, wenn viele klicken, aber niemand kauft?',
             options: [
                 { id: 'a', text: 'Der Merchant / Werbetreibende', isCorrect: true },
                 { id: 'b', text: 'Immer das Affiliate-Netzwerk', isCorrect: false },
@@ -343,7 +343,7 @@ function buildFallbackKpiTheoryQuestions() {
         },
         {
             id: 'term_cpm',
-            question: 'Welche Abkuerzung steht fuer den Tausenderkontaktpreis?',
+            question: 'Welche Abkürzung steht für den Tausenderkontaktpreis?',
             options: [
                 { id: 'a', text: 'CPM', isCorrect: true },
                 { id: 'b', text: 'CPL', isCorrect: false },
@@ -361,7 +361,7 @@ function buildFallbackKpiTheoryQuestions() {
         },
         {
             id: 'model_cpl',
-            question: 'Wofuer steht CPL im Online-Marketing?',
+            question: 'Wofür steht CPL im Online-Marketing?',
             options: [
                 { id: 'a', text: 'Cost per Lead', isCorrect: true },
                 { id: 'b', text: 'Cost per Like', isCorrect: false },
@@ -372,14 +372,14 @@ function buildFallbackKpiTheoryQuestions() {
             id: 'risk_cpm',
             question: 'Welches Risiko hat der Merchant bei CPM besonders?',
             options: [
-                { id: 'a', text: 'Er zahlt bereits fuer Sichtkontakte ohne Kaufgarantie', isCorrect: true },
+                { id: 'a', text: 'Er zahlt bereits für Sichtkontakte ohne Kaufgarantie', isCorrect: true },
                 { id: 'b', text: 'Er zahlt nur bei Bestellung', isCorrect: false },
                 { id: 'c', text: 'Er zahlt nur bei qualifiziertem Lead', isCorrect: false }
             ]
         },
         {
             id: 'trigger_cpl',
-            question: 'Welche Aktion loest beim CPL-Modell die Verguetung aus?',
+            question: 'Welche Aktion löst beim CPL-Modell die Vergütung aus?',
             options: [
                 { id: 'a', text: 'Ein qualifizierter Lead, z. B. Kontaktformular', isCorrect: true },
                 { id: 'b', text: 'Jede Impression', isCorrect: false },
@@ -388,7 +388,7 @@ function buildFallbackKpiTheoryQuestions() {
         },
         {
             id: 'term_cpc',
-            question: 'Wofuer steht CPC?',
+            question: 'Wofür steht CPC?',
             options: [
                 { id: 'a', text: 'Cost per Click', isCorrect: true },
                 { id: 'b', text: 'Cost per Conversion', isCorrect: false },
@@ -397,7 +397,7 @@ function buildFallbackKpiTheoryQuestions() {
         },
         {
             id: 'allocation_cpo',
-            question: 'Bei welchem Modell wird das Conversion-Risiko staerker auf den Publisher verlagert?',
+            question: 'Bei welchem Modell wird das Conversion-Risiko stärker auf den Publisher verlagert?',
             options: [
                 { id: 'a', text: 'CPO', isCorrect: true },
                 { id: 'b', text: 'CPM', isCorrect: false },
@@ -447,12 +447,12 @@ function normalizeTheoryQuestionSet(parsed) {
 
 export async function generateKpiTheoryQuestions() {
     const refreshSeed = `${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
-    const prompt = `Du bist Pruefungsaufgaben-Generator fuer Kaufleute im E-Commerce (IHK-Niveau).
+    const prompt = `Du bist Prüfungsaufgaben-Generator für Kaufleute im E-Commerce (IHK-Niveau).
 Erzeuge 4 bis 6 abwechslungsreiche Theoriefragen zu Online-Marketing-Abrechnungsmodellen.
 Fokus: CPC, CPO, CPL, CPM, Risikoverteilung zwischen Merchant und Publisher.
 
-Session-Seed fuer diese Generierung (zur Varianz): ${refreshSeed}
-Erzeuge fuer jeden Aufruf neue Formulierungen und keine identischen Fragenfolge wie in vorherigen Aufrufen.
+Session-Seed für diese Generierung (zur Varianz): ${refreshSeed}
+Erzeuge für jeden Aufruf neue Formulierungen und keine identischen Fragenfolge wie in vorherigen Aufrufen.
 
 Regeln:
 1) Jede Frage Multiple Choice mit 3 oder 4 Antwortoptionen.
@@ -797,8 +797,8 @@ export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, us
 
     const aiFlagsJustificationIssue = (feedbackText) => {
         const feedback = String(feedbackText || '').toLowerCase();
-        return /(begründ|begruend|begründung|begruendung).*(fehl|schwach|unzureichend|unklar|nicht|mangel)/.test(feedback)
-            || /(fehl|schwach|unzureichend|unklar|nicht|mangel).*(begründ|begruend|begründung|begruendung)/.test(feedback)
+        return /(begründ|begründung).*(fehl|schwach|unzureichend|unklar|nicht|mangel)/.test(feedback)
+            || /(fehl|schwach|unzureichend|unklar|nicht|mangel).*(begründ|begründung)/.test(feedback)
             || /(unsinnig|widersprüchlich|nicht nachvollziehbar)/.test(feedback);
     };
     const buildLocalTip = () => {
@@ -1025,9 +1025,9 @@ function buildLocalSwotFeedback(swotEntries, scenarioText) {
 
         const requiredPerspective = SWOT_PERSPECTIVE_BY_LETTER[letter];
         const expectedWords = letter === 'S'
-            ? ['strength', 'starke', 'starken', 'staerke', 'staerken', 'starke', 'stärken']
+            ? ['strength', 'starke', 'starken', 'stärke', 'stärken']
             : letter === 'W'
-                ? ['weakness', 'schwache', 'schwachen', 'schwaeche', 'schwaechen', 'schwäche', 'schwächen']
+                ? ['weakness', 'schwache', 'schwachen', 'schwäche', 'schwächen']
                 : letter === 'O'
                     ? ['opportunity', 'opportunities', 'chance', 'chancen']
                     : ['threat', 'threats', 'risiko', 'risiken', 'gefahr', 'gefahren'];
