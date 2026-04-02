@@ -184,6 +184,261 @@ Antworte auf Deutsch.`;
     return 'Mein Freund, dein Rechenweg hat ein Glitch. Prüfe Basiswert und Formel noch einmal.';
 }
 
+function extractJsonObject(text) {
+    const raw = String(text || '').trim();
+    if (!raw) return null;
+    const direct = raw.match(/\{[\s\S]*\}/);
+    if (!direct) return null;
+    try {
+        return JSON.parse(direct[0]);
+    } catch {
+        return null;
+    }
+}
+
+function buildFallbackKpiScenario() {
+    const products = ['Laufschuhe', 'Kuechenzubehoer', 'Yoga-Matten', 'Gaming-Maeuse', 'Outdoor-Jacken'];
+    const channels = ['Social-Media-Ads', 'Display-Kampagne', 'Video-Ads', 'Search-Ads'];
+    const product = products[Math.floor(Math.random() * products.length)];
+    const channel = channels[Math.floor(Math.random() * channels.length)];
+
+    const impressions = Math.floor(50000 + Math.random() * 250000);
+    const ctr = 0.012 + Math.random() * 0.05;
+    const klicks = Math.max(200, Math.floor(impressions * ctr));
+    const conversionRate = 0.01 + Math.random() * 0.08;
+    const bestellungen = Math.max(10, Math.floor(klicks * conversionRate));
+    const werbekosten = Math.round((800 + Math.random() * 5200) * 100) / 100;
+    const aov = 35 + Math.random() * 120;
+    const umsatz = Math.round((bestellungen * aov) * 100) / 100;
+
+    return {
+        kampagnen_szenario: `Du bewirbst ${product} ueber ${channel}. Dein Budget lag bei ${werbekosten.toFixed(2)} EUR. Die Anzeigen wurden ${impressions.toLocaleString('de-DE')} Mal ausgespielt, ${klicks.toLocaleString('de-DE')} Personen klickten, ${bestellungen.toLocaleString('de-DE')} Bestellungen wurden erzielt. Der Umsatz betraegt ${umsatz.toFixed(2)} EUR.`,
+        impressions,
+        klicks,
+        bestellungen,
+        werbekosten_euro: werbekosten,
+        umsatz_euro: umsatz
+    };
+}
+
+function isValidKpiScenario(parsed) {
+    if (!parsed || typeof parsed !== 'object') return false;
+    const impressions = Number(parsed.impressions);
+    const klicks = Number(parsed.klicks);
+    const bestellungen = Number(parsed.bestellungen);
+    const werbekosten = Number(parsed.werbekosten_euro);
+    const umsatz = Number(parsed.umsatz_euro);
+    const text = String(parsed.kampagnen_szenario || '').trim();
+    return (
+        text.length > 20
+        && Number.isFinite(impressions) && impressions > 0
+        && Number.isFinite(klicks) && klicks > 0 && klicks <= impressions
+        && Number.isFinite(bestellungen) && bestellungen > 0 && bestellungen <= klicks
+        && Number.isFinite(werbekosten) && werbekosten > 0
+        && Number.isFinite(umsatz) && umsatz > 0
+    );
+}
+
+export async function generateOnlineMarketingScenario() {
+    const prompt = `Du bist ein Generator fuer E-Commerce Pruefungsaufgaben.
+Erstelle eine fiktive Online-Marketing-Kampagne (z. B. Social-Media-Ads fuer Laufschuhe).
+Generiere realistische Zahlenwerte fuer Impressions, Klicks, Bestellungen (Conversions), Werbekosten und generierten Umsatz.
+Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
+{ "kampagnen_szenario": "String", "impressions": Number, "klicks": Number, "bestellungen": Number, "werbekosten_euro": Number, "umsatz_euro": Number }`;
+
+    if (genAI) {
+        for (const modelId of GEMINI_MODELS) {
+            try {
+                const model = genAI.getGenerativeModel({ model: modelId });
+                const result = await model.generateContent(prompt);
+                const text = extractTextFromResult(result);
+                const parsed = extractJsonObject(text);
+                if (isValidKpiScenario(parsed)) {
+                    return {
+                        kampagnen_szenario: String(parsed.kampagnen_szenario),
+                        impressions: Number(parsed.impressions),
+                        klicks: Number(parsed.klicks),
+                        bestellungen: Number(parsed.bestellungen),
+                        werbekosten_euro: Number(parsed.werbekosten_euro),
+                        umsatz_euro: Number(parsed.umsatz_euro)
+                    };
+                }
+            } catch (error) {
+                console.warn(`generateOnlineMarketingScenario ${modelId} failed:`, error?.message || error);
+            }
+        }
+    }
+
+    const deepSeekResult = await askDeepSeek(prompt);
+    if (deepSeekResult) {
+        const parsed = extractJsonObject(deepSeekResult);
+        if (isValidKpiScenario(parsed)) {
+            return {
+                kampagnen_szenario: String(parsed.kampagnen_szenario),
+                impressions: Number(parsed.impressions),
+                klicks: Number(parsed.klicks),
+                bestellungen: Number(parsed.bestellungen),
+                werbekosten_euro: Number(parsed.werbekosten_euro),
+                umsatz_euro: Number(parsed.umsatz_euro)
+            };
+        }
+    }
+
+    return buildFallbackKpiScenario();
+}
+
+export async function askKpiTutorFeedback({ metric, formula, userInput }) {
+    const safeMetric = String(metric || '').slice(0, 40);
+    const safeFormula = String(formula || '').slice(0, 180);
+    const safeInput = String(userInput || '').slice(0, 80);
+
+    const prompt = `Der Schueler hat bei der Berechnung der Marketing-KPIs Fehler gemacht.
+Erklaere ihm in genau einem kurzen, motivierenden Satz die korrekte Formel fuer die falsche Metrik,
+ohne das genaue Endergebnis vorzusagen.
+
+Falsche Metrik: ${safeMetric}
+Formel: ${safeFormula}
+User-Eingabe: ${safeInput || 'leer'}
+
+Beispielstil: Achtung beim ROAS: Hier musst du den Umsatz durch die Werbekosten teilen, nicht umgekehrt!`;
+
+    if (genAI) {
+        for (const modelId of GEMINI_MODELS) {
+            try {
+                const model = genAI.getGenerativeModel({ model: modelId });
+                const result = await model.generateContent(prompt);
+                const text = extractTextFromResult(result);
+                if (text) return text;
+            } catch (error) {
+                console.warn(`askKpiTutorFeedback ${modelId} failed:`, error?.message || error);
+            }
+        }
+    }
+
+    const deepSeekResult = await askDeepSeek(prompt);
+    if (deepSeekResult) return deepSeekResult;
+
+    return `Tipp zu ${safeMetric}: Nutze sauber die Formel ${safeFormula} und achte darauf, Zaehler und Nenner nicht zu vertauschen.`;
+}
+
+function buildFallbackKpiTheoryQuestions() {
+    return [
+        {
+            id: 'risk_cpc',
+            question: 'Wer traegt beim CPC-Modell das Risiko, wenn viele klicken, aber niemand kauft?',
+            options: [
+                { id: 'a', text: 'Der Merchant / Werbetreibende', isCorrect: true },
+                { id: 'b', text: 'Immer das Affiliate-Netzwerk', isCorrect: false },
+                { id: 'c', text: 'Niemand, weil Klicks Umsatz garantieren', isCorrect: false }
+            ]
+        },
+        {
+            id: 'term_cpm',
+            question: 'Welche Abkuerzung steht fuer den Tausenderkontaktpreis?',
+            options: [
+                { id: 'a', text: 'CPM', isCorrect: true },
+                { id: 'b', text: 'CPL', isCorrect: false },
+                { id: 'c', text: 'CPO', isCorrect: false }
+            ]
+        },
+        {
+            id: 'model_cpo',
+            question: 'Bei welchem Modell bezahlt der Advertiser erst bei einer Bestellung?',
+            options: [
+                { id: 'a', text: 'CPO', isCorrect: true },
+                { id: 'b', text: 'CPM', isCorrect: false },
+                { id: 'c', text: 'CPC', isCorrect: false }
+            ]
+        },
+        {
+            id: 'model_cpl',
+            question: 'Wofuer steht CPL im Online-Marketing?',
+            options: [
+                { id: 'a', text: 'Cost per Lead', isCorrect: true },
+                { id: 'b', text: 'Cost per Like', isCorrect: false },
+                { id: 'c', text: 'Campaign per Lead', isCorrect: false }
+            ]
+        }
+    ];
+}
+
+function normalizeTheoryQuestionSet(parsed) {
+    const list = Array.isArray(parsed?.questions) ? parsed.questions : [];
+    const normalized = list
+        .map((entry, qIndex) => {
+            const qText = String(entry?.question || '').trim();
+            const options = Array.isArray(entry?.options) ? entry.options : [];
+            const mappedOptions = options
+                .map((opt, oIndex) => ({
+                    id: String(opt?.id || String.fromCharCode(97 + oIndex)),
+                    text: String(opt?.text || '').trim(),
+                    isCorrect: !!opt?.isCorrect
+                }))
+                .filter((opt) => opt.text.length > 0);
+            const correctCount = mappedOptions.filter((opt) => opt.isCorrect).length;
+            if (qText.length < 10 || mappedOptions.length < 3 || correctCount !== 1) return null;
+            return {
+                id: String(entry?.id || `kpi_theory_${qIndex + 1}`),
+                question: qText,
+                options: mappedOptions
+            };
+        })
+        .filter(Boolean)
+        .slice(0, 6);
+
+    if (normalized.length < 4) return null;
+    return normalized;
+}
+
+export async function generateKpiTheoryQuestions() {
+    const prompt = `Du bist Pruefungsaufgaben-Generator fuer Kaufleute im E-Commerce (IHK-Niveau).
+Erzeuge 4 bis 6 abwechslungsreiche Theoriefragen zu Online-Marketing-Abrechnungsmodellen.
+Fokus: CPC, CPO, CPL, CPM, Risikoverteilung zwischen Merchant und Publisher.
+
+Regeln:
+1) Jede Frage Multiple Choice mit 3 oder 4 Antwortoptionen.
+2) Genau eine Antwort ist korrekt.
+3) Fragen muessen variieren und praxisnah im IHK-Stil sein.
+4) Antworte AUSSCHLIESSLICH als JSON in diesem Format:
+{
+  "questions": [
+    {
+      "id": "string",
+      "question": "string",
+      "options": [
+        { "id": "a", "text": "string", "isCorrect": true },
+        { "id": "b", "text": "string", "isCorrect": false },
+        { "id": "c", "text": "string", "isCorrect": false }
+      ]
+    }
+  ]
+}`;
+
+    if (genAI) {
+        for (const modelId of GEMINI_MODELS) {
+            try {
+                const model = genAI.getGenerativeModel({ model: modelId });
+                const result = await model.generateContent(prompt);
+                const text = extractTextFromResult(result);
+                const parsed = extractJsonObject(text);
+                const normalized = normalizeTheoryQuestionSet(parsed);
+                if (normalized) return normalized;
+            } catch (error) {
+                console.warn(`generateKpiTheoryQuestions ${modelId} failed:`, error?.message || error);
+            }
+        }
+    }
+
+    const deepSeekResult = await askDeepSeek(prompt);
+    if (deepSeekResult) {
+        const parsed = extractJsonObject(deepSeekResult);
+        const normalized = normalizeTheoryQuestionSet(parsed);
+        if (normalized) return normalized;
+    }
+
+    return buildFallbackKpiTheoryQuestions();
+}
+
 export async function extractFocusTopics(wrongQuestions) {
     if (!wrongQuestions || wrongQuestions.length === 0) {
         return { topics: [] };

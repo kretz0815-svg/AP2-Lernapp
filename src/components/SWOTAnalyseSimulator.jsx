@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { evaluateSwotAnalysis, generateSwotScenario } from '../geminiClient';
+import FloatingPortal from './FloatingPortal';
 
 const LETTER_CONFIG = [
   { letter: 'S', title: 'Strengths', requiredPerspective: 'Intern', accent: '#22c55e' },
@@ -481,6 +482,12 @@ export default function SWOTAnalyseSimulator({ onBack, onLearningEvent }) {
           </p>
         </div>
       )}
+
+      <FloatingPortal
+        questionId="swot_analyse"
+        questionText="SWOT-Analyse"
+        currentAppMode="swot_analyse"
+      />
     </div>
   );
 }

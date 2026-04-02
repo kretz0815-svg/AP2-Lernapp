@@ -44,6 +44,7 @@ const NotesView = React.lazy(() => import('./components/NotesView'));
 const QuizSetup = React.lazy(() => import('./components/QuizSetup'));
 const FlashcardSession = React.lazy(() => import('./components/FlashcardSession'));
 const ResultSummary = React.lazy(() => import('./components/ResultSummary'));
+const OnlineMarketingKpiNextLevel = React.lazy(() => import('./components/OnlineMarketingKpiNextLevel'));
 
 
 // ─── Extracted Utils ────────────────────────────────────────────
@@ -1823,7 +1824,7 @@ ${input}`;
   // Fallback for unknown appMode
   // (Effect defined here — BEFORE any conditional return — to comply with React hooks rules)
   useEffect(() => {
-    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'marketing_review_result', 'wisor', 'rechen_tasks_setup', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'nutzwertanalyse', 'swot_analyse', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
+    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'marketing_review_result', 'wisor', 'rechen_tasks_setup', 'kpi_next_level', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'nutzwertanalyse', 'swot_analyse', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
       setAppMode('dashboard');
     }
   }, [appMode]);
@@ -2584,6 +2585,13 @@ ${input}`;
             <button className="btn-primary" onClick={() => startRechenTasks('All', rechenSetup.topic)}>
               {getTopicStats(rechenSetup.topic).due} fällige starten
             </button>
+            <button
+              className="btn-secondary"
+              style={{ gridColumn: '1 / -1', borderColor: 'rgba(34,197,94,0.45)', background: 'rgba(34,197,94,0.12)', color: '#bbf7d0' }}
+              onClick={() => setAppMode('kpi_next_level')}
+            >
+              Next Level: Online-Marketing Modul starten
+            </button>
           </div>
 
           <p style={{ marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
@@ -2644,6 +2652,17 @@ ${input}`;
           <KalkulationsBoss onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} isGuest={!authUser} />
         </React.Suspense>
       </>
+    );
+  }
+
+  if (appMode === 'kpi_next_level') {
+    return (
+      <React.Suspense fallback={<div className="loading-overlay">Lade KPI Next Level...</div>}>
+        <OnlineMarketingKpiNextLevel
+          onBack={() => setAppMode('rechen_tasks_setup')}
+          burgerMenuPortal={burgerMenuPortal}
+        />
+      </React.Suspense>
     );
   }
 
