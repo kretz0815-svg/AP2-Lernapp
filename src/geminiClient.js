@@ -352,6 +352,38 @@ export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, us
     const round2 = (n) => Math.round((n + Number.EPSILON) * 100) / 100;
     const tolerance = 0.02;
     const withinTol = (a, b) => Number.isFinite(a) && Number.isFinite(b) && Math.abs(a - b) <= tolerance;
+    const normalizeForMatch = (text) => String(text || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9äöüß\s]/gi, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    const hasEnoughJustificationQuality = (text) => {
+        const raw = String(text || '').trim();
+        if (raw.length < 30) return false;
+        if (/(.)\1{4,}/.test(raw)) return false;
+
+        const normalized = normalizeForMatch(raw);
+
+        const words = normalized.split(' ').filter(Boolean);
+        if (words.length < 8) return false;
+
+        const uniqueCount = new Set(words).size;
+        const uniqueRatio = uniqueCount / words.length;
+        if (uniqueRatio < 0.45) return false;
+
+        const frequencies = new Map();
+        words.forEach((word) => frequencies.set(word, (frequencies.get(word) || 0) + 1));
+        const maxWordFrequency = Math.max(...frequencies.values());
+        if (maxWordFrequency / words.length > 0.4) return false;
+
+        const businessTerms = [
+            'anbieter', 'empfehl', 'gewicht', 'gewichtet', 'punkte', 'gesamt', 'nutzwert',
+            'kriter', 'kosten', 'leistung', 'support', 'qualität', 'entscheidung', 'sieger'
+        ];
+        const hasBusinessSignal = businessTerms.some((term) => normalized.includes(term));
+
+        return hasBusinessSignal;
+    };
 
     const safeRows = Array.isArray(userMatrix?.rows) ? userMatrix.rows : [];
     const safeTotals = Array.isArray(userMatrix?.totals) ? userMatrix.totals : [];
@@ -376,8 +408,98 @@ export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, us
     });
 
     const recommendationConsistent = Boolean(userCalculatedWinner) && userRecommendation === userCalculatedWinner;
-    const justificationStrong = String(userJustification || '').trim().length >= 30;
-    const localPass = matrixConsistent && totalsConsistent && recommendationConsistent && justificationStrong;
+    const justificationStrong = hasEnoughJustificationQuality(userJustification);
+    const providerNames = Array.isArray(masterSolution?.providers) ? masterSolution.providers : [];
+    const selectedWinner = userRecommendation || userCalculatedWinner || '';
+    const selectedWinnerIdx = providerNames.indexOf(selectedWinner);
+
+    const winnerAdvantages = selectedWinnerIdx >= 0
+        ? safeRows
+            .map((row) => {
+                const criterionName = String(row?.criterion || '').trim();
+                const scores = Array.isArray(row?.userProviderScores) ? row.userProviderScores : [];
+                const winnerScore = scores[selectedWinnerIdx] || {};
+                const winnerPartial = toNumber(winnerScore?.partial);
+                const winnerPoints = toNumber(winnerScore?.points);
+
+                let comparisonValues = scores
+                    .map((entry, idx) => ({ idx, partial: toNumber(entry?.partial), points: toNumber(entry?.points) }))
+                    .filter((entry) => entry.idx !== selectedWinnerIdx);
+
+                const partialOthers = comparisonValues.map((entry) => entry.partial).filter(Number.isFinite);
+                const pointsOthers = comparisonValues.map((entry) => entry.points).filter(Number.isFinite);
+
+                const bestOtherPartial = partialOthers.length ? Math.max(...partialOthers) : NaN;
+                const bestOtherPoints = pointsOthers.length ? Math.max(...pointsOthers) : NaN;
+                const partialMargin = Number.isFinite(winnerPartial) && Number.isFinite(bestOtherPartial)
+                    ? round2(winnerPartial - bestOtherPartial)
+                    : NaN;
+                const pointsMargin = Number.isFinite(winnerPoints) && Number.isFinite(bestOtherPoints)
+                    ? winnerPoints - bestOtherPoints
+                    : NaN;
+
+                const positivePartialLead = Number.isFinite(partialMargin) && partialMargin > tolerance;
+                const positivePointsLead = Number.isFinite(pointsMargin) && pointsMargin > 0;
+
+                return {
+                    criterionName,
+                    positiveLead: positivePartialLead || positivePointsLead,
+                    margin: Number.isFinite(partialMargin)
+                        ? partialMargin
+                        : (Number.isFinite(pointsMargin) ? pointsMargin : Number.NEGATIVE_INFINITY)
+                };
+            })
+            .filter((item) => item.criterionName && item.positiveLead)
+            .sort((a, b) => b.margin - a.margin)
+            .slice(0, 2)
+        : [];
+
+    const tokenizeCriterion = (text) => {
+        const stopWords = new Set(['und', 'oder', 'mit', 'von', 'der', 'die', 'das', 'den', 'dem', 'des', 'im', 'in', 'am']);
+        return normalizeForMatch(text)
+            .split(' ')
+            .filter((token) => token.length >= 4 && !stopWords.has(token));
+    };
+
+    const normalizedJustification = normalizeForMatch(userJustification);
+    const referencesWinnerAdvantage = winnerAdvantages.length === 0
+        ? true
+        : winnerAdvantages.some((adv) => {
+            const tokens = tokenizeCriterion(adv.criterionName);
+            return tokens.some((token) => normalizedJustification.includes(token));
+        });
+
+    const localPass = matrixConsistent
+        && totalsConsistent
+        && recommendationConsistent
+        && justificationStrong
+        && referencesWinnerAdvantage;
+
+    const aiFlagsJustificationIssue = (feedbackText) => {
+        const feedback = String(feedbackText || '').toLowerCase();
+        return /(begründ|begruend|begründung|begruendung).*(fehl|schwach|unzureichend|unklar|nicht|mangel)/.test(feedback)
+            || /(fehl|schwach|unzureichend|unklar|nicht|mangel).*(begründ|begruend|begründung|begruendung)/.test(feedback)
+            || /(unsinnig|widersprüchlich|nicht nachvollziehbar)/.test(feedback);
+    };
+    const buildLocalTip = () => {
+        if (!recommendationConsistent) {
+            return `Vergleiche die Gesamtnutzwerte erneut und wähle den Anbieter mit dem höchsten Wert (${userCalculatedWinner || 'dein rechnerischer Sieger'}).`;
+        }
+        if (!justificationStrong) {
+            return 'Nenne mindestens zwei konkrete Kriterien und verknüpfe sie mit Punkten/Teilnutzwerten aus deiner Matrix.';
+        }
+        if (!referencesWinnerAdvantage && winnerAdvantages.length) {
+            const names = winnerAdvantages.map((a) => a.criterionName).join(' und ');
+            return `Begründe deine Empfehlung stärker über die tatsächlichen Vorteile bei ${names}.`;
+        }
+        return 'Ergänze in der Begründung 1-2 konkrete Zahlenbezüge aus der Matrix, damit dein Entscheidungsweg eindeutig nachvollziehbar ist.';
+    };
+    const ensureTipInFeedback = (feedbackText, tipText) => {
+        const feedback = String(feedbackText || '').trim();
+        if (!feedback) return `Tipp: ${tipText}`;
+        if (/\btipp\b\s*:/i.test(feedback)) return feedback;
+        return `${feedback} Tipp: ${tipText}`;
+    };
 
     if (!genAI && !deepSeekKey) {
         return {
@@ -385,7 +507,7 @@ export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, us
             scoreAdjustment: 0,
             examinerFeedback: localPass
                 ? 'Rechnerisch stimmig und nachvollziehbar begründet. (Lokale Bewertung ohne KI durchgeführt.)'
-                : 'Die Eingabe ist noch nicht vollständig stimmig. Prüfe Teilnutzwerte, Gesamtsummen, Empfehlung und Begründung.'
+                : ensureTipInFeedback('Die Eingabe ist noch nicht vollständig stimmig. Prüfe Teilnutzwerte, Gesamtsummen, Empfehlung und Begründung.', buildLocalTip())
         };
     }
 
@@ -410,14 +532,17 @@ Bewerte in dieser Reihenfolge:
 Regeln:
 - Keine pauschalen Aussagen wie "mathematische Fehler", wenn die User-Rechnung intern korrekt ist.
 - Wenn etwas nicht passt, nenne genau 1-2 konkrete Korrekturhinweise.
+- Prüfe ausdrücklich, ob die genannten Vorteile in der Begründung zur Matrix passen (Kriterien, Punkte, Teilnutzwerte).
+- Wenn die Begründung falsche oder unpassende Vorteile behauptet, setze isPassed auf false und erkläre kurz warum.
 - Bevorzuge klare, kurze, konstruktive Rückmeldung in Deutsch.
 - Antworte AUSSCHLIESSLICH als JSON im Format:
-  { "isPassed": boolean, "scoreAdjustment": number, "examinerFeedback": "..." }
+  { "isPassed": boolean, "scoreAdjustment": number, "examinerFeedback": "...", "tip": "..." }
 
 Nutzerdaten und Musterlösung:
 ${payloadStr}
 
 Die Begründung ist ein Pflichtkriterium für das Bestehen.
+Das Feld "tip" muss immer genau einen kurzen, umsetzbaren Verbesserungstipp enthalten (auch bei bestanden).
 Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON.`;
 
     const parseEvaluation = (text) => {
@@ -426,10 +551,14 @@ Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON
         if (!match) return null;
         try {
             const parsed = JSON.parse(match[0]);
+            const parsedTip = String(parsed?.tip || '').trim();
             return {
                 isPassed: Boolean(parsed?.isPassed),
                 scoreAdjustment: Number.isFinite(Number(parsed?.scoreAdjustment)) ? Number(parsed.scoreAdjustment) : 0,
-                examinerFeedback: String(parsed?.examinerFeedback || '').trim() || 'Bewertung abgeschlossen.'
+                examinerFeedback: ensureTipInFeedback(
+                    String(parsed?.examinerFeedback || '').trim() || 'Bewertung abgeschlossen.',
+                    parsedTip || buildLocalTip()
+                )
             };
         } catch {
             return null;
@@ -443,7 +572,20 @@ Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON
             const text = result.response.text();
             const parsed = parseEvaluation(text);
             if (parsed) {
+                if (parsed.isPassed && (!matrixConsistent || !totalsConsistent || !recommendationConsistent)) {
+                    return {
+                        isPassed: false,
+                        scoreAdjustment: parsed.scoreAdjustment,
+                        examinerFeedback: ensureTipInFeedback(
+                            'Die Lösung ist rechnerisch oder bei der Empfehlung noch nicht konsistent.',
+                            buildLocalTip()
+                        )
+                    };
+                }
                 if (!parsed.isPassed && localPass) {
+                    if (aiFlagsJustificationIssue(parsed.examinerFeedback)) {
+                        return parsed;
+                    }
                     return {
                         isPassed: true,
                         scoreAdjustment: parsed.scoreAdjustment,
@@ -463,7 +605,20 @@ Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON
         if (dsRes) {
             const parsed = parseEvaluation(dsRes);
             if (parsed) {
+                if (parsed.isPassed && (!matrixConsistent || !totalsConsistent || !recommendationConsistent)) {
+                    return {
+                        isPassed: false,
+                        scoreAdjustment: parsed.scoreAdjustment,
+                        examinerFeedback: ensureTipInFeedback(
+                            'Die Lösung ist rechnerisch oder bei der Empfehlung noch nicht konsistent.',
+                            buildLocalTip()
+                        )
+                    };
+                }
                 if (!parsed.isPassed && localPass) {
+                    if (aiFlagsJustificationIssue(parsed.examinerFeedback)) {
+                        return parsed;
+                    }
                     return {
                         isPassed: true,
                         scoreAdjustment: parsed.scoreAdjustment,
@@ -481,7 +636,7 @@ Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON
         isPassed: localPass,
         scoreAdjustment: 0,
         examinerFeedback: localPass
-            ? 'Rechnerisch stimmig, Empfehlung konsistent und Begründung ausreichend. Die KI-Antwort war nicht eindeutig parsebar, daher lokale Gesamtbewertung verwendet.'
-            : 'Die Eingabe ist noch nicht vollständig stimmig. Prüfe Teilnutzwerte, Gesamtsummen, Empfehlung und Begründung.'
+            ? ensureTipInFeedback('Rechnerisch stimmig, Empfehlung konsistent und Begründung ausreichend.', buildLocalTip())
+            : ensureTipInFeedback('Die Eingabe ist noch nicht vollständig stimmig. Prüfe Teilnutzwerte, Gesamtsummen, Empfehlung und Begründung.', buildLocalTip())
     };
 }
