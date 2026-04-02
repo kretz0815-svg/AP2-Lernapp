@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { askKpiTutorFeedback, generateKpiTheoryQuestions, generateOnlineMarketingScenario } from '../geminiClient';
 import FloatingPortal from './FloatingPortal';
 
@@ -211,16 +211,17 @@ function buildMetricLocalExplanation(metricKey, actual, expected, scenario) {
 
 const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal }) => {
   const [phase, setPhase] = useState('theory');
-  const [theoryQuestions, setTheoryQuestions] = useState(FALLBACK_THEORY_QUESTIONS);
+  const [theoryQuestions, setTheoryQuestions] = useState([]);
   const [theoryAnswers, setTheoryAnswers] = useState({});
   const [theoryResult, setTheoryResult] = useState(null);
   const [scenario, setScenario] = useState(null);
   const [kpiInputs, setKpiInputs] = useState({ cpm: '', cpc: '', cpo: '', roas: '', kur: '' });
   const [validation, setValidation] = useState(null);
   const [tutorHints, setTutorHints] = useState({});
-  const [theoryLoading, setTheoryLoading] = useState(false);
+  const [theoryLoading, setTheoryLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [errorText, setErrorText] = useState('');
+  const theoryLoadRequestRef = useRef(0);
 
   const expected = useMemo(() => {
     if (!scenario) return null;
@@ -250,15 +251,23 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal }) => {
   useEffect(() => {
     const bootstrapTheory = async () => {
       if (phase !== 'theory') return;
+      const requestId = theoryLoadRequestRef.current + 1;
+      theoryLoadRequestRef.current = requestId;
       setTheoryLoading(true);
       try {
         const generated = await generateKpiTheoryQuestions();
+        if (requestId !== theoryLoadRequestRef.current) return;
         if (Array.isArray(generated) && generated.length > 0) {
           setTheoryQuestions(generated);
+        } else {
+          setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
         }
       } catch {
+        if (requestId !== theoryLoadRequestRef.current) return;
         // Keep fallback questions silently when generation fails.
+        setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
       } finally {
+        if (requestId !== theoryLoadRequestRef.current) return;
         setTheoryLoading(false);
       }
     };
@@ -272,18 +281,26 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal }) => {
   };
 
   const refreshTheoryQuestions = async () => {
+    const requestId = theoryLoadRequestRef.current + 1;
+    theoryLoadRequestRef.current = requestId;
     setTheoryLoading(true);
     setErrorText('');
     try {
       const generated = await generateKpiTheoryQuestions();
+      if (requestId !== theoryLoadRequestRef.current) return;
       if (Array.isArray(generated) && generated.length > 0) {
         setTheoryQuestions(generated);
         setTheoryAnswers({});
         setTheoryResult(null);
+      } else {
+        setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
       }
     } catch {
+      if (requestId !== theoryLoadRequestRef.current) return;
+      setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
       setErrorText('Neue Theoriefragen konnten nicht geladen werden. Nutze bitte den aktuellen Satz oder versuche es erneut.');
     } finally {
+      if (requestId !== theoryLoadRequestRef.current) return;
       setTheoryLoading(false);
     }
   };
