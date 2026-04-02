@@ -169,7 +169,6 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
   const [isAiLoading, setIsAiLoading] = useState(false);
 
   const [validationStates, setValidationStates] = useState({}); // 'correct' | 'wrong'
-  const [failedAttempts, setFailedAttempts] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
 
   const [activeHintId, setActiveHintId] = useState(null);
@@ -260,7 +259,6 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
     setJustificationError('');
     setAiFeedback(null);
     setValidationStates({});
-    setFailedAttempts(0);
     setShowConfetti(false);
     setActiveHintId(null);
   }, []);
@@ -445,8 +443,6 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
     const newStates = {};
     const newTotalWarnings = {};
 
-    let totalErrors = 0;
-
     // Build the user matrix for AI and exact comparison
     const userMatrix = task.criteriaData.map((c, cIdx) => {
       const uWeight = parseInput(inputs[`w_${cIdx}`]);
@@ -471,7 +467,6 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
         if (!Number.isFinite(uWeight)) {
           newStates[`w_${cIdx}`] = 'wrong';
           allOk = false;
-          totalErrors++;
         } else {
           newStates[`w_${cIdx}`] = 'correct';
         }
@@ -484,7 +479,6 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
           if (!Number.isFinite(uPts)) {
             newStates[`pt_${cIdx}_${pIdx}`] = 'wrong';
             allOk = false;
-            totalErrors++;
           } else {
             newStates[`pt_${cIdx}_${pIdx}`] = 'correct';
           }
@@ -498,7 +492,6 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
         if (!isWithinTolerance(uPartial, expectedPartialFromUserInputs)) {
           newStates[`par_${cIdx}_${pIdx}`] = 'wrong';
           allOk = false;
-          totalErrors++;
         } else {
           newStates[`par_${cIdx}_${pIdx}`] = 'correct';
         }
@@ -525,7 +518,6 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
       if (!isWithinTolerance(uTotal, expectedUserTotal)) {
         newStates[`total_${pIdx}`] = 'wrong';
         allOk = false;
-        totalErrors++;
         const providerName = task.providers[pIdx];
         newTotalWarnings[`total_${pIdx}`] = providerPartialsAreCorrect
           ? `Dein Gesamtnutzwert für ${providerName} stimmt nicht. Deine Teilwerte sind korrekt, aber du hast dich beim Zusammenrechnen der Summe vertippt.`
@@ -535,17 +527,6 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
       }
     });
 
-    const recommendationCorrect = dropdownChoice === task.masterSolution.winner;
-    const localExact = allOk && recommendationCorrect;
-
-    setValidationStates(newStates);
-    setTotalWarnings(newTotalWarnings);
-
-    // Wenn nicht 100% korrekt (also Abweichungen bei Punkten oder finaler Auswahl),
-    // fragen wir die KI als IHK-Prüfer.
-    setFailedAttempts(prev => prev + 1);
-    setIsAiLoading(true);
-
     const userTotals = task.providers.map((p, pIdx) => (
       difficultyLevel === 1 ? task.masterSolution.totals[pIdx] : parseInput(inputs[`total_${pIdx}`])
     ));
@@ -553,6 +534,16 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
     const userCalculatedWinner = Number.isFinite(bestTotal)
       ? task.providers.find((_, idx) => isWithinTolerance(userTotals[idx], bestTotal)) || null
       : null;
+
+    const recommendationConsistentWithUserTotals = Boolean(userCalculatedWinner) && dropdownChoice === userCalculatedWinner;
+    const localExact = allOk && recommendationConsistentWithUserTotals;
+
+    setValidationStates(newStates);
+    setTotalWarnings(newTotalWarnings);
+
+    // Wenn nicht 100% korrekt (also Abweichungen bei Punkten oder finaler Auswahl),
+    // fragen wir die KI als IHK-Prüfer.
+    setIsAiLoading(true);
 
     try {
       const response = await evaluateNutzwertanalyse({
@@ -579,6 +570,22 @@ export default function NutzwertanalyseSimulator({ onBack, onLearningEvent }) {
            examinerFeedback: response.examinerFeedback || (exactByMathAndChoice
              ? 'Hervorragend! Die Analyse entspricht dem Erwartungshorizont.'
              : 'Trotz kleiner Abweichungen wurde deine Lösung akzeptiert!')
+        });
+        if (onLearningEvent) {
+          onLearningEvent({
+            mode: 'nutzwertanalyse',
+            questionId: 'nutzwert',
+            correct: true,
+            topic: 'Nutzwertanalyse'
+          });
+        }
+      } else if (localExact) {
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 5500);
+        setAiFeedback({
+          isPassed: true,
+          exact: true,
+          examinerFeedback: response?.examinerFeedback || 'Rechnerisch ist deine Nutzwertanalyse stimmig und deine Empfehlung passt zu deinen Gesamtnutzwerten. Die Lösung ist damit fachlich nachvollziehbar.'
         });
         if (onLearningEvent) {
           onLearningEvent({

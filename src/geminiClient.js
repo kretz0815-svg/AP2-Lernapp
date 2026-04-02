@@ -348,8 +348,45 @@ ${eventList}`;
 }
 
 export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, userMatrix, userCalculatedWinner, userRecommendation, userJustification }) {
+    const toNumber = (v) => Number.isFinite(Number(v)) ? Number(v) : NaN;
+    const round2 = (n) => Math.round((n + Number.EPSILON) * 100) / 100;
+    const tolerance = 0.02;
+    const withinTol = (a, b) => Number.isFinite(a) && Number.isFinite(b) && Math.abs(a - b) <= tolerance;
+
+    const safeRows = Array.isArray(userMatrix?.rows) ? userMatrix.rows : [];
+    const safeTotals = Array.isArray(userMatrix?.totals) ? userMatrix.totals : [];
+
+    const matrixConsistent = safeRows.every((row) => {
+        const weight = toNumber(row?.userWeight);
+        const providerScores = Array.isArray(row?.userProviderScores) ? row.userProviderScores : [];
+        return providerScores.every((entry) => {
+            const pts = toNumber(entry?.points);
+            const partial = toNumber(entry?.partial);
+            const expected = Number.isFinite(weight) && Number.isFinite(pts) ? round2((weight / 100) * pts) : NaN;
+            return withinTol(partial, expected);
+        });
+    });
+
+    const totalsConsistent = safeTotals.every((total, pIdx) => {
+        const expected = round2(safeRows.reduce((sum, row) => {
+            const partial = toNumber(row?.userProviderScores?.[pIdx]?.partial);
+            return sum + (Number.isFinite(partial) ? partial : 0);
+        }, 0));
+        return withinTol(toNumber(total), expected);
+    });
+
+    const recommendationConsistent = Boolean(userCalculatedWinner) && userRecommendation === userCalculatedWinner;
+    const justificationStrong = String(userJustification || '').trim().length >= 30;
+    const localPass = matrixConsistent && totalsConsistent && recommendationConsistent && justificationStrong;
+
     if (!genAI && !deepSeekKey) {
-        return { isPassed: false, scoreAdjustment: 0, examinerFeedback: "KI-Prüfer offline." };
+        return {
+            isPassed: localPass,
+            scoreAdjustment: 0,
+            examinerFeedback: localPass
+                ? 'Rechnerisch stimmig und nachvollziehbar begründet. (Lokale Bewertung ohne KI durchgeführt.)'
+                : 'Die Eingabe ist noch nicht vollständig stimmig. Prüfe Teilnutzwerte, Gesamtsummen, Empfehlung und Begründung.'
+        };
     }
 
     const payloadStr = JSON.stringify({
@@ -363,33 +400,57 @@ export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, us
         }
     }, null, 2);
 
-    const prompt = `Du bist ein fairer IHK-Prüfer. Werte die Nutzwertanalyse des Users aus. 
-1. Bei Kriterien des Typs 'qualitativ' akzeptierst du eine Abweichung von +/- 1 Punkt zur Musterlösung, sofern die Rangfolge der Anbieter in diesem Kriterium grob logisch bleibt.
-2. Bei 'quantitativen' Kriterien ist keine Abweichung erlaubt.
-3. Wenn der User durch vertretbare Abweichungen zu einem anderen, aber mathematisch und argumentativ korrekten Sieger kommt (basierend auf seinen eigenen Punkten und korrekt berechneten Teilnutzwerten), lasse dies gelten.
-4. Prüfe zwingend die Begründung des Users:
-   - Mindestqualität: inhaltlich sinnvoll, fachlich nachvollziehbar und nicht nur Floskel.
-   - Prüfe, ob der im Text empfohlene Anbieter mit dem rechnerischen Sieger aus den User-Totals zusammenpasst.
-   - Wenn Empfehlung und berechneter Sieger nicht zusammenpassen oder die Begründung inhaltlich unplausibel ist, setze isPassed auf false.
-5. Wenn die Antwort falsch ist, gib klares Korrekturfeedback mit kurzer, konkreter Verbesserung.
-6. Antworte AUSSCHLIESSLICH im JSON-Format: { "isPassed": boolean, "scoreAdjustment": number, "examinerFeedback": "dein kurzes feedback" }
+    const prompt = `Du bist ein fairer IHK-Prüfer. Werte die Nutzwertanalyse holistisch und nachvollziehbar aus.
+Bewerte in dieser Reihenfolge:
+1) Rechenlogik intern: Prüfe, ob die User-Matrix in sich konsistent ist (Gewichtung * Punkte = Teilnutzwert, Summe der Teilnutzwerte = Gesamtnutzwert).
+2) Entscheidungskonsistenz: Prüfe, ob die Empfehlung zum rechnerischen Sieger aus den User-Totals passt.
+3) Fachliche Begründung: Prüfe, ob die Begründung sinnvoll, konkret und fachlich nachvollziehbar ist.
+4) Vergleich mit Musterlösung: Nutze die Musterlösung nur als Orientierung, NICHT als starres K.O.-Kriterium. Wenn User-Eingaben intern stimmig und gut begründet sind, darf die Lösung trotzdem bestehen.
+
+Regeln:
+- Keine pauschalen Aussagen wie "mathematische Fehler", wenn die User-Rechnung intern korrekt ist.
+- Wenn etwas nicht passt, nenne genau 1-2 konkrete Korrekturhinweise.
+- Bevorzuge klare, kurze, konstruktive Rückmeldung in Deutsch.
+- Antworte AUSSCHLIESSLICH als JSON im Format:
+  { "isPassed": boolean, "scoreAdjustment": number, "examinerFeedback": "..." }
 
 Nutzerdaten und Musterlösung:
 ${payloadStr}
 
-Prüfe, ob die Berechnungen (Gewichtung * Punktzahl = Teilnutzwert) des Users in sich stimmig sind und das Endergebnis sowie die finale Wahl des Anbieters zur Eingabe des Users passen.
 Die Begründung ist ein Pflichtkriterium für das Bestehen.
 Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON.`;
+
+    const parseEvaluation = (text) => {
+        if (!text) return null;
+        const match = text.match(/\{[\s\S]*"isPassed"[\s\S]*"scoreAdjustment"[\s\S]*"examinerFeedback"[\s\S]*\}/i);
+        if (!match) return null;
+        try {
+            const parsed = JSON.parse(match[0]);
+            return {
+                isPassed: Boolean(parsed?.isPassed),
+                scoreAdjustment: Number.isFinite(Number(parsed?.scoreAdjustment)) ? Number(parsed.scoreAdjustment) : 0,
+                examinerFeedback: String(parsed?.examinerFeedback || '').trim() || 'Bewertung abgeschlossen.'
+            };
+        } catch {
+            return null;
+        }
+    };
 
     try {
         if (genAI) {
             const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
             const result = await model.generateContent(prompt);
             const text = result.response.text();
-            
-            const match = text.match(/\{[\s\S]*isPassed[\s\S]*scoreAdjustment[\s\S]*examinerFeedback[\s\S]*\}/i);
-            if (match) {
-                return JSON.parse(match[0]);
+            const parsed = parseEvaluation(text);
+            if (parsed) {
+                if (!parsed.isPassed && localPass) {
+                    return {
+                        isPassed: true,
+                        scoreAdjustment: parsed.scoreAdjustment,
+                        examinerFeedback: `Rechnerisch ist deine Lösung stimmig und die Empfehlung passt. ${parsed.examinerFeedback}`
+                    };
+                }
+                return parsed;
             }
         }
     } catch(err) {
@@ -400,14 +461,27 @@ Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON
     try {
         const dsRes = await askDeepSeek(prompt);
         if (dsRes) {
-            const match = dsRes.match(/\{[\s\S]*isPassed[\s\S]*scoreAdjustment[\s\S]*examinerFeedback[\s\S]*\}/i);
-            if (match) {
-                return JSON.parse(match[0]);
+            const parsed = parseEvaluation(dsRes);
+            if (parsed) {
+                if (!parsed.isPassed && localPass) {
+                    return {
+                        isPassed: true,
+                        scoreAdjustment: parsed.scoreAdjustment,
+                        examinerFeedback: `Rechnerisch ist deine Lösung stimmig und die Empfehlung passt. ${parsed.examinerFeedback}`
+                    };
+                }
+                return parsed;
             }
         }
     } catch(err) {
         console.warn('evaluateNutzwertanalyse DS err:', err);
     }
 
-    return null;
+    return {
+        isPassed: localPass,
+        scoreAdjustment: 0,
+        examinerFeedback: localPass
+            ? 'Rechnerisch stimmig, Empfehlung konsistent und Begründung ausreichend. Die KI-Antwort war nicht eindeutig parsebar, daher lokale Gesamtbewertung verwendet.'
+            : 'Die Eingabe ist noch nicht vollständig stimmig. Prüfe Teilnutzwerte, Gesamtsummen, Empfehlung und Begründung.'
+    };
 }
