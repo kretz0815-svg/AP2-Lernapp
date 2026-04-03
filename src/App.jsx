@@ -72,7 +72,7 @@ function App() {
   const LEGACY_DB_KEY_WISOR = 'wisor_progress';
   const LEGACY_DB_KEY_WISOR_ECO = 'wisor_eco_progress';
 
-  const [appMode, setAppMode] = useState(localStorage.getItem('masterpat_auth') === 'true' ? 'intro' : 'auth'); // 'auth', 'dashboard', 'quiz', 'wisor', 'intro'
+  const [appMode, setAppMode] = useState('auth'); // 'auth', 'dashboard', 'quiz', 'wisor', 'intro'
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
   const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || import.meta.env.VITE_HCAPTCHA_SITEKEY || '';
   const { progress: klrProgress } = useKLRGame() || { progress: { xp: 0 } };
@@ -831,15 +831,15 @@ function App() {
     return due.filter(q => getQuizTopicGroup(q.topic) === topic);
   };
 
-  const normalizeQuizLimit = (limit, poolLength, _isGuest) => {
+  const normalizeQuizLimit = (limit, poolLength) => {
     const parsed = Number(limit);
     if (!Number.isFinite(parsed) || parsed <= 0) return poolLength;
     return Math.min(Math.floor(parsed), poolLength);
   };
 
-  const buildShuffledSession = (pool, limit, isGuest) => {
+  const buildShuffledSession = (pool, limit) => {
     const shuffled = [...pool].sort(() => Math.random() - 0.5);
-    const normalizedLimit = normalizeQuizLimit(limit, shuffled.length, isGuest);
+    const normalizedLimit = normalizeQuizLimit(limit, shuffled.length);
     if (!Number.isFinite(normalizedLimit) || normalizedLimit <= 0) {
       return [];
     }
@@ -1057,18 +1057,16 @@ ${input}`;
   };
 
   const startQuizSession = (limit, topic = 'all') => {
-    const isGuest = !authUser;
     const duePool = getDueQuizzesByTopic(topic);
-    const sessionQs = buildShuffledSession(duePool, limit, isGuest);
+    const sessionQs = buildShuffledSession(duePool, limit);
 
     setQuizSessionPool(sessionQs);
     setAppMode('quiz');
   };
 
   const startMarketingReviewSession = (limit, topic = 'all') => {
-    const isGuest = !authUser;
     const duePool = getDueMarketingReviewByTopic(topic);
-    const sessionQs = buildShuffledSession(duePool, limit, isGuest);
+    const sessionQs = buildShuffledSession(duePool, limit);
     setMarketingReviewSessionPool(sessionQs);
     setMarketingReviewResult(null);
     setAppMode('marketing_review_quiz');
@@ -1080,7 +1078,7 @@ ${input}`;
     const fromMeta = String(user?.user_metadata?.full_name || user?.user_metadata?.name || '').trim();
     if (fromMeta) return fromMeta;
     const fromEmail = String(user?.email || '').split('@')[0]?.trim();
-    return fromEmail || 'Gast';
+    return fromEmail || 'User';
   };
 
   const saveProfileSettings = async (nextSettings) => {
@@ -1157,11 +1155,9 @@ ${input}`;
       const { data: { session } } = await supabase.auth.getSession();
       const storedAccessMode = localStorage.getItem(ACCESS_MODE_KEY);
 
-      if (!session?.user && storedAccessMode === 'guest') {
-        clearGuestProgressData();
-      }
-
-      if (session?.user) {
+      if (!session?.user) {
+        setAppMode('auth');
+      } else {
         if (storedAccessMode === 'guest') {
           clearGuestProgressData();
         }
@@ -1902,42 +1898,9 @@ ${input}`;
             >
               Mit Google anmelden
             </button>
-            {currentHost === 'localhost' && (
-              <button
-                type="button"
-                className="btn-primary"
-                onClick={() => {
-                  localStorage.setItem('masterpat_auth', 'true');
-                  localStorage.setItem(ACCESS_MODE_KEY, 'guest');
-                  setAppMode('dashboard');
-                }}
-                style={{ width: '100%', padding: '0.8rem', fontSize: '1rem', marginTop: '0.5rem', background: 'linear-gradient(45deg, #ff416c, #ff4b2b)' }}
-              >
-                Login (Dev Bypass)
-              </button>
-            )}
           </form>
 
           {authMsg && <p style={{ color: authMsg.includes('Erfolg') || authMsg.includes('erstellt') ? 'var(--success)' : 'var(--error)', marginBottom: '1rem', fontWeight: 'bold' }}>{authMsg}</p>}
-
-          <hr style={{ margin: '1.5rem 0', borderColor: 'var(--glass-border)' }} />
-
-          <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '0.8rem' }}>Alternativ: Lokaler Gast Zugang (Nur auf diesem Gerät)</p>
-          <button
-            type="button"
-            className="btn-secondary"
-            style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}
-            onClick={() => {
-              setAuthError(false);
-              localStorage.setItem(ACCESS_MODE_KEY, 'guest');
-              clearGuestProgressData();
-              localStorage.setItem('masterpat_auth', 'true');
-              setAppMode('intro');
-              window.location.reload(); // Zum Laden der User Data vom Device
-            }}
-          >
-            Als Gast (Lokal) fortfahren
-          </button>
         </div>
       </div>
     );
@@ -2206,7 +2169,7 @@ ${input}`;
             <p>Trainiere dein Wissen</p>
             <div style={{ display: 'grid', gap: '0.55rem', width: '100%', marginTop: '0.4rem' }}>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('quiz_setup')}>
-                Wissen testen {(!authUser ? '(Gast)' : `(${quizDuePool.length} fällig)`)}
+                Wissen testen ({quizDuePool.length} fällig)
               </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('project_m')}>
                 Projekt M Mastery (XP: {pmProgress?.xp || 0})
@@ -2649,7 +2612,7 @@ ${input}`;
         {pomodoroPortal}
         {burgerMenuPortal}
         <React.Suspense fallback={<div className="loading-overlay">Lade Kalkulation...</div>}>
-          <KalkulationsBoss onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} isGuest={!authUser} />
+          <KalkulationsBoss onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
         </React.Suspense>
       </>
     );

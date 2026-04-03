@@ -11,18 +11,16 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
         return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
     };
 
-    const isGuest = !authUser;
     const displayName = String(
         profileSettings?.displayName
         || authUser?.user_metadata?.full_name
         || authUser?.user_metadata?.name
         || authUser?.email?.split('@')[0]
-        || 'Gast'
+        || 'User'
     ).trim();
     const avatarUrl = String(profileSettings?.avatarDataUrl || '').trim();
 
     const handleCategoryClick = (category) => {
-        if (isGuest) return;
         setIsOpen(false);
         if (onOpenQuestionManager) onOpenQuestionManager(category);
     };
@@ -89,41 +87,40 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
                                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                                     <button
-                                        onClick={isGuest ? undefined : () => { if (onStartPomodoro) onStartPomodoro(); setIsOpen(false); }}
-                                        disabled={pomodoroRunning || isGuest}
+                                        onClick={() => { if (onStartPomodoro) onStartPomodoro(); setIsOpen(false); }}
+                                        disabled={pomodoroRunning}
                                         style={{
                                             background: pomodoroRunning ? 'rgba(239,68,68,0.15)' : 'transparent',
                                             border: pomodoroRunning ? '1px solid rgba(239,68,68,0.3)' : 'none',
-                                            cursor: (pomodoroRunning || isGuest) ? 'not-allowed' : 'pointer',
+                                            cursor: pomodoroRunning ? 'not-allowed' : 'pointer',
                                             padding: '4px',
                                             borderRadius: '8px',
                                             transition: 'transform 0.2s',
-                                            opacity: (pomodoroRunning || isGuest) ? 0.35 : 1,
+                                            opacity: pomodoroRunning ? 0.35 : 1,
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center'
                                         }}
-                                        title={isGuest ? 'Nur für registrierte Nutzer' : (pomodoroRunning ? 'Pomodoro läuft bereits' : 'Pomodoro Timer starten (25 Min)')}
+                                        title={pomodoroRunning ? 'Pomodoro läuft bereits' : 'Pomodoro Timer starten (25 Min)'}
                                         onMouseOver={(e) => { if (!pomodoroRunning) e.currentTarget.style.transform = 'scale(1.15)'; }}
                                         onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                                     >
                                         <PomodoroIcon size="1.4em" style={{ color: toolIconColor }} />
                                     </button>
                                     <button
-                                        onClick={isGuest ? undefined : () => { if (onOpenAppearanceSettings) onOpenAppearanceSettings(); setIsOpen(false); }}
+                                        onClick={() => { if (onOpenAppearanceSettings) onOpenAppearanceSettings(); setIsOpen(false); }}
                                         style={{
                                             background: 'transparent',
                                             border: 'none',
-                                            cursor: isGuest ? 'not-allowed' : 'pointer',
+                                            cursor: 'pointer',
                                             padding: '4px',
                                             borderRadius: '8px',
                                             transition: 'transform 0.2s',
-                                            opacity: isGuest ? 0.35 : 1,
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center'
                                         }}
-                                        title={isGuest ? 'Nur für registrierte Nutzer' : 'Darstellung anpassen'}
+                                        title="Darstellung anpassen"
                                         onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.15)'; }}
                                         onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                                     >
@@ -204,8 +201,6 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                                 background: 'rgba(128,128,128,0.15)',
                                 borderRadius: '10px',
                                 padding: '2px',
-                                opacity: isGuest ? 0.35 : 1,
-                                pointerEvents: isGuest ? 'none' : 'auto',
                                 alignSelf: 'flex-start'
                             }}>
                                 {[
@@ -239,123 +234,92 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                         </div>
 
                         <h3 style={{ color: 'var(--text-light)', marginBottom: '0.5rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Account</h3>
-                        {authUser ? (
-                            <div style={{ marginBottom: '1.5rem' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
-                                    <div style={{ width: '34px', height: '34px', borderRadius: '50%', overflow: 'hidden', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                        {avatarUrl ? (
-                                            <img src={avatarUrl} alt="Profilbild" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                        ) : (
-                                            <span style={{ color: 'var(--text-light)', fontWeight: 700 }}>{displayName.slice(0, 1).toUpperCase()}</span>
-                                        )}
-                                    </div>
-                                    <div style={{ minWidth: 0 }}>
-                                        <p style={{ color: 'var(--text-light)', fontWeight: 'bold', fontSize: '0.92rem', margin: 0, lineHeight: 1.2 }}>{displayName}</p>
-                                        <p style={{ color: 'var(--primary)', fontWeight: 'bold', fontSize: '0.82rem', margin: 0, marginTop: '0.2rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{authUser.email}</p>
-                                    </div>
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
+                                <div style={{ width: '34px', height: '34px', borderRadius: '50%', overflow: 'hidden', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                    {avatarUrl ? (
+                                        <img src={avatarUrl} alt="Profilbild" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    ) : (
+                                        <span style={{ color: 'var(--text-light)', fontWeight: 700 }}>{displayName.slice(0, 1).toUpperCase()}</span>
+                                    )}
                                 </div>
-                                <button onClick={handleLogout} className="btn-secondary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.9rem' }}>Logout</button>
+                                <div style={{ minWidth: 0 }}>
+                                    <p style={{ color: 'var(--text-light)', fontWeight: 'bold', fontSize: '0.92rem', margin: 0, lineHeight: 1.2 }}>{displayName}</p>
+                                    <p style={{ color: 'var(--primary)', fontWeight: 'bold', fontSize: '0.82rem', margin: 0, marginTop: '0.2rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{authUser?.email || 'Mit Google angemeldet'}</p>
+                                </div>
                             </div>
-                        ) : (
-                            <div style={{ marginBottom: '1.5rem' }}>
-                                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Gast-Modus (Lokal)</p>
-                                <button onClick={handleLogout} className="btn-secondary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.9rem' }}>Zum Login wechseln</button>
-                                <p style={{ color: 'var(--error)', fontSize: '0.75rem', marginTop: '0.5rem', opacity: 0.85 }}>🔒 Im Gast-Modus sind viele Funktionen gesperrt. Registriere dich für vollen Zugriff.</p>
-                            </div>
-                        )}
+                            <button onClick={handleLogout} className="btn-secondary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.9rem' }}>Logout</button>
+                        </div>
 
                         <h3 style={{ color: 'var(--text-light)', marginBottom: '1rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Mein Lernstand</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', flex: 1, overflowY: 'auto' }}>
 
-                            {authUser ? (
-                                <div
-                                    className="stat-card"
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={() => {
-                                        setIsOpen(false);
-                                        if (onOpenLearningDashboard) onOpenLearningDashboard();
-                                    }}
-                                >
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Lernkarten Analyse</span>
-                                        <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
-                                    </div>
+                            <div
+                                className="stat-card"
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => {
+                                    setIsOpen(false);
+                                    if (onOpenLearningDashboard) onOpenLearningDashboard();
+                                }}
+                            >
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Lernkarten Analyse</span>
+                                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                    <span style={{ fontSize: '1rem', fontWeight: 'bold', color: 'var(--primary)' }}>Daily / Week / Month</span>
+                                </div>
+                                <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>
+                                    Fehlerboard, Schwächen, PDF-Export
+                                </div>
+                            </div>
+
+                            <div className="stat-card" style={{ cursor: 'pointer' }} onClick={() => handleCategoryClick('quiz')}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Quiz (Wissen testen)</span>
+                                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
+                                </div>
+                                <>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                        <span style={{ fontSize: '1rem', fontWeight: 'bold', color: 'var(--primary)' }}>Daily / Week / Month</span>
+                                        <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--success)' }}>{stats.quizLearned}</span>
+                                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.quizTotal} verinnerlicht</span>
                                     </div>
-                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>
-                                        Fehlerboard, Schwächen, PDF-Export
+                                    <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
+                                        <div className="progress-bar" style={{ width: `${(stats.quizLearned / Math.max(stats.quizTotal, 1)) * 100}%`, background: 'var(--success)' }}></div>
                                     </div>
-                                </div>
-                            ) : (
-                                <div className="stat-card" style={{ opacity: 0.72, cursor: 'not-allowed' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Lernkarten Analyse 🔒</span>
-                                    </div>
-                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>
-                                        Nur mit E-Mail-Login verfügbar
-                                    </div>
-                                </div>
-                            )}
-
-                            <div className="stat-card" style={{ cursor: isGuest ? 'not-allowed' : 'pointer', opacity: isGuest ? 0.72 : 1 }} onClick={() => handleCategoryClick('quiz')}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Quiz (Wissen testen){isGuest ? ' 🔒' : ''}</span>
-                                    {!isGuest && <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>}
-                                </div>
-                                {isGuest ? (
-                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>Nur mit E-Mail-Login verfügbar</div>
-                                ) : (
-                                    <>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                            <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--success)' }}>{stats.quizLearned}</span>
-                                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.quizTotal} verinnerlicht</span>
-                                        </div>
-                                        <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
-                                            <div className="progress-bar" style={{ width: `${(stats.quizLearned / Math.max(stats.quizTotal, 1)) * 100}%`, background: 'var(--success)' }}></div>
-                                        </div>
-                                    </>
-                                )}
+                                </>
                             </div>
 
-                            <div className="stat-card" style={{ cursor: isGuest ? 'not-allowed' : 'pointer', opacity: isGuest ? 0.72 : 1 }} onClick={() => handleCategoryClick('rechen')}>
+                            <div className="stat-card" style={{ cursor: 'pointer' }} onClick={() => handleCategoryClick('rechen')}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>KPI's{isGuest ? ' 🔒' : ''}</span>
-                                    {!isGuest && <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>}
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>KPI's</span>
+                                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
                                 </div>
-                                {isGuest ? (
-                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>Nur mit E-Mail-Login verfügbar</div>
-                                ) : (
-                                    <>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                            <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--primary)' }}>{stats.rechenLearned}</span>
-                                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.rechenTotal} verinnerlicht</span>
-                                        </div>
-                                        <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
-                                            <div className="progress-bar" style={{ width: `${(stats.rechenLearned / Math.max(stats.rechenTotal, 1)) * 100}%`, background: 'var(--primary)' }}></div>
-                                        </div>
-                                    </>
-                                )}
+                                <>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                        <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--primary)' }}>{stats.rechenLearned}</span>
+                                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.rechenTotal} verinnerlicht</span>
+                                    </div>
+                                    <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
+                                        <div className="progress-bar" style={{ width: `${(stats.rechenLearned / Math.max(stats.rechenTotal, 1)) * 100}%`, background: 'var(--primary)' }}></div>
+                                    </div>
+                                </>
                             </div>
 
-                            <div className="stat-card" style={{ cursor: isGuest ? 'not-allowed' : 'pointer', opacity: isGuest ? 0.72 : 1 }} onClick={() => handleCategoryClick('marketing_review')}>
+                            <div className="stat-card" style={{ cursor: 'pointer' }} onClick={() => handleCategoryClick('marketing_review')}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>IHK Extras{isGuest ? ' 🔒' : ''}</span>
-                                    {!isGuest && <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>}
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>IHK Extras</span>
+                                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
                                 </div>
-                                {isGuest ? (
-                                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>Nur mit E-Mail-Login verfügbar</div>
-                                ) : (
-                                    <>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                            <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--accent)' }}>{stats.reviewLearned}</span>
-                                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.reviewTotal} verinnerlicht</span>
-                                        </div>
-                                        <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
-                                            <div className="progress-bar" style={{ width: `${(stats.reviewLearned / Math.max(stats.reviewTotal, 1)) * 100}%`, background: 'var(--accent)' }}></div>
-                                        </div>
-                                    </>
-                                )}
+                                <>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                        <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--accent)' }}>{stats.reviewLearned}</span>
+                                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.reviewTotal} verinnerlicht</span>
+                                    </div>
+                                    <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
+                                        <div className="progress-bar" style={{ width: `${(stats.reviewLearned / Math.max(stats.reviewTotal, 1)) * 100}%`, background: 'var(--accent)' }}></div>
+                                    </div>
+                                </>
                             </div>
 
                         </div>

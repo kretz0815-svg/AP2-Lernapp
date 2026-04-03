@@ -565,7 +565,7 @@ const PHASE_LABELS = {
 // KOMPONENTE
 // ═══════════════════════════════════════════════════════════════
 
-export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
+export default function KalkulationsBoss({ onBack, onLearningEvent }) {
     const [selectedLevel, setSelectedLevel] = useState(null);
     const [inputs, setInputs] = useState({});
     const [validated, setValidated] = useState({});
@@ -915,18 +915,18 @@ export default function KalkulationsBoss({ onBack, onLearningEvent, isGuest }) {
                 <div className="dashboard-grid" style={{ maxWidth: '980px', padding: '0.3rem', marginTop: '1.2rem' }}>
                     {LEVEL_CONFIG.map(config => {
                         const done = completedLevels.includes(config.id);
-                        const locked = isGuest && config.id > 1 && config.id < 5;
+                        const locked = false;
                         return (
-                            <div key={config.id} className="dash-card" onClick={() => { if (!locked) startLevel(config); }}
-                                style={{ borderColor: done ? '#22c55e' : undefined, boxShadow: done ? '0 0 20px rgba(34,197,94,0.22)' : undefined, opacity: locked ? 0.55 : 1, cursor: locked ? 'not-allowed' : 'pointer' }}>
+                            <div key={config.id} className="dash-card" onClick={() => startLevel(config)}
+                                style={{ borderColor: done ? '#22c55e' : undefined, boxShadow: done ? '0 0 20px rgba(34,197,94,0.22)' : undefined, opacity: 1, cursor: 'pointer' }}>
                                 <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>
-                                    {locked ? '🔒' : config.id === 1 ? '⬇️' : config.id === 2 ? '⬆️' : config.id === 3 ? '🔀' : config.id === 5 ? '🎯' : config.id === 6 ? '🧠' : '👑'}
+                                    {config.id === 1 ? '⬇️' : config.id === 2 ? '⬆️' : config.id === 3 ? '🔀' : config.id === 5 ? '🎯' : config.id === 6 ? '🧠' : '👑'}
                                 </div>
                                 <h2 style={{ color: 'var(--text-light)', margin: 0 }}>Level {config.id}</h2>
                                 <h3 style={{ color: config.color, margin: '0.2rem 0', fontWeight: 700, fontSize: '1.1rem' }}>{config.title}</h3>
-                                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>{locked ? 'Nur mit Account verfügbar' : config.story}</p>
+                                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>{config.story}</p>
                                 <div className="chip" style={{ background: done ? `${config.color}33` : undefined, color: done ? config.color : undefined, borderColor: done ? config.color : undefined }}>
-                                    {locked ? '🔒 Gesperrt' : done ? '✅ Abgeschlossen' : config.subtitle}
+                                    {done ? '✅ Abgeschlossen' : config.subtitle}
                                 </div>
                             </div>
                         );

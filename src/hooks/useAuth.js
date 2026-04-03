@@ -29,9 +29,6 @@ export const useAuth = (setAppMode) => {
     useEffect(() => {
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
             if (session?.user) {
-                if (localStorage.getItem(ACCESS_MODE_KEY) === 'guest') {
-                    clearGuestProgressData();
-                }
                 setAuthUser(session.user);
                 localStorage.setItem('masterpat_auth', 'true');
                 localStorage.setItem(ACCESS_MODE_KEY, 'member');
@@ -39,6 +36,7 @@ export const useAuth = (setAppMode) => {
             } else {
                 setAuthUser(null);
                 localStorage.removeItem('masterpat_auth');
+                localStorage.removeItem(ACCESS_MODE_KEY);
             }
         });
 
@@ -56,9 +54,6 @@ export const useAuth = (setAppMode) => {
         if (error) { setAuthMsg(error.message); setAuthLoading(false); }
         else {
             setAuthMsg('Erfolgreich eingeloggt! Lade Account...');
-            if (localStorage.getItem(ACCESS_MODE_KEY) === 'guest') {
-                clearGuestProgressData();
-            }
             localStorage.setItem('masterpat_auth', 'true');
             localStorage.setItem(ACCESS_MODE_KEY, 'member');
             window.location.reload();
@@ -77,9 +72,6 @@ export const useAuth = (setAppMode) => {
         else {
             setAuthMsg('Account erstellt! Logge ein...');
             if (data?.session) {
-                if (localStorage.getItem(ACCESS_MODE_KEY) === 'guest') {
-                    clearGuestProgressData();
-                }
                 localStorage.setItem('masterpat_auth', 'true');
                 localStorage.setItem(ACCESS_MODE_KEY, 'member');
                 window.location.reload();

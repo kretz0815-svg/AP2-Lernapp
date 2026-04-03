@@ -23,7 +23,7 @@ const RANDOM_LOBBY_NAMES = [
 /**
  * SLFModal: Entry point for the "VIP" feature Stadt, Land, Fluss.
  * - Handles Password Check ("pingsta")
- * - User Registration (Guest Mode)
+ * - User Registration (Registered Users Only)
  * - Game Instance Launching
  */
 const SLFModal = ({ isOpen, onClose, authUser, profileSettings }) => {
@@ -32,7 +32,7 @@ const SLFModal = ({ isOpen, onClose, authUser, profileSettings }) => {
     || authUser?.user_metadata?.full_name
     || authUser?.user_metadata?.name
     || authUser?.email?.split('@')[0]
-    || 'Gast'
+    || 'User'
   ).trim();
   const [step, setStep] = useState('password'); // password, session_choice, lobby_setup, ingame
   const [password, setPassword] = useState('');
