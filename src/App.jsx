@@ -60,7 +60,7 @@ import {
 } from './utils/analytics';
 import { formatLatex } from './utils/formatting';
 import { detectQuizTopic, getQuizTopicGroup } from './utils/quizTopics';
-import { computeNextQuizProgress, filterDueQuizzes } from './utils/quizDue';
+import { computeNextQuizProgress, filterDueQuizzes, getRequiredCorrectAnswers, isQuizDue, MULTI_CHOICE_REPEAT_MODES } from './utils/quizDue';
 import { useAuth } from './hooks/useAuth';
 import { useAppearance } from './hooks/useAppearance';
 import { isRechenTask, categorizeRechenTask, getRechenTasks } from './utils/quizUtils';
@@ -71,6 +71,7 @@ function App() {
   const DB_KEY_WISOR_ECOMMERCE = 'wisor_ecommerce_progress';
   const LEGACY_DB_KEY_WISOR = 'wisor_progress';
   const LEGACY_DB_KEY_WISOR_ECO = 'wisor_eco_progress';
+  const MULTI_CHOICE_REPEAT_MODE_KEY = 'ap2_multi_choice_repeat_mode';
 
   const [appMode, setAppMode] = useState('auth'); // 'auth', 'dashboard', 'quiz', 'wisor', 'intro'
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
@@ -166,6 +167,12 @@ function App() {
     } catch {
       return false;
     }
+  });
+  const [multiChoiceRepeatMode, setMultiChoiceRepeatMode] = useState(() => {
+    const stored = localStorage.getItem(MULTI_CHOICE_REPEAT_MODE_KEY);
+    return Object.values(MULTI_CHOICE_REPEAT_MODES).includes(stored)
+      ? stored
+      : MULTI_CHOICE_REPEAT_MODES.TWICE;
   });
   const [lastQuizCorrect] = useState(false);
   const [quizCountSelection, setQuizCountSelection] = useState(10);
@@ -513,7 +520,12 @@ function App() {
     };
   };
 
-  const isMasteryLearned = (entry) => normalizeMasteryProgressEntry(entry).isLearned;
+  const isMasteryLearned = (entry) => {
+    const normalized = normalizeMasteryProgressEntry(entry);
+    if (typeof normalized?.isLearned === 'boolean') return normalized.isLearned;
+    const count = Number(normalized?.correctAnswersCount ?? normalized?.rep ?? 0) || 0;
+    return count >= getRequiredCorrectAnswers(multiChoiceRepeatMode);
+  };
 
   const loadProgressObject = (storageKey) => {
     try {
@@ -528,7 +540,7 @@ function App() {
     // 1. Local progress update
     const localProg = loadProgressObject('ap2_quiz_progress');
     const prevProg = normalizeMasteryProgressEntry(localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
-    const nextProg = computeNextQuizProgress(prevProg, isCorrect);
+    const nextProg = computeNextQuizProgress(prevProg, isCorrect, Date.now(), multiChoiceRepeatMode);
 
     localProg[q.id] = nextProg;
     localStorage.setItem('ap2_quiz_progress', JSON.stringify(localProg));
@@ -558,15 +570,9 @@ function App() {
     if (!q?.id) return;
 
     const localProg = loadProgressObject('ap2_marketing_review_progress');
-    const prevEntry = normalizeMasteryProgressEntry(localProg[q.id]);
-    const nextCount = prevEntry.correctAnswersCount + (isCorrect ? 1 : 0);
+    const prevEntry = normalizeMasteryProgressEntry(localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
     const nextEntry = {
-      ...prevEntry,
-      correctAnswersCount: nextCount,
-      rep: nextCount,
-      isLearned: nextCount >= 2,
-      isActive: nextCount < 2,
-      nextReview: nextCount >= 2 ? Date.now() : 0,
+      ...computeNextQuizProgress(prevEntry, isCorrect, Date.now(), multiChoiceRepeatMode),
       updatedAt: new Date().toISOString(),
     };
 
@@ -699,9 +705,10 @@ function App() {
     const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
     const prepared = buildPreparedQuizzes(rawQuizzes, quizProg);
     const now = Date.now();
+    const requiredCorrectAnswers = getRequiredCorrectAnswers(multiChoiceRepeatMode);
 
     if (!authUser?.id) {
-      const localDue = filterDueQuizzes(prepared, quizProg, now);
+      const localDue = filterDueQuizzes(prepared, quizProg, now, multiChoiceRepeatMode);
       setQuizProgressView(quizProg);
       setQuizDuePool(localDue);
       return localDue;
@@ -733,8 +740,8 @@ function App() {
               interval: localProg.interval || 0,
               nextReview: localNextReview,
               correctAnswersCount: Math.max(localLatestRep, remoteCount),
-              isLearned: Math.max(localLatestRep, remoteCount) >= 2,
-              isActive: Math.max(localLatestRep, remoteCount) < 2,
+              isLearned: Math.max(localLatestRep, remoteCount) >= requiredCorrectAnswers,
+              isActive: Math.max(localLatestRep, remoteCount) < requiredCorrectAnswers,
             };
           } else {
             const resolvedCount = remoteCount;
@@ -744,8 +751,8 @@ function App() {
               interval: row.scheduled_days || 0,
               nextReview: supabaseNextReview,
               correctAnswersCount: resolvedCount,
-              isLearned: resolvedCount >= 2,
-              isActive: resolvedCount < 2,
+              isLearned: resolvedCount >= requiredCorrectAnswers,
+              isActive: resolvedCount < requiredCorrectAnswers,
             };
           }
         } else {
@@ -758,14 +765,14 @@ function App() {
         progress: effectiveProgress[q.id] || q.progress
       }));
 
-      const due = filterDueQuizzes(preparedWithEffectiveProgress, effectiveProgress, now);
+      const due = filterDueQuizzes(preparedWithEffectiveProgress, effectiveProgress, now, multiChoiceRepeatMode);
 
       setQuizProgressView(effectiveProgress);
       setQuizDuePool(due);
       return due;
     } catch (err) {
       console.error('Failed loading quiz due pool from user_task_progress:', err);
-      const fallbackDue = filterDueQuizzes(prepared, quizProg, now);
+      const fallbackDue = filterDueQuizzes(prepared, quizProg, now, multiChoiceRepeatMode);
       setQuizProgressView(quizProg);
       setQuizDuePool(fallbackDue);
       return fallbackDue;
@@ -826,7 +833,11 @@ function App() {
   ];
 
   const getDueMarketingReviewByTopic = (topic = 'all') => {
-    const due = allMarketingReviewQuestions.filter(q => !isMasteryLearned(completedMarketingReview[q.id]));
+    const now = Date.now();
+    const due = allMarketingReviewQuestions.filter((q) => {
+      const entry = completedMarketingReview[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0, correctAnswersCount: 0, isLearned: false };
+      return isQuizDue(entry, now, multiChoiceRepeatMode) || !isMasteryLearned(entry);
+    });
     if (topic === 'all') return due;
     return due.filter(q => getQuizTopicGroup(q.topic) === topic);
   };
@@ -1090,6 +1101,22 @@ ${input}`;
     }
   };
 
+  const handleMultiChoiceRepeatModeChange = async (nextMode) => {
+    if (!Object.values(MULTI_CHOICE_REPEAT_MODES).includes(nextMode)) return;
+    setMultiChoiceRepeatMode(nextMode);
+    localStorage.setItem(MULTI_CHOICE_REPEAT_MODE_KEY, nextMode);
+
+    const next = {
+      ...(profileSettings || {}),
+      displayName: String(profileNameInput || profileSettings?.displayName || '').trim(),
+      mcRepeatMode: nextMode,
+      updatedAt: new Date().toISOString()
+    };
+
+    await saveProfileSettings(next);
+    setProfileNotice('Multi-Choice Wiederholrate gespeichert.');
+  };
+
   const handleSaveProfileName = async () => {
     const cleanName = profileNameInput.trim();
     if (!cleanName) {
@@ -1340,6 +1367,11 @@ ${input}`;
       setCustomQuizQuestions(customQuizData);
       setCustomMarketingReviewQuestions(customMarketingReviewData);
       setProfileSettings(profileData);
+      const profileRepeatMode = profileData?.mcRepeatMode;
+      if (Object.values(MULTI_CHOICE_REPEAT_MODES).includes(profileRepeatMode)) {
+        setMultiChoiceRepeatMode(profileRepeatMode);
+        localStorage.setItem(MULTI_CHOICE_REPEAT_MODE_KEY, profileRepeatMode);
+      }
       setProfileNameInput(String(profileData?.displayName || resolveDisplayName(session?.user, profileData)));
 
       // 3. Setup Flashcards with loaded progress
@@ -1384,6 +1416,11 @@ ${input}`;
     setCustomMarketingReviewQuestions(loadCustomMarketingReviewForUser(authUser));
     const loadedProfile = loadProfileSettingsForUser(authUser);
     setProfileSettings(loadedProfile);
+    const profileRepeatMode = loadedProfile?.mcRepeatMode;
+    if (Object.values(MULTI_CHOICE_REPEAT_MODES).includes(profileRepeatMode)) {
+      setMultiChoiceRepeatMode(profileRepeatMode);
+      localStorage.setItem(MULTI_CHOICE_REPEAT_MODE_KEY, profileRepeatMode);
+    }
     setProfileNameInput(String(loadedProfile?.displayName || resolveDisplayName(authUser, loadedProfile)));
     setProfileNotice('');
   }, [authUser]);
@@ -1391,7 +1428,7 @@ ${input}`;
   useEffect(() => {
     refreshQuizDuePool().catch(() => { });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authUser?.id, customQuizQuestions]);
+  }, [authUser?.id, customQuizQuestions, multiChoiceRepeatMode]);
 
   useEffect(() => {
     if (!authUser?.id) return;
@@ -1501,6 +1538,11 @@ ${input}`;
       setCustomQuizQuestions(remoteCustomQuiz);
       setCustomMarketingReviewQuestions(remoteCustomMarketingReview);
       setProfileSettings(remoteProfile);
+      const remoteRepeatMode = remoteProfile?.mcRepeatMode;
+      if (Object.values(MULTI_CHOICE_REPEAT_MODES).includes(remoteRepeatMode)) {
+        setMultiChoiceRepeatMode(remoteRepeatMode);
+        localStorage.setItem(MULTI_CHOICE_REPEAT_MODE_KEY, remoteRepeatMode);
+      }
       setProfileNameInput(String(remoteProfile?.displayName || resolveDisplayName(authUser, remoteProfile)));
 
       await refreshQuizDuePool().catch(() => { });
@@ -2333,6 +2375,28 @@ ${input}`;
               <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{appearancePanelOpen ? '− zuklappen' : '+ aufklappen'}</span>
             </summary>
             <div style={{ padding: '0.2rem 1rem 1rem 1rem' }}>
+              <h3 style={{ marginTop: 0, marginBottom: '0.75rem', color: 'var(--text-light)' }}>Multi-Choice Wiederholrate</h3>
+              <p style={{ marginTop: 0, marginBottom: '0.75rem', color: 'var(--text-muted)', fontSize: '0.86rem' }}>
+                Diese Einstellung gilt global fuer Wissen testen, IHK Extras und KPI-Theoriefragen.
+              </p>
+              <div style={{ display: 'grid', gap: '0.5rem', marginBottom: '1.1rem' }}>
+                {[
+                  { value: MULTI_CHOICE_REPEAT_MODES.ONCE, label: '1x richtig: Frage faellt sofort raus' },
+                  { value: MULTI_CHOICE_REPEAT_MODES.TWICE, label: '2x richtig: Frage wird einmal wiederholt' },
+                  { value: MULTI_CHOICE_REPEAT_MODES.SPACED, label: 'Space Repetition: Wiederholung zeitversetzt' }
+                ].map((option) => (
+                  <label key={option.value} style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', color: 'var(--text-light)', fontSize: '0.9rem', border: '1px solid var(--glass-border)', borderRadius: '10px', padding: '0.55rem 0.65rem', background: 'rgba(255,255,255,0.03)' }}>
+                    <input
+                      type="radio"
+                      name="multi-choice-repeat-mode"
+                      checked={multiChoiceRepeatMode === option.value}
+                      onChange={() => handleMultiChoiceRepeatModeChange(option.value)}
+                    />
+                    <span>{option.label}</span>
+                  </label>
+                ))}
+              </div>
+
               <h3 style={{ marginTop: 0, marginBottom: '0.9rem', color: 'var(--text-light)' }}>Backgroundfarbe</h3>
               <div className="appearance-row">
                 <input
@@ -2468,10 +2532,10 @@ ${input}`;
     // If "Alle fälligen", only take due ones
     let pool;
     if (count === 'All') {
-      pool = filterDueQuizzes(prepared, quizProg, now);
+      pool = filterDueQuizzes(prepared, quizProg, now, multiChoiceRepeatMode);
     } else {
       // Prioritize due questions, then fill with unlearned/ready
-      const due = filterDueQuizzes(prepared, quizProg, now);
+      const due = filterDueQuizzes(prepared, quizProg, now, multiChoiceRepeatMode);
       const remaining = prepared.filter(p => !due.some(d => d.id === p.id));
       pool = [...due, ...remaining.sort(() => Math.random() - 0.5)].slice(0, parseInt(count));
     }
@@ -2491,12 +2555,12 @@ ${input}`;
 
     const now = Date.now();
     const preparedAll = buildPreparedQuizzes(calcTasks, quizProg);
-    filterDueQuizzes(preparedAll, quizProg, now);
+    filterDueQuizzes(preparedAll, quizProg, now, multiChoiceRepeatMode);
 
     const getTopicStats = (t) => {
       const topicTasks = t === 'Alle' ? calcTasks : calcTasks.filter(q => categorizeRechenTask(q) === t);
       const topicPrepared = buildPreparedQuizzes(topicTasks, quizProg);
-      const topicDue = filterDueQuizzes(topicPrepared, quizProg, now);
+      const topicDue = filterDueQuizzes(topicPrepared, quizProg, now, multiChoiceRepeatMode);
       return { total: topicTasks.length, due: topicDue.length };
     };
 
@@ -2624,6 +2688,7 @@ ${input}`;
         <OnlineMarketingKpiNextLevel
           onBack={() => setAppMode('rechen_tasks_setup')}
           burgerMenuPortal={burgerMenuPortal}
+          multiChoiceRepeatMode={multiChoiceRepeatMode}
         />
       </React.Suspense>
     );

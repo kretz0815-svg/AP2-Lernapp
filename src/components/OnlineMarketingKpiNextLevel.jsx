@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { askKpiTutorFeedback, generateKpiTheoryQuestions, generateOnlineMarketingScenario } from '../geminiClient';
 import FloatingPortal from './FloatingPortal';
+import { computeNextQuizProgress, getRequiredCorrectAnswers, MULTI_CHOICE_REPEAT_MODES } from '../utils/quizDue';
 
 const FALLBACK_THEORY_QUESTIONS = [
   {
@@ -209,10 +210,11 @@ function buildMetricLocalExplanation(metricKey, actual, expected, scenario) {
   return `Du hast ${roundedActual} eingegeben, erwartet ist ca. ${roundedExpected}. Prüfe die Formel und den Nenner erneut.`;
 }
 
-const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal }) => {
+const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal, multiChoiceRepeatMode = MULTI_CHOICE_REPEAT_MODES.TWICE }) => {
   const [phase, setPhase] = useState('theory');
   const [theoryQuestions, setTheoryQuestions] = useState([]);
   const [theoryAnswers, setTheoryAnswers] = useState({});
+  const [theoryProgress, setTheoryProgress] = useState({});
   const [theoryResult, setTheoryResult] = useState(null);
   const [scenario, setScenario] = useState(null);
   const [kpiInputs, setKpiInputs] = useState({ cpm: '', cpc: '', cpo: '', roas: '', kur: '' });
@@ -259,13 +261,16 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal }) => {
         if (requestId !== theoryLoadRequestRef.current) return;
         if (Array.isArray(generated) && generated.length > 0) {
           setTheoryQuestions(generated);
+          setTheoryProgress({});
         } else {
           setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
+          setTheoryProgress({});
         }
       } catch {
         if (requestId !== theoryLoadRequestRef.current) return;
         // Keep fallback questions silently when generation fails.
         setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
+        setTheoryProgress({});
       } finally {
         if (requestId !== theoryLoadRequestRef.current) return;
         setTheoryLoading(false);
@@ -291,13 +296,16 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal }) => {
       if (Array.isArray(generated) && generated.length > 0) {
         setTheoryQuestions(generated);
         setTheoryAnswers({});
+        setTheoryProgress({});
         setTheoryResult(null);
       } else {
         setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
+        setTheoryProgress({});
       }
     } catch {
       if (requestId !== theoryLoadRequestRef.current) return;
       setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
+      setTheoryProgress({});
       setErrorText('Neue Theoriefragen konnten nicht geladen werden. Nutze bitte den aktuellen Satz oder versuche es erneut.');
     } finally {
       if (requestId !== theoryLoadRequestRef.current) return;
@@ -325,28 +333,46 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal }) => {
   };
 
   const submitTheory = async () => {
+    const requiredCorrect = getRequiredCorrectAnswers(multiChoiceRepeatMode);
+    const now = Date.now();
+
+    const nextProgress = { ...theoryProgress };
     const checked = theoryQuestions.map((item) => {
       const selected = theoryAnswers[item.id];
       const correct = item.options.find((opt) => opt.isCorrect)?.id;
+      const wasCorrect = !!selected && selected === correct;
+      const previous = nextProgress[item.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0, correctAnswersCount: 0, isLearned: false };
+      const updated = computeNextQuizProgress(previous, wasCorrect, now, multiChoiceRepeatMode);
+      nextProgress[item.id] = updated;
+
       return {
         id: item.id,
-        isCorrect: selected && selected === correct
+        isCorrect: wasCorrect,
+        progress: updated
       };
     });
 
+    setTheoryProgress(nextProgress);
+
     const correctCount = checked.filter((x) => x.isCorrect).length;
+    const masteredCount = checked.filter((x) => Number(x.progress?.correctAnswersCount || 0) >= requiredCorrect).length;
     setTheoryResult({
       total: theoryQuestions.length,
       correct: correctCount,
+      mastered: masteredCount,
+      requiredCorrect,
       checks: checked.reduce((acc, item) => {
         acc[item.id] = item.isCorrect;
         return acc;
       }, {})
     });
 
-    if (correctCount === theoryQuestions.length) {
+    if (masteredCount === theoryQuestions.length) {
       await startScenarioPhase();
+      return;
     }
+
+    setTheoryAnswers({});
   };
 
   const submitCalculation = async () => {
@@ -575,9 +601,9 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal }) => {
               </div>
             )}
 
-            {theoryResult && theoryResult.correct < theoryResult.total && (
+            {theoryResult && theoryResult.mastered < theoryResult.total && (
               <p style={{ marginTop: '0.8rem', color: '#fda4af' }}>
-                {theoryResult.correct} von {theoryResult.total} korrekt. Korrigiere die roten Antworten und pruefe erneut.
+                {theoryResult.correct} von {theoryResult.total} in dieser Runde korrekt. Lernstand: {theoryResult.mastered}/{theoryResult.total} Fragen bei Ziel {theoryResult.requiredCorrect}x richtig.
               </p>
             )}
 
