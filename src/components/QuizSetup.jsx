@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { MULTI_CHOICE_REPEAT_MODES } from '../utils/quizDue';
 
 const QuizSetup = ({
   selectedQuizTopic,
@@ -17,7 +18,9 @@ const QuizSetup = ({
   showTopicSelect = true,
   backMode = 'dashboard',
   showResetProgressButton = false,
-  onResetProgress = null
+  onResetProgress = null,
+  multiChoiceRepeatMode = MULTI_CHOICE_REPEAT_MODES.TWICE,
+  onMultiChoiceRepeatModeChange = null
 }) => {
   const [feynmanInfoOpen, setFeynmanInfoOpen] = useState(false);
 
@@ -93,6 +96,31 @@ const QuizSetup = ({
                 Für diesen Themenblock sind aktuell keine Fragen fällig.
               </p>
             )}
+          </div>
+        )}
+
+        {typeof onMultiChoiceRepeatModeChange === 'function' && (
+          <div style={{ marginBottom: '1.3rem', textAlign: 'left' }}>
+            <label style={{ display: 'block', color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '0.45rem' }}>
+              Wiederholrate (Multiple Choice)
+            </label>
+            <div style={{ display: 'grid', gap: '0.45rem' }}>
+              {[
+                { value: MULTI_CHOICE_REPEAT_MODES.ONCE, label: '1x richtig: Frage faellt raus' },
+                { value: MULTI_CHOICE_REPEAT_MODES.TWICE, label: '2x richtig: einmal wiederholen' },
+                { value: MULTI_CHOICE_REPEAT_MODES.SPACED, label: 'Space Repetition (zeitversetzt)' }
+              ].map((option) => (
+                <label key={option.value} style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', color: 'var(--text-light)', fontSize: '0.88rem', border: '1px solid var(--glass-border)', borderRadius: '10px', padding: '0.5rem 0.65rem', background: 'rgba(255,255,255,0.03)' }}>
+                  <input
+                    type="radio"
+                    name="quiz-setup-repeat-mode"
+                    checked={multiChoiceRepeatMode === option.value}
+                    onChange={() => onMultiChoiceRepeatModeChange(option.value)}
+                  />
+                  <span>{option.label}</span>
+                </label>
+              ))}
+            </div>
           </div>
         )}
 

@@ -2791,6 +2791,8 @@ ${input}`;
           setSelectedQuizTopic={setSelectedQuizTopic}
           getDueQuizzesByTopic={getDueQuizzesByTopic}
           getQuizTopicGroup={getQuizTopicGroup}
+          multiChoiceRepeatMode={multiChoiceRepeatMode}
+          onMultiChoiceRepeatModeChange={handleMultiChoiceRepeatModeChange}
           feynmanModeEnabled={feynmanModeEnabled}
           setFeynmanModeEnabled={setFeynmanModeEnabled}
           quizCountSelection={quizCountSelection}
@@ -2812,6 +2814,8 @@ ${input}`;
             setSelectedQuizTopic={() => { }}
             getDueQuizzesByTopic={getDueMarketingReviewByTopic}
             getQuizTopicGroup={getQuizTopicGroup}
+            multiChoiceRepeatMode={multiChoiceRepeatMode}
+            onMultiChoiceRepeatModeChange={handleMultiChoiceRepeatModeChange}
             feynmanModeEnabled={feynmanModeEnabled}
             setFeynmanModeEnabled={setFeynmanModeEnabled}
             quizCountSelection={marketingReviewCountSelection}
