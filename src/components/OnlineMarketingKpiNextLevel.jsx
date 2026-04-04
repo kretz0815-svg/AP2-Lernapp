@@ -210,7 +210,12 @@ function buildMetricLocalExplanation(metricKey, actual, expected, scenario) {
   return `Du hast ${roundedActual} eingegeben, erwartet ist ca. ${roundedExpected}. Prüfe die Formel und den Nenner erneut.`;
 }
 
-const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal, multiChoiceRepeatMode = MULTI_CHOICE_REPEAT_MODES.TWICE }) => {
+const OnlineMarketingKpiNextLevel = ({
+  onBack,
+  burgerMenuPortal,
+  multiChoiceRepeatMode = MULTI_CHOICE_REPEAT_MODES.TWICE,
+  onMultiChoiceRepeatModeChange = null
+}) => {
   const [phase, setPhase] = useState('theory');
   const [theoryQuestions, setTheoryQuestions] = useState([]);
   const [theoryAnswers, setTheoryAnswers] = useState({});
@@ -477,6 +482,31 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal, multiChoiceRepe
         <p style={{ marginTop: 0, color: 'var(--text-muted)', textAlign: 'center' }}>
           Next Level: Erst Theorie-Check, dann Kampagnen-Rechner mit KI-Tutor.
         </p>
+
+        {typeof onMultiChoiceRepeatModeChange === 'function' && (
+          <div style={{ marginBottom: '1rem', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '0.8rem' }}>
+            <p style={{ marginTop: 0, marginBottom: '0.55rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+              Wiederholrate fuer KPI-Theoriefragen (Multiple Choice)
+            </p>
+            <div style={{ display: 'grid', gap: '0.4rem' }}>
+              {[
+                { value: MULTI_CHOICE_REPEAT_MODES.ONCE, label: '1x richtig: Frage faellt raus' },
+                { value: MULTI_CHOICE_REPEAT_MODES.TWICE, label: '2x richtig: einmal wiederholen' },
+                { value: MULTI_CHOICE_REPEAT_MODES.SPACED, label: 'Space Repetition (zeitversetzt)' }
+              ].map((option) => (
+                <label key={option.value} style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', color: 'var(--text-light)', fontSize: '0.88rem' }}>
+                  <input
+                    type="radio"
+                    name="kpi-repeat-mode"
+                    checked={multiChoiceRepeatMode === option.value}
+                    onChange={() => onMultiChoiceRepeatModeChange(option.value)}
+                  />
+                  <span>{option.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        )}
 
         {errorText && (
           <p style={{ color: '#fca5a5', marginBottom: '0.8rem' }}>{errorText}</p>

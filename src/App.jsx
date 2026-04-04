@@ -2689,6 +2689,7 @@ ${input}`;
           onBack={() => setAppMode('rechen_tasks_setup')}
           burgerMenuPortal={burgerMenuPortal}
           multiChoiceRepeatMode={multiChoiceRepeatMode}
+          onMultiChoiceRepeatModeChange={handleMultiChoiceRepeatModeChange}
         />
       </React.Suspense>
     );
