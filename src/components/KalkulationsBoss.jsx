@@ -1098,8 +1098,12 @@ export default function KalkulationsBoss({ onBack, onLearningEvent }) {
         // --- LEVEL COMPLETED ---
         const bossStars = lives >= 3 ? 3 : lives >= 2 ? 2 : 1;
         const totalStepsCount = selectedLevel.steps.filter(s => !s.given).length;
-        const normalPct = totalStepsCount > 0 ? Math.round((score / (totalStepsCount * 2)) * 100) : 0;
-        const normalStars = normalPct >= 90 ? 3 : normalPct >= 60 ? 2 : 1;
+        const isCriticalRevenue = selectedLevel.direction === 'critical_revenue';
+        const normalMaxScore = totalStepsCount * 2;
+        const criticalMaxScore = CRITICAL_REVENUE_SCENARIOS.length * 200;
+        const maxScore = isCriticalRevenue ? criticalMaxScore : normalMaxScore;
+        const completionPct = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
+        const normalStars = completionPct >= 90 ? 3 : completionPct >= 60 ? 2 : 1;
         const stars = isBoss ? bossStars : normalStars;
         view = (
             <div className="app-container" style={{ zIndex: 10 }}>
@@ -1110,7 +1114,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent }) {
                     <h2 style={{ color: 'var(--text-light)', fontSize: '1.8rem', marginBottom: '0.5rem' }}>{isBoss ? 'Deal erfolgreich abgeschlossen!' : `Level ${selectedLevel.id} geschafft!`}</h2>
                     {isBoss && <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: '0.3rem 0' }}>Kalkulationstyp: {selectedLevel.subtitle}</p>}
                     <p style={{ color: selectedLevel.color, fontWeight: 700, fontSize: '1.2rem', margin: '0.5rem 0' }}>{'⭐'.repeat(stars)}{'☆'.repeat(3 - stars)}</p>
-                    <p style={{ color: 'var(--text-muted)', marginBottom: isBoss ? '0.3rem' : '1.5rem' }}>{isBoss ? `${score} Punkte` : `${score} / ${totalStepsCount * 2} Punkte (${normalPct}%)`}</p>
+                    <p style={{ color: 'var(--text-muted)', marginBottom: isBoss ? '0.3rem' : '1.5rem' }}>{isBoss ? `${score} Punkte` : `${score} / ${maxScore} Punkte (${completionPct}%)`}</p>
                     {isBoss && <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>{'☕'.repeat(lives)}{'🤍'.repeat(3 - lives)} {lives}/3 Leben übrig</p>}
                     <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                         <button className="btn-primary" onClick={() => startLevel(LEVEL_CONFIG[selectedLevel.id - 1])}>🔄 {selectedLevel.id === 5 ? 'Nächste Aufgabe' : (isBoss ? 'Nächster Deal' : 'Nochmal')}</button>
