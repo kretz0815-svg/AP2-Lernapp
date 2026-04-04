@@ -7,7 +7,7 @@ import { formatLatex } from '../utils/formatting';
 import { createPortal } from 'react-dom';
 
 const QuizSession = ({
-  quizDuePool,
+  quizDuePool = [],
   initialSessionPool = [], // renamed from allQuizzes to match App.jsx
   onComplete,
   onCancel,
@@ -39,6 +39,8 @@ const QuizSession = ({
   learningMode = 'quiz',
   setupMode = 'quiz_setup'
 }) => {
+  const safeQuizDuePool = Array.isArray(quizDuePool) ? quizDuePool : [];
+
   const sanitizeQuestion = (question, index) => {
     const fallbackId = `fallback_${learningMode}_${index}`;
     const rawOptions = Array.isArray(question?.answerOptions) ? question.answerOptions : [];
@@ -85,7 +87,7 @@ const QuizSession = ({
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-          {quizDuePool.length === 0 && <Confetti />}
+          {safeQuizDuePool.length === 0 && <Confetti />}
           <h2 style={{ color: 'var(--text-light)', marginBottom: '0.8rem', fontSize: '1.8rem' }}>Keine fälligen Fragen</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '1.8rem' }}>Für den gewählten Themenblock ist gerade nichts offen.</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
@@ -104,7 +106,7 @@ const QuizSession = ({
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-        {(showConfetti || ((quizScore.correct === quizScore.total && quizScore.total > 0) || (quizDuePool.length === 0 && lastQuizCorrect))) && <Confetti />}
+        {(showConfetti || ((quizScore.correct === quizScore.total && quizScore.total > 0) || (safeQuizDuePool.length === 0 && lastQuizCorrect))) && <Confetti />}
           <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Quiz Beendet!</h2>
           <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {quizScore.correct} / {quizScore.total}</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
@@ -277,7 +279,7 @@ const QuizSession = ({
         <div style={{ marginBottom: '1.5rem', textAlign: 'center', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           <button
             className={`btn-secondary fade-in ${wisorVideoLoading ? 'loading' : ''}`}
-            onClick={() => handleToggleVideos(q)}
+            onClick={() => handleToggleVideos && handleToggleVideos(q)}
             style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderRadius: '12px', background: wisorVideoOpen ? 'var(--glass-border)' : 'var(--glass-bg)', border: '1px solid var(--glass-border)' }}
           >
             <span>{wisorVideoOpen ? '🙈' : '📺'}</span>
