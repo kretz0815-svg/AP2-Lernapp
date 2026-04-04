@@ -721,6 +721,9 @@ export default function KalkulationsBoss({ onBack, onLearningEvent }) {
 
     const goToNextCriticalRound = () => {
         if (criticalRoundIndex >= CRITICAL_REVENUE_SCENARIOS.length - 1) {
+            if (!levelHadErrors && selectedLevel && !completedLevels.includes(selectedLevel.id)) {
+                setCompletedLevels((prev) => [...prev, selectedLevel.id]);
+            }
             setCompleted(true);
             return;
         }
@@ -934,7 +937,7 @@ export default function KalkulationsBoss({ onBack, onLearningEvent }) {
                 </div>
             </div>
         );
-    } else if (selectedLevel.direction === 'critical_revenue') {
+    } else if (selectedLevel.direction === 'critical_revenue' && !completed) {
         const round = criticalRound;
         const levelCardStyle = {
             position: 'relative',
