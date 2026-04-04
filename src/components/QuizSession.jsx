@@ -77,62 +77,18 @@ const QuizSession = ({
   const [quizRevealConfirmVisible, setQuizRevealConfirmVisible] = useState(false);
   const [answerHistory, setAnswerHistory] = useState([]);
   const shuffledAnswersRef = useRef({});
+  const autoAdvanceLastRef = useRef(false);
 
+  const q = internalQuizzes[currentQuizIndex] || null;
 
-
-  if (!internalQuizzes || internalQuizzes.length === 0) {
-    return (
-      <div className="app-container" style={{ zIndex: 10 }}>
-        {burgerMenuPortal}
-        <div className="blob blob-1"></div>
-        <div className="blob blob-2"></div>
-        <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-          {safeQuizDuePool.length === 0 && <Confetti />}
-          <h2 style={{ color: 'var(--text-light)', marginBottom: '0.8rem', fontSize: '1.8rem' }}>Keine fälligen Fragen</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '1.8rem' }}>Für den gewählten Themenblock ist gerade nichts offen.</p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <button className="btn-secondary" onClick={() => setAppMode(setupMode)}>Themenwahl</button>
-            <button className="btn-primary" onClick={() => (onCancel ? onCancel() : setAppMode('dashboard'))}>Zurück zum Menü</button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (currentQuizIndex >= internalQuizzes.length) {
-    return (
-      <div className="app-container" style={{ zIndex: 10 }}>
-        {burgerMenuPortal}
-        <div className="blob blob-1"></div>
-        <div className="blob blob-2"></div>
-        <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-        {(showConfetti || ((quizScore.correct === quizScore.total && quizScore.total > 0) || (safeQuizDuePool.length === 0 && lastQuizCorrect))) && <Confetti />}
-          <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Quiz Beendet!</h2>
-          <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {quizScore.correct} / {quizScore.total}</p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <button className="btn-secondary" onClick={() => (onCancel ? onCancel() : setAppMode('dashboard'))}>Zurück zum Menü</button>
-            <button className="btn-primary" onClick={() => onComplete && onComplete()}>Nochmal spielen</button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const q = internalQuizzes[currentQuizIndex];
-  if (!q) return null; // Safety check
-
-  // Initialize shuffled answers once per question to prevent layout thrashing and translation bugs
-  if (!shuffledAnswersRef.current[q.id]) {
+  if (q && !shuffledAnswersRef.current[q.id]) {
     const opts = (q.answerOptions || []).map((opt, originalIndex) => ({ ...opt, originalIndex }));
     shuffledAnswersRef.current[q.id] = opts.sort(() => Math.random() - 0.5);
   }
-  const currentAnswers = Array.isArray(shuffledAnswersRef.current[q.id]) ? shuffledAnswersRef.current[q.id] : [];
 
-  // Multiple-Choice-Erkennung: Mehr als eine richtige Antwort?
+  const currentAnswers = q && Array.isArray(shuffledAnswersRef.current[q.id]) ? shuffledAnswersRef.current[q.id] : [];
   const correctIndices = currentAnswers.map((a, i) => a.isCorrect ? i : null).filter(i => i !== null);
   const isMultipleChoice = correctIndices.length > 1;
-
-  // Für Single-Choice: selectedAnswers[0] als Index, für Multi: alle gewählten
   const selectedOptions = selectedAnswers.map(idx => currentAnswers[idx]);
   const selectedAnswerText = selectedOptions.map(opt => opt?.text).filter(Boolean).join(', ');
   const correctAnswerText = correctIndices.map(i => currentAnswers[i]?.text).filter(Boolean).join(', ');
@@ -149,28 +105,9 @@ const QuizSession = ({
     ? Math.round((Math.min(currentQuizIndex, internalQuizzes.length) / internalQuizzes.length) * 100)
     : 0;
 
-  const handleQuizAnswer = (idx) => {
-    if (allSelected) return; // Nach Auswertung keine weitere Auswahl
-    // Toggle Auswahl
-    setSelectedAnswers(prev => {
-      if (prev.includes(idx)) {
-        // Deselektieren
-        return prev.filter(i => i !== idx);
-      } else {
-        // Hinzufügen (maximal so viele wie richtige Antworten)
-        if (isMultipleChoice && prev.length < correctIndices.length) {
-          return [...prev, idx];
-        } else if (!isMultipleChoice && prev.length === 0) {
-          return [idx];
-        }
-        return prev;
-      }
-    });
-  };
-
   // Auswertung nach vollständiger Auswahl
   useEffect(() => {
-    if (!allSelected) return;
+    if (!q || !allSelected) return;
     // Bewertung
     if (onLearningEvent) {
       try {
@@ -212,6 +149,67 @@ const QuizSession = ({
     // eslint-disable-next-line
   }, [allSelected]);
 
+
+
+  if (!internalQuizzes || internalQuizzes.length === 0) {
+    return (
+      <div className="app-container" style={{ zIndex: 10 }}>
+        {burgerMenuPortal}
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
+          {safeQuizDuePool.length === 0 && <Confetti />}
+          <h2 style={{ color: 'var(--text-light)', marginBottom: '0.8rem', fontSize: '1.8rem' }}>Keine fälligen Fragen</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '1.8rem' }}>Für den gewählten Themenblock ist gerade nichts offen.</p>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+            <button className="btn-secondary" onClick={() => setAppMode(setupMode)}>Themenwahl</button>
+            <button className="btn-primary" onClick={() => (onCancel ? onCancel() : setAppMode('dashboard'))}>Zurück zum Menü</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentQuizIndex >= internalQuizzes.length) {
+    return (
+      <div className="app-container" style={{ zIndex: 10 }}>
+        {burgerMenuPortal}
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
+        {(showConfetti || ((quizScore.correct === quizScore.total && quizScore.total > 0) || (safeQuizDuePool.length === 0 && lastQuizCorrect))) && <Confetti />}
+          <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Quiz Beendet!</h2>
+          <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {quizScore.correct} / {quizScore.total}</p>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+            <button className="btn-secondary" onClick={() => (onCancel ? onCancel() : setAppMode('dashboard'))}>Zurück zum Menü</button>
+            <button className="btn-primary" onClick={() => onComplete && onComplete()}>Nochmal spielen</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!q) return null; // Safety check
+
+  const handleQuizAnswer = (idx) => {
+    if (allSelected) return; // Nach Auswertung keine weitere Auswahl
+    // Toggle Auswahl
+    setSelectedAnswers(prev => {
+      if (prev.includes(idx)) {
+        // Deselektieren
+        return prev.filter(i => i !== idx);
+      } else {
+        // Hinzufügen (maximal so viele wie richtige Antworten)
+        if (isMultipleChoice && prev.length < correctIndices.length) {
+          return [...prev, idx];
+        } else if (!isMultipleChoice && prev.length === 0) {
+          return [idx];
+        }
+        return prev;
+      }
+    });
+  };
+
   const nextQuizQuestion = () => {
     const isLastQuestion = currentQuizIndex >= internalQuizzes.length - 1;
 
@@ -234,8 +232,26 @@ const QuizSession = ({
     setFeynmanInput('');
     setQuizExplanationRevealed(false);
     setSelectedAnswers([]);
+    autoAdvanceLastRef.current = false;
     setCurrentQuizIndex(prev => prev + 1);
   };
+
+  useEffect(() => {
+    const isLastQuestion = currentQuizIndex >= internalQuizzes.length - 1;
+    if (!isLastQuestion) {
+      autoAdvanceLastRef.current = false;
+      return;
+    }
+    if (!allSelected || !canProceedToNextQuizQuestion || feynmanLoading) return;
+    if (autoAdvanceLastRef.current) return;
+
+    autoAdvanceLastRef.current = true;
+    const timer = setTimeout(() => {
+      nextQuizQuestion();
+    }, 260);
+
+    return () => clearTimeout(timer);
+  }, [allSelected, canProceedToNextQuizQuestion, feynmanLoading, currentQuizIndex, internalQuizzes.length]);
 
   const handleCancelWithConfirm = () => {
     const hasProgress =
