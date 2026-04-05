@@ -391,6 +391,7 @@ function App() {
 
   // --- YOUTUBE STATE ---
   const [wisorVideos, setWisorVideos] = useState([]);
+  const [wisorVideoQuestionId, setWisorVideoQuestionId] = useState(null);
   const [wisorVideoLoading, setWisorVideoLoading] = useState(false);
   const [lastWisorCorrect, setLastWisorCorrect] = useState(false);
   const [selectedWisorVideo, setSelectedWisorVideo] = useState(null);
@@ -398,6 +399,7 @@ function App() {
 
   useEffect(() => {
     setWisorVideos([]);
+    setWisorVideoQuestionId(null);
     setSelectedWisorVideo(null);
     setWisorVideoOpen(false);
     setWisorVideoError('');
@@ -981,14 +983,24 @@ function App() {
   };
 
   const handleToggleVideos = async (q) => {
-    if (wisorVideoOpen) {
+    const targetQuestionId = q?.id || null;
+    const sameQuestion = targetQuestionId !== null && targetQuestionId === wisorVideoQuestionId;
+
+    if (wisorVideoOpen && sameQuestion) {
       setWisorVideoOpen(false);
       return;
     }
 
+    if (!sameQuestion) {
+      setWisorVideos([]);
+      setSelectedWisorVideo(null);
+      setWisorVideoError('');
+      setWisorVideoQuestionId(targetQuestionId);
+    }
+
     setWisorVideoOpen(true);
 
-    if (wisorVideos.length === 0 && !wisorVideoLoading) {
+    if ((wisorVideos.length === 0 || !sameQuestion) && !wisorVideoLoading) {
       setWisorVideoLoading(true);
       setWisorVideoError('');
 
@@ -1009,7 +1021,11 @@ function App() {
         const candidates = [];
         const topicLabel = String(q?.topic || '').trim();
 
-        if (topicLabel) {
+        if (q?.youtubeQuery?.trim()) {
+          candidates.push(q.youtubeQuery.trim());
+        }
+
+        if (topicLabel && !/^WisoR\s*E-Commerce$/i.test(topicLabel)) {
           candidates.push(`${topicLabel} IHK einfach erklärt`);
         }
 
@@ -1021,10 +1037,6 @@ function App() {
           candidates.push('Influencer Marketing Social Media IHK einfach erklärt');
         } else if (/(targeting|online-marketing|push|pull)/i.test(topicLabel)) {
           candidates.push('Online Marketing Targeting Push Pull IHK');
-        }
-
-        if (q?.youtubeQuery?.trim()) {
-          candidates.push(q.youtubeQuery.trim());
         }
 
         const extractKeywords = (text, limit = 8) => {

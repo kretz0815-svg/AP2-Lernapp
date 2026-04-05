@@ -17,6 +17,7 @@ const QuizSession = ({
   burgerMenuPortal,
   handleToggleVideos,
   wisorVideoOpen,
+  setWisorVideoOpen,
   wisorVideoLoading,
   wisorVideos,
   wisorVideoError,
@@ -37,7 +38,8 @@ const QuizSession = ({
   onQuizAnswer,
   onFinish,
   learningMode = 'quiz',
-  setupMode = 'quiz_setup'
+  setupMode = 'quiz_setup',
+  floatingAppMode = null
 }) => {
   const safeQuizDuePool = Array.isArray(quizDuePool) ? quizDuePool : [];
 
@@ -309,6 +311,13 @@ const QuizSession = ({
     answerHistoryRef.current = answerHistory;
   }, [answerHistory]);
 
+  useEffect(() => {
+    if (typeof setWisorVideoOpen === 'function') setWisorVideoOpen(false);
+    if (typeof setSelectedWisorVideo === 'function') setSelectedWisorVideo(null);
+    if (typeof setGeminiVisible === 'function') setGeminiVisible(false);
+    if (typeof setGeminiQuery === 'function') setGeminiQuery('');
+  }, [currentQuizIndex, setWisorVideoOpen, setSelectedWisorVideo, setGeminiVisible, setGeminiQuery]);
+
 
   return (
     <div className="app-container" style={{ zIndex: 10 }}>
@@ -562,7 +571,7 @@ const QuizSession = ({
       <FloatingPortal
         questionId={`quiz_${q.id || currentQuizIndex}`}
         questionText={q.question || 'Quiz Frage'}
-        currentAppMode="quiz"
+        currentAppMode={floatingAppMode || learningMode}
       />
     </div>
   );
