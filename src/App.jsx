@@ -2240,6 +2240,9 @@ ${input}`;
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('journey_architect')}>
                 Journey Architect (XP: {jaProgress?.xp || 0})
               </button>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => startWisor('wisorEco')}>
+                WiSoR ({Math.max(0, (wisorEco.questions || []).length - Object.keys(completedWisorsEco).length)} offen)
+              </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('marketing_review_setup')}>
                 IHK Extras ({Math.max(0, allMarketingReviewQuestions.length - Object.keys(completedMarketingReview).length)} offen)
               </button>
