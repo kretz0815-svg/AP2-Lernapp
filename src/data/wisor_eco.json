@@ -119,6 +119,120 @@
       "rationale": "Richtig ist B. Das Licht im Lager hat keinen direkten Einfluss auf die Kundenzufriedenheit am Rechner zu Hause - die Ziele sind daher indifferent (zielneutral). Ein besserer Umweltschutz führt hingegen zu einem besseren Image - diese Ziele ergänzen und fördern sich, also komplementär (Zielharmonie).",
       "videoUrl": "",
       "youtubeQuery": "Zielbeziehungen komplementär indifferent Zielkonflikt"
+    },
+    {
+      "id": "eco_4",
+      "question": "Den Beschäftigten der Eco-Wear GmbH wird deutlich gemacht, dass Nachhaltigkeit eine bedeutende Rolle spielt. Dabei werden die Begriffe Abfallvermeidung, Abfallverminderung und Abfallverwertung hervorgehoben. In welcher Aussage ist die Maßnahme dem richtigen Fachbegriff zugeordnet?",
+      "answerOptions": [
+        {
+          "text": "Wenn Warenlieferungen nur noch sparsam mit Verpackungsmaterial verpackt werden, spricht man von Abfallvermeidung.",
+          "isCorrect": false,
+          "rationale": "Sparsames Verpacken ist Abfallverminderung, nicht Abfallvermeidung."
+        },
+        {
+          "text": "Wenn beim Büromaterial ausschließlich wiederauffüllbare Stifte gekauft werden, spricht man von Abfallverminderung.",
+          "isCorrect": false,
+          "rationale": "Wiederauffüllbare Stifte sind ein Beispiel für Abfallvermeidung."
+        },
+        {
+          "text": "Wenn Kartonagen gesammelt, sortiert und zu Dämmmaterial weiterverarbeitet werden, spricht man von Abfallverwertung.",
+          "isCorrect": true,
+          "rationale": "Das ist Recycling und damit Abfallverwertung."
+        },
+        {
+          "text": "Wenn Kartonagen gesammelt, sortiert und zu Dämmmaterial weiterverarbeitet werden, spricht man von Abfallvermeidung.",
+          "isCorrect": false,
+          "rationale": "Es entsteht bereits Abfall; die Maßnahme ist Verwertung, nicht Vermeidung."
+        },
+        {
+          "text": "Wenn beim Büromaterial ausschließlich wiederauffüllbare Stifte gekauft werden, spricht man von Abfallverwertung.",
+          "isCorrect": false,
+          "rationale": "Hier wird Abfall möglichst gar nicht erst erzeugt, daher Vermeidung."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Die Abfallhierarchie unterscheidet streng: Vermeidung bedeutet, dass gar nicht erst Müll entsteht (z.B. wiederauffüllbare Stifte). Verminderung bedeutet, dass Müll entsteht, aber so wenig wie möglich (z.B. sparsames Verpacken). Verwertung (Recycling) bedeutet, dass entstandener Müll zu einem neuen Rohstoff oder Produkt verarbeitet wird (z.B. Kartonagen als Dämmmaterial).",
+      "videoUrl": "",
+      "youtubeQuery": "Abfallvermeidung Abfallverminderung Abfallverwertung Kreislaufwirtschaft"
+    },
+    {
+      "id": "eco_5",
+      "question": "Im Lager der Trail-Blazer UG werden zu hohe umweltbelastende Emissionen und ein zu hoher Stromverbrauch gemessen. Welche Darstellung ist fachlich richtig?",
+      "answerOptions": [
+        {
+          "text": "Emissionen entstehen in der Trail-Blazer UG durch den Transport von Materialien oder Paketen durch manuell bewegte Hubwagen.",
+          "isCorrect": false,
+          "rationale": "Manuell bewegte Hubwagen erzeugen keine klassischen Abgasemissionen."
+        },
+        {
+          "text": "Zu den umweltbelastenden Emissionen gehören neben Rauch und umweltschädlichen Abgasen auch Schallemissionen und Elektrosmog.",
+          "isCorrect": true,
+          "rationale": "Nach dem BImSchG zählen auch Lärm und Strahlen zu relevanten Emissionsarten."
+        },
+        {
+          "text": "Stromverbrauch kann durch den Austausch von regulären Glühbirnen gegen Energiesparlampen vermieden werden.",
+          "isCorrect": false,
+          "rationale": "Der Verbrauch wird verringert, aber nicht vollständig vermieden."
+        },
+        {
+          "text": "Für die Luftreinhaltung durch E-Commerce-Betriebe sind gemäß Bundesimmissionsschutzgesetz die Sicherheitsbeauftragten der Unternehmen zuständig.",
+          "isCorrect": false,
+          "rationale": "Die Verantwortung liegt nicht pauschal bei Sicherheitsbeauftragten."
+        },
+        {
+          "text": "Für die Trail-Blazer UG gelten keine Emissionsgesetze, da sie kein Produktionsbetrieb ist.",
+          "isCorrect": false,
+          "rationale": "Auch Nicht-Produktionsbetriebe unterliegen einschlägigen Umweltvorschriften."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Nach dem Bundes-Immissionsschutzgesetz (BImSchG) sind Emissionen nicht nur Gase, Rauch oder Staub, sondern ausdrücklich auch Lärm (Schallemissionen), Erschütterungen, Licht, Wärme und Strahlen (Elektrosmog). Achtung bei C: Energiesparlampen verringern den Stromverbrauch, sie vermeiden ihn nicht vollständig.",
+      "videoUrl": "",
+      "youtubeQuery": "Bundesimmissionsschutzgesetz Emissionen Lärm Elektrosmog einfach erklärt"
+    },
+    {
+      "id": "eco_6",
+      "question": "Für die Next-Gen Retail GmbH sind auch die Vorgaben des Kreislaufwirtschaftsgesetzes (KrWG) von großer Bedeutung. Welche der folgenden Zielsetzungen findet sich nicht in diesem Gesetz?",
+      "answerOptions": [
+        {
+          "text": "Abfälle zu vermeiden",
+          "isCorrect": false,
+          "rationale": "Abfallvermeidung ist ein Kernziel des KrWG."
+        },
+        {
+          "text": "Das Recycling von Abfällen zu fördern",
+          "isCorrect": false,
+          "rationale": "Recyclingförderung ist ein zentrales Ziel des KrWG."
+        },
+        {
+          "text": "Die Verwendung von Plastikverpackungen ab 2025 zu verbieten",
+          "isCorrect": true,
+          "rationale": "Ein pauschales allgemeines Verbot ab 2025 steht so nicht im KrWG."
+        },
+        {
+          "text": "Mensch und Umwelt bei der Erzeugung und Bewirtschaftung von Abfällen zu schützen",
+          "isCorrect": false,
+          "rationale": "Schutz von Mensch und Umwelt ist ausdrücklich Ziel des KrWG."
+        },
+        {
+          "text": "Die Schonung der natürlichen Ressourcen zu fördern",
+          "isCorrect": false,
+          "rationale": "Ressourcenschonung ist ein übergeordnetes Leitprinzip des KrWG."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Das Kreislaufwirtschaftsgesetz zielt auf Ressourcenschonung, den Schutz von Mensch und Umwelt sowie auf Abfallvermeidung und Recycling. Ein pauschales, generelles Verbot von Plastikverpackungen ab dem Jahr 2025 steht so nicht in diesem Rahmengesetz.",
+      "videoUrl": "",
+      "youtubeQuery": "Kreislaufwirtschaftsgesetz KrWG Ziele Abfallvermeidung Recycling"
     }
   ]
 }
