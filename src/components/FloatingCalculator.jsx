@@ -60,17 +60,14 @@ export default function FloatingCalculator({
         startWindow: null
     });
 
-    const resetCalculatorSession = useCallback(() => {
-        setCurrentValue('0');
+    const closeCalculator = useCallback(() => {
+        setIsOpen(false);
+        // Keep the last result visible in the helper badge after closing,
+        // but clear pending operation state for the next open.
         setPrevValue(null);
         setOperator(null);
         setWaitingForNewValue(false);
     }, []);
-
-    const closeCalculator = useCallback(() => {
-        setIsOpen(false);
-        resetCalculatorSession();
-    }, [resetCalculatorSession]);
 
     useEffect(() => {
         const handleResize = () => {
