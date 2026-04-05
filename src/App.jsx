@@ -853,7 +853,16 @@ function App() {
   };
 
   const buildShuffledSession = (pool, limit) => {
-    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    const uniqueById = [];
+    const seenIds = new Set();
+    for (const item of (pool || [])) {
+      const stableId = item?.id || generateId(String(item?.question || ''));
+      if (seenIds.has(stableId)) continue;
+      seenIds.add(stableId);
+      uniqueById.push({ ...item, id: stableId });
+    }
+
+    const shuffled = uniqueById.sort(() => Math.random() - 0.5);
     const normalizedLimit = normalizeQuizLimit(limit, shuffled.length);
     if (!Number.isFinite(normalizedLimit) || normalizedLimit <= 0) {
       return [];
