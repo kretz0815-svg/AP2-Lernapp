@@ -233,6 +233,120 @@
       "rationale": "Richtig ist C. Das Kreislaufwirtschaftsgesetz zielt auf Ressourcenschonung, den Schutz von Mensch und Umwelt sowie auf Abfallvermeidung und Recycling. Ein pauschales, generelles Verbot von Plastikverpackungen ab dem Jahr 2025 steht so nicht in diesem Rahmengesetz.",
       "videoUrl": "",
       "youtubeQuery": "Kreislaufwirtschaftsgesetz KrWG Ziele Abfallvermeidung Recycling"
+    },
+    {
+      "id": "eco_7",
+      "question": "Sie betrachten das Organigramm der Next-Gen Retail GmbH. Die Abteilung Nachhaltigkeitsmanagement (in der Herr Träger arbeitet) ist dort als ovales Element seitlich an der direkten Verbindungslinie unterhalb der Geschäftsführung angebracht, ohne eigene Linienverbindung nach unten zu anderen Abteilungen. Welche Tätigkeit zählt gemäß dieser strukturellen Einordnung zum Aufgabenbereich von Herrn Träger?",
+      "answerOptions": [
+        {
+          "text": "Herr Träger kann nur nach Abstimmung mit Frau Rudinger (Hausjuristin) der Geschäftsleitung Vorschläge unterbreiten.",
+          "isCorrect": false,
+          "rationale": "Eine Stabsstelle muss nicht zwingend mit anderen Stabsstellen abstimmen, um zu beraten."
+        },
+        {
+          "text": "Herr Träger erteilt der Geschäftsleitung die Anweisung, die Unternehmensstruktur umzuorganisieren, um die Nachhaltigkeitsziele der Next-Gen Retail GmbH zu erreichen.",
+          "isCorrect": false,
+          "rationale": "Stabsstellen haben keine Weisungsbefugnis gegenüber der Leitung oder anderen Bereichen."
+        },
+        {
+          "text": "Herr Träger berät die Geschäftsleitung lediglich in Fragen rund um das Nachhaltigkeitsmanagement.",
+          "isCorrect": true,
+          "rationale": "Das ist die typische Funktion einer Stabsstelle: fachliche Beratung ohne Weisungsrecht."
+        },
+        {
+          "text": "Herr Träger kann Mitarbeiter in den Abteilungen einstellen, wenn die Erreichung der Umweltziele gefährdet ist und sofort reagiert werden muss.",
+          "isCorrect": false,
+          "rationale": "Personalentscheidungen liegen nicht bei einer Stabsstelle ohne Instanzbefugnis."
+        },
+        {
+          "text": "Herr Träger ist Inhaber einer sogenannten Instanz.",
+          "isCorrect": false,
+          "rationale": "Eine Stabsstelle ist gerade keine Instanz mit Leitungs- und Anordnungsrecht."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Ovale Kästchen, die seitlich am Stamm hängen, sind klassische Stabsstellen. Sie dienen der Entlastung und Beratung der Geschäftsführung (Spezialistenwissen). Sie haben keine eigene Weisungsbefugnis und sind keine Instanz.",
+      "videoUrl": "",
+      "youtubeQuery": "Organigramm Stabsstelle Instanz Weisungsbefugnis"
+    },
+    {
+      "id": "eco_8",
+      "question": "Die Next-Gen Retail GmbH hat ein herausforderndes Geschäftsjahr hinter sich. Zum Zweck der Kostenreduzierung soll die gesamte Lagerhaltung grundlegend umstrukturiert werden. Herr Yalzin, der Leiter des Bereichs Lagerlogistik, ist für diese Umstrukturierung zuständig. Mit welcher Tätigkeit muss er methodisch zwingend beginnen?",
+      "answerOptions": [
+        {
+          "text": "Zusammenfassung der verschiedenen Aufgaben zu einem Tätigkeitsbereich",
+          "isCorrect": false,
+          "rationale": "Das ist bereits ein Gestaltungsschritt, nicht der methodische Startpunkt."
+        },
+        {
+          "text": "Zerlegung der Tätigkeiten der Mitarbeiter in Teilaufgaben",
+          "isCorrect": false,
+          "rationale": "Auch das folgt erst nach der Erhebung des Ist-Zustands."
+        },
+        {
+          "text": "Festlegung der neuen Stellenbeschreibungen",
+          "isCorrect": false,
+          "rationale": "Neue Stellenprofile können erst nach Analyse des aktuellen Zustands sauber erstellt werden."
+        },
+        {
+          "text": "Ist-Aufnahme der Tätigkeiten der Lagerarbeiter",
+          "isCorrect": true,
+          "rationale": "Jede professionelle Umstrukturierung beginnt mit der Analyse des aktuellen Zustands."
+        },
+        {
+          "text": "Zuordnung der Stellen im Organisationsplan",
+          "isCorrect": false,
+          "rationale": "Die Zuordnung ist ein späterer Umsetzungs-/Dokumentationsschritt."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Bevor Prozesse verändert oder Stellen neu verteilt werden, muss der aktuelle Stand der Dinge vollständig erhoben werden. Jede professionelle Umstrukturierung beginnt daher mit der Ist-Aufnahme.",
+      "videoUrl": "",
+      "youtubeQuery": "Ablauforganisation Ist-Aufnahme Umstrukturierung"
+    },
+    {
+      "id": "eco_9",
+      "question": "Die rückläufige Geschäftsentwicklung des letzten Jahres hat den Gewinn der Next-Gen Retail GmbH geschmälert. Im Gesellschaftsvertrag (Satzung) wurde keine gesonderte Vereinbarung über die Gewinnverteilung getroffen. Wie ist der erzielte Gewinn nach der gesetzlichen Regelung (GmbH-Gesetz) auf die Gesellschafter zu verteilen?",
+      "answerOptions": [
+        {
+          "text": "Die drei Gesellschafter und die Geschäftsführer erhalten den Gewinn zu gleichen Teilen.",
+          "isCorrect": false,
+          "rationale": "Geschäftsführer sind nicht automatisch an der Gewinnverteilung beteiligt."
+        },
+        {
+          "text": "Die drei Gesellschafter (Johanna Welsch, Susanne Wenger und Dominik Palm) erhalten den Gewinn zu gleichen Teilen.",
+          "isCorrect": false,
+          "rationale": "Die Verteilung erfolgt grundsätzlich nach Geschäftsanteilen, nicht nach Köpfen."
+        },
+        {
+          "text": "Der Gewinn wird im Verhältnis der Geschäftsanteile auf die drei Gesellschafter verteilt.",
+          "isCorrect": true,
+          "rationale": "§ 29 GmbHG: Ohne abweichende Satzungsregelung gilt die Verteilung nach Geschäftsanteilen."
+        },
+        {
+          "text": "Im Fall der GmbH erhalten die Gesellschafter und die Geschäftsführer jeweils ein Fünftel des angefallenen Gewinns. Lediglich Frau Wenger erhält aufgrund ihrer Doppelfunktion zwei Fünftel.",
+          "isCorrect": false,
+          "rationale": "Diese Verteilung ist gesetzlich nicht vorgesehen."
+        },
+        {
+          "text": "Die drei Gesellschafter erhalten ihre Geschäftsanteile zu 4 % verzinst, der Rest wird nach Köpfen verteilt.",
+          "isCorrect": false,
+          "rationale": "Diese Regelung ist eine typische IHK-Falle und gilt nicht für die GmbH."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Wenn im Gesellschaftsvertrag einer GmbH nichts anderes vereinbart ist, greift § 29 GmbHG: Der Gewinn wird im Verhältnis der Geschäftsanteile ausgeschüttet. Die 4%-Verzinsung mit Restverteilung nach Köpfen gehört zur OHG-Logik, nicht zur GmbH.",
+      "videoUrl": "",
+      "youtubeQuery": "GmbH Gewinnverteilung §29 GmbHG"
     }
   ]
 }
