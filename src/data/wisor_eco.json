@@ -2,7 +2,7 @@
   "questions": [
     {
       "id": "eco_1",
-      "question": "TEIL 1: Das Oekonomische Prinzip\n\nThema: Das Minimalprinzip (Multi-Select)\n\nSzenario/Frage:\nZunehmend strenger werdende oekologische Auflagen zwingen die Eco-Wear AG dazu, ihre Unternehmensprozesse intensiver zu kontrollieren. Nach dem Abschluss der IST-Analyse unterstuetzt du die Geschaeftsleitung bei der Formulierung von oekologischen Zielsetzungen. Welche 2 Zielsetzungen entsprechen dem Oekonomischen Prinzip nach dem Minimalprinzip?",
+      "question": "Zunehmend strenger werdende oekologische Auflagen zwingen die Eco-Wear AG dazu, ihre Unternehmensprozesse intensiver zu kontrollieren. Nach dem Abschluss der IST-Analyse unterstuetzt du die Geschaeftsleitung bei der Formulierung von oekologischen Zielsetzungen. Welche 2 Zielsetzungen entsprechen dem oekonomischen Prinzip nach dem Minimalprinzip?",
       "answerOptions": [
         {
           "text": "Die Eco-Wear AG moechte mit moeglichst guenstigen Massnahmen eine maximale Energieersparnis erzielen.",
@@ -46,7 +46,7 @@
     },
     {
       "id": "eco_2",
-      "question": "TEIL 2: Zielbeziehungen im Unternehmen\n\nThema: Konkurrierende Ziele (Zielkonflikt)\n\nSzenario/Frage:\nIm Rahmen der Ueberpruefung der oekologischen Ziele der Urban-Peak UG werden verschiedene Zielbeziehungen analysiert. Welche Zuordnung ist fachlich korrekt?",
+      "question": "Im Rahmen der Ueberpruefung der oekologischen Ziele der Urban-Peak UG werden verschiedene Zielbeziehungen analysiert. Welche Zuordnung ist fachlich korrekt?",
       "answerOptions": [
         {
           "text": "Erhoehung der Kundenzufriedenheit und Verbesserung der Lichtverhaeltnisse im Lager sind komplementaere Ziele.",
@@ -84,7 +84,7 @@
     },
     {
       "id": "eco_3",
-      "question": "Thema: Komplementaere und Indifferente Ziele\n\nSzenario/Frage:\nDie Urban-Peak UG hat zwei Zielpaare definiert: (1) Erhoehung der Kundenzufriedenheit und Verbesserung der Lichtverhaeltnisse im Lager sowie (2) Imagegewinn und Verbesserung des Umweltschutzes. Welche Zuordnung ist korrekt?",
+      "question": "Die Urban-Peak UG hat zwei Zielpaare definiert: (1) Erhoehung der Kundenzufriedenheit und Verbesserung der Lichtverhaeltnisse im Lager sowie (2) Imagegewinn und Verbesserung des Umweltschutzes. Welche Zuordnung ist korrekt?",
       "answerOptions": [
         {
           "text": "1. Komplementaere Ziele / 2. Konkurrierende Ziele",
@@ -119,64 +119,6 @@
       "rationale": "Richtig ist B. Das Licht im Lager hat keinen direkten Einfluss auf die Kundenzufriedenheit am Rechner zu Hause - die Ziele sind daher indifferent (zielneutral). Ein besserer Umweltschutz fuehrt hingegen zu einem besseren Image - diese Ziele ergaenzen und foerdern sich, also komplementaer (Zielharmonie).",
       "videoUrl": "",
       "youtubeQuery": "Zielbeziehungen komplementaer indifferent Zielkonflikt"
-    },
-    {
-      "id": "eco_4",
-      "question": "Situation \nAus Imagegründen und aus solidarischer Verantwortung gegenüber der zukünftigen Gesellschaft sieht sich die Globetrader GmbH dazu verpflichtet, sich verstärkt für den Umweltschutz einzusetzen. Im Rahmen der betriebseigenen Vereinbarung \"Globetrader - zusammen für unser Klima\" bemüht sich die Globetrader GmbH, strikte Klima- und Umweltschutzziele zu erreichen.\n\n4. Aufgabe\nIm Lager der Globetrader GmbH werden zu hohe umweltbelastende Emissionen und ein zu hoher Stromverbrauch gemessen. Stellen Sie fest, welche Darstellung in diesem Zusammenhang richtig ist!\n\n1. Emissionen entstehen in der Globetrader GmbH durch den Transport von Materialien oder Paketen durch manuell bewegte Hubwagen.\n2. Zu den umweltbelastenden Emissionen gehören neben Rauch und umweltschädlichen Abgasen auch Schallemissionen und Elektrosmog.\n3. Stromverbrauch kann durch den Austausch von regulären Glühbirnen gegen Energiesparlampen vermieden werden.\n4. Für die Luftreinhaltung durch E-Commerce-Betriebe sind gemäß Bundesimmissionsschutzgesetz die Sicherheitsbeauftragten der Unternehmen zuständig.\n5. Für die Globetrader GmbH gelten keine Emissionsgesetze, da sie kein Produktionsbetrieb ist.\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
-      "expectedAnswers": [
-        "2"
-      ],
-      "inputType": "number",
-      "rationale": "Lösung 2 ist richtig. Immissionsschutz umfasst nicht nur stoffliche Immissionen, sondern auch physikalische Emissionen wie z. B. Lärm (Schallemissionen) oder Strahlung/Verunreinigungen. Zu den falschen Darstellungen: 1) Manuelle Hubwagen erzeugen per Muskelkraft keine abgasbezogenen Emissionen, 3) Strom wird vermindert, aber nicht *vermieden*, 4) ist falsch zugeordnet (Sicherheitsbeauftragte sind primär für Arbeitssicherheit, nicht direkt per BImSchG für Luftreinhaltung des Gesamtbetriebs verantwortlich), 5) Falsch, auch Nicht-Produktionsbetriebe unterliegen Umwelt- und Emissionsgesetzen.",
-      "videoUrl": "",
-      "youtubeQuery": "Immissionsschutzgesetz Emissionen Stromverbrauch Unternehmen"
-    },
-    {
-      "id": "eco_5",
-      "question": "Situation \nAus Imagegründen und aus solidarischer Verantwortung gegenüber der zukünftigen Gesellschaft sieht sich die Globetrader GmbH dazu verpflichtet, sich verstärkt für den Umweltschutz einzusetzen. Im Rahmen der betriebseigenen Vereinbarung \"Globetrader - zusammen für unser Klima\" bemüht sich die Globetrader GmbH, strikte Klima- und Umweltschutzziele zu erreichen.\n\n5. Aufgabe\nFür die Globetrader GmbH sind auch die Vorgaben des Kreislaufwirtschaftsgesetzes von großer Bedeutung. Geben Sie an, welche Zielsetzung sich *nicht* in dem Gesetz findet!\n\n1. Abfälle zu vermeiden\n2. Das Recycling von Abfällen zu fördern\n3. Die Verwendung von Plastikverpackungen ab 2025 zu verbieten\n4. Mensch und Umwelt bei der Erzeugung und Bewirtschaftung von Abfällen zu schützen\n5. Die Schonung der natürlichen Ressourcen zu fördern\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
-      "expectedAnswers": [
-        "3"
-      ],
-      "inputType": "number",
-      "rationale": "Lösung 3 ist richtig, da dies als einzige Aussage falsch dargestellt und somit gesucht ist (Die Frage sucht was sich *nicht* im Gesetz findet). Ein pauschales, allgemeines Verbot von Plastikverpackungen ausnahmslos ab 2025 steht so nicht als Zielsetzung im allgemeinen Kreislaufwirtschaftsgesetz. Die anderen Antworten 1, 2, 4 und 5 sind hingegen zentrale Aspekte und Ziele dieses Gesetzes.",
-      "videoUrl": "",
-      "youtubeQuery": "Kreislaufwirtschaftsgesetz Ziele Recycling"
-    },
-    {
-      "id": "eco_6",
-      "question": "Situation \nAufgrund Ihres Engagements sollen Sie als Mitarbeiter im Nachhaltigkeitsmanagement der Globetrader GmbH Herrn Simon Träger projektweise unterstützen. Sie haben somit unter anderem die Aufgabe, sich mit Umwelt- und Nachhaltigkeitsfragen rund um die Tätigkeiten der Globetrader GmbH zu beschäftigen. Zur besseren Übersicht und Einordnung der verschiedenen Tätigkeitsfelder liegt Ihnen das abgebildete Organigramm der Globetrader GmbH vor.\n\n6. Aufgabe (bzw. laut Vorlage 5. Aufgabe)\nGeben Sie an, welche Tätigkeit gemäß dem Organigramm der Globetrader GmbH zum Aufgabenbereich von Herrn Simon Träger zählt!\n\n1. Herr Träger kann nur nach Abstimmung mit Frau Rudiger (Hausjuristin) der Geschäftsleitung Vorschläge unterbreiten.\n2. Herr Träger erteilt der Geschäftsleitung die Anweisung, die Unternehmensstruktur umzuorganisieren, um die Nachhaltigkeitsziele der Globetrader GmbH zu erreichen.\n3. Herr Träger berät die Geschäftsleitung lediglich in Fragen rund um das Nachhaltigkeitsmanagement.\n4. Herr Träger kann Mitarbeiter in den Abteilungen einstellen, wenn die Erreichung der Umweltziele gefährdet ist und sofort reagiert werden muss.\n5. Herr Träger ist Inhaber einer sogenannten Instanz.\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
-      "expectedAnswers": [
-        "3"
-      ],
-      "inputType": "number",
-      "rationale": "Lösung 3 ist richtig. Das Nachhaltigkeitsmanagement ist als Stabsstelle im Organigramm (als Oval/abgerundete Form neben der Geschäftsleitungslinie, ohne direkte Fortführung nach unten) verzeichnet. Stabsstellen haben eine rein beratende Funktion gegenüber der Leitungsstelle (hier: Geschäftsleitung). Sie haben keine direkte Weisungsbefugnis gegenüber anderen Abteilungen (Antwort 2/4 falsch), sind keine Instanz (also keine Stelle mit eigener Entscheidungsbefugnis - Antwort 5 falsch) und müssen sich auch nicht zwingend mit anderen Stabsstellen abstimmen, um wirksam zu arbeiten (Antwort 1 falsch).",
-      "videoUrl": "",
-      "svgCode": "@organigramm@",
-      "youtubeQuery": "Organigramm Instanz Stabsstelle Unternehmensstruktur"
-    },
-    {
-      "id": "eco_7",
-      "question": "Situation \nAufgrund Ihres Engagements sollen Sie als Mitarbeiter im Nachhaltigkeitsmanagement der Globetrader GmbH Herrn Simon Träger projektweise unterstützen. Sie haben somit unter anderem die Aufgabe, sich mit Umwelt- und Nachhaltigkeitsfragen rund um die Tätigkeiten der Globetrader GmbH zu beschäftigen. Zur besseren Übersicht und Einordnung der verschiedenen Tätigkeitsfelder liegt Ihnen das abgebildete Organigramm der Globetrader GmbH vor.\n\n7. Aufgabe\nDie Globetrader GmbH hat ein herausforderndes Geschäftsjahr hinter sich. Zum Zweck der Kostenreduzierung soll die Lagerhaltung umstrukturiert werden. Herr Yalzin, der Leiter des Bereichs Lagerlogistik, ist für die Umstrukturierung zuständig. Mit welcher Tätigkeit muss er beginnen?\n\n1. Zusammenfassung der verschiedenen Aufgaben zu einem Tätigkeitsbereich\n2. Zerlegung der Tätigkeiten der Mitarbeiter in Teilaufgaben\n3. Festlegung der neuen Stellenbeschreibungen\n4. Ist-Aufnahme der Tätigkeiten der Lagerarbeiter\n5. Zuordnung der Stellen im Organisationsplan\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
-      "expectedAnswers": [
-        "4"
-      ],
-      "inputType": "number",
-      "rationale": "Lösung 4 ist richtig. Jede umfassende Umstrukturierung in einer betrieblichen Organisationseinheit beginnt mit der Ist-Aufnahme (Analysieren und detailliertes Festhalten des aktuellen Zustands), bevor überhaupt mit Soll-Konzepten (wie der Zerlegung oder der Neuzusammenfassung von Aufgabenbausteinen) methodisch sicher begonnen werden kann.",
-      "videoUrl": "",
-      "svgCode": "@organigramm@",
-      "youtubeQuery": "Umstrukturierung Ist-Aufnahme Unternehmensführung"
-    },
-    {
-      "id": "eco_8",
-      "question": "Situation \nAufgrund Ihres Engagements sollen Sie als Mitarbeiter im Nachhaltigkeitsmanagement der Globetrader GmbH Herrn Simon Träger projektweise unterstützen. Sie haben somit unter anderem die Aufgabe, sich mit Umwelt- und Nachhaltigkeitsfragen rund um die Tätigkeiten der Globetrader GmbH zu beschäftigen. Zur besseren Übersicht und Einordnung der verschiedenen Tätigkeitsfelder liegt Ihnen das abgebildete Organigramm der Globetrader GmbH vor.\n\n8. Aufgabe\nDie rückläufige Geschäftsentwicklung des letzten Jahres hat den Gewinn der Globetrader GmbH geschmälert. Im Gesellschaftsvertrag (Satzung) der Globetrader GmbH wurde keine Vereinbarung über die Gewinnverteilung getroffen. Geben Sie an, wie der erzielte Gewinn nach der gesetzlichen Regelung auf die Gesellschafter zu verteilen ist!\n\n1. Die drei Gesellschafter und die Geschäftsführer erhalten den Gewinn zu gleichen Teilen.\n2. Die drei Gesellschafter Johanna Welsch, Susanne Wenger und Dominik Palm erhalten den Gewinn zu gleichen Teilen.\n3. Der Gewinn wird im Verhältnis der Geschäftsanteile auf die drei Gesellschafter verteilt.\n4. Im Fall der Globetrader GmbH erhalten die Gesellschafter (Welsch, Wenger, Palm) und die Geschäftsführer (Wenger, Diaz) jeweils ein Fünftel des angefallenen Gewinns. Lediglich Frau Wenger erhält aufgrund ihrer Doppelfunktion zwei Fünftel.\n5. Die drei Gesellschafter erhalten ihre Geschäftsanteile zu 4 % verzinst, der Rest wird nach Köpfen verteilt.\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
-      "expectedAnswers": [
-        "3"
-      ],
-      "inputType": "number",
-      "rationale": "Lösung 3 ist richtig. Nach § 29 Abs. 3 GmbHG erfolgt die Gewinnverteilung bei einer GmbH im Verhältnis der Geschäftsanteile (also strikt nach dem jeweiligen Kapitalanteil / Anteil am Stammkapital), sofern der Gesellschaftsvertrag nichts Abweichendes regelt. Geschäftsführer am Gewinn zu beteiligen, ohne dass dies beschlossen oder vereinbart ist, ist rechtlich nicht vorgesehen. (Die genannte 4%-Verzinsung aus Antwort 5 gilt für Gesellschafter in der OHG/KG, aber nicht in der GmbH).",
-      "videoUrl": "",
-      "svgCode": "@organigramm@",
-      "youtubeQuery": "GmbH Gewinnverteilung Gesellschaftsvertrag"
     }
   ]
 }
