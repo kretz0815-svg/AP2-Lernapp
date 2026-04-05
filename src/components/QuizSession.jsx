@@ -192,15 +192,20 @@ const QuizSession = ({
   }
 
   if (currentQuizIndex >= internalQuizzes.length) {
+    const effectiveScore = {
+      correct: Math.max(quizScore.correct, quizScoreRef.current?.correct || 0),
+      total: Math.max(quizScore.total, quizScoreRef.current?.total || 0)
+    };
+
     return (
       <div className="app-container" style={{ zIndex: 10 }}>
         {burgerMenuPortal}
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>
         <div className="card-face" style={{ position: 'relative', width: '100%', maxWidth: '600px', padding: '3rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-        {(showConfetti || ((quizScore.correct === quizScore.total && quizScore.total > 0) || (safeQuizDuePool.length === 0 && lastQuizCorrect))) && <Confetti />}
+        {(showConfetti || ((effectiveScore.correct === effectiveScore.total && effectiveScore.total > 0) || (safeQuizDuePool.length === 0 && lastQuizCorrect))) && <Confetti />}
           <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Quiz Beendet!</h2>
-          <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {quizScore.correct} / {quizScore.total}</p>
+          <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)', marginBottom: '2rem' }}>Ergebnis: {effectiveScore.correct} / {effectiveScore.total}</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
             <button className="btn-secondary" onClick={() => (onCancel ? onCancel() : setAppMode('dashboard'))}>Zurück zum Menü</button>
             <button className="btn-primary" onClick={() => onComplete && onComplete()}>Nochmal spielen</button>

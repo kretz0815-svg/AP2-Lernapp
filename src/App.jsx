@@ -159,6 +159,7 @@ function App() {
   // --- QUIZ STATE ---
   const [quizDuePool, setQuizDuePool] = useState([]);
   const [quizSessionPool, setQuizSessionPool] = useState([]);
+  const [quizSessionRepeatMode, setQuizSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
   const [quizProgressView, setQuizProgressView] = useState(() => JSON.parse(localStorage.getItem('ap2_quiz_progress') || '{}'));
   const [selectedQuizTopic, setSelectedQuizTopic] = useState('all');
   const [feynmanModeEnabled, setFeynmanModeEnabled] = useState(() => {
@@ -177,6 +178,7 @@ function App() {
   const [lastQuizCorrect] = useState(false);
   const [quizCountSelection, setQuizCountSelection] = useState(10);
   const [marketingReviewSessionPool, setMarketingReviewSessionPool] = useState([]);
+  const [marketingReviewSessionRepeatMode, setMarketingReviewSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
   const [marketingReviewCountSelection, setMarketingReviewCountSelection] = useState(10);
   const [marketingReviewResult, setMarketingReviewResult] = useState(null);
 
@@ -538,11 +540,11 @@ function App() {
     }
   };
 
-  const handleQuizAnswerUpdate = async (q, isCorrect) => {
+  const handleQuizAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatMode) => {
     // 1. Local progress update
     const localProg = loadProgressObject('ap2_quiz_progress');
     const prevProg = normalizeMasteryProgressEntry(localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
-    const nextProg = computeNextQuizProgress(prevProg, isCorrect, Date.now(), multiChoiceRepeatMode);
+    const nextProg = computeNextQuizProgress(prevProg, isCorrect, Date.now(), repeatMode);
 
     localProg[q.id] = nextProg;
     localStorage.setItem('ap2_quiz_progress', JSON.stringify(localProg));
@@ -568,13 +570,13 @@ function App() {
     }
   };
 
-  const handleMarketingReviewAnswerUpdate = async (q, isCorrect) => {
+  const handleMarketingReviewAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatMode) => {
     if (!q?.id) return;
 
     const localProg = loadProgressObject('ap2_marketing_review_progress');
     const prevEntry = normalizeMasteryProgressEntry(localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
     const nextEntry = {
-      ...computeNextQuizProgress(prevEntry, isCorrect, Date.now(), multiChoiceRepeatMode),
+      ...computeNextQuizProgress(prevEntry, isCorrect, Date.now(), repeatMode),
       updatedAt: new Date().toISOString(),
     };
 
@@ -1073,6 +1075,7 @@ ${input}`;
     const duePool = getDueQuizzesByTopic(topic);
     const sessionQs = buildShuffledSession(duePool, limit);
 
+    setQuizSessionRepeatMode(multiChoiceRepeatMode);
     setQuizSessionPool(sessionQs);
     setAppMode('quiz');
   };
@@ -1080,6 +1083,7 @@ ${input}`;
   const startMarketingReviewSession = (limit, topic = 'all') => {
     const duePool = getDueMarketingReviewByTopic(topic);
     const sessionQs = buildShuffledSession(duePool, limit);
+    setMarketingReviewSessionRepeatMode(multiChoiceRepeatMode);
     setMarketingReviewSessionPool(sessionQs);
     setMarketingReviewResult(null);
     setAppMode('marketing_review_quiz');
@@ -2548,6 +2552,7 @@ ${input}`;
     }
 
     setQuizSessionPool(pool);
+    setQuizSessionRepeatMode(multiChoiceRepeatMode);
     setAppMode('quiz');
   };
 
@@ -2903,7 +2908,7 @@ ${input}`;
             }}
             feynmanModeEnabled={feynmanModeEnabled}
             onLearningEvent={appendLearningEvent}
-            onQuizAnswer={handleQuizAnswerUpdate}
+            onQuizAnswer={(q, isCorrect) => handleQuizAnswerUpdate(q, isCorrect, quizSessionRepeatMode)}
             handleGeminiAsk={handleGeminiAsk}
             geminiResponse={geminiResponse}
             geminiLoading={geminiLoading}
@@ -2956,7 +2961,7 @@ ${input}`;
             }}
             feynmanModeEnabled={feynmanModeEnabled}
             onLearningEvent={appendLearningEvent}
-            onQuizAnswer={handleMarketingReviewAnswerUpdate}
+            onQuizAnswer={(q, isCorrect) => handleMarketingReviewAnswerUpdate(q, isCorrect, marketingReviewSessionRepeatMode)}
             handleGeminiAsk={handleGeminiAsk}
             geminiResponse={geminiResponse}
             geminiLoading={geminiLoading}
