@@ -78,6 +78,9 @@ const QuizSession = ({
   const [answerHistory, setAnswerHistory] = useState([]);
   const shuffledAnswersRef = useRef({});
   const autoAdvanceLastRef = useRef(false);
+  const recordedAnswerKeysRef = useRef(new Set());
+  const quizScoreRef = useRef({ correct: 0, total: 0 });
+  const answerHistoryRef = useRef([]);
 
   const q = internalQuizzes[currentQuizIndex] || null;
 
@@ -105,10 +108,13 @@ const QuizSession = ({
     ? Math.round((Math.min(currentQuizIndex, internalQuizzes.length) / internalQuizzes.length) * 100)
     : 0;
 
-  // Auswertung nach vollständiger Auswahl
-  useEffect(() => {
+  const commitCurrentAnswerIfNeeded = () => {
     if (!q || !allSelected) return;
-    // Bewertung
+
+    const answerKey = `${currentQuizIndex}:${q.id}`;
+    if (recordedAnswerKeysRef.current.has(answerKey)) return;
+    recordedAnswerKeysRef.current.add(answerKey);
+
     if (onLearningEvent) {
       try {
         onLearningEvent({
@@ -124,9 +130,11 @@ const QuizSession = ({
         console.error('onLearningEvent failed in QuizSession:', err);
       }
     }
+
     if (isSelectionCorrect && currentQuizIndex === internalQuizzes.length - 1) {
       if (triggerConfetti) triggerConfetti();
     }
+
     if (onQuizAnswer) {
       try {
         onQuizAnswer(q, isSelectionCorrect);
@@ -134,18 +142,31 @@ const QuizSession = ({
         console.error('onQuizAnswer failed in QuizSession:', err);
       }
     }
-    setAnswerHistory((prev) => [
-      ...prev,
-      {
-        id: q.id,
-        question: q.question,
-        topic: q.topic || '',
-        isCorrect: isSelectionCorrect,
-        selectedAnswerText,
-        correctAnswerText
-      }
-    ]);
-    setQuizScore(prev => ({ correct: prev.correct + (isSelectionCorrect ? 1 : 0), total: prev.total + 1 }));
+
+    const entry = {
+      id: q.id,
+      question: q.question,
+      topic: q.topic || '',
+      isCorrect: isSelectionCorrect,
+      selectedAnswerText,
+      correctAnswerText
+    };
+
+    const nextHistory = [...answerHistoryRef.current, entry];
+    answerHistoryRef.current = nextHistory;
+    setAnswerHistory(nextHistory);
+
+    const nextScore = {
+      correct: quizScoreRef.current.correct + (isSelectionCorrect ? 1 : 0),
+      total: quizScoreRef.current.total + 1
+    };
+    quizScoreRef.current = nextScore;
+    setQuizScore(nextScore);
+  };
+
+  // Auswertung nach vollständiger Auswahl
+  useEffect(() => {
+    commitCurrentAnswerIfNeeded();
     // eslint-disable-next-line
   }, [allSelected]);
 
@@ -211,16 +232,18 @@ const QuizSession = ({
   };
 
   const nextQuizQuestion = () => {
+    commitCurrentAnswerIfNeeded();
     const isLastQuestion = currentQuizIndex >= internalQuizzes.length - 1;
 
     if (isLastQuestion && typeof onFinish === 'function') {
-      const safeHistory = Array.isArray(answerHistory) ? answerHistory : [];
+      const safeHistory = Array.isArray(answerHistoryRef.current) ? answerHistoryRef.current : [];
+      const finalScore = quizScoreRef.current || { correct: 0, total: 0 };
       onFinish({
         mode: learningMode,
         totalQuestions: internalQuizzes.length,
-        answeredQuestions: quizScore.total,
-        correct: quizScore.correct,
-        incorrect: Math.max(quizScore.total - quizScore.correct, 0),
+        answeredQuestions: finalScore.total,
+        correct: finalScore.correct,
+        incorrect: Math.max(finalScore.total - finalScore.correct, 0),
         incorrectQuestions: safeHistory.filter((entry) => !entry.isCorrect),
         completedAt: new Date().toISOString()
       });
@@ -272,6 +295,14 @@ const QuizSession = ({
     if (onCancel) onCancel();
     else setAppMode('dashboard');
   };
+
+  useEffect(() => {
+    quizScoreRef.current = quizScore;
+  }, [quizScore]);
+
+  useEffect(() => {
+    answerHistoryRef.current = answerHistory;
+  }, [answerHistory]);
 
 
   return (

@@ -500,15 +500,17 @@ function App() {
   };
 
   const normalizeMasteryProgressEntry = (entry) => {
+    const requiredCorrectAnswers = getRequiredCorrectAnswers(multiChoiceRepeatMode);
+
     if (entry === true) {
-      return { correctAnswersCount: 2, isLearned: true, isActive: false };
+      return { correctAnswersCount: requiredCorrectAnswers, isLearned: true, isActive: false };
     }
     if (!entry || typeof entry !== 'object') {
       return { correctAnswersCount: 0, isLearned: false, isActive: true };
     }
 
     const count = Number(entry.correctAnswersCount ?? entry.rep ?? 0) || 0;
-    const learned = typeof entry.isLearned === 'boolean' ? entry.isLearned : count >= 2;
+    const learned = entry.isLearned === true || count >= requiredCorrectAnswers;
 
     return {
       ...entry,
@@ -1984,7 +1986,7 @@ ${input}`;
     const questionId = question.id || generateId(question.question);
     const progress = quizProg[questionId];
     if (!progress) return count;
-    return count + ((progress.nextReview || 0) > nowTs ? 1 : 0);
+    return count + (isMasteryLearned(progress) ? 1 : 0);
   }, 0);
 
   const quizLearnedCount = calculateLearnedCount(allQuizQuestions);
