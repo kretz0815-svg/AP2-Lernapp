@@ -59,7 +59,7 @@ export default function QuestionManager({ category, questions, progress, formatL
             title: 'WisoR E-Commerce',
             color: 'var(--accent)',
             progressKey: 'ap2_wisor_eco_progress',
-            isLearned: (id, prog) => !!prog[id],
+            isLearned: (id, prog) => !!prog[id] && (prog[id] === true || prog[id]?.isLearned === true || (Number(prog[id]?.correctAnswersCount || prog[id]?.rep || 0) > 0 && Number(prog[id]?.nextReview || 0) > Date.now())),
         },
         marketing_review: {
             title: 'IHK Extras',
@@ -76,7 +76,7 @@ export default function QuestionManager({ category, questions, progress, formatL
     };
 
     const config = categoryConfig[category];
-    const supportsMultipleChoice = category === 'quiz' || category === 'rechen' || category === 'marketing_review';
+    const supportsMultipleChoice = category === 'quiz' || category === 'rechen' || category === 'marketing_review' || category === 'wisorEco';
     const supportsOwnQuestions = supportsMultipleChoice;
 
     // Build question list

@@ -2,7 +2,39 @@
   "questions": [
     {
       "id": "eco_1",
-      "question": "TEIL 1: Das Ökonomische Prinzip\n\n1. Thema: Das Minimalprinzip (Multi-Select)\n\nSzenario/Frage:\nZunehmend strenger werdende ökologische Auflagen zwingen die Eco-Wear AG dazu, ihre Unternehmensprozesse intensiver zu kontrollieren. Nach dem Abschluss der IST-Analyse unterstützen Sie die Geschäftsleitung bei der Formulierung von ökologischen Zielsetzungen. Geben Sie an, welche 2 Zielsetzungen dem Ökonomischen Prinzip nach dem Minimalprinzip entsprechen! (Wählen Sie 2 Antworten)\n\nAntwortmöglichkeiten:\nA) Die Eco-Wear AG möchte mit möglichst günstigen Maßnahmen eine maximale Energieersparnis erzielen.\nB) Zum Versenden der bestellten Waren werden passende Paketgrößen verwendet, um die Verpackungskosten so gering wie möglich zu halten.\nC) Die Raumtemperatur von 20°C in den Büroräumen soll mit minimalem Energieverbrauch erreicht und gehalten werden.\nD) Die Eco-Wear AG strebt einen möglichst hohen Gewinn an, da dies neue Investitionen ermöglicht und die Zufriedenheit der Gesellschafter fördert.\nE) Die Eco-Wear AG versucht, täglich so viele Pakete wie möglich zu versenden, ohne dabei eine vorgegebene Maximalzahl an Kartonagen zu überschreiten.\nF) Das Sortiment des Unternehmens ist aus Gründen der Kundenzufriedenheit zwar breit zu gestalten, es sollte aber nicht besonders tief gestaffelt sein.\n\n(Bitte gib die beiden Buchstaben ein, z.B. BC)",
+      "question": "TEIL 1: Das Oekonomische Prinzip\n\nThema: Das Minimalprinzip (Multi-Select)\n\nSzenario/Frage:\nZunehmend strenger werdende oekologische Auflagen zwingen die Eco-Wear AG dazu, ihre Unternehmensprozesse intensiver zu kontrollieren. Nach dem Abschluss der IST-Analyse unterstuetzt du die Geschaeftsleitung bei der Formulierung von oekologischen Zielsetzungen. Welche 2 Zielsetzungen entsprechen dem Oekonomischen Prinzip nach dem Minimalprinzip?",
+      "answerOptions": [
+        {
+          "text": "Die Eco-Wear AG moechte mit moeglichst guenstigen Massnahmen eine maximale Energieersparnis erzielen.",
+          "isCorrect": false,
+          "rationale": "Das ist eine unzulaessige Mischform aus Minimal- und Maximalprinzip (Nonsens-Prinzip)."
+        },
+        {
+          "text": "Zum Versenden der bestellten Waren werden passende Paketgroessen verwendet, um die Verpackungskosten so gering wie moeglich zu halten.",
+          "isCorrect": true,
+          "rationale": "Vorgegebenes Ziel (Versand) wird mit minimalem Mitteleinsatz (Verpackungskosten) erreicht."
+        },
+        {
+          "text": "Die Raumtemperatur von 20C in den Bueroraeumen soll mit minimalem Energieverbrauch erreicht und gehalten werden.",
+          "isCorrect": true,
+          "rationale": "Vorgegebenes Ziel (20C) wird mit minimalem Mitteleinsatz (Energie) erreicht."
+        },
+        {
+          "text": "Die Eco-Wear AG strebt einen moeglichst hohen Gewinn an, da dies neue Investitionen ermoeglicht und die Zufriedenheit der Gesellschafter foerdert.",
+          "isCorrect": false,
+          "rationale": "Das beschreibt kein Minimalprinzip mit vorgegebenem Ziel und minimalem Mitteleinsatz."
+        },
+        {
+          "text": "Die Eco-Wear AG versucht, taeglich so viele Pakete wie moeglich zu versenden, ohne dabei eine vorgegebene Maximalzahl an Kartonagen zu ueberschreiten.",
+          "isCorrect": false,
+          "rationale": "Das ist keine reine Minimalprinzip-Formulierung."
+        },
+        {
+          "text": "Das Sortiment des Unternehmens ist aus Gruenden der Kundenzufriedenheit zwar breit zu gestalten, es sollte aber nicht besonders tief gestaffelt sein.",
+          "isCorrect": false,
+          "rationale": "Kein klassischer Minimalprinzip-Fall."
+        }
+      ],
       "expectedAnswers": [
         "BC",
         "CB"
@@ -14,7 +46,34 @@
     },
     {
       "id": "eco_2",
-      "question": "TEIL 2: Zielbeziehungen im Unternehmen\n\n2. Thema: Konkurrierende Ziele (Zielkonflikt)\n\nSzenario/Frage:\nIm Rahmen der Ueberpruefung der oekologischen Ziele der Urban-Peak UG werden verschiedene Zielbeziehungen analysiert. Pruefen Sie, welche der folgenden Zuordnungen von Unternehmenszielen zu der jeweiligen Zielbeziehung fachlich korrekt ist!\n\nAntwortmöglichkeiten:\nA) Erhoehung der Kundenzufriedenheit und Verbesserung der Lichtverhaeltnisse im Lager sind Komplementaere Ziele (Zielharmonie).\nB) Imagegewinn und Verbesserung des Umweltschutzes sind Konkurrierende Ziele (Zielkonflikt).\nC) Kauf von neuen Filteranlagen zur Abgasreinigung und Investitionsstopp im Sachanlagenbereich sind Konkurrierende Ziele (Zielkonflikt).\nD) Imagegewinn und Verbesserung des Umweltschutzes sind Indifferente Ziele (Zielneutralitaet).\nE) Kauf von neuen Filteranlagen zur Abgasreinigung und Investitionsstopp im Sachanlagenbereich sind Komplementaere Ziele (Zielharmonie).\n\n(Bitte gib den korrekten Buchstaben ein)",
+      "question": "TEIL 2: Zielbeziehungen im Unternehmen\n\nThema: Konkurrierende Ziele (Zielkonflikt)\n\nSzenario/Frage:\nIm Rahmen der Ueberpruefung der oekologischen Ziele der Urban-Peak UG werden verschiedene Zielbeziehungen analysiert. Welche Zuordnung ist fachlich korrekt?",
+      "answerOptions": [
+        {
+          "text": "Erhoehung der Kundenzufriedenheit und Verbesserung der Lichtverhaeltnisse im Lager sind komplementaere Ziele.",
+          "isCorrect": false,
+          "rationale": "Diese Ziele sind eher indifferent, nicht komplementaer."
+        },
+        {
+          "text": "Imagegewinn und Verbesserung des Umweltschutzes sind konkurrierende Ziele.",
+          "isCorrect": false,
+          "rationale": "Diese Ziele wirken typischerweise komplementaer zusammen."
+        },
+        {
+          "text": "Kauf von neuen Filteranlagen zur Abgasreinigung und Investitionsstopp im Sachanlagenbereich sind konkurrierende Ziele.",
+          "isCorrect": true,
+          "rationale": "Man kann nicht gleichzeitig investieren und einen Investitionsstopp durchsetzen."
+        },
+        {
+          "text": "Imagegewinn und Verbesserung des Umweltschutzes sind indifferente Ziele.",
+          "isCorrect": false,
+          "rationale": "Image und Umweltschutz beeinflussen sich in der Praxis positiv."
+        },
+        {
+          "text": "Kauf von neuen Filteranlagen und Investitionsstopp sind komplementaere Ziele.",
+          "isCorrect": false,
+          "rationale": "Diese Ziele stehen in direktem Widerspruch."
+        }
+      ],
       "expectedAnswers": [
         "C"
       ],
@@ -25,7 +84,34 @@
     },
     {
       "id": "eco_3",
-      "question": "3. Thema: Komplementaere und Indifferente Ziele\n\nSzenario/Frage:\nDie Urban-Peak UG hat zwei weitere Zielpaare definiert: (1) Erhoehung der Kundenzufriedenheit und Verbesserung der Lichtverhaeltnisse im Lager sowie (2) Imagegewinn und Verbesserung des Umweltschutzes. Welchen Zielbeziehungen lassen sich diese beiden Paare der Reihe nach korrekt zuordnen?\n\nAntwortmoeglichkeiten:\nA) 1. Komplementaere Ziele / 2. Konkurrierende Ziele\nB) 1. Indifferente Ziele / 2. Komplementaere Ziele\nC) 1. Konkurrierende Ziele / 2. Indifferente Ziele\nD) 1. Indifferente Ziele / 2. Konkurrierende Ziele\nE) 1. Komplementaere Ziele / 2. Indifferente Ziele\n\n(Bitte gib den korrekten Buchstaben ein)",
+      "question": "Thema: Komplementaere und Indifferente Ziele\n\nSzenario/Frage:\nDie Urban-Peak UG hat zwei Zielpaare definiert: (1) Erhoehung der Kundenzufriedenheit und Verbesserung der Lichtverhaeltnisse im Lager sowie (2) Imagegewinn und Verbesserung des Umweltschutzes. Welche Zuordnung ist korrekt?",
+      "answerOptions": [
+        {
+          "text": "1. Komplementaere Ziele / 2. Konkurrierende Ziele",
+          "isCorrect": false,
+          "rationale": "Das ist fachlich nicht korrekt."
+        },
+        {
+          "text": "1. Indifferente Ziele / 2. Komplementaere Ziele",
+          "isCorrect": true,
+          "rationale": "Licht im Lager ist fuer Kundenzufriedenheit i.d.R. indifferent; Umweltschutz und Image wirken komplementaer."
+        },
+        {
+          "text": "1. Konkurrierende Ziele / 2. Indifferente Ziele",
+          "isCorrect": false,
+          "rationale": "Das vertauscht die Zielbeziehungen."
+        },
+        {
+          "text": "1. Indifferente Ziele / 2. Konkurrierende Ziele",
+          "isCorrect": false,
+          "rationale": "Das zweite Zielpaar ist nicht konkurrierend."
+        },
+        {
+          "text": "1. Komplementaere Ziele / 2. Indifferente Ziele",
+          "isCorrect": false,
+          "rationale": "Beide Zuordnungen sind nicht korrekt."
+        }
+      ],
       "expectedAnswers": [
         "B"
       ],

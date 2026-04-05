@@ -182,6 +182,9 @@ function App() {
   const [marketingReviewSessionRepeatMode, setMarketingReviewSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
   const [marketingReviewCountSelection, setMarketingReviewCountSelection] = useState(10);
   const [marketingReviewResult, setMarketingReviewResult] = useState(null);
+  const [wisorEcoSessionPool, setWisorEcoSessionPool] = useState([]);
+  const [wisorEcoSessionRepeatMode, setWisorEcoSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
+  const [wisorEcoCountSelection, setWisorEcoCountSelection] = useState(10);
 
   // --- WISOR STATE ---
   const [allWisors, setAllWisors] = useState([]);
@@ -841,6 +844,71 @@ function App() {
     ...(customMarketingReviewQuestions || [])
   ];
 
+  const parseLegacyWisorEcoAnswerOptions = (questionText, expectedAnswers = []) => {
+    const lines = String(questionText || '').split('\n');
+    const optionLines = lines
+      .map(line => line.trim())
+      .filter(line => /^\d+\.\s+/.test(line) && !/aufgabe/i.test(line));
+
+    if (optionLines.length < 2) {
+      return { answerOptions: [], cleanedQuestion: String(questionText || '') };
+    }
+
+    const expectedSet = new Set(
+      (expectedAnswers || [])
+        .flatMap(answer => String(answer || '').replace(/\s+/g, '').split(''))
+        .filter(char => /^\d$/.test(char))
+    );
+
+    const answerOptions = optionLines
+      .map((line) => {
+        const match = line.match(/^(\d+)\.\s+(.+)$/);
+        if (!match) return null;
+        const index = match[1];
+        const text = match[2].trim();
+        return {
+          text,
+          isCorrect: expectedSet.has(index),
+          rationale: ''
+        };
+      })
+      .filter(Boolean);
+
+    const firstOptionLine = lines.findIndex(line => /^\s*\d+\.\s+/.test(line) && !/aufgabe/i.test(line));
+    const cleanedQuestion = firstOptionLine > 0
+      ? lines.slice(0, firstOptionLine).join('\n').trim()
+      : String(questionText || '');
+
+    return { answerOptions, cleanedQuestion };
+  };
+
+  const wisorEcoQuizQuestions = (wisorEco.questions || []).map((q) => {
+    if (Array.isArray(q.answerOptions) && q.answerOptions.length > 0) {
+      return {
+        ...q,
+        topic: q.topic || 'WisoR E-Commerce'
+      };
+    }
+
+    const { answerOptions, cleanedQuestion } = parseLegacyWisorEcoAnswerOptions(q.question, q.expectedAnswers);
+    return {
+      ...q,
+      question: cleanedQuestion,
+      answerOptions,
+      topic: q.topic || 'WisoR E-Commerce'
+    };
+  });
+
+  const getDueWisorEcoByTopic = (topic = 'all') => {
+    const now = Date.now();
+    const due = wisorEcoQuizQuestions.filter((q) => {
+      const entry = normalizeMasteryProgressEntry(completedWisorsEco[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0, correctAnswersCount: 0, isLearned: false });
+      return isQuizDue(entry, now, multiChoiceRepeatMode) || !isMasteryLearned(entry);
+    });
+    if (topic === 'all') return due;
+    return due.filter(q => getQuizTopicGroup(q.topic) === topic);
+  };
+
   const getDueMarketingReviewByTopic = (topic = 'all') => {
     const now = Date.now();
     const due = allMarketingReviewQuestions.filter((q) => {
@@ -1101,6 +1169,53 @@ ${input}`;
     setMarketingReviewSessionPool(sessionQs);
     setMarketingReviewResult(null);
     setAppMode('marketing_review_quiz');
+  };
+
+  const startWisorEcoSession = (limit, topic = 'all') => {
+    const duePool = getDueWisorEcoByTopic(topic);
+    const sessionQs = buildShuffledSession(duePool, limit);
+    setWisorEcoSessionRepeatMode(multiChoiceRepeatModeRef.current);
+    setWisorEcoSessionPool(sessionQs);
+    setAppMode('wisor_eco_quiz');
+  };
+
+  const handleWisorEcoAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatModeRef.current) => {
+    if (!q?.id) return;
+
+    const localProg = loadProgressObject('ap2_wisor_eco_progress');
+    const prevEntry = normalizeMasteryProgressEntry(localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
+    const nextEntry = {
+      ...computeNextQuizProgress(prevEntry, isCorrect, Date.now(), repeatMode),
+      updatedAt: new Date().toISOString(),
+    };
+
+    const nextProg = { ...localProg, [q.id]: nextEntry };
+    localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(nextProg));
+    setCompletedWisorsEco(nextProg);
+
+    if (authUser?.id) {
+      syncProgressToSupabase({
+        [LEGACY_DB_KEY_WISOR_ECO]: nextProg,
+        [DB_KEY_WISOR_ECOMMERCE]: nextProg
+      }).catch(() => { });
+    }
+
+    if (authUser?.id) {
+      const rating = isCorrect ? 4 : 2;
+      reviewTaskWithDSR({
+        supabase,
+        userId: authUser.id,
+        taskId: `wisorEco:${q.id}`,
+        rating,
+        taskType: 'wisorEco',
+        category: q.topic,
+        metadata: {
+          question: q.question,
+          correctAnswersCount: Number(nextEntry.correctAnswersCount || 0),
+          isLearned: !!nextEntry.isLearned,
+        }
+      }).catch(err => console.error('DSR wisorEco review failed:', err));
+    }
   };
 
   const resolveDisplayName = (user, settings) => {
@@ -2240,7 +2355,7 @@ ${input}`;
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('journey_architect')}>
                 Journey Architect (XP: {jaProgress?.xp || 0})
               </button>
-              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => startWisor('wisorEco')}>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('wisor_eco_setup')}>
                 WiSoR ({Math.max(0, (wisorEco.questions || []).length - Object.keys(completedWisorsEco).length)} offen)
               </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('marketing_review_setup')}>
@@ -2890,6 +3005,43 @@ ${input}`;
     );
   }
 
+  if (appMode === 'wisor_eco_setup') {
+    return (
+      <React.Suspense fallback={<div className="loading-overlay">Lade WiSoR...</div>}>
+        <>
+          <QuizSetup
+            selectedQuizTopic={'all'}
+            setSelectedQuizTopic={() => { }}
+            getDueQuizzesByTopic={getDueWisorEcoByTopic}
+            getQuizTopicGroup={getQuizTopicGroup}
+            multiChoiceRepeatMode={multiChoiceRepeatMode}
+            onMultiChoiceRepeatModeChange={handleMultiChoiceRepeatModeChange}
+            feynmanModeEnabled={feynmanModeEnabled}
+            setFeynmanModeEnabled={setFeynmanModeEnabled}
+            quizCountSelection={wisorEcoCountSelection}
+            setQuizCountSelection={setWisorEcoCountSelection}
+            startQuiz={() => startWisorEcoSession(wisorEcoCountSelection, 'all')}
+            setAppMode={setAppMode}
+            burgerMenuPortal={burgerMenuPortal}
+            title="Wieviele Fragen?"
+            description="Wähle die Anzahl fälliger Fragen in WiSoR E-Commerce und starte den Durchgang."
+            showTopicSelect={false}
+            backMode="dashboard"
+            showResetProgressButton
+            onResetProgress={() => openResetModal(null, 'wisorEco')}
+          />
+          <ResetModal
+            isOpen={resetModalVisible}
+            onClose={() => setResetModalVisible(false)}
+            onConfirm={handleResetExecute}
+            title="WiSoR-Lernstand zurücksetzen?"
+            description="Dein Fortschritt in WiSoR E-Commerce wird gelöscht. Löse die Rechenaufgabe zur Bestätigung:"
+          />
+        </>
+      </React.Suspense>
+    );
+  }
+
   if (appMode === 'marketing_review_result') {
     const weakTopic = getWeakTopicLabel(marketingReviewResult);
     return (
@@ -3004,6 +3156,54 @@ ${input}`;
             handleFeynmanCheck={handleFeynmanCheck}
             learningMode="marketing_review"
             setupMode="marketing_review_setup"
+          />
+        </QuizErrorBoundary>
+      </React.Suspense>
+    );
+  }
+
+  if (appMode === 'wisor_eco_quiz') {
+    return (
+      <React.Suspense fallback={<div className="loading-overlay">Lade WiSoR...</div>}>
+        <QuizErrorBoundary onReset={() => setAppMode('wisor_eco_setup')}>
+          <QuizSession
+            quizDuePool={getDueWisorEcoByTopic('all')}
+            initialSessionPool={wisorEcoSessionPool}
+            onComplete={() => {
+              setWisorEcoSessionPool([]);
+              setAppMode('wisor_eco_setup');
+            }}
+            onCancel={() => {
+              setWisorEcoSessionPool([]);
+              setAppMode('dashboard');
+            }}
+            feynmanModeEnabled={feynmanModeEnabled}
+            onLearningEvent={appendLearningEvent}
+            onQuizAnswer={(q, isCorrect) => handleWisorEcoAnswerUpdate(q, isCorrect, wisorEcoSessionRepeatMode)}
+            handleGeminiAsk={handleGeminiAsk}
+            geminiResponse={geminiResponse}
+            geminiLoading={geminiLoading}
+            setGeminiQuery={setGeminiQuery}
+            geminiQuery={geminiQuery}
+            setGeminiVisible={setGeminiVisible}
+            geminiVisible={geminiVisible}
+            pomodoroPortal={pomodoroPortal}
+            burgerMenuPortal={burgerMenuPortal}
+            handleToggleVideos={handleToggleVideos}
+            wisorVideoOpen={wisorVideoOpen}
+            setWisorVideoOpen={setWisorVideoOpen}
+            wisorVideoLoading={wisorVideoLoading}
+            wisorVideos={wisorVideos}
+            wisorVideoError={wisorVideoError}
+            selectedWisorVideo={selectedWisorVideo}
+            setSelectedWisorVideo={setSelectedWisorVideo}
+            showConfetti={showConfetti}
+            triggerConfetti={() => triggerConfetti()}
+            lastQuizCorrect={lastQuizCorrect}
+            setAppMode={setAppMode}
+            handleFeynmanCheck={handleFeynmanCheck}
+            learningMode="wisorEco"
+            setupMode="wisor_eco_setup"
           />
         </QuizErrorBoundary>
       </React.Suspense>
