@@ -163,9 +163,9 @@
       "question": "Im Lager der Trail-Blazer UG werden zu hohe umweltbelastende Emissionen und ein zu hoher Stromverbrauch gemessen. Welche Darstellung ist fachlich richtig?",
       "answerOptions": [
         {
-          "text": "Emissionen entstehen in der Trail-Blazer UG durch den Transport von Materialien oder Paketen durch manuell bewegte Hubwagen.",
+          "text": "Abgasbezogene Emissionen entstehen in der Trail-Blazer UG durch den Transport von Materialien oder Paketen mit manuell bewegten Hubwagen.",
           "isCorrect": false,
-          "rationale": "Manuell bewegte Hubwagen erzeugen keine klassischen Abgasemissionen."
+          "rationale": "Manuell bewegte Hubwagen verursachen keine abgasbezogenen Emissionen durch Verbrennungsmotoren."
         },
         {
           "text": "Zu den umweltbelastenden Emissionen gehören neben Rauch und umweltschädlichen Abgasen auch Schallemissionen und Elektrosmog.",
