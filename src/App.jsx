@@ -175,6 +175,7 @@ function App() {
       ? stored
       : MULTI_CHOICE_REPEAT_MODES.TWICE;
   });
+  const multiChoiceRepeatModeRef = useRef(multiChoiceRepeatMode);
   const [lastQuizCorrect] = useState(false);
   const [quizCountSelection, setQuizCountSelection] = useState(10);
   const [marketingReviewSessionPool, setMarketingReviewSessionPool] = useState([]);
@@ -256,6 +257,10 @@ function App() {
       // Ignore storage write failures.
     }
   }, [feynmanModeEnabled]);
+
+  useEffect(() => {
+    multiChoiceRepeatModeRef.current = multiChoiceRepeatMode;
+  }, [multiChoiceRepeatMode]);
 
   useEffect(() => {
     if (appMode === 'intro') {
@@ -540,7 +545,7 @@ function App() {
     }
   };
 
-  const handleQuizAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatMode) => {
+  const handleQuizAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatModeRef.current) => {
     // 1. Local progress update
     const localProg = loadProgressObject('ap2_quiz_progress');
     const prevProg = normalizeMasteryProgressEntry(localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
@@ -570,7 +575,7 @@ function App() {
     }
   };
 
-  const handleMarketingReviewAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatMode) => {
+  const handleMarketingReviewAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatModeRef.current) => {
     if (!q?.id) return;
 
     const localProg = loadProgressObject('ap2_marketing_review_progress');
@@ -1084,7 +1089,7 @@ ${input}`;
     const duePool = getDueQuizzesByTopic(topic);
     const sessionQs = buildShuffledSession(duePool, limit);
 
-    setQuizSessionRepeatMode(multiChoiceRepeatMode);
+    setQuizSessionRepeatMode(multiChoiceRepeatModeRef.current);
     setQuizSessionPool(sessionQs);
     setAppMode('quiz');
   };
@@ -1092,7 +1097,7 @@ ${input}`;
   const startMarketingReviewSession = (limit, topic = 'all') => {
     const duePool = getDueMarketingReviewByTopic(topic);
     const sessionQs = buildShuffledSession(duePool, limit);
-    setMarketingReviewSessionRepeatMode(multiChoiceRepeatMode);
+    setMarketingReviewSessionRepeatMode(multiChoiceRepeatModeRef.current);
     setMarketingReviewSessionPool(sessionQs);
     setMarketingReviewResult(null);
     setAppMode('marketing_review_quiz');
@@ -1118,6 +1123,7 @@ ${input}`;
 
   const handleMultiChoiceRepeatModeChange = async (nextMode) => {
     if (!Object.values(MULTI_CHOICE_REPEAT_MODES).includes(nextMode)) return;
+    multiChoiceRepeatModeRef.current = nextMode;
     setMultiChoiceRepeatMode(nextMode);
     localStorage.setItem(MULTI_CHOICE_REPEAT_MODE_KEY, nextMode);
 
@@ -2547,10 +2553,10 @@ ${input}`;
     // If "Alle fälligen", only take due ones
     let pool;
     if (count === 'All') {
-      pool = filterDueQuizzes(prepared, quizProg, now, multiChoiceRepeatMode);
+      pool = filterDueQuizzes(prepared, quizProg, now, multiChoiceRepeatModeRef.current);
     } else {
       // Prioritize due questions, then fill with unlearned/ready
-      const due = filterDueQuizzes(prepared, quizProg, now, multiChoiceRepeatMode);
+      const due = filterDueQuizzes(prepared, quizProg, now, multiChoiceRepeatModeRef.current);
       const remaining = prepared.filter(p => !due.some(d => d.id === p.id));
       pool = [...due, ...remaining.sort(() => Math.random() - 0.5)].slice(0, parseInt(count));
     }
@@ -2561,7 +2567,7 @@ ${input}`;
     }
 
     setQuizSessionPool(pool);
-    setQuizSessionRepeatMode(multiChoiceRepeatMode);
+    setQuizSessionRepeatMode(multiChoiceRepeatModeRef.current);
     setAppMode('quiz');
   };
 
