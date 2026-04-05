@@ -2,35 +2,35 @@
   "questions": [
     {
       "id": "eco_1",
-      "question": "Zunehmend strenger werdende oekologische Auflagen zwingen die Eco-Wear AG dazu, ihre Unternehmensprozesse intensiver zu kontrollieren. Nach dem Abschluss der IST-Analyse unterstuetzt du die Geschaeftsleitung bei der Formulierung von oekologischen Zielsetzungen. Welche 2 Zielsetzungen entsprechen dem oekonomischen Prinzip nach dem Minimalprinzip?",
+      "question": "Zunehmend strenger werdende ökologische Auflagen zwingen die Eco-Wear AG dazu, ihre Unternehmensprozesse intensiver zu kontrollieren. Nach dem Abschluss der IST-Analyse unterstützt du die Geschäftsleitung bei der Formulierung von ökologischen Zielsetzungen. Welche 2 Zielsetzungen entsprechen dem ökonomischen Prinzip nach dem Minimalprinzip?",
       "answerOptions": [
         {
-          "text": "Die Eco-Wear AG moechte mit moeglichst guenstigen Massnahmen eine maximale Energieersparnis erzielen.",
+          "text": "Die Eco-Wear AG möchte mit möglichst günstigen Maßnahmen eine maximale Energieersparnis erzielen.",
           "isCorrect": false,
-          "rationale": "Das ist eine unzulaessige Mischform aus Minimal- und Maximalprinzip (Nonsens-Prinzip)."
+          "rationale": "Das ist eine unzulässige Mischform aus Minimal- und Maximalprinzip (Nonsens-Prinzip)."
         },
         {
-          "text": "Zum Versenden der bestellten Waren werden passende Paketgroessen verwendet, um die Verpackungskosten so gering wie moeglich zu halten.",
+          "text": "Zum Versenden der bestellten Waren werden passende Paketgrößen verwendet, um die Verpackungskosten so gering wie möglich zu halten.",
           "isCorrect": true,
           "rationale": "Vorgegebenes Ziel (Versand) wird mit minimalem Mitteleinsatz (Verpackungskosten) erreicht."
         },
         {
-          "text": "Die Raumtemperatur von 20C in den Bueroraeumen soll mit minimalem Energieverbrauch erreicht und gehalten werden.",
+          "text": "Die Raumtemperatur von 20°C in den Büroräumen soll mit minimalem Energieverbrauch erreicht und gehalten werden.",
           "isCorrect": true,
-          "rationale": "Vorgegebenes Ziel (20C) wird mit minimalem Mitteleinsatz (Energie) erreicht."
+          "rationale": "Vorgegebenes Ziel (20°C) wird mit minimalem Mitteleinsatz (Energie) erreicht."
         },
         {
-          "text": "Die Eco-Wear AG strebt einen moeglichst hohen Gewinn an, da dies neue Investitionen ermoeglicht und die Zufriedenheit der Gesellschafter foerdert.",
+          "text": "Die Eco-Wear AG strebt einen möglichst hohen Gewinn an, da dies neue Investitionen ermöglicht und die Zufriedenheit der Gesellschafter fördert.",
           "isCorrect": false,
           "rationale": "Das beschreibt kein Minimalprinzip mit vorgegebenem Ziel und minimalem Mitteleinsatz."
         },
         {
-          "text": "Die Eco-Wear AG versucht, taeglich so viele Pakete wie moeglich zu versenden, ohne dabei eine vorgegebene Maximalzahl an Kartonagen zu ueberschreiten.",
+          "text": "Die Eco-Wear AG versucht, täglich so viele Pakete wie möglich zu versenden, ohne dabei eine vorgegebene Maximalzahl an Kartonagen zu überschreiten.",
           "isCorrect": false,
           "rationale": "Das ist keine reine Minimalprinzip-Formulierung."
         },
         {
-          "text": "Das Sortiment des Unternehmens ist aus Gruenden der Kundenzufriedenheit zwar breit zu gestalten, es sollte aber nicht besonders tief gestaffelt sein.",
+          "text": "Das Sortiment des Unternehmens ist aus Gründen der Kundenzufriedenheit zwar breit zu gestalten, es sollte aber nicht besonders tief gestaffelt sein.",
           "isCorrect": false,
           "rationale": "Kein klassischer Minimalprinzip-Fall."
         }
@@ -40,23 +40,23 @@
         "CB"
       ],
       "inputType": "text",
-      "rationale": "Richtig sind B und C. Das Minimalprinzip besagt, dass ein vorgegebenes Ziel (hier: Waren versenden oder 20°C Raumtemperatur halten) mit moeglichst geringem Mitteleinsatz (hier: geringe Verpackungskosten oder minimaler Energieverbrauch) erreicht werden soll. Achtung Falle bei A: Ein minimaler Einsatz bei gleichzeitig maximalem Ertrag ist in der Praxis unmoeglich und wird oft als Nonsens-Prinzip bezeichnet.",
+      "rationale": "Richtig sind B und C. Das Minimalprinzip besagt, dass ein vorgegebenes Ziel (hier: Waren versenden oder 20°C Raumtemperatur halten) mit möglichst geringem Mitteleinsatz (hier: geringe Verpackungskosten oder minimaler Energieverbrauch) erreicht werden soll. Achtung Falle bei A: Ein minimaler Einsatz bei gleichzeitig maximalem Ertrag ist in der Praxis unmöglich und wird oft als Nonsens-Prinzip bezeichnet.",
       "videoUrl": "",
       "youtubeQuery": "Ökonomisches Prinzip Minimalprinzip"
     },
     {
       "id": "eco_2",
-      "question": "Im Rahmen der Ueberpruefung der oekologischen Ziele der Urban-Peak UG werden verschiedene Zielbeziehungen analysiert. Welche Zuordnung ist fachlich korrekt?",
+      "question": "Im Rahmen der Überprüfung der ökologischen Ziele der Urban-Peak UG werden verschiedene Zielbeziehungen analysiert. Welche Zuordnung ist fachlich korrekt?",
       "answerOptions": [
         {
-          "text": "Erhoehung der Kundenzufriedenheit und Verbesserung der Lichtverhaeltnisse im Lager sind komplementaere Ziele.",
+          "text": "Erhöhung der Kundenzufriedenheit und Verbesserung der Lichtverhältnisse im Lager sind komplementäre Ziele.",
           "isCorrect": false,
-          "rationale": "Diese Ziele sind eher indifferent, nicht komplementaer."
+          "rationale": "Diese Ziele sind eher indifferent, nicht komplementär."
         },
         {
           "text": "Imagegewinn und Verbesserung des Umweltschutzes sind konkurrierende Ziele.",
           "isCorrect": false,
-          "rationale": "Diese Ziele wirken typischerweise komplementaer zusammen."
+          "rationale": "Diese Ziele wirken typischerweise komplementär zusammen."
         },
         {
           "text": "Kauf von neuen Filteranlagen zur Abgasreinigung und Investitionsstopp im Sachanlagenbereich sind konkurrierende Ziele.",
@@ -69,7 +69,7 @@
           "rationale": "Image und Umweltschutz beeinflussen sich in der Praxis positiv."
         },
         {
-          "text": "Kauf von neuen Filteranlagen und Investitionsstopp sind komplementaere Ziele.",
+          "text": "Kauf von neuen Filteranlagen und Investitionsstopp sind komplementäre Ziele.",
           "isCorrect": false,
           "rationale": "Diese Ziele stehen in direktem Widerspruch."
         }
@@ -78,23 +78,23 @@
         "C"
       ],
       "inputType": "text",
-      "rationale": "Richtig ist C. Bei konkurrierenden Zielen (Zielkonflikt) schliesst die Erreichung des einen Ziels die Erreichung des anderen Ziels aus oder behindert sie stark. Man kann nicht gleichzeitig teure Filteranlagen einkaufen und einen absoluten Investitionsstopp durchsetzen.",
+      "rationale": "Richtig ist C. Bei konkurrierenden Zielen (Zielkonflikt) schließt die Erreichung des einen Ziels die Erreichung des anderen Ziels aus oder behindert sie stark. Man kann nicht gleichzeitig teure Filteranlagen einkaufen und einen absoluten Investitionsstopp durchsetzen.",
       "videoUrl": "",
       "youtubeQuery": "Zielbeziehungen Indifferente Konkurrierende Komplementäre Ziele"
     },
     {
       "id": "eco_3",
-      "question": "Die Urban-Peak UG hat zwei Zielpaare definiert: (1) Erhoehung der Kundenzufriedenheit und Verbesserung der Lichtverhaeltnisse im Lager sowie (2) Imagegewinn und Verbesserung des Umweltschutzes. Welche Zuordnung ist korrekt?",
+      "question": "Die Urban-Peak UG hat zwei Zielpaare definiert: (1) Erhöhung der Kundenzufriedenheit und Verbesserung der Lichtverhältnisse im Lager sowie (2) Imagegewinn und Verbesserung des Umweltschutzes. Welche Zuordnung ist korrekt?",
       "answerOptions": [
         {
-          "text": "1. Komplementaere Ziele / 2. Konkurrierende Ziele",
+          "text": "1. Komplementäre Ziele / 2. Konkurrierende Ziele",
           "isCorrect": false,
           "rationale": "Das ist fachlich nicht korrekt."
         },
         {
-          "text": "1. Indifferente Ziele / 2. Komplementaere Ziele",
+          "text": "1. Indifferente Ziele / 2. Komplementäre Ziele",
           "isCorrect": true,
-          "rationale": "Licht im Lager ist fuer Kundenzufriedenheit i.d.R. indifferent; Umweltschutz und Image wirken komplementaer."
+          "rationale": "Licht im Lager ist für Kundenzufriedenheit i.d.R. indifferent; Umweltschutz und Image wirken komplementär."
         },
         {
           "text": "1. Konkurrierende Ziele / 2. Indifferente Ziele",
@@ -107,7 +107,7 @@
           "rationale": "Das zweite Zielpaar ist nicht konkurrierend."
         },
         {
-          "text": "1. Komplementaere Ziele / 2. Indifferente Ziele",
+          "text": "1. Komplementäre Ziele / 2. Indifferente Ziele",
           "isCorrect": false,
           "rationale": "Beide Zuordnungen sind nicht korrekt."
         }
@@ -116,9 +116,9 @@
         "B"
       ],
       "inputType": "text",
-      "rationale": "Richtig ist B. Das Licht im Lager hat keinen direkten Einfluss auf die Kundenzufriedenheit am Rechner zu Hause - die Ziele sind daher indifferent (zielneutral). Ein besserer Umweltschutz fuehrt hingegen zu einem besseren Image - diese Ziele ergaenzen und foerdern sich, also komplementaer (Zielharmonie).",
+      "rationale": "Richtig ist B. Das Licht im Lager hat keinen direkten Einfluss auf die Kundenzufriedenheit am Rechner zu Hause - die Ziele sind daher indifferent (zielneutral). Ein besserer Umweltschutz führt hingegen zu einem besseren Image - diese Ziele ergänzen und fördern sich, also komplementär (Zielharmonie).",
       "videoUrl": "",
-      "youtubeQuery": "Zielbeziehungen komplementaer indifferent Zielkonflikt"
+      "youtubeQuery": "Zielbeziehungen komplementär indifferent Zielkonflikt"
     }
   ]
 }
