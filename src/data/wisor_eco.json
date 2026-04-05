@@ -347,6 +347,794 @@
       "rationale": "Richtig ist C. Wenn im Gesellschaftsvertrag einer GmbH nichts anderes vereinbart ist, greift § 29 GmbHG: Der Gewinn wird im Verhältnis der Geschäftsanteile ausgeschüttet. Die 4%-Verzinsung mit Restverteilung nach Köpfen gehört zur OHG-Logik, nicht zur GmbH.",
       "videoUrl": "",
       "youtubeQuery": "GmbH Gewinnverteilung §29 GmbHG"
+    },
+    {
+      "id": "eco_10",
+      "question": "Die Vanguard-Outdoor GmbH will ein neues aufblasbares Kajak ins Sortiment aufnehmen. Die Marktforschung zeigt: Bei 2.000,00 € beträgt die Nachfrage 250 Stück und das Angebot 400 Stück. Bei 1.800,00 € beträgt die Nachfrage 300 Stück und das Angebot 300 Stück. Bei 1.600,00 € beträgt die Nachfrage 350 Stück und das Angebot 200 Stück. Welcher Preis ist der Gleichgewichtspreis?",
+      "answerOptions": [
+        {
+          "text": "2.000,00 €",
+          "isCorrect": false,
+          "rationale": "Bei 2.000,00 € liegt kein Gleichgewicht vor, weil Angebot und Nachfrage nicht übereinstimmen."
+        },
+        {
+          "text": "1.600,00 €",
+          "isCorrect": false,
+          "rationale": "Bei 1.600,00 € übersteigt die Nachfrage das Angebot deutlich."
+        },
+        {
+          "text": "1.800,00 €",
+          "isCorrect": true,
+          "rationale": "Hier sind Angebot und Nachfrage mit jeweils 300 Stück exakt gleich."
+        },
+        {
+          "text": "200,00 €",
+          "isCorrect": false,
+          "rationale": "Dieser Wert kommt in den Marktdaten nicht als Gleichgewichtspreis vor."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Der Markt ist im Gleichgewicht, wenn angebotene und nachgefragte Menge identisch sind. Das ist hier nur bei 1.800,00 € der Fall (300 Stück Angebot und 300 Stück Nachfrage).",
+      "videoUrl": "",
+      "youtubeQuery": "Gleichgewichtspreis Angebot Nachfrage einfach erklärt"
+    },
+    {
+      "id": "eco_11",
+      "question": "Die Vanguard-Outdoor GmbH erwägt einen Verkaufspreis von 2.000,00 € für das Kajak. Bei diesem Preis liegen die Marktdaten bei Nachfrage 250 Stück und Angebot 400 Stück. Welcher Umsatz kann maximal erzielt werden?",
+      "answerOptions": [
+        {
+          "text": "800.000,00 €",
+          "isCorrect": false,
+          "rationale": "Das wäre Preis mal Angebotsmenge, verkauft werden kann aber nur die nachgefragte Menge."
+        },
+        {
+          "text": "1.300.000,00 €",
+          "isCorrect": false,
+          "rationale": "Dieser Wert ergibt sich aus keiner korrekten Kombination der vorliegenden Daten."
+        },
+        {
+          "text": "500.000,00 €",
+          "isCorrect": true,
+          "rationale": "Umsatz = Preis × verkaufte Menge = 2.000,00 € × 250 Stück = 500.000,00 €."
+        },
+        {
+          "text": "300.000,00 €",
+          "isCorrect": false,
+          "rationale": "Dieser Betrag passt rechnerisch nicht zu Preis und maximal absetzbarer Menge."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Für den Umsatz zählt die tatsächlich absetzbare Menge, also die Nachfrage (250 Stück), nicht das höhere Angebot. Rechnung: 2.000,00 € × 250 = 500.000,00 €.",
+      "videoUrl": "",
+      "youtubeQuery": "Umsatz berechnen Preis mal Menge Nachfrageüberhang"
+    },
+    {
+      "id": "eco_12",
+      "question": "Bei einem Preis von 1.400,00 € werden für das Kajak folgende Marktdaten erwartet: Nachfrage 400 Stück, Angebot 100 Stück. Welche Marktsituation liegt vor?",
+      "answerOptions": [
+        {
+          "text": "Nachfrageüberhang",
+          "isCorrect": true,
+          "rationale": "Die Nachfrage übersteigt das Angebot deutlich, es entsteht Knappheit."
+        },
+        {
+          "text": "Nachfragelücke",
+          "isCorrect": false,
+          "rationale": "Dieser Begriff beschreibt hier nicht die klassische Marktform aus Angebot und Nachfrage."
+        },
+        {
+          "text": "Marktgleichgewicht",
+          "isCorrect": false,
+          "rationale": "Im Gleichgewicht müssten Angebot und Nachfrage gleich groß sein."
+        },
+        {
+          "text": "Käufermarkt",
+          "isCorrect": false,
+          "rationale": "Bei starker Knappheit liegt eher ein Verkäufervorteil vor, nicht ein Käufermarkt."
+        },
+        {
+          "text": "Angebotsüberhang",
+          "isCorrect": false,
+          "rationale": "Angebotsüberhang wäre der umgekehrte Fall mit mehr Angebot als Nachfrage."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Bei niedrigem Preis ist die Nachfrage hoch (400), während das Angebot niedrig bleibt (100). Da Nachfrage > Angebot gilt, liegt ein Nachfrageüberhang vor.",
+      "videoUrl": "",
+      "youtubeQuery": "Nachfrageüberhang Angebotsüberhang Marktgleichgewicht einfach erklärt"
+    },
+    {
+      "id": "eco_13",
+      "question": "Für den langfristigen Erfolg der Eco-Wear AG ist es wichtig, die gesamtwirtschaftliche Entwicklung (Konjunktur) im Auge zu behalten. In einem klassischen Konjunkturmodell verläuft eine wellenförmige Kurve um eine stetig ansteigende Gerade. Auf der Y-Achse wird die Wirtschaftsleistung gemessen. Welcher Antwortsatz benennt Y-Achse, abfallende Wellenbewegung und ansteigende Gerade fachlich korrekt?",
+      "answerOptions": [
+        {
+          "text": "Y-Achse = Bruttosozialprodukt (BSP) / Abfallende Welle = Boom / Gerade = Kapazitätsgrenze",
+          "isCorrect": false,
+          "rationale": "Boom ist keine abfallende Phase; außerdem ist die Trendlinie nicht die Kapazitätsgrenze."
+        },
+        {
+          "text": "Y-Achse = Bruttoinlandsprodukt (BIP) / Abfallende Welle = Rezession / Gerade = Wirtschaftstrend",
+          "isCorrect": true,
+          "rationale": "BIP auf der Y-Achse, Rezession als Abwärtsphase, Trendlinie als Wirtschaftstrend ist die korrekte Zuordnung."
+        },
+        {
+          "text": "Y-Achse = Wirtschaftstrend / Abfallende Welle = Expansion / Gerade = Bruttoinlandsprodukt (BIP)",
+          "isCorrect": false,
+          "rationale": "Achsen- und Begriffszuordnung ist vertauscht; Expansion ist keine Abwärtsphase."
+        },
+        {
+          "text": "Y-Achse = Bruttoinlandsprodukt (BIP) / Abfallende Welle = Expansion / Gerade = Konjunkturzyklus",
+          "isCorrect": false,
+          "rationale": "Expansion ist eine Aufwärtsphase; die Gerade ist nicht der Konjunkturzyklus."
+        },
+        {
+          "text": "Y-Achse = Inflation / Abfallende Welle = Rezession / Gerade = Wirtschaftstrend",
+          "isCorrect": false,
+          "rationale": "Im Standardmodell steht auf der Y-Achse die Wirtschaftsleistung (BIP), nicht die Inflation."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Auf der Y-Achse eines Konjunkturdiagramms wird die Wirtschaftsleistung, heute standardmäßig das Bruttoinlandsprodukt (BIP), dargestellt. Die abfallende Phase der Welle heißt Abschwung oder Rezession. Die langfristig ansteigende Gerade, um die die Konjunktur schwankt, bezeichnet man als Wirtschaftstrend.",
+      "videoUrl": "",
+      "youtubeQuery": "Konjunkturzyklus BIP Rezession Expansion Wirtschaftstrend"
+    },
+    {
+      "id": "eco_14",
+      "question": "Nach einer längeren Schwächephase mehren sich die Zeichen eines Aufschwungs (Expansion). Die Next-Gen Retail GmbH möchte sich strategisch und logistisch darauf einstellen. Welches Merkmal ist typisch für diese Aufschwungphase?",
+      "answerOptions": [
+        {
+          "text": "Abnahme der Investitionen",
+          "isCorrect": false,
+          "rationale": "Im Aufschwung steigen Investitionen in der Regel an."
+        },
+        {
+          "text": "Abnahme der Lagerbestände",
+          "isCorrect": true,
+          "rationale": "Steigende Nachfrage leert häufig zuerst die Lager, bevor die Produktion vollständig nachzieht."
+        },
+        {
+          "text": "Abnahme der gesamtwirtschaftlichen Lohnsumme",
+          "isCorrect": false,
+          "rationale": "Mit zunehmender Beschäftigung und Arbeitszeit steigt die Lohnsumme eher an."
+        },
+        {
+          "text": "Abnahme der Kapazitätsauslastung",
+          "isCorrect": false,
+          "rationale": "In der Expansion nimmt die Kapazitätsauslastung typischerweise zu."
+        },
+        {
+          "text": "Abnahme der Kreditzinsen",
+          "isCorrect": false,
+          "rationale": "Im Aufschwung tendieren Zinsen häufig eher nach oben als nach unten."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. In der Aufschwungphase steigt die Nachfrage oft schneller als die Produktion sofort ausgeweitet werden kann. Dadurch nehmen Lagerbestände zunächst ab. Investitionen, Lohnsumme und Kapazitätsauslastung steigen im Aufschwung eher an.",
+      "videoUrl": "",
+      "youtubeQuery": "Aufschwungphase Expansion Konjunktur Merkmale Lagerbestände"
+    },
+    {
+      "id": "eco_15",
+      "question": "Die Next-Gen Retail GmbH beabsichtigt, zwei neue Auszubildende als Kaufleute im E-Commerce einzustellen. Welches Eignungskriterium ist nach dem Berufsbildungsgesetz (BBiG) für Ausbilder zwingend vorgeschrieben?",
+      "answerOptions": [
+        {
+          "text": "Mitgliedschaft im Arbeitskreis Personal",
+          "isCorrect": false,
+          "rationale": "Eine Mitgliedschaft in Arbeitskreisen ist keine gesetzliche Voraussetzung nach BBiG."
+        },
+        {
+          "text": "Abschluss einer einschlägigen kaufmännischen Ausbildung",
+          "isCorrect": false,
+          "rationale": "Ein Abschluss kann hilfreich sein, ersetzt aber nicht die gesetzlich geforderte Eignung."
+        },
+        {
+          "text": "Persönliche/fachliche Eignung",
+          "isCorrect": true,
+          "rationale": "Das BBiG verlangt ausdrücklich persönliche und fachliche Eignung."
+        },
+        {
+          "text": "Umfassende belegte Weiterbildung",
+          "isCorrect": false,
+          "rationale": "Eine allgemeine Weiterbildung ist kein zwingendes gesetzliches Muss im BBiG."
+        },
+        {
+          "text": "Mitgliedschaft im Prüfungsausschuss der IHK",
+          "isCorrect": false,
+          "rationale": "Die Ausschussmitgliedschaft ist keine Voraussetzung zur Ausbildungseignung."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Nach dem BBiG dürfen Auszubildende nur eingestellt und ausgebildet werden, wenn die Ausbildenden bzw. beauftragten Ausbilder persönlich und fachlich geeignet sind.",
+      "videoUrl": "",
+      "youtubeQuery": "BBiG persönliche fachliche Eignung Ausbilder"
+    },
+    {
+      "id": "eco_16",
+      "question": "Die Bedingungen des Ausbildungsverhältnisses zwischen der Eco-Wear AG und neuen Auszubildenden werden im Berufsausbildungsvertrag festgehalten. Welcher Inhalt ist gemäß BBiG zwingender Bestandteil dieses Vertrags?",
+      "answerOptions": [
+        {
+          "text": "Der fachlich gegliederte Bildungsplan der Berufsschule",
+          "isCorrect": false,
+          "rationale": "Der schulische Bildungsplan ist kein zwingender Vertragsbestandteil mit dem Betrieb."
+        },
+        {
+          "text": "Der gemeinsame Ausbildungsplan der Berufsschule und des Betriebs",
+          "isCorrect": false,
+          "rationale": "Das BBiG verlangt konkret den betrieblichen Ausbildungsplan."
+        },
+        {
+          "text": "Der Rahmenlehrplan der Berufsschule (gemäß Kultusministerkonferenz)",
+          "isCorrect": false,
+          "rationale": "Der Rahmenlehrplan ist schulrechtlich relevant, aber kein Pflichtpunkt im Ausbildungsvertrag mit dem Betrieb."
+        },
+        {
+          "text": "Der Ausbildungsplan des Ausbildungsbetriebs (sachliche und zeitliche Gliederung der Berufsausbildung)",
+          "isCorrect": true,
+          "rationale": "Die sachliche und zeitliche Gliederung der betrieblichen Ausbildung ist zwingend aufzunehmen."
+        },
+        {
+          "text": "Die Dauer der täglichen Ruhepausen",
+          "isCorrect": false,
+          "rationale": "Ruhepausen sind arbeitsrechtlich relevant, aber nicht der geforderte Kernpunkt dieser BBiG-Frage."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Der Berufsausbildungsvertrag muss die sachliche und zeitliche Gliederung der Berufsausbildung enthalten (betrieblicher Ausbildungsplan).",
+      "videoUrl": "",
+      "youtubeQuery": "Berufsausbildungsvertrag BBiG sachliche zeitliche Gliederung"
+    },
+    {
+      "id": "eco_17",
+      "question": "Im Berufsausbildungsvertrag der Urban-Peak UG sind Wahlqualifikationen aufgeführt, in denen geprüft wird. Wer ist für die Vermittlung der Fertigkeiten, Kenntnisse und Fähigkeiten dieser Wahlqualifikationen zuständig?",
+      "answerOptions": [
+        {
+          "text": "Die Auszubildenden",
+          "isCorrect": false,
+          "rationale": "Auszubildende sind Lernende und nicht für die formale Vermittlung verantwortlich."
+        },
+        {
+          "text": "Die Ausbildenden",
+          "isCorrect": true,
+          "rationale": "Die Ausbildenden bzw. der Ausbildungsbetrieb müssen die Inhalte der Wahlqualifikationen vermitteln."
+        },
+        {
+          "text": "Die zuständigen Berufsschulen",
+          "isCorrect": false,
+          "rationale": "Wahlqualifikationen sind betrieblicher Ausbildungsbestandteil und keine alleinige Schulaufgabe."
+        },
+        {
+          "text": "Die zuständigen Berufsgenossenschaften",
+          "isCorrect": false,
+          "rationale": "Berufsgenossenschaften übernehmen Arbeitsschutzaufgaben, nicht die reguläre Vermittlung von Wahlqualifikationen."
+        },
+        {
+          "text": "Die zuständigen Kammern",
+          "isCorrect": false,
+          "rationale": "Kammern überwachen und prüfen, vermitteln aber nicht die betriebliche Ausbildung im Alltag."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die Ausbildenden (also der Ausbildungsbetrieb) sind gesetzlich dafür verantwortlich, die Inhalte der Wahlqualifikationen praktisch zu vermitteln.",
+      "videoUrl": "",
+      "youtubeQuery": "Wahlqualifikationen Ausbildende BBiG"
+    },
+    {
+      "id": "eco_18",
+      "question": "Im Berufsausbildungsvertrag der Trail-Blazer GmbH wird auf die Verschwiegenheitspflicht nach § 13 BBiG hingewiesen. Welche Erläuterung ist korrekt?",
+      "answerOptions": [
+        {
+          "text": "Auszubildende müssen gegenüber Dritten über sämtliche Vorkommnisse im Unternehmen Stillschweigen wahren.",
+          "isCorrect": false,
+          "rationale": "Die Pflicht bezieht sich auf echte Betriebs- und Geschäftsgeheimnisse, nicht auf sämtliche Alltagsvorkommnisse."
+        },
+        {
+          "text": "Auszubildende müssen über alle Betriebs- und Geschäftsgeheimnisse des Unternehmens Stillschweigen wahren.",
+          "isCorrect": true,
+          "rationale": "Genau diese gesetzliche Verschwiegenheitspflicht ist gemeint."
+        },
+        {
+          "text": "Auszubildende müssen ihre Verschwiegenheitspflicht in jedem Ausbildungsjahr schriftlich bestätigen.",
+          "isCorrect": false,
+          "rationale": "Eine jährliche schriftliche Wiederholung ist gesetzlich nicht als generelle Pflicht vorgegeben."
+        },
+        {
+          "text": "Auszubildende dürfen in Ausübung ihrer Tätigkeit außerhalb des Unternehmens nicht mit anderen Personen sprechen.",
+          "isCorrect": false,
+          "rationale": "Das wäre unverhältnismäßig; verboten ist die Weitergabe von Geheimnissen, nicht jede Kommunikation."
+        },
+        {
+          "text": "Auszubildende haben keine Verschwiegenheitspflicht gegenüber ihren Lebenspartnern.",
+          "isCorrect": false,
+          "rationale": "Die Pflicht zur Geheimhaltung gilt auch im privaten Umfeld."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Auszubildende müssen über Betriebs- und Geschäftsgeheimnisse Stillschweigen wahren. Das umfasst z.B. sensible Kundendaten, interne Strategien oder vertrauliche Kalkulationen.",
+      "videoUrl": "",
+      "youtubeQuery": "BBiG Verschwiegenheitspflicht Betriebsgeheimnisse"
+    },
+    {
+      "id": "eco_19",
+      "question": "Der Leiter der IT-Abteilung fragt, welche Rechtsfolge gilt, wenn Auszubildende im Anschluss an das Berufsausbildungsverhältnis ohne ausdrückliche Vereinbarung einfach weiterbeschäftigt werden. Welche Aussage ist korrekt?",
+      "answerOptions": [
+        {
+          "text": "Ein Arbeitsverhältnis wird auf unbestimmte Zeit begründet.",
+          "isCorrect": true,
+          "rationale": "Nach § 24 BBiG entsteht bei Weiterbeschäftigung ohne abweichende Vereinbarung ein unbefristetes Arbeitsverhältnis."
+        },
+        {
+          "text": "Die Beschäftigung kann jederzeit von beiden Seiten ohne Kündigung beendet werden.",
+          "isCorrect": false,
+          "rationale": "Ein entstandenes Arbeitsverhältnis kann nicht ohne Kündigungsregeln jederzeit beendet werden."
+        },
+        {
+          "text": "Die Beschäftigung endet automatisch nach 12 Monaten.",
+          "isCorrect": false,
+          "rationale": "Eine automatische 12-Monats-Beendigung ist gesetzlich nicht vorgesehen."
+        },
+        {
+          "text": "Die Beschäftigung endet zum Ablauf des nächsten Quartals.",
+          "isCorrect": false,
+          "rationale": "Eine solche Quartalsautomatik gibt es hier nicht."
+        },
+        {
+          "text": "Es beginnt ein Arbeitsverhältnis mit einer Probezeit von 6 Monaten.",
+          "isCorrect": false,
+          "rationale": "Eine automatische Probezeit von 6 Monaten tritt nicht kraft Gesetzes ein."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Wird ein Auszubildender nach Ausbildungsende tatsächlich weiterbeschäftigt und keine andere Vereinbarung getroffen, gilt nach § 24 BBiG automatisch ein unbefristetes Arbeitsverhältnis als begründet.",
+      "videoUrl": "",
+      "youtubeQuery": "§24 BBiG Weiterbeschäftigung unbefristetes Arbeitsverhältnis"
+    },
+    {
+      "id": "eco_20",
+      "question": "Ein Auszubildender der Smart-Gear GmbH erhält sieben Monate nach Ausbildungsbeginn einen Studienplatz und möchte zum Semesterstart wechseln. Welche Möglichkeit hat er nach BBiG, das Ausbildungsverhältnis zu beenden?",
+      "answerOptions": [
+        {
+          "text": "Er kann das Ausbildungsverhältnis nur innerhalb der Probezeit kündigen.",
+          "isCorrect": false,
+          "rationale": "Nach der Probezeit ist eine Kündigung unter bestimmten Voraussetzungen weiterhin möglich."
+        },
+        {
+          "text": "Er kann das Ausbildungsverhältnis jederzeit mündlich kündigen, da hier ein wichtiger Grund vorliegt.",
+          "isCorrect": false,
+          "rationale": "Eine mündliche Kündigung ist unzulässig; außerdem ist der Studienwechsel ein spezieller BBiG-Kündigungsgrund mit Frist."
+        },
+        {
+          "text": "Er kann das Ausbildungsverhältnis mit einer Frist von zwei Wochen kündigen.",
+          "isCorrect": false,
+          "rationale": "Die gesetzliche Frist beträgt in diesem Fall vier Wochen, nicht zwei."
+        },
+        {
+          "text": "Er kann das Ausbildungsverhältnis prinzipiell nicht kündigen.",
+          "isCorrect": false,
+          "rationale": "Diese Aussage ist zu pauschal und daher falsch."
+        },
+        {
+          "text": "Er kann das Ausbildungsverhältnis mit einer Frist von 4 Wochen kündigen.",
+          "isCorrect": true,
+          "rationale": "Nach der Probezeit ist bei Aufgabe/Wechsel der Ausbildung eine Kündigung mit vier Wochen Frist möglich."
+        }
+      ],
+      "expectedAnswers": [
+        "E"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Nach Ablauf der Probezeit kann der Auszubildende kündigen, wenn er die Berufsausbildung aufgeben oder sich für eine andere Berufstätigkeit bzw. ein Studium ausbilden lassen will. Dafür gilt eine Frist von vier Wochen; die Kündigung muss schriftlich erfolgen.",
+      "videoUrl": "",
+      "youtubeQuery": "BBiG Kündigung Ausbildungsverhältnis 4 Wochen Studium"
+    },
+    {
+      "id": "eco_21",
+      "question": "Die Next-Gen Retail GmbH stellt zwei minderjährige Auszubildende und einen 16-jährigen Schüler als Aushilfe ein. Welche rechtliche Aussage ist korrekt?",
+      "answerOptions": [
+        {
+          "text": "Für diese Beschäftigten müssen keine weiteren rechtlichen Regelungen beachtet werden.",
+          "isCorrect": false,
+          "rationale": "Für Minderjährige gelten besondere Schutzvorschriften."
+        },
+        {
+          "text": "Das Jugendarbeitsschutzgesetz gilt nur für Auszubildende, die noch nicht 18 Jahre alt sind.",
+          "isCorrect": false,
+          "rationale": "Das Gesetz gilt nicht nur für Auszubildende, sondern generell für jugendliche Beschäftigte."
+        },
+        {
+          "text": "Wenn Praktikanten in der Produktion länger als sechs Monate arbeiten, fallen sie unabhängig vom Alter nicht unter das Jugendarbeitsschutzgesetz.",
+          "isCorrect": false,
+          "rationale": "Die Dauer ändert nichts am gesetzlichen Schutz minderjähriger Beschäftigter."
+        },
+        {
+          "text": "Das Jugendarbeitsschutzgesetz ist nur für den Betriebsrat von Bedeutung.",
+          "isCorrect": false,
+          "rationale": "Das Gesetz gilt unmittelbar für Arbeitgeber und Beschäftigte."
+        },
+        {
+          "text": "Für diese Beschäftigten gilt das Jugendarbeitsschutzgesetz, weil sie noch keine 18 Jahre alt sind.",
+          "isCorrect": true,
+          "rationale": "Der Geltungsbereich knüpft an das Alter unter 18 Jahren an."
+        }
+      ],
+      "expectedAnswers": [
+        "E"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Das Jugendarbeitsschutzgesetz (JArbSchG) gilt grundsätzlich für alle Beschäftigten unter 18 Jahren, unabhängig davon, ob sie Auszubildende, Aushilfen oder Praktikanten sind.",
+      "videoUrl": "",
+      "youtubeQuery": "Jugendarbeitsschutzgesetz Geltungsbereich unter 18"
+    },
+    {
+      "id": "eco_22",
+      "question": "Sie prüfen, ob für die Einstellung Jugendlicher eine ärztliche Bescheinigung vorliegen muss. Welche Aussage entspricht der gesetzlichen Regelung?",
+      "answerOptions": [
+        {
+          "text": "Ein Jugendlicher darf nur beschäftigt werden, wenn er innerhalb der letzten vierzehn Monate ärztlich untersucht wurde und dem Arbeitgeber eine entsprechende Bescheinigung vorliegt.",
+          "isCorrect": true,
+          "rationale": "Die Erstuntersuchung mit Bescheinigung ist vor Beschäftigungsbeginn vorgeschrieben."
+        },
+        {
+          "text": "Es reicht aus, wenn der Beschäftigte glaubhaft versichert, dass er gesund ist.",
+          "isCorrect": false,
+          "rationale": "Eine Selbstauskunft ersetzt die gesetzlich geforderte Bescheinigung nicht."
+        },
+        {
+          "text": "Ein angekreuztes Feld zur gesundheitlichen Eignung auf dem Einstellungsbogen reicht als Rechtsgrundlage aus.",
+          "isCorrect": false,
+          "rationale": "Ein Formularhäkchen ersetzt keine ärztliche Erstuntersuchung."
+        },
+        {
+          "text": "Anstelle einer ärztlichen Bescheinigung kann ein betriebsinterner Fitnesstest durchgeführt werden.",
+          "isCorrect": false,
+          "rationale": "Interne Tests haben nicht die gesetzliche Funktion der ärztlichen Untersuchung."
+        },
+        {
+          "text": "Betriebsrat und Geschäftsführung können vereinbaren, die Bescheinigung wegen Verwaltungsaufwands nur im Einzelfall zu verlangen.",
+          "isCorrect": false,
+          "rationale": "Von zwingendem Jugendarbeitsschutzrecht kann nicht per Betriebsvereinbarung abgewichen werden."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Jugendliche dürfen nur beschäftigt werden, wenn sie innerhalb der letzten 14 Monate ärztlich untersucht wurden und dem Arbeitgeber eine entsprechende Bescheinigung vorliegt.",
+      "videoUrl": "",
+      "youtubeQuery": "JArbSchG Erstuntersuchung 14 Monate Bescheinigung"
+    },
+    {
+      "id": "eco_23",
+      "question": "Die Jugend- und Auszubildendenvertretung (JAV) der Urban-Peak AG möchte Anträge an die Geschäftsleitung stellen. Welcher Weg ist wirksam?",
+      "answerOptions": [
+        {
+          "text": "Sie kann Anträge direkt stellen.",
+          "isCorrect": false,
+          "rationale": "Die JAV ist kein eigenständiges Organ mit unmittelbarer Antragshoheit gegenüber dem Arbeitgeber."
+        },
+        {
+          "text": "Sie kann Anträge nur mit Einschaltung der Gewerkschaft stellen.",
+          "isCorrect": false,
+          "rationale": "Eine zwingende Einschaltung der Gewerkschaft ist hierfür nicht vorgeschrieben."
+        },
+        {
+          "text": "Sie kann Anträge nur über den Betriebsrat stellen.",
+          "isCorrect": true,
+          "rationale": "Die JAV leitet Anträge über den Betriebsrat an den Arbeitgeber weiter."
+        },
+        {
+          "text": "Sie kann Anträge nur mithilfe der Einigungsstelle stellen.",
+          "isCorrect": false,
+          "rationale": "Die Einigungsstelle ist kein genereller Pflichtweg für JAV-Anträge."
+        },
+        {
+          "text": "Sie kann Anträge nur bei Anwesenheit der betroffenen Jugendlichen oder Auszubildenden stellen.",
+          "isCorrect": false,
+          "rationale": "Eine solche formale Anwesenheitspflicht besteht nicht."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Die JAV ist ein Hilfsorgan des Betriebsrats und kann Maßnahmenanträge nicht unmittelbar gegenüber der Geschäftsleitung, sondern über den Betriebsrat einbringen.",
+      "videoUrl": "",
+      "youtubeQuery": "JAV Antragsrecht über Betriebsrat"
+    },
+    {
+      "id": "eco_24",
+      "question": "In welchem Fall ist die JAV gesetzlich zuständig?",
+      "answerOptions": [
+        {
+          "text": "Ein 20-jähriger Arbeitnehmer hat persönliche Konflikte mit seinem Abteilungsleiter.",
+          "isCorrect": false,
+          "rationale": "Ein 20-jähriger regulärer Arbeitnehmer fällt nicht automatisch in die JAV-Zuständigkeit."
+        },
+        {
+          "text": "Ein 18-jähriger Arbeitnehmer soll in den Außendienst versetzt werden.",
+          "isCorrect": false,
+          "rationale": "Mit 18 Jahren ist er nicht mehr jugendlich im Sinne des JArbSchG; als Nicht-Azubi greift JAV-Zuständigkeit nicht automatisch."
+        },
+        {
+          "text": "Ein 30-jähriger Praktikant weigert sich, berufsfremde Ausbildungsinhalte durchzuführen.",
+          "isCorrect": false,
+          "rationale": "30 Jahre liegt außerhalb des typischen JAV-Zuständigkeitsbereichs."
+        },
+        {
+          "text": "Ein 22-jähriger Auszubildender muss ausschließlich Kopierarbeiten und Bewirtungsaufgaben in der Verkaufsabteilung übernehmen.",
+          "isCorrect": true,
+          "rationale": "Auszubildende unter 25 fallen in den Zuständigkeitsbereich der JAV."
+        },
+        {
+          "text": "Ein 21-jähriger Arbeitnehmer möchte unbedingt im Lager eingesetzt werden.",
+          "isCorrect": false,
+          "rationale": "Als normaler Arbeitnehmer ohne Ausbildungsstatus besteht keine automatische JAV-Zuständigkeit."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Die JAV ist zuständig für Jugendliche unter 18 und für Auszubildende unter 25. Ein 22-jähriger Auszubildender fällt damit klar in ihren Zuständigkeitsbereich.",
+      "videoUrl": "",
+      "youtubeQuery": "JAV Zuständigkeit Auszubildende unter 25"
+    },
+    {
+      "id": "eco_25",
+      "question": "Die Eco-Wear GmbH ist tarifgebunden. Welche konkrete rechtliche Folge ergibt sich daraus für die Angestellten?",
+      "answerOptions": [
+        {
+          "text": "Alle Angestellten haben Anspruch auf tarifliche Entlohnung und sonstige tarifliche Leistungen.",
+          "isCorrect": false,
+          "rationale": "Ein zwingender individueller Anspruch entsteht nicht automatisch für alle Beschäftigten."
+        },
+        {
+          "text": "Nur vollzeitbeschäftigte Angestellte haben Anspruch auf tarifliche Entlohnung und sonstige tarifliche Leistungen.",
+          "isCorrect": false,
+          "rationale": "Die Tarifwirkung hängt nicht schlicht von Vollzeit/Teilzeit ab."
+        },
+        {
+          "text": "Nur die Angestellten, die Mitglied der entsprechenden Gewerkschaft sind, haben einen rechtlichen Anspruch auf tarifliche Entlohnung und sonstige tarifliche Leistungen.",
+          "isCorrect": true,
+          "rationale": "Die normative unmittelbare Tarifbindung setzt auf Arbeitnehmerseite regelmäßig die Gewerkschaftsmitgliedschaft voraus."
+        },
+        {
+          "text": "Alle Angestellten haben Anspruch auf tarifliche Entlohnung und sonstige tarifliche Leistungen, jedoch erst nach Ende der Probezeit.",
+          "isCorrect": false,
+          "rationale": "Eine solche pauschale Probezeitregel gibt es tarifrechtlich nicht als Grundsatz."
+        },
+        {
+          "text": "Die Eco-Wear GmbH kann aufgrund der Tarifautonomie selbst bestimmen, welchen Angestellten tarifliche Leistungen angeboten werden.",
+          "isCorrect": false,
+          "rationale": "Tarifautonomie bedeutet nicht freie Arbeitgeberwahl trotz bestehender Tarifbindung."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Einen unmittelbar einklagbaren Anspruch aus dem Tarifvertrag haben auf Arbeitnehmerseite grundsätzlich die Mitglieder der tarifschließenden Gewerkschaft.",
+      "videoUrl": "",
+      "youtubeQuery": "Tarifbindung Gewerkschaftsmitgliedschaft Anspruch"
+    },
+    {
+      "id": "eco_26",
+      "question": "Welchem Gesetz ist die Regelung zuzuordnen: Die Befristung eines Arbeitsvertrags ist zulässig, wenn sie durch einen sachlichen Grund gerechtfertigt ist?",
+      "answerOptions": [
+        {
+          "text": "Berufsbildungsgesetz",
+          "isCorrect": false,
+          "rationale": "Das BBiG regelt Berufsausbildung, nicht die allgemeinen Befristungsregeln für Arbeitsverträge."
+        },
+        {
+          "text": "Teilzeit- und Befristungsgesetz",
+          "isCorrect": true,
+          "rationale": "Das TzBfG enthält die zentralen gesetzlichen Regeln zur Befristung."
+        },
+        {
+          "text": "Betriebsverfassungsgesetz",
+          "isCorrect": false,
+          "rationale": "Das BetrVG regelt betriebliche Mitbestimmung, nicht die Befristungssystematik."
+        },
+        {
+          "text": "Tarifvertragsgesetz",
+          "isCorrect": false,
+          "rationale": "Das TVG regelt Tarifverträge, nicht die allgemeine gesetzliche Befristungsnorm."
+        },
+        {
+          "text": "Bundesurlaubsgesetz",
+          "isCorrect": false,
+          "rationale": "Das BUrlG betrifft Urlaubsansprüche, nicht Vertragsbefristungen."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die gesetzlichen Voraussetzungen und Grenzen von Befristungen sind im Teilzeit- und Befristungsgesetz (TzBfG) geregelt.",
+      "videoUrl": "",
+      "youtubeQuery": "TzBfG sachlicher Grund Befristung Arbeitsvertrag"
+    },
+    {
+      "id": "eco_27",
+      "question": "Wegen steigenden Konkurrenzdrucks soll die Trail-Blazer UG Personalkosten durch Personalabbau senken. Welches der folgenden Arbeitsverhältnisse kann am ehesten durch eine ordentliche Kündigung beendet werden?",
+      "answerOptions": [
+        {
+          "text": "Tina Hettlinger, 20 Jahre, Auszubildende, im 2. von drei Ausbildungsjahren",
+          "isCorrect": false,
+          "rationale": "Auszubildende nach der Probezeit genießen einen starken besonderen Kündigungsschutz."
+        },
+        {
+          "text": "Tim Hornung, 27 Jahre, schwerbehindert, Kaufmann im E-Commerce, seit 4 Jahren im Unternehmen",
+          "isCorrect": false,
+          "rationale": "Schwerbehinderte Beschäftigte haben besonderen Kündigungsschutz."
+        },
+        {
+          "text": "Gina Müller, 24 Jahre, Kauffrau im E-Commerce, seit einem Jahr im Unternehmen, im 5. Monat schwanger",
+          "isCorrect": false,
+          "rationale": "Während der Schwangerschaft besteht besonderer Kündigungsschutz nach Mutterschutzrecht."
+        },
+        {
+          "text": "Linda Sievert, 32 Jahre, Kauffrau im E-Commerce, seit 5 Jahren im Unternehmen",
+          "isCorrect": true,
+          "rationale": "Sie unterliegt dem allgemeinen Kündigungsschutz, ohne zusätzlichen Sonderstatus."
+        },
+        {
+          "text": "Carl Flemming, 25 Jahre, Kaufmann im E-Commerce, seit 5 Jahren im Unternehmen, seit einem Jahr Mitglied des Betriebsrats",
+          "isCorrect": false,
+          "rationale": "Betriebsratsmitglieder genießen besonderen Kündigungsschutz."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Linda Sievert hat keinen besonderen Sonderkündigungsschutz. Die übrigen Fälle (Auszubildende nach Probezeit, Schwerbehinderung, Schwangerschaft, Betriebsratsmitgliedschaft) sind besonders geschützt.",
+      "videoUrl": "",
+      "youtubeQuery": "besonderer Kündigungsschutz Schwangerschaft Schwerbehinderung Betriebsrat Ausbildung"
+    },
+    {
+      "id": "eco_28",
+      "question": "Die Next-Gen Retail GmbH unterweist Beschäftigte zu Arbeitsschutz und Arbeitssicherheit. Welche Organisation ist für die Überwachung dieser Vorschriften zuständig?",
+      "answerOptions": [
+        {
+          "text": "Die gesetzliche Krankenkasse",
+          "isCorrect": false,
+          "rationale": "Krankenkassen sind nicht die primäre Aufsichtsinstanz für betriebliche Arbeitssicherheitsvorschriften."
+        },
+        {
+          "text": "Das Berufskolleg",
+          "isCorrect": false,
+          "rationale": "Berufskollegs sind Bildungseinrichtungen und nicht für die betriebliche Überwachung zuständig."
+        },
+        {
+          "text": "Die Industrie- und Handelskammer",
+          "isCorrect": false,
+          "rationale": "Die IHK überwacht nicht die laufende Einhaltung der Arbeitsschutzvorschriften im Betrieb."
+        },
+        {
+          "text": "Die Berufsgenossenschaft",
+          "isCorrect": true,
+          "rationale": "Berufsgenossenschaften sind Träger der gesetzlichen Unfallversicherung und überwachen präventiv Arbeitsschutz und Arbeitssicherheit."
+        },
+        {
+          "text": "Das Gesundheitsamt",
+          "isCorrect": false,
+          "rationale": "Das Gesundheitsamt hat andere Aufgabenschwerpunkte als die betriebliche Arbeitssicherheitsaufsicht."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Die Berufsgenossenschaften sind Träger der gesetzlichen Unfallversicherung und überwachen neben Reha- und Entschädigungsleistungen auch präventiv die Einhaltung von Vorschriften zu Arbeitsschutz und Arbeitssicherheit.",
+      "videoUrl": "",
+      "youtubeQuery": "Berufsgenossenschaft Überwachung Arbeitsschutz Arbeitssicherheit"
+    },
+    {
+      "id": "eco_29",
+      "question": "Welche Regelung zur Belehrung von Arbeitnehmern über Unfall- und Gesundheitsgefahren ist korrekt?",
+      "answerOptions": [
+        {
+          "text": "Eine Belehrung ist nur bei Aufnahme der Beschäftigung erforderlich.",
+          "isCorrect": false,
+          "rationale": "Die Unterweisung muss nicht nur einmalig, sondern wiederkehrend erfolgen."
+        },
+        {
+          "text": "Eine Belehrung ist bei Aufnahme der Beschäftigung und anschließend in regelmäßigen Abständen erforderlich.",
+          "isCorrect": true,
+          "rationale": "So verlangt es das Arbeitsschutzrecht: initial und regelmäßig wiederholt."
+        },
+        {
+          "text": "Eine Belehrung ist nach Ablauf der Probezeit und anschließend bei Bedarf erforderlich.",
+          "isCorrect": false,
+          "rationale": "Der Beginn der Unterweisung ist nicht an das Ende der Probezeit geknüpft."
+        },
+        {
+          "text": "Eine Belehrung ist nur vor Aufnahme der Beschäftigung und ansonsten im Einzelfall bei Bedarf erforderlich.",
+          "isCorrect": false,
+          "rationale": "Eine reine Bedarfslösung reicht nicht; regelmäßige Unterweisungen sind vorgeschrieben."
+        },
+        {
+          "text": "Eine Belehrung ist erforderlich, wenn der Arbeitnehmer sich nicht selbst informiert hat.",
+          "isCorrect": false,
+          "rationale": "Die Unterweisungspflicht liegt beim Arbeitgeber und hängt nicht von Selbstinformation ab."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Nach dem Arbeitsschutzgesetz muss der Arbeitgeber bei Aufnahme der Beschäftigung sowie danach in regelmäßigen Abständen über Sicherheit und Gesundheitsschutz unterweisen.",
+      "videoUrl": "",
+      "youtubeQuery": "Arbeitsschutzgesetz Unterweisung regelmäßig bei Einstellung"
+    },
+    {
+      "id": "eco_30",
+      "question": "Ein grünes Sicherheitszeichen mit vier Pfeilen, die auf eine Gruppe von drei Personen zeigen, ist auf dem Betriebsgelände angebracht. Was bedeutet dieses Zeichen?",
+      "answerOptions": [
+        {
+          "text": "Standplatz für die Einsatzleitung der Feuerwehr",
+          "isCorrect": false,
+          "rationale": "Dieses Rettungszeichen steht nicht für eine Feuerwehr-Einsatzleitung."
+        },
+        {
+          "text": "Hubschrauberlandeplatz zur Evakuierung in Notfällen",
+          "isCorrect": false,
+          "rationale": "Ein Hubschrauberlandeplatz hat andere Kennzeichen."
+        },
+        {
+          "text": "Mittelpunkt des Betriebsgeländes",
+          "isCorrect": false,
+          "rationale": "Das Symbol markiert keinen geometrischen Mittelpunkt."
+        },
+        {
+          "text": "Kennzeichnung des Ortes der Betriebsversammlung",
+          "isCorrect": false,
+          "rationale": "Betriebsversammlungsorte werden nicht mit diesem Rettungszeichen gekennzeichnet."
+        },
+        {
+          "text": "Sammelplatz für die Mitarbeiter im Falle eines Notfalls",
+          "isCorrect": true,
+          "rationale": "Das Symbol kennzeichnet den Sammelplatz bei Evakuierungen."
+        }
+      ],
+      "expectedAnswers": [
+        "E"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Das beschriebene grüne Rettungszeichen steht für den Sammelplatz, an dem sich Beschäftigte im Evakuierungsfall einfinden müssen.",
+      "videoUrl": "",
+      "youtubeQuery": "Rettungszeichen Sammelplatz Bedeutung"
     }
   ]
 }
