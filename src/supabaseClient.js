@@ -10,4 +10,10 @@ if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KE
 	console.warn('Supabase Env-Variablen fehlen. Nutze Fallback-Project. Setze VITE_SUPABASE_URL und VITE_SUPABASE_ANON_KEY in .env.local bzw. Vercel Environment Variables.');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+export const supabase = createClient(supabaseUrl, supabaseKey, {
+	auth: {
+		// Require manual login after each app restart (no persisted session).
+		persistSession: false,
+		autoRefreshToken: false
+	}
+});

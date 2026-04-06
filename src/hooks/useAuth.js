@@ -56,7 +56,8 @@ export const useAuth = (setAppMode) => {
             setAuthMsg('Erfolgreich eingeloggt! Lade Account...');
             localStorage.setItem('masterpat_auth', 'true');
             localStorage.setItem(ACCESS_MODE_KEY, 'member');
-            window.location.reload();
+            setAuthLoading(false);
+            if (setAppMode) setAppMode('dashboard');
         }
     };
 
@@ -74,7 +75,7 @@ export const useAuth = (setAppMode) => {
             if (data?.session) {
                 localStorage.setItem('masterpat_auth', 'true');
                 localStorage.setItem(ACCESS_MODE_KEY, 'member');
-                window.location.reload();
+                if (setAppMode) setAppMode('dashboard');
             }
             setAuthLoading(false);
         }
