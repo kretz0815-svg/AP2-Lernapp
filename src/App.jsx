@@ -72,6 +72,7 @@ function App() {
   const LEGACY_DB_KEY_WISOR = 'wisor_progress';
   const LEGACY_DB_KEY_WISOR_ECO = 'wisor_eco_progress';
   const MULTI_CHOICE_REPEAT_MODE_KEY = 'ap2_multi_choice_repeat_mode';
+  const WISOR_ECO_REPEAT_MODE = MULTI_CHOICE_REPEAT_MODES.ONCE;
 
   const [appMode, setAppMode] = useState('auth'); // 'auth', 'dashboard', 'quiz', 'wisor', 'intro'
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
@@ -183,7 +184,7 @@ function App() {
   const [marketingReviewCountSelection, setMarketingReviewCountSelection] = useState(10);
   const [marketingReviewResult, setMarketingReviewResult] = useState(null);
   const [wisorEcoSessionPool, setWisorEcoSessionPool] = useState([]);
-  const [wisorEcoSessionRepeatMode, setWisorEcoSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
+  const [, setWisorEcoSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
   const [wisorEcoCountSelection, setWisorEcoCountSelection] = useState(10);
 
   // --- WISOR STATE ---
@@ -539,6 +540,13 @@ function App() {
     if (typeof normalized?.isLearned === 'boolean') return normalized.isLearned;
     const count = Number(normalized?.correctAnswersCount ?? normalized?.rep ?? 0) || 0;
     return count >= getRequiredCorrectAnswers(multiChoiceRepeatMode);
+  };
+
+  const isMasteryLearnedForMode = (entry, mode) => {
+    const requiredCorrectAnswers = getRequiredCorrectAnswers(mode);
+    if (entry === true) return true;
+    const count = Number(entry?.correctAnswersCount ?? entry?.rep ?? 0) || 0;
+    return entry?.isLearned === true || count >= requiredCorrectAnswers;
   };
 
   const loadProgressObject = (storageKey) => {
@@ -905,7 +913,7 @@ function App() {
     const now = Date.now();
     const due = wisorEcoQuizQuestions.filter((q) => {
       const entry = normalizeMasteryProgressEntry(completedWisorsEco[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0, correctAnswersCount: 0, isLearned: false });
-      return isQuizDue(entry, now, multiChoiceRepeatMode) || !isMasteryLearned(entry);
+      return isQuizDue(entry, now, WISOR_ECO_REPEAT_MODE) || !isMasteryLearnedForMode(entry, WISOR_ECO_REPEAT_MODE);
     });
     if (topic === 'all') return due;
     return due.filter(q => getQuizTopicGroup(q.topic) === topic);
@@ -1186,12 +1194,12 @@ ${input}`;
   const startWisorEcoSession = (limit, topic = 'all') => {
     const duePool = getDueWisorEcoByTopic(topic);
     const sessionQs = buildShuffledSession(duePool, limit);
-    setWisorEcoSessionRepeatMode(multiChoiceRepeatModeRef.current);
+    setWisorEcoSessionRepeatMode(WISOR_ECO_REPEAT_MODE);
     setWisorEcoSessionPool(sessionQs);
     setAppMode('wisor_eco_quiz');
   };
 
-  const handleWisorEcoAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatModeRef.current) => {
+  const handleWisorEcoAnswerUpdate = async (q, isCorrect, repeatMode = WISOR_ECO_REPEAT_MODE) => {
     if (!q?.id) return;
 
     const localProg = loadProgressObject('ap2_wisor_eco_progress');
@@ -3026,8 +3034,6 @@ ${input}`;
             setSelectedQuizTopic={() => { }}
             getDueQuizzesByTopic={getDueWisorEcoByTopic}
             getQuizTopicGroup={getQuizTopicGroup}
-            multiChoiceRepeatMode={multiChoiceRepeatMode}
-            onMultiChoiceRepeatModeChange={handleMultiChoiceRepeatModeChange}
             feynmanModeEnabled={feynmanModeEnabled}
             setFeynmanModeEnabled={setFeynmanModeEnabled}
             quizCountSelection={wisorEcoCountSelection}
@@ -3036,7 +3042,7 @@ ${input}`;
             setAppMode={setAppMode}
             burgerMenuPortal={burgerMenuPortal}
             title="Wieviele Fragen?"
-            description="Wähle die Anzahl fälliger Fragen in WiSoR E-Commerce und starte den Durchgang."
+            description="Wähle die Anzahl fälliger Fragen in WiSoR E-Commerce und starte den Durchgang. Korrekt gelöste Fragen werden sofort aus dem aktiven Topf entfernt."
             showTopicSelect={false}
             backMode="dashboard"
             showResetProgressButton
@@ -3191,7 +3197,7 @@ ${input}`;
             }}
             feynmanModeEnabled={feynmanModeEnabled}
             onLearningEvent={appendLearningEvent}
-            onQuizAnswer={(q, isCorrect) => handleWisorEcoAnswerUpdate(q, isCorrect, wisorEcoSessionRepeatMode)}
+            onQuizAnswer={(q, isCorrect) => handleWisorEcoAnswerUpdate(q, isCorrect, WISOR_ECO_REPEAT_MODE)}
             handleGeminiAsk={handleGeminiAsk}
             geminiResponse={geminiResponse}
             geminiLoading={geminiLoading}
