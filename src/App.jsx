@@ -36,7 +36,7 @@ import { KLRGameHub, useKLRGame } from './features/klr';
 import { ProjectMGame, useProjectM } from './features/project-m';
 import { JourneyArchitectGame, useJourneyArchitect } from './features/journey-architect';
 import { mapWisorAnswerToRating } from './services/srsFeedbackMapper';
-import { reviewTaskWithDSR, getTaskProgressByType, clearTaskProgressByType } from './services/srsStore';
+import { reviewTaskWithDSR, getUserTaskProgress, upsertUserTaskProgress, clearTaskProgressByType } from './services/srsStore';
 
 const LearningDashboard = React.lazy(() => import('./components/LearningDashboard'));
 const QuizSession = React.lazy(() => import('./components/QuizSession'));
@@ -76,6 +76,7 @@ function App() {
   const LOCAL_KEY_KLR_MC = 'ap2_klr_mc_progress';
   const MULTI_CHOICE_REPEAT_MODE_KEY = 'ap2_multi_choice_repeat_mode';
   const WISOR_ECO_REPEAT_MODE = MULTI_CHOICE_REPEAT_MODES.ONCE;
+  const MASTERED_DUE_DATE_ISO = '2999-12-31T00:00:00.000Z';
 
   const [appMode, setAppMode] = useState('auth'); // 'auth', 'dashboard', 'quiz', 'wisor', 'intro'
   const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
@@ -96,6 +97,8 @@ function App() {
     setPassword,
     authLoading,
     authMsg,
+    rememberMe,
+    setRememberMe,
     captchaError,
     setCaptchaError,
     captchaToken,
@@ -186,12 +189,15 @@ function App() {
   const [marketingReviewSessionRepeatMode, setMarketingReviewSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
   const [marketingReviewCountSelection, setMarketingReviewCountSelection] = useState(10);
   const [marketingReviewResult, setMarketingReviewResult] = useState(null);
+  const [marketingReviewDuePool, setMarketingReviewDuePool] = useState([]);
   const [wisorEcoSessionPool, setWisorEcoSessionPool] = useState([]);
   const [, setWisorEcoSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
   const [wisorEcoCountSelection, setWisorEcoCountSelection] = useState(10);
+  const [wisorEcoDuePool, setWisorEcoDuePool] = useState([]);
   const [klrMcQuizSessionPool, setKlrMcSessionPool] = useState([]);
   const [klrMcQuizSessionRepeatMode, setKlrMcSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
   const [klrMcQuizCountSelection, setKlrMcCountSelection] = useState(10);
+  const [klrMcDuePool, setKlrMcDuePool] = useState([]);
 
   // --- WISOR STATE ---
   const [allWisors, setAllWisors] = useState([]);
@@ -569,8 +575,155 @@ function App() {
     }
   };
 
+  const buildMasteryProgressFromRow = (row) => {
+    if (!row) {
+      return { rep: 0, ef: 2.5, interval: 0, nextReview: 0, correctAnswersCount: 0, isLearned: false, isActive: true };
+    }
+
+    const metadata = row.metadata && typeof row.metadata === 'object' ? row.metadata : {};
+    const correctAnswersCount = Number(metadata.correctStreak ?? metadata.correctAnswersCount ?? 0) || 0;
+    const isLearned = metadata.isLearned === true;
+
+    return {
+      rep: correctAnswersCount,
+      ef: 2.5,
+      interval: Number(row.scheduled_days || 0) || 0,
+      nextReview: row.due_date ? new Date(row.due_date).getTime() : 0,
+      correctAnswersCount,
+      isLearned,
+      isActive: !isLearned,
+    };
+  };
+
+  const persistMasteryProgressToSupabase = async ({
+    question,
+    taskType,
+    taskPrefix,
+    repeatMode,
+    nextProgress,
+    isCorrect,
+  }) => {
+    if (!authUser?.id || !question?.id || !nextProgress) return;
+
+    const taskId = `${taskPrefix}:${question.id}`;
+    const existing = await getUserTaskProgress(supabase, authUser.id, taskId);
+    const now = Date.now();
+    const nowIso = new Date(now).toISOString();
+    const dueDate = nextProgress.isLearned
+      ? MASTERED_DUE_DATE_ISO
+      : repeatMode === MULTI_CHOICE_REPEAT_MODES.SPACED
+        ? new Date(Math.max(now, Number(nextProgress.nextReview || now))).toISOString()
+        : nowIso;
+
+    const metadata = {
+      ...(existing?.metadata || {}),
+      question: question.question,
+      repeatMode,
+      progressMode: 'mastery',
+      correctStreak: Number(nextProgress.correctAnswersCount || 0),
+      correctAnswersCount: Number(nextProgress.correctAnswersCount || 0),
+      isLearned: !!nextProgress.isLearned,
+      lastCorrect: !!isCorrect,
+      lastAnsweredAt: nowIso,
+      nextReview: dueDate,
+    };
+
+    await upsertUserTaskProgress(supabase, authUser.id, taskId, {
+      taskType,
+      category: question.topic || null,
+      dueDate,
+      difficulty: Number(existing?.difficulty ?? 5.2),
+      stability: Number(existing?.stability ?? 4.0),
+      retrievability: Number(existing?.retrievability ?? 1),
+      desiredRetention: Number(existing?.desired_retention ?? 0.9),
+      reviewCount: Number(existing?.review_count ?? 0) + 1,
+      lapseCount: Number(existing?.lapse_count ?? 0) + (isCorrect ? 0 : 1),
+      elapsedDays: Number(existing?.elapsed_days ?? 0),
+      scheduledDays: repeatMode === MULTI_CHOICE_REPEAT_MODES.SPACED && !nextProgress.isLearned
+        ? Number(nextProgress.interval || 0)
+        : 0,
+      lastRating: isCorrect ? 4 : 2,
+      lastOutcome: isCorrect ? 'recalled' : 'forgot',
+      lastReviewedAt: nowIso,
+      metadata,
+    });
+  };
+
+  const loadDueKpiTheoryQuestions = async (questions, repeatMode = multiChoiceRepeatModeRef.current) => {
+    const prepared = (Array.isArray(questions) ? questions : []).map((q) => ({
+      ...q,
+      id: q.id || generateId(q.question),
+      topic: q.topic || 'KPI Theorie',
+    }));
+
+    if (!authUser?.id) {
+      const localProg = loadProgressObject('ap2_kpi_theory_progress');
+      const dueQuestions = filterDueQuizzes(prepared, localProg, Date.now(), repeatMode);
+      return { dueQuestions, remainingCount: dueQuestions.length };
+    }
+
+    const nowIso = new Date().toISOString();
+    const [allRowsRes, dueRowsRes] = await Promise.all([
+      supabase
+        .from('user_task_progress')
+        .select('task_id')
+        .eq('user_id', authUser.id)
+        .eq('task_type', 'kpi_theory'),
+      supabase
+        .from('user_task_progress')
+        .select('task_id')
+        .eq('user_id', authUser.id)
+        .eq('task_type', 'kpi_theory')
+        .lte('due_date', nowIso)
+    ]);
+
+    if (allRowsRes.error) throw allRowsRes.error;
+    if (dueRowsRes.error) throw dueRowsRes.error;
+
+    const knownTaskIds = new Set((allRowsRes.data || []).map((row) => row.task_id));
+    const dueTaskIds = new Set((dueRowsRes.data || []).map((row) => row.task_id));
+    const dueQuestions = prepared.filter((q) => {
+      const taskId = `kpi_theory:${q.id}`;
+      return !knownTaskIds.has(taskId) || dueTaskIds.has(taskId);
+    });
+
+    return { dueQuestions, remainingCount: dueQuestions.length };
+  };
+
+  const handleKpiTheoryAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatModeRef.current) => {
+    if (!q?.id) return { remainingCount: 0 };
+
+    const localProg = loadProgressObject('ap2_kpi_theory_progress');
+    const prevEntry = normalizeMasteryProgressEntry(localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
+    const nextEntry = {
+      ...computeNextQuizProgress(prevEntry, isCorrect, Date.now(), repeatMode),
+      updatedAt: new Date().toISOString(),
+    };
+
+    const nextProg = { ...localProg, [q.id]: nextEntry };
+    localStorage.setItem('ap2_kpi_theory_progress', JSON.stringify(nextProg));
+
+    if (authUser?.id) {
+      try {
+        await persistMasteryProgressToSupabase({
+          question: q,
+          taskType: 'kpi_theory',
+          taskPrefix: 'kpi_theory',
+          repeatMode,
+          nextProgress: nextEntry,
+          isCorrect,
+        });
+      } catch (err) {
+        console.error('KPI theory progress save failed:', err);
+      }
+    }
+
+    return { nextProgress: nextEntry };
+  };
+
   const handleQuizAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatModeRef.current) => {
-    // 1. Local progress update
+    if (!q?.id) return;
+
     const localProg = loadProgressObject('ap2_quiz_progress');
     const prevProg = normalizeMasteryProgressEntry(localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
     const nextProg = computeNextQuizProgress(prevProg, isCorrect, Date.now(), repeatMode);
@@ -579,24 +732,22 @@ function App() {
     localStorage.setItem('ap2_quiz_progress', JSON.stringify(localProg));
     setQuizProgressView(localProg);
 
-    // 2. Supabase DSR update
     if (authUser?.id) {
-      // Mapping correct answer to a 4 (Good), otherwise 2 (Hard) if incorrect.
-      const rating = isCorrect ? 4 : 2;
-      reviewTaskWithDSR({
-        supabase,
-        userId: authUser.id,
-        taskId: `quiz:${q.id}`,
-        rating,
-        taskType: 'quiz',
-        category: q.topic,
-        metadata: {
-          question: q.question,
-          correctAnswersCount: Number(nextProg.correctAnswersCount || 0),
-          isLearned: !!nextProg.isLearned,
-        }
-      }).catch(err => console.error('DSR quiz review failed:', err));
+      try {
+        await persistMasteryProgressToSupabase({
+          question: q,
+          taskType: 'quiz',
+          taskPrefix: 'quiz',
+          repeatMode,
+          nextProgress: nextProg,
+          isCorrect,
+        });
+      } catch (err) {
+        console.error('Quiz progress save failed:', err);
+      }
     }
+
+    await refreshQuizDuePool();
   };
 
   const handleMarketingReviewAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatModeRef.current) => {
@@ -614,25 +765,21 @@ function App() {
     setCompletedMarketingReview(nextProg);
 
     if (authUser?.id) {
-      syncProgressToSupabase({ marketing_review_progress: nextProg }).catch(() => { });
+      try {
+        await persistMasteryProgressToSupabase({
+          question: q,
+          taskType: 'marketing_review',
+          taskPrefix: 'marketing_review',
+          repeatMode,
+          nextProgress: nextEntry,
+          isCorrect,
+        });
+      } catch (err) {
+        console.error('Marketing review progress save failed:', err);
+      }
     }
 
-    if (authUser?.id) {
-      const rating = isCorrect ? 4 : 2;
-      reviewTaskWithDSR({
-        supabase,
-        userId: authUser.id,
-        taskId: `marketing_review:${q.id}`,
-        rating,
-        taskType: 'marketing_review',
-        category: q.topic,
-        metadata: {
-          question: q.question,
-          correctAnswersCount: Number(nextEntry.correctAnswersCount || 0),
-          isLearned: !!nextEntry.isLearned,
-        }
-      }).catch(err => console.error('DSR marketing review failed:', err));
-    }
+    await refreshMarketingReviewDuePool();
   };
 
   const appendLearningEvent = ({ mode, questionId, questionText, correct, userAnswer = '', expectedAnswer = '', topic = '' }) => {
@@ -738,7 +885,6 @@ function App() {
     const quizProg = JSON.parse(localStorage.getItem('ap2_quiz_progress')) || {};
     const prepared = buildPreparedQuizzes(rawQuizzes, quizProg);
     const now = Date.now();
-    const requiredCorrectAnswers = getRequiredCorrectAnswers(multiChoiceRepeatMode);
 
     if (!authUser?.id) {
       const localDue = filterDueQuizzes(prepared, quizProg, now, multiChoiceRepeatMode);
@@ -748,59 +894,44 @@ function App() {
     }
 
     try {
-      const rows = await getTaskProgressByType(supabase, authUser.id, 'quiz');
-      const byTaskId = new Map(rows.map(row => [row.task_id, row]));
+      const nowIso = new Date().toISOString();
+      const [allRowsRes, dueRowsRes] = await Promise.all([
+        supabase
+          .from('user_task_progress')
+          .select('task_id,due_date,scheduled_days,metadata')
+          .eq('user_id', authUser.id)
+          .eq('task_type', 'quiz'),
+        supabase
+          .from('user_task_progress')
+          .select('task_id')
+          .eq('user_id', authUser.id)
+          .eq('task_type', 'quiz')
+          .lte('due_date', nowIso)
+      ]);
+
+      if (allRowsRes.error) throw allRowsRes.error;
+      if (dueRowsRes.error) throw dueRowsRes.error;
+
+      const allRows = Array.isArray(allRowsRes.data) ? allRowsRes.data : [];
+      const dueRows = Array.isArray(dueRowsRes.data) ? dueRowsRes.data : [];
+      const knownTaskIds = new Set(allRows.map((row) => row.task_id));
+      const dueTaskIds = new Set(dueRows.map((row) => row.task_id));
       const effectiveProgress = {};
-      prepared.forEach(q => {
-        const row = byTaskId.get(`quiz:${q.id}`);
-        const localProg = quizProg[q.id] || null;
 
-        if (row) {
-          const supabaseNextReview = row.due_date ? new Date(row.due_date).getTime() : 0;
-          const localNextReview = localProg?.nextReview || 0;
-          const localLatestRep = Number(localProg?.correctAnswersCount ?? localProg?.rep ?? 0) || 0;
-          const remoteCount = Number(row?.metadata?.correctAnswersCount ?? 0) || 0;
-
-          // Always trust local progress if it shows we answered it (nextReview in future)
-          // or if it strictly has a later review date than Supabase. This fixes iOS
-          // Safari fetch caching bugs displaying old database states immediately after a session.
-          const useLocal = localProg && (localNextReview > supabaseNextReview || localNextReview > now);
-
-          if (useLocal) {
-            effectiveProgress[q.id] = {
-              rep: Math.max(localLatestRep, remoteCount),
-              ef: localProg.ef || 2.5,
-              interval: localProg.interval || 0,
-              nextReview: localNextReview,
-              correctAnswersCount: Math.max(localLatestRep, remoteCount),
-              isLearned: Math.max(localLatestRep, remoteCount) >= requiredCorrectAnswers,
-              isActive: Math.max(localLatestRep, remoteCount) < requiredCorrectAnswers,
-            };
-          } else {
-            const resolvedCount = remoteCount;
-            effectiveProgress[q.id] = {
-              rep: resolvedCount,
-              ef: q.progress?.ef || 2.5,
-              interval: row.scheduled_days || 0,
-              nextReview: supabaseNextReview,
-              correctAnswersCount: resolvedCount,
-              isLearned: resolvedCount >= requiredCorrectAnswers,
-              isActive: resolvedCount < requiredCorrectAnswers,
-            };
-          }
-        } else {
-          effectiveProgress[q.id] = normalizeMasteryProgressEntry(localProg || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
-        }
+      allRows.forEach((row) => {
+        const taskId = String(row.task_id || '');
+        if (!taskId.startsWith('quiz:')) return;
+        const questionId = taskId.slice('quiz:'.length);
+        effectiveProgress[questionId] = buildMasteryProgressFromRow(row);
       });
 
-      const preparedWithEffectiveProgress = prepared.map(q => ({
-        ...q,
-        progress: effectiveProgress[q.id] || q.progress
-      }));
-
-      const due = filterDueQuizzes(preparedWithEffectiveProgress, effectiveProgress, now, multiChoiceRepeatMode);
+      const due = prepared.filter((q) => {
+        const taskId = `quiz:${q.id}`;
+        return !knownTaskIds.has(taskId) || dueTaskIds.has(taskId);
+      });
 
       setQuizProgressView(effectiveProgress);
+      localStorage.setItem('ap2_quiz_progress', JSON.stringify(effectiveProgress));
       setQuizDuePool(due);
       return due;
     } catch (err) {
@@ -924,32 +1055,144 @@ function App() {
     };
   });
 
-  const getDueWisorEcoByTopic = (topic = 'all') => {
-    const now = Date.now();
-    const due = wisorEcoQuizQuestions.filter((q) => {
-      const entry = normalizeMasteryProgressEntry(completedWisorsEco[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0, correctAnswersCount: 0, isLearned: false });
-      return isQuizDue(entry, now, WISOR_ECO_REPEAT_MODE) || !isMasteryLearnedForMode(entry, WISOR_ECO_REPEAT_MODE);
+  const loadDuePoolForTaskType = async ({
+    questions,
+    taskType,
+    taskPrefix,
+    repeatMode,
+    localStorageKey,
+  }) => {
+    const safeQuestions = Array.isArray(questions) ? questions : [];
+    const localProg = loadProgressObject(localStorageKey);
+    const prepared = buildPreparedQuizzes(safeQuestions, localProg);
+
+    if (!authUser?.id) {
+      const due = filterDueQuizzes(prepared, localProg, Date.now(), repeatMode);
+      return { due, progressById: localProg };
+    }
+
+    const nowIso = new Date().toISOString();
+    const [allRowsRes, dueRowsRes] = await Promise.all([
+      supabase
+        .from('user_task_progress')
+        .select('task_id,due_date,scheduled_days,metadata')
+        .eq('user_id', authUser.id)
+        .eq('task_type', taskType),
+      supabase
+        .from('user_task_progress')
+        .select('task_id')
+        .eq('user_id', authUser.id)
+        .eq('task_type', taskType)
+        .lte('due_date', nowIso)
+    ]);
+
+    if (allRowsRes.error) throw allRowsRes.error;
+    if (dueRowsRes.error) throw dueRowsRes.error;
+
+    const allRows = Array.isArray(allRowsRes.data) ? allRowsRes.data : [];
+    const dueRows = Array.isArray(dueRowsRes.data) ? dueRowsRes.data : [];
+    const knownTaskIds = new Set(allRows.map((row) => row.task_id));
+    const dueTaskIds = new Set(dueRows.map((row) => row.task_id));
+    const progressById = {};
+
+    allRows.forEach((row) => {
+      const taskId = String(row.task_id || '');
+      if (!taskId.startsWith(`${taskPrefix}:`)) return;
+      const questionId = taskId.slice(taskPrefix.length + 1);
+      progressById[questionId] = buildMasteryProgressFromRow(row);
     });
+
+    const due = prepared.filter((q) => {
+      const taskId = `${taskPrefix}:${q.id}`;
+      return !knownTaskIds.has(taskId) || dueTaskIds.has(taskId);
+    });
+
+    return { due, progressById };
+  };
+
+  const refreshMarketingReviewDuePool = async () => {
+    try {
+      const { due, progressById } = await loadDuePoolForTaskType({
+        questions: allMarketingReviewQuestions,
+        taskType: 'marketing_review',
+        taskPrefix: 'marketing_review',
+        repeatMode: multiChoiceRepeatModeRef.current,
+        localStorageKey: 'ap2_marketing_review_progress',
+      });
+      setMarketingReviewDuePool(due);
+      setCompletedMarketingReview(progressById);
+      localStorage.setItem('ap2_marketing_review_progress', JSON.stringify(progressById));
+      return due;
+    } catch (err) {
+      console.error('Failed loading marketing review due pool:', err);
+      const fallbackProg = loadProgressObject('ap2_marketing_review_progress');
+      const fallbackPrepared = buildPreparedQuizzes(allMarketingReviewQuestions, fallbackProg);
+      const fallbackDue = filterDueQuizzes(fallbackPrepared, fallbackProg, Date.now(), multiChoiceRepeatModeRef.current);
+      setMarketingReviewDuePool(fallbackDue);
+      return fallbackDue;
+    }
+  };
+
+  const refreshWisorEcoDuePool = async () => {
+    try {
+      const { due, progressById } = await loadDuePoolForTaskType({
+        questions: wisorEcoQuizQuestions,
+        taskType: 'wisorEco',
+        taskPrefix: 'wisorEco',
+        repeatMode: WISOR_ECO_REPEAT_MODE,
+        localStorageKey: 'ap2_wisor_eco_progress',
+      });
+      setWisorEcoDuePool(due);
+      setCompletedWisorsEco(progressById);
+      localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(progressById));
+      return due;
+    } catch (err) {
+      console.error('Failed loading wisor eco due pool:', err);
+      const fallbackProg = loadProgressObject('ap2_wisor_eco_progress');
+      const fallbackPrepared = buildPreparedQuizzes(wisorEcoQuizQuestions, fallbackProg);
+      const fallbackDue = filterDueQuizzes(fallbackPrepared, fallbackProg, Date.now(), WISOR_ECO_REPEAT_MODE);
+      setWisorEcoDuePool(fallbackDue);
+      return fallbackDue;
+    }
+  };
+
+  const refreshKlrMcDuePool = async () => {
+    try {
+      const { due, progressById } = await loadDuePoolForTaskType({
+        questions: allKlrMcQuestions,
+        taskType: 'klr_mc',
+        taskPrefix: 'zahlen',
+        repeatMode: multiChoiceRepeatModeRef.current,
+        localStorageKey: LOCAL_KEY_KLR_MC,
+      });
+      setKlrMcDuePool(due);
+      setCompletedKlrMc(progressById);
+      localStorage.setItem(LOCAL_KEY_KLR_MC, JSON.stringify(progressById));
+      return due;
+    } catch (err) {
+      console.error('Failed loading klr mc due pool:', err);
+      const fallbackProg = loadProgressObject(LOCAL_KEY_KLR_MC);
+      const fallbackPrepared = buildPreparedQuizzes(allKlrMcQuestions, fallbackProg);
+      const fallbackDue = filterDueQuizzes(fallbackPrepared, fallbackProg, Date.now(), multiChoiceRepeatModeRef.current);
+      setKlrMcDuePool(fallbackDue);
+      return fallbackDue;
+    }
+  };
+
+  const getDueWisorEcoByTopic = (topic = 'all') => {
+    const due = wisorEcoDuePool;
     if (topic === 'all') return due;
     return due.filter(q => getQuizTopicGroup(q.topic) === topic);
   };
 
   const getDueMarketingReviewByTopic = (topic = 'all') => {
-    const now = Date.now();
-    const due = allMarketingReviewQuestions.filter((q) => {
-      const entry = completedMarketingReview[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0, correctAnswersCount: 0, isLearned: false };
-      return isQuizDue(entry, now, multiChoiceRepeatMode) || !isMasteryLearned(entry);
-    });
+    const due = marketingReviewDuePool;
     if (topic === 'all') return due;
     return due.filter(q => getQuizTopicGroup(q.topic) === topic);
   };
 
   const getDueKlrMcByTopic = (topic = 'all') => {
-    const now = Date.now();
-    const due = allKlrMcQuestions.filter((q) => {
-      const entry = completedKlrMc[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0, correctAnswersCount: 0, isLearned: false };
-      return isQuizDue(entry, now, multiChoiceRepeatMode) || !isMasteryLearned(entry);
-    });
+    const due = klrMcDuePool;
     if (topic === 'all') return due;
     return due.filter(q => getQuizTopicGroup(q.topic) === topic);
   };
@@ -1247,28 +1490,21 @@ ${input}`;
     setCompletedWisorsEco(nextProg);
 
     if (authUser?.id) {
-      syncProgressToSupabase({
-        [LEGACY_DB_KEY_WISOR_ECO]: nextProg,
-        [DB_KEY_WISOR_ECOMMERCE]: nextProg
-      }).catch(() => { });
+      try {
+        await persistMasteryProgressToSupabase({
+          question: q,
+          taskType: 'wisorEco',
+          taskPrefix: 'wisorEco',
+          repeatMode,
+          nextProgress: nextEntry,
+          isCorrect,
+        });
+      } catch (err) {
+        console.error('Wisor eco progress save failed:', err);
+      }
     }
 
-    if (authUser?.id) {
-      const rating = isCorrect ? 4 : 2;
-      reviewTaskWithDSR({
-        supabase,
-        userId: authUser.id,
-        taskId: `wisorEco:${q.id}`,
-        rating,
-        taskType: 'wisorEco',
-        category: q.topic,
-        metadata: {
-          question: q.question,
-          correctAnswersCount: Number(nextEntry.correctAnswersCount || 0),
-          isLearned: !!nextEntry.isLearned,
-        }
-      }).catch(err => console.error('DSR wisorEco review failed:', err));
-    }
+    await refreshWisorEcoDuePool();
   };
 
   const handleKlrMcAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatModeRef.current) => {
@@ -1286,25 +1522,21 @@ ${input}`;
     setCompletedKlrMc(nextProg);
 
     if (authUser?.id) {
-      syncProgressToSupabase({ [DB_KEY_KLR_MC]: nextProg }).catch(() => { });
+      try {
+        await persistMasteryProgressToSupabase({
+          question: q,
+          taskType: 'klr_mc',
+          taskPrefix: 'zahlen',
+          repeatMode,
+          nextProgress: nextEntry,
+          isCorrect,
+        });
+      } catch (err) {
+        console.error('KLR MC progress save failed:', err);
+      }
     }
 
-    if (authUser?.id) {
-      const rating = isCorrect ? 4 : 2;
-      reviewTaskWithDSR({
-        supabase,
-        userId: authUser.id,
-        taskId: `zahlen:${q.id}`,
-        rating,
-        taskType: 'klr_mc',
-        category: q.topic,
-        metadata: {
-          question: q.question,
-          correctAnswersCount: Number(nextEntry.correctAnswersCount || 0),
-          isLearned: !!nextEntry.isLearned,
-        }
-      }).catch(err => console.error('DSR klr_mc review failed:', err));
-    }
+    await refreshKlrMcDuePool();
   };
 
   const resolveDisplayName = (user, settings) => {
@@ -1626,6 +1858,9 @@ ${input}`;
 
       // 4. Setup Quizzes
       await refreshQuizDuePool();
+      await refreshWisorEcoDuePool();
+      await refreshMarketingReviewDuePool();
+      await refreshKlrMcDuePool();
 
       // 5. Setup Wisor
       const rawWisors = [
@@ -1636,7 +1871,9 @@ ${input}`;
 
       // 6. Setup Review
       const reviewProg = JSON.parse(localStorage.getItem('ap2_marketing_review_progress')) || {};
-      setCompletedMarketingReview(reviewProg);
+      if (!session?.user) {
+        setCompletedMarketingReview(reviewProg);
+      }
     };
 
     initApp();
@@ -1660,8 +1897,11 @@ ${input}`;
 
   useEffect(() => {
     refreshQuizDuePool().catch(() => { });
+    refreshWisorEcoDuePool().catch(() => { });
+    refreshMarketingReviewDuePool().catch(() => { });
+    refreshKlrMcDuePool().catch(() => { });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authUser?.id, customQuizQuestions, multiChoiceRepeatMode]);
+  }, [authUser?.id, customQuizQuestions, customMarketingReviewQuestions, multiChoiceRepeatMode]);
 
   useEffect(() => {
     if (!authUser?.id) return;
@@ -1782,6 +2022,9 @@ ${input}`;
       setProfileNameInput(String(remoteProfile?.displayName || resolveDisplayName(authUser, remoteProfile)));
 
       await refreshQuizDuePool().catch(() => { });
+      await refreshWisorEcoDuePool().catch(() => { });
+      await refreshMarketingReviewDuePool().catch(() => { });
+      await refreshKlrMcDuePool().catch(() => { });
       window.dispatchEvent(new CustomEvent('ap2_progress_synced'));
     } catch (err) {
       console.error('Pull sync failed:', err);
@@ -1862,11 +2105,14 @@ ${input}`;
       clearAnalyticsByMode('wisorEco');
 
       if (authUser?.id) {
+        clearTaskProgressByType(supabase, authUser.id, 'wisorEco').catch(() => { });
         syncProgressToSupabase({
           [LEGACY_DB_KEY_WISOR_ECO]: {},
           [DB_KEY_WISOR_ECOMMERCE]: {}
         }).catch(() => { });
       }
+
+      refreshWisorEcoDuePool().catch(() => { });
 
       setResetModalVisible(false);
 
@@ -1902,8 +2148,10 @@ ${input}`;
       setCompletedMarketingReview({});
       clearAnalyticsByMode('marketing_review');
       if (authUser?.id) {
+        clearTaskProgressByType(supabase, authUser.id, 'marketing_review').catch(() => { });
         syncProgressToSupabase({ marketing_review_progress: {} }).catch(() => { });
       }
+      refreshMarketingReviewDuePool().catch(() => { });
       setMarketingReviewSessionPool([]);
       setResetModalVisible(false);
     } else if (resetTarget === 'klr_mc') {
@@ -1911,8 +2159,10 @@ ${input}`;
       setCompletedKlrMc({});
       clearAnalyticsByMode('klr_mc');
       if (authUser?.id) {
+        clearTaskProgressByType(supabase, authUser.id, 'klr_mc').catch(() => { });
         syncProgressToSupabase({ [DB_KEY_KLR_MC]: {} }).catch(() => { });
       }
+      refreshKlrMcDuePool().catch(() => { });
       setKlrMcSessionPool([]);
       setResetModalVisible(false);
     } else if (resetTarget === 'klr') {
@@ -1974,6 +2224,10 @@ ${input}`;
         };
         resetTasks.push(syncProgressToSupabase(preservedData, { queueOnFail: false }));
         resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'quiz'));
+        resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'marketing_review'));
+        resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'wisorEco'));
+        resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'klr_mc'));
+        resetTasks.push(clearTaskProgressByType(supabase, authUser.id, 'kpi_theory'));
       }
 
       setResetModalVisible(false);
@@ -2172,6 +2426,14 @@ ${input}`;
               )}
             </div>
             {captchaError && <p style={{ color: 'var(--error)', marginBottom: '0.75rem', fontWeight: 'bold' }}>{captchaError}</p>}
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'flex-start', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              Browser merken (automatisch anmelden)
+            </label>
             <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
               <button type="submit" className="btn-primary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading || !captchaToken}>Login</button>
               <button type="button" onClick={handleRegister} className="btn-secondary" style={{ flex: 1, padding: '0.8rem', fontSize: '1rem' }} disabled={authLoading || !captchaToken}>Registrieren</button>
@@ -2247,9 +2509,9 @@ ${input}`;
     wisorTotal: wisorQuestions.length,
     wisorLearned: Object.keys(completedWisors).length,
     wisorEcoTotal: wisorEcoQuestions.length,
-    wisorEcoLearned: Object.keys(completedWisorsEco).length,
+    wisorEcoLearned: Math.max(0, wisorEcoQuestions.length - wisorEcoDuePool.length),
     reviewTotal: allMarketingReviewQuestions.length,
-    reviewLearned: Object.keys(completedMarketingReview).length,
+    reviewLearned: Math.max(0, allMarketingReviewQuestions.length - marketingReviewDuePool.length),
     rechenTotal,
     rechenLearned
   };
@@ -2467,10 +2729,10 @@ ${input}`;
                 Journey Architect (XP: {jaProgress?.xp || 0})
               </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('wisor_eco_setup')}>
-                WiSoR ({Math.max(0, (wisorEco.questions || []).length - Object.keys(completedWisorsEco).length)} offen)
+                WiSoR ({wisorEcoDuePool.length} offen)
               </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('marketing_review_setup')}>
-                IHK Extras ({Math.max(0, allMarketingReviewQuestions.length - Object.keys(completedMarketingReview).length)} offen)
+                IHK Extras ({marketingReviewDuePool.length} offen)
               </button>
             </div>
           </div>
@@ -2966,6 +3228,8 @@ ${input}`;
           onBack={() => setAppMode('rechen_tasks_setup')}
           burgerMenuPortal={burgerMenuPortal}
           multiChoiceRepeatMode={multiChoiceRepeatMode}
+          onTheoryAnswer={handleKpiTheoryAnswerUpdate}
+          loadDueTheoryQuestions={loadDueKpiTheoryQuestions}
         />
       </React.Suspense>
     );
@@ -3217,6 +3481,7 @@ ${input}`;
           <QuizSession
             quizDuePool={quizDuePool}
             initialSessionPool={quizSessionPool}
+            dbRemainingCount={quizDuePool.length}
             onComplete={() => {
               refreshQuizDuePool();
               setAppMode('quiz_setup');
@@ -3265,6 +3530,7 @@ ${input}`;
           <QuizSession
             quizDuePool={getDueMarketingReviewByTopic('all')}
             initialSessionPool={marketingReviewSessionPool}
+            dbRemainingCount={getDueMarketingReviewByTopic('all').length}
             onComplete={() => {
               setMarketingReviewSessionPool([]);
               setAppMode('marketing_review_setup');
@@ -3318,6 +3584,7 @@ ${input}`;
           <QuizSession
             quizDuePool={getDueWisorEcoByTopic('all')}
             initialSessionPool={wisorEcoSessionPool}
+            dbRemainingCount={getDueWisorEcoByTopic('all').length}
             onComplete={() => {
               setWisorEcoSessionPool([]);
               setAppMode('wisor_eco_setup');
@@ -3366,6 +3633,7 @@ ${input}`;
           <QuizSession
             quizDuePool={getDueKlrMcByTopic('all')}
             initialSessionPool={klrMcQuizSessionPool}
+            dbRemainingCount={getDueKlrMcByTopic('all').length}
             onComplete={() => {
               setKlrMcSessionPool([]);
               setAppMode('klr_mc_setup');

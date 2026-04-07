@@ -3,6 +3,9 @@ import { supabase } from '../supabaseClient';
 import { getAnalyticsStorageKey, getCustomQuizStorageKey } from '../utils/analytics';
 import { ACCESS_MODE_KEY } from '../utils/constants';
 
+const REMEMBER_LOGIN_KEY = 'ap2_remember_login';
+const REMEMBERED_SESSION_KEY = 'ap2_remembered_supabase_session';
+
 export const useAuth = (setAppMode) => {
     const [authUser, setAuthUser] = useState(null);
     const [authError, setAuthError] = useState(false);
@@ -10,10 +13,69 @@ export const useAuth = (setAppMode) => {
     const [password, setPassword] = useState('');
     const [authLoading, setAuthLoading] = useState(false);
     const [authMsg, setAuthMsg] = useState('');
+    const [rememberMe, setRememberMe] = useState(() => {
+        try {
+            return localStorage.getItem(REMEMBER_LOGIN_KEY) === 'true';
+        } catch {
+            return false;
+        }
+    });
     const [captchaError, setCaptchaError] = useState('');
     const [captchaToken, setCaptchaToken] = useState(null);
 
     const captchaRef = useRef(null);
+
+    const clearRememberedSession = () => {
+        localStorage.removeItem(REMEMBERED_SESSION_KEY);
+    };
+
+    const saveRememberedSession = (session) => {
+        if (!session?.access_token || !session?.refresh_token) return;
+        localStorage.setItem(REMEMBERED_SESSION_KEY, JSON.stringify({
+            access_token: session.access_token,
+            refresh_token: session.refresh_token,
+            expires_at: session.expires_at || null,
+            stored_at: Date.now()
+        }));
+    };
+
+    useEffect(() => {
+        localStorage.setItem(REMEMBER_LOGIN_KEY, rememberMe ? 'true' : 'false');
+    }, [rememberMe]);
+
+    useEffect(() => {
+        let cancelled = false;
+
+        const restoreRememberedSession = async () => {
+            if (!rememberMe) {
+                clearRememberedSession();
+                return;
+            }
+
+            let remembered = null;
+            try {
+                remembered = JSON.parse(localStorage.getItem(REMEMBERED_SESSION_KEY) || 'null');
+            } catch {
+                remembered = null;
+            }
+
+            if (!remembered?.access_token || !remembered?.refresh_token) return;
+
+            const { error } = await supabase.auth.setSession({
+                access_token: remembered.access_token,
+                refresh_token: remembered.refresh_token,
+            });
+
+            if (cancelled) return;
+            if (error) clearRememberedSession();
+        };
+
+        restoreRememberedSession();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [rememberMe]);
 
     const clearGuestProgressData = () => {
         localStorage.removeItem('ap2_srs_progress');
@@ -32,6 +94,11 @@ export const useAuth = (setAppMode) => {
                 setAuthUser(session.user);
                 localStorage.setItem('masterpat_auth', 'true');
                 localStorage.setItem(ACCESS_MODE_KEY, 'member');
+                if (rememberMe) {
+                    saveRememberedSession(session);
+                } else {
+                    clearRememberedSession();
+                }
                 if (setAppMode) setAppMode(prev => prev === 'auth' ? 'intro' : prev);
             } else {
                 setAuthUser(null);
@@ -41,7 +108,7 @@ export const useAuth = (setAppMode) => {
         });
 
         return () => subscription.unsubscribe();
-    }, [setAppMode]);
+    }, [rememberMe, setAppMode]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -102,6 +169,7 @@ export const useAuth = (setAppMode) => {
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
+        clearRememberedSession();
         localStorage.removeItem('masterpat_auth');
         localStorage.removeItem(ACCESS_MODE_KEY);
         window.location.reload();
@@ -128,6 +196,8 @@ export const useAuth = (setAppMode) => {
         handleRegister,
         handleGoogleLogin,
         handleLogout,
-        clearGuestProgressData
+        clearGuestProgressData,
+        rememberMe,
+        setRememberMe,
     };
 };

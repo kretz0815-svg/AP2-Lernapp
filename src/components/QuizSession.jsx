@@ -39,7 +39,8 @@ const QuizSession = ({
   onFinish,
   learningMode = 'quiz',
   setupMode = 'quiz_setup',
-  floatingAppMode = null
+  floatingAppMode = null,
+  dbRemainingCount = null
 }) => {
   const safeQuizDuePool = Array.isArray(quizDuePool) ? quizDuePool : [];
 
@@ -106,6 +107,7 @@ const QuizSession = ({
   const requireFeynmanCompletion = allSelected && feynmanModeEnabled && isSelectionCorrect;
   const canProceedToNextQuizQuestion = !requireFeynmanCompletion || quizExplanationRevealed || !!feynmanFeedback;
   const remainingInSession = Math.max(internalQuizzes.length - currentQuizIndex, 0);
+  const remainingOpen = Number.isFinite(dbRemainingCount) ? Math.max(dbRemainingCount, 0) : remainingInSession;
   const completionPercent = internalQuizzes.length > 0
     ? Math.round((Math.min(currentQuizIndex, internalQuizzes.length) / internalQuizzes.length) * 100)
     : 0;
@@ -296,7 +298,7 @@ const QuizSession = ({
       return;
     }
 
-    const shouldAbort = window.confirm('Möchtest du wirklich abbrechen? Dein Fortschritt geht verloren.');
+    const shouldAbort = window.confirm('Möchtest du wirklich abbrechen? Bereits beantwortete Fragen wurden gespeichert.');
     if (!shouldAbort) return;
 
     if (onCancel) onCancel();
@@ -328,7 +330,7 @@ const QuizSession = ({
       <header>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
           <button className="btn-nav" onClick={handleCancelWithConfirm}>&larr; Menü</button>
-          <p className="subtitle">Frage {Math.min(currentQuizIndex + 1, internalQuizzes.length)} / {internalQuizzes.length} · {remainingInSession} offen</p>
+          <p className="subtitle">Frage {Math.min(currentQuizIndex + 1, internalQuizzes.length)} / {internalQuizzes.length} · {remainingOpen} offen</p>
           <div className="score-badge">Score: {quizScore.correct}</div>
         </div>
         <div className="progress-container" style={{ marginTop: '0.75rem', maxWidth: '100%' }}>

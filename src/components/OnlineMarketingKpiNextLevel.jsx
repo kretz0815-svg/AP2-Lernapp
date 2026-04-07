@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { askKpiTutorFeedback, generateKpiTheoryQuestions, generateOnlineMarketingScenario } from '../geminiClient';
 import FloatingPortal from './FloatingPortal';
-import { computeNextQuizProgress, getRequiredCorrectAnswers, MULTI_CHOICE_REPEAT_MODES } from '../utils/quizDue';
+import { getRequiredCorrectAnswers, MULTI_CHOICE_REPEAT_MODES } from '../utils/quizDue';
 
 const FALLBACK_THEORY_QUESTIONS = [
   {
@@ -210,12 +210,19 @@ function buildMetricLocalExplanation(metricKey, actual, expected, scenario) {
   return `Du hast ${roundedActual} eingegeben, erwartet ist ca. ${roundedExpected}. Prüfe die Formel und den Nenner erneut.`;
 }
 
-const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal, multiChoiceRepeatMode = MULTI_CHOICE_REPEAT_MODES.TWICE }) => {
+const OnlineMarketingKpiNextLevel = ({
+  onBack,
+  burgerMenuPortal,
+  multiChoiceRepeatMode = MULTI_CHOICE_REPEAT_MODES.TWICE,
+  onTheoryAnswer,
+  loadDueTheoryQuestions,
+}) => {
   const [phase, setPhase] = useState('theory');
+  const [allTheoryQuestions, setAllTheoryQuestions] = useState([]);
   const [theoryQuestions, setTheoryQuestions] = useState([]);
   const [theoryAnswers, setTheoryAnswers] = useState({});
-  const [theoryProgress, setTheoryProgress] = useState({});
   const [theoryResult, setTheoryResult] = useState(null);
+  const [theoryRemaining, setTheoryRemaining] = useState(0);
   const [scenario, setScenario] = useState(null);
   const [kpiInputs, setKpiInputs] = useState({ cpm: '', cpc: '', cpo: '', roas: '', kur: '' });
   const [validation, setValidation] = useState(null);
@@ -259,18 +266,33 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal, multiChoiceRepe
       try {
         const generated = await generateKpiTheoryQuestions();
         if (requestId !== theoryLoadRequestRef.current) return;
-        if (Array.isArray(generated) && generated.length > 0) {
-          setTheoryQuestions(generated);
-          setTheoryProgress({});
+        const baseQuestions = Array.isArray(generated) && generated.length > 0
+          ? generated
+          : FALLBACK_THEORY_QUESTIONS;
+        setAllTheoryQuestions(baseQuestions);
+        if (typeof loadDueTheoryQuestions === 'function') {
+          const loaded = await loadDueTheoryQuestions(baseQuestions, multiChoiceRepeatMode);
+          if (requestId !== theoryLoadRequestRef.current) return;
+          setTheoryQuestions(Array.isArray(loaded?.dueQuestions) ? loaded.dueQuestions : baseQuestions);
+          setTheoryRemaining(Number(loaded?.remainingCount ?? baseQuestions.length));
         } else {
-          setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
-          setTheoryProgress({});
+          setTheoryQuestions(baseQuestions);
+          setTheoryRemaining(baseQuestions.length);
         }
+        setTheoryAnswers({});
       } catch {
         if (requestId !== theoryLoadRequestRef.current) return;
-        // Keep fallback questions silently when generation fails.
-        setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
-        setTheoryProgress({});
+        setAllTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
+        if (typeof loadDueTheoryQuestions === 'function') {
+          const loaded = await loadDueTheoryQuestions(FALLBACK_THEORY_QUESTIONS, multiChoiceRepeatMode);
+          if (requestId !== theoryLoadRequestRef.current) return;
+          setTheoryQuestions(Array.isArray(loaded?.dueQuestions) ? loaded.dueQuestions : FALLBACK_THEORY_QUESTIONS);
+          setTheoryRemaining(Number(loaded?.remainingCount ?? FALLBACK_THEORY_QUESTIONS.length));
+        } else {
+          setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
+          setTheoryRemaining(FALLBACK_THEORY_QUESTIONS.length);
+        }
+        setTheoryAnswers({});
       } finally {
         if (requestId !== theoryLoadRequestRef.current) return;
         setTheoryLoading(false);
@@ -278,11 +300,31 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal, multiChoiceRepe
     };
 
     bootstrapTheory();
-  }, [phase]);
+  }, [phase, loadDueTheoryQuestions, multiChoiceRepeatMode]);
 
-  const handleTheoryChoice = (questionId, optionId) => {
+  const handleTheoryChoice = async (questionId, optionId) => {
     setTheoryResult(null);
     setTheoryAnswers((prev) => ({ ...prev, [questionId]: optionId }));
+
+    const question = theoryQuestions.find((item) => item.id === questionId);
+    if (!question) return;
+    const correctOption = question.options.find((opt) => opt.isCorrect);
+    const isCorrect = !!correctOption && correctOption.id === optionId;
+
+    if (typeof onTheoryAnswer === 'function') {
+      await onTheoryAnswer(
+        { ...question, topic: question.topic || 'KPI Theorie' },
+        isCorrect,
+        multiChoiceRepeatMode
+      );
+    }
+
+    if (typeof loadDueTheoryQuestions === 'function') {
+      const loaded = await loadDueTheoryQuestions(allTheoryQuestions, multiChoiceRepeatMode);
+      const refreshedDue = Array.isArray(loaded?.dueQuestions) ? loaded.dueQuestions : allTheoryQuestions;
+      setTheoryQuestions(refreshedDue);
+      setTheoryRemaining(Number(loaded?.remainingCount ?? refreshedDue.length));
+    }
   };
 
   const refreshTheoryQuestions = async () => {
@@ -293,19 +335,34 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal, multiChoiceRepe
     try {
       const generated = await generateKpiTheoryQuestions();
       if (requestId !== theoryLoadRequestRef.current) return;
-      if (Array.isArray(generated) && generated.length > 0) {
-        setTheoryQuestions(generated);
-        setTheoryAnswers({});
-        setTheoryProgress({});
-        setTheoryResult(null);
+      const baseQuestions = Array.isArray(generated) && generated.length > 0
+        ? generated
+        : FALLBACK_THEORY_QUESTIONS;
+
+      setAllTheoryQuestions(baseQuestions);
+      if (typeof loadDueTheoryQuestions === 'function') {
+        const loaded = await loadDueTheoryQuestions(baseQuestions, multiChoiceRepeatMode);
+        if (requestId !== theoryLoadRequestRef.current) return;
+        setTheoryQuestions(Array.isArray(loaded?.dueQuestions) ? loaded.dueQuestions : baseQuestions);
+        setTheoryRemaining(Number(loaded?.remainingCount ?? baseQuestions.length));
       } else {
-        setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
-        setTheoryProgress({});
+        setTheoryQuestions(baseQuestions);
+        setTheoryRemaining(baseQuestions.length);
       }
+      setTheoryAnswers({});
+      setTheoryResult(null);
     } catch {
       if (requestId !== theoryLoadRequestRef.current) return;
-      setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
-      setTheoryProgress({});
+      setAllTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
+      if (typeof loadDueTheoryQuestions === 'function') {
+        const loaded = await loadDueTheoryQuestions(FALLBACK_THEORY_QUESTIONS, multiChoiceRepeatMode);
+        if (requestId !== theoryLoadRequestRef.current) return;
+        setTheoryQuestions(Array.isArray(loaded?.dueQuestions) ? loaded.dueQuestions : FALLBACK_THEORY_QUESTIONS);
+        setTheoryRemaining(Number(loaded?.remainingCount ?? FALLBACK_THEORY_QUESTIONS.length));
+      } else {
+        setTheoryQuestions(FALLBACK_THEORY_QUESTIONS);
+        setTheoryRemaining(FALLBACK_THEORY_QUESTIONS.length);
+      }
       setErrorText('Neue Theoriefragen konnten nicht geladen werden. Nutze bitte den aktuellen Satz oder versuche es erneut.');
     } finally {
       if (requestId !== theoryLoadRequestRef.current) return;
@@ -334,45 +391,43 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal, multiChoiceRepe
 
   const submitTheory = async () => {
     const requiredCorrect = getRequiredCorrectAnswers(multiChoiceRepeatMode);
-    const now = Date.now();
-
-    const nextProgress = { ...theoryProgress };
-    const checked = theoryQuestions.map((item) => {
-      const selected = theoryAnswers[item.id];
-      const correct = item.options.find((opt) => opt.isCorrect)?.id;
-      const wasCorrect = !!selected && selected === correct;
-      const previous = nextProgress[item.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0, correctAnswersCount: 0, isLearned: false };
-      const updated = computeNextQuizProgress(previous, wasCorrect, now, multiChoiceRepeatMode);
-      nextProgress[item.id] = updated;
-
-      return {
-        id: item.id,
-        isCorrect: wasCorrect,
-        progress: updated
-      };
-    });
-
-    setTheoryProgress(nextProgress);
-
-    const correctCount = checked.filter((x) => x.isCorrect).length;
-    const masteredCount = checked.filter((x) => Number(x.progress?.correctAnswersCount || 0) >= requiredCorrect).length;
-    setTheoryResult({
-      total: theoryQuestions.length,
-      correct: correctCount,
-      mastered: masteredCount,
-      requiredCorrect,
-      checks: checked.reduce((acc, item) => {
-        acc[item.id] = item.isCorrect;
-        return acc;
-      }, {})
-    });
-
-    if (masteredCount === theoryQuestions.length) {
-      await startScenarioPhase();
+    const unanswered = theoryQuestions.filter((item) => !theoryAnswers[item.id]);
+    if (unanswered.length > 0) {
+      setTheoryResult({
+        total: theoryQuestions.length,
+        correct: 0,
+        mastered: 0,
+        requiredCorrect,
+        checks: {},
+      });
+      setErrorText('Bitte beantworte zuerst alle aktuell fälligen Theoriefragen.');
       return;
     }
 
-    setTheoryAnswers({});
+    setErrorText('');
+    let refreshedRemaining = theoryRemaining;
+    if (typeof loadDueTheoryQuestions === 'function') {
+      const loaded = await loadDueTheoryQuestions(allTheoryQuestions, multiChoiceRepeatMode);
+      const refreshedDue = Array.isArray(loaded?.dueQuestions) ? loaded.dueQuestions : allTheoryQuestions;
+      refreshedRemaining = Number(loaded?.remainingCount ?? refreshedDue.length);
+      setTheoryQuestions(refreshedDue);
+      setTheoryRemaining(refreshedRemaining);
+      setTheoryAnswers({});
+    }
+
+    const masteredCount = Math.max(allTheoryQuestions.length - refreshedRemaining, 0);
+    setTheoryResult({
+      total: allTheoryQuestions.length,
+      correct: allTheoryQuestions.length - unanswered.length,
+      mastered: masteredCount,
+      requiredCorrect,
+      checks: {}
+    });
+
+    if (refreshedRemaining === 0) {
+      await startScenarioPhase();
+      return;
+    }
   };
 
   const submitCalculation = async () => {
@@ -485,6 +540,9 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal, multiChoiceRepe
         {phase === 'theory' && (
           <>
             <h3 style={{ marginBottom: '0.9rem' }}>Phase 1: Theorie-Check</h3>
+            <p style={{ marginTop: 0, marginBottom: '0.75rem', color: 'var(--text-muted)' }}>
+              Fällige Fragen laut Datenbank: <strong>{theoryRemaining}</strong>
+            </p>
             <div style={{ display: 'flex', gap: '0.7rem', marginBottom: '0.9rem' }}>
               <button className="btn-secondary" onClick={refreshTheoryQuestions} disabled={theoryLoading || busy}>
                 {theoryLoading ? 'KI erstellt Fragen...' : 'Neue KI-Theoriefragen'}
@@ -516,6 +574,11 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal, multiChoiceRepe
               </div>
             ) : (
               <div style={{ display: 'grid', gap: '1rem' }}>
+                {theoryQuestions.length === 0 && (
+                  <p style={{ margin: 0, color: '#86efac' }}>
+                    Alle Fragen sind fuer den aktuellen Modus bereits erledigt.
+                  </p>
+                )}
                 {theoryQuestions.map((item) => (
                   <div key={item.id} style={{ padding: '0.9rem', border: '1px solid var(--glass-border)', borderRadius: '12px' }}>
                     <p style={{ marginTop: 0, marginBottom: '0.6rem', fontWeight: 700 }}>{item.question}</p>
@@ -603,7 +666,7 @@ const OnlineMarketingKpiNextLevel = ({ onBack, burgerMenuPortal, multiChoiceRepe
 
             {theoryResult && theoryResult.mastered < theoryResult.total && (
               <p style={{ marginTop: '0.8rem', color: '#fda4af' }}>
-                {theoryResult.correct} von {theoryResult.total} in dieser Runde korrekt. Lernstand: {theoryResult.mastered}/{theoryResult.total} Fragen bei Ziel {theoryResult.requiredCorrect}x richtig.
+                Lernstand: {theoryResult.mastered}/{theoryResult.total} erledigt. Noch offen in der Datenbank: {theoryRemaining} (Ziel: {theoryResult.requiredCorrect}x richtig).
               </p>
             )}
 
