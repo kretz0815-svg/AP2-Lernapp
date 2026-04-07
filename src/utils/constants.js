@@ -32,6 +32,7 @@ export const createEmptyMemberProgressData = () => ({
     wisor_grundlagen_progress: {},
     wisor_ecommerce_progress: {},
     marketing_review_progress: {},
+    klr_mc_progress: {},
     saved_notes: {},
     learning_analytics: createEmptyAnalytics(),
     custom_quiz_questions: [],

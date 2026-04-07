@@ -12,6 +12,7 @@ import wissenTesten from './data/wissen_testen.json';
 import wisor1 from './data/wisor_1.json';
 import wisorEco from './data/wisor_eco.json';
 import marketingReview from './data/marketing_review.json';
+import klrMcQuiz from './data/klr_mc.json';
 
 import { supabase } from './supabaseClient';
 import { askGemini, extractFocusTopics, extractCalculationInsights } from './geminiClient';
@@ -71,6 +72,8 @@ function App() {
   const DB_KEY_WISOR_ECOMMERCE = 'wisor_ecommerce_progress';
   const LEGACY_DB_KEY_WISOR = 'wisor_progress';
   const LEGACY_DB_KEY_WISOR_ECO = 'wisor_eco_progress';
+  const DB_KEY_KLR_MC = 'klr_mc_progress';
+  const LOCAL_KEY_KLR_MC = 'ap2_klr_mc_progress';
   const MULTI_CHOICE_REPEAT_MODE_KEY = 'ap2_multi_choice_repeat_mode';
   const WISOR_ECO_REPEAT_MODE = MULTI_CHOICE_REPEAT_MODES.ONCE;
 
@@ -186,6 +189,9 @@ function App() {
   const [wisorEcoSessionPool, setWisorEcoSessionPool] = useState([]);
   const [, setWisorEcoSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
   const [wisorEcoCountSelection, setWisorEcoCountSelection] = useState(10);
+  const [klrMcQuizSessionPool, setKlrMcSessionPool] = useState([]);
+  const [klrMcQuizSessionRepeatMode, setKlrMcSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
+  const [klrMcQuizCountSelection, setKlrMcCountSelection] = useState(10);
 
   // --- WISOR STATE ---
   const [allWisors, setAllWisors] = useState([]);
@@ -198,6 +204,7 @@ function App() {
   const [completedWisors, setCompletedWisors] = useState({});
   const [completedWisorsEco, setCompletedWisorsEco] = useState({});
   const [completedMarketingReview, setCompletedMarketingReview] = useState({});
+  const [completedKlrMc, setCompletedKlrMc] = useState({});
   const [activeWisorMode, setActiveWisorMode] = useState('wisor1');
   const [resetModalVisible, setResetModalVisible] = useState(false);
   const [resetTarget, setResetTarget] = useState('wisor');
@@ -331,6 +338,8 @@ function App() {
                   ? 'KLR'
                   : m.mode === 'project_m'
                     ? 'Projekt M'
+                    : m.mode === 'klr_mc'
+                      ? 'KLR MC'
                     : m.mode === 'journey_architect'
                       ? 'Journey Architect'
                       : ''
@@ -418,6 +427,7 @@ function App() {
     const wisorProgress = JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {};
     const wisorEcoProgress = JSON.parse(localStorage.getItem('ap2_wisor_eco_progress')) || {};
     const marketingReviewProgress = JSON.parse(localStorage.getItem('ap2_marketing_review_progress')) || {};
+    const klrMcQuizProgress = JSON.parse(localStorage.getItem(LOCAL_KEY_KLR_MC) || '{}');
     const savedNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
     const analytics = loadAnalyticsForUser(authUser);
     const customQuiz = loadCustomQuizForUser(authUser);
@@ -437,6 +447,7 @@ function App() {
       [DB_KEY_WISOR_GRUNDLAGEN]: wisorProgress,
       [DB_KEY_WISOR_ECOMMERCE]: wisorEcoProgress,
       marketing_review_progress: marketingReviewProgress,
+      [DB_KEY_KLR_MC]: klrMcQuizProgress,
       saved_notes: savedNotes,
       learning_analytics: analytics,
       custom_quiz_questions: customQuiz,
@@ -854,6 +865,10 @@ function App() {
     ...(customMarketingReviewQuestions || [])
   ];
 
+  const allKlrMcQuestions = [
+    ...(klrMcQuiz.questions || [])
+  ];
+
   const parseLegacyWisorEcoAnswerOptions = (questionText, expectedAnswers = []) => {
     const lines = String(questionText || '').split('\n');
     const optionLines = lines
@@ -923,6 +938,16 @@ function App() {
     const now = Date.now();
     const due = allMarketingReviewQuestions.filter((q) => {
       const entry = completedMarketingReview[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0, correctAnswersCount: 0, isLearned: false };
+      return isQuizDue(entry, now, multiChoiceRepeatMode) || !isMasteryLearned(entry);
+    });
+    if (topic === 'all') return due;
+    return due.filter(q => getQuizTopicGroup(q.topic) === topic);
+  };
+
+  const getDueKlrMcByTopic = (topic = 'all') => {
+    const now = Date.now();
+    const due = allKlrMcQuestions.filter((q) => {
+      const entry = completedKlrMc[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0, correctAnswersCount: 0, isLearned: false };
       return isQuizDue(entry, now, multiChoiceRepeatMode) || !isMasteryLearned(entry);
     });
     if (topic === 'all') return due;
@@ -1199,6 +1224,14 @@ ${input}`;
     setAppMode('wisor_eco_quiz');
   };
 
+  const startKlrMcSession = (limit, topic = 'all') => {
+    const duePool = getDueKlrMcByTopic(topic);
+    const sessionQs = buildShuffledSession(duePool, limit);
+    setKlrMcSessionRepeatMode(multiChoiceRepeatModeRef.current);
+    setKlrMcSessionPool(sessionQs);
+    setAppMode('klr_mc');
+  };
+
   const handleWisorEcoAnswerUpdate = async (q, isCorrect, repeatMode = WISOR_ECO_REPEAT_MODE) => {
     if (!q?.id) return;
 
@@ -1235,6 +1268,42 @@ ${input}`;
           isLearned: !!nextEntry.isLearned,
         }
       }).catch(err => console.error('DSR wisorEco review failed:', err));
+    }
+  };
+
+  const handleKlrMcAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatModeRef.current) => {
+    if (!q?.id) return;
+
+    const localProg = loadProgressObject(LOCAL_KEY_KLR_MC);
+    const prevEntry = normalizeMasteryProgressEntry(localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
+    const nextEntry = {
+      ...computeNextQuizProgress(prevEntry, isCorrect, Date.now(), repeatMode),
+      updatedAt: new Date().toISOString(),
+    };
+
+    const nextProg = { ...localProg, [q.id]: nextEntry };
+    localStorage.setItem(LOCAL_KEY_KLR_MC, JSON.stringify(nextProg));
+    setCompletedKlrMc(nextProg);
+
+    if (authUser?.id) {
+      syncProgressToSupabase({ [DB_KEY_KLR_MC]: nextProg }).catch(() => { });
+    }
+
+    if (authUser?.id) {
+      const rating = isCorrect ? 4 : 2;
+      reviewTaskWithDSR({
+        supabase,
+        userId: authUser.id,
+        taskId: `zahlen:${q.id}`,
+        rating,
+        taskType: 'klr_mc',
+        category: q.topic,
+        metadata: {
+          question: q.question,
+          correctAnswersCount: Number(nextEntry.correctAnswersCount || 0),
+          isLearned: !!nextEntry.isLearned,
+        }
+      }).catch(err => console.error('DSR klr_mc review failed:', err));
     }
   };
 
@@ -1389,6 +1458,11 @@ ${input}`;
             } else {
               localStorage.setItem('ap2_marketing_review_progress', JSON.stringify({}));
             }
+            if (data.progress_data[DB_KEY_KLR_MC]) {
+              localStorage.setItem(LOCAL_KEY_KLR_MC, JSON.stringify(data.progress_data[DB_KEY_KLR_MC]));
+            } else {
+              localStorage.setItem(LOCAL_KEY_KLR_MC, JSON.stringify({}));
+            }
             if (data.progress_data.learning_analytics) {
               const remoteAnalytics = {
                 ...createEmptyAnalytics(),
@@ -1489,6 +1563,7 @@ ${input}`;
             localStorage.setItem('ap2_wisor_progress', JSON.stringify({}));
             localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
             localStorage.setItem('ap2_marketing_review_progress', JSON.stringify({}));
+            localStorage.setItem(LOCAL_KEY_KLR_MC, JSON.stringify({}));
             localStorage.setItem('ap2_saved_notes', JSON.stringify({}));
             localStorage.removeItem('project_m_progress_v1');
             localStorage.removeItem('klr_game_progress_v1');
@@ -1519,6 +1594,8 @@ ${input}`;
 
       let wisorEcoProg = JSON.parse(localStorage.getItem('ap2_wisor_eco_progress')) || {};
       setCompletedWisorsEco(wisorEcoProg);
+      const klrMcQuizProg = JSON.parse(localStorage.getItem(LOCAL_KEY_KLR_MC) || '{}');
+      setCompletedKlrMc(klrMcQuizProg);
       setLearningAnalytics(analyticsData);
       setCustomQuizQuestions(customQuizData);
       setCustomMarketingReviewQuestions(customMarketingReviewData);
@@ -1651,6 +1728,7 @@ ${input}`;
       const remoteWisorEcoRaw = remote[DB_KEY_WISOR_ECOMMERCE] || remote[LEGACY_DB_KEY_WISOR_ECO];
       const remoteWisorEco = remoteWisorEcoRaw && typeof remoteWisorEcoRaw === 'object' ? remoteWisorEcoRaw : {};
       const remoteMarketing = remote.marketing_review_progress && typeof remote.marketing_review_progress === 'object' ? remote.marketing_review_progress : {};
+      const remoteKlrMc = remote[DB_KEY_KLR_MC] && typeof remote[DB_KEY_KLR_MC] === 'object' ? remote[DB_KEY_KLR_MC] : {};
       const remoteAnalytics = remote.learning_analytics && typeof remote.learning_analytics === 'object'
         ? { ...createEmptyAnalytics(), ...remote.learning_analytics }
         : createEmptyAnalytics();
@@ -1672,6 +1750,7 @@ ${input}`;
       localStorage.setItem('ap2_wisor_progress', JSON.stringify(remoteWisor));
       localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(remoteWisorEco));
       localStorage.setItem('ap2_marketing_review_progress', JSON.stringify(remoteMarketing));
+      localStorage.setItem(LOCAL_KEY_KLR_MC, JSON.stringify(remoteKlrMc));
       localStorage.setItem(getAnalyticsStorageKey(authUser), JSON.stringify(remoteAnalytics));
       localStorage.setItem(getCustomQuizStorageKey(authUser), JSON.stringify(remoteCustomQuiz));
       localStorage.setItem(getCustomMarketingReviewStorageKey(authUser), JSON.stringify(remoteCustomMarketingReview));
@@ -1690,6 +1769,7 @@ ${input}`;
       setCompletedWisors(remoteWisor);
       setCompletedWisorsEco(remoteWisorEco);
       setCompletedMarketingReview(remoteMarketing);
+      setCompletedKlrMc(remoteKlrMc);
       setLearningAnalytics(remoteAnalytics);
       setCustomQuizQuestions(remoteCustomQuiz);
       setCustomMarketingReviewQuestions(remoteCustomMarketingReview);
@@ -1826,6 +1906,15 @@ ${input}`;
       }
       setMarketingReviewSessionPool([]);
       setResetModalVisible(false);
+    } else if (resetTarget === 'klr_mc') {
+      localStorage.removeItem(LOCAL_KEY_KLR_MC);
+      setCompletedKlrMc({});
+      clearAnalyticsByMode('klr_mc');
+      if (authUser?.id) {
+        syncProgressToSupabase({ [DB_KEY_KLR_MC]: {} }).catch(() => { });
+      }
+      setKlrMcSessionPool([]);
+      setResetModalVisible(false);
     } else if (resetTarget === 'klr') {
       localStorage.removeItem('klr_game_progress_v1');
       clearAnalyticsByMode('klr');
@@ -1858,6 +1947,7 @@ ${input}`;
       localStorage.removeItem('ap2_wisor_progress');
       localStorage.removeItem('ap2_wisor_eco_progress');
       localStorage.removeItem('ap2_marketing_review_progress');
+      localStorage.removeItem(LOCAL_KEY_KLR_MC);
       localStorage.removeItem('ap2_saved_notes');
       localStorage.removeItem('klr_game_progress_v1');
       localStorage.removeItem('project_m_progress_v1');
@@ -1868,6 +1958,7 @@ ${input}`;
       setCompletedWisors({});
       setCompletedWisorsEco({});
       setCompletedMarketingReview({});
+      setCompletedKlrMc({});
       setQuizProgressView({});
       setLearningAnalytics(createEmptyAnalytics());
       setStats({ learnedToday: 0, totalDue: 0 });
@@ -2018,7 +2109,7 @@ ${input}`;
   // Fallback for unknown appMode
   // (Effect defined here — BEFORE any conditional return — to comply with React hooks rules)
   useEffect(() => {
-    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'marketing_review_result', 'wisor', 'wisor_eco_setup', 'wisor_eco_quiz', 'rechen_tasks_setup', 'kpi_next_level', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'nutzwertanalyse', 'swot_analyse', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
+    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'marketing_review_result', 'wisor', 'wisor_eco_setup', 'wisor_eco_quiz', 'klr_mc_setup', 'klr_mc', 'rechen_tasks_setup', 'kpi_next_level', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'nutzwertanalyse', 'swot_analyse', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
       setAppMode('dashboard');
     }
   }, [appMode]);
@@ -2391,6 +2482,9 @@ ${input}`;
             <h2>Zahlen</h2>
             <p>KPI's, Break Even, Handelskalkulation, KLR & E-Commerce Kalkulation</p>
             <div style={{ display: 'grid', gap: '0.55rem', width: '100%', marginTop: '0.4rem' }}>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('klr_mc_setup')}>
+                KLR MC ({getDueKlrMcByTopic('all').length} fällig)
+              </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('rechen_tasks_setup')}>
                 KPI's ({Math.max(0, rechenTotal - rechenLearned)} fällig)
               </button>
@@ -2988,6 +3082,43 @@ ${input}`;
     );
   }
 
+  if (appMode === 'klr_mc_setup') {
+    return (
+      <React.Suspense fallback={<div className="loading-overlay">Lade KLR MC...</div>}>
+        <>
+          <QuizSetup
+            selectedQuizTopic={'all'}
+            setSelectedQuizTopic={() => { }}
+            getDueQuizzesByTopic={getDueKlrMcByTopic}
+            getQuizTopicGroup={getQuizTopicGroup}
+            multiChoiceRepeatMode={multiChoiceRepeatMode}
+            onMultiChoiceRepeatModeChange={handleMultiChoiceRepeatModeChange}
+            feynmanModeEnabled={feynmanModeEnabled}
+            setFeynmanModeEnabled={setFeynmanModeEnabled}
+            quizCountSelection={klrMcQuizCountSelection}
+            setQuizCountSelection={setKlrMcCountSelection}
+            startQuiz={() => startKlrMcSession(klrMcQuizCountSelection, 'all')}
+            setAppMode={setAppMode}
+            burgerMenuPortal={burgerMenuPortal}
+            title="Wieviele Fragen?"
+            description="Wähle die Anzahl fälliger Fragen im KLR MC und starte den Durchgang."
+            showTopicSelect={false}
+            backMode="dashboard"
+            showResetProgressButton
+            onResetProgress={() => openResetModal(null, 'klr_mc')}
+          />
+          <ResetModal
+            isOpen={resetModalVisible}
+            onClose={() => setResetModalVisible(false)}
+            onConfirm={handleResetExecute}
+            title="KLR-MC-Lernstand zurücksetzen?"
+            description="Dein Fortschritt im KLR MC wird gelöscht. Löse die Rechenaufgabe zur Bestätigung:"
+          />
+        </>
+      </React.Suspense>
+    );
+  }
+
   if (appMode === 'marketing_review_setup') {
     return (
       <React.Suspense fallback={<div className="loading-overlay">Lade IHK Extras...</div>}>
@@ -3222,6 +3353,54 @@ ${input}`;
             handleFeynmanCheck={handleFeynmanCheck}
             learningMode="wisorEco"
             setupMode="wisor_eco_setup"
+          />
+        </QuizErrorBoundary>
+      </React.Suspense>
+    );
+  }
+
+  if (appMode === 'klr_mc') {
+    return (
+      <React.Suspense fallback={<div className="loading-overlay">Lade KLR MC...</div>}>
+        <QuizErrorBoundary onReset={() => setAppMode('klr_mc_setup')}>
+          <QuizSession
+            quizDuePool={getDueKlrMcByTopic('all')}
+            initialSessionPool={klrMcQuizSessionPool}
+            onComplete={() => {
+              setKlrMcSessionPool([]);
+              setAppMode('klr_mc_setup');
+            }}
+            onCancel={() => {
+              setKlrMcSessionPool([]);
+              setAppMode('dashboard');
+            }}
+            feynmanModeEnabled={feynmanModeEnabled}
+            onLearningEvent={appendLearningEvent}
+            onQuizAnswer={(q, isCorrect) => handleKlrMcAnswerUpdate(q, isCorrect, klrMcQuizSessionRepeatMode)}
+            handleGeminiAsk={handleGeminiAsk}
+            geminiResponse={geminiResponse}
+            geminiLoading={geminiLoading}
+            setGeminiQuery={setGeminiQuery}
+            geminiQuery={geminiQuery}
+            setGeminiVisible={setGeminiVisible}
+            geminiVisible={geminiVisible}
+            pomodoroPortal={pomodoroPortal}
+            burgerMenuPortal={burgerMenuPortal}
+            handleToggleVideos={handleToggleVideos}
+            wisorVideoOpen={wisorVideoOpen}
+            setWisorVideoOpen={setWisorVideoOpen}
+            wisorVideoLoading={wisorVideoLoading}
+            wisorVideos={wisorVideos}
+            wisorVideoError={wisorVideoError}
+            selectedWisorVideo={selectedWisorVideo}
+            setSelectedWisorVideo={setSelectedWisorVideo}
+            showConfetti={showConfetti}
+            triggerConfetti={() => triggerConfetti()}
+            lastQuizCorrect={lastQuizCorrect}
+            setAppMode={setAppMode}
+            handleFeynmanCheck={handleFeynmanCheck}
+            learningMode="klr_mc"
+            setupMode="klr_mc_setup"
           />
         </QuizErrorBoundary>
       </React.Suspense>

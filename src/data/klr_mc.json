@@ -1,0 +1,485 @@
+{
+  "title": "KLR MC",
+  "questions": [
+    {
+      "id": "klrmc_001",
+      "topic": "Kurzfristige Preisuntergrenze",
+      "question": "Ein Grosskunde fordert einen sehr niedrigen Preis. Der Vertrieb fragt, was die kurzfristige Preisuntergrenze bedeutet.",
+      "answerOptions": [
+        { "text": "Preis, der Gewinn garantiert", "isCorrect": false, "rationale": "Ein Gewinn ist bei der kurzfristigen Preisuntergrenze nicht garantiert." },
+        { "text": "Preis, der nur variable Kosten deckt", "isCorrect": true, "rationale": "Die kurzfristige Preisuntergrenze deckt genau die variablen Kosten; der Deckungsbeitrag liegt dabei bei null." },
+        { "text": "Preis, der unter dem Wareneinsatz liegt", "isCorrect": false, "rationale": "Unter dem Wareneinsatz wuerde ein direkter Stueckverlust entstehen." },
+        { "text": "Preis, der langfristig alle Kosten deckt", "isCorrect": false, "rationale": "Das beschreibt die langfristige Preisuntergrenze." }
+      ],
+      "hint": "Kurzfristig geht es nur um variable Kosten."
+    },
+    {
+      "id": "klrmc_002",
+      "topic": "Die Bedeutung des EBIT",
+      "question": "Ein Mitarbeiter fragt, warum das EBIT fuer Banken wichtiger ist als der Jahresueberschuss.",
+      "answerOptions": [
+        { "text": "EBIT zeigt operative Leistung", "isCorrect": true, "rationale": "EBIT zeigt die operative Ertragskraft unabhaengig von Zinsen und Steuern." },
+        { "text": "EBIT ist nach Steuern", "isCorrect": false, "rationale": "EBIT bedeutet vor Zinsen und vor Steuern." },
+        { "text": "EBIT zeigt die Kapitalstruktur", "isCorrect": false, "rationale": "Die Kapitalstruktur wird ueber Bilanzkennzahlen wie die Eigenkapitalquote beurteilt." },
+        { "text": "EBIT zeigt die Liquiditaet", "isCorrect": false, "rationale": "Liquiditaet wird mit Liquiditaetskennzahlen gemessen, nicht mit EBIT." }
+      ],
+      "hint": "EBIT = Earnings Before Interest and Taxes."
+    },
+    {
+      "id": "klrmc_003",
+      "topic": "Die Eigenkapitalquote",
+      "question": "Ein Analyst bewertet die Eigenkapitalquote und erklaert, warum sie fuer Banken ein Risikokriterium ist.",
+      "answerOptions": [
+        { "text": "Sie zeigt die Retourenquote", "isCorrect": false, "rationale": "Retourenquote ist eine operative KPI, keine Bilanzkennzahl." },
+        { "text": "Sie zeigt die Zahlungsziele", "isCorrect": false, "rationale": "Zahlungsziele sind Vertrags- bzw. Forderungsthemen." },
+        { "text": "Sie zeigt die Verlusttragfaehigkeit", "isCorrect": true, "rationale": "Hoeheres Eigenkapital bedeutet groesseren finanziellen Puffer zur Verlustabfederung." },
+        { "text": "Sie zeigt die Umsatzentwicklung", "isCorrect": false, "rationale": "Umsatzentwicklung wird ueber GuV- bzw. Vertriebskennzahlen abgebildet." }
+      ],
+      "hint": "Eigenkapital ist der finanzielle Puffer."
+    },
+    {
+      "id": "klrmc_004",
+      "topic": "Kaufhaeufigkeit (Purchase Frequency)",
+      "question": "Im CLV-Workshop fragt ein Teilnehmer, was Kaufhaeufigkeit bedeutet.",
+      "answerOptions": [
+        { "text": "Anzahl der Retouren", "isCorrect": false, "rationale": "Retouren beschreiben Ruecksendungen, nicht Kaeufe." },
+        { "text": "Anzahl der Stornierungen", "isCorrect": false, "rationale": "Stornos sind abgebrochene Auftraege." },
+        { "text": "Anzahl der Kaeufe pro Kunde", "isCorrect": true, "rationale": "Purchase Frequency misst, wie oft ein Kunde im Zeitraum bestellt." },
+        { "text": "Anzahl der Neukunden", "isCorrect": false, "rationale": "Neukundenzahl ist eine separate Akquise-Kennzahl." }
+      ],
+      "hint": "Es geht um Bestellfrequenz je Kunde."
+    },
+    {
+      "id": "klrmc_005",
+      "topic": "Kritische Eigenkapitalquote",
+      "question": "Ein Analyst bewertet die Eigenkapitalquote von 20 %. Er erklaert, warum sie kritisch sein kann.",
+      "answerOptions": [
+        { "text": "Hohe Liquiditaet", "isCorrect": false, "rationale": "Eine niedrige Eigenkapitalquote sagt nicht automatisch hohe Liquiditaet aus." },
+        { "text": "Geringe Risikotragfaehigkeit", "isCorrect": true, "rationale": "Bei wenig Eigenkapital ist der Verlustpuffer klein und Krisenresistenz sinkt." },
+        { "text": "Hohe Lagerumschlagshaeufigkeit", "isCorrect": false, "rationale": "Lagerumschlag ist eine operative Kennzahl." },
+        { "text": "Geringe Steuerlast", "isCorrect": false, "rationale": "Die Steuerlast ist nicht die zentrale Aussage der Eigenkapitalquote." }
+      ],
+      "hint": "Wenig Eigenkapital = wenig Puffer."
+    },
+    {
+      "id": "klrmc_006",
+      "topic": "Der Deckungsbeitrag I",
+      "question": "Ein Produktmanager fragt, warum der Deckungsbeitrag I fuer Sortimentsentscheidungen wichtig ist.",
+      "answerOptions": [
+        { "text": "Er zeigt die Fixkostenhoehe", "isCorrect": false, "rationale": "DB I zeigt nicht direkt die Gesamthoehe der Fixkosten." },
+        { "text": "Er zeigt die Steuerlast", "isCorrect": false, "rationale": "Steuern sind kein Bestandteil des DB I." },
+        { "text": "Er zeigt die Produktprofitabilitaet", "isCorrect": true, "rationale": "DB I = Umsatz minus variable Kosten und zeigt, ob ein Produkt wirtschaftlich beitraegt." },
+        { "text": "Er zeigt die Kapitalbindung", "isCorrect": false, "rationale": "Kapitalbindung wird ueber Working-Capital-/Lagerkennzahlen analysiert." }
+      ],
+      "hint": "DB I betrachtet nur Umsatz und variable Kosten."
+    },
+    {
+      "id": "klrmc_007",
+      "topic": "EBIT und Abschreibungen",
+      "question": "Im Gespraech ueber das EBIT fragt ein Mitarbeiter, warum Abschreibungen darin enthalten sind.",
+      "answerOptions": [
+        { "text": "Sie sind zahlungswirksam", "isCorrect": false, "rationale": "Abschreibungen sind nicht zahlungswirksam." },
+        { "text": "Sie gehoeren zu den Betriebskosten", "isCorrect": true, "rationale": "Abschreibungen sind regulaere Betriebskosten und werden im EBIT beruecksichtigt." },
+        { "text": "Sie erhoehen die Liquiditaet", "isCorrect": false, "rationale": "Abschreibungen erhoehen nicht direkt den Zahlungsmittelbestand." },
+        { "text": "Sie zaehlen zu den Steuern", "isCorrect": false, "rationale": "Abschreibungen sind Aufwand, keine Steuerposition." }
+      ],
+      "hint": "EBIT entspricht dem operativen Ergebnis."
+    },
+    {
+      "id": "klrmc_008",
+      "topic": "Langfristige Preisuntergrenze",
+      "question": "Im Preisstrategie-Meeting wird gefragt, warum die langfristige Preisgrenze entscheidend ist.",
+      "answerOptions": [
+        { "text": "Sie deckt nur variable Kosten", "isCorrect": false, "rationale": "Nur variable Kosten zu decken entspricht der kurzfristigen Untergrenze." },
+        { "text": "Sie deckt alle Kostenarten", "isCorrect": true, "rationale": "Langfristig muessen variable, fixe und Gemeinkosten gedeckt sein." },
+        { "text": "Sie ignoriert Fixkosten", "isCorrect": false, "rationale": "Fixkosten sind zentraler Bestandteil der langfristigen Preisuntergrenze." },
+        { "text": "Sie beruecksichtigt keine Gemeinkosten", "isCorrect": false, "rationale": "Gemeinkosten muessen langfristig ebenfalls gedeckt werden." }
+      ],
+      "hint": "Langfristig geht es um volle Selbstkostendeckung."
+    },
+    {
+      "id": "klrmc_009",
+      "topic": "Handlungskostenzuschlag",
+      "question": "Der Einkauf moechte wissen, was der Handlungskostenzuschlag in der Kalkulation abbildet.",
+      "answerOptions": [
+        { "text": "Umsatzsteueranteil", "isCorrect": false, "rationale": "Umsatzsteuer ist ein separater Steuerbestandteil." },
+        { "text": "Lieferantenskonto", "isCorrect": false, "rationale": "Skonto wirkt im Einkauf vor der Zuschlagskalkulation." },
+        { "text": "Gemeinkosten des Handels", "isCorrect": true, "rationale": "Der Zuschlag verteilt typische Handelsgemeinkosten wie Miete, Verwaltung und Energie." },
+        { "text": "Gewinn des Unternehmens", "isCorrect": false, "rationale": "Gewinn ist ein eigener Kalkulationsbestandteil." }
+      ],
+      "hint": "Denke an nicht direkt zurechenbare Handelskosten."
+    },
+    {
+      "id": "klrmc_010",
+      "topic": "Liquiditaet 1. Grades",
+      "question": "Im Finanzierungsgespraech fragt die Bank, was die Liquiditaet 1. Grades aussagt.",
+      "answerOptions": [
+        { "text": "Faehigkeit, Warenbestaende zu verwerten", "isCorrect": false, "rationale": "Warenbestaende gehoeren nicht zur Liquiditaet 1. Grades." },
+        { "text": "Faehigkeit, Forderungen schnell einzutreiben", "isCorrect": false, "rationale": "Forderungen werden erst in Grad 2 beruecksichtigt." },
+        { "text": "Faehigkeit, alle Schulden langfristig zu bedienen", "isCorrect": false, "rationale": "Grad 1 fokussiert kurzfristige Verbindlichkeiten." },
+        { "text": "Faehigkeit, kurzfristige Schulden sofort zu zahlen", "isCorrect": true, "rationale": "Barliquiditaet prueft, ob Kasse und Bank sofort faellige Schulden decken." }
+      ],
+      "hint": "Grad 1 = Kasse und Bank gegen kurzfristige Verbindlichkeiten."
+    },
+    {
+      "id": "klrmc_011",
+      "topic": "Bedeutung der Eigenkapitalquote",
+      "question": "Ein Analyst bewertet die Eigenkapitalquote der Trail-Blazer UG. Er erklaert dem Vorstand, warum sie wichtig ist.",
+      "answerOptions": [
+        { "text": "Sie zeigt die Kapitalstruktur und Stabilitaet", "isCorrect": true, "rationale": "Die Quote zeigt den Anteil eigener Mittel und damit finanzielle Stabilitaet." },
+        { "text": "Sie zeigt die Lagerumschlagshaeufigkeit", "isCorrect": false, "rationale": "Lagerumschlag ist eine Warenwirtschaftskennzahl." },
+        { "text": "Sie zeigt die Umsatzentwicklung", "isCorrect": false, "rationale": "Umsatzentwicklung ergibt sich aus Erlosdaten." },
+        { "text": "Sie zeigt die Zahlungsbereitschaft des Unternehmens", "isCorrect": false, "rationale": "Zahlungsbereitschaft wird ueber Liquiditaetskennzahlen gemessen." }
+      ],
+      "hint": "Die Eigenkapitalquote ist eine Bilanzstrukturkennzahl."
+    },
+    {
+      "id": "klrmc_012",
+      "topic": "Benchmarking Eigenkapitalquote",
+      "question": "Im Benchmarking wird festgestellt, dass ein Wettbewerber eine hoehere Eigenkapitalquote hat. Der CFO erklaert die Bedeutung.",
+      "answerOptions": [
+        { "text": "Er hat niedrigere Umsaetze", "isCorrect": false, "rationale": "Umsaetze sind nicht direkt aus der Eigenkapitalquote ableitbar." },
+        { "text": "Er hat hoehere Retouren", "isCorrect": false, "rationale": "Retourenquote steht in keinem direkten Bezug zur Kapitalstruktur." },
+        { "text": "Er hat geringere Lagerkosten", "isCorrect": false, "rationale": "Lagerkosten sind operative Kosten, keine direkte Aussage der Quote." },
+        { "text": "Er ist finanziell stabiler", "isCorrect": true, "rationale": "Mehr Eigenkapitalanteil bedeutet in der Regel hoehere Krisenfestigkeit und Unabhaengigkeit." }
+      ],
+      "hint": "Mehr Eigenkapital reduziert Abhaengigkeit vom Fremdkapital."
+    },
+    {
+      "id": "klrmc_013",
+      "topic": "Einstandspreis (Bezugspreis)",
+      "question": "Im Meeting der Einkaufsabteilung wird diskutiert, warum der Einstandspreis die wichtigste Basis fuer die weitere Kalkulation darstellt.",
+      "answerOptions": [
+        { "text": "Er zeigt die Umsatzsteuer", "isCorrect": false, "rationale": "Die Umsatzsteuer ist kein Kernzweck des Einstandspreises." },
+        { "text": "Er enthaelt alle Gemeinkosten", "isCorrect": false, "rationale": "Gemeinkosten kommen erst ueber Zuschlaege hinzu." },
+        { "text": "Er zeigt die Gewinnmarge", "isCorrect": false, "rationale": "Die Marge ergibt sich erst aus Verkaufspreis und Kostenvergleich." },
+        { "text": "Er bildet die Beschaffungskosten ab", "isCorrect": true, "rationale": "Der Einstandspreis bildet den tatsaechlichen Beschaffungsaufwand bis ins Lager ab." }
+      ],
+      "hint": "Startpunkt der Kalkulation ist der reale Beschaffungsaufwand."
+    },
+    {
+      "id": "klrmc_014",
+      "topic": "Vergleich der Preisuntergrenzen",
+      "question": "Der Vertrieb fragt, warum die langfristige Preisgrenze hoeher ist als die kurzfristige.",
+      "answerOptions": [
+        { "text": "Weil sie alle Kosten deckt", "isCorrect": true, "rationale": "Langfristig muessen alle Kostenarten gedeckt werden, daher liegt die Grenze hoeher." },
+        { "text": "Weil sie nur variable Kosten deckt", "isCorrect": false, "rationale": "Das ist die Definition der kurzfristigen Preisuntergrenze." },
+        { "text": "Weil sie keine Fixkosten enthaelt", "isCorrect": false, "rationale": "Gerade die Fixkosten sind langfristig zwingend einzurechnen." },
+        { "text": "Weil sie Skonto beruecksichtigt", "isCorrect": false, "rationale": "Skonto ist kein Grund fuer die grundsaetzliche Hoehendifferenz." }
+      ],
+      "hint": "Der Unterschied liegt bei den Fix- und Gemeinkosten."
+    },
+    {
+      "id": "klrmc_015",
+      "topic": "Auswirkungen hoher Retourenquote",
+      "question": "Der Leiter E-Commerce moechte wissen, warum eine hohe Retourenquote problematisch ist.",
+      "answerOptions": [
+        { "text": "Sie verbessert die Kundenzufriedenheit", "isCorrect": false, "rationale": "Retouren sind meist mit Zusatzaufwand und Kosten verbunden." },
+        { "text": "Sie senkt die Prozesskosten", "isCorrect": false, "rationale": "Retouren erhoehen Prozesskosten deutlich." },
+        { "text": "Sie belastet Marge und Logistik", "isCorrect": true, "rationale": "Rueckversand, Pruefung und Wiedereinlagerung kosten Geld und druecken die Marge." },
+        { "text": "Sie erhoeht die Liquiditaet", "isCorrect": false, "rationale": "Rueckerstattungen und Bearbeitung binden oft Liquiditaet." }
+      ],
+      "hint": "Denke an Rueckversand und Bearbeitungskosten."
+    },
+    {
+      "id": "klrmc_016",
+      "topic": "Deckungsbeitrag und Absatzmenge",
+      "question": "Ein Produkt erzielt einen hohen Deckungsbeitrag, aber geringe Absatzmengen. Der CFO erklaert die Konsequenz.",
+      "answerOptions": [
+        { "text": "Produkt traegt wenig zur Fixkostendeckung bei", "isCorrect": true, "rationale": "Bei niedriger Menge bleibt der gesamte DB-Betrag oft zu klein fuer spuerbare Fixkostendeckung." },
+        { "text": "Produkt verursacht hohe variable Kosten", "isCorrect": false, "rationale": "Aus der Angabe geht nur hervor, dass der Stueck-DB hoch ist." },
+        { "text": "Produkt muss sofort gestrichen werden", "isCorrect": false, "rationale": "Eine geringe Menge allein ist kein automatischer Auslistungsgrund." },
+        { "text": "Produkt ist automatisch profitabel", "isCorrect": false, "rationale": "Profitabilitaet haengt vom Gesamtbeitrag und den Fixkosten ab." }
+      ],
+      "hint": "Stueck-DB und Gesamt-DB unterscheiden."
+    },
+    {
+      "id": "klrmc_017",
+      "topic": "Deckungsbeitragsquote",
+      "question": "Ein Produktmanager fragt, was eine hohe Deckungsbeitragsquote bedeutet.",
+      "answerOptions": [
+        { "text": "Hohe variable Kosten", "isCorrect": false, "rationale": "Hohe variable Kosten reduzieren die DB-Quote typischerweise." },
+        { "text": "Hohe Fixkostenbelastung", "isCorrect": false, "rationale": "Die Quote beschreibt den Umsatzanteil nach variablen Kosten, nicht direkt die Fixkostenhoehe." },
+        { "text": "Hohe Retourenquote", "isCorrect": false, "rationale": "Retourenquote ist eine eigene Kennzahl." },
+        { "text": "Hohe Wirtschaftlichkeit des Produkts", "isCorrect": true, "rationale": "Eine hohe DB-Quote zeigt, dass ein grosser Umsatzanteil fuer Fixkosten und Gewinn verbleibt." }
+      ],
+      "hint": "Je hoeher die Quote, desto mehr bleibt pro Euro Umsatz uebrig."
+    },
+    {
+      "id": "klrmc_018",
+      "topic": "Gefahr kurzfristige Preisuntergrenze",
+      "question": "Der Vertrieb moechte wissen, warum die kurzfristige Preisuntergrenze nicht dauerhaft genutzt werden darf.",
+      "answerOptions": [
+        { "text": "Sie deckt keine Fixkosten", "isCorrect": true, "rationale": "Dauerhaft zu diesem Preis bleibt kein Beitrag zur Deckung fixer Kosten uebrig." },
+        { "text": "Sie deckt keine variablen Kosten", "isCorrect": false, "rationale": "Sie deckt gerade die variablen Kosten." },
+        { "text": "Sie erhoeht die Gewinnmarge", "isCorrect": false, "rationale": "Bei dieser Grenze ist die Marge minimal bzw. null auf DB-Ebene." },
+        { "text": "Sie verbessert die Liquiditaet", "isCorrect": false, "rationale": "Kurzfristig moeglich, aber keine tragfaehige Dauerstrategie." }
+      ],
+      "hint": "Ohne Fixkostendeckung ist das Modell nicht ueberlebensfaehig."
+    },
+    {
+      "id": "klrmc_019",
+      "topic": "Liquiditaet 2. Grades",
+      "question": "Im Rahmen der Jahresabschlussanalyse bittet die Bank um eine Einschaetzung, warum die Liquiditaet 2. Grades fuer Kreditentscheidungen besonders relevant ist.",
+      "answerOptions": [
+        { "text": "Sie zeigt ausschliesslich Bargeldreserven", "isCorrect": false, "rationale": "Das ist die Liquiditaet 1. Grades." },
+        { "text": "Sie bewertet langfristige Vermoegenswerte", "isCorrect": false, "rationale": "Grad 2 fokussiert kurzfristige Mittel und Forderungen." },
+        { "text": "Sie beruecksichtigt kurzfristige Forderungen zusaetzlich", "isCorrect": true, "rationale": "Quick Ratio addiert kurzfristige Forderungen und liefert ein realistischeres Kurzfristbild." },
+        { "text": "Sie misst die Kapitalstruktur", "isCorrect": false, "rationale": "Kapitalstruktur wird ueber Eigen-/Fremdkapitalkennzahlen bewertet." }
+      ],
+      "hint": "Grad 2 erweitert Grad 1 um Forderungen."
+    },
+    {
+      "id": "klrmc_020",
+      "topic": "Sortimentsbereinigung",
+      "question": "Im Sortimentsmeeting wird diskutiert, wann eine Sortimentsbereinigung sinnvoll ist.",
+      "answerOptions": [
+        { "text": "Wenn Produkte hohe Marge erzielen", "isCorrect": false, "rationale": "Das waere eher ein Behaltensargument." },
+        { "text": "Wenn Produkte hohe Nachfrage haben", "isCorrect": false, "rationale": "Hohe Nachfrage spricht nicht fuer Auslistung." },
+        { "text": "Wenn Produkte dauerhaft negativen DB liefern", "isCorrect": true, "rationale": "Dauerhaft negativer Deckungsbeitrag bedeutet Verlust je verkauftem Stueck." },
+        { "text": "Wenn Produkte hohe Fixkosten decken", "isCorrect": false, "rationale": "Fixkostendeckung spricht fuer den Verbleib im Sortiment." }
+      ],
+      "hint": "Negativer DB ist ein klares Warnsignal."
+    },
+    {
+      "id": "klrmc_021",
+      "topic": "Positives EBIT im Kreditgespraech",
+      "question": "Im Kreditgespraech fragt die Bank, warum ein positives EBIT wichtig ist.",
+      "answerOptions": [
+        { "text": "Es zeigt die Liquiditaet", "isCorrect": false, "rationale": "Liquiditaet und EBIT messen unterschiedliche Dinge." },
+        { "text": "Es zeigt die operative Ertragskraft", "isCorrect": true, "rationale": "Positives EBIT belegt, dass das Kerngeschaeft Gewinne vor Zinsen und Steuern erwirtschaftet." },
+        { "text": "Es zeigt die Steuerlast", "isCorrect": false, "rationale": "Steuern sind im EBIT ausgeklammert." },
+        { "text": "Es zeigt die Kapitalstruktur", "isCorrect": false, "rationale": "Kapitalstruktur ist eine Bilanzfrage, keine EBIT-Aussage." }
+      ],
+      "hint": "Banken achten auf gesundes operatives Geschaeft."
+    },
+    {
+      "id": "klrmc_022",
+      "topic": "Festlegung Handlungskostenzuschlag",
+      "question": "Im Einkauf wird diskutiert, warum der Handlungskostenzuschlag nicht willkuerlich festgelegt werden darf.",
+      "answerOptions": [
+        { "text": "Er ersetzt die Gewinnmarge", "isCorrect": false, "rationale": "Gewinnzuschlag bleibt ein eigener Kalkulationsschritt." },
+        { "text": "Er beeinflusst die Umsatzsteuer", "isCorrect": false, "rationale": "Umsatzsteuer folgt aus Steuerrecht, nicht aus dieser internen Zuschlagsermittlung." },
+        { "text": "Er bildet reale Gemeinkosten ab", "isCorrect": true, "rationale": "Der Satz muss auf tatsaechlichen Gemeinkosten basieren, sonst wird falsch kalkuliert." },
+        { "text": "Er bestimmt die Lagerdauer", "isCorrect": false, "rationale": "Lagerdauer ist ein logistischer Prozesswert." }
+      ],
+      "hint": "Der Zuschlag basiert auf realen Kosten, nicht auf Schaetzungen."
+    },
+    {
+      "id": "klrmc_023",
+      "topic": "Kritik an hoher Liquiditaet 3. Grades",
+      "question": "Der CFO erklaert im Bankgespraech, warum eine zu hohe Liquiditaet 3. Grades kritisch sein kann.",
+      "answerOptions": [
+        { "text": "Sie zeigt hohe Umschlagshaeufigkeit", "isCorrect": false, "rationale": "Ein hoher Wert kann auch auf traege Bestaende hindeuten." },
+        { "text": "Sie weist auf hohe Fremdkosten hin", "isCorrect": false, "rationale": "Fremdkosten sind damit nicht direkt belegt." },
+        { "text": "Sie bedeutet geringe Lagerbestaende", "isCorrect": false, "rationale": "Haeufig ist eher ein hoher Lagerbestand beteiligt." },
+        { "text": "Sie zeigt ineffiziente Kapitalbindung", "isCorrect": true, "rationale": "Sehr hohe Current Ratios deuten oft auf gebundenes Kapital in Lager oder Forderungen hin." }
+      ],
+      "hint": "Sehr viel Umlaufvermoegen ist nicht automatisch effizient."
+    },
+    {
+      "id": "klrmc_024",
+      "topic": "Aussage Deckungsbeitrag I",
+      "question": "Im Produktmeeting wird diskutiert, was der Deckungsbeitrag I aussagt.",
+      "answerOptions": [
+        { "text": "Gewinn nach Steuern", "isCorrect": false, "rationale": "DB I ist keine Nachsteuer-Gewinngroesse." },
+        { "text": "Gesamtkosten des Produkts", "isCorrect": false, "rationale": "DB I ist eine Differenzgroesse, keine Gesamtkostenangabe." },
+        { "text": "Beitrag zur Deckung der Fixkosten", "isCorrect": true, "rationale": "DB I zeigt den Betrag, der nach variablen Kosten fuer Fixkosten und Gewinn bleibt." },
+        { "text": "Anteil der Fixkosten", "isCorrect": false, "rationale": "Der genaue Fixkostenanteil wird damit nicht direkt ausgewiesen." }
+      ],
+      "hint": "DB I ist der Schritt vor der Fixkostendeckung."
+    },
+    {
+      "id": "klrmc_025",
+      "topic": "Bestandteile Liquiditaet 3. Grades",
+      "question": "Ein Controller erklaert, warum ein hoher Warenbestand die Liquiditaet 3. Grades verbessert.",
+      "answerOptions": [
+        { "text": "Weil Waren als kurzfristiges Vermoegen zaehlen", "isCorrect": true, "rationale": "Waren sind Teil des Umlaufvermoegens und erhoehen den Zaehler der Kennzahl." },
+        { "text": "Weil Waren steuerfrei sind", "isCorrect": false, "rationale": "Steuerfreiheit ist hier nicht die Ursache." },
+        { "text": "Weil Waren keine Kosten verursachen", "isCorrect": false, "rationale": "Lagerhaltung verursacht sehr wohl Kosten." },
+        { "text": "Weil Waren sofort zahlungswirksam sind", "isCorrect": false, "rationale": "Lagerwaren sind nicht sofort liquide Mittel." }
+      ],
+      "hint": "Current Ratio rechnet mit dem gesamten Umlaufvermoegen."
+    },
+    {
+      "id": "klrmc_026",
+      "topic": "Retouren und Margenbelastung",
+      "question": "Der Leiter Logistik moechte wissen, warum eine steigende Retourenquote die Marge belastet.",
+      "answerOptions": [
+        { "text": "Retouren erhoehen den Umsatz", "isCorrect": false, "rationale": "Retouren reduzieren realisierten Umsatz." },
+        { "text": "Retouren senken die Fixkosten", "isCorrect": false, "rationale": "Fixkosten sinken dadurch nicht automatisch." },
+        { "text": "Retouren verbessern die Liquiditaet", "isCorrect": false, "rationale": "Rueckerstattungen und Bearbeitung belasten oft die Liquiditaet." },
+        { "text": "Retouren verursachen Zusatzkosten", "isCorrect": true, "rationale": "Rueckversand, Pruefung, Aufbereitung und Wiedereinlagerung senken die Marge deutlich." }
+      ],
+      "hint": "Denke an den kompletten Rueckgabeprozess."
+    },
+    {
+      "id": "klrmc_027",
+      "topic": "Risiko inaktiver Kunden (CLV)",
+      "question": "Im CLV-Workshop fragt ein Teilnehmer, warum inaktive Kunden ein Risiko darstellen.",
+      "answerOptions": [
+        { "text": "Sie senken den durchschnittlichen Kundenwert", "isCorrect": true, "rationale": "Inaktive Kunden reduzieren den durchschnittlichen Customer Lifetime Value der Kundenbasis." },
+        { "text": "Sie verursachen hohe variable Kosten", "isCorrect": false, "rationale": "Inaktive Kunden verursachen ohne Kauf i. d. R. keine produktbezogenen variablen Kosten." },
+        { "text": "Sie erhoehen die Retourenquote", "isCorrect": false, "rationale": "Ohne neue Kaeufe steigen Retouren nicht automatisch." },
+        { "text": "Sie verbessern die Liquiditaet", "isCorrect": false, "rationale": "Weniger Aktivitaet fuehrt nicht zu besserer Liquiditaet aus dem Kundenstamm." }
+      ],
+      "hint": "CLV lebt von wiederholten Kaeufen ueber Zeit."
+    },
+    {
+      "id": "klrmc_028",
+      "topic": "Strategische Reaktion auf Preiskampf",
+      "question": "Ein Wettbewerber bietet ein Produkt deutlich guenstiger an. Der Vertrieb fragt nach der passenden Strategie, um darauf zu reagieren.",
+      "answerOptions": [
+        { "text": "Fokus auf Preisfuehrerschaft", "isCorrect": true, "rationale": "Bei direktem Preisdruck ist Kostenfuehrerschaft die klassische Antwortstrategie." },
+        { "text": "Fokus auf hohe Marge", "isCorrect": false, "rationale": "Hohe Marge ist in einem harten Preiskampf oft schwer haltbar." },
+        { "text": "Fokus auf geringe Nachfrage", "isCorrect": false, "rationale": "Geringe Nachfrage ist kein strategisches Ziel." },
+        { "text": "Fokus auf Premiumpositionierung", "isCorrect": false, "rationale": "Kann eine Alternative sein, ist aber nicht die direkte Preisfuehrerschaftsreaktion." }
+      ],
+      "hint": "Bei Preiskampf entscheidet meist Kostenposition und Effizienz."
+    },
+    {
+      "id": "klrmc_029",
+      "topic": "Definition EBIT",
+      "question": "Im Jahresabschlussgespraech fragt die Bank, was das EBIT grundsaetzlich ausdrueckt.",
+      "answerOptions": [
+        { "text": "Ergebnis vor Zinsen und Steuern", "isCorrect": true, "rationale": "EBIT bedeutet Earnings Before Interest and Taxes." },
+        { "text": "Ergebnis ohne Materialkosten", "isCorrect": false, "rationale": "Materialkosten sind Teil des operativen Ergebnisses." },
+        { "text": "Ergebnis nach Steuern", "isCorrect": false, "rationale": "Nach Steuern waere ein anderes Ergebnisniveau (z. B. Jahresueberschuss)." },
+        { "text": "Ergebnis inklusive Finanzergebnis", "isCorrect": false, "rationale": "Das Finanzergebnis wird beim EBIT gerade ausgeklammert." }
+      ],
+      "hint": "Die Abkuerzung selbst liefert die Loesung."
+    },
+    {
+      "id": "klrmc_030",
+      "topic": "Stabilitaet der EBIT-Entwicklung",
+      "question": "Im Kreditgespraech fragt die Bank, warum eine stabile EBIT-Entwicklung wichtig ist.",
+      "answerOptions": [
+        { "text": "Sie zeigt konstante operative Ertragskraft", "isCorrect": true, "rationale": "Ein stabiles EBIT signalisiert verlaessliche Profitabilitaet des Kerngeschaefts." },
+        { "text": "Sie zeigt hohe Liquiditaet", "isCorrect": false, "rationale": "Liquiditaet und EBIT sind unterschiedliche Perspektiven." },
+        { "text": "Sie zeigt geringe Retouren", "isCorrect": false, "rationale": "Retouren beeinflussen Kennzahlen, sind aber nicht direkt die EBIT-Stabilitaet." },
+        { "text": "Sie zeigt hohe Lagerbestaende", "isCorrect": false, "rationale": "Lagerbestaende lassen sich aus EBIT nicht direkt ablesen." }
+      ],
+      "hint": "Banken suchen planbare operative Ertragskraft."
+    },
+    {
+      "id": "klrmc_031",
+      "topic": "Niedrige Stornoquote",
+      "question": "Der Leiter Kundenservice moechte wissen, warum eine niedrige Stornoquote ein Qualitaetsmerkmal ist.",
+      "answerOptions": [
+        { "text": "Sie zeigt hohe Retouren", "isCorrect": false, "rationale": "Retouren betreffen Rueckgaben nach Erhalt, nicht Stornos vor Leistung." },
+        { "text": "Sie zeigt stabile Kaufentscheidungen", "isCorrect": true, "rationale": "Wenige Stornos deuten auf passende Angebote und belastbare Kaufentscheidungen hin." },
+        { "text": "Sie zeigt geringe Lagerkosten", "isCorrect": false, "rationale": "Lagerkosten lassen sich daraus nicht direkt ableiten." },
+        { "text": "Sie zeigt hohe Fixkosten", "isCorrect": false, "rationale": "Fixkosten sind davon unabhaengig." }
+      ],
+      "hint": "Stornos passieren vor Erfuellung des Auftrags."
+    },
+    {
+      "id": "klrmc_032",
+      "topic": "Kurzfristige Preisuntergrenze bei Sonderaktionen",
+      "question": "Ein Produktmanager fragt, warum die kurzfristige Preisuntergrenze bei Sonderaktionen relevant ist.",
+      "answerOptions": [
+        { "text": "Sie verhindert Deckungsbeitraege", "isCorrect": false, "rationale": "Sie markiert die Untergrenze, bei der kein positiver Deckungsbeitrag mehr bleibt." },
+        { "text": "Sie verhindert Verluste pro Einheit", "isCorrect": true, "rationale": "Unterhalb dieser Grenze wird pro verkauftem Stueck ein direkter Verlust erzielt." },
+        { "text": "Sie senkt die Gemeinkosten", "isCorrect": false, "rationale": "Gemeinkosten werden dadurch nicht gesenkt." },
+        { "text": "Sie erhoeht die Fixkosten", "isCorrect": false, "rationale": "Fixkostenhoehe aendert sich dadurch nicht unmittelbar." }
+      ],
+      "hint": "Die Grenze verhindert direkte Stueckverluste."
+    },
+    {
+      "id": "klrmc_033",
+      "topic": "Eigenkapital als Verlustpuffer",
+      "question": "Die Bank bewertet die Kreditwuerdigkeit. Welche Kennzahl zeigt die Faehigkeit, Verluste abzufedern?",
+      "answerOptions": [
+        { "text": "Stornoquote", "isCorrect": false, "rationale": "Stornoquote ist eine vertriebsnahe Prozesskennzahl." },
+        { "text": "Eigenkapitalquote", "isCorrect": true, "rationale": "Die Eigenkapitalquote zeigt die finanzielle Substanz und Verlusttragfaehigkeit." },
+        { "text": "Retourenquote", "isCorrect": false, "rationale": "Retourenquote misst Ruecksendungen, nicht Kapitalpuffer." },
+        { "text": "Liquiditaet 1. Grades", "isCorrect": false, "rationale": "Grad 1 zeigt kurzfristige Zahlungsfaehigkeit, nicht langfristige Verlustabfederung." }
+      ],
+      "hint": "Verlustpuffer ist eine Frage der Kapitalstruktur."
+    },
+    {
+      "id": "klrmc_034",
+      "topic": "Umsatzrentabilitaet im Benchmarking",
+      "question": "Im Benchmarking zeigt sich, dass ein Wettbewerber eine hoehere Umsatzrentabilitaet hat. Der CFO fragt nach der Bedeutung.",
+      "answerOptions": [
+        { "text": "Er hat geringere Lagerbestaende", "isCorrect": false, "rationale": "Lagerbestand ist nicht die direkte Aussage der Umsatzrentabilitaet." },
+        { "text": "Er erzielt mehr Umsatz", "isCorrect": false, "rationale": "Mehr Umsatz allein bedeutet nicht automatisch hoehere Rentabilitaet." },
+        { "text": "Er erzielt mehr Gewinn pro Euro Umsatz", "isCorrect": true, "rationale": "Umsatzrentabilitaet misst genau den Gewinnanteil je Umsatzeuro." },
+        { "text": "Er hat eine hoehere Eigenkapitalquote", "isCorrect": false, "rationale": "Eigenkapitalquote ist eine separate Bilanzkennzahl." }
+      ],
+      "hint": "Rentabilitaet = Gewinn im Verhaeltnis zum Umsatz."
+    },
+    {
+      "id": "klrmc_035",
+      "topic": "Grenzen der Liquiditaet 1. Grades",
+      "question": "Ein Controller erklaert, warum die Liquiditaet 1. Grades selten allein aussagekraeftig ist.",
+      "answerOptions": [
+        { "text": "Sie ignoriert Abschreibungen", "isCorrect": false, "rationale": "Das ist nicht der Hauptgrund fuer die begrenzte Aussagekraft." },
+        { "text": "Sie ignoriert Warenbestaende", "isCorrect": false, "rationale": "Das ist korrekt, aber entscheidender fuer den Vergleich zu Grad 3." },
+        { "text": "Sie ignoriert Forderungen", "isCorrect": true, "rationale": "Ohne kurzfristige Forderungen wirkt die Beurteilung oft zu pessimistisch." },
+        { "text": "Sie ignoriert Verbindlichkeiten", "isCorrect": false, "rationale": "Kurzfristige Verbindlichkeiten stehen im Nenner der Kennzahl." }
+      ],
+      "hint": "Was kommt in Grad 2 zusaetzlich in den Zaehler?"
+    },
+    {
+      "id": "klrmc_036",
+      "topic": "Positiver DB vs. negatives Betriebsergebnis",
+      "question": "Ein Produkt erzielt einen positiven DB, aber das Betriebsergebnis des Unternehmens ist negativ. Der CFO erklaert warum.",
+      "answerOptions": [
+        { "text": "Umsatz ist zu hoch", "isCorrect": false, "rationale": "Hoher Umsatz ist nicht die Ursache eines negativen Betriebsergebnisses." },
+        { "text": "Variable Kosten sind zu niedrig", "isCorrect": false, "rationale": "Niedrige variable Kosten waeren eher positiv fuer den DB." },
+        { "text": "Fixkosten sind zu hoch", "isCorrect": true, "rationale": "Die Summe der Deckungsbeitraege reicht nicht aus, um alle Fixkosten zu decken." },
+        { "text": "Lagerbestand ist zu gering", "isCorrect": false, "rationale": "Lagerbestand allein erklaert das nicht direkt." }
+      ],
+      "hint": "Positiver DB garantiert noch keinen Unternehmensgewinn."
+    },
+    {
+      "id": "klrmc_037",
+      "topic": "Verteilung von Gemeinkosten im BAB",
+      "question": "Im BAB-Workshop fragt ein Azubi, warum Gemeinkosten verteilt werden muessen.",
+      "answerOptions": [
+        { "text": "Weil sie nur im Einkauf entstehen", "isCorrect": false, "rationale": "Gemeinkosten entstehen in mehreren Unternehmensbereichen." },
+        { "text": "Weil sie indirekt auf Produkte wirken", "isCorrect": true, "rationale": "Gemeinkosten sind nicht direkt zurechenbar und muessen ueber Schluessel verteilt werden." },
+        { "text": "Weil sie keine Kosten darstellen", "isCorrect": false, "rationale": "Gemeinkosten sind echte Kosten des Unternehmens." },
+        { "text": "Weil sie direkt zuordenbar sind", "isCorrect": false, "rationale": "Direkt zuordenbar waeren Einzelkosten, nicht Gemeinkosten." }
+      ],
+      "hint": "BAB hilft bei indirekten Kosten."
+    },
+    {
+      "id": "klrmc_038",
+      "topic": "Risiko von Preissenkungen",
+      "question": "Ein Wettbewerber senkt seine Preise stark. Der Vertrieb fragt, was das Risiko einer Preissenkung ist.",
+      "answerOptions": [
+        { "text": "Hoehere Fixkosten", "isCorrect": false, "rationale": "Fixkosten steigen dadurch nicht automatisch." },
+        { "text": "Hoehere DB-Quote", "isCorrect": false, "rationale": "Bei gleichem Kostenblock sinkt die DB-Quote eher." },
+        { "text": "Sinkende variable Kosten", "isCorrect": false, "rationale": "Variable Kosten sinken nicht automatisch durch Preissenkung." },
+        { "text": "Sinkende Marge", "isCorrect": true, "rationale": "Niedrigere Verkaufspreise bei gleichen Kosten reduzieren den Gewinnanteil je Einheit." }
+      ],
+      "hint": "Preis runter bei gleichen Kosten = weniger Marge."
+    },
+    {
+      "id": "klrmc_039",
+      "topic": "Vergleich Liquiditaet 1. und 2. Grades",
+      "question": "Ein Controller erklaert, warum die Liquiditaet 2. Grades hoeher sein kann als die 1. Grades.",
+      "answerOptions": [
+        { "text": "Weil Abschreibungen steigen", "isCorrect": false, "rationale": "Abschreibungen sind fuer diesen Vergleich nicht ausschlaggebend." },
+        { "text": "Weil Verbindlichkeiten sinken", "isCorrect": false, "rationale": "Das kann beide Kennzahlen beeinflussen, erklaert aber nicht den systematischen Unterschied." },
+        { "text": "Weil Forderungen einbezogen werden", "isCorrect": true, "rationale": "Grad 2 erweitert den Zaehler um kurzfristige Forderungen und liegt daher meist ueber Grad 1." },
+        { "text": "Weil Warenbestaende abgezogen werden", "isCorrect": false, "rationale": "Warenbestaende spielen beim Vergleich von Grad 1 und 2 keine Rolle." }
+      ],
+      "hint": "Grad 2 = Grad 1 plus Forderungen."
+    },
+    {
+      "id": "klrmc_040",
+      "topic": "Positive Bewertung Liquiditaet 2. Grades",
+      "question": "Ein Controller erklaert, warum eine hohe Liquiditaet 2. Grades positiv bewertet wird.",
+      "answerOptions": [
+        { "text": "Sie zeigt gute kurzfristige Zahlungsfaehigkeit", "isCorrect": true, "rationale": "Ein hoher Quick-Ratio-Wert zeigt, dass kurzfristige Schulden zeitnah bedient werden koennen." },
+        { "text": "Sie zeigt hohe Lagerbestaende", "isCorrect": false, "rationale": "Lagerbestaende sind Kennzahlenbestandteil von Grad 3, nicht Grad 2." },
+        { "text": "Sie zeigt hohe Fixkosten", "isCorrect": false, "rationale": "Fixkosten werden dadurch nicht direkt ausgewiesen." },
+        { "text": "Sie zeigt geringe Kapitalbindung", "isCorrect": false, "rationale": "Dafuer sind weitere Kennzahlen noetig; Grad 2 allein reicht nicht." }
+      ],
+      "hint": "Quick Ratio fokussiert kurzfristige Schulden gegen kurzfristig verfuegbare Mittel."
+    }
+  ]
+}
