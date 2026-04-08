@@ -1,3 +1,5 @@
+import { askGemini } from '../../../geminiClient';
+
 const ROUND_FACTOR = 100;
 
 function commercialRound(value) {
@@ -231,6 +233,9 @@ export class CostCalcModule {
       userInputs: {},
       taskResults: {},
       lastValidation: null,
+      showStage7Example: false,
+      aiFeedback: '',
+      aiFeedbackLoading: false,
       data: this.buildDataForVariant(),
     };
 
@@ -258,9 +263,16 @@ export class CostCalcModule {
       userInputs: {},
       taskResults: {},
       lastValidation: null,
+      showStage7Example: false,
+      aiFeedback: '',
+      aiFeedbackLoading: false,
       data: this.buildDataForVariant(),
     };
     this.renderTask();
+  }
+
+  isStage7BusinessEvaluation(task) {
+    return this.variant === 'cost-calc' && task?.id === 7;
   }
 
   buildDataForVariant() {
@@ -531,6 +543,7 @@ export class CostCalcModule {
           <div class="ccm-actions">
             <button type="button" class="ccm-btn ccm-btn-primary" data-action="check">Pruefen</button>
             <button type="button" class="ccm-btn ccm-btn-secondary" data-action="next">Weiter</button>
+            <button type="button" class="ccm-btn ccm-btn-secondary" data-action="ai-check">KI-Textcheck</button>
             <button type="button" class="ccm-btn ccm-btn-ghost" data-action="restart">Neu starten</button>
           </div>
           <p class="ccm-action-hint" data-role="action-hint">Erst pruefen, dann weiter.</p>
@@ -543,6 +556,7 @@ export class CostCalcModule {
     this.scoreEl = this.container.querySelector('[data-role="score"]');
     this.taskCard = this.container.querySelector('[data-role="task-card"]');
     this.nextBtn = this.container.querySelector('[data-action="next"]');
+    this.aiCheckBtn = this.container.querySelector('[data-action="ai-check"]');
     this.actionHintEl = this.container.querySelector('[data-role="action-hint"]');
   }
 
@@ -552,6 +566,11 @@ export class CostCalcModule {
       if (action === 'check') this.validateCurrentTask();
       if (action === 'next') this.nextTask();
       if (action === 'restart') this.reset();
+      if (action === 'toggle-stage7-example') {
+        this.state.showStage7Example = !this.state.showStage7Example;
+        this.renderTask();
+      }
+      if (action === 'ai-check') this.runAiTextCheck();
     });
 
     const syncInputToState = (event) => {
@@ -566,6 +585,10 @@ export class CostCalcModule {
       if (this.state.lastValidation?.taskId === task.id) {
         this.state.lastValidation.isDirty = true;
         this.updateActionState();
+      }
+
+      if (this.isStage7BusinessEvaluation(task)) {
+        this.state.aiFeedback = '';
       }
     };
 
@@ -599,6 +622,16 @@ export class CostCalcModule {
   updateActionState() {
     if (!this.nextBtn || !this.actionHintEl) return;
 
+    const currentTask = this.tasks[this.state.currentTask];
+    const aiCheckActive = this.isStage7BusinessEvaluation(currentTask);
+    if (this.aiCheckBtn) {
+      const stageInput = this.state.userInputs[currentTask.id] || {};
+      const hasText = String(stageInput.businessEvaluation || '').trim().length > 0;
+      this.aiCheckBtn.style.display = aiCheckActive ? 'inline-flex' : 'none';
+      this.aiCheckBtn.disabled = !aiCheckActive || !hasText || this.state.aiFeedbackLoading;
+      this.aiCheckBtn.textContent = this.state.aiFeedbackLoading ? 'KI prueft...' : 'KI-Textcheck';
+    }
+
     const canProceed = this.canProceedCurrentTask();
     this.nextBtn.disabled = !canProceed;
 
@@ -625,6 +658,46 @@ export class CostCalcModule {
     }
 
     this.actionHintEl.textContent = 'Bitte alle Felder auf OK bringen und erneut pruefen.';
+  }
+
+  async runAiTextCheck() {
+    const task = this.tasks[this.state.currentTask];
+    if (!this.isStage7BusinessEvaluation(task)) return;
+
+    const entered = this.state.userInputs[task.id] || {};
+    const text = String(entered.businessEvaluation || '').trim();
+    if (!text) {
+      this.state.aiFeedback = 'Bitte zuerst einen Bewertungstext eingeben.';
+      this.renderTask();
+      return;
+    }
+
+    this.state.aiFeedbackLoading = true;
+    this.state.aiFeedback = '';
+    this.updateActionState();
+
+    const prompt = [
+      'Bitte pruefe meinen Bewertungstext zur Kostenrechnung fachlich und didaktisch.',
+      'Gib mir kurz und klar:',
+      '1) Was ist gut (1 Satz).',
+      '2) Maximal 3 konkrete Verbesserungen als Liste.',
+      '3) Einen verbesserten Beispielsatz (1-2 Saetze).',
+      '',
+      `Mein Text: ${text}`,
+    ].join('\n');
+
+    const contextQuestion = 'Etappe 7: Wirtschaftliche Bewertung im Kalkulationsboss';
+    const contextAnswer = 'Der Text soll Deckungsbeitrag, Preisuntergrenze, Break-even, Fixkosten und Sortimentsentscheidung fachlich korrekt verbinden.';
+
+    try {
+      const response = await askGemini(prompt, contextQuestion, contextAnswer);
+      this.state.aiFeedback = String(response || 'Keine KI-Antwort erhalten.').trim();
+    } catch (_ERROR) {
+      this.state.aiFeedback = 'Die KI-Pruefung konnte gerade nicht geladen werden. Bitte erneut versuchen.';
+    } finally {
+      this.state.aiFeedbackLoading = false;
+      this.renderTask();
+    }
   }
 
   buildEditableRows(task, userTaskInput, validation) {
@@ -724,6 +797,26 @@ export class CostCalcModule {
       hintBox = `<div class="ccm-hint-box">${validation.hintMessage}</div>`;
     }
 
+    const stage7Tools = this.isStage7BusinessEvaluation(task)
+      ? `
+        <div class="ccm-inline-tools">
+          <button type="button" class="ccm-inline-btn" data-action="toggle-stage7-example">Info / Beispiel</button>
+        </div>
+      `
+      : '';
+
+    const stage7Example = this.isStage7BusinessEvaluation(task) && this.state.showStage7Example
+      ? `
+        <div class="ccm-example-box">
+          Beispiel: Der Stueckdeckungsbeitrag ist positiv, dadurch liegt die kurzfristige Preisuntergrenze unter dem Verkaufspreis. Die Break-even-Menge ist erreichbar, dennoch bleiben die hohen Fixkosten ein Risiko. Deshalb ist die Sortimentsentscheidung nur sinnvoll, wenn der Deckungsbeitrag dauerhaft ueber den einsparbaren Fixkosten liegt.
+        </div>
+      `
+      : '';
+
+    const stage7AiFeedback = this.isStage7BusinessEvaluation(task) && this.state.aiFeedback
+      ? `<div class="ccm-ai-box">${this.state.aiFeedback.replace(/\n/g, '<br/>')}</div>`
+      : '';
+
     this.taskCard.innerHTML = `
       <div class="ccm-stage-stack">
         ${previousSections}
@@ -732,8 +825,11 @@ export class CostCalcModule {
             <h3>${task.title}</h3>
             <p>${task.prompt(this.state.data)}</p>
           </div>
+          ${stage7Tools}
+          ${stage7Example}
           ${rows}
           ${hintBox}
+          ${stage7AiFeedback}
         </div>
       </div>
     `;

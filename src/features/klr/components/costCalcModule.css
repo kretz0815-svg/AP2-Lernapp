@@ -235,6 +235,45 @@ textarea.ccm-step-input {
   font-size: 0.92rem;
 }
 
+.ccm-inline-tools {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 0.65rem;
+}
+
+.ccm-inline-btn {
+  border: 1px solid #c8bfae;
+  background: #f2ecdf;
+  color: #3f454c;
+  border-radius: 10px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ccm-example-box {
+  margin-bottom: 0.75rem;
+  border-radius: 10px;
+  padding: 0.65rem 0.8rem;
+  background: #eef4fb;
+  border-left: 4px solid #4f86c6;
+  color: #384250;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.ccm-ai-box {
+  margin-top: 0.85rem;
+  border-radius: 10px;
+  padding: 0.8rem 0.9rem;
+  background: #eef7f1;
+  border-left: 4px solid #3c9c66;
+  color: #1f2f26;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
 .ccm-footer {
   margin-top: 1rem;
   display: flex;
