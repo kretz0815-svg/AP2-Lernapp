@@ -1237,6 +1237,14 @@ function App() {
     return sorted[0]?.[0] || '';
   };
 
+  const openCostCalcModule = () => {
+    setAppMode('cost_calc_module');
+    // Defensive re-apply in case another synchronous effect overrides the mode.
+    requestAnimationFrame(() => {
+      setAppMode((prev) => (prev === 'cost_calc_module' ? prev : 'cost_calc_module'));
+    });
+  };
+
   const openPracticeByTopic = (topic) => {
     const safeTopic = String(topic || '').toLowerCase();
     if (/swot/.test(safeTopic)) {
@@ -1247,7 +1255,11 @@ function App() {
       setAppMode('nutzwertanalyse');
       return;
     }
-    if (/(kalkulation|deckungsbeitrag|kosten|break.?even)/.test(safeTopic)) {
+    if (/(deckungsbeitrag|kostenrechnung|preisuntergrenze|sortiment)/.test(safeTopic)) {
+      openCostCalcModule();
+      return;
+    }
+    if (/(kalkulation|break.?even)/.test(safeTopic)) {
       setAppMode('kalkulation');
       return;
     }
@@ -2760,7 +2772,7 @@ ${input}`;
                 style={{ width: '100%' }}
                 onClick={(event) => {
                   event.preventDefault();
-                  setAppMode('cost_calc_module');
+                  openCostCalcModule();
                 }}
               >
                 Kostenrechnung & Preisuntergrenze
