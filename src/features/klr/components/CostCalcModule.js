@@ -292,17 +292,17 @@ export class CostCalcModule {
       { key: 'shippingClass', label: 'Versandkosten', unit: 'F oder V', mode: 'choice', ariaLabel: 'Versandkosten als F oder V klassifizieren' },
       { key: 'varSalesClass', label: 'Variable Vertriebskosten', unit: 'F oder V', mode: 'choice', ariaLabel: 'Variable Vertriebskosten als F oder V klassifizieren' },
       { key: 'warehouseClass', label: 'Miete Lagerhalle', unit: 'F oder V', mode: 'choice', ariaLabel: 'Miete Lagerhalle als F oder V klassifizieren' },
-      { key: 'pmClass', label: 'Gehaelter Produktmanagement', unit: 'F oder V', mode: 'choice', ariaLabel: 'Gehaelter Produktmanagement als F oder V klassifizieren' },
+      { key: 'pmClass', label: 'Gehälter Produktmanagement', unit: 'F oder V', mode: 'choice', ariaLabel: 'Gehälter Produktmanagement als F oder V klassifizieren' },
       { key: 'deprClass', label: 'Abschreibungen Maschinen', unit: 'F oder V', mode: 'choice', ariaLabel: 'Abschreibungen Maschinen als F oder V klassifizieren' },
     ]);
 
     return [
       {
         id: 1,
-        title: '1. Stueckdeckungsbeitrag & Betriebsergebnis',
-        prompt: (ctx) => `Die ${ctx.companyName} prueft in ${ctx.categoryName} das Produkt ${ctx.productName}. Gegeben: Verkaufspreis netto ${formatMoney(ctx.salesPrice)} je Stk, variable Kosten ${formatMoney(ctx.variableCostPerUnit)} je Stk, Fixkosten gesamt ${formatMoney(ctx.fixedTotal)} p.a., geplanter Absatz ${ctx.quantity} Stk p.a..`,
+        title: '1. Stückdeckungsbeitrag & Betriebsergebnis',
+        prompt: (ctx) => `Die ${ctx.companyName} prüft in ${ctx.categoryName} das Produkt ${ctx.productName}. Gegeben: Verkaufspreis netto ${formatMoney(ctx.salesPrice)} je Stk, variable Kosten ${formatMoney(ctx.variableCostPerUnit)} je Stk, Fixkosten gesamt ${formatMoney(ctx.fixedTotal)} p.a., geplanter Absatz ${ctx.quantity} Stk p.a..`,
         fields: [
-          { key: 'dbUnit', label: 'Stueckdeckungsbeitrag', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Stueckdeckungsbeitrag in Euro' },
+          { key: 'dbUnit', label: 'Stückdeckungsbeitrag', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Stückdeckungsbeitrag in Euro' },
           { key: 'operatingResult', label: 'Betriebsergebnis', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Betriebsergebnis in Euro' },
         ],
         solver: (ctx) => ({
@@ -313,10 +313,10 @@ export class CostCalcModule {
       {
         id: 2,
         title: '2. Kostenarten-Zuordnung (Fix/Variabel)',
-        prompt: (ctx) => `Klassifiziere jede Kostenart mit F (Fix) oder V (Variabel): Material ${formatMoney(ctx.materialCost)} je Stk, Verpackung ${formatMoney(ctx.packagingCost)} je Stk, Versand ${formatMoney(ctx.shippingCost)} je Stk, variable Vertriebskosten ${formatMoney(ctx.variableSalesCost)} je Stk, Miete Lagerhalle ${formatMoney(ctx.warehouseRent)} p.a., Gehaelter Produktmanagement ${formatMoney(ctx.productManagementSalaries)} p.a., Abschreibungen Maschinen ${formatMoney(ctx.machineDepreciation)} p.a..`,
+        prompt: (ctx) => `Klassifiziere jede Kostenart mit F (Fix) oder V (Variabel): Material ${formatMoney(ctx.materialCost)} je Stk, Verpackung ${formatMoney(ctx.packagingCost)} je Stk, Versand ${formatMoney(ctx.shippingCost)} je Stk, variable Vertriebskosten ${formatMoney(ctx.variableSalesCost)} je Stk, Miete Lagerhalle ${formatMoney(ctx.warehouseRent)} p.a., Gehälter Produktmanagement ${formatMoney(ctx.productManagementSalaries)} p.a., Abschreibungen Maschinen ${formatMoney(ctx.machineDepreciation)} p.a..`,
         fields: stage2Fields,
         dependsOn: [1],
-        dependencyHint: 'Wenn Etappe 1 falsch war, pruefe zuerst Deckungsbeitrag und Kostenbasis.',
+        dependencyHint: 'Wenn Etappe 1 falsch war, prüfe zuerst Deckungsbeitrag und Kostenbasis.',
         solver: () => ({
           materialClass: 'V',
           packagingClass: 'V',
@@ -330,9 +330,9 @@ export class CostCalcModule {
       {
         id: 3,
         title: '3. Kurzfristige Preisuntergrenze',
-        prompt: (ctx) => `Ein Grosskunde fordert einen Sonderpreis fuer ${ctx.specialOrderQty} Stk ${ctx.productName}. Berechne die kurzfristige Preisuntergrenze je Stueck (nur variable Kosten).`,
+        prompt: (ctx) => `Ein Großkunde fordert einen Sonderpreis für ${ctx.specialOrderQty} Stk ${ctx.productName}. Berechne die kurzfristige Preisuntergrenze je Stück (nur variable Kosten).`,
         fields: [
-          { key: 'shortTermPUG', label: 'Kurzfristige PUG je Stueck', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Kurzfristige Preisuntergrenze in Euro' },
+          { key: 'shortTermPUG', label: 'Kurzfristige PUG je Stück', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Kurzfristige Preisuntergrenze in Euro' },
         ],
         dependsOn: [2],
         dependencyHint: 'Kurzfristige PUG basiert direkt auf den variablen Kosten.',
@@ -343,12 +343,12 @@ export class CostCalcModule {
       {
         id: 4,
         title: '4. Langfristige Preisgrenze',
-        prompt: (ctx) => `Fuer die langfristige Planung sind alle Kosten zu beruecksichtigen: variable Kosten ${formatMoney(ctx.variableCostPerUnit)} je Stk, Fixkosten ${formatMoney(ctx.fixedTotal)} p.a., Absatz ${ctx.quantity} Stk p.a..`,
+        prompt: (ctx) => `Für die langfristige Planung sind alle Kosten zu berücksichtigen: variable Kosten ${formatMoney(ctx.variableCostPerUnit)} je Stk, Fixkosten ${formatMoney(ctx.fixedTotal)} p.a., Absatz ${ctx.quantity} Stk p.a..`,
         fields: [
-          { key: 'longTermPUG', label: 'Langfristige PUG je Stueck', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Langfristige Preisuntergrenze in Euro' },
+          { key: 'longTermPUG', label: 'Langfristige PUG je Stück', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Langfristige Preisuntergrenze in Euro' },
         ],
         dependsOn: [2, 3],
-        dependencyHint: 'Langfristige PUG = variable Kosten + Fixkostenanteil je Stueck.',
+        dependencyHint: 'Langfristige PUG = variable Kosten + Fixkostenanteil je Stück.',
         solver: (ctx) => ({
           longTermPUG: commercialRound(ctx.variableCostPerUnit + ctx.fixedTotal / ctx.quantity),
         }),
@@ -356,14 +356,14 @@ export class CostCalcModule {
       {
         id: 5,
         title: '5. Break-even-Analyse',
-        prompt: (ctx) => `Ermittle fuer ${ctx.productName}: Verkaufspreis ${formatMoney(ctx.salesPrice)} je Stk, variable Kosten ${formatMoney(ctx.variableCostPerUnit)} je Stk, Fixkosten ${formatMoney(ctx.fixedTotal)} p.a.. Rundungsregel: Break-even-Menge immer zuerst auf volle Stueck aufrunden; den Break-even-Umsatz danach mit genau dieser aufgerundeten Menge berechnen.`,
+        prompt: (ctx) => `Ermittle für ${ctx.productName}: Verkaufspreis ${formatMoney(ctx.salesPrice)} je Stk, variable Kosten ${formatMoney(ctx.variableCostPerUnit)} je Stk, Fixkosten ${formatMoney(ctx.fixedTotal)} p.a.. Rundungsregel: Break-even-Menge immer zuerst auf volle Stück aufrunden; den Break-even-Umsatz danach mit genau dieser aufgerundeten Menge berechnen.`,
         fields: [
-          { key: 'dbUnit', label: 'Stueckdeckungsbeitrag', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Stueckdeckungsbeitrag in Euro fuer Break-even' },
-          { key: 'breakEvenQty', label: 'Break-even-Menge', unit: 'Stk', tolerance: 0.5, ariaLabel: 'Break-even Menge in Stueck' },
+          { key: 'dbUnit', label: 'Stückdeckungsbeitrag', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Stückdeckungsbeitrag in Euro für Break-even' },
+          { key: 'breakEvenQty', label: 'Break-even-Menge', unit: 'Stk', tolerance: 0.5, ariaLabel: 'Break-even Menge in Stück' },
           { key: 'breakEvenRevenue', label: 'Break-even-Umsatz', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Break-even Umsatz in Euro' },
         ],
         dependsOn: [1, 2],
-        dependencyHint: 'Der Break-even braucht einen positiven Stueckdeckungsbeitrag.',
+        dependencyHint: 'Der Break-even braucht einen positiven Stückdeckungsbeitrag.',
         solver: (ctx) => ({
           dbUnit: commercialRound(ctx.salesPrice - ctx.variableCostPerUnit),
           breakEvenQty: Math.ceil(ctx.fixedTotal / ctx.dbUnit),
@@ -373,7 +373,7 @@ export class CostCalcModule {
       {
         id: 6,
         title: '6. Sortimentsentscheidung',
-        prompt: (ctx) => `Pruefe, ob ${ctx.productName} aus dem Sortiment genommen werden soll. Deckungsbeitrag gesamt bei ${ctx.quantity} Stk: ${formatMoney(ctx.dbTotal)}. Entfallende Fixkosten bei Streichung: ${formatMoney(ctx.removableFixedCost)}. Verbleibende Fixkosten: ${formatMoney(ctx.remainingFixedCost)}.`,
+        prompt: (ctx) => `Prüfe, ob ${ctx.productName} aus dem Sortiment genommen werden soll. Deckungsbeitrag gesamt bei ${ctx.quantity} Stk: ${formatMoney(ctx.dbTotal)}. Entfallende Fixkosten bei Streichung: ${formatMoney(ctx.removableFixedCost)}. Verbleibende Fixkosten: ${formatMoney(ctx.remainingFixedCost)}.`,
         fields: [
           { key: 'dbTotal', label: 'Deckungsbeitrag gesamt', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Deckungsbeitrag gesamt in Euro' },
           { key: 'discontinueDecision', label: 'Streichung wirtschaftlich sinnvoll? (JA/NEIN)', unit: 'JA oder NEIN', mode: 'choice', ariaLabel: 'Sortimentsentscheidung mit JA oder NEIN beantworten' },
@@ -388,11 +388,11 @@ export class CostCalcModule {
       {
         id: 7,
         title: '7. Wirtschaftliche Bewertung',
-        prompt: () => 'Formuliere eine kurze Gesamtbewertung. Nenne explizit: Stueckdeckungsbeitrag, Preisuntergrenzen, Break-even, Fixkosten, Sortimentsentscheidung.',
+        prompt: () => 'Formuliere eine kurze Gesamtbewertung. Nenne explizit: Stückdeckungsbeitrag, Preisuntergrenzen, Break-even, Fixkosten, Sortimentsentscheidung.',
         fields: [
           {
             key: 'businessEvaluation',
-            label: 'Bewertungstext (mind. 2-3 Saetze)',
+            label: 'Bewertungstext (mind. 2-3 Sätze)',
             unit: 'Text',
             mode: 'contains_all',
             ariaLabel: 'Wirtschaftliche Bewertung als Freitext',
@@ -400,7 +400,7 @@ export class CostCalcModule {
           },
         ],
         dependsOn: [1, 3, 4, 5, 6],
-        dependencyHint: 'Verwende nur begruendete Aussagen auf Basis der vorherigen Etappen.',
+        dependencyHint: 'Verwende nur begründete Aussagen auf Basis der vorherigen Etappen.',
         solver: () => ({
           businessEvaluation: ['deckungsbeitrag', 'preisuntergrenze', 'break-even', 'fixkosten', 'sortiment'],
         }),
@@ -408,9 +408,9 @@ export class CostCalcModule {
       {
         id: 8,
         title: '8. Handelskalkulation: Einstandspreis -> Selbstkosten',
-        prompt: (ctx) => `Fuer das Nachfolgemodell ${ctx.successorProductName}: Einstandspreis ${formatMoney(ctx.purchasePriceS950)}, Handlungskostenzuschlag ${formatPercent(ctx.handlingCostPercentS950)}, Verwaltungsgemeinkosten ${formatMoney(ctx.adminOverheadS950)} je Stk, Vertriebsgemeinkosten ${formatMoney(ctx.salesOverheadS950)} je Stk.`,
+        prompt: (ctx) => `Für das Nachfolgemodell ${ctx.successorProductName}: Einstandspreis ${formatMoney(ctx.purchasePriceS950)}, Handlungskostenzuschlag ${formatPercent(ctx.handlingCostPercentS950)}, Verwaltungsgemeinkosten ${formatMoney(ctx.adminOverheadS950)} je Stk, Vertriebsgemeinkosten ${formatMoney(ctx.salesOverheadS950)} je Stk.`,
         fields: [
-          { key: 'selfCostS950', label: 'Selbstkosten pro Stueck', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Selbstkosten pro Stueck in Euro' },
+          { key: 'selfCostS950', label: 'Selbstkosten pro Stück', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Selbstkosten pro Stück in Euro' },
         ],
         dependsOn: [7],
         dependencyHint: 'Reihenfolge beachten: Einstand + Handlungskosten + Verwaltungs- und Vertriebsgemeinkosten.',
@@ -430,13 +430,13 @@ export class CostCalcModule {
     return [
       {
         id: 1,
-        title: '1. Die Basis: Rentabilitaeten berechnen',
-        prompt: (ctx) => `Szenario Jahresabschluss: Die ${ctx.companyName} (${ctx.categoryName}) setzt dich als ${ctx.scenarioRole} ein. Berechne die Eigenkapital- und Umsatzrentabilitaet. Runde auf zwei Nachkommastellen. Daten: Gewinn ${formatMoney(ctx.profit)}, Eigenkapital ${formatMoney(ctx.equity)}, Umsatz ${formatMoney(ctx.revenue)}.`,
+        title: '1. Die Basis: Rentabilitäten berechnen',
+        prompt: (ctx) => `Szenario Jahresabschluss: Die ${ctx.companyName} (${ctx.categoryName}) setzt dich als ${ctx.scenarioRole} ein. Berechne die Eigenkapital- und Umsatzrentabilität. Runde auf zwei Nachkommastellen. Daten: Gewinn ${formatMoney(ctx.profit)}, Eigenkapital ${formatMoney(ctx.equity)}, Umsatz ${formatMoney(ctx.revenue)}.`,
         fields: [
-          { key: 'ek_rent', label: 'Eigenkapitalrentabilitaet', unit: '%', tolerance: 0.02, ariaLabel: 'Eigenkapitalrentabilitaet in Prozent' },
-          { key: 'umsatz_rent', label: 'Umsatzrentabilitaet', unit: '%', tolerance: 0.02, ariaLabel: 'Umsatzrentabilitaet in Prozent' },
+          { key: 'ek_rent', label: 'Eigenkapitalrentabilität', unit: '%', tolerance: 0.02, ariaLabel: 'Eigenkapitalrentabilität in Prozent' },
+          { key: 'umsatz_rent', label: 'Umsatzrentabilität', unit: '%', tolerance: 0.02, ariaLabel: 'Umsatzrentabilität in Prozent' },
         ],
-        // Solver 1: Prueft die Anwendung beider Rentabilitaetsformeln.
+        // Solver 1: Prüft die Anwendung beider Rentabilitätsformeln.
         solver: (ctx) => ({
           ek_rent: commercialRound((ctx.profit / ctx.equity) * 100),
           umsatz_rent: commercialRound((ctx.profit / ctx.revenue) * 100),
@@ -444,26 +444,26 @@ export class CostCalcModule {
       },
       {
         id: 2,
-        title: '2. Liquiditaet 1: Die Barreserve',
-        prompt: (ctx) => `Ermittle die Liquiditaet 1. Grades. Runde kaufmaennisch auf zwei Nachkommastellen. Daten: Kasse/Bank ${formatMoney(ctx.cashBank)}, kurzfristige Verbindlichkeiten ${formatMoney(ctx.shortTermLiabilities)}.`,
+        title: '2. Liquidität 1: Die Barreserve',
+        prompt: (ctx) => `Ermittle die Liquidität 1. Grades. Runde kaufmännisch auf zwei Nachkommastellen. Daten: Kasse/Bank ${formatMoney(ctx.cashBank)}, kurzfristige Verbindlichkeiten ${formatMoney(ctx.shortTermLiabilities)}.`,
         fields: [
-          { key: 'liq_1', label: 'Liquiditaet 1. Grades', unit: '%', tolerance: 0.02, ariaLabel: 'Liquiditaet 1 in Prozent' },
+          { key: 'liq_1', label: 'Liquidität 1. Grades', unit: '%', tolerance: 0.02, ariaLabel: 'Liquidität 1 in Prozent' },
         ],
-        // Solver 2: Prueft die Barzahlungsfaehigkeit.
+        // Solver 2: Prüft die Barzahlungsfähigkeit.
         solver: (ctx) => ({
           liq_1: commercialRound((ctx.cashBank / ctx.shortTermLiabilities) * 100),
         }),
       },
       {
         id: 3,
-        title: '3. Liquiditaet 2: Kunden einbeziehen',
-        prompt: (ctx) => `Addiere die Forderungen und berechne die Liquiditaet 2. Grades. Daten: Forderungen ${formatMoney(ctx.receivables)}. Die Werte aus Etappe 2 bleiben bestehen.`,
+        title: '3. Liquidität 2: Kunden einbeziehen',
+        prompt: (ctx) => `Addiere die Forderungen und berechne die Liquidität 2. Grades. Daten: Forderungen ${formatMoney(ctx.receivables)}. Die Werte aus Etappe 2 bleiben bestehen.`,
         fields: [
-          { key: 'liq_2', label: 'Liquiditaet 2. Grades', unit: '%', tolerance: 0.02, ariaLabel: 'Liquiditaet 2 in Prozent' },
+          { key: 'liq_2', label: 'Liquidität 2. Grades', unit: '%', tolerance: 0.02, ariaLabel: 'Liquidität 2 in Prozent' },
         ],
         dependsOn: [2],
         dependencyHint: 'Quick Ratio baut auf den korrekten Basiswerten aus Etappe 2 auf.',
-        // Solver 3: Prueft kurzfristige Zahlungsfaehigkeit inkl. Forderungen.
+        // Solver 3: Prüft kurzfristige Zahlungsfähigkeit inkl. Forderungen.
         solver: (ctx) => ({
           liq_2: commercialRound(((ctx.cashBank + ctx.receivables) / ctx.shortTermLiabilities) * 100),
         }),
@@ -471,12 +471,12 @@ export class CostCalcModule {
       {
         id: 4,
         title: '4. Kritische Analyse (Transfer)',
-        prompt: () => 'Bewerte die Liquiditaet 2. Grades aus Etappe 3. Welche Aussage trifft zu? 1) Alles super, wir haben genug Cash. 2) Kritisch, da der Wert unter 100 % liegt und wir auf Warenverkaeufe angewiesen sind. 3) Zu hoch, das Geld arbeitet nicht.',
+        prompt: () => 'Bewerte die Liquidität 2. Grades aus Etappe 3. Welche Aussage trifft zu? 1) Alles super, wir haben genug Cash. 2) Kritisch, da der Wert unter 100 % liegt und wir auf Warenverkäufe angewiesen sind. 3) Zu hoch, das Geld arbeitet nicht.',
         fields: [
-          { key: 'liq2_analysis', label: 'Richtige Option', unit: '1, 2 oder 3', mode: 'choice', ariaLabel: 'Richtige Transferoption fuer Liquiditaet 2' },
+          { key: 'liq2_analysis', label: 'Richtige Option', unit: '1, 2 oder 3', mode: 'choice', ariaLabel: 'Richtige Transferoption für Liquidität 2' },
         ],
         dependsOn: [3],
-        dependencyHint: 'Die Interpretation ist nur belastbar, wenn die Liquiditaet 2 korrekt gerechnet wurde.',
+        dependencyHint: 'Die Interpretation ist nur belastbar, wenn die Liquidität 2 korrekt gerechnet wurde.',
         // Solver 4: Bewertet die fachlich korrekte Interpretation des Quick Ratio.
         solver: () => ({
           liq2_analysis: '2',
@@ -484,31 +484,31 @@ export class CostCalcModule {
       },
       {
         id: 5,
-        title: '5. Massnahmen zur Steigerung der Liquiditaet',
-        prompt: () => 'Welche Massnahme verbessert die Liquiditaet 2. Grades sofort? Nenne mindestens eine sinnvolle Controlling-Massnahme.',
+        title: '5. Maßnahmen zur Steigerung der Liquidität',
+        prompt: () => 'Welche Maßnahme verbessert die Liquidität 2. Grades sofort? Nenne mindestens eine sinnvolle Controlling-Maßnahme.',
         fields: [
           {
             key: 'liq_action',
-            label: 'Massnahme (Freitext)',
+            label: 'Maßnahme (Freitext)',
             unit: 'Text',
             mode: 'contains_any',
             inputType: 'textarea',
-            ariaLabel: 'Freitext zu Liquiditaetsmassnahmen',
+            ariaLabel: 'Freitext zu Liquiditätsmaßnahmen',
           },
         ],
-        // Solver 5: Akzeptiert mehrere typische Sofortmassnahmen.
+        // Solver 5: Akzeptiert mehrere typische Sofortmaßnahmen.
         solver: () => ({
           liq_action: ['factoring', 'mahnwesen', 'skonto', 'lager abbauen', 'forderungsmanagement'],
         }),
       },
       {
         id: 6,
-        title: '6. Zielkonflikt: Rentabilitaet vs. Liquiditaet',
-        prompt: () => 'Wenn wir Schulden sofort tilgen (Cash sinkt), was passiert mit der Liquiditaet 1. Grades? A) Sie steigt deutlich. B) Sie sinkt, weil Kasse/Bank unmittelbar abnimmt. C) Sie bleibt unveraendert.',
+        title: '6. Zielkonflikt: Rentabilität vs. Liquidität',
+        prompt: () => 'Wenn wir Schulden sofort tilgen (Cash sinkt), was passiert mit der Liquidität 1. Grades? A) Sie steigt deutlich. B) Sie sinkt, weil Kasse/Bank unmittelbar abnimmt. C) Sie bleibt unverändert.',
         fields: [
           { key: 'target_conflict', label: 'Richtige Option', unit: 'A, B oder C', mode: 'choice', ariaLabel: 'Richtige Option zum Zielkonflikt' },
         ],
-        // Solver 6: Prueft das Verstaendnis des Zielkonflikts.
+        // Solver 6: Prüft das Verstaendnis des Zielkonflikts.
         solver: () => ({
           target_conflict: 'B',
         }),
@@ -519,7 +519,7 @@ export class CostCalcModule {
   renderShell() {
     const isFinance = this.variant === 'finance-liquidity';
     const kicker = isFinance ? 'Controlling-Lab' : 'Kalkulationsboss';
-    const title = isFinance ? 'Finanz-Analyse & Liquiditaetsmanagement' : 'Kostenrechnung & Preisuntergrenze';
+    const title = isFinance ? 'Finanz-Analyse & Liquiditätsmanagement' : 'Kostenrechnung & Preisuntergrenze';
     const contextLine = isFinance
       ? `${this.state.data.companyName} · Rolle: ${this.state.data.scenarioRole}`
       : `${this.state.data.companyName} · Produkt: ${this.state.data.productName}`;
@@ -541,12 +541,12 @@ export class CostCalcModule {
         <footer class="ccm-footer">
           <div class="ccm-score" data-role="score"></div>
           <div class="ccm-actions">
-            <button type="button" class="ccm-btn ccm-btn-primary" data-action="check">Pruefen</button>
+            <button type="button" class="ccm-btn ccm-btn-primary" data-action="check">Prüfen</button>
             <button type="button" class="ccm-btn ccm-btn-secondary" data-action="next">Weiter</button>
             <button type="button" class="ccm-btn ccm-btn-secondary" data-action="ai-check">KI-Textcheck</button>
             <button type="button" class="ccm-btn ccm-btn-ghost" data-action="restart">Neu starten</button>
           </div>
-          <p class="ccm-action-hint" data-role="action-hint">Erst pruefen, dann weiter.</p>
+          <p class="ccm-action-hint" data-role="action-hint">Erst prüfen, dann weiter.</p>
         </footer>
       </section>
     `;
@@ -581,7 +581,7 @@ export class CostCalcModule {
       this.state.userInputs[taskId] = this.state.userInputs[taskId] || {};
       this.state.userInputs[taskId][input.name] = input.value;
 
-      // Feedback bleibt sichtbar; bei Aenderung ist aber eine neue Pruefung erforderlich.
+      // Feedback bleibt sichtbar; bei Aenderung ist aber eine neue Prüfung erforderlich.
       if (this.state.lastValidation?.taskId === task.id) {
         this.state.lastValidation.isDirty = true;
         this.updateActionState();
@@ -629,35 +629,35 @@ export class CostCalcModule {
       const hasText = String(stageInput.businessEvaluation || '').trim().length > 0;
       this.aiCheckBtn.style.display = aiCheckActive ? 'inline-flex' : 'none';
       this.aiCheckBtn.disabled = !aiCheckActive || !hasText || this.state.aiFeedbackLoading;
-      this.aiCheckBtn.textContent = this.state.aiFeedbackLoading ? 'KI prueft...' : 'KI-Textcheck';
+      this.aiCheckBtn.textContent = this.state.aiFeedbackLoading ? 'KI prüft...' : 'KI-Textcheck';
     }
 
     const canProceed = this.canProceedCurrentTask();
     this.nextBtn.disabled = !canProceed;
 
     if (canProceed) {
-      this.actionHintEl.textContent = 'Etappe geprueft. Du kannst jetzt weiter.';
+      this.actionHintEl.textContent = 'Etappe geprüft. Du kannst jetzt weiter.';
       return;
     }
 
     const task = this.tasks[this.state.currentTask];
     const hasValidation = this.state.lastValidation?.taskId === task.id;
     if (!hasValidation) {
-      this.actionHintEl.textContent = 'Erst pruefen, dann weiter.';
+      this.actionHintEl.textContent = 'Erst prüfen, dann weiter.';
       return;
     }
 
     if (this.state.lastValidation?.isDirty) {
-      this.actionHintEl.textContent = 'Eingabe geaendert: Bitte erneut pruefen.';
+      this.actionHintEl.textContent = 'Eingabe geändert: Bitte erneut prüfen.';
       return;
     }
 
     if (this.state.lastValidation?.hasFollowError) {
-      this.actionHintEl.textContent = 'Vorstufe korrigieren: Diese Etappe zaehlt erst dann vollstaendig.';
+      this.actionHintEl.textContent = 'Vorstufe korrigieren: Diese Etappe zählt erst dann vollständig.';
       return;
     }
 
-    this.actionHintEl.textContent = 'Bitte alle Felder auf OK bringen und erneut pruefen.';
+    this.actionHintEl.textContent = 'Bitte alle Felder auf OK bringen und erneut prüfen.';
   }
 
   async runAiTextCheck() {
@@ -677,11 +677,11 @@ export class CostCalcModule {
     this.updateActionState();
 
     const prompt = [
-      'Bitte pruefe meinen Bewertungstext zur Kostenrechnung fachlich und didaktisch.',
+      'Bitte prüfe meinen Bewertungstext zur Kostenrechnung fachlich und didaktisch.',
       'Gib mir kurz und klar:',
       '1) Was ist gut (1 Satz).',
       '2) Maximal 3 konkrete Verbesserungen als Liste.',
-      '3) Einen verbesserten Beispielsatz (1-2 Saetze).',
+      '3) Einen verbesserten Beispielsatz (1-2 Sätze).',
       '',
       `Mein Text: ${text}`,
     ].join('\n');
@@ -693,7 +693,7 @@ export class CostCalcModule {
       const response = await askGemini(prompt, contextQuestion, contextAnswer);
       this.state.aiFeedback = String(response || 'Keine KI-Antwort erhalten.').trim();
     } catch (_ERROR) {
-      this.state.aiFeedback = 'Die KI-Pruefung konnte gerade nicht geladen werden. Bitte erneut versuchen.';
+      this.state.aiFeedback = 'Die KI-Prüfung konnte gerade nicht geladen werden. Bitte erneut versuchen.';
     } finally {
       this.state.aiFeedbackLoading = false;
       this.renderTask();
@@ -808,7 +808,7 @@ export class CostCalcModule {
     const stage7Example = this.isStage7BusinessEvaluation(task) && this.state.showStage7Example
       ? `
         <div class="ccm-example-box">
-          Beispiel: Der Stueckdeckungsbeitrag ist positiv, dadurch liegt die kurzfristige Preisuntergrenze unter dem Verkaufspreis. Die Break-even-Menge ist erreichbar, dennoch bleiben die hohen Fixkosten ein Risiko. Deshalb ist die Sortimentsentscheidung nur sinnvoll, wenn der Deckungsbeitrag dauerhaft ueber den einsparbaren Fixkosten liegt.
+          Beispiel: Der Stückdeckungsbeitrag ist positiv, dadurch liegt die kurzfristige Preisuntergrenze unter dem Verkaufspreis. Die Break-even-Menge ist erreichbar, dennoch bleiben die hohen Fixkosten ein Risiko. Deshalb ist die Sortimentsentscheidung nur sinnvoll, wenn der Deckungsbeitrag dauerhaft über den einsparbaren Fixkosten liegt.
         </div>
       `
       : '';
@@ -880,10 +880,10 @@ export class CostCalcModule {
     const hasContainsAny = task.fields.some((field) => field.mode === 'contains_any');
     const baseHint = !allCorrect && !isSoft
       ? (hasContainsAny
-        ? 'Nenne mindestens eine konkrete Massnahme, z. B. Factoring, Mahnwesen oder Skonto.'
+        ? 'Nenne mindestens eine konkrete Maßnahme, z. B. Factoring, Mahnwesen oder Skonto.'
         : hasContainsAll
           ? 'Bitte alle geforderten Kernaspekte im Text nennen.'
-          : 'Bitte Werte pruefen. Tipp: Rechne kaufmaennisch auf 2 Dezimalstellen.')
+          : 'Bitte Werte prüfen. Tipp: Rechne kaufmännisch auf 2 Dezimalstellen.')
       : '';
 
     this.state.lastValidation = {
@@ -914,7 +914,7 @@ export class CostCalcModule {
         allCorrect: this.state.lastValidation?.allCorrect || false,
         hasFollowError: this.state.lastValidation?.hasFollowError || false,
         isDirty: this.state.lastValidation?.isDirty || false,
-        hintMessage: this.state.lastValidation?.hintMessage || 'Bitte zuerst auf "Pruefen" klicken und alle Felder korrekt loesen.',
+        hintMessage: this.state.lastValidation?.hintMessage || 'Bitte zuerst auf "Prüfen" klicken und alle Felder korrekt lösen.',
       };
       this.renderTask();
       return;

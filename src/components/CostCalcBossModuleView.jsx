@@ -8,43 +8,43 @@ import GeminiPanel from './GeminiPanel';
 import '../features/klr/components/costCalcModule.css';
 
 const COST_YOUTUBE_BY_STAGE = {
-  1: 'Stueckdeckungsbeitrag Betriebsergebnis berechnen einfach erklaert',
-  2: 'fixe und variable Kosten unterscheiden einfach erklaert',
-  3: 'kurzfristige Preisuntergrenze berechnen einfach erklaert',
-  4: 'langfristige Preisuntergrenze berechnen einfach erklaert',
-  5: 'Break-even-Menge Break-even-Umsatz berechnen einfach erklaert',
-  6: 'Sortimentsentscheidung Deckungsbeitrag Fixkosten einfach erklaert',
+  1: 'Stückdeckungsbeitrag Betriebsergebnis berechnen einfach erklärt',
+  2: 'fixe und variable Kosten unterscheiden einfach erklärt',
+  3: 'kurzfristige Preisuntergrenze berechnen einfach erklärt',
+  4: 'langfristige Preisuntergrenze berechnen einfach erklärt',
+  5: 'Break-even-Menge Break-even-Umsatz berechnen einfach erklärt',
+  6: 'Sortimentsentscheidung Deckungsbeitrag Fixkosten einfach erklärt',
   7: 'wirtschaftliche Bewertung Kostenrechnung Beispiel',
-  8: 'Handelskalkulation Selbstkosten berechnen einfach erklaert',
+  8: 'Handelskalkulation Selbstkosten berechnen einfach erklärt',
 };
 
 const FINANCE_YOUTUBE_BY_STAGE = {
-  1: 'Eigenkapitalrentabilitaet Umsatzrentabilitaet berechnen einfach erklaert',
-  2: 'Liquiditaet 1 Grades berechnen einfach erklaert',
-  3: 'Liquiditaet 2 Grades Quick Ratio berechnen einfach erklaert',
-  4: 'Liquiditaet interpretieren unter 100 Prozent erklaert',
-  5: 'Massnahmen Liquiditaet verbessern Factoring Mahnwesen',
-  6: 'Zielkonflikt Liquiditaet und Rentabilitaet erklaert',
+  1: 'Eigenkapitalrentabilität Umsatzrentabilität berechnen einfach erklärt',
+  2: 'Liquidität 1 Grades berechnen einfach erklärt',
+  3: 'Liquidität 2 Grades Quick Ratio berechnen einfach erklärt',
+  4: 'Liquidität interpretieren unter 100 Prozent erklärt',
+  5: 'Maßnahmen Liquidität verbessern Factoring Mahnwesen',
+  6: 'Zielkonflikt Liquidität und Rentabilität erklärt',
 };
 
 const COST_EXPECTED_CONTEXT_BY_STAGE = {
-  1: 'Formeln: Stueckdeckungsbeitrag = Verkaufspreis - variable Kosten; Betriebsergebnis = Stueckdeckungsbeitrag * Absatz - Fixkosten.',
-  2: 'Kostenarten: Material, Verpackung, Versand und variable Vertriebskosten sind variabel; Miete, Gehaelter und Abschreibungen sind fix.',
-  3: 'Kurzfristige Preisuntergrenze entspricht den variablen Stueckkosten.',
-  4: 'Langfristige Preisuntergrenze = variable Stueckkosten + Fixkostenanteil pro Stueck.',
-  5: 'Break-even-Menge = Fixkosten / Stueckdeckungsbeitrag, kaufmaennisch auf ganze Stueck aufrunden. Break-even-Umsatz = Break-even-Menge * Verkaufspreis.',
-  6: 'Sortiment bleibt, wenn entfallender Deckungsbeitrag hoeher als einsparbare Fixkosten ist.',
-  7: 'Bewertung sollte Deckungsbeitrag, Preisuntergrenze, Break-even, Fixkostenstruktur und Sortimentsentscheidung begruendet verbinden.',
+  1: 'Formeln: Stückdeckungsbeitrag = Verkaufspreis - variable Kosten; Betriebsergebnis = Stückdeckungsbeitrag * Absatz - Fixkosten.',
+  2: 'Kostenarten: Material, Verpackung, Versand und variable Vertriebskosten sind variabel; Miete, Gehälter und Abschreibungen sind fix.',
+  3: 'Kurzfristige Preisuntergrenze entspricht den variablen Stückkosten.',
+  4: 'Langfristige Preisuntergrenze = variable Stückkosten + Fixkostenanteil pro Stück.',
+  5: 'Break-even-Menge = Fixkosten / Stückdeckungsbeitrag, kaufmännisch auf ganze Stück aufrunden. Break-even-Umsatz = Break-even-Menge * Verkaufspreis.',
+  6: 'Sortiment bleibt, wenn entfallender Deckungsbeitrag höher als einsparbare Fixkosten ist.',
+  7: 'Bewertung sollte Deckungsbeitrag, Preisuntergrenze, Break-even, Fixkostenstruktur und Sortimentsentscheidung begründet verbinden.',
   8: 'Selbstkosten = Einstandspreis + Handlungskostenzuschlag + Verwaltungs- und Vertriebsgemeinkosten.',
 };
 
 const FINANCE_EXPECTED_CONTEXT_BY_STAGE = {
-  1: 'Formeln: Eigenkapitalrentabilitaet = Gewinn / Eigenkapital * 100; Umsatzrentabilitaet = Gewinn / Umsatz * 100.',
-  2: 'Liquiditaet 1. Grades = Kasse und Bank / kurzfristige Verbindlichkeiten * 100.',
-  3: 'Liquiditaet 2. Grades = (Kasse und Bank + Forderungen) / kurzfristige Verbindlichkeiten * 100.',
-  4: 'Bei einem Wert unter 100 Prozent ist die kurzfristige Zahlungsfaehigkeit kritisch, weil weitere Zufluesse noetig sind.',
-  5: 'Sofortmassnahmen sind z. B. Factoring, strikteres Mahnwesen, Skonto-Nutzung und Lagerabbau.',
-  6: 'Sofortige Schuldentilgung senkt den Cash-Bestand und damit die Liquiditaet 1. Grades.',
+  1: 'Formeln: Eigenkapitalrentabilität = Gewinn / Eigenkapital * 100; Umsatzrentabilität = Gewinn / Umsatz * 100.',
+  2: 'Liquidität 1. Grades = Kasse und Bank / kurzfristige Verbindlichkeiten * 100.',
+  3: 'Liquidität 2. Grades = (Kasse und Bank + Forderungen) / kurzfristige Verbindlichkeiten * 100.',
+  4: 'Bei einem Wert unter 100 Prozent ist die kurzfristige Zahlungsfähigkeit kritisch, weil weitere Zuflüsse nötig sind.',
+  5: 'Sofortmaßnahmen sind z. B. Factoring, strikteres Mahnwesen, Skonto-Nutzung und Lagerabbau.',
+  6: 'Sofortige Schuldentilgung senkt den Cash-Bestand und damit die Liquidität 1. Grades.',
 };
 
 function getStageYoutubeQuery(variant, stageId, fallbackTitle) {
@@ -53,8 +53,8 @@ function getStageYoutubeQuery(variant, stageId, fallbackTitle) {
 }
 
 function getStageExpectedContext(variant, stageId) {
-  if (variant === 'finance-liquidity') return FINANCE_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmaennisch sauber.';
-  return COST_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmaennisch sauber.';
+  if (variant === 'finance-liquidity') return FINANCE_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
+  return COST_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
 }
 
 export default function CostCalcBossModuleView({ onBack }) {
@@ -188,7 +188,7 @@ export default function CostCalcBossModuleView({ onBack }) {
             onBack();
           }}
         >
-          &larr; Menue
+          &larr; Menü
         </button>
 
         <div className="ccm-view-switcher" style={{ marginTop: '0.75rem', display: 'flex', gap: '0.55rem', flexWrap: 'wrap' }}>
@@ -259,7 +259,7 @@ export default function CostCalcBossModuleView({ onBack }) {
 
       <FloatingPortal
         questionId={moduleVariant === 'finance-liquidity' ? 'finance_liquidity_module' : 'cost_calc_boss_module'}
-        questionText={moduleVariant === 'finance-liquidity' ? 'Finanz-Analyse & Liquiditaetsmanagement' : 'Kostenrechnung & Preisuntergrenze'}
+        questionText={moduleVariant === 'finance-liquidity' ? 'Finanz-Analyse & Liquiditätsmanagement' : 'Kostenrechnung & Preisuntergrenze'}
         currentAppMode={moduleVariant === 'finance-liquidity' ? 'finance_liquidity' : 'cost_calc_boss'}
       />
     </div>
