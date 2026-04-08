@@ -26,6 +26,7 @@ import PomodoroTimer from './components/PomodoroTimer';
 import KalkulationsBoss from './components/KalkulationsBoss';
 import BreakEvenPoint from './components/BreakEvenPoint';
 import ECommerceKalkulation from './components/ECommerceKalkulation';
+import CostCalcBossModuleView from './components/CostCalcBossModuleView';
 import NutzwertanalyseSimulator from './components/NutzwertanalyseSimulator';
 import SWOTAnalyseSimulator from './components/SWOTAnalyseSimulator';
 import ResetModal from './components/ResetModal';
@@ -2753,6 +2754,9 @@ ${input}`;
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('kalkulation')}>
                 Kalkulations-Boss
               </button>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('cost_calc_module')}>
+                Kostenrechnung & Preisuntergrenze
+              </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('break_even')}>
                 Break Even Point
               </button>
@@ -3217,6 +3221,16 @@ ${input}`;
         <React.Suspense fallback={<div className="loading-overlay">Lade Kalkulation...</div>}>
           <KalkulationsBoss onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
         </React.Suspense>
+      </>
+    );
+  }
+
+  if (appMode === 'cost_calc_module') {
+    return (
+      <>
+        {pomodoroPortal}
+        {burgerMenuPortal}
+        <CostCalcBossModuleView onBack={() => setAppMode('dashboard')} />
       </>
     );
   }

@@ -1,0 +1,236 @@
+:root {
+  --ccm-bg-1: #f1efe8;
+  --ccm-bg-2: #e3ddd0;
+  --ccm-ink: #1b1f24;
+  --ccm-muted: #5d646d;
+  --ccm-card: #fdfcf8;
+  --ccm-line: #d7d0c2;
+  --ccm-accent: #0f4c5c;
+  --ccm-accent-soft: #2a6879;
+  --ccm-ok: #0b7d53;
+  --ccm-bad: #a02222;
+  --ccm-shadow: 0 20px 45px rgba(25, 33, 44, 0.12);
+}
+
+#calc-boss-module {
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  color: var(--ccm-ink);
+  background:
+    radial-gradient(1200px 400px at 100% -10%, rgba(15, 76, 92, 0.18), transparent),
+    linear-gradient(145deg, var(--ccm-bg-1), var(--ccm-bg-2));
+  padding: 1rem;
+  border-radius: 20px;
+}
+
+.ccm-shell {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 16px;
+}
+
+.ccm-header {
+  margin-bottom: 1rem;
+}
+
+.ccm-kicker {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ccm-muted);
+}
+
+.ccm-title {
+  margin: 0.3rem 0;
+  font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+}
+
+.ccm-product {
+  margin: 0;
+  color: var(--ccm-muted);
+}
+
+.ccm-progress-wrap {
+  margin-top: 0.9rem;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: #ddd6c8;
+  overflow: hidden;
+}
+
+.ccm-progress-bar {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--ccm-accent), var(--ccm-accent-soft));
+  transition: width 280ms ease;
+}
+
+.ccm-progress-label {
+  margin: 0.45rem 0 0;
+  font-size: 0.9rem;
+  color: var(--ccm-muted);
+}
+
+.ccm-card {
+  background: var(--ccm-card);
+  border: 1px solid var(--ccm-line);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: var(--ccm-shadow);
+  animation: ccmReveal 420ms ease;
+}
+
+@keyframes ccmReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ccm-stage-head h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.ccm-stage-head p {
+  margin: 0.4rem 0 1rem;
+  color: var(--ccm-muted);
+  line-height: 1.45;
+}
+
+.ccm-line-item {
+  display: grid;
+  grid-template-columns: 1fr minmax(160px, 200px) auto;
+  gap: 0.55rem;
+  align-items: center;
+  padding: 0.55rem 0;
+  border-bottom: 1px dashed #dfd8ca;
+}
+
+.ccm-line-item:last-child {
+  border-bottom: 0;
+}
+
+.ccm-step-label {
+  font-weight: 600;
+}
+
+.ccm-step-input {
+  border: 1px solid #c9c1b2;
+  border-radius: 10px;
+  padding: 0.5rem 0.65rem;
+  width: 100%;
+  background: #fff;
+  font-size: 0.95rem;
+}
+
+textarea.ccm-step-input {
+  resize: vertical;
+  min-height: 96px;
+  line-height: 1.35;
+}
+
+.ccm-step-input:focus {
+  outline: 2px solid rgba(15, 76, 92, 0.3);
+  outline-offset: 1px;
+  border-color: var(--ccm-accent);
+}
+
+.ccm-step-status {
+  min-width: 66px;
+  text-align: right;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.ccm-ok {
+  color: var(--ccm-ok);
+}
+
+.ccm-bad {
+  color: var(--ccm-bad);
+}
+
+.ccm-hint-box {
+  margin-top: 0.9rem;
+  border-radius: 10px;
+  padding: 0.7rem 0.85rem;
+  background: #f4efe2;
+  color: #544e43;
+  border-left: 4px solid #c79b52;
+  font-size: 0.92rem;
+}
+
+.ccm-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.ccm-score {
+  font-weight: 700;
+}
+
+.ccm-actions {
+  display: flex;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.ccm-btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 0.56rem 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+.ccm-btn:hover {
+  transform: translateY(-1px);
+}
+
+.ccm-btn-primary {
+  background: var(--ccm-accent);
+  color: #fff;
+}
+
+.ccm-btn-secondary {
+  background: #ece6da;
+  color: var(--ccm-ink);
+}
+
+.ccm-btn-ghost {
+  background: transparent;
+  border: 1px solid #beb6a6;
+  color: var(--ccm-ink);
+}
+
+@media (max-width: 760px) {
+  .ccm-line-item {
+    grid-template-columns: 1fr;
+  }
+
+  .ccm-step-status {
+    text-align: left;
+  }
+
+  .ccm-actions {
+    width: 100%;
+  }
+
+  .ccm-btn {
+    flex: 1;
+    min-width: 120px;
+  }
+}

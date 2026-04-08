@@ -1,0 +1,30 @@
+<div id="calc-boss-module"></div>
+
+<template id="cost-calc-shell-template">
+  <section class="ccm-shell" aria-live="polite">
+    <header class="ccm-header">
+      <p class="ccm-kicker">Kalkulationsboss</p>
+      <h2 class="ccm-title">Kostenrechnung &amp; Preisuntergrenze</h2>
+      <p class="ccm-product">Produkt: Outdoor-Stirnlampe S900</p>
+      <div class="ccm-progress-wrap" aria-label="Lernfortschritt">
+        <div class="ccm-progress-bar" data-role="progress-bar"></div>
+      </div>
+      <p class="ccm-progress-label" data-role="progress-label"></p>
+    </header>
+
+    <article class="ccm-card" data-role="task-card"></article>
+
+    <footer class="ccm-footer">
+      <div class="ccm-score" data-role="score"></div>
+      <div class="ccm-actions">
+        <button type="button" class="ccm-btn ccm-btn-secondary" data-action="check">Pruefen</button>
+        <button type="button" class="ccm-btn ccm-btn-primary" data-action="next">Weiter</button>
+        <button type="button" class="ccm-btn ccm-btn-ghost" data-action="restart">Neu starten</button>
+      </div>
+    </footer>
+  </section>
+</template>
+
+<template id="cost-calc-task-template">
+  <div class="ccm-stage"></div>
+</template>

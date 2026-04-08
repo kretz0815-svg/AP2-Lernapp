@@ -27,6 +27,8 @@ Die Begründung liefern, warum die ursprüngliche Fassung unlogisch oder falsch 
 
 Einen optimierten Korrekturvorschlag unterbreiten.
 
+Alle Firmennamen müssen umbenannt werden, da sie urheberrechtlich geschützt sind. Es müssen Fantasienamen verwendet werden.
+
 3. Struktur der Validierung
 
 Jede Überprüfung sollte (intern oder explizit) nach folgendem Schema erfolgen:
