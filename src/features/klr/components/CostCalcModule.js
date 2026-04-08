@@ -412,7 +412,6 @@ export class CostCalcModule {
     };
 
     this.container.addEventListener('input', syncInputToState, true);
-    this.container.addEventListener('change', syncInputToState, true);
   }
 
   clearValidationFeedback() {
