@@ -21,7 +21,7 @@ const randBetween = (min, max) => Math.random() * (max - min) + min;
 const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 // ── Szenario-Daten (für Textgenerierung) ──────────────────────
-const COMPANIES = ["Globetrader GmbH", "CampGear KG", "AlpinSports AG", "NatureFlow e.K.", "PeakPerformance Ltd.", "TrailBlazer OHG"];
+const COMPANIES = ["Glühfuchs Handels GmbH", "CampGear KG", "AlpinSports AG", "NatureFlow e.K.", "PeakPerformance Ltd.", "TrailBlazer OHG"];
 const PRODUCTS = ["Zelte", "Wanderschuhe", "Kletterseile", "Campingkocher", "hochwertige Rucksäcke", "Outdoor-Equipment"];
 
 // ═══════════════════════════════════════════════════════════════

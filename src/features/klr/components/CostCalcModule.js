@@ -72,10 +72,10 @@ function compareValues(actual, expected, tolerance, mode) {
 }
 
 function generateVariantNaming() {
-  const companies = ['Globetrader GmbH', 'Nordstern Commerce GmbH', 'Alpenlicht Trading GmbH', 'Vertex Outdoor GmbH'];
+  const companies = ['Glühfuchs Handels GmbH', 'Nordlöwe Märkte GmbH', 'Alpenfeder Vertrieb GmbH', 'Waldkröte Outdoor GmbH'];
   const brands = ['Outdoor-Stirnlampe S900', 'Trail-Lite S900', 'SummitBeam S900', 'NightPath S900'];
   const successorBrands = ['Outdoor-Stirnlampe S950', 'Trail-Lite S950', 'SummitBeam S950', 'NightPath S950'];
-  const categoryNames = ['Outdoor-Zubehoer', 'Outdoor-Equipment', 'Outdoor-Lichttechnik', 'Trekking-Zubehoer'];
+  const categoryNames = ['Outdoor-Zubehör', 'Outdoor-Equipment', 'Outdoor-Lichttechnik', 'Trekking-Zubehör'];
 
   const idx = randInt(0, companies.length - 1);
   return {
@@ -118,8 +118,8 @@ function generateConsistentData() {
   const remainingFixedCost = commercialRound(fixedTotal - removableFixedCost);
   const discontinueDecision = dbTotal > removableFixedCost ? 'NEIN' : 'JA';
   const discontinueReason = dbTotal > removableFixedCost
-    ? 'Nicht streichen: Der entfallende Deckungsbeitrag ist hoeher als die einsparbaren Fixkosten.'
-    : 'Streichung kann sinnvoll sein: Einsparbare Fixkosten uebersteigen den entfallenden Deckungsbeitrag.';
+    ? 'Nicht streichen: Der entfallende Deckungsbeitrag ist höher als die einsparbaren Fixkosten.'
+    : 'Streichung kann sinnvoll sein: Einsparbare Fixkosten übersteigen den entfallenden Deckungsbeitrag.';
 
   const revenue = commercialRound(quantity * salesPrice);
 
