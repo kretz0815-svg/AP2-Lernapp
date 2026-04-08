@@ -7,6 +7,7 @@ export default function CostCalcBossModuleView({ onBack }) {
   const [moduleVariant, setModuleVariant] = useState('cost-calc');
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
     if (!mountRef.current) return undefined;
 
     let module;
@@ -25,8 +26,8 @@ export default function CostCalcBossModuleView({ onBack }) {
   }, [moduleVariant]);
 
   return (
-    <div className="app-container" style={{ zIndex: 10 }}>
-      <header style={{ width: '100%', maxWidth: '980px', marginBottom: '0.85rem' }}>
+    <div className="app-container ccm-view-root" style={{ zIndex: 10 }}>
+      <header className="ccm-view-header" style={{ width: '100%', maxWidth: '980px', marginBottom: '0.85rem' }}>
         <button
           type="button"
           className="btn-nav"
@@ -38,17 +39,17 @@ export default function CostCalcBossModuleView({ onBack }) {
           &larr; Menue
         </button>
 
-        <div style={{ marginTop: '0.75rem', display: 'flex', gap: '0.55rem', flexWrap: 'wrap' }}>
+        <div className="ccm-view-switcher" style={{ marginTop: '0.75rem', display: 'flex', gap: '0.55rem', flexWrap: 'wrap' }}>
           <button
             type="button"
-            className={moduleVariant === 'cost-calc' ? 'btn-primary' : 'btn-secondary'}
+            className={moduleVariant === 'cost-calc' ? 'ccm-view-switch-btn active' : 'ccm-view-switch-btn'}
             onClick={() => setModuleVariant('cost-calc')}
           >
             Kalkulationsboss
           </button>
           <button
             type="button"
-            className={moduleVariant === 'finance-liquidity' ? 'btn-primary' : 'btn-secondary'}
+            className={moduleVariant === 'finance-liquidity' ? 'ccm-view-switch-btn active' : 'ccm-view-switch-btn'}
             onClick={() => setModuleVariant('finance-liquidity')}
           >
             Finanz-Analyse
@@ -56,7 +57,7 @@ export default function CostCalcBossModuleView({ onBack }) {
         </div>
       </header>
 
-      <div style={{ width: '100%', maxWidth: '980px' }}>
+      <div className="ccm-view-module-wrap" style={{ width: '100%', maxWidth: '980px' }}>
         <div id="calc-boss-module" ref={mountRef} />
       </div>
     </div>
