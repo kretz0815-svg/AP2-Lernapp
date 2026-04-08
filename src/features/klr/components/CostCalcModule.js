@@ -372,10 +372,11 @@ export class CostCalcModule {
         <footer class="ccm-footer">
           <div class="ccm-score" data-role="score"></div>
           <div class="ccm-actions">
-            <button type="button" class="ccm-btn ccm-btn-secondary" data-action="check">Pruefen</button>
-            <button type="button" class="ccm-btn ccm-btn-primary" data-action="next">Weiter</button>
+            <button type="button" class="ccm-btn ccm-btn-primary" data-action="check">Pruefen</button>
+            <button type="button" class="ccm-btn ccm-btn-secondary" data-action="next">Weiter</button>
             <button type="button" class="ccm-btn ccm-btn-ghost" data-action="restart">Neu starten</button>
           </div>
+          <p class="ccm-action-hint" data-role="action-hint">Erst pruefen, dann weiter.</p>
         </footer>
       </section>
     `;
@@ -384,6 +385,8 @@ export class CostCalcModule {
     this.progressLabel = this.container.querySelector('[data-role="progress-label"]');
     this.scoreEl = this.container.querySelector('[data-role="score"]');
     this.taskCard = this.container.querySelector('[data-role="task-card"]');
+    this.nextBtn = this.container.querySelector('[data-action="next"]');
+    this.actionHintEl = this.container.querySelector('[data-role="action-hint"]');
   }
 
   bindGlobalActions() {
@@ -394,7 +397,7 @@ export class CostCalcModule {
       if (action === 'restart') this.reset();
     });
 
-    this.container.addEventListener('input', (event) => {
+    const syncInputToState = (event) => {
       const input = event.target;
       if (!input.matches('.ccm-step-input')) return;
       const task = this.tasks[this.state.currentTask];
@@ -406,7 +409,10 @@ export class CostCalcModule {
       if (this.state.lastValidation) {
         this.clearValidationFeedback();
       }
-    });
+    };
+
+    this.container.addEventListener('input', syncInputToState, true);
+    this.container.addEventListener('change', syncInputToState, true);
   }
 
   clearValidationFeedback() {
@@ -420,6 +426,42 @@ export class CostCalcModule {
 
     const hint = this.container.querySelector('.ccm-hint-box');
     if (hint) hint.remove();
+
+    this.updateActionState();
+  }
+
+  canProceedCurrentTask() {
+    const task = this.tasks[this.state.currentTask];
+    const validation = this.state.lastValidation;
+    if (!validation) return false;
+    if (validation.taskId !== task.id) return false;
+    return validation.allCorrect && !validation.hasFollowError;
+  }
+
+  updateActionState() {
+    if (!this.nextBtn || !this.actionHintEl) return;
+
+    const canProceed = this.canProceedCurrentTask();
+    this.nextBtn.disabled = !canProceed;
+
+    if (canProceed) {
+      this.actionHintEl.textContent = 'Etappe geprueft. Du kannst jetzt weiter.';
+      return;
+    }
+
+    const task = this.tasks[this.state.currentTask];
+    const hasValidation = this.state.lastValidation?.taskId === task.id;
+    if (!hasValidation) {
+      this.actionHintEl.textContent = 'Erst pruefen, dann weiter.';
+      return;
+    }
+
+    if (this.state.lastValidation?.hasFollowError) {
+      this.actionHintEl.textContent = 'Vorstufe korrigieren: Diese Etappe zaehlt erst dann vollstaendig.';
+      return;
+    }
+
+    this.actionHintEl.textContent = 'Bitte alle Felder auf OK bringen und erneut pruefen.';
   }
 
   renderTask() {
@@ -496,6 +538,7 @@ export class CostCalcModule {
     this.progressBar.style.width = `${progress}%`;
     this.progressLabel.textContent = `Etappe ${this.state.currentTask + 1} von ${this.tasks.length}`;
     this.scoreEl.textContent = `Punkte: ${this.state.points}`;
+    this.updateActionState();
   }
 
   buildFollowErrorHint(task) {
@@ -526,6 +569,8 @@ export class CostCalcModule {
     }
 
     const followHint = this.buildFollowErrorHint(task);
+    const hasFollowError = Boolean(followHint);
+    const validatedWithDependencies = allCorrect && !hasFollowError;
     const successHint = allCorrect
       ? (task.id === 6 ? `${this.state.data.discontinueReason} Alle Eingaben korrekt.` : 'Alle Eingaben korrekt. Sehr stark.')
       : '';
@@ -536,14 +581,16 @@ export class CostCalcModule {
       : '';
 
     this.state.lastValidation = {
+      taskId: task.id,
       fieldChecks,
       allCorrect,
+      hasFollowError,
       hintMessage: followHint || successHint || baseHint,
     };
 
-    this.state.taskResults[task.id] = allCorrect;
+    this.state.taskResults[task.id] = validatedWithDependencies;
 
-    if (allCorrect && !isSoft && !this.state.scoredTasks[task.id]) {
+    if (validatedWithDependencies && !isSoft && !this.state.scoredTasks[task.id]) {
       this.state.points += 10;
       this.state.scoredTasks[task.id] = true;
     }
@@ -552,6 +599,19 @@ export class CostCalcModule {
   }
 
   nextTask() {
+    if (!this.canProceedCurrentTask()) {
+      const task = this.tasks[this.state.currentTask];
+      this.state.lastValidation = {
+        taskId: task.id,
+        fieldChecks: this.state.lastValidation?.fieldChecks || {},
+        allCorrect: this.state.lastValidation?.allCorrect || false,
+        hasFollowError: this.state.lastValidation?.hasFollowError || false,
+        hintMessage: this.state.lastValidation?.hintMessage || 'Bitte zuerst auf "Pruefen" klicken und alle Felder korrekt loesen.',
+      };
+      this.renderTask();
+      return;
+    }
+
     const atLastTask = this.state.currentTask >= this.tasks.length - 1;
     if (!atLastTask) {
       this.state.currentTask += 1;
