@@ -263,7 +263,7 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                                 }}
                             >
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Lernkarten Analyse</span>
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Analyse</span>
                                     <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>

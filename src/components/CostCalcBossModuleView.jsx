@@ -57,7 +57,7 @@ function getStageExpectedContext(variant, stageId) {
   return COST_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
 }
 
-export default function CostCalcBossModuleView({ onBack }) {
+export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
   const mountRef = useRef(null);
   const moduleRef = useRef(null);
   const [moduleVariant, setModuleVariant] = useState('cost-calc');
@@ -155,7 +155,11 @@ export default function CostCalcBossModuleView({ onBack }) {
     let module;
     let intervalId;
     try {
-      module = bootstrapCostCalcModule({ containerEl: mountRef.current, variant: moduleVariant });
+      module = bootstrapCostCalcModule({
+        containerEl: mountRef.current,
+        variant: moduleVariant,
+        onLearningEvent,
+      });
       moduleRef.current = module;
       syncActiveStage();
       intervalId = window.setInterval(syncActiveStage, 250);
@@ -171,7 +175,7 @@ export default function CostCalcBossModuleView({ onBack }) {
         module.container.innerHTML = '';
       }
     };
-  }, [moduleVariant]);
+  }, [moduleVariant, onLearningEvent]);
 
   useEffect(() => {
     resetLearningPanels();

@@ -37,7 +37,7 @@ const LearningDashboard = ({
         <div className="note-card" style={{ position: 'relative', width: '100%', maxWidth: '620px', padding: '2.2rem', margin: '0 auto', background: 'var(--glass-bg)', backdropFilter: 'blur(16px)', borderRadius: '24px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
           <h2 style={{ color: 'var(--text-light)', marginTop: 0 }}>Nur für registrierte Accounts</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-            Die Lernkarten-Analyse ist nur mit E-Mail-Login verfügbar. Pro E-Mail wird ein eigener Lernstand geführt.
+            Die Analyse ist nur mit E-Mail-Login verfügbar. Pro E-Mail wird ein eigener Lernstand geführt.
           </p>
           <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
         </div>
@@ -50,10 +50,15 @@ const LearningDashboard = ({
     'wisor',
     'wisorEco',
     'flashcard',
+    'klr_mc',
     'kalkulation',
     'breakEven',
+    'ecommerce_kalkulation',
+    'cost_calc_module',
     'rechen',
     'klr',
+    'nutzwertanalyse',
+    'swot_analyse',
     'marketing_review',
     'project_m',
     'journey_architect'
@@ -81,10 +86,15 @@ const LearningDashboard = ({
       wisor: byMode('wisor'),
       wisorEco: byMode('wisorEco'),
       flashcard: byMode('flashcard'),
+      klr_mc: byMode('klr_mc'),
       kalkulation: byMode('kalkulation'),
       breakEven: byMode('breakEven'),
+      ecommerce_kalkulation: byMode('ecommerce_kalkulation'),
+      cost_calc_module: byMode('cost_calc_module'),
       rechen: byMode('rechen'),
       klr: byMode('klr'),
+      nutzwertanalyse: byMode('nutzwertanalyse'),
+      swot_analyse: byMode('swot_analyse'),
       marketing_review: byMode('marketing_review'),
       project_m: byMode('project_m'),
       journey_architect: byMode('journey_architect'),
@@ -104,9 +114,14 @@ const LearningDashboard = ({
     wisor: 'WisoR Grundlagen',
     wisorEco: 'WisoR E-Commerce',
     flashcard: 'Lernkarten',
+    klr_mc: 'KLR Multiple Choice',
     kalkulation: 'Kalkulations-Boss',
     breakEven: 'Break-Even-Point',
+    ecommerce_kalkulation: 'E-Commerce Kalkulation',
+    cost_calc_module: 'Kostenrechnung & Liquiditätsmanagement',
     klr: 'KLR-Modul',
+    nutzwertanalyse: 'Nutzwertanalyse',
+    swot_analyse: 'SWOT-Analyse',
     rechen: "KPI's",
     marketing_review: 'IHK Extras',
     project_m: 'Projekt M Mastery',
@@ -121,19 +136,7 @@ const LearningDashboard = ({
     return acc;
   }, {});
 
-  const questionEvents = events.filter(e => (
-    e.mode === 'quiz'
-    || e.mode === 'wisor'
-    || e.mode === 'wisorEco'
-    || e.mode === 'flashcard'
-    || e.mode === 'kalkulation'
-    || e.mode === 'breakEven'
-    || e.mode === 'klr'
-    || e.mode === 'rechen'
-    || e.mode === 'marketing_review'
-    || e.mode === 'project_m'
-    || e.mode === 'journey_architect'
-  ));
+  const questionEvents = events.filter((e) => includedModes.has(e.mode));
   const totalAnswers = events.length;
   const totalCorrect = events.filter(e => e.correct).length;
   const hitRate = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
@@ -190,9 +193,14 @@ const LearningDashboard = ({
     if (event.mode === 'wisor') return 'WisoR Grundlagen';
     if (event.mode === 'wisorEco') return 'WisoR E-Commerce';
     if (event.mode === 'flashcard') return event.topic || 'Lernkarten Wissen';
+    if (event.mode === 'klr_mc') return event.topic || 'KLR Multiple Choice';
     if (event.mode === 'kalkulation') return 'Kalkulations-Boss';
     if (event.mode === 'breakEven') return 'Break-Even-Point';
+    if (event.mode === 'ecommerce_kalkulation') return 'E-Commerce Kalkulation';
+    if (event.mode === 'cost_calc_module') return event.topic || 'Kostenrechnung & Liquiditätsmanagement';
     if (event.mode === 'klr') return event.topic || 'KLR-Modul';
+    if (event.mode === 'nutzwertanalyse') return event.topic || 'Nutzwertanalyse';
+    if (event.mode === 'swot_analyse') return event.topic || 'SWOT-Analyse';
     if (event.mode === 'marketing_review') return 'IHK Extras';
     if (event.mode === 'project_m') return 'Projekt M Mastery';
     if (event.mode === 'journey_architect') return 'Journey Architect';
@@ -273,8 +281,15 @@ const LearningDashboard = ({
     if (entry.mode === 'wisor') return 'WisoR Grundlagen';
     if (entry.mode === 'wisorEco') return 'WisoR E-Commerce';
     if (entry.mode === 'flashcard') return 'Lernkarten Wissen';
+    if (entry.mode === 'klr_mc') return 'KLR Multiple Choice';
+    if (entry.mode === 'kalkulation') return 'Kalkulations-Boss';
+    if (entry.mode === 'breakEven') return 'Break-Even-Point';
+    if (entry.mode === 'ecommerce_kalkulation') return 'E-Commerce Kalkulation';
+    if (entry.mode === 'cost_calc_module') return entry.topic || 'Kostenrechnung & Liquiditätsmanagement';
     if (entry.mode === 'marketing_review') return 'IHK Extras';
     if (entry.mode === 'klr') return entry.topic || 'KLR-Modul';
+    if (entry.mode === 'nutzwertanalyse') return entry.topic || 'Nutzwertanalyse';
+    if (entry.mode === 'swot_analyse') return entry.topic || 'SWOT-Analyse';
     if (entry.mode === 'project_m') return 'Projekt M Mastery';
     if (entry.mode === 'journey_architect') return 'Journey Architect';
     return 'Allgemein';
@@ -334,7 +349,7 @@ const LearningDashboard = ({
   const circleRadius = 62;
   const circleCircumference = 2 * Math.PI * circleRadius;
   const circleOffset = circleCircumference * (1 - overallAccuracy / 100);
-  const allModeKeys = ['quiz', 'wisor', 'wisorEco', 'kalkulation', 'breakEven', 'klr', 'rechen', 'flashcard', 'marketing_review', 'project_m', 'journey_architect'];
+  const allModeKeys = ['quiz', 'wisor', 'wisorEco', 'flashcard', 'klr_mc', 'kalkulation', 'breakEven', 'ecommerce_kalkulation', 'cost_calc_module', 'rechen', 'klr', 'nutzwertanalyse', 'swot_analyse', 'marketing_review', 'project_m', 'journey_architect'];
   const dayTotalCount = allModeKeys.reduce((s, m) => s + day[m].correct + day[m].wrong, 0);
   const dayCorrectCount = allModeKeys.reduce((s, m) => s + day[m].correct, 0);
   const dayAccuracy = dayTotalCount > 0 ? Math.round((dayCorrectCount / dayTotalCount) * 100) : 0;
@@ -357,6 +372,8 @@ const LearningDashboard = ({
     { key: 'differenz', label: 'Differenzkalkulation', icon: '🔀', color: '#ef4444', prefix: 'Differenzkalkulation' },
     { key: 'boss', label: 'Boss-Modus', icon: '👾', color: '#a855f7', prefix: 'Boss-Modus' },
     { key: 'breakEven', label: 'Break-Even-Point', icon: '📊', color: '#6366f1', prefix: 'Break-Even' },
+    { key: 'ecommerce', label: 'E-Commerce Kalkulation', icon: '🛒', color: '#ec4899', mode: 'ecommerce_kalkulation' },
+    { key: 'costCalcModule', label: 'Kostenrechnung & Liquidität', icon: '📚', color: '#8b5cf6', mode: 'cost_calc_module' },
     { key: 'klr1', label: 'KLR Level 1', icon: '🧩', color: '#22c55e', topic: 'KLR Level 1 · Kostenartenrechnung' },
     { key: 'klr2', label: 'KLR Level 2', icon: '🏭', color: '#f59e0b', topic: 'KLR Level 2 · Kostenstellenrechnung' },
     { key: 'klr3', label: 'KLR Level 3', icon: '🧥', color: '#a855f7', topic: 'KLR Level 3 · Kostenträgerrechnung' },
@@ -365,6 +382,8 @@ const LearningDashboard = ({
   const calcStats = calcCategories.map(cat => {
     const filtered = cat.key === 'breakEven'
       ? events.filter(e => e.mode === 'breakEven')
+      : cat.mode
+        ? events.filter(e => e.mode === cat.mode)
       : cat.topic
         ? events.filter(e => e.mode === 'klr' && (e.topic || '') === cat.topic)
         : events.filter(e => e.mode === 'kalkulation' && (e.questionText || '').startsWith(cat.prefix));
@@ -375,6 +394,61 @@ const LearningDashboard = ({
     return { ...cat, correct, wrong, total, accuracy };
   });
   const calcTotal = calcStats.reduce((s, c) => s + c.total, 0);
+
+  const moduleOverviewConfig = [
+    { mode: 'quiz', label: 'Quiz', icon: '🧠' },
+    { mode: 'flashcard', label: 'Lernkarten', icon: '🃏' },
+    { mode: 'wisor', label: 'WisoR Grundlagen', icon: '📘' },
+    { mode: 'wisorEco', label: 'WisoR E-Commerce', icon: '🛍️' },
+    { mode: 'marketing_review', label: 'IHK Extras', icon: '📝' },
+    { mode: 'klr_mc', label: 'KLR Multiple Choice', icon: '🎯' },
+    { mode: 'kalkulation', label: 'Kalkulations-Boss', icon: '🧮' },
+    { mode: 'cost_calc_module', label: 'Kostenrechnung & Liquidität', icon: '📚' },
+    { mode: 'breakEven', label: 'Break-Even-Point', icon: '📊' },
+    { mode: 'ecommerce_kalkulation', label: 'E-Commerce Kalkulation', icon: '🛒' },
+    { mode: 'klr', label: 'KLR-Modul', icon: '🏭' },
+    { mode: 'nutzwertanalyse', label: 'Nutzwertanalyse', icon: '⚖️' },
+    { mode: 'swot_analyse', label: 'SWOT-Analyse', icon: '🧭' },
+    { mode: 'project_m', label: 'Projekt M Mastery', icon: '🚀' },
+    { mode: 'journey_architect', label: 'Journey Architect', icon: '🗺️' },
+    { mode: 'rechen', label: "KPI's", icon: '📈' },
+  ];
+
+  const getModuleStatus = (total, accuracy) => {
+    if (total <= 0) return 'Nicht gestartet';
+    if (accuracy >= 80 && total >= 6) return 'Sicher';
+    return 'In Arbeit';
+  };
+
+  const getModuleStatusStyle = (status) => {
+    if (status === 'Sicher') return { fg: '#22c55e', bg: 'rgba(34,197,94,0.12)', border: 'rgba(34,197,94,0.35)' };
+    if (status === 'In Arbeit') return { fg: '#f59e0b', bg: 'rgba(245,158,11,0.12)', border: 'rgba(245,158,11,0.35)' };
+    return { fg: '#94a3b8', bg: 'rgba(148,163,184,0.12)', border: 'rgba(148,163,184,0.35)' };
+  };
+
+  const getModuleRecommendation = (total, correct, wrong, accuracy) => {
+    if (total <= 0) return 'Starten: 5 Aufgaben lösen, damit die Analyse belastbar wird.';
+    if (wrong > correct) return 'Fokus: Erst Fehlerursachen klären, dann 8-10 Aufgaben langsam und sauber rechnen.';
+    if (accuracy < 60) return 'Aufholen: Grundlagen wiederholen und danach gezielt 10 Aufgaben in diesem Modul trainieren.';
+    if (accuracy < 80) return 'Stabilisieren: 5-8 gemischte Aufgaben, damit das Niveau sicher über 80% steigt.';
+    return 'Halten: 2-3 Wiederholungen pro Woche reichen, um die Sicherheit zu konservieren.';
+  };
+
+  const moduleOverviewRows = moduleOverviewConfig.map((moduleCfg) => {
+    const counts = modeTotals[moduleCfg.mode] || { correct: 0, wrong: 0 };
+    const total = (counts.correct || 0) + (counts.wrong || 0);
+    const accuracy = total > 0 ? Math.round(((counts.correct || 0) / total) * 100) : 0;
+    const status = getModuleStatus(total, accuracy);
+    return {
+      ...moduleCfg,
+      correct: counts.correct || 0,
+      wrong: counts.wrong || 0,
+      total,
+      accuracy,
+      status,
+      recommendation: getModuleRecommendation(total, counts.correct || 0, counts.wrong || 0, accuracy),
+    };
+  });
 
   const actionCallText = (() => {
     if (totalAnswers === 0) return 'Starte dein erstes Training, um personalisierte Empfehlungen zu erhalten!';
@@ -407,7 +481,7 @@ const LearningDashboard = ({
       </header>
 
       <h1 className="print-only-title" style={{ margin: 0, textAlign: 'center', color: 'var(--text-light)', fontSize: '2.35rem', fontWeight: 900, letterSpacing: '0.02em' }}>
-        MasterPat APP &ndash; Lernanalyse
+        MasterPat APP &ndash; Analyse
       </h1>
 
       <section className="note-card analytics-big-picture" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '1.5rem 2rem', borderRadius: '20px', border: `1px solid ${einsteinNeonColor}44`, background: 'var(--glass-bg)', backdropFilter: 'blur(16px)' }}>
@@ -662,6 +736,38 @@ const LearningDashboard = ({
             </div>
           </>
         )}
+      </section>
+
+      <section className="note-card analytics-module-overview" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>
+        <h3 style={{ margin: '0 0 1rem 0', color: 'var(--text-light)', fontSize: '1.1rem', textAlign: 'center' }}>🧩 Modul-Übersicht</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.75rem' }}>
+          {moduleOverviewRows.map((row) => {
+            const statusStyle = getModuleStatusStyle(row.status);
+            return (
+              <div key={`mod_${row.mode}`} style={{ borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)', padding: '0.85rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.55rem' }}>
+                  <span style={{ color: 'var(--text-light)', fontWeight: 700, fontSize: '0.85rem' }}>{row.icon} {row.label}</span>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: statusStyle.fg, background: statusStyle.bg, border: `1px solid ${statusStyle.border}`, borderRadius: '999px', padding: '0.18rem 0.5rem' }}>
+                    {row.status}
+                  </span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '0.45rem' }}>
+                  <span style={{ color: row.accuracy >= 80 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)', fontWeight: 800, fontSize: '1.2rem' }}>{row.accuracy}%</span>
+                  <span style={{ color: 'var(--text-muted)', fontSize: '0.73rem' }}>{row.correct} richtig · {row.wrong} falsch · {row.total} gesamt</span>
+                </div>
+
+                <div style={{ height: '6px', borderRadius: '999px', overflow: 'hidden', background: 'rgba(255,255,255,0.09)', marginBottom: '0.55rem' }}>
+                  <div style={{ width: `${row.accuracy}%`, height: '100%', background: row.accuracy >= 80 ? 'var(--success)' : row.accuracy >= 60 ? '#f59e0b' : 'var(--error)', borderRadius: '999px', transition: 'width 0.5s ease' }} />
+                </div>
+
+                <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.78rem', lineHeight: 1.45 }}>
+                  <strong style={{ color: 'var(--text-light)' }}>Verbesserung:</strong> {row.recommendation}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       <section className="note-card analytics-prognose" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)' }}>

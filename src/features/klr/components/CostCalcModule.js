@@ -226,6 +226,7 @@ export class CostCalcModule {
     this.containerId = options.containerId || 'calc-boss-module';
     this.containerEl = options.containerEl || null;
     this.variant = options.variant || 'cost-calc';
+    this.onLearningEvent = typeof options.onLearningEvent === 'function' ? options.onLearningEvent : null;
     this.state = {
       currentTask: 0,
       points: 0,
@@ -900,6 +901,21 @@ export class CostCalcModule {
     if (validatedWithDependencies && !isSoft && !this.state.scoredTasks[task.id]) {
       this.state.points += 10;
       this.state.scoredTasks[task.id] = true;
+    }
+
+    if (!isSoft && this.onLearningEvent) {
+      const taskPrompt = typeof task.prompt === 'function' ? task.prompt(this.state.data) : '';
+      this.onLearningEvent({
+        mode: 'cost_calc_module',
+        questionId: `${this.variant}_stage_${task.id}`,
+        questionText: `${task.title}: ${String(taskPrompt).slice(0, 160)}`,
+        correct: validatedWithDependencies,
+        userAnswer: JSON.stringify(entered).slice(0, 240),
+        expectedAnswer: 'Alle Felder korrekt und ohne Folgefehler.',
+        topic: this.variant === 'finance-liquidity'
+          ? 'Finanz-Analyse & Liquiditätsmanagement'
+          : 'Kostenrechnung & Preisuntergrenze',
+      });
     }
 
     this.renderTask();

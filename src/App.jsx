@@ -347,6 +347,14 @@ function App() {
                     ? 'Projekt M'
                     : m.mode === 'klr_mc'
                       ? 'KLR MC'
+                      : m.mode === 'cost_calc_module'
+                        ? 'Kostenrechnung & Preisuntergrenze'
+                        : m.mode === 'ecommerce_kalkulation'
+                          ? 'E-Commerce Kalkulation'
+                          : m.mode === 'nutzwertanalyse'
+                            ? 'Nutzwertanalyse'
+                            : m.mode === 'swot_analyse'
+                              ? 'SWOT-Analyse'
                     : m.mode === 'journey_architect'
                       ? 'Journey Architect'
                       : ''
@@ -369,7 +377,13 @@ function App() {
 
     const events = learningAnalytics?.events || [];
     const wrongCalcEvents = events
-      .filter((event) => (event.mode === 'kalkulation' || event.mode === 'breakEven' || event.mode === 'klr') && !event.correct)
+      .filter((event) => (
+        event.mode === 'kalkulation'
+        || event.mode === 'breakEven'
+        || event.mode === 'klr'
+        || event.mode === 'ecommerce_kalkulation'
+        || event.mode === 'cost_calc_module'
+      ) && !event.correct)
       .slice(-30);
 
     if (wrongCalcEvents.length === 0) {
@@ -3250,7 +3264,7 @@ ${input}`;
       <>
         {pomodoroPortal}
         {burgerMenuPortal}
-        <CostCalcBossModuleView onBack={() => setAppMode('dashboard')} />
+        <CostCalcBossModuleView onBack={() => setAppMode('dashboard')} onLearningEvent={appendLearningEvent} />
       </>
     );
   }
