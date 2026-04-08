@@ -4,10 +4,37 @@ function commercialRound(value) {
   return Math.round((Number(value) + Number.EPSILON) * ROUND_FACTOR) / ROUND_FACTOR;
 }
 
+function normalizeLocaleNumber(raw) {
+  if (raw === null || raw === undefined) return '';
+
+  let normalized = String(raw)
+    .trim()
+    .replace(/\s+/g, '')
+    .replace(/[^0-9,.-]/g, '');
+
+  if (!normalized) return '';
+
+  const lastComma = normalized.lastIndexOf(',');
+  const lastDot = normalized.lastIndexOf('.');
+  const decimalSeparator = lastComma > lastDot ? ',' : '.';
+
+  if (lastComma !== -1 || lastDot !== -1) {
+    const thousandsSeparator = decimalSeparator === ',' ? /\./g : /,/g;
+    normalized = normalized.replace(thousandsSeparator, '');
+    if (decimalSeparator === ',') {
+      normalized = normalized.replace(',', '.');
+    }
+  }
+
+  normalized = normalized.replace(/(?!^)-/g, '');
+  return normalized;
+}
+
 function parseLocaleNumber(raw) {
-  if (raw === null || raw === undefined) return Number.NaN;
-  const normalized = String(raw).trim().replace(/\./g, '').replace(',', '.');
-  return Number.parseFloat(normalized);
+  const normalized = normalizeLocaleNumber(raw);
+  if (!normalized) return Number.NaN;
+  const value = Number.parseFloat(normalized);
+  return Number.isFinite(value) ? value : Number.NaN;
 }
 
 function formatMoney(value) {
@@ -145,6 +172,7 @@ export class CostCalcModule {
     this.state = {
       currentTask: 0,
       points: 0,
+      scoredTasks: {},
       userInputs: {},
       taskResults: {},
       lastValidation: null,
@@ -170,6 +198,7 @@ export class CostCalcModule {
     this.state = {
       currentTask: 0,
       points: 0,
+      scoredTasks: {},
       userInputs: {},
       taskResults: {},
       lastValidation: null,
@@ -210,7 +239,7 @@ export class CostCalcModule {
         dependsOn: [1],
         dependencyHint: 'Wenn Etappe 1 falsch war, pruefe zuerst Deckungsbeitrag und Kostenbasis.',
         // Solver 2: Ordnet alle Kostenarten eindeutig als fix oder variabel zu.
-        solver: (ctx) => ({
+        solver: () => ({
           materialClass: 'V',
           packagingClass: 'V',
           shippingClass: 'V',
@@ -251,7 +280,7 @@ export class CostCalcModule {
       {
         id: 5,
         title: '5. Break-even-Analyse',
-        prompt: (ctx) => `Ermittle fuer ${ctx.productName}: Verkaufspreis ${formatMoney(ctx.salesPrice)} je Stk, variable Kosten ${formatMoney(ctx.variableCostPerUnit)} je Stk, Fixkosten ${formatMoney(ctx.fixedTotal)} p.a..`,
+        prompt: (ctx) => `Ermittle fuer ${ctx.productName}: Verkaufspreis ${formatMoney(ctx.salesPrice)} je Stk, variable Kosten ${formatMoney(ctx.variableCostPerUnit)} je Stk, Fixkosten ${formatMoney(ctx.fixedTotal)} p.a.. Rundungsregel: Break-even-Menge immer zuerst auf volle Stueck aufrunden; den Break-even-Umsatz danach mit genau dieser aufgerundeten Menge berechnen.`,
         fields: [
           { key: 'dbUnit', label: 'Stueckdeckungsbeitrag', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Stueckdeckungsbeitrag in Euro fuer Break-even' },
           { key: 'breakEvenQty', label: 'Break-even-Menge', unit: 'Stk', tolerance: 0.5, ariaLabel: 'Break-even Menge in Stueck' },
@@ -372,13 +401,25 @@ export class CostCalcModule {
       const taskId = task.id;
       this.state.userInputs[taskId] = this.state.userInputs[taskId] || {};
       this.state.userInputs[taskId][input.name] = input.value;
+
+      // Statuslabels erst nach aktivem Pruefen anzeigen.
+      if (this.state.lastValidation) {
+        this.clearValidationFeedback();
+      }
+    });
+  }
+
+  clearValidationFeedback() {
+    this.state.lastValidation = null;
+
+    const statusEls = this.container.querySelectorAll('.ccm-step-status');
+    statusEls.forEach((el) => {
+      el.textContent = '';
+      el.classList.remove('ccm-ok', 'ccm-bad');
     });
 
-    this.container.addEventListener('blur', (event) => {
-      const input = event.target;
-      if (!input.matches('.ccm-step-input')) return;
-      this.validateCurrentTask(true);
-    }, true);
+    const hint = this.container.querySelector('.ccm-hint-box');
+    if (hint) hint.remove();
   }
 
   renderTask() {
@@ -407,6 +448,10 @@ export class CostCalcModule {
             >${value}</textarea>
           `;
         } else {
+          const placeholder = field.mode === 'choice' || field.mode === 'contains_all'
+            ? (field.unit || 'Wert')
+            : '0,00';
+
           control = `
             <input
               class="ccm-step-input"
@@ -415,7 +460,7 @@ export class CostCalcModule {
               type="text"
               value="${value}"
               aria-label="${field.ariaLabel}"
-              placeholder="${field.unit || 'Wert'}"
+              placeholder="${placeholder}"
               autocomplete="off"
             />
           `;
@@ -496,11 +541,11 @@ export class CostCalcModule {
       hintMessage: followHint || successHint || baseHint,
     };
 
-    const wasCorrect = this.state.taskResults[task.id] === true;
     this.state.taskResults[task.id] = allCorrect;
 
-    if (allCorrect && !isSoft && !wasCorrect) {
+    if (allCorrect && !isSoft && !this.state.scoredTasks[task.id]) {
       this.state.points += 10;
+      this.state.scoredTasks[task.id] = true;
     }
 
     this.renderTask();
