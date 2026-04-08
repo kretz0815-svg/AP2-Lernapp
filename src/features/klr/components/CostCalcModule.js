@@ -141,6 +141,7 @@ function generateConsistentData() {
 export class CostCalcModule {
   constructor(options = {}) {
     this.containerId = options.containerId || 'calc-boss-module';
+    this.containerEl = options.containerEl || null;
     this.state = {
       currentTask: 0,
       points: 0,
@@ -154,7 +155,7 @@ export class CostCalcModule {
   }
 
   mount() {
-    const container = document.getElementById(this.containerId);
+    const container = this.containerEl || document.getElementById(this.containerId);
     if (!container) {
       throw new Error(`Container #${this.containerId} not found.`);
     }

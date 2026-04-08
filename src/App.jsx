@@ -2754,7 +2754,15 @@ ${input}`;
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('kalkulation')}>
                 Kalkulations-Boss
               </button>
-              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('cost_calc_module')}>
+              <button
+                type="button"
+                className="btn-secondary"
+                style={{ width: '100%' }}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setAppMode('cost_calc_module');
+                }}
+              >
                 Kostenrechnung & Preisuntergrenze
               </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('break_even')}>
