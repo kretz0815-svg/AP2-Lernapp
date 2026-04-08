@@ -141,6 +141,26 @@
   line-height: 1.45;
 }
 
+.ccm-stage-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.ccm-stage-previous {
+  border: 1px solid #e3dccf;
+  border-radius: 12px;
+  padding: 0.8rem;
+  background: #fbf9f3;
+}
+
+.ccm-stage-current {
+  border: 1px solid #ddd4c5;
+  border-radius: 12px;
+  padding: 0.8rem;
+  background: #fffdfa;
+}
+
 .ccm-line-item {
   display: grid;
   grid-template-columns: 1fr minmax(160px, 200px) auto;
@@ -184,6 +204,17 @@ textarea.ccm-step-input {
   text-align: right;
   font-size: 0.82rem;
   font-weight: 700;
+}
+
+.ccm-line-item-readonly .ccm-step-static {
+  border: 1px solid #d4ccbc;
+  border-radius: 10px;
+  padding: 0.5rem 0.65rem;
+  width: 100%;
+  background: #f5efe3;
+  font-size: 0.93rem;
+  color: #3f4348;
+  text-align: left;
 }
 
 .ccm-ok {

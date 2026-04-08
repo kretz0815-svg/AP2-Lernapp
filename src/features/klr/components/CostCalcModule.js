@@ -54,6 +54,15 @@ function randStep(min, max, step) {
   return min + randInt(0, steps) * step;
 }
 
+function shuffleArray(items) {
+  const arr = [...items];
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 function compareValues(actual, expected, tolerance, mode) {
   if (mode === 'choice') {
     return String(actual || '').trim().toUpperCase() === String(expected).trim().toUpperCase();
@@ -241,6 +250,7 @@ export class CostCalcModule {
   }
 
   reset() {
+    this.tasks = this.createTasks();
     this.state = {
       currentTask: 0,
       points: 0,
@@ -264,6 +274,16 @@ export class CostCalcModule {
   }
 
   createCostCalcTasks() {
+    const stage2Fields = shuffleArray([
+      { key: 'materialClass', label: 'Materialkosten', unit: 'F oder V', mode: 'choice', ariaLabel: 'Materialkosten als F oder V klassifizieren' },
+      { key: 'packagingClass', label: 'Verpackungskosten', unit: 'F oder V', mode: 'choice', ariaLabel: 'Verpackungskosten als F oder V klassifizieren' },
+      { key: 'shippingClass', label: 'Versandkosten', unit: 'F oder V', mode: 'choice', ariaLabel: 'Versandkosten als F oder V klassifizieren' },
+      { key: 'varSalesClass', label: 'Variable Vertriebskosten', unit: 'F oder V', mode: 'choice', ariaLabel: 'Variable Vertriebskosten als F oder V klassifizieren' },
+      { key: 'warehouseClass', label: 'Miete Lagerhalle', unit: 'F oder V', mode: 'choice', ariaLabel: 'Miete Lagerhalle als F oder V klassifizieren' },
+      { key: 'pmClass', label: 'Gehaelter Produktmanagement', unit: 'F oder V', mode: 'choice', ariaLabel: 'Gehaelter Produktmanagement als F oder V klassifizieren' },
+      { key: 'deprClass', label: 'Abschreibungen Maschinen', unit: 'F oder V', mode: 'choice', ariaLabel: 'Abschreibungen Maschinen als F oder V klassifizieren' },
+    ]);
+
     return [
       {
         id: 1,
@@ -282,15 +302,7 @@ export class CostCalcModule {
         id: 2,
         title: '2. Kostenarten-Zuordnung (Fix/Variabel)',
         prompt: (ctx) => `Klassifiziere jede Kostenart mit F (Fix) oder V (Variabel): Material ${formatMoney(ctx.materialCost)} je Stk, Verpackung ${formatMoney(ctx.packagingCost)} je Stk, Versand ${formatMoney(ctx.shippingCost)} je Stk, variable Vertriebskosten ${formatMoney(ctx.variableSalesCost)} je Stk, Miete Lagerhalle ${formatMoney(ctx.warehouseRent)} p.a., Gehaelter Produktmanagement ${formatMoney(ctx.productManagementSalaries)} p.a., Abschreibungen Maschinen ${formatMoney(ctx.machineDepreciation)} p.a..`,
-        fields: [
-          { key: 'materialClass', label: 'Materialkosten', unit: 'F oder V', mode: 'choice', ariaLabel: 'Materialkosten als F oder V klassifizieren' },
-          { key: 'packagingClass', label: 'Verpackungskosten', unit: 'F oder V', mode: 'choice', ariaLabel: 'Verpackungskosten als F oder V klassifizieren' },
-          { key: 'shippingClass', label: 'Versandkosten', unit: 'F oder V', mode: 'choice', ariaLabel: 'Versandkosten als F oder V klassifizieren' },
-          { key: 'varSalesClass', label: 'Variable Vertriebskosten', unit: 'F oder V', mode: 'choice', ariaLabel: 'Variable Vertriebskosten als F oder V klassifizieren' },
-          { key: 'warehouseClass', label: 'Miete Lagerhalle', unit: 'F oder V', mode: 'choice', ariaLabel: 'Miete Lagerhalle als F oder V klassifizieren' },
-          { key: 'pmClass', label: 'Gehaelter Produktmanagement', unit: 'F oder V', mode: 'choice', ariaLabel: 'Gehaelter Produktmanagement als F oder V klassifizieren' },
-          { key: 'deprClass', label: 'Abschreibungen Maschinen', unit: 'F oder V', mode: 'choice', ariaLabel: 'Abschreibungen Maschinen als F oder V klassifizieren' },
-        ],
+        fields: stage2Fields,
         dependsOn: [1],
         dependencyHint: 'Wenn Etappe 1 falsch war, pruefe zuerst Deckungsbeitrag und Kostenbasis.',
         solver: () => ({
@@ -615,12 +627,8 @@ export class CostCalcModule {
     this.actionHintEl.textContent = 'Bitte alle Felder auf OK bringen und erneut pruefen.';
   }
 
-  renderTask() {
-    const task = this.tasks[this.state.currentTask];
-    const userTaskInput = this.state.userInputs[task.id] || {};
-    const validation = this.state.lastValidation;
-
-    const rows = task.fields
+  buildEditableRows(task, userTaskInput, validation) {
+    return task.fields
       .map((field, index) => {
         const value = userTaskInput[field.key] ?? '';
         const status = validation?.fieldChecks?.[field.key];
@@ -668,6 +676,48 @@ export class CostCalcModule {
         `;
       })
       .join('');
+  }
+
+  buildReadonlyRows(task, userTaskInput) {
+    return task.fields
+      .map((field, index) => {
+        const raw = userTaskInput[field.key];
+        const value = raw === undefined || raw === null || String(raw).trim() === '' ? '—' : String(raw);
+        return `
+          <div class="ccm-line-item ccm-line-item-readonly">
+            <span class="ccm-step-label">${index + 1}. ${field.label}</span>
+            <div class="ccm-step-static">${value}</div>
+            <span class="ccm-step-status ccm-ok">OK</span>
+          </div>
+        `;
+      })
+      .join('');
+  }
+
+  renderTask() {
+    const task = this.tasks[this.state.currentTask];
+    const userTaskInput = this.state.userInputs[task.id] || {};
+    const validation = this.state.lastValidation;
+
+    const previousSections = this.tasks
+      .slice(0, this.state.currentTask)
+      .map((doneTask) => {
+        const doneInput = this.state.userInputs[doneTask.id] || {};
+        const doneRows = this.buildReadonlyRows(doneTask, doneInput);
+        const donePrompt = typeof doneTask.prompt === 'function' ? doneTask.prompt(this.state.data) : '';
+        return `
+          <div class="ccm-stage ccm-stage-previous">
+            <div class="ccm-stage-head">
+              <h3>${doneTask.title}</h3>
+              <p>${donePrompt}</p>
+            </div>
+            ${doneRows}
+          </div>
+        `;
+      })
+      .join('');
+
+    const rows = this.buildEditableRows(task, userTaskInput, validation);
 
     let hintBox = '';
     if (validation?.hintMessage) {
@@ -675,13 +725,16 @@ export class CostCalcModule {
     }
 
     this.taskCard.innerHTML = `
-      <div class="ccm-stage">
-        <div class="ccm-stage-head">
-          <h3>${task.title}</h3>
-          <p>${task.prompt(this.state.data)}</p>
+      <div class="ccm-stage-stack">
+        ${previousSections}
+        <div class="ccm-stage ccm-stage-current">
+          <div class="ccm-stage-head">
+            <h3>${task.title}</h3>
+            <p>${task.prompt(this.state.data)}</p>
+          </div>
+          ${rows}
+          ${hintBox}
         </div>
-        ${rows}
-        ${hintBox}
       </div>
     `;
 
