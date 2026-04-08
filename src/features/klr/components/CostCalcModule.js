@@ -550,9 +550,10 @@ export class CostCalcModule {
       this.state.userInputs[taskId] = this.state.userInputs[taskId] || {};
       this.state.userInputs[taskId][input.name] = input.value;
 
-      // Statuslabels erst nach aktivem Pruefen anzeigen.
-      if (this.state.lastValidation) {
-        this.clearValidationFeedback();
+      // Feedback bleibt sichtbar; bei Aenderung ist aber eine neue Pruefung erforderlich.
+      if (this.state.lastValidation?.taskId === task.id) {
+        this.state.lastValidation.isDirty = true;
+        this.updateActionState();
       }
     };
 
@@ -579,6 +580,7 @@ export class CostCalcModule {
     const validation = this.state.lastValidation;
     if (!validation) return false;
     if (validation.taskId !== task.id) return false;
+    if (validation.isDirty) return false;
     return validation.allCorrect && !validation.hasFollowError;
   }
 
@@ -597,6 +599,11 @@ export class CostCalcModule {
     const hasValidation = this.state.lastValidation?.taskId === task.id;
     if (!hasValidation) {
       this.actionHintEl.textContent = 'Erst pruefen, dann weiter.';
+      return;
+    }
+
+    if (this.state.lastValidation?.isDirty) {
+      this.actionHintEl.textContent = 'Eingabe geaendert: Bitte erneut pruefen.';
       return;
     }
 
@@ -735,6 +742,7 @@ export class CostCalcModule {
       fieldChecks,
       allCorrect,
       hasFollowError,
+      isDirty: false,
       hintMessage: followHint || successHint || baseHint,
     };
 
@@ -756,6 +764,7 @@ export class CostCalcModule {
         fieldChecks: this.state.lastValidation?.fieldChecks || {},
         allCorrect: this.state.lastValidation?.allCorrect || false,
         hasFollowError: this.state.lastValidation?.hasFollowError || false,
+        isDirty: this.state.lastValidation?.isDirty || false,
         hintMessage: this.state.lastValidation?.hintMessage || 'Bitte zuerst auf "Pruefen" klicken und alle Felder korrekt loesen.',
       };
       this.renderTask();
