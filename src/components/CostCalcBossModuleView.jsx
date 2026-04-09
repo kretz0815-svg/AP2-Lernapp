@@ -69,6 +69,77 @@ const SORTIMENT_EXPECTED_CONTEXT_BY_STAGE = {
   8: 'Maßnahmen sollen Retourenquote, Stornoquote, Reklamationslage und CLV logisch verbinden.',
 };
 
+const SORTIMENT_VIDEO_KEYWORDS_BY_STAGE = {
+  1: ['retoure', 'retouren', 'quote'],
+  2: ['storno', 'stornierung', 'quote'],
+  3: ['reklamation', 'reklamationsquote', 'qualität'],
+  4: ['customer lifetime value', 'clv'],
+  5: ['break-even', 'deckungsbeitrag'],
+  6: ['umsatzrentabilität', 'rentabilität'],
+  7: ['rückwärtskalkulation', 'rabatt', 'skonto'],
+  8: ['retourenmanagement', 'retouren', 'maßnahmen'],
+};
+
+function formatNumber(value) {
+  return Number(value).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function normalizeText(value) {
+  return String(value || '')
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\p{L}\p{N}\s-]/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function filterSortimentVideos(stageId, videos) {
+  const keywords = SORTIMENT_VIDEO_KEYWORDS_BY_STAGE[stageId] || [];
+  if (!keywords.length) return videos || [];
+
+  const normalizedKeywords = keywords.map((k) => normalizeText(k));
+  const list = Array.isArray(videos) ? videos : [];
+  return list.filter((video) => {
+    const haystack = normalizeText(`${video?.title || ''} ${video?.channelTitle || ''}`);
+    const matches = normalizedKeywords.filter((k) => haystack.includes(k)).length;
+    return matches >= 1;
+  });
+}
+
+function buildSortimentCoachResponse(stageId, data) {
+  if (!data) {
+    return 'Kein aktueller Datensatz gefunden. Bitte Etappe neu laden.';
+  }
+
+  if (stageId === 1) {
+    return `Retourenquote = ${data.returnedOrders} / ${data.totalOrders} × 100 = ${formatNumber(data.returnRate)} %.`;
+  }
+  if (stageId === 2) {
+    return `Stornoquote = ${data.canceledOrders} / ${data.totalOrders} × 100 = ${formatNumber(data.cancellationRate)} %.`;
+  }
+  if (stageId === 3) {
+    return `Reklamationsquote = ${data.complaintsTotal} / ${data.soldJackets} × 100 = ${formatNumber(data.complaintRate)} %. Anteil berechtigter Reklamationen = ${data.justifiedComplaints} / ${data.complaintsTotal} × 100 = ${formatNumber(data.justifiedComplaintShare)} %. Qualitätsproblem wahrscheinlich: ${data.qualityIssueLikely}.`;
+  }
+  if (stageId === 4) {
+    return `CLV = (${data.avgContributionPerOrder} × ${data.ordersPerYear} × ${data.customerYears}) - (${data.yearlyMarketingCostPerCustomer} × ${data.customerYears}) = ${formatNumber(data.clv)} EUR.`;
+  }
+  if (stageId === 5) {
+    return `Deckungsbeitrag je Stück = ${data.salesPricePants} - ${data.variableCostPants} = ${formatNumber(data.dbUnitPants)} EUR. Break-even-Menge = ${data.fixedCostPants} / ${formatNumber(data.dbUnitPants)} = ${data.breakEvenQtyPants} Stück (aufgerundet). Geplanter Absatz ${data.plannedSalesPants} Stück => wirtschaftlich: ${data.isPantsEconomicAtPlan}.`;
+  }
+  if (stageId === 6) {
+    return `Umsatzrentabilität = ${data.outdoorProfitQ1} / ${data.outdoorRevenueQ1} × 100 = ${formatNumber(data.revenueProfitability)} %.`;
+  }
+  if (stageId === 7) {
+    return `Rückwärtskalkulation: LVP brutto ${formatNumber(data.listSalesPriceGross)} EUR -> LVP netto ${formatNumber(data.listSalesPriceNet)} EUR -> ZVP ${formatNumber(data.targetSalesPrice)} EUR -> BVP ${formatNumber(data.cashSalesPrice)} EUR -> Selbstkosten ${formatNumber(data.selfCost)} EUR -> maximaler Einstandspreis ${formatNumber(data.maxPurchasePrice)} EUR.`;
+  }
+  if (stageId === 8) {
+    return `Drei sinnvolle Maßnahmen: 1) Größenberatung und bessere Produktdaten für weniger Retouren. 2) Qualitätskontrolle und Lieferantenfeedback für weniger berechtigte Reklamationen. 3) Checkout- und Lieferzeit-Optimierung zur Senkung der Stornoquote und Stabilisierung des CLV (${formatNumber(data.clv)} EUR).`;
+  }
+
+  return 'Nutze die Kennzahlen der aktuellen Etappe und rechne mit den angezeigten Daten.';
+}
+
 function getStageYoutubeQuery(variant, stageId, fallbackTitle) {
   if (variant === 'sortiment-retouren-3e') return SORTIMENT_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
   if (variant === 'finance-liquidity') return FINANCE_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
@@ -163,8 +234,11 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
     try {
       const query = getStageYoutubeQuery(moduleVariant, activeStage.id, activeStage.title);
       const fetched = await fetchYouTubeVideos(query, apiKey, 4);
-      setVideos(fetched || []);
-      if (!fetched || fetched.length === 0) {
+      const curated = moduleVariant === 'sortiment-retouren-3e'
+        ? filterSortimentVideos(activeStage.id, fetched)
+        : (fetched || []);
+      setVideos(curated || []);
+      if (!curated || curated.length === 0) {
         setVideoError('Keine passenden Videos gefunden.');
       }
     } catch (_ERROR) {
@@ -180,6 +254,11 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
     setGeminiLoading(true);
     try {
       const dataSnapshot = moduleRef.current?.state?.data;
+      if (moduleVariant === 'sortiment-retouren-3e') {
+        const localResponse = buildSortimentCoachResponse(activeStage.id, dataSnapshot);
+        setGeminiResponse(localResponse);
+        return;
+      }
       const stageFacts = getStageDataFacts(moduleVariant, activeStage.id, dataSnapshot);
       const contextQuestion = `${activeStage.title}: ${activeStage.prompt}\n${stageFacts}\nWichtig: Nutze ausschließlich diese aktuellen Werte, keine Beispielzahlen.`;
       const contextAnswer = `${getStageExpectedContext(moduleVariant, activeStage.id)} Nutze ausschließlich die oben genannten aktuellen Werte und gib Rechenschritte mit genau diesen Zahlen an.`;
