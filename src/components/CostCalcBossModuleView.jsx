@@ -28,14 +28,14 @@ const FINANCE_YOUTUBE_BY_STAGE = {
 };
 
 const SORTIMENT_YOUTUBE_BY_STAGE = {
-  1: 'Retourenquote berechnen einfach erklärt',
-  2: 'Stornoquote berechnen einfach erklärt',
-  3: 'Reklamationsquote berechnen Qualitätsanalyse einfach erklärt',
-  4: 'Customer Lifetime Value CLV berechnen einfach erklärt',
-  5: 'Break-even-Menge Sortiment berechnen einfach erklärt',
-  6: 'Umsatzrentabilität berechnen einfach erklärt',
-  7: 'Rückwärtskalkulation vom Bruttoverkaufspreis einfach erklärt',
-  8: 'Retourenmanagement Maßnahmen E-Commerce einfach erklärt',
+  1: 'Retourenquote E-Commerce berechnen Retourenmanagement',
+  2: 'Stornoquote im Onlinehandel berechnen',
+  3: 'Reklamationsquote Qualitätsanalyse E-Commerce',
+  4: 'Customer Lifetime Value CLV Deckungsbeitrag einfach erklärt',
+  5: 'Break-even-Menge Deckungsbeitrag Sortiment berechnen',
+  6: 'Umsatzrentabilität Gewinn Umsatz berechnen',
+  7: 'Rückwärtskalkulation Brutto Netto Rabatt Skonto',
+  8: 'Maßnahmen Retouren senken E-Commerce Produktdaten Größenberatung',
 };
 
 const COST_EXPECTED_CONTEXT_BY_STAGE = {
@@ -81,9 +81,27 @@ function getStageExpectedContext(variant, stageId) {
   return COST_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
 }
 
+function getStageDataFacts(variant, stageId, data) {
+  if (!data) return '';
+
+  if (variant === 'sortiment-retouren-3e') {
+    if (stageId === 1) return `Aktuelle Werte: Gesamtbestellungen=${data.totalOrders}, retournierte Bestellungen=${data.returnedOrders}.`;
+    if (stageId === 2) return `Aktuelle Werte: Gesamtbestellungen=${data.totalOrders}, Stornierungen vor Versand=${data.canceledOrders}.`;
+    if (stageId === 3) return `Aktuelle Werte: verkauft=${data.soldJackets}, Reklamationen gesamt=${data.complaintsTotal}, berechtigt=${data.justifiedComplaints}, unberechtigt=${data.unjustifiedComplaints}.`;
+    if (stageId === 4) return `Aktuelle Werte: Deckungsbeitrag je Bestellung=${data.avgContributionPerOrder}, Bestellungen/Jahr=${data.ordersPerYear}, Kundenjahre=${data.customerYears}, Marketingkosten/Jahr=${data.yearlyMarketingCostPerCustomer}.`;
+    if (stageId === 5) return `Aktuelle Werte: Fixkosten=${data.fixedCostPants}, Verkaufspreis=${data.salesPricePants}, variable Kosten=${data.variableCostPants}, Planabsatz=${data.plannedSalesPants}.`;
+    if (stageId === 6) return `Aktuelle Werte: Umsatz=${data.outdoorRevenueQ1}, Gewinn=${data.outdoorProfitQ1}.`;
+    if (stageId === 7) return `Aktuelle Werte: LVP brutto=${data.listSalesPriceGross}, USt=${data.vatRate}%, Rabatt=${data.customerDiscountRate}%, Skonto=${data.customerSkontoRate}%, Gewinnzuschlag=${data.profitMarkupRate}%, Handlungskosten=${data.handlingCostRate}%.`;
+    if (stageId === 8) return `Aktuelle Kennzahlen: Retourenquote=${data.returnRate}%, Stornoquote=${data.cancellationRate}%, Reklamationsquote=${data.complaintRate}%, berechtigte Reklamationen=${data.justifiedComplaintShare}%, CLV=${data.clv}.`;
+  }
+
+  return '';
+}
+
 export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
   const mountRef = useRef(null);
   const moduleRef = useRef(null);
+  const onLearningEventRef = useRef(onLearningEvent);
   const [moduleVariant, setModuleVariant] = useState('cost-calc');
   const [activeStage, setActiveStage] = useState({ id: 1, title: 'Etappe 1', prompt: '' });
 
@@ -161,8 +179,10 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
     if (!geminiQuery.trim() || geminiLoading) return;
     setGeminiLoading(true);
     try {
-      const contextQuestion = `${activeStage.title}: ${activeStage.prompt}`;
-      const contextAnswer = getStageExpectedContext(moduleVariant, activeStage.id);
+      const dataSnapshot = moduleRef.current?.state?.data;
+      const stageFacts = getStageDataFacts(moduleVariant, activeStage.id, dataSnapshot);
+      const contextQuestion = `${activeStage.title}: ${activeStage.prompt}\n${stageFacts}\nWichtig: Nutze ausschließlich diese aktuellen Werte, keine Beispielzahlen.`;
+      const contextAnswer = `${getStageExpectedContext(moduleVariant, activeStage.id)} Nutze ausschließlich die oben genannten aktuellen Werte und gib Rechenschritte mit genau diesen Zahlen an.`;
       const response = await askGemini(geminiQuery, contextQuestion, contextAnswer);
       setGeminiResponse(response || 'Keine Antwort erhalten.');
     } catch (_ERROR) {
@@ -171,6 +191,10 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
       setGeminiLoading(false);
     }
   };
+
+  useEffect(() => {
+    onLearningEventRef.current = onLearningEvent;
+  }, [onLearningEvent]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -182,7 +206,9 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
       module = bootstrapCostCalcModule({
         containerEl: mountRef.current,
         variant: moduleVariant,
-        onLearningEvent,
+        onLearningEvent: (event) => {
+          onLearningEventRef.current?.(event);
+        },
       });
       moduleRef.current = module;
       syncActiveStage();
@@ -199,7 +225,7 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
         module.container.innerHTML = '';
       }
     };
-  }, [moduleVariant, onLearningEvent]);
+  }, [moduleVariant]);
 
   useEffect(() => {
     resetLearningPanels();
