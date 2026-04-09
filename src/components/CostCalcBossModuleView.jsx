@@ -340,11 +340,13 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
     if (!mountRef.current) return undefined;
+    mountRef.current.classList.remove('dbc-mode');
 
     let module;
     let intervalId;
     try {
       if (moduleVariant === 'db-calc-manager') {
+        mountRef.current.classList.add('dbc-mode');
         module = bootstrapDBCalcManager({
           containerEl: mountRef.current,
           onLearningEvent: (event) => {
@@ -373,6 +375,9 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
       moduleRef.current = null;
       if (module?.container) {
         module.container.innerHTML = '';
+      }
+      if (mountRef.current) {
+        mountRef.current.classList.remove('dbc-mode');
       }
     };
   }, [moduleVariant]);
