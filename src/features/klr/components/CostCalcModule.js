@@ -221,6 +221,131 @@ function generateFinanceData() {
   };
 }
 
+function generateSortimentRetourenNaming() {
+  const companies = ['Glöbenstern GmbH', 'Höhenquell Handels GmbH', 'Würzpfad Outfit GmbH', 'Löwenkamm Sortiment GmbH'];
+  const categoryNames = ['Outdoor-Sortiment', 'Bergsport-Sortiment', 'Trekking-Sortiment', 'Abenteuer-Sortiment'];
+  const jacketNames = ['Nordlicht-Jacke', 'Fjällpfad-Jacke', 'Sturmhügel-Jacke', 'Wolkenkamm-Jacke'];
+  const pantsNames = ['Steinpfad-Hose', 'Höhenlinie-Hose', 'Waldkamm-Hose', 'Gipfelspur-Hose'];
+
+  const idx = randInt(0, companies.length - 1);
+  return {
+    companyName: companies[idx],
+    categoryName: categoryNames[idx],
+    jacketProductName: jacketNames[idx],
+    pantsProductName: pantsNames[idx],
+  };
+}
+
+function generateSortimentRetourenData() {
+  const naming = generateSortimentRetourenNaming();
+
+  const totalOrders = randStep(10400, 16800, 80);
+  const returnRateRaw = randStep(8, 19, 0.1);
+  const cancellationRateRaw = randStep(2.5, 7.5, 0.1);
+  const returnedOrders = Math.round(totalOrders * (returnRateRaw / 100));
+  const canceledOrders = Math.round(totalOrders * (cancellationRateRaw / 100));
+
+  const soldJackets = randStep(2600, 4400, 100);
+  const complaintRateRaw = randStep(2.6, 6.4, 0.1);
+  const complaintsTotal = Math.max(1, Math.round(soldJackets * (complaintRateRaw / 100)));
+  const justifiedShareRaw = randStep(56, 84, 1);
+  const justifiedComplaints = Math.max(1, Math.round(complaintsTotal * (justifiedShareRaw / 100)));
+  const unjustifiedComplaints = Math.max(0, complaintsTotal - justifiedComplaints);
+
+  const avgOrderRevenue = randStep(68, 94, 1);
+  const avgContributionPerOrder = randStep(18, 31, 1);
+  const ordersPerYear = randStep(4, 8, 1);
+  const customerYears = randStep(3, 6, 1);
+  const yearlyMarketingCostPerCustomer = randStep(12, 28, 1);
+
+  const fixedCostPants = randStep(155000, 265000, 5000);
+  const salesPricePants = randStep(59, 89, 1);
+  const dbTargetPants = randStep(18, 34, 1);
+  const variableCostPants = commercialRound(salesPricePants - dbTargetPants);
+  const breakEvenQtyPantsBase = Math.ceil(fixedCostPants / dbTargetPants);
+  const planFactor = [0.82, 0.91, 0.98, 1.04, 1.12, 1.21][randInt(0, 5)];
+  const plannedSalesPants = Math.max(1200, Math.round((breakEvenQtyPantsBase * planFactor) / 50) * 50);
+
+  const outdoorRevenueQ1 = randStep(1220000, 1960000, 10000);
+  const profitabilityRaw = randStep(5.4, 11.2, 0.1);
+  const outdoorProfitQ1 = commercialRound(outdoorRevenueQ1 * (profitabilityRaw / 100));
+
+  const listSalesPriceGross = randStep(99, 149, 1);
+  const vatRate = 19;
+  const customerDiscountRate = randStep(8, 18, 1);
+  const customerSkontoRate = randStep(1, 3, 0.5);
+  const profitMarkupRate = randStep(12, 24, 1);
+  const handlingCostRate = randStep(20, 32, 1);
+
+  const returnRate = commercialRound((returnedOrders / totalOrders) * 100);
+  const cancellationRate = commercialRound((canceledOrders / totalOrders) * 100);
+  const complaintRate = commercialRound((complaintsTotal / soldJackets) * 100);
+  const justifiedComplaintShare = commercialRound((justifiedComplaints / complaintsTotal) * 100);
+  const qualityIssueLikely = justifiedComplaintShare >= 60 ? 'JA' : 'NEIN';
+
+  const clv = commercialRound(
+    (avgContributionPerOrder * ordersPerYear * customerYears)
+    - (yearlyMarketingCostPerCustomer * customerYears)
+  );
+
+  const dbUnitPants = commercialRound(salesPricePants - variableCostPants);
+  const breakEvenQtyPants = Math.ceil(fixedCostPants / dbUnitPants);
+  const isPantsEconomicAtPlan = plannedSalesPants >= breakEvenQtyPants ? 'JA' : 'NEIN';
+
+  const operatingResultAtPlan = commercialRound((plannedSalesPants * dbUnitPants) - fixedCostPants);
+  const revenueProfitability = commercialRound((outdoorProfitQ1 / outdoorRevenueQ1) * 100);
+
+  const listSalesPriceNet = commercialRound(listSalesPriceGross / (1 + vatRate / 100));
+  const targetSalesPrice = commercialRound(listSalesPriceNet * (1 - customerDiscountRate / 100));
+  const cashSalesPrice = commercialRound(targetSalesPrice * (1 - customerSkontoRate / 100));
+  const selfCost = commercialRound(cashSalesPrice / (1 + profitMarkupRate / 100));
+  const maxPurchasePrice = commercialRound(selfCost / (1 + handlingCostRate / 100));
+
+  return {
+    ...naming,
+    totalOrders,
+    returnedOrders,
+    canceledOrders,
+    returnRate,
+    cancellationRate,
+    soldJackets,
+    complaintsTotal,
+    justifiedComplaints,
+    unjustifiedComplaints,
+    complaintRate,
+    justifiedComplaintShare,
+    qualityIssueLikely,
+    avgOrderRevenue,
+    avgContributionPerOrder,
+    ordersPerYear,
+    customerYears,
+    yearlyMarketingCostPerCustomer,
+    clv,
+    fixedCostPants,
+    salesPricePants,
+    variableCostPants,
+    plannedSalesPants,
+    dbUnitPants,
+    breakEvenQtyPants,
+    operatingResultAtPlan,
+    isPantsEconomicAtPlan,
+    outdoorRevenueQ1,
+    outdoorProfitQ1,
+    revenueProfitability,
+    listSalesPriceGross,
+    vatRate,
+    customerDiscountRate,
+    customerSkontoRate,
+    profitMarkupRate,
+    handlingCostRate,
+    listSalesPriceNet,
+    targetSalesPrice,
+    cashSalesPrice,
+    selfCost,
+    maxPurchasePrice,
+  };
+}
+
 export class CostCalcModule {
   constructor(options = {}) {
     this.containerId = options.containerId || 'calc-boss-module';
@@ -277,11 +402,13 @@ export class CostCalcModule {
   }
 
   buildDataForVariant() {
+    if (this.variant === 'sortiment-retouren-3e') return generateSortimentRetourenData();
     if (this.variant === 'finance-liquidity') return generateFinanceData();
     return generateCostData();
   }
 
   createTasks() {
+    if (this.variant === 'sortiment-retouren-3e') return this.createSortimentRetourenTasks();
     if (this.variant === 'finance-liquidity') return this.createFinanceTasks();
     return this.createCostCalcTasks();
   }
@@ -517,13 +644,171 @@ export class CostCalcModule {
     ];
   }
 
+  createSortimentRetourenTasks() {
+    return [
+      {
+        id: 1,
+        title: '1. Retourenquote berechnen',
+        prompt: (ctx) => `Die ${ctx.companyName} prüft das ${ctx.categoryName}. Gegeben: Gesamtbestellungen ${ctx.totalOrders}, retournierte Bestellungen ${ctx.returnedOrders}.`,
+        fields: [
+          { key: 'returnRate', label: 'Retourenquote', unit: '%', tolerance: 0.02, ariaLabel: 'Retourenquote in Prozent' },
+        ],
+        solver: (ctx) => ({
+          returnRate: commercialRound((ctx.returnedOrders / ctx.totalOrders) * 100),
+        }),
+      },
+      {
+        id: 2,
+        title: '2. Stornoquote berechnen',
+        prompt: (ctx) => `Im selben Quartal wurden ${ctx.canceledOrders} Bestellungen vor Versand storniert, bei insgesamt ${ctx.totalOrders} Bestellungen.`,
+        fields: [
+          { key: 'cancellationRate', label: 'Stornoquote', unit: '%', tolerance: 0.02, ariaLabel: 'Stornoquote in Prozent' },
+        ],
+        dependsOn: [1],
+        dependencyHint: 'Nutze denselben Bezugswert wie bei der Retourenquote: Gesamtbestellungen.',
+        solver: (ctx) => ({
+          cancellationRate: commercialRound((ctx.canceledOrders / ctx.totalOrders) * 100),
+        }),
+      },
+      {
+        id: 3,
+        title: '3. Reklamationsanalyse',
+        prompt: (ctx) => `Segment ${ctx.jacketProductName}: verkauft ${ctx.soldJackets} Stück, Reklamationen gesamt ${ctx.complaintsTotal}, davon berechtigt ${ctx.justifiedComplaints}, unberechtigt ${ctx.unjustifiedComplaints}.`,
+        fields: [
+          { key: 'complaintRate', label: 'Reklamationsquote', unit: '%', tolerance: 0.02, ariaLabel: 'Reklamationsquote in Prozent' },
+          { key: 'justifiedComplaintShare', label: 'Anteil berechtigter Reklamationen', unit: '%', tolerance: 0.02, ariaLabel: 'Anteil berechtigter Reklamationen in Prozent' },
+          { key: 'qualityIssueLikely', label: 'Qualitätsproblem wahrscheinlich? (JA/NEIN)', unit: 'JA oder NEIN', mode: 'choice', ariaLabel: 'Qualitätsproblem mit JA oder NEIN bewerten' },
+        ],
+        dependsOn: [1, 2],
+        dependencyHint: 'Bewertung ist nur belastbar, wenn Quoten sauber berechnet wurden.',
+        solver: (ctx) => ({
+          complaintRate: commercialRound((ctx.complaintsTotal / ctx.soldJackets) * 100),
+          justifiedComplaintShare: commercialRound((ctx.justifiedComplaints / ctx.complaintsTotal) * 100),
+          qualityIssueLikely: ctx.qualityIssueLikely,
+        }),
+      },
+      {
+        id: 4,
+        title: '4. Customer Lifetime Value (CLV)',
+        prompt: (ctx) => `Aktive Kundengruppe: Ø Umsatz je Bestellung ${formatMoney(ctx.avgOrderRevenue)}, Ø Deckungsbeitrag je Bestellung ${formatMoney(ctx.avgContributionPerOrder)}, ${ctx.ordersPerYear} Bestellungen/Jahr, Kundenbeziehung ${ctx.customerYears} Jahre, Marketingkosten ${formatMoney(ctx.yearlyMarketingCostPerCustomer)} pro Kunde und Jahr.`,
+        fields: [
+          { key: 'clv', label: 'Customer Lifetime Value', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Customer Lifetime Value in Euro' },
+        ],
+        dependsOn: [3],
+        dependencyHint: 'Verwende den Deckungsbeitrag als Basis und ziehe Marketingkosten über die Laufzeit ab.',
+        solver: (ctx) => ({
+          clv: commercialRound(
+            (ctx.avgContributionPerOrder * ctx.ordersPerYear * ctx.customerYears)
+            - (ctx.yearlyMarketingCostPerCustomer * ctx.customerYears)
+          ),
+        }),
+      },
+      {
+        id: 5,
+        title: '5. Break-even-Analyse Sortiment',
+        prompt: (ctx) => `Für ${ctx.pantsProductName}: Fixkosten ${formatMoney(ctx.fixedCostPants)} p.a., Verkaufspreis ${formatMoney(ctx.salesPricePants)} je Stück, variable Kosten ${formatMoney(ctx.variableCostPants)} je Stück, geplanter Absatz ${ctx.plannedSalesPants} Stück.`,
+        fields: [
+          { key: 'dbUnitPants', label: 'Deckungsbeitrag pro Stück', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Deckungsbeitrag pro Stück in Euro' },
+          { key: 'breakEvenQtyPants', label: 'Break-even-Menge', unit: 'Stück', tolerance: 0.5, ariaLabel: 'Break-even-Menge in Stück' },
+          { key: 'isPantsEconomicAtPlan', label: 'Beim geplanten Absatz wirtschaftlich? (JA/NEIN)', unit: 'JA oder NEIN', mode: 'choice', ariaLabel: 'Wirtschaftlichkeit beim geplanten Absatz mit JA oder NEIN bewerten' },
+        ],
+        dependsOn: [4],
+        dependencyHint: 'Break-even-Menge immer aufrunden und dann mit dem Planabsatz vergleichen.',
+        solver: (ctx) => ({
+          dbUnitPants: commercialRound(ctx.salesPricePants - ctx.variableCostPants),
+          breakEvenQtyPants: Math.ceil(ctx.fixedCostPants / (ctx.salesPricePants - ctx.variableCostPants)),
+          isPantsEconomicAtPlan: ctx.isPantsEconomicAtPlan,
+        }),
+      },
+      {
+        id: 6,
+        title: '6. Umsatzrentabilität',
+        prompt: (ctx) => `Q1-Daten ${ctx.companyName}: Umsatz ${formatMoney(ctx.outdoorRevenueQ1)}, Gewinn ${formatMoney(ctx.outdoorProfitQ1)}.`,
+        fields: [
+          { key: 'revenueProfitability', label: 'Umsatzrentabilität', unit: '%', tolerance: 0.02, ariaLabel: 'Umsatzrentabilität in Prozent' },
+        ],
+        dependsOn: [5],
+        dependencyHint: 'Setze Gewinn ins Verhältnis zum Umsatz und multipliziere mit 100.',
+        solver: (ctx) => ({
+          revenueProfitability: commercialRound((ctx.outdoorProfitQ1 / ctx.outdoorRevenueQ1) * 100),
+        }),
+      },
+      {
+        id: 7,
+        title: '7. Mini-Handelskalkulation rückwärts',
+        prompt: (ctx) => `Vorgaben Vertrieb: Listenverkaufspreis brutto ${formatMoney(ctx.listSalesPriceGross)}, Umsatzsteuer ${ctx.vatRate} %, Kundenrabatt ${ctx.customerDiscountRate} %, Kundenskonto ${ctx.customerSkontoRate} %, Gewinnzuschlag ${ctx.profitMarkupRate} %, Handlungskostenzuschlag ${ctx.handlingCostRate} %.`,
+        fields: [
+          { key: 'maxPurchasePrice', label: 'Maximal zulässiger Einstandspreis', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Maximal zulässiger Einstandspreis in Euro' },
+        ],
+        dependsOn: [6],
+        dependencyHint: 'Rechne strikt rückwärts von brutto über netto, Rabatt, Skonto, Gewinn und Handlungskosten.',
+        solver: (ctx) => ({
+          maxPurchasePrice: commercialRound(
+            (
+              (
+                commercialRound(
+                  commercialRound(
+                    commercialRound(ctx.listSalesPriceGross / (1 + ctx.vatRate / 100))
+                    * (1 - ctx.customerDiscountRate / 100)
+                  )
+                  * (1 - ctx.customerSkontoRate / 100)
+                ) / (1 + ctx.profitMarkupRate / 100)
+              ) / (1 + ctx.handlingCostRate / 100)
+            )
+          ),
+        }),
+      },
+      {
+        id: 8,
+        title: '8. Maßnahmen zur Retourenoptimierung',
+        prompt: () => 'Formuliere drei konkrete Maßnahmen zur Reduzierung der Retourenquote. Nutze die Ergebnisse zu Retouren, Storno, Reklamationen und CLV.',
+        fields: [
+          {
+            key: 'measureSizing',
+            label: 'Maßnahme 1 (z. B. Größenberatung/Produktdarstellung)',
+            unit: 'Text',
+            mode: 'contains_any',
+            inputType: 'textarea',
+            ariaLabel: 'Maßnahme 1 zur Retourenreduzierung',
+          },
+          {
+            key: 'measureQuality',
+            label: 'Maßnahme 2 (z. B. Qualität/Reklamation)',
+            unit: 'Text',
+            mode: 'contains_any',
+            inputType: 'textarea',
+            ariaLabel: 'Maßnahme 2 zur Retourenreduzierung',
+          },
+          {
+            key: 'measureProcess',
+            label: 'Maßnahme 3 (z. B. Storno/Prozess/CLV)',
+            unit: 'Text',
+            mode: 'contains_any',
+            inputType: 'textarea',
+            ariaLabel: 'Maßnahme 3 zur Retourenreduzierung',
+          },
+        ],
+        dependsOn: [1, 2, 3, 4, 7],
+        dependencyHint: 'Leite Maßnahmen direkt aus den Kennzahlen und Ursachen ab.',
+        solver: () => ({
+          measureSizing: ['größe', 'größen', 'produktbild', 'produktbeschreibung', 'maßtabelle', 'passform'],
+          measureQuality: ['qualitätsprüfung', 'qualitätskontrolle', 'materialprüfung', 'reklamation', 'lieferant', 'fehleranalyse'],
+          measureProcess: ['storno', 'lieferzeit', 'checkout', 'mahnwesen', 'clv', 'kundenbindung', 'service'],
+        }),
+      },
+    ];
+  }
+
   renderShell() {
     const isFinance = this.variant === 'finance-liquidity';
-    const kicker = isFinance ? 'Controlling-Lab' : 'Kalkulationsboss';
-    const title = isFinance ? 'Finanz-Analyse & Liquiditätsmanagement' : 'Kostenrechnung & Preisuntergrenze';
-    const contextLine = isFinance
-      ? `${this.state.data.companyName} · Rolle: ${this.state.data.scenarioRole}`
-      : `${this.state.data.companyName} · Produkt: ${this.state.data.productName}`;
+    const isSortiment = this.variant === 'sortiment-retouren-3e';
+    const kicker = isSortiment ? 'Sortiments-Lab' : isFinance ? 'Controlling-Lab' : 'Kalkulationsboss';
+    const title = isSortiment ? 'Sortimentsanalyse & Retourenmanagement' : isFinance ? 'Finanz-Analyse & Liquiditätsmanagement' : 'Kostenrechnung & Preisuntergrenze';
+    const contextLine = isSortiment
+      ? `${this.state.data.companyName} · Bereich: ${this.state.data.categoryName}`
+      : isFinance
+        ? `${this.state.data.companyName} · Rolle: ${this.state.data.scenarioRole}`
+        : `${this.state.data.companyName} · Produkt: ${this.state.data.productName}`;
 
     this.container.innerHTML = `
       <section class="ccm-shell" aria-live="polite">
@@ -914,7 +1199,9 @@ export class CostCalcModule {
         expectedAnswer: 'Alle Felder korrekt und ohne Folgefehler.',
         topic: this.variant === 'finance-liquidity'
           ? 'Finanz-Analyse & Liquiditätsmanagement'
-          : 'Kostenrechnung & Preisuntergrenze',
+          : this.variant === 'sortiment-retouren-3e'
+            ? 'Sortimentsanalyse & Retourenmanagement'
+            : 'Kostenrechnung & Preisuntergrenze',
       });
     }
 

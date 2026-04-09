@@ -27,6 +27,17 @@ const FINANCE_YOUTUBE_BY_STAGE = {
   6: 'Zielkonflikt Liquidität und Rentabilität erklärt',
 };
 
+const SORTIMENT_YOUTUBE_BY_STAGE = {
+  1: 'Retourenquote berechnen einfach erklärt',
+  2: 'Stornoquote berechnen einfach erklärt',
+  3: 'Reklamationsquote berechnen Qualitätsanalyse einfach erklärt',
+  4: 'Customer Lifetime Value CLV berechnen einfach erklärt',
+  5: 'Break-even-Menge Sortiment berechnen einfach erklärt',
+  6: 'Umsatzrentabilität berechnen einfach erklärt',
+  7: 'Rückwärtskalkulation vom Bruttoverkaufspreis einfach erklärt',
+  8: 'Retourenmanagement Maßnahmen E-Commerce einfach erklärt',
+};
+
 const COST_EXPECTED_CONTEXT_BY_STAGE = {
   1: 'Formeln: Stückdeckungsbeitrag = Verkaufspreis - variable Kosten; Betriebsergebnis = Stückdeckungsbeitrag * Absatz - Fixkosten.',
   2: 'Kostenarten: Material, Verpackung, Versand und variable Vertriebskosten sind variabel; Miete, Gehälter und Abschreibungen sind fix.',
@@ -47,12 +58,25 @@ const FINANCE_EXPECTED_CONTEXT_BY_STAGE = {
   6: 'Sofortige Schuldentilgung senkt den Cash-Bestand und damit die Liquidität 1. Grades.',
 };
 
+const SORTIMENT_EXPECTED_CONTEXT_BY_STAGE = {
+  1: 'Retourenquote = retournierte Bestellungen / Gesamtbestellungen * 100.',
+  2: 'Stornoquote = Stornierungen vor Versand / Gesamtbestellungen * 100.',
+  3: 'Reklamationsquote = Reklamationen / verkaufte Stück * 100; Anteil berechtigter Reklamationen = berechtigte Reklamationen / Reklamationen * 100.',
+  4: 'CLV = Deckungsbeitrag je Bestellung * Bestellungen pro Jahr * Jahre - Marketingkosten pro Kunde und Jahr * Jahre.',
+  5: 'Deckungsbeitrag je Stück = Verkaufspreis - variable Kosten; Break-even-Menge = Fixkosten / Stückdeckungsbeitrag und aufrunden.',
+  6: 'Umsatzrentabilität = Gewinn / Umsatz * 100.',
+  7: 'Rückwärtskalkulation: Brutto-LVP -> Netto-LVP -> ZVP -> BVP -> Selbstkosten -> Einstandspreis.',
+  8: 'Maßnahmen sollen Retourenquote, Stornoquote, Reklamationslage und CLV logisch verbinden.',
+};
+
 function getStageYoutubeQuery(variant, stageId, fallbackTitle) {
+  if (variant === 'sortiment-retouren-3e') return SORTIMENT_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
   if (variant === 'finance-liquidity') return FINANCE_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
   return COST_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
 }
 
 function getStageExpectedContext(variant, stageId) {
+  if (variant === 'sortiment-retouren-3e') return SORTIMENT_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
   if (variant === 'finance-liquidity') return FINANCE_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
   return COST_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
 }
@@ -210,6 +234,13 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
           >
             Finanz-Analyse
           </button>
+          <button
+            type="button"
+            className={moduleVariant === 'sortiment-retouren-3e' ? 'ccm-view-switch-btn active' : 'ccm-view-switch-btn'}
+            onClick={() => setModuleVariant('sortiment-retouren-3e')}
+          >
+            3e Aufgabenreihe
+          </button>
         </div>
       </header>
 
@@ -262,9 +293,21 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
       </div>
 
       <FloatingPortal
-        questionId={moduleVariant === 'finance-liquidity' ? 'finance_liquidity_module' : 'cost_calc_boss_module'}
-        questionText={moduleVariant === 'finance-liquidity' ? 'Finanz-Analyse & Liquiditätsmanagement' : 'Kostenrechnung & Preisuntergrenze'}
-        currentAppMode={moduleVariant === 'finance-liquidity' ? 'finance_liquidity' : 'cost_calc_boss'}
+        questionId={moduleVariant === 'finance-liquidity'
+          ? 'finance_liquidity_module'
+          : moduleVariant === 'sortiment-retouren-3e'
+            ? 'sortiment_retouren_3e_module'
+            : 'cost_calc_boss_module'}
+        questionText={moduleVariant === 'finance-liquidity'
+          ? 'Finanz-Analyse & Liquiditätsmanagement'
+          : moduleVariant === 'sortiment-retouren-3e'
+            ? 'Sortimentsanalyse & Retourenmanagement'
+            : 'Kostenrechnung & Preisuntergrenze'}
+        currentAppMode={moduleVariant === 'finance-liquidity'
+          ? 'finance_liquidity'
+          : moduleVariant === 'sortiment-retouren-3e'
+            ? 'sortiment_retouren_3e'
+            : 'cost_calc_boss'}
       />
     </div>
   );
