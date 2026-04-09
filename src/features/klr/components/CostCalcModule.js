@@ -458,7 +458,7 @@ export class CostCalcModule {
       {
         id: 3,
         title: '3. Kurzfristige Preisuntergrenze',
-        prompt: (ctx) => `Ein Großkunde fordert einen Sonderpreis für ${ctx.specialOrderQty} Stk ${ctx.productName}. Berechne die kurzfristige Preisuntergrenze je Stück (nur variable Kosten).`,
+        prompt: (ctx) => `Ein Großkunde fordert einen Sonderpreis für ${ctx.specialOrderQty} Stk ${ctx.productName}. Berechne die kurzfristige Preisuntergrenze je Stück.`,
         fields: [
           { key: 'shortTermPUG', label: 'Kurzfristige PUG je Stück', unit: 'EUR', tolerance: 0.02, ariaLabel: 'Kurzfristige Preisuntergrenze in Euro' },
         ],
