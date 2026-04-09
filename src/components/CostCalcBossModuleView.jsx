@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { bootstrapCostCalcModule, bootstrapDBCalcManager } from '../features/klr';
+import { bootstrapCostCalcModule, bootstrapDBCalcManager, bootstrapDBCalcManagerIII } from '../features/klr';
 import { fetchYouTubeVideos } from '../youtubeClient';
 import { askGemini } from '../geminiClient';
 import FloatingPortal from './FloatingPortal';
@@ -50,6 +50,17 @@ const DB_YOUTUBE_BY_STAGE = {
   8: 'relativer Deckungsbeitrag Engpassentscheidung',
 };
 
+const DB3_YOUTUBE_BY_STAGE = {
+  1: 'Deckungsbeitrag I II III pro Stück berechnen',
+  2: 'Fixkosten und variable Kosten unterscheiden einfach erklärt',
+  3: 'kurzfristige Preisuntergrenze berechnen variable Kosten',
+  4: 'langfristige Preisgrenze Vollkosten berechnen',
+  5: 'Break-even Analyse Deckungsbeitrag Stück',
+  6: 'Sortimentsentscheidung Deckungsbeitrag Fixkosten',
+  7: 'wirtschaftliche Bewertung Kostenrechnung Produktentscheidung',
+  8: 'Selbstkosten Einstandspreis Handlungskosten berechnen',
+};
+
 const COST_EXPECTED_CONTEXT_BY_STAGE = {
   1: 'Formeln: Stückdeckungsbeitrag = Verkaufspreis - variable Kosten; Betriebsergebnis = Stückdeckungsbeitrag * Absatz - Fixkosten.',
   2: 'Kostenarten: Material, Verpackung, Versand und variable Vertriebskosten sind variabel; Miete, Gehälter und Abschreibungen sind fix.',
@@ -92,6 +103,17 @@ const DB_EXPECTED_CONTEXT_BY_STAGE = {
   8: 'Relativer DB = DB I je Stück / Engpasseinheit; höherer Wert hat Priorität.',
 };
 
+const DB3_EXPECTED_CONTEXT_BY_STAGE = {
+  1: 'DB I = p - variable Kosten; DB II = DB I - fixe Produktkosten je Stück; DB III = DB II - fixe Bereichskosten je Stück.',
+  2: 'Wareneinsatz, Verpackung und Versand je Stück sind variabel; Miete, Marketingpauschale und Abschreibungen p.a. sind fix.',
+  3: 'Kurzfristige Preisuntergrenze entspricht den variablen Gesamtkosten je Stück.',
+  4: 'Langfristige Preisgrenze = kurzfristige Preisuntergrenze + fixe Produktkosten je Stück + fixe Bereichskosten je Stück.',
+  5: 'Break-even-Menge = Fixkosten gesamt / DB I je Stück (aufgerundet).',
+  6: 'Sortimentsstreichung ist sinnvoll, wenn einsparbare Fixkosten höher als der entfallende DB III gesamt sind.',
+  7: 'Bewertung soll DB I-III, Preisgrenzen, Break-even, Fixkostenstruktur und Entscheidung konsistent verknüpfen.',
+  8: 'Selbstkosten = Einstandspreis + Handlungskostenbetrag + Verwaltungs- und Vertriebsgemeinkosten.',
+};
+
 const SORTIMENT_VIDEO_KEYWORDS_BY_STAGE = {
   1: ['retoure', 'retouren', 'quote'],
   2: ['storno', 'stornierung', 'quote'],
@@ -112,6 +134,17 @@ const DB_VIDEO_KEYWORDS_BY_STAGE = {
   6: ['preisuntergrenze', 'langfristig', 'vollkosten'],
   7: ['rückwärtskalkulation', 'zielpreis'],
   8: ['relativer deckungsbeitrag', 'engpass'],
+};
+
+const DB3_VIDEO_KEYWORDS_BY_STAGE = {
+  1: ['deckungsbeitrag', 'db i', 'db ii', 'db iii'],
+  2: ['fixkosten', 'variable kosten'],
+  3: ['preisuntergrenze', 'kurzfristig'],
+  4: ['preisgrenze', 'langfristig', 'vollkosten'],
+  5: ['break-even', 'deckungsbeitrag'],
+  6: ['sortimentsentscheidung', 'fixkosten'],
+  7: ['wirtschaftliche bewertung', 'kostenrechnung'],
+  8: ['selbstkosten', 'handlungskosten'],
 };
 
 function formatNumber(value) {
@@ -143,6 +176,19 @@ function filterSortimentVideos(stageId, videos) {
 
 function filterDbVideos(stageId, videos) {
   const keywords = DB_VIDEO_KEYWORDS_BY_STAGE[stageId] || [];
+  if (!keywords.length) return videos || [];
+
+  const normalizedKeywords = keywords.map((k) => normalizeText(k));
+  const list = Array.isArray(videos) ? videos : [];
+  return list.filter((video) => {
+    const haystack = normalizeText(`${video?.title || ''} ${video?.channelTitle || ''}`);
+    const matches = normalizedKeywords.filter((k) => haystack.includes(k)).length;
+    return matches >= 1;
+  });
+}
+
+function filterDb3Videos(stageId, videos) {
+  const keywords = DB3_VIDEO_KEYWORDS_BY_STAGE[stageId] || [];
   if (!keywords.length) return videos || [];
 
   const normalizedKeywords = keywords.map((k) => normalizeText(k));
@@ -188,6 +234,7 @@ function buildSortimentCoachResponse(stageId, data) {
 }
 
 function getStageYoutubeQuery(variant, stageId, fallbackTitle) {
+  if (variant === 'db-calc-manager-iii') return DB3_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
   if (variant === 'db-calc-manager') return DB_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
   if (variant === 'sortiment-retouren-3e') return SORTIMENT_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
   if (variant === 'finance-liquidity') return FINANCE_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
@@ -195,6 +242,7 @@ function getStageYoutubeQuery(variant, stageId, fallbackTitle) {
 }
 
 function getStageExpectedContext(variant, stageId) {
+  if (variant === 'db-calc-manager-iii') return DB3_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
   if (variant === 'db-calc-manager') return DB_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
   if (variant === 'sortiment-retouren-3e') return SORTIMENT_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
   if (variant === 'finance-liquidity') return FINANCE_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
@@ -203,6 +251,17 @@ function getStageExpectedContext(variant, stageId) {
 
 function getStageDataFacts(variant, stageId, data) {
   if (!data) return '';
+
+  if (variant === 'db-calc-manager-iii') {
+    if (stageId === 1) return `Aktuelle Werte: p=${data.salesPrice}, variable Kosten=${data.variableTotal}, fixe Produktkosten/Stück=${data.fixProductPerUnit}, fixe Bereichskosten/Jahr=${data.fixBereichYear}, Menge=${data.qty}.`;
+    if (stageId === 2) return `Aktuelle Werte: Kostenartenliste gemäß Etappe 2 im aktuellen Datensatz verwenden.`;
+    if (stageId === 3) return `Aktuelle Werte: Wareneinsatz=${data.material}, var. Vertrieb=${data.varSales}, var. Verpackung=${data.varPackaging}.`;
+    if (stageId === 4) return `Aktuelle Werte: kurzfristige PUG=${data.variableTotal}, fixe Produktkosten/Stück=${data.fixProductPerUnit}, fixe Bereichskosten/Jahr=${data.fixBereichYear}, Menge=${data.qty}.`;
+    if (stageId === 5) return `Aktuelle Werte: Verkaufspreis=${data.salesPrice}, variable Kosten/Stück=${data.variableTotal}, Fixkosten gesamt=${data.fixTotal}, Planabsatz=${data.qty}.`;
+    if (stageId === 6) return `Aktuelle Werte: DB III/Stück=${data.db3Unit}, Menge=${data.qty}, nicht entfallende Fixkosten=${data.nonRemovableFix}, entfallende Fixkosten=${data.removableFix}.`;
+    if (stageId === 7) return `Aktuelle Werte: DB I=${data.db1Unit}, DB II=${data.db2Unit}, DB III=${data.db3Unit}, kurzfristige PUG=${data.variableTotal}, langfristige Preisgrenze=${DB3_EXPECTED_CONTEXT_BY_STAGE[4]}.`;
+    if (stageId === 8) return `Aktuelle Werte: Einstandspreis=${data.newPurchase}, Handlungskostenzuschlag=${data.handlingRate}%, VwGK=${data.adminOverhead}, VtGK=${data.salesOverhead}.`;
+  }
 
   if (variant === 'db-calc-manager') {
     if (stageId === 1) return `Aktuelle Werte: pA=${data.pA}, kvA=${data.kvA}, pB=${data.pB}, kvB=${data.kvB}.`;
@@ -249,10 +308,20 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
 
   const syncActiveStage = () => {
     const module = moduleRef.current;
-    if (!module || !module.tasks?.length) return;
-    const currentTask = module.tasks[module.state.currentTask];
+    if (!module) return;
+
+    const hasTasks = Array.isArray(module.tasks) && module.tasks.length > 0;
+    const hasLevels = Array.isArray(module.levels) && module.levels.length > 0;
+    const currentTask = hasTasks
+      ? module.tasks[module.state.currentTask]
+      : hasLevels
+        ? module.levels[module.state.levelIndex]
+        : null;
     if (!currentTask) return;
-    const prompt = typeof currentTask.prompt === 'function' ? currentTask.prompt(module.state.data) : '';
+
+    const prompt = typeof currentTask.prompt === 'function'
+      ? currentTask.prompt(module.state.data)
+      : '';
     setActiveStage((prev) => {
       if (prev.id === currentTask.id && prev.title === currentTask.title && prev.prompt === prompt) return prev;
       return { id: currentTask.id, title: currentTask.title, prompt };
@@ -298,6 +367,8 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
         ? filterSortimentVideos(activeStage.id, fetched)
         : moduleVariant === 'db-calc-manager'
           ? filterDbVideos(activeStage.id, fetched)
+          : moduleVariant === 'db-calc-manager-iii'
+            ? filterDb3Videos(activeStage.id, fetched)
           : (fetched || []);
       setVideos(curated || []);
       if (!curated || curated.length === 0) {
@@ -348,6 +419,14 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
       if (moduleVariant === 'db-calc-manager') {
         mountRef.current.classList.add('dbc-mode');
         module = bootstrapDBCalcManager({
+          containerEl: mountRef.current,
+          onLearningEvent: (event) => {
+            onLearningEventRef.current?.(event);
+          },
+        });
+      } else if (moduleVariant === 'db-calc-manager-iii') {
+        mountRef.current.classList.add('dbc-mode');
+        module = bootstrapDBCalcManagerIII({
           containerEl: mountRef.current,
           onLearningEvent: (event) => {
             onLearningEventRef.current?.(event);
@@ -429,6 +508,13 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
           >
             DB I & DB II
           </button>
+          <button
+            type="button"
+            className={moduleVariant === 'db-calc-manager-iii' ? 'ccm-view-switch-btn active' : 'ccm-view-switch-btn'}
+            onClick={() => setModuleVariant('db-calc-manager-iii')}
+          >
+            DB I, DB II & DB III
+          </button>
         </div>
       </header>
 
@@ -485,6 +571,8 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
           ? 'finance_liquidity_module'
           : moduleVariant === 'db-calc-manager'
             ? 'db_calc_manager_module'
+          : moduleVariant === 'db-calc-manager-iii'
+            ? 'db_calc_manager_iii_module'
           : moduleVariant === 'sortiment-retouren-3e'
             ? 'sortiment_retouren_3e_module'
             : 'cost_calc_boss_module'}
@@ -492,6 +580,8 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
           ? 'Finanz-Analyse & Liquiditätsmanagement'
           : moduleVariant === 'db-calc-manager'
             ? 'DB I & DB II Fixkostendeckungsrechnung'
+          : moduleVariant === 'db-calc-manager-iii'
+            ? 'DB I, DB II & DB III'
           : moduleVariant === 'sortiment-retouren-3e'
             ? 'Sortimentsanalyse & Retourenmanagement'
             : 'Kostenrechnung & Preisuntergrenze'}
@@ -499,6 +589,8 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
           ? 'finance_liquidity'
           : moduleVariant === 'db-calc-manager'
             ? 'db_calc_manager'
+          : moduleVariant === 'db-calc-manager-iii'
+            ? 'db_calc_manager_iii'
           : moduleVariant === 'sortiment-retouren-3e'
             ? 'sortiment_retouren_3e'
             : 'cost_calc_boss'}

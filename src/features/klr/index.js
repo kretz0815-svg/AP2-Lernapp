@@ -3,3 +3,4 @@ export { generateLevelMath, generateLevel2Math, generateLevel4Math } from './uti
 export { default as KLRGameHub } from './components/KLRGameHub.jsx';
 export { CostCalcModule, bootstrapCostCalcModule } from './components/CostCalcModule.js';
 export { DBCalcManager, bootstrapDBCalcManager } from './components/DBCalcManager.js';
+export { DBCalcManagerIII, bootstrapDBCalcManagerIII } from './components/DBCalcManagerIII.js';
