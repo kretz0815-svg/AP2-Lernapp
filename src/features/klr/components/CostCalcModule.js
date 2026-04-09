@@ -802,7 +802,7 @@ export class CostCalcModule {
   renderShell() {
     const isFinance = this.variant === 'finance-liquidity';
     const isSortiment = this.variant === 'sortiment-retouren-3e';
-    const kicker = isSortiment ? 'Sortiments-Lab' : isFinance ? 'Controlling-Lab' : 'Kalkulationsboss';
+    const kicker = isSortiment ? 'Sortiments-Lab' : isFinance ? 'Controlling-Lab' : 'Kostenrechnung';
     const title = isSortiment ? 'Sortimentsanalyse & Retourenmanagement' : isFinance ? 'Finanz-Analyse & Liquiditätsmanagement' : 'Kostenrechnung & Preisuntergrenze';
     const contextLine = isSortiment
       ? `${this.state.data.companyName} · Bereich: ${this.state.data.categoryName}`
@@ -972,7 +972,7 @@ export class CostCalcModule {
       `Mein Text: ${text}`,
     ].join('\n');
 
-    const contextQuestion = 'Etappe 7: Wirtschaftliche Bewertung im Kalkulationsboss';
+    const contextQuestion = 'Etappe 7: Wirtschaftliche Bewertung in der Kostenrechnung';
     const contextAnswer = 'Der Text soll Deckungsbeitrag, Preisuntergrenze, Break-even, Fixkosten und Sortimentsentscheidung fachlich korrekt verbinden.';
 
     try {

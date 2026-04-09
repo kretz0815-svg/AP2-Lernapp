@@ -330,7 +330,7 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
             className={moduleVariant === 'cost-calc' ? 'ccm-view-switch-btn active' : 'ccm-view-switch-btn'}
             onClick={() => setModuleVariant('cost-calc')}
           >
-            Kalkulationsboss
+            Kostenrechnung
           </button>
           <button
             type="button"
@@ -344,7 +344,7 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
             className={moduleVariant === 'sortiment-retouren-3e' ? 'ccm-view-switch-btn active' : 'ccm-view-switch-btn'}
             onClick={() => setModuleVariant('sortiment-retouren-3e')}
           >
-            3e Aufgabenreihe
+            Sortimentsanalyse
           </button>
         </div>
       </header>
