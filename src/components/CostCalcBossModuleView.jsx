@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { bootstrapCostCalcModule } from '../features/klr';
+import { bootstrapCostCalcModule, bootstrapDBCalcManager } from '../features/klr';
 import { fetchYouTubeVideos } from '../youtubeClient';
 import { askGemini } from '../geminiClient';
 import FloatingPortal from './FloatingPortal';
 import VideoPanel from './VideoPanel';
 import GeminiPanel from './GeminiPanel';
 import '../features/klr/components/costCalcModule.css';
+import '../features/klr/components/dbCalcManager.css';
 
 const COST_YOUTUBE_BY_STAGE = {
   1: 'Stückdeckungsbeitrag Betriebsergebnis berechnen einfach erklärt',
@@ -36,6 +37,17 @@ const SORTIMENT_YOUTUBE_BY_STAGE = {
   6: 'Umsatzrentabilität Gewinn Umsatz berechnen',
   7: 'Rückwärtskalkulation Brutto Netto Rabatt Skonto',
   8: 'Maßnahmen Retouren senken E-Commerce Produktdaten Größenberatung',
+};
+
+const DB_YOUTUBE_BY_STAGE = {
+  1: 'Deckungsbeitrag 1 pro Stück berechnen einfach erklärt',
+  2: 'Deckungsbeitrag 1 gesamt berechnen',
+  3: 'Deckungsbeitrag 2 Fixkostendeckungsrechnung erklärt',
+  4: 'Betriebsergebnis aus DB2 berechnen',
+  5: 'kurzfristige Preisuntergrenze variable Kosten',
+  6: 'langfristige Preisuntergrenze Vollkosten',
+  7: 'Zielpreis Rückwärtskalkulation mit Zielgewinn',
+  8: 'relativer Deckungsbeitrag Engpassentscheidung',
 };
 
 const COST_EXPECTED_CONTEXT_BY_STAGE = {
@@ -69,6 +81,17 @@ const SORTIMENT_EXPECTED_CONTEXT_BY_STAGE = {
   8: 'Maßnahmen sollen Retourenquote, Stornoquote, Reklamationslage und CLV logisch verbinden.',
 };
 
+const DB_EXPECTED_CONTEXT_BY_STAGE = {
+  1: 'DB I je Stück = p - kv.',
+  2: 'Gesamt-DB I = DB I je Stück * Menge.',
+  3: 'DB II = Gesamt-DB I - erzeugnisfixe Kosten.',
+  4: 'Betriebsergebnis = Summe DB II - unternehmensfixe Kosten.',
+  5: 'Kurzfristige PUG entspricht den variablen Stückkosten.',
+  6: 'Langfristige PUG basiert auf Vollkosten je Stück.',
+  7: 'Zielpreis via Rückwärtsrechnung aus Zielergebnis, Fixkosten und variablen Kosten.',
+  8: 'Relativer DB = DB I je Stück / Engpasseinheit; höherer Wert hat Priorität.',
+};
+
 const SORTIMENT_VIDEO_KEYWORDS_BY_STAGE = {
   1: ['retoure', 'retouren', 'quote'],
   2: ['storno', 'stornierung', 'quote'],
@@ -78,6 +101,17 @@ const SORTIMENT_VIDEO_KEYWORDS_BY_STAGE = {
   6: ['umsatzrentabilität', 'rentabilität'],
   7: ['rückwärtskalkulation', 'rabatt', 'skonto'],
   8: ['retourenmanagement', 'retouren', 'maßnahmen'],
+};
+
+const DB_VIDEO_KEYWORDS_BY_STAGE = {
+  1: ['deckungsbeitrag', 'db'],
+  2: ['deckungsbeitrag', 'gesamt'],
+  3: ['deckungsbeitrag', 'db ii', 'fixkosten'],
+  4: ['betriebsergebnis', 'fixkosten'],
+  5: ['preisuntergrenze', 'kurzfristig'],
+  6: ['preisuntergrenze', 'langfristig', 'vollkosten'],
+  7: ['rückwärtskalkulation', 'zielpreis'],
+  8: ['relativer deckungsbeitrag', 'engpass'],
 };
 
 function formatNumber(value) {
@@ -96,6 +130,19 @@ function normalizeText(value) {
 
 function filterSortimentVideos(stageId, videos) {
   const keywords = SORTIMENT_VIDEO_KEYWORDS_BY_STAGE[stageId] || [];
+  if (!keywords.length) return videos || [];
+
+  const normalizedKeywords = keywords.map((k) => normalizeText(k));
+  const list = Array.isArray(videos) ? videos : [];
+  return list.filter((video) => {
+    const haystack = normalizeText(`${video?.title || ''} ${video?.channelTitle || ''}`);
+    const matches = normalizedKeywords.filter((k) => haystack.includes(k)).length;
+    return matches >= 1;
+  });
+}
+
+function filterDbVideos(stageId, videos) {
+  const keywords = DB_VIDEO_KEYWORDS_BY_STAGE[stageId] || [];
   if (!keywords.length) return videos || [];
 
   const normalizedKeywords = keywords.map((k) => normalizeText(k));
@@ -141,12 +188,14 @@ function buildSortimentCoachResponse(stageId, data) {
 }
 
 function getStageYoutubeQuery(variant, stageId, fallbackTitle) {
+  if (variant === 'db-calc-manager') return DB_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
   if (variant === 'sortiment-retouren-3e') return SORTIMENT_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
   if (variant === 'finance-liquidity') return FINANCE_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
   return COST_YOUTUBE_BY_STAGE[stageId] || fallbackTitle;
 }
 
 function getStageExpectedContext(variant, stageId) {
+  if (variant === 'db-calc-manager') return DB_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
   if (variant === 'sortiment-retouren-3e') return SORTIMENT_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
   if (variant === 'finance-liquidity') return FINANCE_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
   return COST_EXPECTED_CONTEXT_BY_STAGE[stageId] || 'Nutze die passende Formel und rechne kaufmännisch sauber.';
@@ -154,6 +203,17 @@ function getStageExpectedContext(variant, stageId) {
 
 function getStageDataFacts(variant, stageId, data) {
   if (!data) return '';
+
+  if (variant === 'db-calc-manager') {
+    if (stageId === 1) return `Aktuelle Werte: pA=${data.pA}, kvA=${data.kvA}, pB=${data.pB}, kvB=${data.kvB}.`;
+    if (stageId === 2) return `Aktuelle Werte: Menge A=${data.qtyA}, Menge B=${data.qtyB}, DB1/Stück A=${data.db1UnitA}, DB1/Stück B=${data.db1UnitB}.`;
+    if (stageId === 3) return `Aktuelle Werte: Gesamt-DB1 A=${data.db1TotalA}, Gesamt-DB1 B=${data.db1TotalB}, Kfix_erz A=${data.kfixErzA}, Kfix_erz B=${data.kfixErzB}.`;
+    if (stageId === 4) return `Aktuelle Werte: DB2 A=${data.db2A}, DB2 B=${data.db2B}, Kfix_unt=${data.kfixUnt}.`;
+    if (stageId === 5) return `Aktuelle Werte: kvA=${data.kvA}, kvB=${data.kvB}.`;
+    if (stageId === 6) return `Aktuelle Werte: kvA=${data.kvA}, kvB=${data.kvB}, Kfix_erz A=${data.kfixErzA}, Kfix_erz B=${data.kfixErzB}, Kfix_unt=${data.kfixUnt}, Menge A=${data.qtyA}, Menge B=${data.qtyB}.`;
+    if (stageId === 7) return `Aktuelle Werte: Zielmenge B=${data.targetQtyB}, Zielergebnis=${data.targetProfit}, pA=${data.pA}, kvA=${data.kvA}, Menge A=${data.qtyA}, kvB=${data.kvB}.`;
+    if (stageId === 8) return `Aktuelle Werte: DB1/Stück A=${data.db1UnitA}, DB1/Stück B=${data.db1UnitB}, Engpass A=${data.engpassA}, Engpass B=${data.engpassB}.`;
+  }
 
   if (variant === 'sortiment-retouren-3e') {
     if (stageId === 1) return `Aktuelle Werte: Gesamtbestellungen=${data.totalOrders}, retournierte Bestellungen=${data.returnedOrders}.`;
@@ -236,7 +296,9 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
       const fetched = await fetchYouTubeVideos(query, apiKey, 4);
       const curated = moduleVariant === 'sortiment-retouren-3e'
         ? filterSortimentVideos(activeStage.id, fetched)
-        : (fetched || []);
+        : moduleVariant === 'db-calc-manager'
+          ? filterDbVideos(activeStage.id, fetched)
+          : (fetched || []);
       setVideos(curated || []);
       if (!curated || curated.length === 0) {
         setVideoError('Keine passenden Videos gefunden.');
@@ -282,13 +344,22 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
     let module;
     let intervalId;
     try {
-      module = bootstrapCostCalcModule({
-        containerEl: mountRef.current,
-        variant: moduleVariant,
-        onLearningEvent: (event) => {
-          onLearningEventRef.current?.(event);
-        },
-      });
+      if (moduleVariant === 'db-calc-manager') {
+        module = bootstrapDBCalcManager({
+          containerEl: mountRef.current,
+          onLearningEvent: (event) => {
+            onLearningEventRef.current?.(event);
+          },
+        });
+      } else {
+        module = bootstrapCostCalcModule({
+          containerEl: mountRef.current,
+          variant: moduleVariant,
+          onLearningEvent: (event) => {
+            onLearningEventRef.current?.(event);
+          },
+        });
+      }
       moduleRef.current = module;
       syncActiveStage();
       intervalId = window.setInterval(syncActiveStage, 250);
@@ -346,6 +417,13 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
           >
             Sortimentsanalyse
           </button>
+          <button
+            type="button"
+            className={moduleVariant === 'db-calc-manager' ? 'ccm-view-switch-btn active' : 'ccm-view-switch-btn'}
+            onClick={() => setModuleVariant('db-calc-manager')}
+          >
+            DB I & DB II
+          </button>
         </div>
       </header>
 
@@ -400,16 +478,22 @@ export default function CostCalcBossModuleView({ onBack, onLearningEvent }) {
       <FloatingPortal
         questionId={moduleVariant === 'finance-liquidity'
           ? 'finance_liquidity_module'
+          : moduleVariant === 'db-calc-manager'
+            ? 'db_calc_manager_module'
           : moduleVariant === 'sortiment-retouren-3e'
             ? 'sortiment_retouren_3e_module'
             : 'cost_calc_boss_module'}
         questionText={moduleVariant === 'finance-liquidity'
           ? 'Finanz-Analyse & Liquiditätsmanagement'
+          : moduleVariant === 'db-calc-manager'
+            ? 'DB I & DB II Fixkostendeckungsrechnung'
           : moduleVariant === 'sortiment-retouren-3e'
             ? 'Sortimentsanalyse & Retourenmanagement'
             : 'Kostenrechnung & Preisuntergrenze'}
         currentAppMode={moduleVariant === 'finance-liquidity'
           ? 'finance_liquidity'
+          : moduleVariant === 'db-calc-manager'
+            ? 'db_calc_manager'
           : moduleVariant === 'sortiment-retouren-3e'
             ? 'sortiment_retouren_3e'
             : 'cost_calc_boss'}

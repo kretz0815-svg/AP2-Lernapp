@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DBCalcManager Demo</title>
+    <link rel="stylesheet" href="./dbCalcManager.css" />
+  </head>
+  <body style="margin:0; padding: 24px; background:#0f172a; color:#fff; font-family:Arial, sans-serif;">
+    <div id="calc-boss-module"></div>
+
+    <script type="module">
+      import { bootstrapDBCalcManager } from './DBCalcManager.js';
+
+      bootstrapDBCalcManager({
+        containerId: 'calc-boss-module',
+      });
+    </script>
+  </body>
+</html>
