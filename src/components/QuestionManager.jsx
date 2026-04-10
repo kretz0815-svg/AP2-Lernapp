@@ -50,13 +50,13 @@ export default function QuestionManager({ category, questions, progress, formatL
             isLearned: (id, prog) => prog[id] && prog[id].nextReview > Date.now(),
         },
         wisor: {
-            title: 'WisoR Grundlagen',
+            title: 'WiSoR',
             color: 'var(--primary)',
             progressKey: 'ap2_wisor_progress',
             isLearned: (id, prog) => !!prog[id],
         },
         wisorEco: {
-            title: 'WisoR E-Commerce',
+            title: 'WiSoR',
             color: 'var(--accent)',
             progressKey: 'ap2_wisor_eco_progress',
             isLearned: (id, prog) => !!prog[id] && (prog[id] === true || prog[id]?.isLearned === true || (Number(prog[id]?.correctAnswersCount || prog[id]?.rep || 0) > 0 && Number(prog[id]?.nextReview || 0) > Date.now())),

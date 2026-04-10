@@ -338,9 +338,9 @@ function App() {
           topic: m.mode === 'quiz'
             ? ''
             : m.mode === 'wisor'
-              ? 'WisoR Grundlagen'
+              ? 'WiSoR'
               : m.mode === 'wisorEco'
-                ? 'WisoR E-Commerce'
+                ? 'WiSoR'
                 : m.mode === 'klr'
                   ? 'KLR'
                   : m.mode === 'project_m'
@@ -1057,7 +1057,7 @@ function App() {
     if (Array.isArray(q.answerOptions) && q.answerOptions.length > 0) {
       return {
         ...q,
-        topic: q.topic || 'WisoR E-Commerce'
+        topic: q.topic || 'WiSoR'
       };
     }
 
@@ -1066,7 +1066,7 @@ function App() {
       ...q,
       question: cleanedQuestion,
       answerOptions,
-      topic: q.topic || 'WisoR E-Commerce'
+      topic: q.topic || 'WiSoR'
     };
   });
 
@@ -2296,8 +2296,7 @@ ${input}`;
     // Pomodoro session logging
     if (pomodoroActive) {
       const questionText = q.question?.substring(0, 100) || q.id || 'WisoR-Frage';
-      const topicLabel = activeWisorMode === 'wisor1' ? 'WisoR Grundlagen' :
-        activeWisorMode === 'wisorEco' ? 'WisoR E-Commerce' : 'IHK Extras';
+      const topicLabel = (activeWisorMode === 'wisor1' || activeWisorMode === 'wisorEco') ? 'WiSoR' : 'IHK Extras';
       setPomodoroSessionLog(prev => [...prev, { correct, questionText, topic: topicLabel }]);
     }
 
@@ -3485,7 +3484,7 @@ ${input}`;
             setAppMode={setAppMode}
             burgerMenuPortal={burgerMenuPortal}
             title="Wieviele Fragen?"
-            description="Wähle die Anzahl fälliger Fragen in WiSoR E-Commerce und starte den Durchgang. Korrekt gelöste Fragen werden sofort aus dem aktiven Topf entfernt."
+            description="Wähle die Anzahl fälliger Fragen in WiSoR und starte den Durchgang. Korrekt gelöste Fragen werden sofort aus dem aktiven Topf entfernt."
             showTopicSelect={false}
             backMode="dashboard"
             showResetProgressButton
@@ -3496,7 +3495,7 @@ ${input}`;
             onClose={() => setResetModalVisible(false)}
             onConfirm={handleResetExecute}
             title="WiSoR-Lernstand zurücksetzen?"
-            description="Dein Fortschritt in WiSoR E-Commerce wird gelöscht. Löse die Rechenaufgabe zur Bestätigung:"
+            description="Dein Fortschritt in WiSoR wird gelöscht. Löse die Rechenaufgabe zur Bestätigung:"
           />
         </>
       </React.Suspense>

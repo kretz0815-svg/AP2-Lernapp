@@ -148,8 +148,7 @@ const WisorSession = ({
     setCurrentWisorIndex(prev => prev + 1);
   };
 
-  const modeTitle = isWisor1Mode ? 'WisoR Grundlagen' : 
-                   isWisorEcoMode ? 'WisoR E-Commerce' : 'IHK Extras';
+  const modeTitle = (isWisor1Mode || isWisorEcoMode) ? 'WiSoR' : 'IHK Extras';
 
   return (
     <div className="app-container" style={{ zIndex: 10 }}>

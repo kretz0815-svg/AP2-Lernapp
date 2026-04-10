@@ -1135,6 +1135,996 @@
       "rationale": "Richtig ist E. Das beschriebene grüne Rettungszeichen steht für den Sammelplatz, an dem sich Beschäftigte im Evakuierungsfall einfinden müssen.",
       "videoUrl": "",
       "youtubeQuery": "Rettungszeichen Sammelplatz Bedeutung"
+    },
+    {
+      "id": "eco_31",
+      "question": "Die Globetrader GmbH prüft ihre kurzfristige Zahlungsbereitschaft. Welche Aussage zur Liquidität 1. Grades ist richtig?",
+      "answerOptions": [
+        {
+          "text": "Sie zeigt, ob alle Forderungen rechtzeitig eingetrieben wurden.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Sie gibt an, inwieweit die flüssigen Mittel die kurzfristigen Verbindlichkeiten decken.",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Sie misst den Anteil des Eigenkapitals am Gesamtkapital.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Sie zeigt die langfristige Rentabilität des Warenlagers.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Die Liquidität 1. Grades setzt sofort verfügbare Zahlungsmittel ins Verhältnis zu kurzfristigen Verbindlichkeiten.",
+      "videoUrl": "",
+      "youtubeQuery": "Liquidität 1. Grades Cash Ratio"
+    },
+    {
+      "id": "eco_32",
+      "question": "Warum ist bei einem Sonderauftrag die kurzfristige Preisuntergrenze die absolute Grenze?",
+      "answerOptions": [
+        {
+          "text": "Weil bei diesem Preis auch die Fixkosten gedeckt sind.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Weil sie den maximalen Gewinn pro Stück garantiert.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Weil bei Unterschreitung ein direkter Verlust auf Stückbasis entsteht.",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Weil sie automatisch die Marktführerschaft sichert.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Unterhalb der kurzfristigen Preisuntergrenze werden nicht einmal die variablen Kosten gedeckt.",
+      "videoUrl": "",
+      "youtubeQuery": "kurzfristige Preisuntergrenze variable Kosten"
+    },
+    {
+      "id": "eco_33",
+      "question": "In der Logistik der Globetrader GmbH steigt die Retourenquote. Welches Problem deutet auf einen Fehler im Produktmanagement hin?",
+      "answerOptions": [
+        {
+          "text": "Kunden erhalten Ware, die nicht den Online-Beschreibungen oder Fotos entspricht.",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Der Paketdienstleister liefert verspätet aus.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Die Rohstoffpreise sind gestiegen.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Es wurden zu viele neue Mitarbeiter im Lager eingestellt.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Abweichungen zwischen Shop-Darstellung und tatsächlichem Produkt sind ein Produktmanagement-/Sortimentsproblem.",
+      "videoUrl": "",
+      "youtubeQuery": "Retourenquote Produktmanagement"
+    },
+    {
+      "id": "eco_34",
+      "question": "Welche Maßnahme unterstützt primär ein ökologisches Ziel?",
+      "answerOptions": [
+        {
+          "text": "Ein abgeschriebener Firmenwagen wird durch einen gleichartigen Neuwagen ersetzt.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Glühlampen werden durch LED-Leuchtmittel ersetzt.",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Die Kantine bietet kalorienreduziertes Essen an.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Der Betriebskindergarten wird verkleinert.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "LED reduziert direkt den Energieverbrauch und schont Ressourcen.",
+      "videoUrl": "",
+      "youtubeQuery": "ökologische Unternehmensziele LED"
+    },
+    {
+      "id": "eco_35",
+      "question": "In welchem Fall liegt ein deutlicher Zielkonflikt vor?",
+      "answerOptions": [
+        {
+          "text": "Verpackungsmaterial reduzieren und Image verbessern.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Lärmbelästigung reduzieren und Krankheitstage senken.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Verpackungskosten senken und gleichzeitig Durchlaufzeiten erhöhen.",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Umsatz maximieren und Marktanteil steigern.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Kostensenkung und höhere Durchlaufzeiten stehen in einem klaren Zielkonflikt.",
+      "videoUrl": "",
+      "youtubeQuery": "Zielkonflikt Logistik"
+    },
+    {
+      "id": "eco_36",
+      "question": "Herr Ebenholz ist als Stabsstelle Nachhaltigkeit direkt der Geschäftsführung zugeordnet. Welche Tätigkeit gehört korrekt zu seinem Aufgabenbereich?",
+      "answerOptions": [
+        {
+          "text": "Er weist die Geschäftsführung an, die Struktur umzubauen.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Er berät die Geschäftsführung in Fragen des Nachhaltigkeitsmanagements.",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Er stellt eigenständig Mitarbeiter anderer Abteilungen ein.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Er hat ein Veto-Recht gegenüber der Geschäftsführung.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Stabsstellen beraten fachlich, haben aber keine Weisungsbefugnis.",
+      "videoUrl": "",
+      "youtubeQuery": "Stabsstelle Aufgaben"
+    },
+    {
+      "id": "eco_37",
+      "question": "Bei 400 EUR Preis werden laut Vorgabe 1.800 Stück nachgefragt. Wie hoch ist die Gesamtnachfrage (Umsatz)?",
+      "answerOptions": [
+        {
+          "text": "400.000 EUR",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "640.000 EUR",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "720.000 EUR",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "800.000 EUR",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "1.800 x 400 EUR = 720.000 EUR.",
+      "videoUrl": "",
+      "youtubeQuery": "Preis Mengen Funktion Umsatz berechnen"
+    },
+    {
+      "id": "eco_38",
+      "question": "Die OceanBreeze GmbH bietet 2.000 Stück zu 500 EUR an, nachgefragt werden 1.400 Stück. Welche Situation liegt vor?",
+      "answerOptions": [
+        {
+          "text": "Gleichgewichtspreis",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Vollkommener Markt",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Nachfrageüberhang",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Angebotsüberhang",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Wenn Angebot größer als Nachfrage ist, liegt ein Angebotsüberhang vor.",
+      "videoUrl": "",
+      "youtubeQuery": "Angebotsüberhang Nachfrage"
+    },
+    {
+      "id": "eco_39",
+      "question": "Es gibt insgesamt 5 Anbieter (inkl. OceanBreeze) und viele Nachfrager. Welche Marktform liegt vor?",
+      "answerOptions": [
+        {
+          "text": "Angebotsmonopol",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Nachfragemonopol",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Angebotsoligopol",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Polypol",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Wenige Anbieter bei vielen Nachfragern = Angebotsoligopol.",
+      "videoUrl": "",
+      "youtubeQuery": "Marktformen Oligopol"
+    },
+    {
+      "id": "eco_40",
+      "question": "Wann muss mit einer möglichen Rezession gerechnet werden?",
+      "answerOptions": [
+        {
+          "text": "Das reale BIP ist gegenüber dem Vorjahr gesunken.",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Der Staat erhöht den Körperschaftsteuersatz.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Die Steuereinnahmen steigen.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Kapazitätsauslastung und Investitionen steigen.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Ein reales Sinken des BIP ist der klassische Indikator einer Rezession.",
+      "videoUrl": "",
+      "youtubeQuery": "Rezession BIP"
+    },
+    {
+      "id": "eco_41",
+      "question": "Sofia Carelli war am 01.01.2025 noch nicht 16 und beginnt am 01.09.2025 ihre Ausbildung. Wie viele Werktage Urlaub stehen ihr 2025 zu?",
+      "answerOptions": [
+        {
+          "text": "8 Werktage",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "10 Werktage",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "12 Werktage",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "30 Werktage",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "30/12 x 4 volle Monate = 10 Werktage Teilurlaub.",
+      "videoUrl": "",
+      "youtubeQuery": "Jugendarbeitsschutz Teilurlaub"
+    },
+    {
+      "id": "eco_42",
+      "question": "Beginn Veranstaltung 13:00 Uhr, Berufsschule am Folgetag 07:30 Uhr. Bis wann darf Frau Carelli maximal arbeiten?",
+      "answerOptions": [
+        {
+          "text": "18:30 Uhr",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "19:00 Uhr",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "19:30 Uhr",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "20:30 Uhr",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Bei 12 Stunden ununterbrochener Freizeit vor 07:30 Uhr: spätestens 19:30 Uhr.",
+      "videoUrl": "",
+      "youtubeQuery": "12 Stunden Freizeit Jugendliche"
+    },
+    {
+      "id": "eco_43",
+      "question": "Welche Voraussetzung ist keine Wirksamkeitsvoraussetzung für den Ausbildungsvertrag?",
+      "answerOptions": [
+        {
+          "text": "Schriftlicher Vertrag",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Eintrag ins Ausbildungsverzeichnis",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Unterschrift gesetzlicher Vertreter (bei Minderjährigen)",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Meldung bei der Bundesagentur für Arbeit",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Eine Meldung bei der Bundesagentur ist keine Voraussetzung für die Wirksamkeit des Ausbildungsvertrags.",
+      "videoUrl": "",
+      "youtubeQuery": "Ausbildungsvertrag Voraussetzungen"
+    },
+    {
+      "id": "eco_44",
+      "question": "Welche Klausel verstößt gegen gesetzliche Vorschriften?",
+      "answerOptions": [
+        {
+          "text": "Aufgaben sorgfältig ausführen.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Betriebsordnung beachten.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Beschädigte Arbeitsmittel selbst ersetzen.",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Betriebsgeheimnisse wahren.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Eine pauschale Haftung für Arbeitsmittel ist unzulässig.",
+      "videoUrl": "",
+      "youtubeQuery": "Azubi Haftung Arbeitsmittel"
+    },
+    {
+      "id": "eco_45",
+      "question": "Welcher Vertragsbestandteil muss sich jährlich angemessen verbessern?",
+      "answerOptions": [
+        {
+          "text": "Erholungsurlaub",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Freistellung Berufsschule",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Ausbildungsvergütung",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Sonderzahlungen",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Die Ausbildungsvergütung muss mit fortschreitendem Ausbildungsjahr ansteigen.",
+      "videoUrl": "",
+      "youtubeQuery": "BBiG Ausbildungsvergütung"
+    },
+    {
+      "id": "eco_46",
+      "question": "Jan kündigt nach Probezeit fristgerecht schriftlich, nennt aber keinen Grund. Ist die Kündigung wirksam?",
+      "answerOptions": [
+        {
+          "text": "Nein, ein Kündigungsgrund hätte angegeben werden müssen.",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Nein, Ausbildungsverträge sind nicht kündbar.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Ja, weil 4 Wochen Frist eingehalten wurden.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Ja, weil sie schriftlich erfolgte.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Nach Probezeit muss der Azubi bei Kündigung den Grund schriftlich angeben.",
+      "videoUrl": "",
+      "youtubeQuery": "BBiG §22 Kündigung Ausbildungsverhältnis"
+    },
+    {
+      "id": "eco_47",
+      "question": "Wer hat sowohl aktives als auch passives Wahlrecht für den Betriebsrat?",
+      "answerOptions": [
+        {
+          "text": "Max (21, Azubi) und Elisa (27, seit 2 Jahren im Marketing).",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Tina (17, Aushilfe) und Cem (23, seit 4 Monaten).",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Geschäftsführerin und Leiharbeiter.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Nur Vollzeitkräfte über 30 Jahre.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Max und Elisa erfüllen die Kriterien (Alter/Wählbarkeit/Betriebszugehörigkeit).",
+      "videoUrl": "",
+      "youtubeQuery": "Betriebsrat Wahlrecht aktiv passiv"
+    },
+    {
+      "id": "eco_48",
+      "question": "Welche Aussage zur JAV-Wählbarkeit ist korrekt?",
+      "answerOptions": [
+        {
+          "text": "Nur unter 18 Jahren wählbar.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Nur bei gleichzeitiger Wahlberechtigung wählbar.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Wählbar, wenn in Ausbildung oder unter 25 Jahren.",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Nicht wählbar, wenn gleichzeitig wahlberechtigt.",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Nach BetrVG sind JAV-Kandidaten wählbar, wenn sie in Ausbildung sind oder unter 25 Jahre alt.",
+      "videoUrl": "",
+      "youtubeQuery": "JAV Wählbarkeit §61 BetrVG"
+    },
+    {
+      "id": "eco_49",
+      "question": "Zwischen welchen Parteien werden Betriebsvereinbarungen geschlossen?",
+      "answerOptions": [
+        {
+          "text": "Betriebsrat und Berufsgenossenschaft",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Betriebsrat und Geschäftsführung",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Betriebsrat und Gewerkschaft",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Betriebsrat und IHK",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Betriebsvereinbarungen werden zwischen Betriebsrat und Arbeitgeber abgeschlossen.",
+      "videoUrl": "",
+      "youtubeQuery": "Betriebsvereinbarung Parteien"
+    },
+    {
+      "id": "eco_50",
+      "question": "Haustarifvertrag: Welche Zuordnung ist korrekt?",
+      "answerOptions": [
+        {
+          "text": "Arbeitgeberseite 2, Arbeitnehmerseite 3",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Arbeitgeberseite 1, Arbeitnehmerseite 3",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Arbeitgeberseite 1, Arbeitnehmerseite 5",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Arbeitgeberseite 3, Arbeitnehmerseite 1",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Haustarifvertrag wird zwischen Geschäftsführung (1) und zuständiger Gewerkschaft (3) geschlossen.",
+      "videoUrl": "",
+      "youtubeQuery": "Haustarifvertrag Verhandlungspartner"
+    },
+    {
+      "id": "eco_51",
+      "question": "Welche zeitliche Reihenfolge entspricht einer typischen Tarifverhandlung?",
+      "answerOptions": [
+        {
+          "text": "6-1-4-3-5-2",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "1-6-3-4-5-2",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "6-4-1-3-2-5",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "6-1-3-4-5-2",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Die korrekte Reihenfolge lautet 6-1-4-3-5-2.",
+      "videoUrl": "",
+      "youtubeQuery": "Tarifverhandlung Reihenfolge"
+    },
+    {
+      "id": "eco_52",
+      "question": "Welche Regelung wendet das Günstigkeitsprinzip korrekt an?",
+      "answerOptions": [
+        {
+          "text": "25 statt 30 Urlaubstage",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "42 statt 38 Wochenstunden",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Einmalprämie statt tariflichem Weihnachtsgeld",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Zusätzlich zum Tarifgehalt monatlich 500 EUR brutto",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Nur eine für den Arbeitnehmer günstigere Abweichung ist zulässig.",
+      "videoUrl": "",
+      "youtubeQuery": "Günstigkeitsprinzip Tarifvertrag"
+    },
+    {
+      "id": "eco_53",
+      "question": "Welche zwei Arbeitnehmer genießen besonderen Kündigungsschutz?",
+      "answerOptions": [
+        {
+          "text": "Gewerkschaftsverhandlungsführer und Personalleiterin",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "JAV-Mitglied und schwerbehinderter Arbeitnehmer",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Mitarbeiter in Probezeit und Geschäftsführer",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Nur Auszubildende im ersten Lehrjahr",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "JAV-Mitglieder und schwerbehinderte Beschäftigte haben besonderen Schutz.",
+      "videoUrl": "",
+      "youtubeQuery": "besonderer Kündigungsschutz"
+    },
+    {
+      "id": "eco_54",
+      "question": "Für welchen Personenkreis gilt das Jugendarbeitsschutzgesetz?",
+      "answerOptions": [
+        {
+          "text": "Jugendliche bis zum vollendeten 18. Lebensjahr",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Auszubildende bis 25 Jahre",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Jugendliche bis 16 Jahre",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Nur minderjährige Auszubildende",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Das JArbSchG gilt grundsätzlich für Jugendliche unter 18 Jahren.",
+      "videoUrl": "",
+      "youtubeQuery": "Geltungsbereich Jugendarbeitsschutzgesetz"
+    },
+    {
+      "id": "eco_55",
+      "question": "Welche Erläuterung entspricht nicht dem Ziel ökologischer Nachhaltigkeit?",
+      "answerOptions": [
+        {
+          "text": "Natürliches, ungiftiges Wachs",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Inzahlungnahme und Wiederaufbereitung alter Boards",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Ökologischer Fußabdruck als Umweltnachweis",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Jährliches Einsenden jedes Boards für Tests",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Jährliche Versandprozesse erzeugen zusätzliche Emissionen und stützen kein Öko-Argument.",
+      "videoUrl": "",
+      "youtubeQuery": "Nachhaltigkeit Greenwashing"
+    },
+    {
+      "id": "eco_56",
+      "question": "KrWG-Zuordnung (Vermeidung, Verwertung, Beseitigung) ist korrekt als:",
+      "answerOptions": [
+        {
+          "text": "1-3-2",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "1-2-3",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "3-1-2",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "2-3-1",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Die korrekte Zuordnung lautet 1-3-2.",
+      "videoUrl": "",
+      "youtubeQuery": "KrWG Vermeidung Verwertung Beseitigung"
+    },
+    {
+      "id": "eco_57",
+      "question": "Welche zwei Aussagen zur US-E-Commerce-Revenue-Grafik sind richtig?",
+      "answerOptions": [
+        {
+          "text": "1 und 2",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "3 und 4",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "4 und 5",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "2 und 6",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig sind: 2028 über 1.400 Mrd. USD und stetiges Umsatzwachstum 2024-2028.",
+      "videoUrl": "",
+      "youtubeQuery": "US E-Commerce Revenue 2028"
+    },
+    {
+      "id": "eco_58",
+      "question": "In welcher Rechtsgrundlage ist die ergonomische Arbeitsplatzgestaltung geregelt?",
+      "answerOptions": [
+        {
+          "text": "Gefahrstoffverordnung",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Arbeitszeitgesetz",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Arbeitsstättenverordnung",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Betriebsverfassungsgesetz",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Die Arbeitsstättenverordnung regelt ergonomische Mindestanforderungen.",
+      "videoUrl": "",
+      "youtubeQuery": "Arbeitsstättenverordnung Ergonomie"
+    },
+    {
+      "id": "eco_59",
+      "question": "Wer trägt nach einem Arbeitsunfall die Kosten einer Umschulung?",
+      "answerOptions": [
+        {
+          "text": "Arbeitgeber",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Krankenkasse",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Bundesagentur für Arbeit",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Berufsgenossenschaft",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Die Berufsgenossenschaft als gesetzliche Unfallversicherung übernimmt Reha/Umschulung.",
+      "videoUrl": "",
+      "youtubeQuery": "Berufsgenossenschaft Umschulung"
+    },
+    {
+      "id": "eco_60",
+      "question": "Ein Behälter trägt das GHS-Symbol mit Baum und totem Fisch. Welche Gefahr ist gekennzeichnet?",
+      "answerOptions": [
+        {
+          "text": "Gesundheitsgefährdende Gase",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Ätzende Stoffe",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        },
+        {
+          "text": "Umweltgefährdende Stoffe",
+          "isCorrect": true,
+          "rationale": "Richtig."
+        },
+        {
+          "text": "Ansteckungsgefährliche Stoffe",
+          "isCorrect": false,
+          "rationale": "Nicht korrekt im Kontext dieser Aufgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Das Symbol kennzeichnet umweltgefährdende Stoffe (gewässergefährdend).",
+      "videoUrl": "",
+      "youtubeQuery": "GHS Symbol Baum Fisch"
     }
   ]
 }

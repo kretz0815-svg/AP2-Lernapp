@@ -7,7 +7,6 @@ import { getAllQuizQuestions, getRechenTasks } from '../utils/quizUtils';
 import flashcards1 from '../data/flashcards_1.json';
 import flashcards2 from '../data/flashcards_2.json';
 import flashcards3 from '../data/flashcards_3.json';
-import wisor1 from '../data/wisor_1.json';
 import wisorEco from '../data/wisor_eco.json';
 import marketingReview from '../data/marketing_review.json';
 import { L1_VARIANTS, L2_VARIANTS, L3_VARIANTS, L4_VARIANTS } from '../features/project-m/data/scenarios';
@@ -111,8 +110,8 @@ const LearningDashboard = ({
 
   const modeLabel = {
     quiz: 'Quiz',
-    wisor: 'WisoR Grundlagen',
-    wisorEco: 'WisoR E-Commerce',
+    wisor: 'WiSoR',
+    wisorEco: 'WiSoR',
     flashcard: 'Lernkarten',
     klr_mc: 'KLR Multiple Choice',
     kalkulation: 'Kalkulations-Boss',
@@ -146,7 +145,6 @@ const LearningDashboard = ({
     (flashcards2.cards || []).length +
     (flashcards3.cards || []).length +
     getAllQuizQuestions(customQuizQuestions).length +
-    (wisor1.questions || []).length +
     (wisorEco.questions || []).length +
     (marketingReview.questions || []).length +
     getRechenTasks(customQuizQuestions).length +
@@ -190,8 +188,8 @@ const LearningDashboard = ({
     if (!event) return 'Allgemein';
     if (event.topic && event.topic !== 'Allgemein') return event.topic;
     if (event.mode === 'quiz') return quizTopicById.get(String(event.questionId)) || getQuizTopicGroup(detectQuizTopic({ question: event.questionText || '', hint: '', youtubeQuery: '' })) || 'Quiz Allgemein';
-    if (event.mode === 'wisor') return 'WisoR Grundlagen';
-    if (event.mode === 'wisorEco') return 'WisoR E-Commerce';
+    if (event.mode === 'wisor') return 'WiSoR';
+    if (event.mode === 'wisorEco') return 'WiSoR';
     if (event.mode === 'flashcard') return event.topic || 'Lernkarten Wissen';
     if (event.mode === 'klr_mc') return event.topic || 'KLR Multiple Choice';
     if (event.mode === 'kalkulation') return 'Kalkulations-Boss';
@@ -278,8 +276,8 @@ const LearningDashboard = ({
       if (byId) return byId;
       return getQuizTopicGroup(detectQuizTopic({ question: entry.questionText || '', hint: '', youtubeQuery: '' }));
     }
-    if (entry.mode === 'wisor') return 'WisoR Grundlagen';
-    if (entry.mode === 'wisorEco') return 'WisoR E-Commerce';
+    if (entry.mode === 'wisor') return 'WiSoR';
+    if (entry.mode === 'wisorEco') return 'WiSoR';
     if (entry.mode === 'flashcard') return 'Lernkarten Wissen';
     if (entry.mode === 'klr_mc') return 'KLR Multiple Choice';
     if (entry.mode === 'kalkulation') return 'Kalkulations-Boss';
@@ -398,8 +396,7 @@ const LearningDashboard = ({
   const moduleOverviewConfig = [
     { mode: 'quiz', label: 'Quiz', icon: '🧠' },
     { mode: 'flashcard', label: 'Lernkarten', icon: '🃏' },
-    { mode: 'wisor', label: 'WisoR Grundlagen', icon: '📘' },
-    { mode: 'wisorEco', label: 'WisoR E-Commerce', icon: '🛍️' },
+    { mode: 'wisorEco', label: 'WiSoR', icon: '📘' },
     { mode: 'marketing_review', label: 'IHK Extras', icon: '📝' },
     { mode: 'klr_mc', label: 'KLR Multiple Choice', icon: '🎯' },
     { mode: 'kalkulation', label: 'Kalkulations-Boss', icon: '🧮' },

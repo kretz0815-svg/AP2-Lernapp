@@ -31,7 +31,7 @@ const NotesView = ({
 
   const formatNoteContext = (key, contextText) => {
     const parts = key.split('_');
-    const typeStr = parts[0] === 'quiz' ? 'Quiz' : parts[0] === 'wisor' ? 'Wisor' : parts[0] === 'wisoreco' ? 'WisoR E-Commerce' : parts[0] === 'flashcard' ? 'Lernkarte' : 'Aufgabe';
+    const typeStr = parts[0] === 'quiz' ? 'Quiz' : parts[0] === 'wisor' ? 'WiSoR' : parts[0] === 'wisoreco' ? 'WiSoR' : parts[0] === 'flashcard' ? 'Lernkarte' : 'Aufgabe';
     const idNum = parts.length > 1 ? parts[1] : '';
     const parsedNum = parseInt(idNum, 10);
     const numStr = isNaN(parsedNum) ? '' : ` ${parsedNum + 1}`;

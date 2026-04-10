@@ -290,6 +290,22 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                                 </>
                             </div>
 
+                            <div className="stat-card" style={{ cursor: 'pointer' }} onClick={() => handleCategoryClick('wisorEco')}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>WiSoR</span>
+                                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
+                                </div>
+                                <>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                        <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--accent)' }}>{stats.wisorEcoLearned}</span>
+                                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.wisorEcoTotal} verinnerlicht</span>
+                                    </div>
+                                    <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
+                                        <div className="progress-bar" style={{ width: `${(stats.wisorEcoLearned / Math.max(stats.wisorEcoTotal, 1)) * 100}%`, background: 'var(--accent)' }}></div>
+                                    </div>
+                                </>
+                            </div>
+
                             <div className="stat-card" style={{ cursor: 'pointer' }} onClick={() => handleCategoryClick('rechen')}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>KPI's</span>
