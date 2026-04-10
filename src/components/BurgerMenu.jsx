@@ -322,6 +322,22 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                                 </>
                             </div>
 
+                            <div className="stat-card" style={{ cursor: 'pointer' }} onClick={() => handleCategoryClick('klr_mc')}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>KLR MC</span>
+                                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
+                                </div>
+                                <>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                        <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: '#22c55e' }}>{stats.klrMcLearned}</span>
+                                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.klrMcTotal} verinnerlicht</span>
+                                    </div>
+                                    <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
+                                        <div className="progress-bar" style={{ width: `${(stats.klrMcLearned / Math.max(stats.klrMcTotal, 1)) * 100}%`, background: '#22c55e' }}></div>
+                                    </div>
+                                </>
+                            </div>
+
                             <div className="stat-card" style={{ cursor: 'pointer' }} onClick={() => handleCategoryClick('marketing_review')}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>IHK Extras</span>

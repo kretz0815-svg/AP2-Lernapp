@@ -61,6 +61,12 @@ export default function QuestionManager({ category, questions, progress, formatL
             progressKey: 'ap2_wisor_eco_progress',
             isLearned: (id, prog) => !!prog[id] && (prog[id] === true || prog[id]?.isLearned === true || (Number(prog[id]?.correctAnswersCount || prog[id]?.rep || 0) > 0 && Number(prog[id]?.nextReview || 0) > Date.now())),
         },
+        klr_mc: {
+            title: 'KLR MC',
+            color: 'var(--primary)',
+            progressKey: 'ap2_klr_mc_progress',
+            isLearned: (id, prog) => !!prog[id] && (prog[id] === true || prog[id]?.isLearned === true || (Number(prog[id]?.correctAnswersCount || prog[id]?.rep || 0) > 0 && Number(prog[id]?.nextReview || 0) > Date.now())),
+        },
         marketing_review: {
             title: 'IHK Extras',
             color: 'var(--accent)',
@@ -76,8 +82,8 @@ export default function QuestionManager({ category, questions, progress, formatL
     };
 
     const config = categoryConfig[category];
-    const supportsMultipleChoice = category === 'quiz' || category === 'rechen' || category === 'marketing_review' || category === 'wisorEco';
-    const supportsOwnQuestions = supportsMultipleChoice;
+    const supportsMultipleChoice = category === 'quiz' || category === 'rechen' || category === 'marketing_review' || category === 'wisorEco' || category === 'klr_mc';
+    const supportsOwnQuestions = supportsMultipleChoice && category !== 'klr_mc';
 
     // Build question list
     const questionList = questions
@@ -142,6 +148,8 @@ export default function QuestionManager({ category, questions, progress, formatL
                         } else if (category === 'wisorEco') {
                             data.progress_data.wisor_eco_progress = updatedProgress;
                             data.progress_data.wisor_ecommerce_progress = updatedProgress;
+                        } else if (category === 'klr_mc') {
+                            data.progress_data.klr_mc_progress = updatedProgress;
                         } else {
                             data.progress_data.marketing_review_progress = updatedProgress;
                         }

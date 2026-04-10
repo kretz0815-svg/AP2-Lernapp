@@ -2536,6 +2536,8 @@ ${input}`;
     wisorLearned: Object.keys(completedWisors).length,
     wisorEcoTotal: wisorEcoQuestions.length,
     wisorEcoLearned: Math.max(0, wisorEcoQuestions.length - wisorEcoDuePool.length),
+    klrMcTotal: (klrMcQuiz.questions || []).length,
+    klrMcLearned: Math.max(0, (klrMcQuiz.questions || []).length - klrMcDuePool.length),
     reviewTotal: allMarketingReviewQuestions.length,
     reviewLearned: Math.max(0, allMarketingReviewQuestions.length - marketingReviewDuePool.length),
     rechenTotal,
@@ -2567,13 +2569,15 @@ ${input}`;
             questionManagerCategory === 'quiz' ? allQuizQuestions :
               questionManagerCategory === 'wisor' ? wisorQuestions :
                 questionManagerCategory === 'wisorEco' ? wisorEcoQuestions :
-                  questionManagerCategory === 'marketing_review' ? allMarketingReviewQuestions : rechenTasks
+                  questionManagerCategory === 'marketing_review' ? allMarketingReviewQuestions :
+                    questionManagerCategory === 'klr_mc' ? (klrMcQuiz.questions || []) : rechenTasks
           }
           authUser={authUser}
           progress={
             questionManagerCategory === 'quiz' || questionManagerCategory === 'rechen' ? quizProg :
               questionManagerCategory === 'wisor' ? completedWisors :
-                questionManagerCategory === 'wisorEco' ? completedWisorsEco : completedMarketingReview
+                questionManagerCategory === 'wisorEco' ? completedWisorsEco :
+                  questionManagerCategory === 'klr_mc' ? completedKlrMc : completedMarketingReview
           }
           formatLatex={formatLatex}
           onClose={() => setQuestionManagerCategory(null)}
@@ -2582,6 +2586,10 @@ ${input}`;
             if (cat === 'quiz' || cat === 'rechen') refreshQuizDuePool().catch(() => { });
             else if (cat === 'wisor') setCompletedWisors(updatedProgress);
             else if (cat === 'wisorEco') setCompletedWisorsEco(updatedProgress);
+            else if (cat === 'klr_mc') {
+              setCompletedKlrMc(updatedProgress);
+              refreshKlrMcDuePool().catch(() => { });
+            }
             else if (cat === 'marketing_review') setCompletedMarketingReview(updatedProgress);
           }}
         />
