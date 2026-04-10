@@ -1135,58 +1135,9 @@
       "rationale": "Richtig ist E. Das beschriebene grüne Rettungszeichen steht für den Sammelplatz, an dem sich Beschäftigte im Evakuierungsfall einfinden müssen.",
       "videoUrl": "",
       "youtubeQuery": "Rettungszeichen Sammelplatz Bedeutung"
-    },
-    {
-      "id": "eco_31",
-      "topic": "Liquidität 1. Grades (Cash Ratio)",
-      "question": "Die Globetrader GmbH prüft ihre kurzfristige Zahlungsbereitschaft. Der CFO möchte wissen, welche Aussage die Liquidität 1. Grades konkret zulässt.",
-      "answerOptions": [
-        { "text": "Sie zeigt, ob alle Forderungen rechtzeitig eingetrieben wurden.", "isCorrect": false, "rationale": "Das Eintreiben von Forderungen beeinflusst die Liquidität 2. Grades (Monatsliquidität)." },
-        { "text": "Sie gibt an, inwieweit die flüssigen Mittel die kurzfristigen Verbindlichkeiten decken.", "isCorrect": true, "rationale": "Richtig ist B. Die Liquidität 1. Grades (Barliquidität) setzt ausschließlich die sofort verfügbaren Zahlungsmittel (Kasse, Bank) ins Verhältnis zu den kurzfristigen Schulden." },
-        { "text": "Sie misst den Anteil des Eigenkapitals am Gesamtkapital.", "isCorrect": false, "rationale": "Das beschreibt die Eigenkapitalquote, nicht die Liquidität." },
-        { "text": "Sie zeigt die langfristige Rentabilität des Warenlagers.", "isCorrect": false, "rationale": "Rentabilität und Liquidität sind unterschiedliche betriebswirtschaftliche Zielgrößen." }
-      ],
-      "expectedAnswers": ["B"],
-      "inputType": "text",
-      "rationale": "Richtig ist B. Die Liquidität 1. Grades (Cash Ratio) zeigt, ob das Unternehmen seine fälligen Verbindlichkeiten sofort mit den vorhandenen liquiden Mitteln begleichen könnte.",
-      "hint": "Liquidität 1. Grades = Flüssige Mittel / kurzfristiges Fremdkapital",
-      "youtubeQuery": "Liquidität 1. Grades Cash Ratio einfach erklärt"
-    },
-    {
-      "id": "eco_32",
-      "topic": "Kurzfristige Preisuntergrenze",
-      "question": "Die Globetrader GmbH prüft eine Sonderanfrage für Outdoor-Ausrüstung. Welches Ziel wird mit der kurzfristigen Preisuntergrenze primär verfolgt?",
-      "answerOptions": [
-        { "text": "Sie deckt alle fixen und variablen Kosten ab (Selbstkosten).", "isCorrect": false, "rationale": "Das wäre die langfristige Preisuntergrenze." },
-        { "text": "Sie deckt den angestrebten Gewinn plus die variablen Kosten.", "isCorrect": false, "rationale": "Die Preisuntergrenze dient der Kostendeckung, nicht dem Gewinn." },
-        { "text": "Sie deckt nur die Fixkosten, um das Unternehmen langfristig zu sichern.", "isCorrect": false, "rationale": "Fixkosten werden bei der kurzfristigen Preisuntergrenze gerade nicht berücksichtigt." },
-        { "text": "Sie deckt genau die variablen Stückkosten ab; die Fixkosten bleiben unberücksichtigt.", "isCorrect": true, "rationale": "Richtig ist D. Die kurzfristige Preisuntergrenze entspricht den variablen Stückkosten (K_var)." }
-      ],
-      "expectedAnswers": ["D"],
-      "inputType": "text",
-      "rationale": "Richtig ist D. Die kurzfristige Preisuntergrenze deckt lediglich die variablen Kosten ab. Sie wird genutzt, um Beschäftigung zu sichern oder Marktanteile zu gewinnen, ohne den Verlust zu vergrößern (sofern Fixkosten sowieso anfallen).",
-      "hint": "Kurzfristige PUG = variable Stückkosten",
-      "youtubeQuery": "Kurzfristige Preisuntergrenze einfach erklärt"
-    },
-    {
-      "id": "eco_33",
-      "topic": "Ursachenanalyse hoher Retourenquoten",
-      "question": "Die Geschäftsführung der Globetrader GmbH stellt eine ungewöhnlich hohe Retourenquote fest, was die Margen belastet. Welche der folgenden Ursachen liegt am ehesten im Verantwortungsbereich des Produktmanagements bzw. der Shop-Pflege?",
-      "answerOptions": [
-        { "text": "Ein Streik bei einem externen Logistikdienstleister.", "isCorrect": false, "rationale": "Streiks führen zu Verzögerungen, aber meist nicht zu technischen Retouren." },
-        { "text": "Eine allgemeine Kaufzurückhaltung durch wirtschaftliche Rezession.", "isCorrect": false, "rationale": "Rezession verringert den Absatz, erklärt aber keine hohe Retourenquote." },
-        { "text": "Falsche Angaben zu Größen oder unvollständige Produktbeschreibungen im Online-Shop.", "isCorrect": true, "rationale": "Richtig ist C. Fehlerhafte oder unvollständige Produktinformationen sind eine der Hauptursachen für Retouren." },
-        { "text": "Eine Änderung der gesetzlichen Widerrufsbelehrung.", "isCorrect": false, "rationale": "Rechtliche Rahmenbedingungen sind extern vorgegeben." }
-      ],
-      "expectedAnswers": ["C"],
-      "inputType": "text",
-      "rationale": "Richtig ist C. Eine präzise Shop-Pflege mit korrekten Daten ist das effektivste Mittel zur Retourenvermeidung im operativen Bereich.",
-      "hint": "Überlege, welche Informationen Kunden für eine sichere Kaufentscheidung benötigen.",
-      "youtubeQuery": "Retourenquote senken E-Commerce Tipps"
     }
   ]
 }
-
 
 
 
