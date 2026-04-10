@@ -303,6 +303,38 @@
       "inputType": "text",
       "rationale": "a) 4 (Die Grundsteur ist eine laufende Aufwendung/Steur und gehört nicht zu den aktivierungspflichtigen Anschaffungsnebenkosten).\nb) Finanzierungsbedarf: 605.000 € - 120.000 € - 95.000 € - 155.000 € = 235.000 €.\nc) Belastung am 31.12. (für 6 Monate bzw. 180 Tage):\n- Zinsen (halbjährlich): 235.000 € * 2,75% / 2 = 3.231,25 €\n- Tilgung (halbjährlich): 235.000 € * 1,5% / 2 = 1.762,50 €\n- Gesamte Belastung: 3.231,25 € + 1.762,50 € = 4.993,75 €.\nd) 2 (Falsch: Grundpfandrechte wie Grundschuld oder Hypothek werden in Abteilung III des Grundbuches eingetragen, nicht in Abteilung II).",
       "videoUrl": ""
+    },
+    {
+      "id": "1.31",
+      "question": "1.31 Liquidität 1. Grades (Cash Ratio)\n\nDie Globetrader GmbH prüft ihre kurzfristige Zahlungsbereitschaft. Der CFO möchte wissen, welche Aussage die Liquidität 1. Grades konkret zulässt.\n\nAntwortmöglichkeiten:\n1. Sie zeigt, ob alle Forderungen rechtzeitig eingetrieben wurden.\n2. Sie gibt an, inwieweit die flüssigen Mittel die kurzfristigen Verbindlichkeiten decken.\n3. Sie misst den Anteil des Eigenkapitals am Gesamtkapital.\n4. Sie zeigt die langfristige Rentabilität des Warenlagers.\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+      "expectedAnswers": [
+        "2"
+      ],
+      "inputType": "number",
+      "rationale": "Richtig ist 2. Die Liquidität 1. Grades (Barliquidität) setzt ausschließlich die sofort verfügbaren Zahlungsmittel (Kasse, Bank) ins Verhältnis zu den kurzfristigen Schulden. Sie zeigt also, ob das Unternehmen theoretisch \"auf Knopfdruck\" seine fälligen Verbindlichkeiten begleichen könnte.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.32",
+      "question": "1.32 Kurzfristige Preisuntergrenze\n\nDie Globetrader GmbH prüft eine Sonderanfrage für Outdoor-Ausrüstung. Welches Ziel wird mit der kurzfristigen Preisuntergrenze primär verfolgt?\n\n1. Die Deckung der variablen Stückkosten.\n2. Die Deckung der gesamten Selbstkosten inklusive Fixkosten.\n3. Die Erzielung eines Mindestgewinns pro Stück.\n4. Die vollständige Deckung aller Verwaltungskosten.\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+      "expectedAnswers": [
+        "1"
+      ],
+      "inputType": "number",
+      "rationale": "Richtig ist 1. Die kurzfristige Preisuntergrenze entspricht den variablen Stückkosten (K_var). Werden diese gedeckt, so entsteht zumindest kein zusätzlicher Verlust durch den Zusatzauftrag, auch wenn die Fixkosten ungedeckt bleiben.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.33",
+      "question": "1.33 Ursachenanalyse hoher Retourenquoten\n\nDie Geschäftsführung der Globetrader GmbH stellt eine ungewöhnlich hohe Retourenquote fest, was die Margen belastet. Welche der folgenden Ursachen liegt am ehesten im Verantwortungsbereich des Produktmanagements bzw. der Shop-Pflege?\n\n1. Ein Streik bei einem externen Logistikdienstleister.\n2. Eine allgemeine Kaufzurückhaltung durch wirtschaftliche Rezession.\n3. Falsche Angaben zu Größen oder unvollständige Produktbeschreibungen im Online-Shop.\n4. Eine Änderung der gesetzlichen Widerrufsbelehrung.\n\n(Bitte geben Sie die zutreffende Lösungsziffer ein)",
+      "expectedAnswers": [
+        "3"
+      ],
+      "inputType": "number",
+      "rationale": "Richtig ist 3. Fehlerhafte oder unvollständige Produktinformationen sind eine der Hauptursachen für Retouren, da die Erwartungshaltung des Kunden nicht mit der gelieferten Ware übereinstimmt. Dies kann das Unternehmen durch bessere Datenpflege aktiv beeinflussen.",
+      "videoUrl": ""
     }
   ]
 }
+
+
