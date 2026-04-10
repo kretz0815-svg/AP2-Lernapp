@@ -303,6 +303,246 @@
       "inputType": "text",
       "rationale": "a) 4 (Die Grundsteur ist eine laufende Aufwendung/Steur und gehört nicht zu den aktivierungspflichtigen Anschaffungsnebenkosten).\nb) Finanzierungsbedarf: 605.000 € - 120.000 € - 95.000 € - 155.000 € = 235.000 €.\nc) Belastung am 31.12. (für 6 Monate bzw. 180 Tage):\n- Zinsen (halbjährlich): 235.000 € * 2,75% / 2 = 3.231,25 €\n- Tilgung (halbjährlich): 235.000 € * 1,5% / 2 = 1.762,50 €\n- Gesamte Belastung: 3.231,25 € + 1.762,50 € = 4.993,75 €.\nd) 2 (Falsch: Grundpfandrechte wie Grundschuld oder Hypothek werden in Abteilung III des Grundbuches eingetragen, nicht in Abteilung II).",
       "videoUrl": ""
+    },
+    {
+      "id": "1.31",
+      "question": "1.31 Liquidität 1. Grades (Cash Ratio)\n\nDie Globetrader GmbH prüft ihre kurzfristige Zahlungsbereitschaft. Welche Aussage lässt die Liquidität 1. Grades konkret zu?\n\nA) Sie zeigt, ob alle Forderungen rechtzeitig eingetrieben wurden.\nB) Sie gibt an, inwieweit die flüssigen Mittel die kurzfristigen Verbindlichkeiten decken.\nC) Sie misst den Anteil des Eigenkapitals am Gesamtkapital.\nD) Sie zeigt die langfristige Rentabilität des Warenlagers.\n\n(Bitte geben Sie die richtige Option ein: A, B, C oder D)",
+      "expectedAnswers": ["B", "2"],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die Liquidität 1. Grades setzt nur sofort verfügbare Zahlungsmittel (Kasse/Bank) ins Verhältnis zu kurzfristigen Verbindlichkeiten.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.32",
+      "question": "1.32 Kurzfristige Preisuntergrenze\n\nIm Vertrieb der Globetrader GmbH wird ein Sonderauftrag diskutiert. Warum ist die kurzfristige Preisuntergrenze die absolute Grenze?\n\nA) Weil bei diesem Preis auch die anteiligen Fixkosten gedeckt sind.\nB) Weil sie den maximalen Gewinn pro Stück garantiert.\nC) Weil bei Unterschreitung dieser Grenze ein direkter Geldverlust auf Stückbasis entsteht.\nD) Weil sie automatisch die Marktführerschaft sichert.\n\n(Bitte geben Sie die richtige Option ein: A, B, C oder D)",
+      "expectedAnswers": ["C", "3"],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Unterhalb der kurzfristigen Preisuntergrenze werden nicht einmal die variablen Kosten gedeckt.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.33",
+      "question": "1.33 Ursachenanalyse hoher Retourenquoten\n\nIn der Logistik der Globetrader GmbH steigt die Retourenquote. Welches Problem deutet auf einen Fehler im Produktmanagement hin?\n\nA) Kunden erhalten Ware, die nicht den Online-Beschreibungen oder Fotos entspricht.\nB) Der Paketdienstleister liefert verspätet aus.\nC) Die Rohstoffpreise sind gestiegen.\nD) Es wurden zu viele neue Mitarbeiter im Lager eingestellt.\n\n(Bitte geben Sie die richtige Option ein: A, B, C oder D)",
+      "expectedAnswers": ["A", "1"],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Wenn Produktdarstellung und reale Ware nicht übereinstimmen, liegt ein Problem in Sortiment/Produktmanagement vor.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.34",
+      "question": "1.34 Ökologische Zielsetzungen\n\nDie Globetrader GmbH will ihren Auftritt nachhaltiger ausrichten. Welche Maßnahme unterstützt primär ein ökologisches Ziel?\n\nA) Ein voll abgeschriebener Firmenwagen wird durch einen gleichartigen Neuwagen ersetzt.\nB) Glühlampen werden nach Ende der Lebensdauer durch LED-Leuchtmittel ersetzt.\nC) Die Kantine bietet ein kalorienreduziertes Essen an.\nD) Der Betriebskindergarten wird verkleinert.\n\n(Bitte geben Sie die richtige Option ein: A, B, C oder D)",
+      "expectedAnswers": ["B", "2"],
+      "inputType": "text",
+      "rationale": "Richtig ist B. LED reduziert direkt den Energieverbrauch und unterstützt ökologische Unternehmensziele.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.35",
+      "question": "1.35 Zielkonflikte in der Logistik\n\nIn welchem Fall liegt ein deutlicher Zielkonflikt vor?\n\nA) Verpackungsmaterial reduzieren und Image verbessern.\nB) Lärmbelästigung reduzieren und Krankheitstage vermindern.\nC) Verpackungskosten reduzieren und gleichzeitig Durchlaufzeiten erhöhen.\nD) Umsatz maximieren und Marktanteil steigern.\n\n(Bitte geben Sie die richtige Option ein: A, B, C oder D)",
+      "expectedAnswers": ["C", "3"],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Kostensenkung in der Verpackung kann schnellere/effiziente Prozesse behindern und erzeugt damit einen Zielkonflikt.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.36",
+      "question": "1.36 Stabsstelle Nachhaltigkeit\n\nHerr Ebenholz verantwortet das Nachhaltigkeitsmanagement als Stabsstelle unter der Geschäftsführung. Welche Tätigkeit gehört zu seinem Aufgabenbereich?\n\nA) Er weist die Geschäftsführung an, die Struktur zu ändern.\nB) Er unterstützt die Geschäftsleitung beratend in Nachhaltigkeitsfragen.\nC) Er stellt eigenständig Personal in Fachabteilungen ein und entlässt es.\nD) Er hat ein Veto-Recht gegenüber strategischen Beschlüssen.\n\n(Bitte geben Sie die richtige Option ein: A, B, C oder D)",
+      "expectedAnswers": ["B", "2"],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Eine Stabsstelle berät und unterstützt, hat aber keine direkte Weisungsbefugnis gegenüber Linieninstanzen.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.37",
+      "question": "1.37 Gesamtnachfrage bei Preis 400 €\n\nAus dem Preis-Mengen-Diagramm: Bei einem Einführungspreis von 400,00 € werden 1.800 Stück nachgefragt. Wie hoch ist die Gesamtnachfrage (Umsatz)?\n\n1) 400.000,00 €\n2) 640.000,00 €\n3) 720.000,00 €\n4) 800.000,00 €\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["3"],
+      "inputType": "number",
+      "rationale": "1.800 x 400 € = 720.000 €.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.38",
+      "question": "1.38 Situation bei Preis 500 € und Angebot 2.000 Stück\n\nDie OceanBreeze GmbH bietet langfristig 2.000 Stück zu 500 € an. Laut Nachfragefunktion werden bei 500 € nur 1.400 Stück nachgefragt. Welche Situation liegt vor?\n\n1) Gleichgewichtspreis\n2) Vollkommener Markt\n3) Nachfrageüberhang\n4) Angebotsüberhang\n5) Gleichgewichtsmenge\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["4"],
+      "inputType": "number",
+      "rationale": "Angebot (2.000) ist größer als Nachfrage (1.400) -> Angebotsüberhang.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.39",
+      "question": "1.39 Marktform bei 5 Anbietern (inkl. OceanBreeze)\n\nEs gibt insgesamt 5 Anbieter mit vergleichbarem Angebot und viele Nachfrager. Welche Marktform liegt vor?\n\n1) Angebotsmonopol\n2) Nachfragemonopol\n3) Angebotsoligopol\n4) Nachfrageoligopol mit polypolistischem Angebot\n5) Polypol\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["3"],
+      "inputType": "number",
+      "rationale": "Wenige Anbieter und viele Nachfrager entsprechen einem Angebotsoligopol.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.40",
+      "question": "1.40 Rezession erkennen\n\nWann muss die OceanBreeze GmbH mit einer möglichen Rezession rechnen?\n\n1) Das Bruttoinlandsprodukt ist gegenüber dem Vorjahr real gesunken.\n2) Der Staat erhöht den Körperschaftsteuersatz.\n3) Die Steuereinnahmen des Staates steigen.\n4) Kapazitätsauslastung und Investitionen steigen.\n5) Die volkswirtschaftliche Nachfrage ist größer als das Angebot.\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["1"],
+      "inputType": "number",
+      "rationale": "Der zentrale Makroindikator für eine Rezession ist ein reales Sinken des BIP.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.41",
+      "question": "1.41 JArbSchG Teilurlaub 2025\n\nSofia Carelli feierte am 23.01.2025 ihren 16. Geburtstag und beginnt am 01.09.2025 die Ausbildung. Wie viele Werktage Urlaub stehen ihr im Jahr 2025 zu?\n\n(Bitte Zahl eingeben)",
+      "expectedAnswers": ["10"],
+      "inputType": "number",
+      "rationale": "Zu Jahresbeginn war sie noch nicht 16 -> 30 Werktage/Jahr. Bei 4 vollen Monaten in 2025: 30/12 x 4 = 10.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.42",
+      "question": "1.42 12 Stunden Freizeit\n\nBeginn der Veranstaltung: 13:00 Uhr. Berufsschule am Folgetag: 07:30 Uhr. Bis wann darf Frau Carelli maximal arbeiten?\n\n(Bitte als Uhrzeit HH:MM eingeben)",
+      "expectedAnswers": ["19:30", "1930"],
+      "inputType": "text",
+      "rationale": "Bei 12 Stunden ununterbrochener Freizeit vor 07:30 Uhr ist spätestens 19:30 Uhr Schluss.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.43",
+      "question": "1.43 Ausbildungsvertrag - nicht erforderliche Voraussetzung\n\nWelche Voraussetzung muss NICHT erfüllt sein, damit das Ausbildungsverhältnis den gesetzlichen Anforderungen entspricht?\n\n1) Vertrag schriftlich\n2) Eintrag ins Ausbildungsverzeichnis\n3) Gesetzlicher Vertreter unterschreibt mit\n4) Auszubildende unterschreibt mit\n5) Meldung bei der Bundesagentur für Arbeit\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["5"],
+      "inputType": "number",
+      "rationale": "Eine Meldung bei der Bundesagentur ist keine Wirksamkeitsvoraussetzung des Ausbildungsvertrags.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.44",
+      "question": "1.44 Unwirksame Vertragsklausel\n\nWelche Klausel im Ausbildungsvertrag verstößt gegen gesetzliche Vorschriften?\n\n1) Aufgaben sorgfältig ausführen.\n2) Betriebsordnung beachten.\n3) Beschädigte Arbeitsmittel selbst ersetzen.\n4) Über Betriebsgeheimnisse schweigen.\n5) Ausbildungsnachweis führen.\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["3"],
+      "inputType": "number",
+      "rationale": "Eine pauschale Haftung für Arbeitsmittel ist unzulässig; es gilt das arbeitsrechtliche Haftungsprivileg.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.45",
+      "question": "1.45 Jährliche Anpassung im Ausbildungsvertrag\n\nWelcher Vertragsbestandteil muss sich jährlich angemessen verbessern?\n\n1) Erholungsurlaub\n2) Freistellung für Berufsschule/Prüfung\n3) Ausbildungsvergütung\n4) Sonderzahlungen wie Urlaubsgeld/Weihnachtsgeld\n5) Keiner\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["3"],
+      "inputType": "number",
+      "rationale": "Nach BBiG muss die Ausbildungsvergütung mit fortschreitendem Ausbildungsjahr ansteigen.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.46",
+      "question": "1.46 Kündigung nach Probezeit ohne Grund\n\nJan Petersen kündigt nach Probezeit schriftlich mit 4 Wochen Frist, nennt aber keinen Kündigungsgrund. Ist die Kündigung wirksam?\n\n1) Nein, da ein Grund hätte angegeben werden müssen.\n2) Nein, Ausbildungsverträge sind nicht kündbar.\n3) Ja, wegen 4-Wochen-Frist.\n4) Ja, wegen Probezeit.\n5) Ja, weil schriftlich.\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["1"],
+      "inputType": "number",
+      "rationale": "Nach Probezeit ist bei Azubi-Kündigung neben Frist die schriftliche Angabe des Kündigungsgrunds erforderlich.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.47",
+      "question": "1.47 Betriebsratswahl - aktives und passives Wahlrecht\n\nWelche 2 Arbeitnehmer haben sowohl aktives als auch passives Wahlrecht?\n\n1) Max Friesinger, 21, Azubi\n2) Tina De Vries, 17, Aushilfe\n3) Susanne Wenger, 44, Geschäftsführerin\n4) Cem Meyer, 23, seit 4 Monaten im Einkauf\n5) Elisa Körner, 27, seit 2 Jahren im Marketing\n6) Kevin Richter, 34, Leiharbeiter seit 4 Monaten\n\n(Bitte beide Ziffern aufsteigend eingeben, z. B. 15)",
+      "expectedAnswers": ["15", "1 und 5", "1,5", "1+5"],
+      "inputType": "text",
+      "rationale": "Max und Elisa erfüllen die Voraussetzungen (u. a. Alter und ausreichende Betriebszugehörigkeit).",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.48",
+      "question": "1.48 JAV-Wählbarkeit\n\nWelche Aussage zur Wählbarkeit von Tina de Vries für die JAV ist korrekt?\n\n1) Nicht wählbar, wenn sie noch nicht 18 ist.\n2) Nur wählbar, wenn sie noch nicht 18 ist.\n3) Nur wählbar, wenn sie gleichzeitig wahlberechtigt ist.\n4) Nicht wählbar, wenn sie gleichzeitig wahlberechtigt ist.\n5) Wählbar, wenn sie in Ausbildung ist oder zum Wahltermin noch keine 25 Jahre alt ist.\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["5"],
+      "inputType": "number",
+      "rationale": "Nach § 61 BetrVG sind JAV-Kandidaten wählbar, wenn sie unter 25 sind oder sich in Ausbildung befinden.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.49",
+      "question": "1.49 Betriebsvereinbarung - richtige Parteien\n\nZwischen welchen Parteien werden Betriebsvereinbarungen abgeschlossen?\n\n1) Betriebsrat und Berufsgenossenschaft\n2) Betriebsrat und Geschäftsführung\n3) Betriebsrat und Gewerkschaft\n4) Betriebsrat und IHK\n5) Betriebsrat und Arbeitsagentur\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["2"],
+      "inputType": "number",
+      "rationale": "Betriebsvereinbarungen werden auf Betriebsebene zwischen Betriebsrat und Arbeitgeber geschlossen.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.50",
+      "question": "1.50 Haustarifvertrag - Zuordnung\n\nZuordnung der Verhandlungspartner:\n- Arbeitgeberseite: 1 (Geschäftsführung der OceanBreeze GmbH)\n- Arbeitnehmerseite: 3 (zuständige Gewerkschaft)\n\n(Bitte als zweistellige Folge eingeben: Arbeitgeberseite, dann Arbeitnehmerseite)",
+      "expectedAnswers": ["13"],
+      "inputType": "number",
+      "rationale": "Ein Haustarifvertrag wird zwischen Unternehmensleitung und zuständiger Gewerkschaft geschlossen.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.51",
+      "question": "1.51 Tarifverhandlung - Reihenfolge\n\nBringen Sie die Schritte in die zeitlich korrekte Reihenfolge.\n\nKorrekte Folge: 6 - 1 - 4 - 3 - 5 - 2\n\n(Bitte als Ziffernfolge eingeben, z. B. 614352)",
+      "expectedAnswers": ["614352"],
+      "inputType": "number",
+      "rationale": "Die zeitliche Abfolge entspricht dem typischen Ablauf von Verhandlung, Scheitern, Schlichtung, Urabstimmung, Neuverhandlung und Annahme.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.52",
+      "question": "1.52 Günstigkeitsprinzip\n\nWelche Regelung ist eine korrekte Anwendung des Günstigkeitsprinzips?\n\n1) 25 statt 30 Urlaubstage\n2) Einmalige 500 EUR statt 50% Weihnachtsgeld\n3) 42 statt 38 Wochenstunden\n4) Handlungsvollmacht gegen Verzicht auf Sonderurlaub\n5) Zusaetzlich zum Tarifgehalt monatlich 500 EUR brutto\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["5"],
+      "inputType": "number",
+      "rationale": "Nur die zusätzliche monatliche Zahlung verbessert die tarifliche Lage des Arbeitnehmers eindeutig.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.53",
+      "question": "1.53 Besonderer Kündigungsschutz\n\nWelche 2 Arbeitnehmer haben besonderen Kündigungsschutz?\n\n1) Gewerkschaftsverhandlungsführer\n2) Personalleiterin/Prokuristin\n3) JAV-Mitglied, Azubi\n4) Schwerbehinderter Teilzeitangestellter\n5) Angestellter in Probezeit\n6) Geschäftsführer\n\n(Bitte beide Ziffern aufsteigend eingeben, z. B. 34)",
+      "expectedAnswers": ["34", "3 und 4", "3,4", "3+4"],
+      "inputType": "text",
+      "rationale": "JAV-Mitglieder und schwerbehinderte Arbeitnehmer genießen besonderen gesetzlichen Kündigungsschutz.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.54",
+      "question": "1.54 Geltungsbereich Jugendarbeitsschutzgesetz\n\nFür welchen Personenkreis gilt das Jugendarbeitsschutzgesetz?\n\n1) Auszubildende/Jugendliche bis 21\n2) Jugendliche bis zum vollendeten 18. Lebensjahr\n3) Jugendliche bis 16\n4) Auszubildende bis 25\n5) Jugendliche bis 17\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["2"],
+      "inputType": "number",
+      "rationale": "Das JArbSchG gilt für Personen, die noch nicht 18 Jahre alt sind.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.55",
+      "question": "1.55 Nachhaltigkeitswerbung - was passt nicht?\n\nWelche Erläuterung entspricht NICHT dem ökologischen Ziel?\n\n1) Natürliches, ungiftiges Wachs\n2) Alte Boards in Zahlung und Wiederaufbereitung\n3) Ökologischer Fußabdruck als Umweltnachweis\n4) Verzicht auf Verbundstoffe und PVC\n5) Jährliches Einschicken jedes Boards für Tests\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["5"],
+      "inputType": "number",
+      "rationale": "Das jährliche Hin- und Herschicken verursacht zusätzliche Emissionen und stützt kein ökologisches Werbeargument.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.56",
+      "question": "1.56 KrWG - Zuordnung\n\nZuordnung:\n- Vermeidung von Abfall: Maßnahme 1\n- Verwertung von Abfall: Maßnahme 3\n- Beseitigung von Abfall: Maßnahme 2\n\n(Bitte als dreistellige Folge eingeben, z. B. 132)",
+      "expectedAnswers": ["132"],
+      "inputType": "number",
+      "rationale": "Die richtige Reihenfolge lautet 1-3-2.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.57",
+      "question": "1.57 USA E-Commerce Revenue - 2 richtige Aussagen\n\nWelche 2 Aussagen treffen zu?\n\n1) Die Grafik zeigt Absatzmengen.\n2) Die Branche erlebt bis 2028 kontinuierliches Gewinnwachstum.\n3) 2028 liegen die Einnahmen voraussichtlich über 1.400 Mrd. USD.\n4) Von 2024 bis 2028 ist ein stetiges Umsatzwachstum zu sehen.\n5) 2024 erstmals mehr als 1.000 Billionen USD.\n6) 2028 ist Höhepunkt, danach sinken die Einnahmen sicher.\n\n(Bitte beide Ziffern aufsteigend eingeben, z. B. 34)",
+      "expectedAnswers": ["34", "3 und 4", "3,4", "3+4"],
+      "inputType": "text",
+      "rationale": "Richtig sind 3 und 4: Revenue liegt 2028 über 1.400 Mrd. USD, und der Verlauf 2024-2028 ist steigend.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.58",
+      "question": "1.58 Ergonomischer Arbeitsplatz - Rechtsgrundlage\n\nWo ist der Schutz durch ergonomische Arbeitsplatzgestaltung geregelt?\n\n1) Gefahrstoffverordnung\n2) Arbeitszeitgesetz\n3) Jugendarbeitsschutzgesetz\n4) Arbeitsstättenverordnung\n5) Betriebsverfassungsgesetz\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["4"],
+      "inputType": "number",
+      "rationale": "Die Arbeitsstättenverordnung regelt ergonomische und räumliche Mindestanforderungen am Arbeitsplatz.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.59",
+      "question": "1.59 Umschulung nach Arbeitsunfall\n\nWer trägt die Kosten der Umschulung nach einem Arbeitsunfall?\n\n1) OceanBreeze GmbH\n2) Krankenkasse\n3) Rentenversicherungsträger\n4) Bundesagentur für Arbeit\n5) Berufsgenossenschaft\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["5"],
+      "inputType": "number",
+      "rationale": "Die Berufsgenossenschaft als gesetzliche Unfallversicherung trägt Reha- und Umschulungskosten nach Arbeitsunfällen.",
+      "videoUrl": ""
+    },
+    {
+      "id": "1.60",
+      "question": "1.60 Gefahrstoffsymbol Baum/Fisch\n\nEin Reinigungsmittel ist mit dem Symbol Baum und toter Fisch gekennzeichnet. Welche Gefahr geht vom Inhalt aus?\n\n1) Gesundheitsgefährdende Gase\n2) Ätzende Stoffe\n3) Giftige Stoffe\n4) Umweltgefährdende Stoffe\n5) Ansteckungsgefährliche Stoffe\n\n(Bitte geben Sie die richtige Lösungsziffer ein)",
+      "expectedAnswers": ["4"],
+      "inputType": "number",
+      "rationale": "Das Piktogramm Baum/Fisch steht für umweltgefährdende Stoffe (insbesondere gewässergefährdend).",
+      "videoUrl": ""
     }
   ]
 }
