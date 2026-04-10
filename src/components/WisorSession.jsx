@@ -55,11 +55,18 @@ const WisorSession = ({
 
   const isWisor1Mode = activeWisorMode === 'wisor1';
   const isWisorEcoMode = activeWisorMode === 'wisorEco';
+  const countLearnedByQuestionSet = (questions, progress) => {
+    const list = Array.isArray(questions) ? questions : [];
+    return list.reduce((count, question) => {
+      if (!question?.id) return count;
+      return count + (progress?.[question.id] ? 1 : 0);
+    }, 0);
+  };
   const wisorDueMastered = isWisor1Mode
-    ? Object.keys(completedWisors).length === (wisor1?.questions?.length || 0)
+    ? countLearnedByQuestionSet(wisor1?.questions, completedWisors) === (wisor1?.questions?.length || 0)
     : isWisorEcoMode
-      ? Object.keys(completedWisorsEco).length === (wisorEco?.questions?.length || 0)
-      : Object.keys(completedMarketingReview || {}).length === (marketingReview?.questions?.length || 0);
+      ? countLearnedByQuestionSet(wisorEco?.questions, completedWisorsEco) === (wisorEco?.questions?.length || 0)
+      : countLearnedByQuestionSet(marketingReview?.questions, completedMarketingReview || {}) === (marketingReview?.questions?.length || 0);
 
   if (allWisors.length === 0) {
     return (

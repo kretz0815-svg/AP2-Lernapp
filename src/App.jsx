@@ -2526,6 +2526,11 @@ ${input}`;
   const quizLearnedCount = calculateLearnedCount(allQuizQuestions);
   const wisorQuestions = wisor1.questions || [];
   const wisorEcoQuestions = wisorEco.questions || [];
+  const wisorLearnedCount = wisorQuestions.reduce((count, question) => {
+    if (!question?.id) return count;
+    return count + (completedWisors?.[question.id] ? 1 : 0);
+  }, 0);
+  const wisorDueCount = Math.max(0, wisorQuestions.length - wisorLearnedCount);
   const rechenTasks = getRechenTasks(customQuizQuestions);
   const rechenTotal = rechenTasks.length;
   const rechenLearned = calculateLearnedCount(rechenTasks);
@@ -2534,7 +2539,7 @@ ${input}`;
     quizTotal: allQuizQuestions.length,
     quizLearned: Math.min(quizLearnedCount, allQuizQuestions.length),
     wisorTotal: wisorQuestions.length,
-    wisorLearned: Object.keys(completedWisors).length,
+    wisorLearned: wisorLearnedCount,
     wisorEcoTotal: wisorEcoQuestions.length,
     wisorEcoLearned: Math.max(0, wisorEcoQuestions.length - wisorEcoDuePool.length),
     reviewTotal: allMarketingReviewQuestions.length,
@@ -2755,8 +2760,8 @@ ${input}`;
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('journey_architect')}>
                 Journey Architect (XP: {jaProgress?.xp || 0})
               </button>
-              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('wisor_eco_setup')}>
-                WiSoR ({wisorEcoDuePool.length} offen)
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => startWisor('wisor1')}>
+                WiSoR ({wisorDueCount} offen)
               </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('marketing_review_setup')}>
                 IHK Extras ({marketingReviewDuePool.length} offen)
