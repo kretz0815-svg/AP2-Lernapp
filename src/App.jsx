@@ -9,7 +9,6 @@ import flashcards3 from './data/flashcards_3.json';
 
 import wissenTesten from './data/wissen_testen.json';
 
-import wisor1 from './data/wisor_1.json';
 import wisorEco from './data/wisor_eco.json';
 import marketingReview from './data/marketing_review.json';
 import klrMcQuiz from './data/klr_mc.json';
@@ -69,9 +68,7 @@ import { isRechenTask, categorizeRechenTask, getRechenTasks } from './utils/quiz
 
 
 function App() {
-  const DB_KEY_WISOR_GRUNDLAGEN = 'wisor_grundlagen_progress';
   const DB_KEY_WISOR_ECOMMERCE = 'wisor_ecommerce_progress';
-  const LEGACY_DB_KEY_WISOR = 'wisor_progress';
   const LEGACY_DB_KEY_WISOR_ECO = 'wisor_eco_progress';
   const DB_KEY_KLR_MC = 'klr_mc_progress';
   const LOCAL_KEY_KLR_MC = 'ap2_klr_mc_progress';
@@ -208,13 +205,12 @@ function App() {
   const [wisorIsCorrect, setWisorIsCorrect] = useState(false);
   const [wisorScore, setWisorScore] = useState({ correct: 0, total: 0 });
   const [wisorVideoOpen, setWisorVideoOpen] = useState(false);
-  const [completedWisors, setCompletedWisors] = useState({});
   const [completedWisorsEco, setCompletedWisorsEco] = useState({});
   const [completedMarketingReview, setCompletedMarketingReview] = useState({});
   const [completedKlrMc, setCompletedKlrMc] = useState({});
-  const [activeWisorMode, setActiveWisorMode] = useState('wisor1');
+  const [activeWisorMode, setActiveWisorMode] = useState('wisorEco');
   const [resetModalVisible, setResetModalVisible] = useState(false);
-  const [resetTarget, setResetTarget] = useState('wisor');
+  const [resetTarget, setResetTarget] = useState('wisorEco');
   const [questionManagerCategory, setQuestionManagerCategory] = useState(null);
   const [learningAnalytics, setLearningAnalytics] = useState(createEmptyAnalytics());
   const [customQuizQuestions, setCustomQuizQuestions] = useState([]);
@@ -337,11 +333,9 @@ function App() {
           lastUserAnswer: m.lastUserAnswer || '',
           topic: m.mode === 'quiz'
             ? ''
-            : m.mode === 'wisor'
+            : m.mode === 'wisorEco'
               ? 'WiSoR'
-              : m.mode === 'wisorEco'
-                ? 'WiSoR'
-                : m.mode === 'klr'
+              : m.mode === 'klr'
                   ? 'KLR'
                   : m.mode === 'project_m'
                     ? 'Projekt M'
@@ -445,7 +439,6 @@ function App() {
 
   const getLocalProgressData = (overrides = {}) => {
     const srsProgress = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
-    const wisorProgress = JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {};
     const wisorEcoProgress = JSON.parse(localStorage.getItem('ap2_wisor_eco_progress')) || {};
     const marketingReviewProgress = JSON.parse(localStorage.getItem('ap2_marketing_review_progress')) || {};
     const klrMcQuizProgress = JSON.parse(localStorage.getItem(LOCAL_KEY_KLR_MC) || '{}');
@@ -463,9 +456,7 @@ function App() {
 
     return {
       ...srsProgress,
-      [LEGACY_DB_KEY_WISOR]: wisorProgress,
       [LEGACY_DB_KEY_WISOR_ECO]: wisorEcoProgress,
-      [DB_KEY_WISOR_GRUNDLAGEN]: wisorProgress,
       [DB_KEY_WISOR_ECOMMERCE]: wisorEcoProgress,
       marketing_review_progress: marketingReviewProgress,
       [DB_KEY_KLR_MC]: klrMcQuizProgress,
@@ -1700,12 +1691,6 @@ ${input}`;
             localStorage.setItem('ap2_srs_progress', JSON.stringify(progressData));
             // Removed: localStorage.setItem('ap2_quiz_progress', JSON.stringify({})); // Keep local progress intact as fallback
 
-            const remoteWisorProgress = data.progress_data[DB_KEY_WISOR_GRUNDLAGEN] || data.progress_data[LEGACY_DB_KEY_WISOR];
-            if (remoteWisorProgress) {
-              localStorage.setItem('ap2_wisor_progress', JSON.stringify(remoteWisorProgress));
-            } else {
-              localStorage.setItem('ap2_wisor_progress', JSON.stringify({}));
-            }
             const remoteWisorEcoProgress = data.progress_data[DB_KEY_WISOR_ECOMMERCE] || data.progress_data[LEGACY_DB_KEY_WISOR_ECO];
             if (remoteWisorEcoProgress) {
               localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(remoteWisorEcoProgress));
@@ -1819,7 +1804,6 @@ ${input}`;
             progressData = { ...emptyProgress };
             localStorage.setItem('ap2_srs_progress', JSON.stringify(progressData));
             // Removed: localStorage.setItem('ap2_quiz_progress', JSON.stringify({})); // Keep local progress intact as fallback
-            localStorage.setItem('ap2_wisor_progress', JSON.stringify({}));
             localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
             localStorage.setItem('ap2_marketing_review_progress', JSON.stringify({}));
             localStorage.setItem(LOCAL_KEY_KLR_MC, JSON.stringify({}));
@@ -1847,9 +1831,6 @@ ${input}`;
           console.error("Supabase load error: ", err);
         }
       }
-
-      let wisorProg = JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {};
-      setCompletedWisors(wisorProg);
 
       let wisorEcoProg = JSON.parse(localStorage.getItem('ap2_wisor_eco_progress')) || {};
       setCompletedWisorsEco(wisorEcoProg);
@@ -1889,14 +1870,7 @@ ${input}`;
       await refreshMarketingReviewDuePool();
       await refreshKlrMcDuePool();
 
-      // 5. Setup Wisor
-      const rawWisors = [
-        ...(wisor1.questions || [])
-      ].filter(q => !(JSON.parse(localStorage.getItem('ap2_wisor_progress')) || {})[q.id]);
-      const shuffledWisors = rawWisors.sort(() => Math.random() - 0.5);
-      setAllWisors(shuffledWisors);
-
-      // 6. Setup Review
+      // 5. Setup Review
       const reviewProg = JSON.parse(localStorage.getItem('ap2_marketing_review_progress')) || {};
       if (!session?.user) {
         setCompletedMarketingReview(reviewProg);
@@ -1990,8 +1964,6 @@ ${input}`;
       if (error || !data?.progress_data) return;
 
       const remote = data.progress_data;
-      const remoteWisorRaw = remote[DB_KEY_WISOR_GRUNDLAGEN] || remote[LEGACY_DB_KEY_WISOR];
-      const remoteWisor = remoteWisorRaw && typeof remoteWisorRaw === 'object' ? remoteWisorRaw : {};
       const remoteWisorEcoRaw = remote[DB_KEY_WISOR_ECOMMERCE] || remote[LEGACY_DB_KEY_WISOR_ECO];
       const remoteWisorEco = remoteWisorEcoRaw && typeof remoteWisorEcoRaw === 'object' ? remoteWisorEcoRaw : {};
       const remoteMarketing = remote.marketing_review_progress && typeof remote.marketing_review_progress === 'object' ? remote.marketing_review_progress : {};
@@ -2014,7 +1986,6 @@ ${input}`;
         ? remote.journey_architect_progress
         : null;
 
-      localStorage.setItem('ap2_wisor_progress', JSON.stringify(remoteWisor));
       localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(remoteWisorEco));
       localStorage.setItem('ap2_marketing_review_progress', JSON.stringify(remoteMarketing));
       localStorage.setItem(LOCAL_KEY_KLR_MC, JSON.stringify(remoteKlrMc));
@@ -2033,7 +2004,6 @@ ${input}`;
         localStorage.removeItem(getProfileSettingsStorageKey(authUser));
       }
 
-      setCompletedWisors(remoteWisor);
       setCompletedWisorsEco(remoteWisorEco);
       setCompletedMarketingReview(remoteMarketing);
       setCompletedKlrMc(remoteKlrMc);
@@ -2059,19 +2029,17 @@ ${input}`;
   };
 
 
-  const startWisor = (mode = 'wisor1') => {
+  const startWisor = (mode = 'wisorEco') => {
     setActiveWisorMode(mode);
-    const rawWisors = mode === 'wisor1' ? [...wisor1.questions] :
-      mode === 'wisorEco' ? [...(wisorEco.questions || [])] :
+    const rawWisors = mode === 'wisorEco' ? [...(wisorEco.questions || [])] :
         [...(marketingReview.questions || [])];
 
-    const key = mode === 'wisor1' ? 'ap2_wisor_progress' :
-      mode === 'wisorEco' ? 'ap2_wisor_eco_progress' :
+    const key = mode === 'wisorEco' ? 'ap2_wisor_eco_progress' :
         'ap2_marketing_review_progress';
 
     const wisorProg = JSON.parse(localStorage.getItem(key)) || {};
     const uncompleted = rawWisors.filter(q => !wisorProg[q.id]);
-    const shuffled = (mode === 'wisor1' || mode === 'marketing_review') ? [...uncompleted].sort(() => Math.random() - 0.5) : [...uncompleted];
+    const shuffled = mode === 'marketing_review' ? [...uncompleted].sort(() => Math.random() - 0.5) : [...uncompleted];
 
     setAllWisors(shuffled);
     setCurrentWisorIndex(0);
@@ -2103,30 +2071,7 @@ ${input}`;
       });
     };
 
-    if (resetTarget === 'wisor') {
-      setCompletedWisors({});
-      localStorage.removeItem('ap2_wisor_progress');
-      clearAnalyticsByMode('wisor');
-
-      if (authUser?.id) {
-        syncProgressToSupabase({
-          [LEGACY_DB_KEY_WISOR]: {},
-          [DB_KEY_WISOR_GRUNDLAGEN]: {}
-        }).catch(() => { });
-      }
-
-      setResetModalVisible(false);
-
-      const rawWisors = [...wisor1.questions];
-      setAllWisors(rawWisors.sort(() => Math.random() - 0.5));
-      setCurrentWisorIndex(0);
-      setWisorScore({ correct: 0, total: 0 });
-      setWisorInput('');
-      setWisorEvaluated(false);
-      setWisorIsCorrect(false);
-      setWisorVideoOpen(false);
-      if (appMode === 'wisor') setAppMode('wisor');
-    } else if (resetTarget === 'wisorEco') {
+    if (resetTarget === 'wisorEco') {
       setCompletedWisorsEco({});
       localStorage.removeItem('ap2_wisor_eco_progress');
       clearAnalyticsByMode('wisorEco');
@@ -2221,7 +2166,6 @@ ${input}`;
       // Clear progress localStorage (keep custom quiz questions)
       localStorage.removeItem('ap2_srs_progress');
       localStorage.removeItem('ap2_quiz_progress');
-      localStorage.removeItem('ap2_wisor_progress');
       localStorage.removeItem('ap2_wisor_eco_progress');
       localStorage.removeItem('ap2_marketing_review_progress');
       localStorage.removeItem(LOCAL_KEY_KLR_MC);
@@ -2232,7 +2176,6 @@ ${input}`;
       localStorage.removeItem(getAnalyticsStorageKey(authUser));
 
       // Reset progress state (keep customQuizQuestions intact)
-      setCompletedWisors({});
       setCompletedWisorsEco({});
       setCompletedMarketingReview({});
       setCompletedKlrMc({});
@@ -2284,8 +2227,7 @@ ${input}`;
     setLastWisorCorrect(correct);
 
     appendLearningEvent({
-      mode: activeWisorMode === 'wisor1' ? 'wisor' :
-        activeWisorMode === 'wisorEco' ? 'wisorEco' : 'marketing_review',
+      mode: activeWisorMode === 'wisorEco' ? 'wisorEco' : 'marketing_review',
       questionId: q.id,
       questionText: q.question,
       correct,
@@ -2296,7 +2238,7 @@ ${input}`;
     // Pomodoro session logging
     if (pomodoroActive) {
       const questionText = q.question?.substring(0, 100) || q.id || 'WisoR-Frage';
-      const topicLabel = (activeWisorMode === 'wisor1' || activeWisorMode === 'wisorEco') ? 'WiSoR' : 'IHK Extras';
+      const topicLabel = activeWisorMode === 'wisorEco' ? 'WiSoR' : 'IHK Extras';
       setPomodoroSessionLog(prev => [...prev, { correct, questionText, topic: topicLabel }]);
     }
 
@@ -2309,20 +2251,13 @@ ${input}`;
 
       const updateProg = prev => {
         const next = { ...prev, [q.id]: true };
-        const key = activeWisorMode === 'wisor1'
-          ? 'ap2_wisor_progress'
-          : activeWisorMode === 'wisorEco'
+        const key = activeWisorMode === 'wisorEco'
             ? 'ap2_wisor_eco_progress'
             : 'ap2_marketing_review_progress';
         localStorage.setItem(key, JSON.stringify(next));
 
         if (authUser?.id) {
-          if (activeWisorMode === 'wisor1') {
-            syncProgressToSupabase({
-              [LEGACY_DB_KEY_WISOR]: next,
-              [DB_KEY_WISOR_GRUNDLAGEN]: next
-            }).catch(() => { });
-          } else if (activeWisorMode === 'wisorEco') {
+          if (activeWisorMode === 'wisorEco') {
             syncProgressToSupabase({
               [LEGACY_DB_KEY_WISOR_ECO]: next,
               [DB_KEY_WISOR_ECOMMERCE]: next
@@ -2334,9 +2269,7 @@ ${input}`;
         return next;
       };
 
-      if (activeWisorMode === 'wisor1') {
-        setCompletedWisors(updateProg);
-      } else if (activeWisorMode === 'wisorEco') {
+      if (activeWisorMode === 'wisorEco') {
         setCompletedWisorsEco(updateProg);
       } else {
         setCompletedMarketingReview(updateProg);
@@ -2353,8 +2286,7 @@ ${input}`;
         userId: authUser.id,
         taskId: activeWisorMode + ":" + q.id,
         rating,
-        taskType: activeWisorMode === 'marketing_review' ? 'marketing_review' :
-          activeWisorMode === 'wisorEco' ? 'wisorEco' : 'wisor',
+        taskType: activeWisorMode === 'marketing_review' ? 'marketing_review' : 'wisorEco',
         category: activeWisorMode,
         metadata: { source: activeWisorMode, question: q.question }
       }).catch(err => console.error('DSR wisor review failed:', err));
@@ -2523,7 +2455,6 @@ ${input}`;
   }, 0);
 
   const quizLearnedCount = calculateLearnedCount(allQuizQuestions);
-  const wisorQuestions = wisor1.questions || [];
   const wisorEcoQuestions = wisorEco.questions || [];
   const rechenTasks = getRechenTasks(customQuizQuestions);
   const rechenTotal = rechenTasks.length;
@@ -2532,8 +2463,6 @@ ${input}`;
   const globalStats = {
     quizTotal: allQuizQuestions.length,
     quizLearned: Math.min(quizLearnedCount, allQuizQuestions.length),
-    wisorTotal: wisorQuestions.length,
-    wisorLearned: Object.keys(completedWisors).length,
     wisorEcoTotal: wisorEcoQuestions.length,
     wisorEcoLearned: Math.max(0, wisorEcoQuestions.length - wisorEcoDuePool.length),
     klrMcTotal: (klrMcQuiz.questions || []).length,
@@ -2567,7 +2496,6 @@ ${input}`;
           category={questionManagerCategory}
           questions={
             questionManagerCategory === 'quiz' ? allQuizQuestions :
-              questionManagerCategory === 'wisor' ? wisorQuestions :
                 questionManagerCategory === 'wisorEco' ? wisorEcoQuestions :
                   questionManagerCategory === 'marketing_review' ? allMarketingReviewQuestions :
                     questionManagerCategory === 'klr_mc' ? (klrMcQuiz.questions || []) : rechenTasks
@@ -2575,7 +2503,6 @@ ${input}`;
           authUser={authUser}
           progress={
             questionManagerCategory === 'quiz' || questionManagerCategory === 'rechen' ? quizProg :
-              questionManagerCategory === 'wisor' ? completedWisors :
                 questionManagerCategory === 'wisorEco' ? completedWisorsEco :
                   questionManagerCategory === 'klr_mc' ? completedKlrMc : completedMarketingReview
           }
@@ -2584,7 +2511,6 @@ ${input}`;
           onAddCustomQuizQuestion={handleAddCustomQuizQuestion}
           onProgressUpdate={(cat, updatedProgress) => {
             if (cat === 'quiz' || cat === 'rechen') refreshQuizDuePool().catch(() => { });
-            else if (cat === 'wisor') setCompletedWisors(updatedProgress);
             else if (cat === 'wisorEco') setCompletedWisorsEco(updatedProgress);
             else if (cat === 'klr_mc') {
               setCompletedKlrMc(updatedProgress);
@@ -3755,11 +3681,9 @@ ${input}`;
           geminiResponse={geminiResponse}
           isLightMode={isLightMode}
           activeWisorMode={activeWisorMode}
-          completedWisors={completedWisors}
           completedWisorsEco={completedWisorsEco}
           completedMarketingReview={completedMarketingReview}
           wisorEco={wisorEco}
-          wisor1={wisor1}
           marketingReview={marketingReview}
           lastWisorCorrect={lastWisorCorrect}
           handleWisorSubmit={handleWisorSubmit}

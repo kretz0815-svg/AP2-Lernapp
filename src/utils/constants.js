@@ -25,11 +25,7 @@ export const createEmptyAnalytics = () => ({
 });
 
 export const createEmptyMemberProgressData = () => ({
-    // Legacy keys kept for backwards compatibility across older app versions.
-    wisor_progress: {},
     wisor_eco_progress: {},
-    // New semantic keys (preferred moving forward).
-    wisor_grundlagen_progress: {},
     wisor_ecommerce_progress: {},
     marketing_review_progress: {},
     klr_mc_progress: {},

@@ -1,0 +1,483 @@
+[
+  {
+    "id": "eco_61",
+    "question": "Als neuer Mitarbeiter der OceanBreeze GmbH machen Sie sich mit den Unternehmenszielen vertraut. Die OceanBreeze GmbH hat in ihrem Unternehmensleitbild ökonomische, ökologische und soziale Ziele festgelegt.\n\nUnternehmensziele:\n1. Die Integration und Förderung von Menschen mit Behinderung und Menschen mit Migrationshintergrund ist in unserem Unternehmen eine Selbstverständlichkeit.\n2. Wir wollen erreichen, dass unsere Leistungsprozesse die natürlichen Lebensgrundlagen möglichst wenig belasten.\n3. Wir verfolgen das Ziel, ausreichende Gewinne zu erwirtschaften, um anstehende Investitionen mit möglichst wenig Fremdkapital zu finanzieren.\n\nWelche Zuordnung der Unternehmensziele zu den Zielarten ist richtig?",
+    "answerOptions": [
+      {"text": "Ökonomisch: 1, Ökologisch: 2, Sozial: 3", "isCorrect": false, "rationale": "Ziel 1 (Integration) ist ein soziales, kein ökonomisches Ziel."},
+      {"text": "Ökonomisch: 2, Ökologisch: 3, Sozial: 1", "isCorrect": false, "rationale": "Ziel 2 (natürliche Lebensgrundlagen) ist ökologisch, nicht ökonomisch."},
+      {"text": "Ökonomisch: 3, Ökologisch: 2, Sozial: 1", "isCorrect": true, "rationale": "Ziel 3 (Gewinn/Finanzierung) = ökonomisch, Ziel 2 (Lebensgrundlagen schonen) = ökologisch, Ziel 1 (Integration) = sozial."},
+      {"text": "Ökonomisch: 1, Ökologisch: 3, Sozial: 2", "isCorrect": false, "rationale": "Die Zuordnungen sind vollständig vertauscht."},
+      {"text": "Ökonomisch: 3, Ökologisch: 1, Sozial: 2", "isCorrect": false, "rationale": "Ziel 1 (Integration) ist sozial, nicht ökologisch."}
+    ],
+    "expectedAnswers": ["C"],
+    "inputType": "text",
+    "rationale": "Richtig ist C. Ökonomische Ziele betreffen Gewinn und Finanzierung (Ziel 3). Ökologische Ziele betreffen den Schutz der natürlichen Lebensgrundlagen (Ziel 2). Soziale Ziele betreffen den Umgang mit Mitarbeitern und gesellschaftliche Verantwortung (Ziel 1).",
+    "videoUrl": "",
+    "youtubeQuery": "Unternehmensziele ökonomisch ökologisch sozial"
+  },
+  {
+    "id": "eco_62",
+    "question": "Die Verfolgung eines Unternehmensziels führt häufig zu Konflikten bei der Umsetzung eines anderen Ziels. Stellen Sie fest, in welchem Fall ein Zielkonflikt vorliegt!",
+    "answerOptions": [
+      {"text": "Der Umsatz der OceanBreeze GmbH soll maximiert werden und der Marktanteil im Bereich Event-Tourismus von 5 % auf 8 % ausgebaut werden.", "isCorrect": false, "rationale": "Umsatzmaximierung und Marktanteilsausbau sind komplementäre Ziele, die sich gegenseitig unterstützen."},
+      {"text": "Die Integration von Mitarbeitern mit Migrationshintergrund soll sichergestellt und die innerbetrieblichen Sprach- und Kommunikationskurse aus Kostengründen gestrichen werden.", "isCorrect": true, "rationale": "Die Streichung von Sprachkursen behindert das Ziel der Integration direkt – ein klassischer Zielkonflikt."},
+      {"text": "Die Kosten für den Fuhrpark sollen reduziert und für Dienstreisen sollen vermehrt öffentliche Verkehrsmittel genutzt werden.", "isCorrect": false, "rationale": "Öffentliche Verkehrsmittel können die Fuhrparkkosten senken – die Ziele ergänzen sich."},
+      {"text": "Die Schadstoffemissionen sollen um 15 % reduziert und das Firmenimage somit verbessert werden.", "isCorrect": false, "rationale": "Emissionsreduktion und Imageverbesserung sind komplementäre Ziele."},
+      {"text": "Die Lohn- und Gehaltsabrechnung soll ausgegliedert werden, um Kosten zu sparen.", "isCorrect": false, "rationale": "Outsourcing zur Kostensenkung beschreibt ein einzelnes Ziel mit Maßnahme, keinen Zielkonflikt."}
+    ],
+    "expectedAnswers": ["B"],
+    "inputType": "text",
+    "rationale": "Richtig ist B. Ein Zielkonflikt besteht, wenn sich zwei Ziele gegenseitig behindern. Die Streichung von Sprachkursen (Kostenziel) behindert das Integrationsziel (soziales Ziel) direkt.",
+    "videoUrl": "",
+    "youtubeQuery": "Zielkonflikt Unternehmensziele Beispiel"
+  },
+  {
+    "id": "eco_63",
+    "question": "Die OceanBreeze GmbH unterhält einen umfangreichen Fuhrpark aus Lkw, Pkw und Lastenrädern. Prüfen Sie, in welchem Fall die OceanBreeze GmbH bei der Nutzung ihres Fuhrparks nach dem ökonomischen Prinzip als Minimalprinzip handelt!",
+    "answerOptions": [
+      {"text": "Die OceanBreeze GmbH stellt einen festen Etat für Reparaturen und Wartungen der Pkw zur Verfügung, um eine maximale Nutzungszeit zu erzielen.", "isCorrect": false, "rationale": "Fester Etat (gegebener Input) für maximale Nutzungszeit (maximaler Output) entspricht dem Maximalprinzip."},
+      {"text": "Nach sechs Jahren Nutzungsdauer müssen Pkw ersetzt werden. Es wird dann versucht, für die Pkw einen maximalen Verkaufspreis zu erzielen.", "isCorrect": false, "rationale": "Maximaler Verkaufspreis erzielen ist kein Minimalprinzip, sondern ein Gewinnmaximierungsziel."},
+      {"text": "Bei der ständigen Einsatzbereitschaft aller Fahrzeuge sollen die Kosten für Reparatur und Wartung möglichst gering sein.", "isCorrect": true, "rationale": "Vorgegebenes Ziel (ständige Einsatzbereitschaft) mit minimalem Mitteleinsatz (geringe Kosten) = Minimalprinzip."},
+      {"text": "Die Fahrzeuge werden für die vorgeschriebene Mindestdauer von sechs Jahren eingesetzt.", "isCorrect": false, "rationale": "Eine Vorschrift einzuhalten ist kein Ausdruck des ökonomischen Prinzips."},
+      {"text": "Die Fahrzeuge werden so günstig wie möglich eingekauft, um sie dann so lange wie möglich zu fahren.", "isCorrect": false, "rationale": "Minimaler Input UND maximaler Output gleichzeitig ist eine unzulässige Mischform (Nonsens-Prinzip)."}
+    ],
+    "expectedAnswers": ["C"],
+    "inputType": "text",
+    "rationale": "Richtig ist C. Das Minimalprinzip besagt: Ein vorgegebenes Ziel (ständige Einsatzbereitschaft) soll mit möglichst geringem Aufwand (minimale Reparatur- und Wartungskosten) erreicht werden.",
+    "videoUrl": "",
+    "youtubeQuery": "Ökonomisches Prinzip Minimalprinzip Maximalprinzip"
+  },
+  {
+    "id": "eco_64",
+    "question": "In der OceanBreeze GmbH wird dem Nachhaltigkeitsmanagement eine wichtige Rolle beigemessen. Das Nachhaltigkeitsmanagement ist im Organigramm als Stabsstelle direkt unter der Geschäftsführung angeordnet. Welche Tätigkeit darf das Nachhaltigkeitsmanagement gemäß dieser Organisationsstruktur vornehmen?",
+    "answerOptions": [
+      {"text": "Das Nachhaltigkeitsmanagement entscheidet über die ökologische Ausrichtung der IT-Infrastruktur.", "isCorrect": false, "rationale": "Eine Stabsstelle hat keine Entscheidungsbefugnis über operative Abteilungen."},
+      {"text": "Das Nachhaltigkeitsmanagement gibt der Lagerlogistik vor, welche Warenkartons verwendet werden sollen.", "isCorrect": false, "rationale": "Stabsstellen besitzen keine Weisungsbefugnis gegenüber Linienstellen."},
+      {"text": "Das Nachhaltigkeitsmanagement vertritt die OceanBreeze GmbH in öffentlichen ökologischen Angelegenheiten.", "isCorrect": false, "rationale": "Außenvertretung ist Aufgabe der Geschäftsführung, nicht einer Stabsstelle."},
+      {"text": "Das Nachhaltigkeitsmanagement überwacht den Kundenservice im Hinblick auf eine gender-konforme Kommunikation.", "isCorrect": false, "rationale": "Überwachung anderer Abteilungen setzt Weisungsbefugnis voraus, die eine Stabsstelle nicht hat."},
+      {"text": "Das Nachhaltigkeitsmanagement berät die Geschäftsführung in ökologischen Themenbereichen.", "isCorrect": true, "rationale": "Beratung und Unterstützung der übergeordneten Instanz ist die Kernaufgabe einer Stabsstelle."}
+    ],
+    "expectedAnswers": ["E"],
+    "inputType": "text",
+    "rationale": "Richtig ist E. Eine Stabsstelle hat ausschließlich beratende und unterstützende Funktion für die ihr übergeordnete Instanz (hier: Geschäftsführung). Sie besitzt keine eigene Weisungsbefugnis gegenüber anderen Abteilungen.",
+    "videoUrl": "",
+    "youtubeQuery": "Stabsstelle Organigramm Aufgaben Weisungsbefugnis"
+  },
+  {
+    "id": "eco_65",
+    "question": "Mithilfe einer durchdachten Betriebsorganisation versucht die OceanBreeze GmbH, klare Strukturen zu schaffen. Geben Sie an, welcher Sachverhalt zu Betriebsorganisationen richtig dargestellt ist!",
+    "answerOptions": [
+      {"text": "Bei dem Organigramm der OceanBreeze GmbH handelt es sich um eine Matrixorganisation.", "isCorrect": false, "rationale": "Ein Organigramm mit Stabsstelle und Linienstellen ist ein Einliniensystem mit Stab, keine Matrixorganisation."},
+      {"text": "Der große Vorteil von Einliniensystemen ist der Verzicht auf eine klare hierarchische Struktur.", "isCorrect": false, "rationale": "Einliniensysteme zeichnen sich gerade durch eine klare hierarchische Struktur aus."},
+      {"text": "Die Warenannahme und Warenausgabe sind Stäbe der Lagerlogistik.", "isCorrect": false, "rationale": "Warenannahme und Warenausgabe sind operative Untergliederungen (Linienstellen), keine Stabsstellen."},
+      {"text": "Ein klar vorgegebenes Organigramm versucht, Verantwortlichkeiten zwischen Abteilungen abzugrenzen, um Doppelarbeit zu vermeiden.", "isCorrect": true, "rationale": "Die klare Abgrenzung von Zuständigkeiten ist eine wesentliche Funktion des Organigramms."},
+      {"text": "Je klarer und nachvollziehbarer die Organisationsstrukturen gegliedert sind, desto ineffizienter können die einzelnen Bereiche ineinandergreifen.", "isCorrect": false, "rationale": "Das Gegenteil ist richtig: Klare Strukturen erhöhen die Effizienz."}
+    ],
+    "expectedAnswers": ["D"],
+    "inputType": "text",
+    "rationale": "Richtig ist D. Eine wesentliche Funktion des Organigramms ist die klare Abgrenzung von Zuständigkeiten, um effiziente Abläufe zu garantieren und Doppelarbeiten zu verhindern.",
+    "videoUrl": "",
+    "youtubeQuery": "Organigramm Betriebsorganisation Einliniensystem"
+  },
+  {
+    "id": "eco_66",
+    "question": "Als neuer Mitarbeiter interessieren Sie sich auch für die Rechtsform Ihres Arbeitgebers. Geben Sie an, welche Vorschrift auf die GmbH zutrifft!",
+    "answerOptions": [
+      {"text": "Jeder Gesellschafter hat die Pflicht, die Geschäfte der Gesellschaft zu führen und Dienste persönlich zu leisten.", "isCorrect": false, "rationale": "Das trifft auf die OHG zu, nicht auf die GmbH. Bei der GmbH wird ein Geschäftsführer bestellt."},
+      {"text": "Jeder Gesellschafter hat Anspruch auf 4 % seines Kapitalanteils. Der Restgewinn wird in angemessenem Verhältnis verteilt.", "isCorrect": false, "rationale": "Diese Regelung betrifft die KG bzw. OHG nach HGB, nicht die GmbH."},
+      {"text": "Den Gläubigern gegenüber haftet nur ein Gesellschafter unbeschränkt.", "isCorrect": false, "rationale": "Das trifft auf die KG (Komplementär) zu. Bei der GmbH haftet kein Gesellschafter persönlich unbeschränkt."},
+      {"text": "Das Mindestkapital beträgt 25.000,00 EUR und wird als Stammkapital bezeichnet.", "isCorrect": true, "rationale": "Gemäß GmbHG ist ein Mindeststammkapital von 25.000 EUR zur Gründung einer GmbH erforderlich."},
+      {"text": "Die Firma muss die Bezeichnung eingetragener Kaufmann oder eingetragene Kauffrau oder eine allgemein verständliche Abkürzung dieser Bezeichnung enthalten.", "isCorrect": false, "rationale": "Das gilt für das Einzelunternehmen (e.K./e.Kfr.), nicht für die GmbH."}
+    ],
+    "expectedAnswers": ["D"],
+    "inputType": "text",
+    "rationale": "Richtig ist D. Zur Gründung einer GmbH (Gesellschaft mit beschränkter Haftung) ist nach dem GmbH-Gesetz ein Mindeststammkapital von 25.000 EUR erforderlich.",
+    "videoUrl": "",
+    "youtubeQuery": "GmbH Rechtsform Stammkapital Gründung"
+  },
+  {
+    "id": "eco_67",
+    "question": "Die Entwicklung des E-Commerce-Geschäfts wird als positiv prognostiziert. Es wird von einem stetigen, konjunkturellen Aufschwung ausgegangen. Prüfen Sie, welche Erläuterung zu dem prognostizierten konjunkturellen Aufschwung richtig ist!",
+    "answerOptions": [
+      {"text": "Ein Aufschwung liegt immer dann vor, wenn sich das nominale BIP aufgrund von Preissteigerungen positiv entwickelt.", "isCorrect": false, "rationale": "Das nominale BIP kann durch Inflation steigen, ohne dass ein realer Aufschwung vorliegt."},
+      {"text": "Dazu werden immer alle inländischen Unternehmen zur Einschätzung ihrer Investitionsbereitschaft für die nächsten Jahre befragt.", "isCorrect": false, "rationale": "Es werden nicht alle Unternehmen befragt. Der ifo-Geschäftsklimaindex z. B. beruht auf einer Stichprobe."},
+      {"text": "Eine realistische volkswirtschaftliche Größe zur Feststellung eines Aufschwungs ist das reale Bruttoinlandsprodukt sowie dessen Entwicklung im Jahresverlauf.", "isCorrect": true, "rationale": "Das reale BIP ist inflationsbereinigt und daher der verlässlichste Indikator für echtes wirtschaftliches Wachstum."},
+      {"text": "Der vorhergesagte Aufschwung gehört neben vier weiteren Phasen zu einem Zyklus, der sich grundsätzlich über vier Jahre erstreckt.", "isCorrect": false, "rationale": "Ein Konjunkturzyklus hat vier (nicht fünf) Phasen und die Dauer variiert stark."},
+      {"text": "In der Phase des Aufschwungs steigen die Preise, da die Unternehmen erheblich mehr Güter produzieren als von den Haushalten nachgefragt werden.", "isCorrect": false, "rationale": "Im Aufschwung steigt die Nachfrage, nicht das Überangebot. Ein Überangebot würde zu Preissenkungen führen."}
+    ],
+    "expectedAnswers": ["C"],
+    "inputType": "text",
+    "rationale": "Richtig ist C. Das reale Bruttoinlandsprodukt (BIP) ist inflationsbereinigt und daher der verlässlichste Indikator, um echtes wirtschaftliches Wachstum (Aufschwung) zu messen.",
+    "videoUrl": "",
+    "youtubeQuery": "Konjunktur Aufschwung reales BIP"
+  },
+  {
+    "id": "eco_68",
+    "question": "In einer Studie wird ein stark wachsender Markt für Smart-Sleeping-Produkte prognostiziert. Die OceanBreeze GmbH überlegt, intelligente Schlafsäcke anzubieten. Der Markt trifft auf eine große Nachfrage, während erst wenige Anbieter in diesen Markt eingestiegen sind. Geben Sie an, welche Marktform hier gekennzeichnet ist!",
+    "answerOptions": [
+      {"text": "Angebotsoligopol", "isCorrect": true, "rationale": "Wenige Anbieter bei vielen Nachfragern definieren ein Angebotsoligopol."},
+      {"text": "Nachfrageoligopol", "isCorrect": false, "rationale": "Ein Nachfrageoligopol läge vor, wenn nur wenige Nachfrager vielen Anbietern gegenüberstünden."},
+      {"text": "Polypol", "isCorrect": false, "rationale": "Ein Polypol erfordert viele Anbieter und viele Nachfrager."},
+      {"text": "Angebotsmonopol", "isCorrect": false, "rationale": "Es gibt wenige, nicht nur einen Anbieter."},
+      {"text": "Nachfragemonopol", "isCorrect": false, "rationale": "Es gibt viele Nachfrager, nicht nur einen."}
+    ],
+    "expectedAnswers": ["A"],
+    "inputType": "text",
+    "rationale": "Richtig ist A. Wenige Anbieter auf der einen Seite und viele Nachfrager (große Nachfrage) auf der anderen Seite definieren ein Angebotsoligopol.",
+    "videoUrl": "",
+    "youtubeQuery": "Marktformen Angebotsoligopol Polypol Monopol"
+  },
+  {
+    "id": "eco_69",
+    "question": "In Studien ist öfter von einem Käufermarkt die Rede. Stellen Sie fest, welcher Sachverhalt einen Käufermarkt richtig beschreibt!",
+    "answerOptions": [
+      {"text": "Werbeaktivitäten können eingestellt werden, da das Angebot genau die Nachfrage deckt.", "isCorrect": false, "rationale": "Bei Marktgleichgewicht liegt weder Käufer- noch Verkäufermarkt vor."},
+      {"text": "Die Preise für Elektronikartikel werden ohne staatliche Vorgaben kalkuliert.", "isCorrect": false, "rationale": "Das beschreibt freie Preisbildung, nicht die Marktform Käufermarkt."},
+      {"text": "Die nachlassende Nachfrage zwingt die OceanBreeze GmbH und Konkurrenten zum verstärkten Einsatz absatzpolitischer Instrumente, um Kunden zu halten bzw. zu gewinnen.", "isCorrect": true, "rationale": "Im Käufermarkt übersteigt das Angebot die Nachfrage; Unternehmen müssen sich durch Marketing um Kunden bemühen."},
+      {"text": "Es liegt ein Käufermarkt vor, wenn nachfragende Unternehmen die Marktform des Oligopols abbilden.", "isCorrect": false, "rationale": "Käufermarkt und Oligopol sind unterschiedliche Konzepte (Marktsituation vs. Marktform)."},
+      {"text": "Es handelt sich um einen Käufermarkt, wenn es wesentlich mehr Nachfrager als Anbieter gibt.", "isCorrect": false, "rationale": "Mehr Nachfrager als Anbieter beschreibt eher einen Verkäufermarkt (Nachfrageüberhang)."}
+    ],
+    "expectedAnswers": ["C"],
+    "inputType": "text",
+    "rationale": "Richtig ist C. In einem Käufermarkt ist das Angebot größer als die Nachfrage (Angebotsüberhang). Die Käufer sitzen am längeren Hebel, weshalb Unternehmen sich durch Marketing und Preispolitik um Kunden bemühen müssen.",
+    "videoUrl": "",
+    "youtubeQuery": "Käufermarkt Verkäufermarkt Unterschied"
+  },
+  {
+    "id": "eco_70",
+    "question": "Angebot und Nachfrage regeln den Markt. Prüfen Sie, welche weitere Darstellung zum Markt richtig ist!",
+    "answerOptions": [
+      {"text": "In einem unvollkommenen Markt sind alle Marktteilnehmer über die gesamte Marktlage vollständig informiert.", "isCorrect": false, "rationale": "Vollständige Markttransparenz ist ein Merkmal des vollkommenen Marktes."},
+      {"text": "Gleichgewichtspreise entstehen nur unter Bedingungen des unvollkommenen Markts.", "isCorrect": false, "rationale": "Gleichgewichtspreise entstehen auf dem vollkommenen Markt, wo Angebot und Nachfrage sich im Schnittpunkt treffen."},
+      {"text": "In einem vollkommenen Markt gibt es keine persönlichen Präferenzen.", "isCorrect": true, "rationale": "Auf dem vollkommenen Markt gibt es keine sachlichen, persönlichen, räumlichen oder zeitlichen Präferenzen."},
+      {"text": "Ist die Nachfrage nach einem Produkt größer als das Angebot, entsteht ein Angebotsüberhang.", "isCorrect": false, "rationale": "Bei Nachfrage > Angebot entsteht ein Nachfrageüberhang (nicht Angebotsüberhang)."},
+      {"text": "Eine Bedingung von vollkommenen Märkten sind keine homogenen Güter.", "isCorrect": false, "rationale": "Homogene Güter sind gerade eine Voraussetzung des vollkommenen Marktes."}
+    ],
+    "expectedAnswers": ["C"],
+    "inputType": "text",
+    "rationale": "Richtig ist C. Ein theoretischer vollkommener Markt setzt unter anderem voraus, dass die Käufer keine sachlichen, persönlichen, räumlichen oder zeitlichen Präferenzen haben.",
+    "videoUrl": "",
+    "youtubeQuery": "Vollkommener Markt Bedingungen Merkmale"
+  },
+  {
+    "id": "eco_71",
+    "question": "In welchem Gesetz finden Sie bundeseinheitliche Regelungen zum dualen System der Berufsausbildung?",
+    "answerOptions": [
+      {"text": "Berufsbildungsgesetz", "isCorrect": true, "rationale": "Das BBiG regelt die Berufsausbildung, Fortbildung und Umschulung bundeseinheitlich."},
+      {"text": "Betriebsverfassungsgesetz", "isCorrect": false, "rationale": "Das BetrVG regelt die Mitbestimmung im Betrieb, nicht die Berufsausbildung."},
+      {"text": "Bürgerliches Gesetzbuch", "isCorrect": false, "rationale": "Das BGB regelt allgemeines Vertragsrecht, nicht spezifisch die Berufsausbildung."},
+      {"text": "Jugendarbeitsschutzgesetz", "isCorrect": false, "rationale": "Das JArbSchG schützt jugendliche Arbeitnehmer, regelt aber nicht das duale System."},
+      {"text": "Grundgesetz", "isCorrect": false, "rationale": "Das GG enthält Grundrechte und Staatsorganisation, keine Ausbildungsregelungen."}
+    ],
+    "expectedAnswers": ["A"],
+    "inputType": "text",
+    "rationale": "Richtig ist A. Das Berufsbildungsgesetz (BBiG) regelt in Deutschland die Berufsausbildungsvorbereitung, die Berufsausbildung, die berufliche Fortbildung und die berufliche Umschulung.",
+    "videoUrl": "",
+    "youtubeQuery": "Berufsbildungsgesetz BBiG duales System"
+  },
+  {
+    "id": "eco_72",
+    "question": "Es gibt gesetzlich geregelte Pflichten des Ausbildenden und des Auszubildenden. Prüfen Sie, welche Pflicht nicht dazu gehört!",
+    "answerOptions": [
+      {"text": "Der Ausbildende muss Auszubildenden eine angemessene Vergütung gewähren.", "isCorrect": false, "rationale": "Die Vergütungspflicht ist in § 17 BBiG geregelt."},
+      {"text": "Der Ausbildende muss selbst ausbilden oder eine andere Person damit beauftragen.", "isCorrect": false, "rationale": "Dies ist eine gesetzliche Pflicht nach § 14 BBiG."},
+      {"text": "Der Auszubildende hat über Betriebs- und Geschäftsgeheimnisse Stillschweigen zu wahren.", "isCorrect": false, "rationale": "Die Schweigepflicht ist in § 13 BBiG geregelt."},
+      {"text": "Der Ausbildende muss einen Zuschuss zur Fahrkarte im öffentlichen Personennahverkehr gewähren.", "isCorrect": true, "rationale": "Fahrtkostenzuschüsse sind eine freiwillige soziale Leistung, keine gesetzliche Pflicht nach dem BBiG."},
+      {"text": "Der Ausbildende muss dafür sorgen, dass Auszubildende charakterlich gefördert sowie sittlich und körperlich nicht gefährdet werden.", "isCorrect": false, "rationale": "Die Fürsorgepflicht ist in § 14 BBiG geregelt."}
+    ],
+    "expectedAnswers": ["D"],
+    "inputType": "text",
+    "rationale": "Richtig ist D. Fahrtkostenzuschüsse für den ÖPNV sind eine freiwillige soziale Leistung des Arbeitgebers oder tarifvertraglich geregelt, aber keine gesetzliche Pflicht nach dem BBiG.",
+    "videoUrl": "",
+    "youtubeQuery": "Pflichten Ausbildender Auszubildender BBiG"
+  },
+  {
+    "id": "eco_73",
+    "question": "Frau Mahler, Auszubildende bei der OceanBreeze GmbH, möchte nach der Probezeit kündigen, da sie bei ihrem Onkel eine Ausbildung als Augenoptikerin beginnen kann. Unter welcher Voraussetzung ist das möglich?",
+    "answerOptions": [
+      {"text": "Sie kann fristlos kündigen, da sie einen neuen Ausbildungsplatz hat.", "isCorrect": false, "rationale": "Ein neuer Ausbildungsplatz berechtigt nicht zur fristlosen Kündigung."},
+      {"text": "Sie muss das 1. Jahr beenden und kann dann mit einer Frist von 14 Tagen kündigen.", "isCorrect": false, "rationale": "Es gibt keine Pflicht, das erste Ausbildungsjahr zu beenden."},
+      {"text": "Sie kann bei Wechsel des Ausbildungsberufs mit einer Kündigungsfrist von 4 Wochen kündigen.", "isCorrect": true, "rationale": "Nach § 22 BBiG kann ein Azubi nach der Probezeit mit 4 Wochen Frist kündigen, wenn er die Berufsausbildung aufgibt oder sich für einen anderen Beruf ausbilden lassen will."},
+      {"text": "Sie kann mit einer Frist von 14 Tagen kündigen, sofern sie einen neuen Vertrag vorlegt.", "isCorrect": false, "rationale": "Die Kündigungsfrist beträgt 4 Wochen, nicht 14 Tage."},
+      {"text": "Sie kann nur während der Probezeit das Ausbildungsverhältnis kündigen.", "isCorrect": false, "rationale": "Auch nach der Probezeit ist eine Kündigung unter bestimmten Voraussetzungen möglich."}
+    ],
+    "expectedAnswers": ["C"],
+    "inputType": "text",
+    "rationale": "Richtig ist C. Nach der Probezeit kann ein Azubi laut BBiG § 22 mit einer Frist von vier Wochen kündigen, wenn er die Berufsausbildung ganz aufgeben oder sich für eine andere Berufstätigkeit ausbilden lassen will.",
+    "videoUrl": "",
+    "youtubeQuery": "Kündigung Ausbildung nach Probezeit BBiG 22"
+  },
+  {
+    "id": "eco_74",
+    "question": "Im Ausbildungsvertrag von Frau Wegner ist eine Probezeit von 2 Wochen festgelegt. Frau Wegner fragt, ob das rechtens ist. Welche rechtlich korrekte Antwort geben Sie?",
+    "answerOptions": [
+      {"text": "Die Probezeit dauert grundsätzlich 4 Monate.", "isCorrect": false, "rationale": "Die Probezeit kann variieren, sie beträgt nicht grundsätzlich 4 Monate."},
+      {"text": "Die Probezeit kann zwischen 1 Woche und 16 Wochen betragen.", "isCorrect": false, "rationale": "Das Minimum ist 1 Monat, nicht 1 Woche."},
+      {"text": "Die Probezeitdauer in der Ausbildung beträgt zwischen 1 Monat und 6 Monaten.", "isCorrect": false, "rationale": "Das Maximum beträgt 4 Monate (nicht 6 Monate) gemäß § 20 BBiG."},
+      {"text": "Eine Probezeit von genau 2 Wochen ist nicht zulässig.", "isCorrect": true, "rationale": "Gemäß § 20 BBiG muss die Probezeit mindestens 1 Monat betragen. 2 Wochen unterschreiten dieses Minimum."},
+      {"text": "Die Probezeit in der Ausbildung muss mindestens 2 Wochen dauern.", "isCorrect": false, "rationale": "Das gesetzliche Minimum liegt bei 1 Monat, nicht bei 2 Wochen."}
+    ],
+    "expectedAnswers": ["D"],
+    "inputType": "text",
+    "rationale": "Richtig ist D. Gemäß § 20 BBiG muss die Probezeit in der Berufsausbildung mindestens einen Monat und darf höchstens vier Monate betragen. Eine Probezeit von nur 2 Wochen unterschreitet das gesetzliche Minimum und ist daher nicht zulässig.",
+    "videoUrl": "",
+    "youtubeQuery": "Probezeit Ausbildung BBiG Paragraph 20"
+  },
+  {
+    "id": "eco_75",
+    "question": "In Frau Wegners Vertrag sind 26 Tage Jahresurlaub festgelegt. Da sie im März erst 17 Jahre alt geworden ist (also zu Beginn des Kalenderjahres noch 16 war), stehen ihr ihrer Meinung nach 27 Tage zu. Sie prüfen das Jugendarbeitsschutzgesetz (§ 19). Welche Information geben Sie ihr?",
+    "answerOptions": [
+      {"text": "Der vereinbarte Urlaub hat seine Richtigkeit.", "isCorrect": false, "rationale": "26 Tage liegen unter dem gesetzlichen Minimum von 27 Tagen für unter 17-Jährige."},
+      {"text": "Sie hat Anspruch auf 30 Tage.", "isCorrect": false, "rationale": "30 Werktage stehen Jugendlichen zu, die zu Beginn des Kalenderjahres noch nicht 16 Jahre alt sind."},
+      {"text": "Aufgrund des Günstigkeitsprinzips stehen ihr 26 Tage zu.", "isCorrect": false, "rationale": "Das Günstigkeitsprinzip greift nur, wenn die vertragliche Regelung günstiger ist als die gesetzliche. 26 < 27 ist ungünstiger."},
+      {"text": "Ihr stehen genau 25 Werktage zu.", "isCorrect": false, "rationale": "25 Werktage ist der Mindesturlaub nach dem BUrlG für Erwachsene, nicht nach JArbSchG für Jugendliche."},
+      {"text": "Sie hat Anspruch auf mindestens 27 Tage.", "isCorrect": true, "rationale": "Maßgeblich ist das Alter am 01.01. Sie war am 1. Januar noch 16 (nicht 17). Nach § 19 JArbSchG stehen ihr mindestens 27 Werktage zu."}
+    ],
+    "expectedAnswers": ["E"],
+    "inputType": "text",
+    "rationale": "Richtig ist E. Maßgeblich ist das Alter zu Beginn des Kalenderjahres (01.01.). Da sie im März 17 wurde, war sie am 1. Januar noch 16 (also noch nicht 17). Nach § 19 JArbSchG stehen ihr somit gesetzlich mindestens 27 Werktage Urlaub zu.",
+    "videoUrl": "",
+    "youtubeQuery": "Jugendarbeitsschutzgesetz Urlaub Paragraph 19"
+  },
+  {
+    "id": "eco_76",
+    "question": "Eine Grafik zum Thema Investitionen in Weiterbildung im internationalen Vergleich zeigt für verschiedene Länder den Anteil der Bevölkerung, der zwischen Februar 2020 und März 2021 in Weiterbildungsmaßnahmen investiert hat (z. B. Online-Kurse, Coaching). Welche Information lässt sich korrekt ableiten?",
+    "answerOptions": [
+      {"text": "20 % der Schweizer Bevölkerung investierten in Weiterbildung.", "isCorrect": false, "rationale": "Laut Grafik liegt der Anteil für die Schweiz deutlich unter 20 %."},
+      {"text": "10 % der Befragten aus Schweden haben einen kostenpflichtigen Einzelkurs absolviert.", "isCorrect": false, "rationale": "Der genaue Wert für Schweden bei Einzelkursen liegt laut Grafik nicht bei exakt 10 %."},
+      {"text": "Mehr als 5 % der Befragten aus Deutschland haben einen kostenpflichtigen Online-Kurs absolviert.", "isCorrect": true, "rationale": "Laut Balkendiagramm reicht der entsprechende Balken für Deutschland deutlich über die 5%-Marke hinaus."},
+      {"text": "In den USA spielen Fort- und Weiterbildungen bei weniger als 20 % der Bevölkerung eine Rolle.", "isCorrect": false, "rationale": "Der Gesamtanteil für die USA liegt laut Grafik über 20 %."},
+      {"text": "Über 10 % der Befragten aus China haben einen Business- oder Life-Coach konsultiert.", "isCorrect": false, "rationale": "Der Coaching-Anteil für China liegt laut Grafik unter 10 %."}
+    ],
+    "expectedAnswers": ["C"],
+    "inputType": "text",
+    "rationale": "Richtig ist C. Laut Balkendiagramm reicht der Balken für kostenpflichtige Online-Kurse in Deutschland fast an die 10%-Marke heran, es sind also definitiv mehr als 5 %.",
+    "videoUrl": "",
+    "youtubeQuery": "Weiterbildung internationaler Vergleich Statistik"
+  },
+  {
+    "id": "eco_77",
+    "question": "Sie prüfen das Jugendarbeitsschutzgesetz (JArbSchG). Wer ist Jugendlicher im Sinne dieses Gesetzes?",
+    "answerOptions": [
+      {"text": "Nur Jugendliche, die mindestens 15 Jahre, aber noch nicht 18 Jahre alt sind.", "isCorrect": true, "rationale": "Nach § 2 JArbSchG ist Jugendlicher, wer 15, aber noch nicht 18 Jahre alt ist."},
+      {"text": "Nur Jugendliche, die mindestens 16 Jahre, aber noch nicht 18 Jahre alt sind.", "isCorrect": false, "rationale": "Die Altersgrenze beginnt bei 15, nicht bei 16 Jahren."},
+      {"text": "Nur Jugendliche, die in einem Ausbildungsverhältnis stehen.", "isCorrect": false, "rationale": "Das JArbSchG gilt für alle jugendlichen Beschäftigten, nicht nur für Auszubildende."},
+      {"text": "Nur Jugendliche, die vor Vollendung des 18. Lebensjahres ein Ausbildungsverhältnis abgeschlossen haben.", "isCorrect": false, "rationale": "Das JArbSchG knüpft an das Alter, nicht an den Zeitpunkt des Vertragsabschlusses."},
+      {"text": "Nur Jugendliche, die die Vollzeitschulpflicht erfüllen, aber noch nicht 18 Jahre alt sind.", "isCorrect": false, "rationale": "Die Vollzeitschulpflicht ist keine Voraussetzung für die Definition als Jugendlicher im JArbSchG."}
+    ],
+    "expectedAnswers": ["A"],
+    "inputType": "text",
+    "rationale": "Richtig ist A. Nach § 2 JArbSchG ist Kind, wer noch nicht 15 ist, und Jugendlicher, wer 15, aber noch nicht 18 Jahre alt ist.",
+    "videoUrl": "",
+    "youtubeQuery": "Jugendarbeitsschutzgesetz Jugendlicher Definition"
+  },
+  {
+    "id": "eco_78",
+    "question": "Prüfen Sie anhand des JArbSchG (§ 11), welche Arbeitszeit- und Pausenregelung für Jugendliche nicht zulässig ist! Die Arbeitszeit ist jeweils 08:00-16:00 Uhr.",
+    "answerOptions": [
+      {"text": "Pause von 12:00-13:00 Uhr", "isCorrect": false, "rationale": "Arbeit von 08:00-12:00 (4 Std.) und 13:00-16:00 (3 Std.) – kein Block über 4,5 Std., zulässig."},
+      {"text": "Pause von 12:30-13:30 Uhr", "isCorrect": false, "rationale": "Arbeit von 08:00-12:30 (4,5 Std.) und 13:30-16:00 (2,5 Std.) – kein Block über 4,5 Std., zulässig."},
+      {"text": "Pause von 13:00-14:00 Uhr", "isCorrect": true, "rationale": "Arbeit von 08:00-13:00 = 5 Stunden am Stück. Jugendliche dürfen nicht länger als 4,5 Stunden ohne Pause arbeiten."},
+      {"text": "Pausen von 10:00-10:30 Uhr und 13:30-14:00 Uhr", "isCorrect": false, "rationale": "Arbeit von 08:00-10:00 (2 Std.), 10:30-13:30 (3 Std.) und 14:00-16:00 (2 Std.) – alle Blöcke unter 4,5 Std., zulässig."},
+      {"text": "Pausen von 09:00-09:15 Uhr und 12:15-13:00 Uhr", "isCorrect": false, "rationale": "Arbeit von 08:00-09:00 (1 Std.), 09:15-12:15 (3 Std.) und 13:00-16:00 (3 Std.) – alle Blöcke unter 4,5 Std., zulässig."}
+    ],
+    "expectedAnswers": ["C"],
+    "inputType": "text",
+    "rationale": "Richtig ist C. Jugendliche dürfen nicht länger als 4,5 Stunden ohne Pause beschäftigt werden (§ 11 JArbSchG). Bei Modell C wird von 08:00 bis 13:00 Uhr gearbeitet – das sind 5 Stunden am Stück, was gesetzlich unzulässig ist.",
+    "videoUrl": "",
+    "youtubeQuery": "Jugendarbeitsschutzgesetz Pausenregelung Paragraph 11"
+  },
+  {
+    "id": "eco_79",
+    "question": "In welcher Niederschrift findet ein Mitarbeiter der OceanBreeze GmbH die tariflichen Bestimmungen über die Bemessung des Urlaubs?",
+    "answerOptions": [
+      {"text": "Im Gehaltstarifvertrag", "isCorrect": false, "rationale": "Der Gehaltstarifvertrag regelt die Höhe der Entgelte, nicht den Urlaub."},
+      {"text": "Im Manteltarifvertrag", "isCorrect": true, "rationale": "Der Manteltarifvertrag (Rahmentarifvertrag) regelt allgemeine Arbeitsbedingungen wie Arbeitszeiten, Kündigungsfristen und Urlaubsansprüche."},
+      {"text": "In der Betriebsordnung", "isCorrect": false, "rationale": "Die Betriebsordnung regelt interne Verhaltensregeln, nicht tarifliche Urlaubsansprüche."},
+      {"text": "Im Betriebsverfassungsgesetz", "isCorrect": false, "rationale": "Das BetrVG regelt die Mitbestimmung, nicht tarifliche Urlaubsbestimmungen."},
+      {"text": "Im Handelsgesetzbuch", "isCorrect": false, "rationale": "Das HGB enthält Handelsrecht, keine tariflichen Urlaubsregelungen."}
+    ],
+    "expectedAnswers": ["B"],
+    "inputType": "text",
+    "rationale": "Richtig ist B. Der Manteltarifvertrag (Rahmentarifvertrag) regelt die allgemeinen Arbeitsbedingungen wie Arbeitszeiten, Kündigungsfristen und Urlaubsansprüche.",
+    "videoUrl": "",
+    "youtubeQuery": "Manteltarifvertrag Gehaltstarifvertrag Unterschied"
+  },
+  {
+    "id": "eco_80",
+    "question": "Welche Behauptung zu den Regeln des Arbeitskampfes (Streik) ist richtig?",
+    "answerOptions": [
+      {"text": "Nach Scheitern der Verhandlungen kann der Schlichter den Streik ausrufen.", "isCorrect": false, "rationale": "Der Schlichter vermittelt zwischen den Parteien, er ruft keinen Streik aus. Streiks werden von der Gewerkschaft ausgerufen."},
+      {"text": "Streiktage werden grundsätzlich vom Urlaub abgezogen.", "isCorrect": false, "rationale": "Streiktage gelten als unentschuldigtes Fehlen ohne Lohnfortzahlung, werden aber nicht vom Urlaub abgezogen."},
+      {"text": "Nur Gewerkschaftsmitglieder dürfen streiken.", "isCorrect": false, "rationale": "Grundsätzlich können auch Nicht-Mitglieder an einem Streik teilnehmen, erhalten aber kein Streikgeld."},
+      {"text": "Wenn der Streik ausgerufen ist, haben Unternehmer das Recht zur Aussperrung.", "isCorrect": true, "rationale": "Die Aussperrung ist das rechtmäßige Abwehrmittel der Arbeitgeber im Rahmen eines Arbeitskampfes."},
+      {"text": "Für den Beginn des Streiks müssen mindestens 50 % der Gewerkschaftsmitglieder zustimmen.", "isCorrect": false, "rationale": "Für eine Urabstimmung ist in der Regel eine Zustimmung von 75 % der Gewerkschaftsmitglieder erforderlich."}
+    ],
+    "expectedAnswers": ["D"],
+    "inputType": "text",
+    "rationale": "Richtig ist D. Die Aussperrung (vorübergehende Freistellung von Arbeitnehmern ohne Lohnfortzahlung) ist das rechtmäßige Abwehrmittel der Arbeitgeber im Rahmen eines Arbeitskampfes.",
+    "videoUrl": "",
+    "youtubeQuery": "Arbeitskampf Streik Aussperrung Regeln"
+  },
+  {
+    "id": "eco_81",
+    "question": "Wer hat die Betriebsvereinbarung über das Rauchen im Betrieb bei der OceanBreeze GmbH abgeschlossen?",
+    "answerOptions": [
+      {"text": "Die Geschäftsleitung der OceanBreeze GmbH und der Betriebsrat.", "isCorrect": true, "rationale": "Betriebsvereinbarungen werden immer zwischen dem Arbeitgeber (Geschäftsleitung) und dem Betriebsrat geschlossen."},
+      {"text": "Die Tarifvertragsparteien (Arbeitgeberverband und Gewerkschaft).", "isCorrect": false, "rationale": "Tarifvertragsparteien schließen Tarifverträge, keine Betriebsvereinbarungen."},
+      {"text": "Die Gewerkschaft und der Betriebsrat.", "isCorrect": false, "rationale": "Die Gewerkschaft ist keine Vertragspartei bei Betriebsvereinbarungen."},
+      {"text": "Der Betriebsrat und die Arbeitsagentur.", "isCorrect": false, "rationale": "Die Arbeitsagentur hat keine Funktion bei Betriebsvereinbarungen."},
+      {"text": "Der Betriebsrat und die zuständige IHK.", "isCorrect": false, "rationale": "Die IHK ist keine Vertragspartei bei Betriebsvereinbarungen."}
+    ],
+    "expectedAnswers": ["A"],
+    "inputType": "text",
+    "rationale": "Richtig ist A. Betriebsvereinbarungen sind Verträge auf rein betrieblicher Ebene und werden immer zwischen dem Arbeitgeber (Geschäftsleitung) und dem Betriebsrat geschlossen.",
+    "videoUrl": "",
+    "youtubeQuery": "Betriebsvereinbarung Betriebsrat Geschäftsleitung"
+  },
+  {
+    "id": "eco_82",
+    "question": "Welcher Mitarbeiter der OceanBreeze GmbH genießt einen besonderen gesetzlichen Kündigungsschutz?",
+    "answerOptions": [
+      {"text": "Herr Maier: Betriebswirt, 38 Jahre, 3 Kinder, 8 Jahre im Betrieb.", "isCorrect": false, "rationale": "Langjährige Betriebszugehörigkeit und Kinder begründen keinen besonderen gesetzlichen Kündigungsschutz."},
+      {"text": "Frau Gebert: PR-Managerin, 25 Jahre, keine Kinder, 4 Jahre im Betrieb.", "isCorrect": false, "rationale": "Es liegen keine besonderen Schutzmerkmale vor."},
+      {"text": "Herr Paulsen: Fachkraft Lagerlogistik, 32 Jahre, 1 Kind, 5 Jahre im Betrieb.", "isCorrect": false, "rationale": "Ohne besonderes Schutzmerkmal kein besonderer Kündigungsschutz."},
+      {"text": "Frau Voß: Bürokauffrau, 43 Jahre, 2 Kinder, 15 Jahre im Betrieb.", "isCorrect": false, "rationale": "Auch lange Betriebszugehörigkeit allein begründet keinen besonderen Kündigungsschutz."},
+      {"text": "Herr Malz: Auszubildender im E-Commerce, 26 Jahre, seit 16 Monaten im Betrieb.", "isCorrect": true, "rationale": "Auszubildende genießen nach Ablauf der Probezeit besonderen Kündigungsschutz nach BBiG."}
+    ],
+    "expectedAnswers": ["E"],
+    "inputType": "text",
+    "rationale": "Richtig ist E. Auszubildende genießen nach Ablauf der Probezeit einen besonderen gesetzlichen Kündigungsschutz nach dem BBiG; sie können dann vom Arbeitgeber nur noch außerordentlich (aus wichtigem Grund) gekündigt werden.",
+    "videoUrl": "",
+    "youtubeQuery": "Besonderer Kündigungsschutz Auszubildende BBiG"
+  },
+  {
+    "id": "eco_83",
+    "question": "In welcher Zeile ist ein Beispiel für die Mitbestimmung des Betriebsrats zutreffend beschrieben?",
+    "answerOptions": [
+      {"text": "Bei der Festlegung der Pausenzeiten hat der Betriebsrat nur ein Beratungsrecht.", "isCorrect": false, "rationale": "Pausenzeiten fallen unter soziale Angelegenheiten (§ 87 BetrVG) – hier hat der Betriebsrat ein echtes Mitbestimmungsrecht."},
+      {"text": "Die Neubesetzung der Geschäftsführung liegt in der Entscheidungsgewalt des Betriebsrats.", "isCorrect": false, "rationale": "Die Bestellung der Geschäftsführung ist Sache der Gesellschafter, nicht des Betriebsrats."},
+      {"text": "Über die Dauer der täglichen Arbeitszeit muss der Arbeitgeber den Betriebsrat nur informieren.", "isCorrect": false, "rationale": "Die Arbeitszeit fällt unter § 87 BetrVG – echte Mitbestimmung, nicht nur Information."},
+      {"text": "Alle betrieblichen Entscheidungen, die Arbeitnehmer betreffen, bedürfen der Zustimmung des Betriebsrats.", "isCorrect": false, "rationale": "Nicht alle Entscheidungen erfordern Zustimmung, nur bestimmte gesetzlich definierte Angelegenheiten."},
+      {"text": "In bestimmten sozialen Angelegenheiten werden betriebliche Maßnahmen nur mit Zustimmung des Betriebsrats wirksam.", "isCorrect": true, "rationale": "Das BetrVG (§ 87) räumt dem Betriebsrat in sozialen Angelegenheiten ein echtes Mitbestimmungsrecht ein."}
+    ],
+    "expectedAnswers": ["E"],
+    "inputType": "text",
+    "rationale": "Richtig ist E. Das Betriebsverfassungsgesetz (§ 87 BetrVG) räumt dem Betriebsrat in sogenannten sozialen Angelegenheiten (z. B. Beginn/Ende der Arbeitszeit, Pausen, Urlaubsplan) ein echtes Mitbestimmungsrecht ein.",
+    "videoUrl": "",
+    "youtubeQuery": "Mitbestimmung Betriebsrat soziale Angelegenheiten BetrVG 87"
+  },
+  {
+    "id": "eco_84",
+    "question": "Welcher Sachverhalt über die Jugend- und Auszubildendenvertretung (JAV) ist richtig beschrieben?",
+    "answerOptions": [
+      {"text": "Mitglieder des Betriebsrats können nicht zu Jugend- und Auszubildendenvertretern gewählt werden.", "isCorrect": true, "rationale": "Das BetrVG schließt eine Doppelfunktion in Betriebsrat und JAV ausdrücklich aus."},
+      {"text": "Das passive Wahlrecht endet mit Vollendung des 18. Lebensjahres.", "isCorrect": false, "rationale": "Passiv wahlberechtigt für die JAV sind Arbeitnehmer unter 25 Jahren, nicht nur unter 18."},
+      {"text": "Das Mindestalter für das aktive Wahlrecht beträgt 16 Jahre.", "isCorrect": false, "rationale": "Wahlberechtigt sind alle Arbeitnehmer unter 18 Jahren sowie Auszubildende unter 25 – ein Mindestalter von 16 gibt es nicht."},
+      {"text": "Die regelmäßige Amtszeit beträgt 3 Jahre.", "isCorrect": false, "rationale": "Die Amtszeit der JAV beträgt 2 Jahre, nicht 3."},
+      {"text": "Die JAV hat in allen Betriebsratssitzungen volles Stimmrecht.", "isCorrect": false, "rationale": "Die JAV hat in Betriebsratssitzungen nur ein Teilnahme- und Antragsrecht, aber kein volles Stimmrecht."}
+    ],
+    "expectedAnswers": ["A"],
+    "inputType": "text",
+    "rationale": "Richtig ist A. Das BetrVG schließt eine Doppelfunktion in Betriebsrat und JAV ausdrücklich aus. Wer im Betriebsrat ist, kann nicht in die JAV gewählt werden.",
+    "videoUrl": "",
+    "youtubeQuery": "Jugend Auszubildendenvertretung JAV Betriebsrat"
+  },
+  {
+    "id": "eco_85",
+    "question": "Im Falle eines Notrufs nach einem Unfall sind die sogenannten W-Fragen zu beantworten. Geben Sie an, welche W-Frage nicht dazu gehört!",
+    "answerOptions": [
+      {"text": "Wo ist der Unfall passiert?", "isCorrect": false, "rationale": "Die Ortsangabe ist eine der wichtigsten W-Fragen für den Notruf."},
+      {"text": "Was ist passiert?", "isCorrect": false, "rationale": "Die Beschreibung des Geschehens gehört zu den Standard-W-Fragen."},
+      {"text": "Warum ist der Unfall passiert?", "isCorrect": false, "rationale": "Obwohl für die Rettung weniger relevant, wird diese Frage manchmal zu den W-Fragen gezählt."},
+      {"text": "Wie viele Verletzte gibt es?", "isCorrect": false, "rationale": "Die Anzahl der Verletzten ist für die Einsatzplanung der Rettungskräfte essenziell."},
+      {"text": "Welche Verletzungen liegen vor?", "isCorrect": false, "rationale": "Die Art der Verletzungen hilft bei der richtigen Disposition der Rettungsmittel."},
+      {"text": "Wer hat den Unfall verschuldet?", "isCorrect": true, "rationale": "Die Schuldfrage ist für die Rettungsleitstelle medizinisch irrelevant und gehört nicht zu den W-Fragen des Notrufs."}
+    ],
+    "expectedAnswers": ["F"],
+    "inputType": "text",
+    "rationale": "Richtig ist F. Die Leitstelle interessiert bei einem Notruf nur das Rettungsrelevante. Die Schuldfrage ist für die Einsatzkräfte medizinisch irrelevant und gehört nicht zu den 5 W-Fragen.",
+    "videoUrl": "",
+    "youtubeQuery": "5 W-Fragen Notruf Erste Hilfe"
+  },
+  {
+    "id": "eco_86",
+    "question": "Sicherheitszeichen am Arbeitsplatz sind nach DIN/ASR-Normen farblich und formal gestaltet. Welche Zuordnung von Sicherheitszeichen zu ihrer farblichen Gestaltung ist richtig?",
+    "answerOptions": [
+      {"text": "Verbotszeichen: Blau/Weiß (rund), Gebotszeichen: Rot/Weiß (rund mit Diagonalbalken)", "isCorrect": false, "rationale": "Die Farben sind vertauscht: Verbotszeichen sind rot, Gebotszeichen sind blau."},
+      {"text": "Rettungszeichen: Grün/Weiß, Warnzeichen: Gelb/Schwarz, Brandschutzzeichen: Rot/Weiß", "isCorrect": true, "rationale": "Rettungszeichen sind grün/weiß, Warnzeichen gelb/schwarz (Dreieck), Brandschutzzeichen rot/weiß (quadratisch)."},
+      {"text": "Warnzeichen: Grün/Weiß (Dreieck), Rettungszeichen: Gelb/Schwarz (rechteckig)", "isCorrect": false, "rationale": "Die Farben und Formen sind vertauscht: Warnzeichen sind gelb/schwarz, Rettungszeichen grün/weiß."},
+      {"text": "Gebotszeichen: Gelb/Schwarz, Warnzeichen: Blau/Weiß", "isCorrect": false, "rationale": "Gebotszeichen sind blau/weiß, Warnzeichen gelb/schwarz – hier vertauscht."},
+      {"text": "Brandschutzzeichen: Grün/Weiß, Rettungszeichen: Rot/Weiß", "isCorrect": false, "rationale": "Die Farben sind vertauscht: Brandschutzzeichen sind rot, Rettungszeichen grün."}
+    ],
+    "expectedAnswers": ["B"],
+    "inputType": "text",
+    "rationale": "Richtig ist B. Nach DIN/ASR-Normen gilt: Rettungszeichen = Grün/Weiß, Warnzeichen = Gelb/Schwarz, Brandschutzzeichen = Rot/Weiß, Gebotszeichen = Blau/Weiß, Verbotszeichen = Rot/Weiß rund mit Diagonalbalken.",
+    "videoUrl": "",
+    "youtubeQuery": "Sicherheitszeichen Farben DIN ASR Arbeitsschutz"
+  },
+  {
+    "id": "eco_87",
+    "question": "Aus einer Grafik zum Thema Gesundheitliche Probleme im Homeoffice geht hervor, dass 54 % der befragten Arbeitnehmer über gesundheitliche Probleme klagen, und von diesen 54 % geben 64 % bestimmte Beschwerden an. 20 % der Klagenden leiden unter Müdigkeit, Stress und Unruhe. Welche richtige Information lässt sich ableiten?",
+    "answerOptions": [
+      {"text": "64 % aller befragten Arbeitnehmer klagen über gesundheitliche Probleme durch Homeoffice.", "isCorrect": false, "rationale": "54 % klagen über Probleme, nicht 64 %. Die 64 % beziehen sich auf eine Teilgruppe der Klagenden."},
+      {"text": "54 % der befragten Arbeitnehmer haben eine schlechtere technische Ausrüstung im Homeoffice.", "isCorrect": false, "rationale": "Die 54 % beziehen sich auf gesundheitliche Probleme, nicht auf technische Ausrüstung."},
+      {"text": "20 % aller Befragten ermüden durch das Homeoffice schneller.", "isCorrect": false, "rationale": "Die 20 % beziehen sich nur auf die Teilgruppe der Klagenden, nicht auf alle Befragten."},
+      {"text": "Mehr als die Hälfte aller Befragten wünschen sich regelmäßiges Homeoffice.", "isCorrect": false, "rationale": "Diese Aussage lässt sich aus den gegebenen Daten nicht ableiten."},
+      {"text": "1/5 der Arbeitnehmer, die über gesundheitliche Probleme durch die Arbeit im Homeoffice klagen, geben an, unter Müdigkeit, Stress und Unruhe zu leiden.", "isCorrect": true, "rationale": "20 % der Klagenden leiden unter Müdigkeit, Stress und Unruhe. 20 % = 1/5."}
+    ],
+    "expectedAnswers": ["E"],
+    "inputType": "text",
+    "rationale": "Richtig ist E. Von den Arbeitnehmern, die über gesundheitliche Probleme klagen, geben 20 % Müdigkeit, Stress und Unruhe an. 20 % entspricht dem Bruch 1/5.",
+    "videoUrl": "",
+    "youtubeQuery": "Gesundheit Homeoffice Studie Statistik"
+  },
+  {
+    "id": "eco_88",
+    "question": "Welche betriebliche Maßnahme ist allein unter Kostengesichtspunkten abzulehnen?",
+    "answerOptions": [
+      {"text": "Auslieferungen im Spar-Abo werden in kleineren Mengen, dafür 80 % häufiger durchgeführt.", "isCorrect": true, "rationale": "80 % häufigere Auslieferung von Kleinstmengen führt zu einer massiven Erhöhung der Logistik- und Portokosten."},
+      {"text": "Beleuchtung wird auf Energiesparlampen umgestellt.", "isCorrect": false, "rationale": "Energiesparlampen senken langfristig die Stromkosten."},
+      {"text": "Einseitig bedrucktes Papier wird als Schmierpapier weiterverwendet.", "isCorrect": false, "rationale": "Wiederverwendung spart Papierkosten."},
+      {"text": "Aufgrund von Mengenrabatten wird Verpackungsmaterial in größeren Mengen seltener bestellt.", "isCorrect": false, "rationale": "Mengenrabatte senken die Stückkosten für Verpackungsmaterial."},
+      {"text": "Es wird ein Drucker mit nachfüllbaren Patronen gekauft.", "isCorrect": false, "rationale": "Nachfüllbare Patronen sind langfristig günstiger als Einwegpatronen."}
+    ],
+    "expectedAnswers": ["A"],
+    "inputType": "text",
+    "rationale": "Richtig ist A. Aus ökonomischer Sicht führt eine 80 % häufigere Auslieferung von Kleinstmengen zu einer massiven Erhöhung der Logistik- und Portokosten, weshalb dies unter Kostengesichtspunkten strikt abzulehnen ist.",
+    "videoUrl": "",
+    "youtubeQuery": "Betriebliche Kostenoptimierung Logistikkosten"
+  },
+  {
+    "id": "eco_89",
+    "question": "Der Vertrieb der OceanBreeze GmbH muss das Verpackungsgesetz beachten. Welche Konsequenz ist richtig?",
+    "answerOptions": [
+      {"text": "Verkaufsverpackungen werden dem Restmüll zugeführt.", "isCorrect": false, "rationale": "Verkaufsverpackungen müssen ordnungsgemäß entsorgt und dem Recycling zugeführt werden."},
+      {"text": "Der Anteil an Einwegverpackungen ist zu erhöhen.", "isCorrect": false, "rationale": "Das Verpackungsgesetz zielt auf die Reduktion von Verpackungsabfällen, nicht auf deren Erhöhung."},
+      {"text": "Die OceanBreeze GmbH ist verpflichtet, Transportverpackungen von Kunden auf deren Wunsch zurückzunehmen.", "isCorrect": true, "rationale": "Gemäß § 15 VerpackG sind Vertreiber verpflichtet, Transportverpackungen kostenfrei zurückzunehmen."},
+      {"text": "Die OceanBreeze GmbH bezieht nur Transportverpackungen mit dem Grünen Punkt.", "isCorrect": false, "rationale": "Der Grüne Punkt ist ein Lizenzzeichen für Verkaufsverpackungen, nicht für Transportverpackungen."},
+      {"text": "Genutzte Transportverpackungen dürfen nur aus wiederverwertbaren Materialien sein.", "isCorrect": false, "rationale": "Das VerpackG schreibt keine ausschließliche Verwendung wiederverwertbarer Materialien vor."}
+    ],
+    "expectedAnswers": ["C"],
+    "inputType": "text",
+    "rationale": "Richtig ist C. Gemäß § 15 VerpackG sind Vertreiber verpflichtet, Transportverpackungen vom Kunden kostenfrei zurückzunehmen, um sie dem Recycling zuzuführen.",
+    "videoUrl": "",
+    "youtubeQuery": "Verpackungsgesetz Transportverpackungen Rücknahme"
+  },
+  {
+    "id": "eco_90",
+    "question": "Geben Sie an, welche umweltschonende Maßnahme in der OceanBreeze GmbH primär zur Einsparung von Energie führt!",
+    "answerOptions": [
+      {"text": "Der Transport wird auf Dropshipping umgestellt (kürzere Transportwege).", "isCorrect": true, "rationale": "Dropshipping verkürzt physische Transportwege, da die Ware direkt vom Produzenten zum Endkunden geht. Dadurch wird Treibstoff-Energie eingespart."},
+      {"text": "Es wird nur die Vorderseite der Blätter bedruckt.", "isCorrect": false, "rationale": "Einseitiges Bedrucken spart kein Papier und keine Energie, sondern verschwendet beides."},
+      {"text": "Die Beleuchtung bleibt immer eingeschaltet.", "isCorrect": false, "rationale": "Dauerbeleuchtung verschwendet Energie statt sie einzusparen."},
+      {"text": "Auslieferungen werden mit Elektro-Pkw durchgeführt, auf die Selbst-Abholung wird verzichtet.", "isCorrect": false, "rationale": "Der Verzicht auf Selbst-Abholung erhöht die Anzahl der Lieferfahrten und damit den Energieverbrauch."},
+      {"text": "Reinigungskräfte werden durch Reinigungsmaschinen ersetzt.", "isCorrect": false, "rationale": "Reinigungsmaschinen verbrauchen Strom und führen nicht primär zur Energieeinsparung."}
+    ],
+    "expectedAnswers": ["A"],
+    "inputType": "text",
+    "rationale": "Richtig ist A. Dropshipping bedeutet, dass die Ware vom Produzenten direkt an den Endkunden versendet wird. Da der Zwischenstopp entfällt, werden physische Transportwege verkürzt, was direkt Treibstoff-Energie einspart.",
+    "videoUrl": "",
+    "youtubeQuery": "Dropshipping Energieeinsparung Umweltschutz"
+  }
+]

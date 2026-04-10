@@ -10,9 +10,7 @@ import ResetModal from './ResetModal';
 const WisorSession = ({
   allWisors,
   activeWisorMode,
-  completedWisors,
   completedWisorsEco,
-  wisor1,
   wisorEco,
   marketingReview,
   completedMarketingReview,
@@ -53,11 +51,8 @@ const WisorSession = ({
     // But mostly we keep it internal
   }, [currentWisorIndex]);
 
-  const isWisor1Mode = activeWisorMode === 'wisor1';
   const isWisorEcoMode = activeWisorMode === 'wisorEco';
-  const wisorDueMastered = isWisor1Mode
-    ? Object.keys(completedWisors).length === (wisor1?.questions?.length || 0)
-    : isWisorEcoMode
+  const wisorDueMastered = isWisorEcoMode
       ? Object.keys(completedWisorsEco).length === (wisorEco?.questions?.length || 0)
       : Object.keys(completedMarketingReview || {}).length === (marketingReview?.questions?.length || 0);
 
@@ -72,7 +67,7 @@ const WisorSession = ({
           <h2 style={{ color: 'var(--text-light)', marginBottom: '1rem', fontSize: '2rem' }}>Alles geschafft! 🎉</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Du hast alle WisoR-Fragen erfolgreich gemeistert.</p>
           <button className="btn-secondary" onClick={() => setAppMode('dashboard')}>Zurück zum Menü</button>
-          <button className="btn-primary" onClick={(e) => openResetModal(e, isWisor1Mode ? 'wisor' : isWisorEcoMode ? 'wisorEco' : 'marketing_review')} style={{ marginLeft: '1rem' }}>Fortschritt zurücksetzen</button>
+          <button className="btn-primary" onClick={(e) => openResetModal(e, isWisorEcoMode ? 'wisorEco' : 'marketing_review')} style={{ marginLeft: '1rem' }}>Fortschritt zurücksetzen</button>
         </div>
         <ResetModal
           isOpen={resetModalVisible}
@@ -126,7 +121,7 @@ const WisorSession = ({
 
     if (onLearningEvent) {
       onLearningEvent({
-        mode: isWisor1Mode ? 'wisor' : 'wisorEco',
+        mode: isWisorEcoMode ? 'wisorEco' : 'marketing_review',
         questionId: q.id,
         questionText: q.question,
         correct: correct,
@@ -148,7 +143,7 @@ const WisorSession = ({
     setCurrentWisorIndex(prev => prev + 1);
   };
 
-  const modeTitle = (isWisor1Mode || isWisorEcoMode) ? 'WiSoR' : 'IHK Extras';
+  const modeTitle = isWisorEcoMode ? 'WiSoR' : 'IHK Extras';
 
   return (
     <div className="app-container" style={{ zIndex: 10 }}>
