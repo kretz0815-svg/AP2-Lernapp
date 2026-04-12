@@ -109,12 +109,18 @@ export const useAuth = (setAppMode) => {
         return () => subscription.unsubscribe();
     }, [rememberMe, setAppMode]);
 
+    const captchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || import.meta.env.VITE_HCAPTCHA_SITEKEY || '';
+
     const handleLogin = async (e) => {
         e.preventDefault();
-        if (!captchaToken) { setAuthMsg('Bitte bestätige das Captcha.'); return; }
+        if (captchaSiteKey && !captchaToken) { setAuthMsg('Bitte bestätige das Captcha.'); return; }
         setAuthLoading(true);
         setAuthMsg('');
-        const { error } = await supabase.auth.signInWithPassword({ email, password, options: { captchaToken } });
+        const { error } = await supabase.auth.signInWithPassword({ 
+            email, 
+            password, 
+            options: captchaToken ? { captchaToken } : {} 
+        });
         captchaRef.current?.resetCaptcha();
         setCaptchaToken(null);
         if (error) { setAuthMsg(error.message); setAuthLoading(false); }
@@ -129,10 +135,14 @@ export const useAuth = (setAppMode) => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        if (!captchaToken) { setAuthMsg('Bitte bestätige das Captcha.'); return; }
+        if (captchaSiteKey && !captchaToken) { setAuthMsg('Bitte bestätige das Captcha.'); return; }
         setAuthLoading(true);
         setAuthMsg('');
-        const { error, data } = await supabase.auth.signUp({ email, password, options: { captchaToken } });
+        const { error, data } = await supabase.auth.signUp({ 
+            email, 
+            password, 
+            options: captchaToken ? { captchaToken } : {} 
+        });
         captchaRef.current?.resetCaptcha();
         setCaptchaToken(null);
         if (error) { setAuthMsg(error.message); setAuthLoading(false); }
