@@ -2606,6 +2606,924 @@
       "rationale": "Richtig ist A. Dropshipping bedeutet, dass die Ware vom Produzenten direkt an den Endkunden versendet wird. Da der Zwischenstopp entfällt, werden physische Transportwege verkürzt, was direkt Treibstoff-Energie einspart.",
       "videoUrl": "",
       "youtubeQuery": "Dropshipping Energieeinsparung Umweltschutz"
+    },
+    {
+      "id": "eco_91",
+      "question": "Nachhaltiges Handeln berücksichtigt grundsätzlich mehrere Aspekte. Stellen Sie fest, welche Erklärung alle Dimensionen der Nachhaltigkeit berücksichtigt!",
+      "answerOptions": [
+        {
+          "text": "Nachhaltiges Handeln bedeutet, ökologische und ökonomische Kriterien beim Handel und Vertrieb der OceanBreeze GmbH in Einklang zu bringen.",
+          "isCorrect": false,
+          "rationale": "Hier fehlt die soziale Dimension der Nachhaltigkeit."
+        },
+        {
+          "text": "Nachhaltiges Handeln bedeutet, soziale Gesichtspunkte beim Einstellen und Entlassen von Personal der OceanBreeze GmbH zu berücksichtigen.",
+          "isCorrect": false,
+          "rationale": "Hier werden ökologische und ökonomische Aspekte vernachlässigt."
+        },
+        {
+          "text": "Nachhaltiges Handeln bedeutet, dass eine angemessene Vergütung der Beschäftigten der OceanBreeze GmbH auch in Zukunft nicht vernachlässigt wird.",
+          "isCorrect": false,
+          "rationale": "Dies deckt nur einen Teil der sozialen und ökonomischen Dimension ab."
+        },
+        {
+          "text": "Nachhaltiges Handeln bedeutet, dafür zu sorgen, dass die Inhaber der OceanBreeze GmbH auch in der Zukunft ökonomisch und sozial bessergestellt werden.",
+          "isCorrect": false,
+          "rationale": "Nachhaltigkeit zielt auf die Gesellschaft und Umwelt ab, nicht nur auf die Inhaber."
+        },
+        {
+          "text": "Nachhaltiges Handeln bedeutet, dass durch die OceanBreeze GmbH ökonomische, ökologische und soziale Aspekte derart berücksichtigt werden, dass sie die Lebensbedingungen zukünftiger Generationen erhalten.",
+          "isCorrect": true,
+          "rationale": "Wahre Nachhaltigkeit basiert auf dem Drei-Säulen-Modell: Ökonomie, Ökologie und Soziales müssen gleichberechtigt in Einklang gebracht werden."
+        }
+      ],
+      "expectedAnswers": [
+        "E"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Die Definition von Nachhaltigkeit (nach dem Brundtland-Bericht) verlangt den Einklang von ökonomischen, ökologischen und sozialen Zielen, um die Bedürfnisse der heutigen Generation zu befriedigen, ohne die Möglichkeiten künftiger Generationen einzuschränken.",
+      "videoUrl": "",
+      "youtubeQuery": "Drei-Säulen-Modell Nachhaltigkeit einfach erklärt"
+    },
+    {
+      "id": "eco_92",
+      "question": "Das Ziel des nachhaltigen Wirtschaftens der OceanBreeze GmbH soll durch neue Maßnahmen zur Kostensenkung nicht vernachlässigt werden. In welchem Fall liegt kein Zielkonflikt zwischen Kostensenkung und Erhöhung des Umweltschutzes vor?",
+      "answerOptions": [
+        {
+          "text": "Die OceanBreeze GmbH bevorzugt, Bestellungen in einzelnen Bestandteilen zu verschicken, als durch Sammelversendungen Verzögerungen zu riskieren.",
+          "isCorrect": false,
+          "rationale": "Einzelversand erhöht Verpackungsmüll und Transportemissionen (Zielkonflikt)."
+        },
+        {
+          "text": "Das Recycling-Toilettenpapier wird durch das günstigere, klassische Toilettenpapier aus Zellulosefasern ersetzt.",
+          "isCorrect": false,
+          "rationale": "Kostensenkung zulasten der Ressourcenschonung (Zielkonflikt)."
+        },
+        {
+          "text": "Alte Glühbirnen sollen durch Energiesparlampen ersetzt werden, bei denen quecksilberhaltiges Gas zum Einsatz kommt.",
+          "isCorrect": false,
+          "rationale": "Energieersparnis vs. giftige Inhaltsstoffe (Zielkonflikt bei Entsorgung/Risiko)."
+        },
+        {
+          "text": "Der bisherige Stromanbieter mit Stromgewinnung aus Windenergie wird durch einen günstigeren Anbieter mit Stromgewinnung aus Wasserkraft ersetzt.",
+          "isCorrect": true,
+          "rationale": "Beide Quellen sind regenerativ. Die Kostensenkung beeinträchtigt das ökologische Ziel nicht."
+        },
+        {
+          "text": "Der Fair Trade-Kaffee wird durch günstigeren Kaffee eines Großhändlers ohne Herkunftsangaben ersetzt.",
+          "isCorrect": false,
+          "rationale": "Kostensenkung zulasten sozialer/ökologischer Standards (Zielkonflikt)."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Wenn ein Unternehmen von einer umweltfreundlichen Variante zu einer anderen, kostengünstigeren, aber ebenso umweltfreundlichen Variante wechselt (hier: Wind zu Wasser), liegt Zielharmonie vor.",
+      "videoUrl": "",
+      "youtubeQuery": "Zielbeziehungen Zielharmonie Zielkonflikt"
+    },
+    {
+      "id": "eco_93",
+      "question": "Im Allgemeinen erfüllen Versandverpackungen verschiedene Schutzfunktionen. Welche Zuordnung der Maßnahme zur Funktion ist fachlich korrekt?",
+      "answerOptions": [
+        {
+          "text": "Umweltfreundliches Füllmaterial = Schutz vor Feuchtigkeit",
+          "isCorrect": false,
+          "rationale": "Füllmaterial dient primär dem Schutz vor mechanischer Beschädigung."
+        },
+        {
+          "text": "Logo-Aufdruck = Sicht- und Diebstahlschutz",
+          "isCorrect": false,
+          "rationale": "Ein Logo-Aufdruck dient dem Marketing und zeigt eher den Inhalt an (kein Sichtschutz)."
+        },
+        {
+          "text": "Neutraler Versandkarton für wertvolle Artikel = Sicht- und Diebstahlschutz",
+          "isCorrect": true,
+          "rationale": "Ein neutraler Karton verbirgt den wertvollen Inhalt und senkt so das Diebstahlrisiko."
+        },
+        {
+          "text": "Absorber-Kissen aus Kieselgel = Schutz vor Beschädigung",
+          "isCorrect": false,
+          "rationale": "Kieselgel schützt vor Feuchtigkeit, nicht vor Stößen."
+        },
+        {
+          "text": "Klebeband mit umweltfreundlichem Kleber = Schutz vor Feuchtigkeit",
+          "isCorrect": false,
+          "rationale": "Dies dient dem ökologischen Ziel, nicht primär dem Feuchtigkeitsschutz."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Neutralität der Verpackung schützt vor Begehrlichkeiten (Diebstahlschutz). Kieselgel/Absorber schützen vor Feuchtigkeit, und Füllmaterialien schützen vor mechanischer Beschädigung durch Stöße.",
+      "videoUrl": "",
+      "youtubeQuery": "Funktionen von Verkaufsverpackungen und Versandverpackungen"
+    },
+    {
+      "id": "eco_94",
+      "question": "Neben Recycling-Maßnahmen sieht die OceanBreeze GmbH viel Umweltschutz-Potenzial im Bereich von Müll-Vermeidung. Geben Sie an, welche Maßnahme am besten geeignet ist, die Müll-Entstehung direkt zu reduzieren!",
+      "answerOptions": [
+        {
+          "text": "Retouren-Scheine werden auf umweltfreundlichem Recycling-Papier gedruckt und beigelegt.",
+          "isCorrect": false,
+          "rationale": "Hier entsteht trotzdem Müll (Papier), auch wenn es Recycling-Papier ist."
+        },
+        {
+          "text": "Für die Versandverpackungen werden nur noch pflanzliche und biologisch abbaubare Füllmaterialien eingesetzt.",
+          "isCorrect": false,
+          "rationale": "Dies verbessert die Verwertung (Kompostierung), vermeidet aber nicht den Anfall von Material."
+        },
+        {
+          "text": "Retouren-Scheine und -Etiketten werden nur noch zum Download und Selbst-Ausdrucken bereitgestellt.",
+          "isCorrect": true,
+          "rationale": "Müllvermeidung: Es werden nur Etiketten gedruckt, die tatsächlich benötigt werden."
+        },
+        {
+          "text": "Versandverpackungen werden nur noch in bestimmten Standard-Größen eingesetzt.",
+          "isCorrect": false,
+          "rationale": "Dies kann das Volumen optimieren, vermeidet aber nicht zwingend Abfall."
+        },
+        {
+          "text": "Retouren-Etiketten werden auf selbstklebendem Material gedruckt und beigelegt.",
+          "isCorrect": false,
+          "rationale": "Selbstklebende Materialien verursachen durch das Trägerpapier oft zusätzlichen Müll."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Müllvermeidung steht an oberster Stelle der Abfallhierarchie. Durch den Verzicht auf den pauschalen Beileger werden enorme Mengen an Papier und Klebematerial eingespart.",
+      "videoUrl": "",
+      "youtubeQuery": "Abfallhierarchie Müllvermeidung"
+    },
+    {
+      "id": "eco_95",
+      "question": "Die OceanBreeze GmbH möchte den Energieverbrauch im Versand-Lager reduzieren. Stellen Sie fest, welche 2 Maßnahmen hierzu auch unter Berücksichtigung der Arbeitssicherheitsvorschriften geeignet sind!",
+      "answerOptions": [
+        {
+          "text": "Die Heizungsanlage im Lager wird so eingestellt, dass die Temperatur nur noch 18 °C anstatt wie bisher 22 °C beträgt.",
+          "isCorrect": true,
+          "rationale": "Für körperliche Arbeit im Lager sind 18 °C laut Arbeitsstättenverordnung (ArbStättV) zulässig und sparen Energie."
+        },
+        {
+          "text": "Die Flotte an Flurförderfahrzeugen wird von Akku auf Verbrennungsmotoren umgestellt.",
+          "isCorrect": false,
+          "rationale": "Verbrennungsmotoren in Hallen führen zu Abgasbelastung (Arbeitssicherheit) und verbrauchen fossile Brennstoffe."
+        },
+        {
+          "text": "Die Beleuchtung im Versand-Lager wird von LED- auf Halogenstrahler umgestellt.",
+          "isCorrect": false,
+          "rationale": "Halogenstrahler verbrauchen deutlich mehr Strom als moderne LED-Beleuchtung."
+        },
+        {
+          "text": "Der Betrieb im Lager wird vom bisherigen Zweischicht- auf Dreischicht-Betrieb umgestellt.",
+          "isCorrect": false,
+          "rationale": "Ein Dreischicht-Betrieb erhöht tendenziell den Energieaufwand (z.B. durchgehende Beleuchtung/Heizung)."
+        },
+        {
+          "text": "Die Beleuchtung in den einzelnen Lager-Abschnitten wird durch Bewegungsmelder und Helligkeitssensoren gesteuert.",
+          "isCorrect": true,
+          "rationale": "Energie wird nur verbraucht, wenn tatsächlich Licht benötigt wird; die Sicherheit bleibt durch automatische Aktivierung gewahrt."
+        },
+        {
+          "text": "Auf eine Beleuchtung und Heizung des Lagers wird komplett verzichtet.",
+          "isCorrect": false,
+          "rationale": "Dies verstößt massiv gegen Arbeitsschutzvorschriften und macht sicheres Arbeiten unmöglich."
+        }
+      ],
+      "expectedAnswers": [
+        "AE"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig sind A und E. Die Temperaturabsenkung auf 18 °C ist bei körperlicher Arbeit gesetzeskonform und spart Heizkosten. Bewegungsmelder optimieren den Stromverbrauch ohne das Sicherheitsrisiko dunkler Gänge (bei Bewegung geht Licht an).",
+      "videoUrl": "",
+      "youtubeQuery": "Energie sparen im Lager Arbeitssicherheit"
+    },
+    {
+      "id": "eco_96",
+      "question": "Im Modell des erweiterten Wirtschaftskreislaufs gibt es Geldströme zwischen den einzelnen Wirtschaftssektoren. Geben Sie an, welcher Geldstrom richtig beschrieben ist!",
+      "answerOptions": [
+        {
+          "text": "Die OceanBreeze GmbH führt Einkommenssteuer an das Finanzamt ab.",
+          "isCorrect": false,
+          "rationale": "Unternehmen führen Körperschaftsteuer oder Gewerbesteuer ab; Einkommenssteuer zahlen Haushalte (bzw. Einzelfirmen)."
+        },
+        {
+          "text": "Die Mitarbeiter eines Lieferanten der OceanBreeze GmbH erhalten Kurzarbeitergeld.",
+          "isCorrect": true,
+          "rationale": "Transferleistung: Geld fließt vom Sektor Staat an den Sektor private Haushalte."
+        },
+        {
+          "text": "Ein Geschäftskunde kauft 250 Jacken für die Belegschaft.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein Strom zwischen Unternehmen und Unternehmen (Investitionsgut/Betriebsmittel), nicht zu Haushalten."
+        },
+        {
+          "text": "Die OceanBreeze GmbH erhält einen Kredit von einem Zulieferer.",
+          "isCorrect": false,
+          "rationale": "Dies wäre ein Lieferantenkredit zwischen Unternehmen, nicht primär über den Sektor Banken."
+        },
+        {
+          "text": "Die OceanBreeze GmbH legt liquide Mittel in Aktien an.",
+          "isCorrect": false,
+          "rationale": "Der Kauf von Aktien ist ein Transfer zum Kapitalmarkt (Banken/Börse), nicht direkt zum Sektor Staat."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Kurzarbeitergeld ist eine staatliche Sozialleistung (Transferzahlung), die die Kaufkraft der Haushalte sichern soll. Sie fließt vom Staat an die privaten Haushalte.",
+      "videoUrl": "",
+      "youtubeQuery": "Einfacher und erweiterter Wirtschaftskreislauf"
+    },
+    {
+      "id": "eco_97",
+      "question": "Aufgrund der schwachen Konjunktur sind zuletzt einige Unternehmen aus dem Markt für Fitness-Tracker ausgestiegen, sodass ein Angebotsoligopol entstanden ist. Wie ist dies in einer Marktformen-Matrix einzuordnen?",
+      "answerOptions": [
+        {
+          "text": "Ein Anbieter / Viele Nachfrager",
+          "isCorrect": false,
+          "rationale": "Dies beschreibt ein Monopol."
+        },
+        {
+          "text": "Wenige Anbieter / Viele Nachfrager",
+          "isCorrect": true,
+          "rationale": "Ein Oligopol (Angebotsoligopol) zeichnet sich durch wenige Marktteilnehmer auf der Angebotsseite aus."
+        },
+        {
+          "text": "Viele Anbieter / Wenige Nachfrager",
+          "isCorrect": false,
+          "rationale": "Dies wäre ein Nachfrageoligopol (Oligopson)."
+        },
+        {
+          "text": "Viele Anbieter / Viele Nachfrager",
+          "isCorrect": false,
+          "rationale": "Dies beschreibt ein Polypol."
+        },
+        {
+          "text": "Wenige Anbieter / Wenige Nachfrager",
+          "isCorrect": false,
+          "rationale": "Dies wäre ein zweiseitiges Oligopol."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. 'Oligo' (wenige) und 'Pol' (Anbieter) beschreiben die Situation, in der sich wenige große Firmen den Markt gegenüber vielen kleinen Nachfragern teilen.",
+      "videoUrl": "",
+      "youtubeQuery": "Marktformen Matrix Monopoly Oligopol Polypol"
+    },
+    {
+      "id": "eco_98",
+      "question": "Ein Marktforschungsunternehmen hat Angebot und Nachfrage für Fitness-Tracker ermittelt. Bei welchem der folgenden Preise wird der größte Umsatz erzielt?\n- Preis 150 €: Angebot 3.000 / Nachfrage 8.600\n- Preis 180 €: Angebot 6.000 / Nachfrage 6.000\n- Preis 210 €: Angebot 9.000 / Nachfrage 3.500",
+      "answerOptions": [
+        {
+          "text": "150,00 €",
+          "isCorrect": false,
+          "rationale": "Umsatz = 150 € * 3.000 (Angebot limitiert) = 450.000 €."
+        },
+        {
+          "text": "180,00 €",
+          "isCorrect": true,
+          "rationale": "Umsatz = 180 € * 6.000 = 1.080.000 €."
+        },
+        {
+          "text": "210,00 €",
+          "isCorrect": false,
+          "rationale": "Umsatz = 210 € * 3.500 (Nachfrage limitiert) = 735.000 €."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Der Umsatz berechnet sich aus Preis mal verkaufter Menge. Bei 150 € können nur 3.000 Stück (Angebot) verkauft werden. Bei 180 € werden 6.000 Stück (Gleichgewicht) verkauft. Bei 210 € werden nur 3.500 Stück (Nachfrage) verkauft.",
+      "videoUrl": "",
+      "youtubeQuery": "Umsatzmaximum berechnen Angebot Nachfrage"
+    },
+    {
+      "id": "eco_99",
+      "question": "Die OceanBreeze GmbH betrachtet die Marktdaten für Fitness-Tracker: Bei einem Preis von 210,00 € liegt das Angebot bei 9.000 Stück, während die Nachfrage nur 3.500 Stück beträgt. Wie hoch ist der erzielbare Gesamtumsatz am Markt bei diesem Preis?",
+      "answerOptions": [
+        {
+          "text": "1.890.000,00 €",
+          "isCorrect": false,
+          "rationale": "Das wäre der Umsatz, wenn das gesamte Angebot verkauft würde (9.000 * 210 €)."
+        },
+        {
+          "text": "735.000,00 €",
+          "isCorrect": true,
+          "rationale": "Korrekt: 3.500 (Nachfrage) * 210 € = 735.000 €."
+        },
+        {
+          "text": "525.000,00 €",
+          "isCorrect": false,
+          "rationale": "Rechenfehler."
+        },
+        {
+          "text": "1.260.000,00 €",
+          "isCorrect": false,
+          "rationale": "Rechenfehler."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Auf dem Markt kann immer nur die kleinere der beiden Mengen (Angebot oder Nachfrage) tatsächlich gehandelt werden (Short-Side-Rule). Da hier die Nachfrage (3.500) kleiner ist als das Angebot, bestimmt sie den Umsatz.",
+      "videoUrl": "",
+      "youtubeQuery": "Umsatzberechnung Nachfrageüberhang Angebotsüberhang"
+    },
+    {
+      "id": "eco_100",
+      "question": "Die Umsätze hingen in den letzten Jahren stark von konjunkturellen Entwicklungen ab. In welcher Zeile sind die Merkmale zur Konjunkturphase richtig beschrieben?",
+      "answerOptions": [
+        {
+          "text": "In der Aufschwungphase fallen sämtliche Zinsen.",
+          "isCorrect": false,
+          "rationale": "Im Aufschwung steigen die Zinsen tendenziell aufgrund steigender Kreditnachfrage."
+        },
+        {
+          "text": "In der Hochkonjunkturphase besteht die Gefahr hoher Inflation.",
+          "isCorrect": true,
+          "rationale": "Boom/Hochkonjunktur: Die Nachfrage übersteigt das Angebot, was zu Preissteigerungen (Inflation) führt."
+        },
+        {
+          "text": "In der Abschwungsphase ist eine zunehmende Kapazitätsauslastung festzustellen.",
+          "isCorrect": false,
+          "rationale": "Im Abschwung sinkt die Auslastung, da die Nachfrage nachlässt."
+        },
+        {
+          "text": "In der Abschwungphase ist ein Rückgang der Arbeitslosigkeit festzustellen.",
+          "isCorrect": false,
+          "rationale": "Im Abschwung steigt die Arbeitslosigkeit in der Regel an."
+        },
+        {
+          "text": "In der Aufschwungphase stagnieren in der Regel die Preise, es handelt sich um einen Käufermarkt.",
+          "isCorrect": false,
+          "rationale": "Preise steigen im Aufschwung eher; ein Käufermarkt ist typisch für die Depression/Rezession."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Während der Hochkonjunktur (Boom) laufen die Kapazitäten auf Hochtouren. Die hohe Nachfrage ermöglicht Preiserhöhungen, wodurch die Inflationsgefahr steigt.",
+      "videoUrl": "",
+      "youtubeQuery": "Konjunkturphasen Merkmale einfach erklärt"
+    },
+    {
+      "id": "eco_101",
+      "question": "Im Gesellschaftsvertrag der OceanBreeze GmbH wurde keine Vereinbarung über die Gewinnverteilung getroffen. Wie ist ein Gewinn nach gesetzlicher Regelung (§ 29 GmbHG) auf die drei Gesellschafter zu verteilen?",
+      "answerOptions": [
+        {
+          "text": "Die drei Gesellschafter und der Geschäftsführer erhalten den Gewinn zu gleichen Teilen.",
+          "isCorrect": false,
+          "rationale": "Geschäftsführer ohne Anteile haben keinen gesetzlichen Gewinnanspruch."
+        },
+        {
+          "text": "Die drei Gesellschafter erhalten den Gewinn zu gleichen Teilen (nach Köpfen).",
+          "isCorrect": false,
+          "rationale": "Dies gilt nicht automatisch für die GmbH (eher für die GbR/OHG Restverteilung)."
+        },
+        {
+          "text": "Nur die beiden Gesellschafter, die nicht Geschäftsführer sind, erhalten den Gewinn hälftig.",
+          "isCorrect": false,
+          "rationale": "Die Funktion als Geschäftsführer ändert nichts am Gewinnanspruch als Gesellschafter."
+        },
+        {
+          "text": "Der Gewinn wird im Verhältnis der Geschäftsanteile auf die drei Gesellschafter verteilt.",
+          "isCorrect": true,
+          "rationale": "Gesetzlicher Standard der GmbH: Verteilung nach Anteilen am Stammkapital."
+        },
+        {
+          "text": "Die drei Gesellschafter erhalten ihre Anteile zu 5 % verzinst, der Rest wird nach Köpfen verteilt.",
+          "isCorrect": false,
+          "rationale": "Dies ist die gesetzliche Regelung für die OHG (4 % oder 5 % je nach Alt/Neu), nicht für die GmbH."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Gemäß § 29 Abs. 3 GmbHG erfolgt die Verteilung des Gewinns grundsätzlich im Verhältnis der jeweiligen Geschäftsanteile.",
+      "videoUrl": "",
+      "youtubeQuery": "Gewinnverteilung GmbH gesetzliche Regelung"
+    },
+    {
+      "id": "eco_102",
+      "question": "Zwei der drei Gesellschafter der OceanBreeze GmbH wollen ausscheiden. Die dritte Gesellschafterin, Johanna Welsch, will das Unternehmen jedoch allein weiterführen. Prüfen Sie die rechtliche Beurteilung!",
+      "answerOptions": [
+        {
+          "text": "Frau Welsch kann die Gesellschaft als alleinige Gesellschafterin weiterführen.",
+          "isCorrect": true,
+          "rationale": "Die GmbH kann rechtmäßig als 'Einpersonen-GmbH' existieren."
+        },
+        {
+          "text": "Die Gesellschaft kann nur als GmbH weitergeführt werden, wenn mindestens zwei Gesellschafter vorhanden sind.",
+          "isCorrect": false,
+          "rationale": "Das deutsche Recht erlaubt ausdrücklich die Ein-Personen-Gründung und -Fortführung."
+        },
+        {
+          "text": "Frau Welsch muss die Firma zwingend in ein Einzelunternehmen umwandeln.",
+          "isCorrect": false,
+          "rationale": "Sie kann, muss aber nicht. Die Rechtsform GmbH kann erhalten bleiben."
+        },
+        {
+          "text": "Ein Ausscheiden ist nur möglich, wenn das Stammkapital auf mindestens zwei Personen verteilt bleibt.",
+          "isCorrect": false,
+          "rationale": "Falsch, siehe Einpersonen-GmbH."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Eine GmbH kann von einer einzigen Person gehalten werden (Einpersonen-GmbH). Dies ist rechtlich völlig zulässig.",
+      "videoUrl": "",
+      "youtubeQuery": "Einpersonen GmbH Gründung Fortführung"
+    },
+    {
+      "id": "eco_103",
+      "question": "Die Geschäftsführung der OceanBreeze GmbH führt eine Stabsstelle für 'Nachhaltigkeit' ein. Welche Aussage zur Stablinienorganisation ist falsch?",
+      "answerOptions": [
+        {
+          "text": "Sie wird dem Einliniensystem vorgezogen, da sie zur Entlastung der Führungskräfte führt.",
+          "isCorrect": false,
+          "rationale": "Diese Aussage ist richtig; Stäbe entlasten die Instanzen."
+        },
+        {
+          "text": "Entscheidungen werden künftig möglicherweise sorgfältiger getroffen, da Expertenwissen einfließt.",
+          "isCorrect": false,
+          "rationale": "Diese Aussage ist richtig; Stäbe liefern Fachwissen für bessere Entscheidungen."
+        },
+        {
+          "text": "Ein typisches Beispiel für eine Stabsstelle im Unternehmen ist der Datenschutzbeauftragte.",
+          "isCorrect": false,
+          "rationale": "Diese Aussage ist richtig."
+        },
+        {
+          "text": "Eine Stabsstelle ist meist durch Spezialisten besetzt. Diese haben stets weitreichende Leitungs- und Weisungsbefugnisse.",
+          "isCorrect": true,
+          "rationale": "FALSCH: Stabsstellen haben grundsätzlich KEINE Weisungs- oder Linienbefugnis."
+        },
+        {
+          "text": "Das neue Verhältnis zwischen Stab und Linie kann für Konfliktpotenzial sorgen.",
+          "isCorrect": false,
+          "rationale": "Diese Aussage ist richtig (Stabs-Linien-Konflikt)."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D (da nach der falschen Aussage gefragt wurde). Stabsstellen sind reine Beratungsorgane. Sie bereiten Entscheidungen vor, dürfen aber selbst keine Anweisungen an die Fachabteilungen geben.",
+      "videoUrl": "",
+      "youtubeQuery": "Stabliniensystem Vor- und Nachteile"
+    },
+    {
+      "id": "eco_104",
+      "question": "Ein Mitarbeiter (36 Jahre alt, seit 7 Jahren im Unternehmen) erhält am 20. Juli 2020 seine ordentliche Kündigung. Die gesetzliche Kündigungsfrist beträgt bei dieser Betriebszugehörigkeit zwei Monate zum Ende eines Kalendermonats (§ 622 BGB). Wann ist sein letzter Arbeitstag?",
+      "answerOptions": [
+        {
+          "text": "20. September 2020",
+          "isCorrect": false,
+          "rationale": "Dies würde die Frist 'zum Ende des Monats' ignorieren."
+        },
+        {
+          "text": "31. August 2020",
+          "isCorrect": false,
+          "rationale": "Die Frist von zwei Monaten ist hier noch nicht abgelaufen."
+        },
+        {
+          "text": "30. September 2020",
+          "isCorrect": true,
+          "rationale": "Korrekt: Zugang im Juli + 2 volle Monate (August, September) bis zum Monatsende."
+        },
+        {
+          "text": "31. Oktober 2020",
+          "isCorrect": false,
+          "rationale": "Dies wäre eine zu lange Frist."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Da die Kündigung im Juli zuging, beginnt die Frist zu laufen. Zwei volle Monate sind August und September. Da die Frist 'zum Ende des Kalendermonats' gilt, endet das Arbeitsverhältnis am 30. September.",
+      "videoUrl": "",
+      "youtubeQuery": "Gesetzliche Kündigungsfristen berechnen §622 BGB"
+    },
+    {
+      "id": "eco_105",
+      "question": "Der 18-jährige Niklas hat am 1. August seine Ausbildung begonnen (3 Monate Probezeit vereinbart). Am 15. Oktober möchte er das Ausbildungsverhältnis beenden. Welche rechtliche Auskunft nach dem Berufsbildungsgesetz (BBiG) ist korrekt?",
+      "answerOptions": [
+        {
+          "text": "Er kann ohne Angabe von Gründen mit einer 2-wöchigen Frist kündigen.",
+          "isCorrect": false,
+          "rationale": "In der Probezeit gibt es keine Frist für Azubis."
+        },
+        {
+          "text": "Sein Vertrag ist ungültig, da die Probezeit zwingend 4 Monate betragen muss.",
+          "isCorrect": false,
+          "rationale": "Die Probezeit muss zwischen 1 und 4 Monaten liegen; 3 Monate sind also zulässig."
+        },
+        {
+          "text": "Innerhalb seiner Probezeit hat Niklas die Möglichkeit, jederzeit ohne Einhalten einer Kündigungsfrist zu kündigen.",
+          "isCorrect": true,
+          "rationale": "Korrekt gemäß § 22 Abs. 1 BBiG."
+        },
+        {
+          "text": "Er darf nur fristlos kündigen, wenn er einen neuen Ausbildungsvertrag vorlegen kann.",
+          "isCorrect": false,
+          "rationale": "Ein neuer Vertrag ist keine Voraussetzung für die Kündigung in der Probezeit."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Während der Probezeit kann das Berufsausbildungsverhältnis von beiden Seiten jederzeit ohne Einhalten einer Kündigungsfrist und ohne Angabe von Gründen gekündigt werden (§ 22 BBiG).",
+      "videoUrl": "",
+      "youtubeQuery": "Kündigung Ausbildung Probezeit BBiG"
+    },
+    {
+      "id": "eco_106",
+      "question": "Ein Auszubildender legt am 25. November seine schriftliche Prüfung ab. Am 21. Januar des Folgejahres teilt ihm der Prüfungsausschuss offiziell mit, dass er bestanden hat. Laut Vertrag würde die Ausbildung am 28. Februar enden. Wann endet das Ausbildungsverhältnis rechtlich?",
+      "answerOptions": [
+        {
+          "text": "Am 25. November (Tag der letzten Prüfung)",
+          "isCorrect": false,
+          "rationale": "Das Ergebnis steht zu diesem Zeitpunkt noch nicht fest."
+        },
+        {
+          "text": "Am 21. Januar (Tag der Bekanntgabe des Bestehens)",
+          "isCorrect": true,
+          "rationale": "Korrekt gemäß § 21 BBiG: Ende mit Bekanntgabe des Ergebnisses."
+        },
+        {
+          "text": "Am 28. Februar (Vertragliches Ende)",
+          "isCorrect": false,
+          "rationale": "Das Bestehen der Prüfung beendet das Verhältnis vorzeitig."
+        },
+        {
+          "text": "Am 31. Januar (Ende des Kalendermonats der Bekanntgabe)",
+          "isCorrect": false,
+          "rationale": "Das Gesetz knüpft an den Tag der Bekanntgabe an, nicht an das Monatsende."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Bestehen Auszubildende vor Ablauf der vertraglichen Ausbildungszeit die Abschlussprüfung, so endet das Berufsausbildungsverhältnis mit Bekanntgabe des Ergebnisses durch den Prüfungsausschuss (§ 21 Abs. 2 BBiG).",
+      "videoUrl": "",
+      "youtubeQuery": "Wann endet die Ausbildung Bestehen der Prüfung"
+    },
+    {
+      "id": "eco_107",
+      "question": "Die 17-jährige Auszubildende Anja Lieblich zweifelt an einer Anweisung ihres Ausbilders. In welchem Fall liegt ein Verstoß gegen das Berufsbildungsgesetz (BBiG) oder Jugendarbeitsschutzgesetz (JArbSchG) vor?",
+      "answerOptions": [
+        {
+          "text": "Der Ausbilder verweigert Frau Lieblich wegen eines dringenden Saisongeschäfts den Besuch der Berufsschule.",
+          "isCorrect": true,
+          "rationale": "Die Freistellung für die Berufsschule ist eine zwingende gesetzliche Pflicht (§ 15 BBiG/§ 9 JArbSchG)."
+        },
+        {
+          "text": "Der Ausbilder mahnt Frau Lieblich ab, da sie wiederholt unentschuldigt zu spät kommt.",
+          "isCorrect": false,
+          "rationale": "Abmahnungen bei Fehlverhalten sind rechtlich zulässig."
+        },
+        {
+          "text": "Der Ausbilder beschäftigt Frau Lieblich an 5 Werktagen für jeweils 8 Stunden (insg. 40 Std./Woche).",
+          "isCorrect": false,
+          "rationale": "Dies ist für 17-Jährige nach JArbSchG zulässig."
+        },
+        {
+          "text": "Der Ausbilder untersagt eine Nebenbeschäftigung, die die Ausbildung beeinträchtigt.",
+          "isCorrect": false,
+          "rationale": "Das Verbot von leistungsmindernden Nebenjobs ist zulässig."
+        },
+        {
+          "text": "Der Ausbilder verpflichtet Frau Lieblich, an einer betrieblichen Brandschutz-Unterweisung teilzunehmen.",
+          "isCorrect": false,
+          "rationale": "Unterweisungen zur Sicherheit sind Pflicht und kein Verstoß."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Die Freistellungspflicht des Arbeitgebers für den Berufsschulunterricht ist absolut. Betriebliche Belange (wie Saisongeschäft) rechtfertigen niemals ein Fernbleiben von der Schule.",
+      "videoUrl": "",
+      "youtubeQuery": "BBiG Pflichten des Ausbildenden Berufsschule"
+    },
+    {
+      "id": "eco_108",
+      "question": "Die OceanBreeze GmbH stellt zwei 17-jährige Praktikanten und zwei 17-jährige Auszubildende ein. Welche rechtliche Aussage zum Jugendarbeitsschutzgesetz (JArbSchG) ist korrekt?",
+      "answerOptions": [
+        {
+          "text": "Das JArbSchG gilt nur für die Auszubildenden, da die Praktikanten kein festes Arbeitsverhältnis haben.",
+          "isCorrect": false,
+          "rationale": "Das JArbSchG schützt alle Personen unter 18 Jahren im Rahmen ihrer Beschäftigung."
+        },
+        {
+          "text": "Das JArbSchG gilt für alle vier Personen, da sie noch keine 18 Jahre alt sind.",
+          "isCorrect": true,
+          "rationale": "Korrekt: Maßgeblich ist allein das Alter unter 18 Jahren."
+        },
+        {
+          "text": "Für die Praktikanten gilt das JArbSchG nur, wenn das Praktikum länger als 3 Monate dauert.",
+          "isCorrect": false,
+          "rationale": "Der Schutz gilt ab dem ersten Tag der Beschäftigung."
+        },
+        {
+          "text": "Das JArbSchG gilt nur für Personen, die vollzeitbeschäftigt sind.",
+          "isCorrect": false,
+          "rationale": "Auch Teilzeitkräfte und Aushilfen unter 18 sind geschützt."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Der Geltungsbereich des Jugendarbeitsschutzgesetzes umfasst alle Personen, die noch nicht 18 Jahre alt sind und im Rahmen eines Arbeits-, Ausbildungs- oder Praktikantenverhältnisses beschäftigt werden.",
+      "videoUrl": "",
+      "youtubeQuery": "Jugendarbeitsschutzgesetz Geltungsbereich einfach erklärt"
+    },
+    {
+      "id": "eco_109",
+      "question": "Vor Beginn der Beschäftigung eines Jugendlichen (unter 18) ist eine ärztliche Erstuntersuchung vorgeschrieben. Welche Frist ist hierbei nach dem Jugendarbeitsschutzgesetz zu beachten?",
+      "answerOptions": [
+        {
+          "text": "Die Untersuchung darf nicht länger als 6 Monate zurückliegen.",
+          "isCorrect": false,
+          "rationale": "Die gesetzliche Frist ist länger."
+        },
+        {
+          "text": "Die Untersuchung darf nicht länger als 14 Monate zurückliegen.",
+          "isCorrect": true,
+          "rationale": "Korrekt gemäß § 32 JArbSchG."
+        },
+        {
+          "text": "Die Untersuchung muss spätestens 4 Wochen nach Arbeitsbeginn erfolgen.",
+          "isCorrect": false,
+          "rationale": "Sie muss VOR Beginn vorliegen."
+        },
+        {
+          "text": "Es gibt keine feste Frist, solange der Jugendliche gesund erscheint.",
+          "isCorrect": false,
+          "rationale": "Es handelt sich um eine zwingende gesetzliche Vorgabe."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Ein Jugendlicher darf nur beschäftigt werden, wenn er innerhalb der letzten 14 Monate ärztlich untersucht wurde und dem Arbeitgeber eine entsprechende Bescheinigung vorliegt (§ 32 JArbSchG).",
+      "videoUrl": "",
+      "youtubeQuery": "ärztliche Erstuntersuchung Jugendarbeitsschutzgesetz"
+    },
+    {
+      "id": "eco_110",
+      "question": "Für die Wahl der Jugend- und Auszubildendenvertretung (JAV) gibt es aktive (wählen dürfen) und passive (gewählt werden) Wahlrechte. Wer ist laut Betriebsverfassungsgesetz (§ 61 BetrVG) wählbar (passives Wahlrecht)?",
+      "answerOptions": [
+        {
+          "text": "Alle Auszubildenden bis zum vollendeten 25. Lebensjahr.",
+          "isCorrect": true,
+          "rationale": "Korrekt: Auszubildende sind unabhängig vom Alter (bis 25) wählbar."
+        },
+        {
+          "text": "Nur Auszubildende, die am Wahltag noch nicht 18 Jahre alt sind.",
+          "isCorrect": false,
+          "rationale": "Dies würde die Altersgrenze für Auszubildende unterschreiten."
+        },
+        {
+          "text": "Alle Mitarbeiter des Unternehmens bis zum 30. Lebensjahr.",
+          "isCorrect": false,
+          "rationale": "Die Grenze liegt bei 25 Jahren."
+        },
+        {
+          "text": "Nur Mitglieder des Betriebsrats.",
+          "isCorrect": false,
+          "rationale": "Betriebsratsmitglieder können nicht gleichzeitig in der JAV sitzen."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Wählbar sind alle Arbeitnehmer unter 25 Jahren sowie alle Auszubildenden unter 25 Jahren (sofern sie nicht dem Betriebsrat angehören). Achtung: Das aktive Wahlrecht haben alle Jugendlichen unter 18 und alle Auszubildenden unter 25.",
+      "videoUrl": "",
+      "youtubeQuery": "JAV Wahlrecht aktiv passiv Voraussetzungen"
+    },
+    {
+      "id": "eco_111",
+      "question": "Welche der folgenden Aufgaben gehört zum gesetzlichen Aufgabenbereich der Jugend- und Auszubildendenvertretung (JAV)?",
+      "answerOptions": [
+        {
+          "text": "Die JAV entscheidet eigenständig über die Kündigung von Auszubildenden.",
+          "isCorrect": false,
+          "rationale": "Dies ist Aufgabe des Arbeitgebers unter Anhörung des Betriebsrats."
+        },
+        {
+          "text": "Die JAV handelt die Höhe der Ausbildungsvergütung mit dem Arbeitgeberverband aus.",
+          "isCorrect": false,
+          "rationale": "Dies ist Aufgabe der Gewerkschaften (Tarifpartner)."
+        },
+        {
+          "text": "Die JAV beantragt beim Betriebsrat Maßnahmen, die den Jugendlichen und Auszubildenden dienen (z.B. Übernahme nach der Ausbildung).",
+          "isCorrect": true,
+          "rationale": "Kernaufgabe nach § 70 BetrVG: Wahrnehmung der Belange der jungen Beschäftigten."
+        },
+        {
+          "text": "Die JAV überwacht die Einhaltung der Arbeitszeit bei den leitenden Angestellten.",
+          "isCorrect": false,
+          "rationale": "Dafür ist sie nicht zuständig."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Die JAV ist die Interessenvertretung der jungen Beschäftigten im Betrieb. Sie arbeitet eng mit dem Betriebsrat zusammen und leitet Forderungen und Wünsche an diesen weiter.",
+      "videoUrl": "",
+      "youtubeQuery": "Aufgaben der JAV einfach erklärt"
+    },
+    {
+      "id": "eco_112",
+      "question": "Einige Mitarbeiter der OceanBreeze GmbH befürworten die Wahl eines Betriebsrats. Was ist die primäre gesetzliche Aufgabe eines Betriebsrats?",
+      "answerOptions": [
+        {
+          "text": "Er hat die alleinige Verantwortung für den Abschluss von Branchentarifverträgen.",
+          "isCorrect": false,
+          "rationale": "Branchentarifverträge werden von Gewerkschaften abgeschlossen."
+        },
+        {
+          "text": "Er muss bei der Ernennung eines neuen Geschäftsführers zwingend zustimmen.",
+          "isCorrect": false,
+          "rationale": "Die Besetzung der Geschäftsführung ist Sache der Inhaber/Gesellschafter."
+        },
+        {
+          "text": "Er legt die Höhe des Urlaubsgeldes für alle tarifgebundenen Betriebe fest.",
+          "isCorrect": false,
+          "rationale": "Dies ist Tarifangelegenheit."
+        },
+        {
+          "text": "Er vertritt die Interessen der Arbeitnehmer gegenüber dem Arbeitgeber und überwacht die Einhaltung von Gesetzen und Vereinbarungen.",
+          "isCorrect": true,
+          "rationale": "Dies ist die Kernfunktion nach dem Betriebsverfassungsgesetz."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Der Betriebsrat ist das Organ der Mitbestimmung auf betrieblicher Ebene. Er sorgt dafür, dass die Rechte der Mitarbeiter gewahrt werden und Gesetze (wie z.B. das JArbSchG) eingehalten werden.",
+      "videoUrl": "",
+      "youtubeQuery": "Rechte und Pflichten des Betriebsrats"
+    },
+    {
+      "id": "eco_113",
+      "question": "Bringen Sie die Schritte eines typischen Tarifverhandlungsprozesses in die richtige chronologische Reihenfolge:\n1. Urabstimmung über Streik\n2. Durchführung des Streiks\n3. Scheitern der Verhandlungen wird erklärt\n4. Gewerkschaft stellt Lohnforderung\n5. Neuer Einigungsvorschlag und Annahme",
+      "answerOptions": [
+        {
+          "text": "4 - 3 - 1 - 2 - 5",
+          "isCorrect": true,
+          "rationale": "Korrekt: Forderung -> Scheitern -> Urabstimmung -> Streik -> Einigung."
+        },
+        {
+          "text": "3 - 4 - 1 - 2 - 5",
+          "isCorrect": false,
+          "rationale": "Die Forderung steht am Anfang."
+        },
+        {
+          "text": "4 - 1 - 3 - 2 - 5",
+          "isCorrect": false,
+          "rationale": "Die Urabstimmung folgt erst nach dem offiziellen Scheitern."
+        },
+        {
+          "text": "1 - 2 - 4 - 3 - 5",
+          "isCorrect": false,
+          "rationale": "Streik ohne Forderung ist nicht möglich."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Erst werden Forderungen gestellt und verhandelt. Bleibt dies ohne Erfolg, wird das Scheitern erklärt. Danach stimmen die Gewerkschaftsmitglieder über einen Streik ab. Wird dieser durchgeführt, folgt meist ein neuer Einigungsdruck, der zum Abschluss führt.",
+      "videoUrl": "",
+      "youtubeQuery": "Ablauf von Tarifverhandlungen einfach erklärt"
+    },
+    {
+      "id": "eco_114",
+      "question": "Welche Verhaltensweise der Beschäftigten entspricht den Unfallverhütungsvorschriften (UVV) in der OceanBreeze GmbH?",
+      "answerOptions": [
+        {
+          "text": "Jeder Mitarbeiter ist verpflichtet, auch Arbeitsunfälle mit kleinsten Verletzungen (Bagatellschäden) unverzüglich anzuzeigen/zu dokumentieren.",
+          "isCorrect": true,
+          "rationale": "Korrekt: Dokumentation im Verbandbuch ist Pflicht für den Versicherungsschutz."
+        },
+        {
+          "text": "Mitarbeiter sollten versuchen, technische Mängel an elektrischen Geräten sofort selbst zu reparieren.",
+          "isCorrect": false,
+          "rationale": "Reparaturen dürfen nur durch Fachpersonal erfolgen (Stromschlaggefahr)."
+        },
+        {
+          "text": "Sicherheitsbestimmungen können missachtet werden, wenn Termindruck im Versand besteht.",
+          "isCorrect": false,
+          "rationale": "Sicherheit geht immer vor Schnelligkeit."
+        },
+        {
+          "text": "Jeder Mitarbeiter muss zwingend eine Ausbildung zum Ersthelfer abgeschlossen haben.",
+          "isCorrect": false,
+          "rationale": "Nur ein bestimmter Prozentsatz der Belegschaft muss Ersthelfer sein."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Auch kleine Schnittwunden o.ä. müssen dokumentiert werden. Tritt später eine Infektion auf, dient der Eintrag als Beweis für einen Arbeitsunfall gegenüber der Berufsgenossenschaft.",
+      "videoUrl": "",
+      "youtubeQuery": "Unfallverhütungsvorschriften UVV Unterweisung"
+    },
+    {
+      "id": "eco_115",
+      "question": "Eine Auszubildende klagt über Rückenschmerzen am PC-Arbeitsplatz. Welcher Ergonomie-Tipp ist nach der Arbeitsstättenverordnung NICHT sinnvoll oder sogar falsch?",
+      "answerOptions": [
+        {
+          "text": "Nutzen Sie ein Headset anstatt eines eingeklemmten Telefonhörers bei längeren Gesprächen.",
+          "isCorrect": false,
+          "rationale": "Dieser Tipp ist sinnvoll und richtig."
+        },
+        {
+          "text": "Stellen Sie Stuhl, Schreibtisch und Bildschirm individuell auf Ihre Körpergröße ein.",
+          "isCorrect": false,
+          "rationale": "Dieser Tipp ist sinnvoll und richtig."
+        },
+        {
+          "text": "Legen Sie regelmäßige Bewegungspausen ein, um statische Belastung zu vermeiden.",
+          "isCorrect": false,
+          "rationale": "Dieser Tipp ist sinnvoll und richtig."
+        },
+        {
+          "text": "Verzichten Sie weitgehend auf Tageslicht und arbeiten Sie bei reinem Kunstlicht, um Blendeffekte auszuschließen.",
+          "isCorrect": true,
+          "rationale": "FALSCH: Tageslicht ist gesetzlich vorgeschrieben und wichtig für die Gesundheit."
+        },
+        {
+          "text": "Platzieren Sie den Bildschirm direkt zentral vor sich (Blickrichtung geradeaus), um Nackenverspannungen zu vermeiden.",
+          "isCorrect": false,
+          "rationale": "Dieser Tipp ist sinnvoll und richtig."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D (da nach dem falschen Tipp gefragt wurde). Die Arbeitsstättenverordnung schreibt eine Sichtverbindung nach außen (Tageslicht) zwingend vor, sofern dies baulich möglich ist. Blendungen müssen durch Jalousien o.ä. verhindert werden, nicht durch den Verzicht auf Licht.",
+      "videoUrl": "",
+      "youtubeQuery": "Ergonomie am Bildschirmarbeitsplatz Tipps"
+    },
+    {
+      "id": "eco_116",
+      "question": "In der OceanBreeze GmbH stehen Wahlen zur Jugend- und Auszubildendenvertretung (JAV) an. Welche Aussage zur Wahlberechtigung (aktiv) und Wählbarkeit (passiv) der folgenden Personen ist laut Betriebsverfassungsgesetz korrekt?",
+      "answerOptions": [
+        {
+          "text": "Sandra (18 Jahre, Azubi): Wahlberechtigt und wählbar.",
+          "isCorrect": true,
+          "rationale": "Korrekt: Azubis unter 25 sind sowohl aktiv als auch passiv wahlberechtigt."
+        },
+        {
+          "text": "Bernd (24 Jahre, Azubi & Mitglied des Betriebsrats): Wahlberechtigt und wählbar.",
+          "isCorrect": false,
+          "rationale": "Falsch: Wer im BR sitzt, kann nicht in die JAV gewählt werden (keine Doppelfunktion)."
+        },
+        {
+          "text": "Petra (20 Jahre, Teamassistentin, keine Azubi): Nur wahlberechtigt.",
+          "isCorrect": false,
+          "rationale": "Falsch: Als Nicht-Azubi über 18 ist sie nicht aktiv wahlberechtigt, aber als Arbeitnehmerin unter 25 passiv wählbar."
+        },
+        {
+          "text": "Max (19 Jahre, Azubi): Nur wählbar, nicht wahlberechtigt.",
+          "isCorrect": false,
+          "rationale": "Falsch: Als Azubi unter 25 ist er sowohl aktiv als auch passiv wahlberechtigt."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Wahlberechtigt (aktiv) sind alle Azubis unter 25 und alle Jugendlichen unter 18. Wählbar (passiv) sind alle Arbeitnehmer unter 25, sofern sie nicht dem BR angehören. Sandra erfüllt beide Kriterien. Bernd darf wählen, aber nicht gewählt werden (da im BR). Petra darf nicht wählen (über 18, kein Azubi), aber gewählt werden (unter 25).",
+      "videoUrl": "",
+      "youtubeQuery": "JAV Wahlrecht aktiv passiv BetrVG"
     }
   ]
 }
