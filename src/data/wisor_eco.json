@@ -2,10 +2,10 @@
   "questions": [
     {
       "id": "eco_1",
-      "question": "Zunehmend strenger werdende ökologische Auflagen zwingen die Green-Threads AG dazu, ihre Unternehmensprozesse intensiver zu kontrollieren. Nach dem Abschluss der IST-Analyse unterstützt du die Geschäftsleitung bei der Formulierung von ökologischen Zielsetzungen. Welche 2 Zielsetzungen entsprechen dem ökonomischen Prinzip nach dem Minimalprinzip?",
+      "question": "Zunehmend strenger werdende ökologische Auflagen zwingen die Eco-Wear AG dazu, ihre Unternehmensprozesse intensiver zu kontrollieren. Nach dem Abschluss der IST-Analyse unterstützt du die Geschäftsleitung bei der Formulierung von ökologischen Zielsetzungen. Welche 2 Zielsetzungen entsprechen dem ökonomischen Prinzip nach dem Minimalprinzip?",
       "answerOptions": [
         {
-          "text": "Die Green-Threads AG möchte mit möglichst günstigen Maßnahmen eine maximale Energieersparnis erzielen.",
+          "text": "Die Eco-Wear AG möchte mit möglichst günstigen Maßnahmen eine maximale Energieersparnis erzielen.",
           "isCorrect": false,
           "rationale": "Das ist eine unzulässige Mischform aus Minimal- und Maximalprinzip (Nonsens-Prinzip)."
         },
@@ -20,12 +20,12 @@
           "rationale": "Vorgegebenes Ziel (20°C) wird mit minimalem Mitteleinsatz (Energie) erreicht."
         },
         {
-          "text": "Die Green-Threads AG strebt einen möglichst hohen Gewinn an, da dies neue Investitionen ermöglicht und die Zufriedenheit der Gesellschafter fördert.",
+          "text": "Die Eco-Wear AG strebt einen möglichst hohen Gewinn an, da dies neue Investitionen ermöglicht und die Zufriedenheit der Gesellschafter fördert.",
           "isCorrect": false,
           "rationale": "Das beschreibt kein Minimalprinzip mit vorgegebenem Ziel und minimalem Mitteleinsatz."
         },
         {
-          "text": "Die Green-Threads AG versucht, täglich so viele Pakete wie möglich zu versenden, ohne dabei eine vorgegebene Maximalzahl an Kartonagen zu überschreiten.",
+          "text": "Die Eco-Wear AG versucht, täglich so viele Pakete wie möglich zu versenden, ohne dabei eine vorgegebene Maximalzahl an Kartonagen zu überschreiten.",
           "isCorrect": false,
           "rationale": "Das ist keine reine Minimalprinzip-Formulierung."
         },
@@ -46,7 +46,7 @@
     },
     {
       "id": "eco_2",
-      "question": "Im Rahmen der Überprüfung der ökologischen Ziele der Skyline-Apex UG werden verschiedene Zielbeziehungen analysiert. Welche Zuordnung ist fachlich korrekt?",
+      "question": "Im Rahmen der Überprüfung der ökologischen Ziele der Urban-Peak UG werden verschiedene Zielbeziehungen analysiert. Welche Zuordnung ist fachlich korrekt?",
       "answerOptions": [
         {
           "text": "Erhöhung der Kundenzufriedenheit und Verbesserung der Lichtverhältnisse im Lager sind komplementäre Ziele.",
@@ -84,7 +84,7 @@
     },
     {
       "id": "eco_3",
-      "question": "Die Skyline-Apex UG hat zwei Zielpaare definiert: (1) Erhöhung der Kundenzufriedenheit und Verbesserung der Lichtverhältnisse im Lager sowie (2) Imagegewinn und Verbesserung des Umweltschutzes. Welche Zuordnung ist korrekt?",
+      "question": "Die Urban-Peak UG hat zwei Zielpaare definiert: (1) Erhöhung der Kundenzufriedenheit und Verbesserung der Lichtverhältnisse im Lager sowie (2) Imagegewinn und Verbesserung des Umweltschutzes. Welche Zuordnung ist korrekt?",
       "answerOptions": [
         {
           "text": "1. Komplementäre Ziele / 2. Konkurrierende Ziele",
@@ -122,7 +122,7 @@
     },
     {
       "id": "eco_4",
-      "question": "Den Beschäftigten der Green-Threads GmbH wird deutlich gemacht, dass Nachhaltigkeit eine bedeutende Rolle spielt. Dabei werden die Begriffe Abfallvermeidung, Abfallverminderung und Abfallverwertung hervorgehoben. In welcher Aussage ist die Maßnahme dem richtigen Fachbegriff zugeordnet?",
+      "question": "Den Beschäftigten der Eco-Wear GmbH wird deutlich gemacht, dass Nachhaltigkeit eine bedeutende Rolle spielt. Dabei werden die Begriffe Abfallvermeidung, Abfallverminderung und Abfallverwertung hervorgehoben. In welcher Aussage ist die Maßnahme dem richtigen Fachbegriff zugeordnet?",
       "answerOptions": [
         {
           "text": "Wenn Warenlieferungen nur noch sparsam mit Verpackungsmaterial verpackt werden, spricht man von Abfallvermeidung.",
@@ -160,10 +160,10 @@
     },
     {
       "id": "eco_5",
-      "question": "Im Lager der Path-Finder UG werden zu hohe umweltbelastende Emissionen und ein zu hoher Stromverbrauch gemessen. Welche Darstellung ist fachlich richtig?",
+      "question": "Im Lager der Trail-Blazer UG werden zu hohe umweltbelastende Emissionen und ein zu hoher Stromverbrauch gemessen. Welche Darstellung ist fachlich richtig?",
       "answerOptions": [
         {
-          "text": "Abgasbezogene Emissionen entstehen in der Path-Finder UG durch den Transport von Materialien oder Paketen mit manuell bewegten Hubwagen.",
+          "text": "Abgasbezogene Emissionen entstehen in der Trail-Blazer UG durch den Transport von Materialien oder Paketen mit manuell bewegten Hubwagen.",
           "isCorrect": false,
           "rationale": "Manuell bewegte Hubwagen verursachen keine abgasbezogenen Emissionen durch Verbrennungsmotoren."
         },
@@ -183,7 +183,7 @@
           "rationale": "Die Verantwortung liegt nicht pauschal bei Sicherheitsbeauftragten."
         },
         {
-          "text": "Für die Path-Finder UG gelten keine Emissionsgesetze, da sie kein Produktionsbetrieb ist.",
+          "text": "Für die Trail-Blazer UG gelten keine Emissionsgesetze, da sie kein Produktionsbetrieb ist.",
           "isCorrect": false,
           "rationale": "Auch Nicht-Produktionsbetriebe unterliegen einschlägigen Umweltvorschriften."
         }
@@ -198,7 +198,7 @@
     },
     {
       "id": "eco_6",
-      "question": "Für die Future-Retail GmbH sind auch die Vorgaben des Kreislaufwirtschaftsgesetzes (KrWG) von großer Bedeutung. Welche der folgenden Zielsetzungen findet sich nicht in diesem Gesetz?",
+      "question": "Für die Next-Gen Retail GmbH sind auch die Vorgaben des Kreislaufwirtschaftsgesetzes (KrWG) von großer Bedeutung. Welche der folgenden Zielsetzungen findet sich nicht in diesem Gesetz?",
       "answerOptions": [
         {
           "text": "Abfälle zu vermeiden",
@@ -236,7 +236,7 @@
     },
     {
       "id": "eco_7",
-      "question": "Sie betrachten das Organigramm der Future-Retail GmbH. Die Abteilung Nachhaltigkeitsmanagement (in der Herr Träger arbeitet) ist dort als ovales Element seitlich an der direkten Verbindungslinie unterhalb der Geschäftsführung angebracht, ohne eigene Linienverbindung nach unten zu anderen Abteilungen. Welche Tätigkeit zählt gemäß dieser strukturellen Einordnung zum Aufgabenbereich von Herrn Träger?",
+      "question": "Sie betrachten das Organigramm der Next-Gen Retail GmbH. Die Abteilung Nachhaltigkeitsmanagement (in der Herr Träger arbeitet) ist dort als ovales Element seitlich an der direkten Verbindungslinie unterhalb der Geschäftsführung angebracht, ohne eigene Linienverbindung nach unten zu anderen Abteilungen. Welche Tätigkeit zählt gemäß dieser strukturellen Einordnung zum Aufgabenbereich von Herrn Träger?",
       "answerOptions": [
         {
           "text": "Herr Träger kann nur nach Abstimmung mit Frau Rudinger (Hausjuristin) der Geschäftsleitung Vorschläge unterbreiten.",
@@ -244,7 +244,7 @@
           "rationale": "Eine Stabsstelle muss nicht zwingend mit anderen Stabsstellen abstimmen, um zu beraten."
         },
         {
-          "text": "Herr Träger erteilt der Geschäftsleitung die Anweisung, die Unternehmensstruktur umzuorganisieren, um die Nachhaltigkeitsziele der Future-Retail GmbH zu erreichen.",
+          "text": "Herr Träger erteilt der Geschäftsleitung die Anweisung, die Unternehmensstruktur umzuorganisieren, um die Nachhaltigkeitsziele der Next-Gen Retail GmbH zu erreichen.",
           "isCorrect": false,
           "rationale": "Stabsstellen haben keine Weisungsbefugnis gegenüber der Leitung oder anderen Bereichen."
         },
@@ -274,7 +274,7 @@
     },
     {
       "id": "eco_8",
-      "question": "Die Future-Retail GmbH hat ein herausforderndes Geschäftsjahr hinter sich. Zum Zweck der Kostenreduzierung soll die gesamte Lagerhaltung grundlegend umstrukturiert werden. Herr Yalzin, der Leiter des Bereichs Lagerlogistik, ist für diese Umstrukturierung zuständig. Mit welcher Tätigkeit muss er methodisch zwingend beginnen?",
+      "question": "Die Next-Gen Retail GmbH hat ein herausforderndes Geschäftsjahr hinter sich. Zum Zweck der Kostenreduzierung soll die gesamte Lagerhaltung grundlegend umstrukturiert werden. Herr Yalzin, der Leiter des Bereichs Lagerlogistik, ist für diese Umstrukturierung zuständig. Mit welcher Tätigkeit muss er methodisch zwingend beginnen?",
       "answerOptions": [
         {
           "text": "Zusammenfassung der verschiedenen Aufgaben zu einem Tätigkeitsbereich",
@@ -312,7 +312,7 @@
     },
     {
       "id": "eco_9",
-      "question": "Die rückläufige Geschäftsentwicklung des letzten Jahres hat den Gewinn der Future-Retail GmbH geschmälert. Im Gesellschaftsvertrag (Satzung) wurde keine gesonderte Vereinbarung über die Gewinnverteilung getroffen. Wie ist der erzielte Gewinn nach der gesetzlichen Regelung (GmbH-Gesetz) auf die Gesellschafter zu verteilen?",
+      "question": "Die rückläufige Geschäftsentwicklung des letzten Jahres hat den Gewinn der Next-Gen Retail GmbH geschmälert. Im Gesellschaftsvertrag (Satzung) wurde keine gesonderte Vereinbarung über die Gewinnverteilung getroffen. Wie ist der erzielte Gewinn nach der gesetzlichen Regelung (GmbH-Gesetz) auf die Gesellschafter zu verteilen?",
       "answerOptions": [
         {
           "text": "Die drei Gesellschafter und die Geschäftsführer erhalten den Gewinn zu gleichen Teilen.",
@@ -350,7 +350,7 @@
     },
     {
       "id": "eco_10",
-      "question": "Die Peak-Shield GmbH will ein neues aufblasbares Kajak ins Sortiment aufnehmen. Die Marktforschung zeigt: Bei 2.000,00 € beträgt die Nachfrage 250 Stück und das Angebot 400 Stück. Bei 1.800,00 € beträgt die Nachfrage 300 Stück und das Angebot 300 Stück. Bei 1.600,00 € beträgt die Nachfrage 350 Stück und das Angebot 200 Stück. Welcher Preis ist der Gleichgewichtspreis?",
+      "question": "Die Vanguard-Outdoor GmbH will ein neues aufblasbares Kajak ins Sortiment aufnehmen. Die Marktforschung zeigt: Bei 2.000,00 € beträgt die Nachfrage 250 Stück und das Angebot 400 Stück. Bei 1.800,00 € beträgt die Nachfrage 300 Stück und das Angebot 300 Stück. Bei 1.600,00 € beträgt die Nachfrage 350 Stück und das Angebot 200 Stück. Welcher Preis ist der Gleichgewichtspreis?",
       "answerOptions": [
         {
           "text": "2.000,00 €",
@@ -383,7 +383,7 @@
     },
     {
       "id": "eco_11",
-      "question": "Die Peak-Shield GmbH erwägt einen Verkaufspreis von 2.000,00 € für das Kajak. Bei diesem Preis liegen die Marktdaten bei Nachfrage 250 Stück und Angebot 400 Stück. Welcher Umsatz kann maximal erzielt werden?",
+      "question": "Die Vanguard-Outdoor GmbH erwägt einen Verkaufspreis von 2.000,00 € für das Kajak. Bei diesem Preis liegen die Marktdaten bei Nachfrage 250 Stück und Angebot 400 Stück. Welcher Umsatz kann maximal erzielt werden?",
       "answerOptions": [
         {
           "text": "800.000,00 €",
@@ -454,7 +454,7 @@
     },
     {
       "id": "eco_13",
-      "question": "Für den langfristigen Erfolg der Green-Threads AG ist es wichtig, die gesamtwirtschaftliche Entwicklung (Konjunktur) im Auge zu behalten. In einem klassischen Konjunkturmodell verläuft eine wellenförmige Kurve um eine stetig ansteigende Gerade. Auf der Y-Achse wird die Wirtschaftsleistung gemessen. Welcher Antwortsatz benennt Y-Achse, abfallende Wellenbewegung und ansteigende Gerade fachlich korrekt?",
+      "question": "Für den langfristigen Erfolg der Eco-Wear AG ist es wichtig, die gesamtwirtschaftliche Entwicklung (Konjunktur) im Auge zu behalten. In einem klassischen Konjunkturmodell verläuft eine wellenförmige Kurve um eine stetig ansteigende Gerade. Auf der Y-Achse wird die Wirtschaftsleistung gemessen. Welcher Antwortsatz benennt Y-Achse, abfallende Wellenbewegung und ansteigende Gerade fachlich korrekt?",
       "answerOptions": [
         {
           "text": "Y-Achse = Bruttosozialprodukt (BSP) / Abfallende Welle = Boom / Gerade = Kapazitätsgrenze",
@@ -492,7 +492,7 @@
     },
     {
       "id": "eco_14",
-      "question": "Nach einer längeren Schwächephase mehren sich die Zeichen eines Aufschwungs (Expansion). Die Future-Retail GmbH möchte sich strategisch und logistisch darauf einstellen. Welches Merkmal ist typisch für diese Aufschwungphase?",
+      "question": "Nach einer längeren Schwächephase mehren sich die Zeichen eines Aufschwungs (Expansion). Die Next-Gen Retail GmbH möchte sich strategisch und logistisch darauf einstellen. Welches Merkmal ist typisch für diese Aufschwungphase?",
       "answerOptions": [
         {
           "text": "Abnahme der Investitionen",
@@ -530,7 +530,7 @@
     },
     {
       "id": "eco_15",
-      "question": "Die Future-Retail GmbH beabsichtigt, zwei neue Auszubildende als Kaufleute im E-Commerce einzustellen. Welches Eignungskriterium ist nach dem Berufsbildungsgesetz (BBiG) für Ausbilder zwingend vorgeschrieben?",
+      "question": "Die Next-Gen Retail GmbH beabsichtigt, zwei neue Auszubildende als Kaufleute im E-Commerce einzustellen. Welches Eignungskriterium ist nach dem Berufsbildungsgesetz (BBiG) für Ausbilder zwingend vorgeschrieben?",
       "answerOptions": [
         {
           "text": "Mitgliedschaft im Arbeitskreis Personal",
@@ -568,7 +568,7 @@
     },
     {
       "id": "eco_16",
-      "question": "Die Bedingungen des Ausbildungsverhältnisses zwischen der Green-Threads AG und neuen Auszubildenden werden im Berufsausbildungsvertrag festgehalten. Welcher Inhalt ist gemäß BBiG zwingender Bestandteil dieses Vertrags?",
+      "question": "Die Bedingungen des Ausbildungsverhältnisses zwischen der Eco-Wear AG und neuen Auszubildenden werden im Berufsausbildungsvertrag festgehalten. Welcher Inhalt ist gemäß BBiG zwingender Bestandteil dieses Vertrags?",
       "answerOptions": [
         {
           "text": "Der fachlich gegliederte Bildungsplan der Berufsschule",
@@ -606,7 +606,7 @@
     },
     {
       "id": "eco_17",
-      "question": "Im Berufsausbildungsvertrag der Skyline-Apex UG sind Wahlqualifikationen aufgeführt, in denen geprüft wird. Wer ist für die Vermittlung der Fertigkeiten, Kenntnisse und Fähigkeiten dieser Wahlqualifikationen zuständig?",
+      "question": "Im Berufsausbildungsvertrag der Urban-Peak UG sind Wahlqualifikationen aufgeführt, in denen geprüft wird. Wer ist für die Vermittlung der Fertigkeiten, Kenntnisse und Fähigkeiten dieser Wahlqualifikationen zuständig?",
       "answerOptions": [
         {
           "text": "Die Auszubildenden",
@@ -644,7 +644,7 @@
     },
     {
       "id": "eco_18",
-      "question": "Im Berufsausbildungsvertrag der Path-Finder GmbH wird auf die Verschwiegenheitspflicht nach § 13 BBiG hingewiesen. Welche Erläuterung ist korrekt?",
+      "question": "Im Berufsausbildungsvertrag der Trail-Blazer GmbH wird auf die Verschwiegenheitspflicht nach § 13 BBiG hingewiesen. Welche Erläuterung ist korrekt?",
       "answerOptions": [
         {
           "text": "Auszubildende müssen gegenüber Dritten über sämtliche Vorkommnisse im Unternehmen Stillschweigen wahren.",
@@ -720,7 +720,7 @@
     },
     {
       "id": "eco_20",
-      "question": "Ein Auszubildender der Intelli-Equip GmbH erhält sieben Monate nach Ausbildungsbeginn einen Studienplatz und möchte zum Semesterstart wechseln. Welche Möglichkeit hat er nach BBiG, das Ausbildungsverhältnis zu beenden?",
+      "question": "Ein Auszubildender der Smart-Gear GmbH erhält sieben Monate nach Ausbildungsbeginn einen Studienplatz und möchte zum Semesterstart wechseln. Welche Möglichkeit hat er nach BBiG, das Ausbildungsverhältnis zu beenden?",
       "answerOptions": [
         {
           "text": "Er kann das Ausbildungsverhältnis nur innerhalb der Probezeit kündigen.",
@@ -758,7 +758,7 @@
     },
     {
       "id": "eco_21",
-      "question": "Die Future-Retail GmbH stellt zwei minderjährige Auszubildende und einen 16-jährigen Schüler als Aushilfe ein. Welche rechtliche Aussage ist korrekt?",
+      "question": "Die Next-Gen Retail GmbH stellt zwei minderjährige Auszubildende und einen 16-jährigen Schüler als Aushilfe ein. Welche rechtliche Aussage ist korrekt?",
       "answerOptions": [
         {
           "text": "Für diese Beschäftigten müssen keine weiteren rechtlichen Regelungen beachtet werden.",
@@ -834,7 +834,7 @@
     },
     {
       "id": "eco_23",
-      "question": "Die Jugend- und Auszubildendenvertretung (JAV) der Skyline-Apex AG möchte Anträge an die Geschäftsleitung stellen. Welcher Weg ist wirksam?",
+      "question": "Die Jugend- und Auszubildendenvertretung (JAV) der Urban-Peak AG möchte Anträge an die Geschäftsleitung stellen. Welcher Weg ist wirksam?",
       "answerOptions": [
         {
           "text": "Sie kann Anträge direkt stellen.",
@@ -910,7 +910,7 @@
     },
     {
       "id": "eco_25",
-      "question": "Die Green-Threads GmbH ist tarifgebunden. Welche konkrete rechtliche Folge ergibt sich daraus für die Angestellten?",
+      "question": "Die Eco-Wear GmbH ist tarifgebunden. Welche konkrete rechtliche Folge ergibt sich daraus für die Angestellten?",
       "answerOptions": [
         {
           "text": "Alle Angestellten haben Anspruch auf tarifliche Entlohnung und sonstige tarifliche Leistungen.",
@@ -933,7 +933,7 @@
           "rationale": "Eine solche pauschale Probezeitregel gibt es tarifrechtlich nicht als Grundsatz."
         },
         {
-          "text": "Die Green-Threads GmbH kann aufgrund der Tarifautonomie selbst bestimmen, welchen Angestellten tarifliche Leistungen angeboten werden.",
+          "text": "Die Eco-Wear GmbH kann aufgrund der Tarifautonomie selbst bestimmen, welchen Angestellten tarifliche Leistungen angeboten werden.",
           "isCorrect": false,
           "rationale": "Tarifautonomie bedeutet nicht freie Arbeitgeberwahl trotz bestehender Tarifbindung."
         }
@@ -986,7 +986,7 @@
     },
     {
       "id": "eco_27",
-      "question": "Wegen steigenden Konkurrenzdrucks soll die Path-Finder UG Personalkosten durch Personalabbau senken. Welches der folgenden Arbeitsverhältnisse kann am ehesten durch eine ordentliche Kündigung beendet werden?",
+      "question": "Wegen steigenden Konkurrenzdrucks soll die Trail-Blazer UG Personalkosten durch Personalabbau senken. Welches der folgenden Arbeitsverhältnisse kann am ehesten durch eine ordentliche Kündigung beendet werden?",
       "answerOptions": [
         {
           "text": "Tina Hettlinger, 20 Jahre, Auszubildende, im 2. von drei Ausbildungsjahren",
@@ -1024,7 +1024,7 @@
     },
     {
       "id": "eco_28",
-      "question": "Die Future-Retail GmbH unterweist Beschäftigte zu Arbeitsschutz und Arbeitssicherheit. Welche Organisation ist für die Überwachung dieser Vorschriften zuständig?",
+      "question": "Die Next-Gen Retail GmbH unterweist Beschäftigte zu Arbeitsschutz und Arbeitssicherheit. Welche Organisation ist für die Überwachung dieser Vorschriften zuständig?",
       "answerOptions": [
         {
           "text": "Die gesetzliche Krankenkasse",
@@ -1138,7 +1138,7 @@
     },
     {
       "id": "eco_31",
-      "question": "Die World-Merchant GmbH prüft ihre kurzfristige Zahlungsbereitschaft. Welche Aussage zur Liquidität 1. Grades ist richtig?",
+      "question": "Die Globetrader GmbH prüft ihre kurzfristige Zahlungsbereitschaft. Welche Aussage zur Liquidität 1. Grades ist richtig?",
       "answerOptions": [
         {
           "text": "Sie zeigt, ob alle Forderungen rechtzeitig eingetrieben wurden.",
@@ -1204,7 +1204,7 @@
     },
     {
       "id": "eco_33",
-      "question": "In der Logistik der World-Merchant GmbH steigt die Retourenquote. Welches Problem deutet auf einen Fehler im Produktmanagement hin?",
+      "question": "In der Logistik der Globetrader GmbH steigt die Retourenquote. Welches Problem deutet auf einen Fehler im Produktmanagement hin?",
       "answerOptions": [
         {
           "text": "Kunden erhalten Ware, die nicht den Online-Beschreibungen oder Fotos entspricht.",
@@ -1369,7 +1369,7 @@
     },
     {
       "id": "eco_38",
-      "question": "Die Aqua-Stride GmbH bietet 2.000 Stück zu 500 EUR an, nachgefragt werden 1.400 Stück. Welche Situation liegt vor?",
+      "question": "Die OceanBreeze GmbH bietet 2.000 Stück zu 500 EUR an, nachgefragt werden 1.400 Stück. Welche Situation liegt vor?",
       "answerOptions": [
         {
           "text": "Gleichgewichtspreis",
@@ -1402,7 +1402,7 @@
     },
     {
       "id": "eco_39",
-      "question": "Es gibt insgesamt 5 Anbieter (inkl. Aqua-Stride) und viele Nachfrager. Welche Marktform liegt vor?",
+      "question": "Es gibt insgesamt 5 Anbieter (inkl. OceanBreeze) und viele Nachfrager. Welche Marktform liegt vor?",
       "answerOptions": [
         {
           "text": "Angebotsmonopol",
@@ -2128,37 +2128,15 @@
     },
     {
       "id": "eco_61",
-      "question": "Als neuer Mitarbeiter der Aqua-Stride GmbH machen Sie sich mit den Unternehmenszielen vertraut. Die Aqua-Stride GmbH hat in ihrem Unternehmensleitbild ökonomische, ökologische und soziale Ziele festgelegt.\n\nUnternehmensziele:\n1. Die Integration und Förderung von Menschen mit Behinderung und Menschen mit Migrationshintergrund ist in unserem Unternehmen eine Selbstverständlichkeit.\n2. Wir wollen erreichen, dass unsere Leistungsprozesse die natürlichen Lebensgrundlagen möglichst wenig belasten.\n3. Wir verfolgen das Ziel, ausreichende Gewinne zu erwirtschaften, um anstehende Investitionen mit möglichst wenig Fremdkapital zu finanzieren.\n\nWelche Zuordnung der Unternehmensziele zu den Zielarten ist richtig?",
+      "question": "Als neuer Mitarbeiter der OceanBreeze GmbH machen Sie sich mit den Unternehmenszielen vertraut. Die OceanBreeze GmbH hat in ihrem Unternehmensleitbild ökonomische, ökologische und soziale Ziele festgelegt.\n\nUnternehmensziele:\n1. Die Integration und Förderung von Menschen mit Behinderung und Menschen mit Migrationshintergrund ist in unserem Unternehmen eine Selbstverständlichkeit.\n2. Wir wollen erreichen, dass unsere Leistungsprozesse die natürlichen Lebensgrundlagen möglichst wenig belasten.\n3. Wir verfolgen das Ziel, ausreichende Gewinne zu erwirtschaften, um anstehende Investitionen mit möglichst wenig Fremdkapital zu finanzieren.\n\nWelche Zuordnung der Unternehmensziele zu den Zielarten ist richtig?",
       "answerOptions": [
-        {
-          "text": "Ökonomisch: 1, Ökologisch: 2, Sozial: 3",
-          "isCorrect": false,
-          "rationale": "Ziel 1 (Integration) ist ein soziales, kein ökonomisches Ziel."
-        },
-        {
-          "text": "Ökonomisch: 2, Ökologisch: 3, Sozial: 1",
-          "isCorrect": false,
-          "rationale": "Ziel 2 (natürliche Lebensgrundlagen) ist ökologisch, nicht ökonomisch."
-        },
-        {
-          "text": "Ökonomisch: 3, Ökologisch: 2, Sozial: 1",
-          "isCorrect": true,
-          "rationale": "Ziel 3 (Gewinn/Finanzierung) = ökonomisch, Ziel 2 (Lebensgrundlagen schonen) = ökologisch, Ziel 1 (Integration) = sozial."
-        },
-        {
-          "text": "Ökonomisch: 1, Ökologisch: 3, Sozial: 2",
-          "isCorrect": false,
-          "rationale": "Die Zuordnungen sind vollständig vertauscht."
-        },
-        {
-          "text": "Ökonomisch: 3, Ökologisch: 1, Sozial: 2",
-          "isCorrect": false,
-          "rationale": "Ziel 1 (Integration) ist sozial, nicht ökologisch."
-        }
+        {"text": "Ökonomisch: 1, Ökologisch: 2, Sozial: 3", "isCorrect": false, "rationale": "Ziel 1 (Integration) ist ein soziales, kein ökonomisches Ziel."},
+        {"text": "Ökonomisch: 2, Ökologisch: 3, Sozial: 1", "isCorrect": false, "rationale": "Ziel 2 (natürliche Lebensgrundlagen) ist ökologisch, nicht ökonomisch."},
+        {"text": "Ökonomisch: 3, Ökologisch: 2, Sozial: 1", "isCorrect": true, "rationale": "Ziel 3 (Gewinn/Finanzierung) = ökonomisch, Ziel 2 (Lebensgrundlagen schonen) = ökologisch, Ziel 1 (Integration) = sozial."},
+        {"text": "Ökonomisch: 1, Ökologisch: 3, Sozial: 2", "isCorrect": false, "rationale": "Die Zuordnungen sind vollständig vertauscht."},
+        {"text": "Ökonomisch: 3, Ökologisch: 1, Sozial: 2", "isCorrect": false, "rationale": "Ziel 1 (Integration) ist sozial, nicht ökologisch."}
       ],
-      "expectedAnswers": [
-        "C"
-      ],
+      "expectedAnswers": ["C"],
       "inputType": "text",
       "rationale": "Richtig ist C. Ökonomische Ziele betreffen Gewinn und Finanzierung (Ziel 3). Ökologische Ziele betreffen den Schutz der natürlichen Lebensgrundlagen (Ziel 2). Soziale Ziele betreffen den Umgang mit Mitarbeitern und gesellschaftliche Verantwortung (Ziel 1).",
       "videoUrl": "",
@@ -2168,35 +2146,13 @@
       "id": "eco_62",
       "question": "Die Verfolgung eines Unternehmensziels führt häufig zu Konflikten bei der Umsetzung eines anderen Ziels. Stellen Sie fest, in welchem Fall ein Zielkonflikt vorliegt!",
       "answerOptions": [
-        {
-          "text": "Der Umsatz der Aqua-Stride GmbH soll maximiert werden und der Marktanteil im Bereich Event-Tourismus von 5 % auf 8 % ausgebaut werden.",
-          "isCorrect": false,
-          "rationale": "Umsatzmaximierung und Marktanteilsausbau sind komplementäre Ziele, die sich gegenseitig unterstützen."
-        },
-        {
-          "text": "Die Integration von Mitarbeitern mit Migrationshintergrund soll sichergestellt und die innerbetrieblichen Sprach- und Kommunikationskurse aus Kostengründen gestrichen werden.",
-          "isCorrect": true,
-          "rationale": "Die Streichung von Sprachkursen behindert das Ziel der Integration direkt – ein klassischer Zielkonflikt."
-        },
-        {
-          "text": "Die Kosten für den Fuhrpark sollen reduziert und für Dienstreisen sollen vermehrt öffentliche Verkehrsmittel genutzt werden.",
-          "isCorrect": false,
-          "rationale": "Öffentliche Verkehrsmittel können die Fuhrparkkosten senken – die Ziele ergänzen sich."
-        },
-        {
-          "text": "Die Schadstoffemissionen sollen um 15 % reduziert und das Firmenimage somit verbessert werden.",
-          "isCorrect": false,
-          "rationale": "Emissionsreduktion und Imageverbesserung sind komplementäre Ziele."
-        },
-        {
-          "text": "Die Lohn- und Gehaltsabrechnung soll ausgegliedert werden, um Kosten zu sparen.",
-          "isCorrect": false,
-          "rationale": "Outsourcing zur Kostenensenkung beschreibt ein einzelnes Ziel mit Maßnahme, keinen Zielkonflikt."
-        }
+        {"text": "Der Umsatz der OceanBreeze GmbH soll maximiert werden und der Marktanteil im Bereich Event-Tourismus von 5 % auf 8 % ausgebaut werden.", "isCorrect": false, "rationale": "Umsatzmaximierung und Marktanteilsausbau sind komplementäre Ziele, die sich gegenseitig unterstützen."},
+        {"text": "Die Integration von Mitarbeitern mit Migrationshintergrund soll sichergestellt und die innerbetrieblichen Sprach- und Kommunikationskurse aus Kostengründen gestrichen werden.", "isCorrect": true, "rationale": "Die Streichung von Sprachkursen behindert das Ziel der Integration direkt – ein klassischer Zielkonflikt."},
+        {"text": "Die Kosten für den Fuhrpark sollen reduziert und für Dienstreisen sollen vermehrt öffentliche Verkehrsmittel genutzt werden.", "isCorrect": false, "rationale": "Öffentliche Verkehrsmittel können die Fuhrparkkosten senken – die Ziele ergänzen sich."},
+        {"text": "Die Schadstoffemissionen sollen um 15 % reduziert und das Firmenimage somit verbessert werden.", "isCorrect": false, "rationale": "Emissionsreduktion und Imageverbesserung sind komplementäre Ziele."},
+        {"text": "Die Lohn- und Gehaltsabrechnung soll ausgegliedert werden, um Kosten zu sparen.", "isCorrect": false, "rationale": "Outsourcing zur Kostenensenkung beschreibt ein einzelnes Ziel mit Maßnahme, keinen Zielkonflikt."}
       ],
-      "expectedAnswers": [
-        "B"
-      ],
+      "expectedAnswers": ["B"],
       "inputType": "text",
       "rationale": "Richtig ist B. Ein Zielkonflikt besteht, wenn sich zwei Ziele gegenseitig behindern. Die Streichung von Sprachkursen (Kostenziel) behindert das Integrationsziel (soziales Ziel) direkt.",
       "videoUrl": "",
@@ -2204,37 +2160,15 @@
     },
     {
       "id": "eco_63",
-      "question": "Die Aqua-Stride GmbH unterhält einen umfangreichen Fuhrpark aus Lkw, Pkw und Lastenrädern. Prüfen Sie, in welchem Fall die Aqua-Stride GmbH bei der Nutzung ihres Fuhrparks nach dem ökonomischen Prinzip als Minimalprinzip handelt!",
+      "question": "Die OceanBreeze GmbH unterhält einen umfangreichen Fuhrpark aus Lkw, Pkw und Lastenrädern. Prüfen Sie, in welchem Fall die OceanBreeze GmbH bei der Nutzung ihres Fuhrparks nach dem ökonomischen Prinzip als Minimalprinzip handelt!",
       "answerOptions": [
-        {
-          "text": "Die Aqua-Stride GmbH stellt einen festen Etat für Reparaturen und Wartungen der Pkw zur Verfügung, um eine maximale Nutzungszeit zu erzielen.",
-          "isCorrect": false,
-          "rationale": "Fester Etat (gegebener Input) für maximale Nutzungszeit (maximaler Output) entspricht dem Maximalprinzip."
-        },
-        {
-          "text": "Nach sechs Jahren Nutzungsdauer müssen Pkw ersetzt werden. Es wird dann versucht, für die Pkw einen maximalen Verkaufspreis zu erzielen.",
-          "isCorrect": false,
-          "rationale": "Maximaler Verkaufspreis erzielen ist kein Minimalprinzip, sondern ein Gewinnmaximierungsziel."
-        },
-        {
-          "text": "Bei der ständigen Einsatzbereitschaft aller Fahrzeuge sollen die Kosten für Reparatur und Wartung möglichst gering sein.",
-          "isCorrect": true,
-          "rationale": "Vorgegebenes Ziel (ständige Einsatzbereitschaft) mit minimalem Mitteleinsatz (geringe Kosten) = Minimalprinzip."
-        },
-        {
-          "text": "Die Fahrzeuge werden für die vorgeschriebene Mindestdauer von sechs Jahren eingesetzt.",
-          "isCorrect": false,
-          "rationale": "Eine Vorschrift einzuhalten ist kein Ausdruck des ökonomischen Prinzips."
-        },
-        {
-          "text": "Die Fahrzeuge werden so günstig wie möglich eingekauft, um sie dann so lange wie möglich zu fahren.",
-          "isCorrect": false,
-          "rationale": "Minimaler Input UND maximaler Output gleichzeitig ist eine unzulässige Mischform (Nonsens-Prinzip)."
-        }
+        {"text": "Die OceanBreeze GmbH stellt einen festen Etat für Reparaturen und Wartungen der Pkw zur Verfügung, um eine maximale Nutzungszeit zu erzielen.", "isCorrect": false, "rationale": "Fester Etat (gegebener Input) für maximale Nutzungszeit (maximaler Output) entspricht dem Maximalprinzip."},
+        {"text": "Nach sechs Jahren Nutzungsdauer müssen Pkw ersetzt werden. Es wird dann versucht, für die Pkw einen maximalen Verkaufspreis zu erzielen.", "isCorrect": false, "rationale": "Maximaler Verkaufspreis erzielen ist kein Minimalprinzip, sondern ein Gewinnmaximierungsziel."},
+        {"text": "Bei der ständigen Einsatzbereitschaft aller Fahrzeuge sollen die Kosten für Reparatur und Wartung möglichst gering sein.", "isCorrect": true, "rationale": "Vorgegebenes Ziel (ständige Einsatzbereitschaft) mit minimalem Mitteleinsatz (geringe Kosten) = Minimalprinzip."},
+        {"text": "Die Fahrzeuge werden für die vorgeschriebene Mindestdauer von sechs Jahren eingesetzt.", "isCorrect": false, "rationale": "Eine Vorschrift einzuhalten ist kein Ausdruck des ökonomischen Prinzips."},
+        {"text": "Die Fahrzeuge werden so günstig wie möglich eingekauft, um sie dann so lange wie möglich zu fahren.", "isCorrect": false, "rationale": "Minimaler Input UND maximaler Output gleichzeitig ist eine unzulässige Mischform (Nonsens-Prinzip)."}
       ],
-      "expectedAnswers": [
-        "C"
-      ],
+      "expectedAnswers": ["C"],
       "inputType": "text",
       "rationale": "Richtig ist C. Das Minimalprinzip besagt: Ein vorgegebenes Ziel (ständige Einsatzbereitschaft) soll mit möglichst geringem Aufwand (minimale Reparatur- und Wartungskosten) erreicht werden.",
       "videoUrl": "",
@@ -2242,37 +2176,15 @@
     },
     {
       "id": "eco_64",
-      "question": "In der Aqua-Stride GmbH wird dem Nachhaltigkeitsmanagement eine wichtige Rolle beigemessen. Das Nachhaltigkeitsmanagement ist im Organigramm als Stabsstelle direkt unter der Geschäftsführung angeordnet. Welche Tätigkeit darf das Nachhaltigkeitsmanagement gemäß dieser Organisationsstruktur vornehmen?",
+      "question": "In der OceanBreeze GmbH wird dem Nachhaltigkeitsmanagement eine wichtige Rolle beigemessen. Das Nachhaltigkeitsmanagement ist im Organigramm als Stabsstelle direkt unter der Geschäftsführung angeordnet. Welche Tätigkeit darf das Nachhaltigkeitsmanagement gemäß dieser Organisationsstruktur vornehmen?",
       "answerOptions": [
-        {
-          "text": "Das Nachhaltigkeitsmanagement entscheidet über die ökologische Ausrichtung der IT-Infrastruktur.",
-          "isCorrect": false,
-          "rationale": "Eine Stabsstelle hat keine Entscheidungsbefugnis über operative Abteilungen."
-        },
-        {
-          "text": "Das Nachhaltigkeitsmanagement gibt der Lagerlogistik vor, welche Warenkartons verwendet werden sollen.",
-          "isCorrect": false,
-          "rationale": "Stabsstellen besitzen keine Weisungsbefugnis gegenüber Linienstellen."
-        },
-        {
-          "text": "Das Nachhaltigkeitsmanagement vertritt die Aqua-Stride GmbH in öffentlichen ökologischen Angelegenheiten.",
-          "isCorrect": false,
-          "rationale": "Außenvertretung ist Aufgabe der Geschäftsführung, nicht einer Stabsstelle."
-        },
-        {
-          "text": "Das Nachhaltigkeitsmanagement überwacht den Kundenservice im Hinblick auf eine gender-konforme Kommunikation.",
-          "isCorrect": false,
-          "rationale": "Überwachung anderer Abteilungen setzt Weisungsbefugnis voraus, die eine Stabsstelle nicht hat."
-        },
-        {
-          "text": "Das Nachhaltigkeitsmanagement berät die Geschäftsführung in ökologischen Themenbereichen.",
-          "isCorrect": true,
-          "rationale": "Beratung und Unterstützung der übergeordneten Instanz ist die Kernaufgabe einer Stabsstelle."
-        }
+        {"text": "Das Nachhaltigkeitsmanagement entscheidet über die ökologische Ausrichtung der IT-Infrastruktur.", "isCorrect": false, "rationale": "Eine Stabsstelle hat keine Entscheidungsbefugnis über operative Abteilungen."},
+        {"text": "Das Nachhaltigkeitsmanagement gibt der Lagerlogistik vor, welche Warenkartons verwendet werden sollen.", "isCorrect": false, "rationale": "Stabsstellen besitzen keine Weisungsbefugnis gegenüber Linienstellen."},
+        {"text": "Das Nachhaltigkeitsmanagement vertritt die OceanBreeze GmbH in öffentlichen ökologischen Angelegenheiten.", "isCorrect": false, "rationale": "Außenvertretung ist Aufgabe der Geschäftsführung, nicht einer Stabsstelle."},
+        {"text": "Das Nachhaltigkeitsmanagement überwacht den Kundenservice im Hinblick auf eine gender-konforme Kommunikation.", "isCorrect": false, "rationale": "Überwachung anderer Abteilungen setzt Weisungsbefugnis voraus, die eine Stabsstelle nicht hat."},
+        {"text": "Das Nachhaltigkeitsmanagement berät die Geschäftsführung in ökologischen Themenbereichen.", "isCorrect": true, "rationale": "Beratung und Unterstützung der übergeordneten Instanz ist die Kernaufgabe einer Stabsstelle."}
       ],
-      "expectedAnswers": [
-        "E"
-      ],
+      "expectedAnswers": ["E"],
       "inputType": "text",
       "rationale": "Richtig ist E. Eine Stabsstelle hat ausschließlich beratende und unterstützende Funktion für die ihr übergeordnete Instanz (hier: Geschäftsführung). Sie besitzt keine eigene Weisungsbefugnis gegenüber anderen Abteilungen.",
       "videoUrl": "",
@@ -2280,37 +2192,15 @@
     },
     {
       "id": "eco_65",
-      "question": "Mithilfe einer durchdachten Betriebsorganisation versucht die Aqua-Stride GmbH, klare Strukturen zu schaffen. Geben Sie an, welcher Sachverhalt zu Betriebsorganisationen richtig dargestellt ist!",
+      "question": "Mithilfe einer durchdachten Betriebsorganisation versucht die OceanBreeze GmbH, klare Strukturen zu schaffen. Geben Sie an, welcher Sachverhalt zu Betriebsorganisationen richtig dargestellt ist!",
       "answerOptions": [
-        {
-          "text": "Bei dem Organigramm der Aqua-Stride GmbH handelt es sich um eine Matrixorganisation.",
-          "isCorrect": false,
-          "rationale": "Ein Organigramm mit Stabsstelle und Linienstellen ist ein Einliniensystem mit Stab, keine Matrixorganisation."
-        },
-        {
-          "text": "Der große Vorteil von Einliniensystemen ist der Verzicht auf eine klare hierarchische Struktur.",
-          "isCorrect": false,
-          "rationale": "Einliniensysteme zeichnen sich gerade durch eine klare hierarchische Struktur aus."
-        },
-        {
-          "text": "Die Warenannahme und Warenausgabe sind Stäbe der Lagerlogistik.",
-          "isCorrect": false,
-          "rationale": "Warenannahme und Warenausgabe sind operative Untergliederungen (Linienstellen), keine Stabsstellen."
-        },
-        {
-          "text": "Ein klar vorgegebenes Organigramm versucht, Verantwortlichkeiten zwischen Abteilungen abzugrenzen, um Doppelarbeit zu vermeiden.",
-          "isCorrect": true,
-          "rationale": "Die klare Abgrenzung von Zuständigkeiten ist eine wesentliche Funktion des Organigramms."
-        },
-        {
-          "text": "Je klarer und nachvollziehbarer die Organisationsstrukturen gegliedert sind, desto ineffizienter können die einzelnen Bereiche ineinandergreifen.",
-          "isCorrect": false,
-          "rationale": "Das Gegenteil ist richtig: Klare Strukturen erhöhen die Effizienz."
-        }
+        {"text": "Bei dem Organigramm der OceanBreeze GmbH handelt es sich um eine Matrixorganisation.", "isCorrect": false, "rationale": "Ein Organigramm mit Stabsstelle und Linienstellen ist ein Einliniensystem mit Stab, keine Matrixorganisation."},
+        {"text": "Der große Vorteil von Einliniensystemen ist der Verzicht auf eine klare hierarchische Struktur.", "isCorrect": false, "rationale": "Einliniensysteme zeichnen sich gerade durch eine klare hierarchische Struktur aus."},
+        {"text": "Die Warenannahme und Warenausgabe sind Stäbe der Lagerlogistik.", "isCorrect": false, "rationale": "Warenannahme und Warenausgabe sind operative Untergliederungen (Linienstellen), keine Stabsstellen."},
+        {"text": "Ein klar vorgegebenes Organigramm versucht, Verantwortlichkeiten zwischen Abteilungen abzugrenzen, um Doppelarbeit zu vermeiden.", "isCorrect": true, "rationale": "Die klare Abgrenzung von Zuständigkeiten ist eine wesentliche Funktion des Organigramms."},
+        {"text": "Je klarer und nachvollziehbarer die Organisationsstrukturen gegliedert sind, desto ineffizienter können die einzelnen Bereiche ineinandergreifen.", "isCorrect": false, "rationale": "Das Gegenteil ist richtig: Klare Strukturen erhöhen die Effizienz."}
       ],
-      "expectedAnswers": [
-        "D"
-      ],
+      "expectedAnswers": ["D"],
       "inputType": "text",
       "rationale": "Richtig ist D. Eine wesentliche Funktion des Organigramms ist die klare Abgrenzung von Zuständigkeiten, um effiziente Abläufe zu garantieren und Doppelarbeiten zu verhindern.",
       "videoUrl": "",
@@ -2320,35 +2210,13 @@
       "id": "eco_66",
       "question": "Als neuer Mitarbeiter interessieren Sie sich auch für die Rechtsform Ihres Arbeitgebers. Geben Sie an, welche Vorschrift auf die GmbH zutrifft!",
       "answerOptions": [
-        {
-          "text": "Jeder Gesellschafter hat die Pflicht, die Geschäfte der Gesellschaft zu führen und Dienste persönlich zu leisten.",
-          "isCorrect": false,
-          "rationale": "Das trifft auf die OHG zu, nicht auf die GmbH. Bei der GmbH wird ein Geschäftsführer bestellt."
-        },
-        {
-          "text": "Jeder Gesellschafter hat Anspruch auf 4 % seines Kapitalanteils. Der Restgewinn wird in angemessenem Verhältnis verteilt.",
-          "isCorrect": false,
-          "rationale": "Diese Regelung betrifft die KG bzw. OHG nach HGB, nicht die GmbH."
-        },
-        {
-          "text": "Den Gläubigern gegenüber haftet nur ein Gesellschafter unbeschränkt.",
-          "isCorrect": false,
-          "rationale": "Das trifft auf die KG (Komplementär) zu. Bei der GmbH haftet kein Gesellschafter persönlich unbeschränkt."
-        },
-        {
-          "text": "Das Mindestkapital beträgt 25.000,00 EUR und wird als Stammkapital bezeichnet.",
-          "isCorrect": true,
-          "rationale": "Gemäß GmbHG ist ein Mindeststammkapital von 25.000 EUR zur Gründung einer GmbH erforderlich."
-        },
-        {
-          "text": "Die Firma muss die Bezeichnung eingetragener Kaufmann oder eingetragene Kauffrau oder eine allgemein verständliche Abkürzung dieser Bezeichnung enthalten.",
-          "isCorrect": false,
-          "rationale": "Das gilt für das Einzelunternehmen (e.K./e.Kfr.), nicht für die GmbH."
-        }
+        {"text": "Jeder Gesellschafter hat die Pflicht, die Geschäfte der Gesellschaft zu führen und Dienste persönlich zu leisten.", "isCorrect": false, "rationale": "Das trifft auf die OHG zu, nicht auf die GmbH. Bei der GmbH wird ein Geschäftsführer bestellt."},
+        {"text": "Jeder Gesellschafter hat Anspruch auf 4 % seines Kapitalanteils. Der Restgewinn wird in angemessenem Verhältnis verteilt.", "isCorrect": false, "rationale": "Diese Regelung betrifft die KG bzw. OHG nach HGB, nicht die GmbH."},
+        {"text": "Den Gläubigern gegenüber haftet nur ein Gesellschafter unbeschränkt.", "isCorrect": false, "rationale": "Das trifft auf die KG (Komplementär) zu. Bei der GmbH haftet kein Gesellschafter persönlich unbeschränkt."},
+        {"text": "Das Mindestkapital beträgt 25.000,00 EUR und wird als Stammkapital bezeichnet.", "isCorrect": true, "rationale": "Gemäß GmbHG ist ein Mindeststammkapital von 25.000 EUR zur Gründung einer GmbH erforderlich."},
+        {"text": "Die Firma muss die Bezeichnung eingetragener Kaufmann oder eingetragene Kauffrau oder eine allgemein verständliche Abkürzung dieser Bezeichnung enthalten.", "isCorrect": false, "rationale": "Das gilt für das Einzelunternehmen (e.K./e.Kfr.), nicht für die GmbH."}
       ],
-      "expectedAnswers": [
-        "D"
-      ],
+      "expectedAnswers": ["D"],
       "inputType": "text",
       "rationale": "Richtig ist D. Zur Gründung einer GmbH (Gesellschaft mit beschränkter Haftung) ist nach dem GmbH-Gesetz ein Mindeststammkapital von 25.000 EUR erforderlich.",
       "videoUrl": "",
@@ -2358,35 +2226,13 @@
       "id": "eco_67",
       "question": "Die Entwicklung des E-Commerce-Geschäfts wird als positiv prognostiziert. Es wird von einem stetigen, konjunkturellen Aufschwung ausgegangen. Prüfen Sie, welche Erläuterung zu dem prognostizierten konjunkturellen Aufschwung richtig ist!",
       "answerOptions": [
-        {
-          "text": "Ein Aufschwung liegt immer dann vor, wenn sich das nominale BIP aufgrund von Preissteigerungen positiv entwickelt.",
-          "isCorrect": false,
-          "rationale": "Das nominale BIP kann durch Inflation steigen, ohne dass ein realer Aufschwung vorliegt."
-        },
-        {
-          "text": "Dazu werden immer alle inländischen Unternehmen zur Einschätzung ihrer Investitionsbereitschaft für die nächsten Jahre befragt.",
-          "isCorrect": false,
-          "rationale": "Es werden nicht alle Unternehmen befragt. Der ifo-Geschäftsklimaindex z. B. beruht auf einer Stichprobe."
-        },
-        {
-          "text": "Eine realistische volkswirtschaftliche Größe zur Feststellung eines Aufschwungs ist das reale Bruttoinlandsprodukt sowie dessen Entwicklung im Jahresverlauf.",
-          "isCorrect": true,
-          "rationale": "Das reale BIP ist inflationsbereinigt und daher der verlässlichste Indikator für echtes wirtschaftliches Wachstum."
-        },
-        {
-          "text": "Der vorhergesagte Aufschwung gehört neben vier weiteren Phasen zu einem Zyklus, der sich grundsätzlich über vier Jahre erstreckt.",
-          "isCorrect": false,
-          "rationale": "Ein Konjunkturzyklus hat vier (nicht fünf) Phasen und die Dauer variiert stark."
-        },
-        {
-          "text": "In der Phase des Aufschwungs steigen die Preise, da die Unternehmen erheblich mehr Güter produzieren als von den Haushalten nachgefragt werden.",
-          "isCorrect": false,
-          "rationale": "Im Aufschwung steigt die Nachfrage, nicht das Überangebot. Ein Überangebot würde zu Preissenkungen führen."
-        }
+        {"text": "Ein Aufschwung liegt immer dann vor, wenn sich das nominale BIP aufgrund von Preissteigerungen positiv entwickelt.", "isCorrect": false, "rationale": "Das nominale BIP kann durch Inflation steigen, ohne dass ein realer Aufschwung vorliegt."},
+        {"text": "Dazu werden immer alle inländischen Unternehmen zur Einschätzung ihrer Investitionsbereitschaft für die nächsten Jahre befragt.", "isCorrect": false, "rationale": "Es werden nicht alle Unternehmen befragt. Der ifo-Geschäftsklimaindex z. B. beruht auf einer Stichprobe."},
+        {"text": "Eine realistische volkswirtschaftliche Größe zur Feststellung eines Aufschwungs ist das reale Bruttoinlandsprodukt sowie dessen Entwicklung im Jahresverlauf.", "isCorrect": true, "rationale": "Das reale BIP ist inflationsbereinigt und daher der verlässlichste Indikator für echtes wirtschaftliches Wachstum."},
+        {"text": "Der vorhergesagte Aufschwung gehört neben vier weiteren Phasen zu einem Zyklus, der sich grundsätzlich über vier Jahre erstreckt.", "isCorrect": false, "rationale": "Ein Konjunkturzyklus hat vier (nicht fünf) Phasen und die Dauer variiert stark."},
+        {"text": "In der Phase des Aufschwungs steigen die Preise, da die Unternehmen erheblich mehr Güter produzieren als von den Haushalten nachgefragt werden.", "isCorrect": false, "rationale": "Im Aufschwung steigt die Nachfrage, nicht das Überangebot. Ein Überangebot würde zu Preissenkungen führen."}
       ],
-      "expectedAnswers": [
-        "C"
-      ],
+      "expectedAnswers": ["C"],
       "inputType": "text",
       "rationale": "Richtig ist C. Das reale Bruttoinlandsprodukt (BIP) ist inflationsbereinigt und daher der verlässlichste Indikator, um echtes wirtschaftliches Wachstum (Aufschwung) zu messen.",
       "videoUrl": "",
@@ -2394,37 +2240,15 @@
     },
     {
       "id": "eco_68",
-      "question": "In einer Studie wird ein stark wachsender Markt für Cloud-Rest-Produkte prognostiziert. Die Aqua-Stride GmbH überlegt, intelligente Schlafsäcke anzubieten. Der Markt trifft auf eine große Nachfrage, während erst wenige Anbieter in diesen Markt eingestiegen sind. Geben Sie an, welche Marktform hier gekennzeichnet ist!",
+      "question": "In einer Studie wird ein stark wachsender Markt für Smart-Sleeping-Produkte prognostiziert. Die OceanBreeze GmbH überlegt, intelligente Schlafsäcke anzubieten. Der Markt trifft auf eine große Nachfrage, während erst wenige Anbieter in diesen Markt eingestiegen sind. Geben Sie an, welche Marktform hier gekennzeichnet ist!",
       "answerOptions": [
-        {
-          "text": "Angebotsoligopol",
-          "isCorrect": true,
-          "rationale": "Wenige Anbieter bei vielen Nachfragern definieren ein Angebotsoligopol."
-        },
-        {
-          "text": "Nachfrageoligopol",
-          "isCorrect": false,
-          "rationale": "Ein Nachfrageoligopol läge vor, wenn nur wenige Nachfrager vielen Anbietern gegenüberstünden."
-        },
-        {
-          "text": "Polypol",
-          "isCorrect": false,
-          "rationale": "Ein Polypol erfordert viele Anbieter und viele Nachfrager."
-        },
-        {
-          "text": "Angebotsmonopol",
-          "isCorrect": false,
-          "rationale": "Es gibt wenige, nicht nur einen Anbieter."
-        },
-        {
-          "text": "Nachfragemonopol",
-          "isCorrect": false,
-          "rationale": "Es gibt viele Nachfrager, nicht nur einen."
-        }
+        {"text": "Angebotsoligopol", "isCorrect": true, "rationale": "Wenige Anbieter bei vielen Nachfragern definieren ein Angebotsoligopol."},
+        {"text": "Nachfrageoligopol", "isCorrect": false, "rationale": "Ein Nachfrageoligopol läge vor, wenn nur wenige Nachfrager vielen Anbietern gegenüberstünden."},
+        {"text": "Polypol", "isCorrect": false, "rationale": "Ein Polypol erfordert viele Anbieter und viele Nachfrager."},
+        {"text": "Angebotsmonopol", "isCorrect": false, "rationale": "Es gibt wenige, nicht nur einen Anbieter."},
+        {"text": "Nachfragemonopol", "isCorrect": false, "rationale": "Es gibt viele Nachfrager, nicht nur einen."}
       ],
-      "expectedAnswers": [
-        "A"
-      ],
+      "expectedAnswers": ["A"],
       "inputType": "text",
       "rationale": "Richtig ist A. Wenige Anbieter auf der einen Seite und viele Nachfrager (große Nachfrage) auf der anderen Seite definieren ein Angebotsoligopol.",
       "videoUrl": "",
@@ -2434,35 +2258,13 @@
       "id": "eco_69",
       "question": "In Studien ist öfter von einem Käufermarkt die Rede. Stellen Sie fest, welcher Sachverhalt einen Käufermarkt richtig beschreibt!",
       "answerOptions": [
-        {
-          "text": "Werbeaktivitäten können eingestellt werden, da das Angebot genau die Nachfrage deckt.",
-          "isCorrect": false,
-          "rationale": "Bei Marktgleichgewicht liegt weder Käufer- noch Verkäufermarkt vor."
-        },
-        {
-          "text": "Die Preise für Elektronikartikel werden ohne staatliche Vorgaben kalkuliert.",
-          "isCorrect": false,
-          "rationale": "Das beschreibt freie Preisbildung, nicht die Marktform Käufermarkt."
-        },
-        {
-          "text": "Die nachlassende Nachfrage zwingt die Aqua-Stride GmbH und Konkurrenten zum verstärkten Einsatz absatzpolitischer Instrumente, um Kunden zu halten bzw. zu gewinnen.",
-          "isCorrect": true,
-          "rationale": "Im Käufermarkt übersteigt das Angebot die Nachfrage; Unternehmen müssen sich durch Marketing um Kunden bemühen."
-        },
-        {
-          "text": "Es liegt ein Käufermarkt vor, wenn nachfragende Unternehmen die Marktform des Oligopols abbilden.",
-          "isCorrect": false,
-          "rationale": "Käufermarkt und Oligopol sind unterschiedliche Konzepte (Marktsituation vs. Marktform)."
-        },
-        {
-          "text": "Es handelt sich um einen Käufermarkt, wenn es wesentlich mehr Nachfrager als Anbieter gibt.",
-          "isCorrect": false,
-          "rationale": "Mehr Nachfrager als Anbieter beschreibt eher einen Verkäufermarkt (Nachfrageüberhang)."
-        }
+        {"text": "Werbeaktivitäten können eingestellt werden, da das Angebot genau die Nachfrage deckt.", "isCorrect": false, "rationale": "Bei Marktgleichgewicht liegt weder Käufer- noch Verkäufermarkt vor."},
+        {"text": "Die Preise für Elektronikartikel werden ohne staatliche Vorgaben kalkuliert.", "isCorrect": false, "rationale": "Das beschreibt freie Preisbildung, nicht die Marktform Käufermarkt."},
+        {"text": "Die nachlassende Nachfrage zwingt die OceanBreeze GmbH und Konkurrenten zum verstärkten Einsatz absatzpolitischer Instrumente, um Kunden zu halten bzw. zu gewinnen.", "isCorrect": true, "rationale": "Im Käufermarkt übersteigt das Angebot die Nachfrage; Unternehmen müssen sich durch Marketing um Kunden bemühen."},
+        {"text": "Es liegt ein Käufermarkt vor, wenn nachfragende Unternehmen die Marktform des Oligopols abbilden.", "isCorrect": false, "rationale": "Käufermarkt und Oligopol sind unterschiedliche Konzepte (Marktsituation vs. Marktform)."},
+        {"text": "Es handelt sich um einen Käufermarkt, wenn es wesentlich mehr Nachfrager als Anbieter gibt.", "isCorrect": false, "rationale": "Mehr Nachfrager als Anbieter beschreibt eher einen Verkäufermarkt (Nachfrageüberhang)."}
       ],
-      "expectedAnswers": [
-        "C"
-      ],
+      "expectedAnswers": ["C"],
       "inputType": "text",
       "rationale": "Richtig ist C. In einem Käufermarkt ist das Angebot größer als die Nachfrage (Angebotsüberhang). Die Käufer sitzen am längeren Hebel, weshalb Unternehmen sich durch Marketing und Preispolitik um Kunden bemühen müssen.",
       "videoUrl": "",
@@ -2472,35 +2274,13 @@
       "id": "eco_70",
       "question": "Angebot und Nachfrage regeln den Markt. Prüfen Sie, welche weitere Darstellung zum Markt richtig ist!",
       "answerOptions": [
-        {
-          "text": "In einem unvollkommenen Markt sind alle Marktteilnehmer über die gesamte Marktlage vollständig informiert.",
-          "isCorrect": false,
-          "rationale": "Vollständige Markttransparenz ist ein Merkmal des vollkommenen Marktes."
-        },
-        {
-          "text": "Gleichgewichtspreise entstehen nur unter Bedingungen des unvollkommenen Markts.",
-          "isCorrect": false,
-          "rationale": "Gleichgewichtspreise entstehen auf dem vollkommenen Markt, wo Angebot und Nachfrage sich im Schnittpunkt treffen."
-        },
-        {
-          "text": "In einem vollkommenen Markt gibt es keine persönlichen Präferenzen.",
-          "isCorrect": true,
-          "rationale": "Auf dem vollkommenen Markt gibt es keine sachlichen, persönlichen, räumlichen oder zeitlichen Präferenzen."
-        },
-        {
-          "text": "Ist die Nachfrage nach einem Produkt größer als das Angebot, entsteht ein Angebotsüberhang.",
-          "isCorrect": false,
-          "rationale": "Bei Nachfrage > Angebot entsteht ein Nachfrageüberhang (nicht Angebotsüberhang)."
-        },
-        {
-          "text": "Eine Bedingung von vollkommenen Märkten sind keine homogenen Güter.",
-          "isCorrect": false,
-          "rationale": "Homogene Güter sind gerade eine Voraussetzung des vollkommenen Marktes."
-        }
+        {"text": "In einem unvollkommenen Markt sind alle Marktteilnehmer über die gesamte Marktlage vollständig informiert.", "isCorrect": false, "rationale": "Vollständige Markttransparenz ist ein Merkmal des vollkommenen Marktes."},
+        {"text": "Gleichgewichtspreise entstehen nur unter Bedingungen des unvollkommenen Markts.", "isCorrect": false, "rationale": "Gleichgewichtspreise entstehen auf dem vollkommenen Markt, wo Angebot und Nachfrage sich im Schnittpunkt treffen."},
+        {"text": "In einem vollkommenen Markt gibt es keine persönlichen Präferenzen.", "isCorrect": true, "rationale": "Auf dem vollkommenen Markt gibt es keine sachlichen, persönlichen, räumlichen oder zeitlichen Präferenzen."},
+        {"text": "Ist die Nachfrage nach einem Produkt größer als das Angebot, entsteht ein Angebotsüberhang.", "isCorrect": false, "rationale": "Bei Nachfrage > Angebot entsteht ein Nachfrageüberhang (nicht Angebotsüberhang)."},
+        {"text": "Eine Bedingung von vollkommenen Märkten sind keine homogenen Güter.", "isCorrect": false, "rationale": "Homogene Güter sind gerade eine Voraussetzung des vollkommenen Marktes."}
       ],
-      "expectedAnswers": [
-        "C"
-      ],
+      "expectedAnswers": ["C"],
       "inputType": "text",
       "rationale": "Richtig ist C. Ein theoretischer vollkommener Markt setzt unter anderem voraus, dass die Käufer keine sachlichen, persönlichen, räumlichen oder zeitlichen Präferenzen haben.",
       "videoUrl": "",
@@ -2510,35 +2290,13 @@
       "id": "eco_71",
       "question": "In welchem Gesetz finden Sie bundeseinheitliche Regelungen zum dualen System der Berufsausbildung?",
       "answerOptions": [
-        {
-          "text": "Berufsbildungsgesetz",
-          "isCorrect": true,
-          "rationale": "Das BBiG regelt die Berufsausbildung, Fortbildung und Umschulung bundeseinheitlich."
-        },
-        {
-          "text": "Betriebsverfassungsgesetz",
-          "isCorrect": false,
-          "rationale": "Das BetrVG regelt die Mitbestimmung im Betrieb, nicht die Berufsausbildung."
-        },
-        {
-          "text": "Bürgerliches Gesetzbuch",
-          "isCorrect": false,
-          "rationale": "Das BGB regelt allgemeines Vertragsrecht, nicht spezifisch die Berufsausbildung."
-        },
-        {
-          "text": "Jugendarbeitsschutzgesetz",
-          "isCorrect": false,
-          "rationale": "Das JArbSchG schützt jugendliche Arbeitnehmer, regelt aber nicht das duale System."
-        },
-        {
-          "text": "Grundgesetz",
-          "isCorrect": false,
-          "rationale": "Das GG enthält Grundrechte und Staatsorganisation, keine Ausbildungsregelungen."
-        }
+        {"text": "Berufsbildungsgesetz", "isCorrect": true, "rationale": "Das BBiG regelt die Berufsausbildung, Fortbildung und Umschulung bundeseinheitlich."},
+        {"text": "Betriebsverfassungsgesetz", "isCorrect": false, "rationale": "Das BetrVG regelt die Mitbestimmung im Betrieb, nicht die Berufsausbildung."},
+        {"text": "Bürgerliches Gesetzbuch", "isCorrect": false, "rationale": "Das BGB regelt allgemeines Vertragsrecht, nicht spezifisch die Berufsausbildung."},
+        {"text": "Jugendarbeitsschutzgesetz", "isCorrect": false, "rationale": "Das JArbSchG schützt jugendliche Arbeitnehmer, regelt aber nicht das duale System."},
+        {"text": "Grundgesetz", "isCorrect": false, "rationale": "Das GG enthält Grundrechte und Staatsorganisation, keine Ausbildungsregelungen."}
       ],
-      "expectedAnswers": [
-        "A"
-      ],
+      "expectedAnswers": ["A"],
       "inputType": "text",
       "rationale": "Richtig ist A. Das Berufsbildungsgesetz (BBiG) regelt in Deutschland die Berufsausbildungsvorbereitung, die Berufsausbildung, die berufliche Fortbildung und die berufliche Umschulung.",
       "videoUrl": "",
@@ -2548,35 +2306,13 @@
       "id": "eco_72",
       "question": "Es gibt gesetzlich geregelte Pflichten des Ausbildenden und des Auszubildenden. Prüfen Sie, welche Pflicht nicht dazu gehört!",
       "answerOptions": [
-        {
-          "text": "Der Ausbildende muss Auszubildenden eine angemessene Vergütung gewähren.",
-          "isCorrect": false,
-          "rationale": "Die Vergütungspflicht ist in § 17 BBiG geregelt."
-        },
-        {
-          "text": "Der Ausbildende muss selbst ausbilden oder eine andere Person damit beauftragen.",
-          "isCorrect": false,
-          "rationale": "Dies ist eine gesetzliche Pflicht nach § 14 BBiG."
-        },
-        {
-          "text": "Der Auszubildende hat über Betriebs- und Geschäftsgeheimnisse Stillschweigen zu wahren.",
-          "isCorrect": false,
-          "rationale": "Die Schweigepflicht ist in § 13 BBiG geregelt."
-        },
-        {
-          "text": "Der Ausbildende muss einen Zuschuss zur Fahrkarte im öffentlichen Personennahverkehr gewähren.",
-          "isCorrect": true,
-          "rationale": "Fahrtkostenzuschüsse sind eine freiwillige soziale Leistung, keine gesetzliche Pflicht nach dem BBiG."
-        },
-        {
-          "text": "Der Ausbildende muss dafür sorgen, dass Auszubildende charakterlich gefördert sowie sittlich und körperlich nicht gefährdet werden.",
-          "isCorrect": false,
-          "rationale": "Die Fürsorgepflicht ist in § 14 BBiG geregelt."
-        }
+        {"text": "Der Ausbildende muss Auszubildenden eine angemessene Vergütung gewähren.", "isCorrect": false, "rationale": "Die Vergütungspflicht ist in § 17 BBiG geregelt."},
+        {"text": "Der Ausbildende muss selbst ausbilden oder eine andere Person damit beauftragen.", "isCorrect": false, "rationale": "Dies ist eine gesetzliche Pflicht nach § 14 BBiG."},
+        {"text": "Der Auszubildende hat über Betriebs- und Geschäftsgeheimnisse Stillschweigen zu wahren.", "isCorrect": false, "rationale": "Die Schweigepflicht ist in § 13 BBiG geregelt."},
+        {"text": "Der Ausbildende muss einen Zuschuss zur Fahrkarte im öffentlichen Personennahverkehr gewähren.", "isCorrect": true, "rationale": "Fahrtkostenzuschüsse sind eine freiwillige soziale Leistung, keine gesetzliche Pflicht nach dem BBiG."},
+        {"text": "Der Ausbildende muss dafür sorgen, dass Auszubildende charakterlich gefördert sowie sittlich und körperlich nicht gefährdet werden.", "isCorrect": false, "rationale": "Die Fürsorgepflicht ist in § 14 BBiG geregelt."}
       ],
-      "expectedAnswers": [
-        "D"
-      ],
+      "expectedAnswers": ["D"],
       "inputType": "text",
       "rationale": "Richtig ist D. Fahrtkostenzuschüsse für den ÖPNV sind eine freiwillige soziale Leistung des Arbeitgebers oder tarifvertraglich geregelt, aber keine gesetzliche Pflicht nach dem BBiG.",
       "videoUrl": "",
@@ -2584,37 +2320,15 @@
     },
     {
       "id": "eco_73",
-      "question": "Frau Mahler, Auszubildende bei der Aqua-Stride GmbH, möchte nach der Probezeit kündigen, da sie bei ihrem Onkel eine Ausbildung als Augenoptikerin beginnen kann. Unter welcher Voraussetzung ist das möglich?",
+      "question": "Frau Mahler, Auszubildende bei der OceanBreeze GmbH, möchte nach der Probezeit kündigen, da sie bei ihrem Onkel eine Ausbildung als Augenoptikerin beginnen kann. Unter welcher Voraussetzung ist das möglich?",
       "answerOptions": [
-        {
-          "text": "Sie kann fristlos kündigen, da sie einen neuen Ausbildungsplatz hat.",
-          "isCorrect": false,
-          "rationale": "Ein neuer Ausbildungsplatz berechtigt nicht zur fristlosen Kündigung."
-        },
-        {
-          "text": "Sie muss das 1. Jahr beenden und kann dann mit einer Frist von 14 Tagen kündigen.",
-          "isCorrect": false,
-          "rationale": "Es gibt keine Pflicht, das erste Ausbildungsjahr zu beenden."
-        },
-        {
-          "text": "Sie kann bei Wechsel des Ausbildungsberufs mit einer Kündigungsfrist von 4 Wochen kündigen.",
-          "isCorrect": true,
-          "rationale": "Nach § 22 BBiG kann ein Azubi nach der Probezeit mit 4 Wochen Frist kündigen, wenn er die Berufsausbildung aufgibt oder sich für einen anderen Beruf ausbilden lassen will."
-        },
-        {
-          "text": "Sie kann mit einer Frist von 14 Tagen kündigen, sofern sie einen neuen Vertrag vorlegt.",
-          "isCorrect": false,
-          "rationale": "Die Kündigungsfrist beträgt 4 Wochen, nicht 14 Tage."
-        },
-        {
-          "text": "Sie kann nur während der Probezeit das Ausbildungsverhältnis kündigen.",
-          "isCorrect": false,
-          "rationale": "Auch nach der Probezeit ist eine Kündigung unter bestimmten Voraussetzungen möglich."
-        }
+        {"text": "Sie kann fristlos kündigen, da sie einen neuen Ausbildungsplatz hat.", "isCorrect": false, "rationale": "Ein neuer Ausbildungsplatz berechtigt nicht zur fristlosen Kündigung."},
+        {"text": "Sie muss das 1. Jahr beenden und kann dann mit einer Frist von 14 Tagen kündigen.", "isCorrect": false, "rationale": "Es gibt keine Pflicht, das erste Ausbildungsjahr zu beenden."},
+        {"text": "Sie kann bei Wechsel des Ausbildungsberufs mit einer Kündigungsfrist von 4 Wochen kündigen.", "isCorrect": true, "rationale": "Nach § 22 BBiG kann ein Azubi nach der Probezeit mit 4 Wochen Frist kündigen, wenn er die Berufsausbildung aufgibt oder sich für einen anderen Beruf ausbilden lassen will."},
+        {"text": "Sie kann mit einer Frist von 14 Tagen kündigen, sofern sie einen neuen Vertrag vorlegt.", "isCorrect": false, "rationale": "Die Kündigungsfrist beträgt 4 Wochen, nicht 14 Tage."},
+        {"text": "Sie kann nur während der Probezeit das Ausbildungsverhältnis kündigen.", "isCorrect": false, "rationale": "Auch nach der Probezeit ist eine Kündigung unter bestimmten Voraussetzungen möglich."}
       ],
-      "expectedAnswers": [
-        "C"
-      ],
+      "expectedAnswers": ["C"],
       "inputType": "text",
       "rationale": "Richtig ist C. Nach der Probezeit kann ein Azubi laut BBiG § 22 mit einer Frist von vier Wochen kündigen, wenn er die Berufsausbildung ganz aufgeben oder sich für eine andere Berufstätigkeit ausbilden lassen will.",
       "videoUrl": "",
@@ -2624,35 +2338,13 @@
       "id": "eco_74",
       "question": "Im Ausbildungsvertrag von Frau Wegner ist eine Probezeit von 2 Wochen festgelegt. Frau Wegner fragt, ob das rechtens ist. Welche rechtlich korrekte Antwort geben Sie?",
       "answerOptions": [
-        {
-          "text": "Die Probezeit dauert grundsätzlich 4 Monate.",
-          "isCorrect": false,
-          "rationale": "Die Probezeit kann variieren, sie beträgt nicht grundsätzlich 4 Monate."
-        },
-        {
-          "text": "Die Probezeit kann zwischen 1 Woche und 16 Wochen betragen.",
-          "isCorrect": false,
-          "rationale": "Das Minimum ist 1 Monat, nicht 1 Woche."
-        },
-        {
-          "text": "Die Probezeitdauer in der Ausbildung beträgt zwischen 1 Monat und 6 Monaten.",
-          "isCorrect": false,
-          "rationale": "Das Maximum beträgt 4 Monate (nicht 6 Monate) gemäß § 20 BBiG."
-        },
-        {
-          "text": "Eine Probezeit von genau 2 Wochen ist nicht zulässig.",
-          "isCorrect": true,
-          "rationale": "Gemäß § 20 BBiG muss die Probezeit mindestens 1 Monat betragen. 2 Wochen unterschreiten dieses Minimum."
-        },
-        {
-          "text": "Die Probezeit in der Ausbildung muss mindestens 2 Wochen dauern.",
-          "isCorrect": false,
-          "rationale": "Das gesetzliche Minimum liegt bei 1 Monat, nicht bei 2 Wochen."
-        }
+        {"text": "Die Probezeit dauert grundsätzlich 4 Monate.", "isCorrect": false, "rationale": "Die Probezeit kann variieren, sie beträgt nicht grundsätzlich 4 Monate."},
+        {"text": "Die Probezeit kann zwischen 1 Woche und 16 Wochen betragen.", "isCorrect": false, "rationale": "Das Minimum ist 1 Monat, nicht 1 Woche."},
+        {"text": "Die Probezeitdauer in der Ausbildung beträgt zwischen 1 Monat und 6 Monaten.", "isCorrect": false, "rationale": "Das Maximum beträgt 4 Monate (nicht 6 Monate) gemäß § 20 BBiG."},
+        {"text": "Eine Probezeit von genau 2 Wochen ist nicht zulässig.", "isCorrect": true, "rationale": "Gemäß § 20 BBiG muss die Probezeit mindestens 1 Monat betragen. 2 Wochen unterschreiten dieses Minimum."},
+        {"text": "Die Probezeit in der Ausbildung muss mindestens 2 Wochen dauern.", "isCorrect": false, "rationale": "Das gesetzliche Minimum liegt bei 1 Monat, nicht bei 2 Wochen."}
       ],
-      "expectedAnswers": [
-        "D"
-      ],
+      "expectedAnswers": ["D"],
       "inputType": "text",
       "rationale": "Richtig ist D. Gemäß § 20 BBiG muss die Probezeit in der Berufsausbildung mindestens einen Monat und darf höchstens vier Monate betragen. Eine Probezeit von nur 2 Wochen unterschreitet das gesetzliche Minimum und ist daher nicht zulässig.",
       "videoUrl": "",
@@ -2662,35 +2354,13 @@
       "id": "eco_75",
       "question": "In Frau Wegners Vertrag sind 26 Tage Jahresurlaub festgelegt. Da sie im März erst 17 Jahre alt geworden ist (also zu Beginn des Kalenderjahres noch 16 war), stehen ihr ihrer Meinung nach 27 Tage zu. Sie prüfen das Jugendarbeitsschutzgesetz (§ 19). Welche Information geben Sie ihr?",
       "answerOptions": [
-        {
-          "text": "Der vereinbarte Urlaub hat seine Richtigkeit.",
-          "isCorrect": false,
-          "rationale": "26 Tage liegen unter dem gesetzlichen Minimum von 27 Tagen für unter 17-Jährige."
-        },
-        {
-          "text": "Sie hat Anspruch auf 30 Tage.",
-          "isCorrect": false,
-          "rationale": "30 Werktage stehen Jugendlichen zu, die zu Beginn des Kalenderjahres noch nicht 16 Jahre alt sind."
-        },
-        {
-          "text": "Aufgrund des Günstigkeitsprinzips stehen ihr 26 Tage zu.",
-          "isCorrect": false,
-          "rationale": "Das Günstigkeitsprinzip greift nur, wenn die vertragliche Regelung günstiger ist als die gesetzliche. 26 < 27 ist ungünstiger."
-        },
-        {
-          "text": "Ihr stehen genau 25 Werktage zu.",
-          "isCorrect": false,
-          "rationale": "25 Werktage ist der Mindesturlaub nach dem BUrlG für Erwachsene, nicht nach JArbSchG für Jugendliche."
-        },
-        {
-          "text": "Sie hat Anspruch auf mindestens 27 Tage.",
-          "isCorrect": true,
-          "rationale": "Maßgeblich ist das Alter am 01.01. Sie war am 1. Januar noch 16 (nicht 17). Nach § 19 JArbSchG stehen ihr mindestens 27 Werktage zu."
-        }
+        {"text": "Der vereinbarte Urlaub hat seine Richtigkeit.", "isCorrect": false, "rationale": "26 Tage liegen unter dem gesetzlichen Minimum von 27 Tagen für unter 17-Jährige."},
+        {"text": "Sie hat Anspruch auf 30 Tage.", "isCorrect": false, "rationale": "30 Werktage stehen Jugendlichen zu, die zu Beginn des Kalenderjahres noch nicht 16 Jahre alt sind."},
+        {"text": "Aufgrund des Günstigkeitsprinzips stehen ihr 26 Tage zu.", "isCorrect": false, "rationale": "Das Günstigkeitsprinzip greift nur, wenn die vertragliche Regelung günstiger ist als die gesetzliche. 26 < 27 ist ungünstiger."},
+        {"text": "Ihr stehen genau 25 Werktage zu.", "isCorrect": false, "rationale": "25 Werktage ist der Mindesturlaub nach dem BUrlG für Erwachsene, nicht nach JArbSchG für Jugendliche."},
+        {"text": "Sie hat Anspruch auf mindestens 27 Tage.", "isCorrect": true, "rationale": "Maßgeblich ist das Alter am 01.01. Sie war am 1. Januar noch 16 (nicht 17). Nach § 19 JArbSchG stehen ihr mindestens 27 Werktage zu."}
       ],
-      "expectedAnswers": [
-        "E"
-      ],
+      "expectedAnswers": ["E"],
       "inputType": "text",
       "rationale": "Richtig ist E. Maßgeblich ist das Alter zu Beginn des Kalenderjahres (01.01.). Da sie im März 17 wurde, war sie am 1. Januar noch 16 (also noch nicht 17). Nach § 19 JArbSchG stehen ihr somit gesetzlich mindestens 27 Werktage Urlaub zu.",
       "videoUrl": "",
@@ -2700,35 +2370,13 @@
       "id": "eco_76",
       "question": "Eine Grafik zum Thema Investitionen in Weiterbildung im internationalen Vergleich zeigt für verschiedene Länder den Anteil der Bevölkerung, der zwischen Februar 2020 und März 2021 in Weiterbildungsmaßnahmen investiert hat (z. B. Online-Kurse, Coaching). Welche Information lässt sich korrekt ableiten?",
       "answerOptions": [
-        {
-          "text": "20 % der Schweizer Bevölkerung investierten in Weiterbildung.",
-          "isCorrect": false,
-          "rationale": "Laut Grafik liegt der Anteil für die Schweiz deutlich unter 20 %."
-        },
-        {
-          "text": "10 % der Befragten aus Schweden haben einen kostenpflichtigen Einzelkurs absolviert.",
-          "isCorrect": false,
-          "rationale": "Der genaue Wert für Schweden bei Einzelkursen liegt laut Grafik nicht bei exakt 10 %."
-        },
-        {
-          "text": "Mehr als 5 % der Befragten aus Deutschland haben einen kostenpflichtigen Online-Kurs absolviert.",
-          "isCorrect": true,
-          "rationale": "Laut Balkendiagramm reicht der entsprechende Balken für Deutschland deutlich über die 5%-Marke hinaus."
-        },
-        {
-          "text": "In den USA spielen Fort- und Weiterbildungen bei weniger als 20 % der Bevölkerung eine Rolle.",
-          "isCorrect": false,
-          "rationale": "Der Gesamtanteil für die USA liegt laut Grafik über 20 %."
-        },
-        {
-          "text": "Über 10 % der Befragten aus China haben einen Business- oder Life-Coach konsultiert.",
-          "isCorrect": false,
-          "rationale": "Der Coaching-Anteil für China liegt laut Grafik unter 10 %."
-        }
+        {"text": "20 % der Schweizer Bevölkerung investierten in Weiterbildung.", "isCorrect": false, "rationale": "Laut Grafik liegt der Anteil für die Schweiz deutlich unter 20 %."},
+        {"text": "10 % der Befragten aus Schweden haben einen kostenpflichtigen Einzelkurs absolviert.", "isCorrect": false, "rationale": "Der genaue Wert für Schweden bei Einzelkursen liegt laut Grafik nicht bei exakt 10 %."},
+        {"text": "Mehr als 5 % der Befragten aus Deutschland haben einen kostenpflichtigen Online-Kurs absolviert.", "isCorrect": true, "rationale": "Laut Balkendiagramm reicht der entsprechende Balken für Deutschland deutlich über die 5%-Marke hinaus."},
+        {"text": "In den USA spielen Fort- und Weiterbildungen bei weniger als 20 % der Bevölkerung eine Rolle.", "isCorrect": false, "rationale": "Der Gesamtanteil für die USA liegt laut Grafik über 20 %."},
+        {"text": "Über 10 % der Befragten aus China haben einen Business- oder Life-Coach konsultiert.", "isCorrect": false, "rationale": "Der Coaching-Anteil für China liegt laut Grafik unter 10 %."}
       ],
-      "expectedAnswers": [
-        "C"
-      ],
+      "expectedAnswers": ["C"],
       "inputType": "text",
       "rationale": "Richtig ist C. Laut Balkendiagramm reicht der Balken für kostenpflichtige Online-Kurse in Deutschland fast an die 10%-Marke heran, es sind also definitiv mehr als 5 %.",
       "videoUrl": "",
@@ -2738,35 +2386,13 @@
       "id": "eco_77",
       "question": "Sie prüfen das Jugendarbeitsschutzgesetz (JArbSchG). Wer ist Jugendlicher im Sinne dieses Gesetzes?",
       "answerOptions": [
-        {
-          "text": "Nur Jugendliche, die mindestens 15 Jahre, aber noch nicht 18 Jahre alt sind.",
-          "isCorrect": true,
-          "rationale": "Nach § 2 JArbSchG ist Jugendlicher, wer 15, aber noch nicht 18 Jahre alt ist."
-        },
-        {
-          "text": "Nur Jugendliche, die mindestens 16 Jahre, aber noch nicht 18 Jahre alt sind.",
-          "isCorrect": false,
-          "rationale": "Die Altersgrenze beginnt bei 15, nicht bei 16 Jahren."
-        },
-        {
-          "text": "Nur Jugendliche, die in einem Ausbildungsverhältnis stehen.",
-          "isCorrect": false,
-          "rationale": "Das JArbSchG gilt für alle jugendlichen Beschäftigten, nicht nur für Auszubildende."
-        },
-        {
-          "text": "Nur Jugendliche, die vor Vollendung des 18. Lebensjahres ein Ausbildungsverhältnis abgeschlossen haben.",
-          "isCorrect": false,
-          "rationale": "Das JArbSchG knüpft an das Alter, nicht an den Zeitpunkt des Vertragsabschlusses."
-        },
-        {
-          "text": "Nur Jugendliche, die die Vollzeitschulpflicht erfüllen, aber noch nicht 18 Jahre alt sind.",
-          "isCorrect": false,
-          "rationale": "Die Vollzeitschulpflicht ist keine Voraussetzung für die Definition als Jugendlicher im JArbSchG."
-        }
+        {"text": "Nur Jugendliche, die mindestens 15 Jahre, aber noch nicht 18 Jahre alt sind.", "isCorrect": true, "rationale": "Nach § 2 JArbSchG ist Jugendlicher, wer 15, aber noch nicht 18 Jahre alt ist."},
+        {"text": "Nur Jugendliche, die mindestens 16 Jahre, aber noch nicht 18 Jahre alt sind.", "isCorrect": false, "rationale": "Die Altersgrenze beginnt bei 15, nicht bei 16 Jahren."},
+        {"text": "Nur Jugendliche, die in einem Ausbildungsverhältnis stehen.", "isCorrect": false, "rationale": "Das JArbSchG gilt für alle jugendlichen Beschäftigten, nicht nur für Auszubildende."},
+        {"text": "Nur Jugendliche, die vor Vollendung des 18. Lebensjahres ein Ausbildungsverhältnis abgeschlossen haben.", "isCorrect": false, "rationale": "Das JArbSchG knüpft an das Alter, nicht an den Zeitpunkt des Vertragsabschlusses."},
+        {"text": "Nur Jugendliche, die die Vollzeitschulpflicht erfüllen, aber noch nicht 18 Jahre alt sind.", "isCorrect": false, "rationale": "Die Vollzeitschulpflicht ist keine Voraussetzung für die Definition als Jugendlicher im JArbSchG."}
       ],
-      "expectedAnswers": [
-        "A"
-      ],
+      "expectedAnswers": ["A"],
       "inputType": "text",
       "rationale": "Richtig ist A. Nach § 2 JArbSchG ist Kind, wer noch nicht 15 ist, und Jugendlicher, wer 15, aber noch nicht 18 Jahre alt ist.",
       "videoUrl": "",
@@ -2776,35 +2402,13 @@
       "id": "eco_78",
       "question": "Prüfen Sie anhand des JArbSchG (§ 11), welche Arbeitszeit- und Pausenregelung für Jugendliche nicht zulässig ist! Die Arbeitszeit ist jeweils 08:00-16:00 Uhr.",
       "answerOptions": [
-        {
-          "text": "Pause von 12:00-13:00 Uhr",
-          "isCorrect": false,
-          "rationale": "Arbeit von 08:00-12:00 (4 Std.) und 13:00-16:00 (3 Std.) – kein Block über 4,5 Std., zulässig."
-        },
-        {
-          "text": "Pause von 12:30-13:30 Uhr",
-          "isCorrect": false,
-          "rationale": "Arbeit von 08:00-12:30 (4,5 Std.) und 13:30-16:00 (2,5 Std.) – kein Block über 4,5 Std., zulässig."
-        },
-        {
-          "text": "Pause von 13:00-14:00 Uhr",
-          "isCorrect": true,
-          "rationale": "Arbeit von 08:00-13:00 = 5 Stunden am Stück. Jugendliche dürfen nicht länger als 4,5 Stunden ohne Pause arbeiten."
-        },
-        {
-          "text": "Pausen von 10:00-10:30 Uhr und 13:30-14:00 Uhr",
-          "isCorrect": false,
-          "rationale": "Arbeit von 08:00-10:00 (2 Std.), 10:30-13:30 (3 Std.) und 14:00-16:00 (2 Std.) – alle Blöcke unter 4,5 Std., zulässig."
-        },
-        {
-          "text": "Pausen von 09:00-09:15 Uhr und 12:15-13:00 Uhr",
-          "isCorrect": false,
-          "rationale": "Arbeit von 08:00-09:00 (1 Std.), 09:15-12:15 (3 Std.) und 13:00-16:00 (3 Std.) – alle Blöcke unter 4,5 Std., zulässig."
-        }
+        {"text": "Pause von 12:00-13:00 Uhr", "isCorrect": false, "rationale": "Arbeit von 08:00-12:00 (4 Std.) und 13:00-16:00 (3 Std.) – kein Block über 4,5 Std., zulässig."},
+        {"text": "Pause von 12:30-13:30 Uhr", "isCorrect": false, "rationale": "Arbeit von 08:00-12:30 (4,5 Std.) und 13:30-16:00 (2,5 Std.) – kein Block über 4,5 Std., zulässig."},
+        {"text": "Pause von 13:00-14:00 Uhr", "isCorrect": true, "rationale": "Arbeit von 08:00-13:00 = 5 Stunden am Stück. Jugendliche dürfen nicht länger als 4,5 Stunden ohne Pause arbeiten."},
+        {"text": "Pausen von 10:00-10:30 Uhr und 13:30-14:00 Uhr", "isCorrect": false, "rationale": "Arbeit von 08:00-10:00 (2 Std.), 10:30-13:30 (3 Std.) und 14:00-16:00 (2 Std.) – alle Blöcke unter 4,5 Std., zulässig."},
+        {"text": "Pausen von 09:00-09:15 Uhr und 12:15-13:00 Uhr", "isCorrect": false, "rationale": "Arbeit von 08:00-09:00 (1 Std.), 09:15-12:15 (3 Std.) und 13:00-16:00 (3 Std.) – alle Blöcke unter 4,5 Std., zulässig."}
       ],
-      "expectedAnswers": [
-        "C"
-      ],
+      "expectedAnswers": ["C"],
       "inputType": "text",
       "rationale": "Richtig ist C. Jugendliche dürfen nicht länger als 4,5 Stunden ohne Pause beschäftigt werden (§ 11 JArbSchG). Bei Modell C wird von 08:00 bis 13:00 Uhr gearbeitet – das sind 5 Stunden am Stück, was gesetzlich unzulässig ist.",
       "videoUrl": "",
@@ -2812,37 +2416,15 @@
     },
     {
       "id": "eco_79",
-      "question": "In welcher Niederschrift findet ein Mitarbeiter der Aqua-Stride GmbH die tariflichen Bestimmungen über die Bemessung des Urlaubs?",
+      "question": "In welcher Niederschrift findet ein Mitarbeiter der OceanBreeze GmbH die tariflichen Bestimmungen über die Bemessung des Urlaubs?",
       "answerOptions": [
-        {
-          "text": "Im Gehaltstarifvertrag",
-          "isCorrect": false,
-          "rationale": "Der Gehaltstarifvertrag regelt die Höhe der Entgelte, nicht den Urlaub."
-        },
-        {
-          "text": "Im Manteltarifvertrag",
-          "isCorrect": true,
-          "rationale": "Der Manteltarifvertrag (Rahmentarifvertrag) regelt allgemeine Arbeitsbedingungen wie Arbeitszeiten, Kündigungsfristen und Urlaubsansprüche."
-        },
-        {
-          "text": "In der Betriebsordnung",
-          "isCorrect": false,
-          "rationale": "Die Betriebsordnung regelt interne Verhaltensregeln, nicht tarifliche Urlaubsansprüche."
-        },
-        {
-          "text": "Im Betriebsverfassungsgesetz",
-          "isCorrect": false,
-          "rationale": "Das BetrVG regelt die Mitbestimmung, nicht tarifliche Urlaubsbestimmungen."
-        },
-        {
-          "text": "Im Handelsgesetzbuch",
-          "isCorrect": false,
-          "rationale": "Das HGB enthält Handelsrecht, keine tariflichen Urlaubsregelungen."
-        }
+        {"text": "Im Gehaltstarifvertrag", "isCorrect": false, "rationale": "Der Gehaltstarifvertrag regelt die Höhe der Entgelte, nicht den Urlaub."},
+        {"text": "Im Manteltarifvertrag", "isCorrect": true, "rationale": "Der Manteltarifvertrag (Rahmentarifvertrag) regelt allgemeine Arbeitsbedingungen wie Arbeitszeiten, Kündigungsfristen und Urlaubsansprüche."},
+        {"text": "In der Betriebsordnung", "isCorrect": false, "rationale": "Die Betriebsordnung regelt interne Verhaltensregeln, nicht tarifliche Urlaubsansprüche."},
+        {"text": "Im Betriebsverfassungsgesetz", "isCorrect": false, "rationale": "Das BetrVG regelt die Mitbestimmung, nicht tarifliche Urlaubsbestimmungen."},
+        {"text": "Im Handelsgesetzbuch", "isCorrect": false, "rationale": "Das HGB enthält Handelsrecht, keine tariflichen Urlaubsregelungen."}
       ],
-      "expectedAnswers": [
-        "B"
-      ],
+      "expectedAnswers": ["B"],
       "inputType": "text",
       "rationale": "Richtig ist B. Der Manteltarifvertrag (Rahmentarifvertrag) regelt die allgemeinen Arbeitsbedingungen wie Arbeitszeiten, Kündigungsfristen und Urlaubsansprüche.",
       "videoUrl": "",
@@ -2852,35 +2434,13 @@
       "id": "eco_80",
       "question": "Welche Behauptung zu den Regeln des Arbeitskampfes (Streik) ist richtig?",
       "answerOptions": [
-        {
-          "text": "Nach Scheitern der Verhandlungen kann der Schlichter den Streik ausrufen.",
-          "isCorrect": false,
-          "rationale": "Der Schlichter vermittelt zwischen den Parteien, er ruft keinen Streik aus. Streiks werden von der Gewerkschaft ausgerufen."
-        },
-        {
-          "text": "Streiktage werden grundsätzlich vom Urlaub abgezogen.",
-          "isCorrect": false,
-          "rationale": "Streiktage gelten als unentschuldigtes Fehlen ohne Lohnfortzahlung, werden aber nicht vom Urlaub abgezogen."
-        },
-        {
-          "text": "Nur Gewerkschaftsmitglieder dürfen streiken.",
-          "isCorrect": false,
-          "rationale": "Grundsätzlich können auch Nicht-Mitglieder an einem Streik teilnehmen, erhalten aber kein Streikgeld."
-        },
-        {
-          "text": "Wenn der Streik ausgerufen ist, haben Unternehmer das Recht zur Aussperrung.",
-          "isCorrect": true,
-          "rationale": "Die Aussperrung ist das rechtmäßige Abwehrmittel der Arbeitgeber im Rahmen eines Arbeitskampfes."
-        },
-        {
-          "text": "Für den Beginn des Streiks müssen mindestens 50 % der Gewerkschaftsmitglieder zustimmen.",
-          "isCorrect": false,
-          "rationale": "Für eine Urabstimmung ist in der Regel eine Zustimmung von 75 % der Gewerkschaftsmitglieder erforderlich."
-        }
+        {"text": "Nach Scheitern der Verhandlungen kann der Schlichter den Streik ausrufen.", "isCorrect": false, "rationale": "Der Schlichter vermittelt zwischen den Parteien, er ruft keinen Streik aus. Streiks werden von der Gewerkschaft ausgerufen."},
+        {"text": "Streiktage werden grundsätzlich vom Urlaub abgezogen.", "isCorrect": false, "rationale": "Streiktage gelten als unentschuldigtes Fehlen ohne Lohnfortzahlung, werden aber nicht vom Urlaub abgezogen."},
+        {"text": "Nur Gewerkschaftsmitglieder dürfen streiken.", "isCorrect": false, "rationale": "Grundsätzlich können auch Nicht-Mitglieder an einem Streik teilnehmen, erhalten aber kein Streikgeld."},
+        {"text": "Wenn der Streik ausgerufen ist, haben Unternehmer das Recht zur Aussperrung.", "isCorrect": true, "rationale": "Die Aussperrung ist das rechtmäßige Abwehrmittel der Arbeitgeber im Rahmen eines Arbeitskampfes."},
+        {"text": "Für den Beginn des Streiks müssen mindestens 50 % der Gewerkschaftsmitglieder zustimmen.", "isCorrect": false, "rationale": "Für eine Urabstimmung ist in der Regel eine Zustimmung von 75 % der Gewerkschaftsmitglieder erforderlich."}
       ],
-      "expectedAnswers": [
-        "D"
-      ],
+      "expectedAnswers": ["D"],
       "inputType": "text",
       "rationale": "Richtig ist D. Die Aussperrung (vorübergehende Freistellung von Arbeitnehmern ohne Lohnfortzahlung) ist das rechtmäßige Abwehrmittel der Arbeitgeber im Rahmen eines Arbeitskampfes.",
       "videoUrl": "",
@@ -2888,37 +2448,15 @@
     },
     {
       "id": "eco_81",
-      "question": "Wer hat die Betriebsvereinbarung über das Rauchen im Betrieb bei der Aqua-Stride GmbH abgeschlossen?",
+      "question": "Wer hat die Betriebsvereinbarung über das Rauchen im Betrieb bei der OceanBreeze GmbH abgeschlossen?",
       "answerOptions": [
-        {
-          "text": "Die Geschäftsleitung der Aqua-Stride GmbH und der Betriebsrat.",
-          "isCorrect": true,
-          "rationale": "Betriebsvereinbarungen werden immer zwischen dem Arbeitgeber (Geschäftsleitung) und dem Betriebsrat geschlossen."
-        },
-        {
-          "text": "Die Tarifvertragsparteien (Arbeitgeberverband und Gewerkschaft).",
-          "isCorrect": false,
-          "rationale": "Tarifvertragsparteien schließen Tarifverträge, keine Betriebsvereinbarungen."
-        },
-        {
-          "text": "Die Gewerkschaft und der Betriebsrat.",
-          "isCorrect": false,
-          "rationale": "Die Gewerkschaft ist keine Vertragspartei bei Betriebsvereinbarungen."
-        },
-        {
-          "text": "Der Betriebsrat und die Arbeitsagentur.",
-          "isCorrect": false,
-          "rationale": "Die Arbeitsagentur hat keine Funktion bei Betriebsvereinbarungen."
-        },
-        {
-          "text": "Der Betriebsrat und die zuständige IHK.",
-          "isCorrect": false,
-          "rationale": "Die IHK ist keine Vertragspartei bei Betriebsvereinbarungen."
-        }
+        {"text": "Die Geschäftsleitung der OceanBreeze GmbH und der Betriebsrat.", "isCorrect": true, "rationale": "Betriebsvereinbarungen werden immer zwischen dem Arbeitgeber (Geschäftsleitung) und dem Betriebsrat geschlossen."},
+        {"text": "Die Tarifvertragsparteien (Arbeitgeberverband und Gewerkschaft).", "isCorrect": false, "rationale": "Tarifvertragsparteien schließen Tarifverträge, keine Betriebsvereinbarungen."},
+        {"text": "Die Gewerkschaft und der Betriebsrat.", "isCorrect": false, "rationale": "Die Gewerkschaft ist keine Vertragspartei bei Betriebsvereinbarungen."},
+        {"text": "Der Betriebsrat und die Arbeitsagentur.", "isCorrect": false, "rationale": "Die Arbeitsagentur hat keine Funktion bei Betriebsvereinbarungen."},
+        {"text": "Der Betriebsrat und die zuständige IHK.", "isCorrect": false, "rationale": "Die IHK ist keine Vertragspartei bei Betriebsvereinbarungen."}
       ],
-      "expectedAnswers": [
-        "A"
-      ],
+      "expectedAnswers": ["A"],
       "inputType": "text",
       "rationale": "Richtig ist A. Betriebsvereinbarungen sind Verträge auf rein betrieblicher Ebene und werden immer zwischen dem Arbeitgeber (Geschäftsleitung) und dem Betriebsrat geschlossen.",
       "videoUrl": "",
@@ -2926,37 +2464,15 @@
     },
     {
       "id": "eco_82",
-      "question": "Welcher Mitarbeiter der Aqua-Stride GmbH genießt einen besonderen gesetzlichen Kündigungsschutz?",
+      "question": "Welcher Mitarbeiter der OceanBreeze GmbH genießt einen besonderen gesetzlichen Kündigungsschutz?",
       "answerOptions": [
-        {
-          "text": "Herr Maier: Betriebswirt, 38 Jahre, 3 Kinder, 8 Jahre im Betrieb.",
-          "isCorrect": false,
-          "rationale": "Langjährige Betriebszugehörigkeit und Kinder begründen keinen besonderen gesetzlichen Kündigungsschutz."
-        },
-        {
-          "text": "Frau Gebert: PR-Managerin, 25 Jahre, keine Kinder, 4 Jahre im Betrieb.",
-          "isCorrect": false,
-          "rationale": "Es liegen keine besonderen Schutzmerkmale vor."
-        },
-        {
-          "text": "Herr Paulsen: Fachkraft Lagerlogistik, 32 Jahre, 1 Kind, 5 Jahre im Betrieb.",
-          "isCorrect": false,
-          "rationale": "Ohne besonderes Schutzmerkmal kein besonderer Kündigungsschutz."
-        },
-        {
-          "text": "Frau Voß: Bürokauffrau, 43 Jahre, 2 Kinder, 15 Jahre im Betrieb.",
-          "isCorrect": false,
-          "rationale": "Auch lange Betriebszugehörigkeit allein begründet keinen besonderen Kündigungsschutz."
-        },
-        {
-          "text": "Herr Malz: Auszubildender im E-Commerce, 26 Jahre, seit 16 Monaten im Betrieb.",
-          "isCorrect": true,
-          "rationale": "Auszubildende genießen nach Ablauf der Probezeit besonderen Kündigungsschutz nach BBiG."
-        }
+        {"text": "Herr Maier: Betriebswirt, 38 Jahre, 3 Kinder, 8 Jahre im Betrieb.", "isCorrect": false, "rationale": "Langjährige Betriebszugehörigkeit und Kinder begründen keinen besonderen gesetzlichen Kündigungsschutz."},
+        {"text": "Frau Gebert: PR-Managerin, 25 Jahre, keine Kinder, 4 Jahre im Betrieb.", "isCorrect": false, "rationale": "Es liegen keine besonderen Schutzmerkmale vor."},
+        {"text": "Herr Paulsen: Fachkraft Lagerlogistik, 32 Jahre, 1 Kind, 5 Jahre im Betrieb.", "isCorrect": false, "rationale": "Ohne besonderes Schutzmerkmal kein besonderer Kündigungsschutz."},
+        {"text": "Frau Voß: Bürokauffrau, 43 Jahre, 2 Kinder, 15 Jahre im Betrieb.", "isCorrect": false, "rationale": "Auch lange Betriebszugehörigkeit allein begründet keinen besonderen Kündigungsschutz."},
+        {"text": "Herr Malz: Auszubildender im E-Commerce, 26 Jahre, seit 16 Monaten im Betrieb.", "isCorrect": true, "rationale": "Auszubildende genießen nach Ablauf der Probezeit besonderen Kündigungsschutz nach BBiG."}
       ],
-      "expectedAnswers": [
-        "E"
-      ],
+      "expectedAnswers": ["E"],
       "inputType": "text",
       "rationale": "Richtig ist E. Auszubildende genießen nach Ablauf der Probezeit einen besonderen gesetzlichen Kündigungsschutz nach dem BBiG; sie können dann vom Arbeitgeber nur noch außerordentlich (aus wichtigem Grund) gekündigt werden.",
       "videoUrl": "",
@@ -2966,35 +2482,13 @@
       "id": "eco_83",
       "question": "In welcher Zeile ist ein Beispiel für die Mitbestimmung des Betriebsrats zutreffend beschrieben?",
       "answerOptions": [
-        {
-          "text": "Bei der Festlegung der Pausenzeiten hat der Betriebsrat nur ein Beratungsrecht.",
-          "isCorrect": false,
-          "rationale": "Pausenzeiten fallen unter soziale Angelegenheiten (§ 87 BetrVG) – hier hat der Betriebsrat ein echtes Mitbestimmungsrecht."
-        },
-        {
-          "text": "Die Neubesetzung der Geschäftsführung liegt in der Entscheidungsgewalt des Betriebsrats.",
-          "isCorrect": false,
-          "rationale": "Die Bestellung der Geschäftsführung ist Sache der Gesellschafter, nicht des Betriebsrats."
-        },
-        {
-          "text": "Über die Dauer der täglichen Arbeitszeit muss der Arbeitgeber den Betriebsrat nur informieren.",
-          "isCorrect": false,
-          "rationale": "Die Arbeitszeit fällt unter § 87 BetrVG – echte Mitbestimmung, nicht nur Information."
-        },
-        {
-          "text": "Alle betrieblichen Entscheidungen, die Arbeitnehmer betreffen, bedürfen der Zustimmung des Betriebsrats.",
-          "isCorrect": false,
-          "rationale": "Nicht alle Entscheidungen erfordern Zustimmung, nur bestimmte gesetzlich definierte Angelegenheiten."
-        },
-        {
-          "text": "In bestimmten sozialen Angelegenheiten werden betriebliche Maßnahmen nur mit Zustimmung des Betriebsrats wirksam.",
-          "isCorrect": true,
-          "rationale": "Das BetrVG (§ 87) räumt dem Betriebsrat in sozialen Angelegenheiten ein echtes Mitbestimmungsrecht ein."
-        }
+        {"text": "Bei der Festlegung der Pausenzeiten hat der Betriebsrat nur ein Beratungsrecht.", "isCorrect": false, "rationale": "Pausenzeiten fallen unter soziale Angelegenheiten (§ 87 BetrVG) – hier hat der Betriebsrat ein echtes Mitbestimmungsrecht."},
+        {"text": "Die Neubesetzung der Geschäftsführung liegt in der Entscheidungsgewalt des Betriebsrats.", "isCorrect": false, "rationale": "Die Bestellung der Geschäftsführung ist Sache der Gesellschafter, nicht des Betriebsrats."},
+        {"text": "Über die Dauer der täglichen Arbeitszeit muss der Arbeitgeber den Betriebsrat nur informieren.", "isCorrect": false, "rationale": "Die Arbeitszeit fällt unter § 87 BetrVG – echte Mitbestimmung, nicht nur Information."},
+        {"text": "Alle betrieblichen Entscheidungen, die Arbeitnehmer betreffen, bedürfen der Zustimmung des Betriebsrats.", "isCorrect": false, "rationale": "Nicht alle Entscheidungen erfordern Zustimmung, nur bestimmte gesetzlich definierte Angelegenheiten."},
+        {"text": "In bestimmten sozialen Angelegenheiten werden betriebliche Maßnahmen nur mit Zustimmung des Betriebsrats wirksam.", "isCorrect": true, "rationale": "Das BetrVG (§ 87) räumt dem Betriebsrat in sozialen Angelegenheiten ein echtes Mitbestimmungsrecht ein."}
       ],
-      "expectedAnswers": [
-        "E"
-      ],
+      "expectedAnswers": ["E"],
       "inputType": "text",
       "rationale": "Richtig ist E. Das Betriebsverfassungsgesetz (§ 87 BetrVG) räumt dem Betriebsrat in sogenannten sozialen Angelegenheiten (z. B. Beginn/Ende der Arbeitszeit, Pausen, Urlaubsplan) ein echtes Mitbestimmungsrecht ein.",
       "videoUrl": "",
@@ -3004,35 +2498,13 @@
       "id": "eco_84",
       "question": "Welcher Sachverhalt über die Jugend- und Auszubildendenvertretung (JAV) ist richtig beschrieben?",
       "answerOptions": [
-        {
-          "text": "Mitglieder des Betriebsrats können nicht zu Jugend- und Auszubildendenvertretern gewählt werden.",
-          "isCorrect": true,
-          "rationale": "Das BetrVG schließt eine Doppelfunktion in Betriebsrat und JAV ausdrücklich aus."
-        },
-        {
-          "text": "Das passive Wahlrecht endet mit Vollendung des 18. Lebensjahres.",
-          "isCorrect": false,
-          "rationale": "Passiv wahlberechtigt für die JAV sind Arbeitnehmer unter 25 Jahren, nicht nur unter 18."
-        },
-        {
-          "text": "Das Mindestalter für das aktive Wahlrecht beträgt 16 Jahre.",
-          "isCorrect": false,
-          "rationale": "Wahlberechtigt sind alle Arbeitnehmer unter 18 Jahren sowie Auszubildende unter 25 – ein Mindestalter von 16 gibt es nicht."
-        },
-        {
-          "text": "Die regelmäßige Amtszeit beträgt 3 Jahre.",
-          "isCorrect": false,
-          "rationale": "Die Amtszeit der JAV beträgt 2 Jahre, nicht 3."
-        },
-        {
-          "text": "Die JAV hat in allen Betriebsratssitzungen volles Stimmrecht.",
-          "isCorrect": false,
-          "rationale": "Die JAV hat in Betriebsratssitzungen nur ein Teilnahme- und Antragsrecht, aber kein volles Stimmrecht."
-        }
+        {"text": "Mitglieder des Betriebsrats können nicht zu Jugend- und Auszubildendenvertretern gewählt werden.", "isCorrect": true, "rationale": "Das BetrVG schließt eine Doppelfunktion in Betriebsrat und JAV ausdrücklich aus."},
+        {"text": "Das passive Wahlrecht endet mit Vollendung des 18. Lebensjahres.", "isCorrect": false, "rationale": "Passiv wahlberechtigt für die JAV sind Arbeitnehmer unter 25 Jahren, nicht nur unter 18."},
+        {"text": "Das Mindestalter für das aktive Wahlrecht beträgt 16 Jahre.", "isCorrect": false, "rationale": "Wahlberechtigt sind alle Arbeitnehmer unter 18 Jahren sowie Auszubildende unter 25 – ein Mindestalter von 16 gibt es nicht."},
+        {"text": "Die regelmäßige Amtszeit beträgt 3 Jahre.", "isCorrect": false, "rationale": "Die Amtszeit der JAV beträgt 2 Jahre, nicht 3."},
+        {"text": "Die JAV hat in allen Betriebsratssitzungen volles Stimmrecht.", "isCorrect": false, "rationale": "Die JAV hat in Betriebsratssitzungen nur ein Teilnahme- und Antragsrecht, aber kein volles Stimmrecht."}
       ],
-      "expectedAnswers": [
-        "A"
-      ],
+      "expectedAnswers": ["A"],
       "inputType": "text",
       "rationale": "Richtig ist A. Das BetrVG schließt eine Doppelfunktion in Betriebsrat und JAV ausdrücklich aus. Wer im Betriebsrat ist, kann nicht in die JAV gewählt werden.",
       "videoUrl": "",
@@ -3042,40 +2514,14 @@
       "id": "eco_85",
       "question": "Im Falle eines Notrufs nach einem Unfall sind die sogenannten W-Fragen zu beantworten. Geben Sie an, welche W-Frage nicht dazu gehört!",
       "answerOptions": [
-        {
-          "text": "Wo ist der Unfall passiert?",
-          "isCorrect": false,
-          "rationale": "Die Ortsangabe ist eine der wichtigsten W-Fragen für den Notruf."
-        },
-        {
-          "text": "Was ist passiert?",
-          "isCorrect": false,
-          "rationale": "Die Beschreibung des Geschehens gehört zu den Standard-W-Fragen."
-        },
-        {
-          "text": "Warum ist der Unfall passiert?",
-          "isCorrect": false,
-          "rationale": "Obwohl für die Rettung weniger relevant, wird diese Frage manchmal zu den W-Fragen gezählt."
-        },
-        {
-          "text": "Wie viele Verletzte gibt es?",
-          "isCorrect": false,
-          "rationale": "Die Anzahl der Verletzten ist für die Einsatzplanung der Rettungskräfte essenziell."
-        },
-        {
-          "text": "Welche Verletzungen liegen vor?",
-          "isCorrect": false,
-          "rationale": "Die Art der Verletzungen hilft bei der richtigen Disposition der Rettungsmittel."
-        },
-        {
-          "text": "Wer hat den Unfall verschuldet?",
-          "isCorrect": true,
-          "rationale": "Die Schuldfrage ist für die Rettungsleitstelle medizinisch irrelevant und gehört nicht zu den W-Fragen des Notrufs."
-        }
+        {"text": "Wo ist der Unfall passiert?", "isCorrect": false, "rationale": "Die Ortsangabe ist eine der wichtigsten W-Fragen für den Notruf."},
+        {"text": "Was ist passiert?", "isCorrect": false, "rationale": "Die Beschreibung des Geschehens gehört zu den Standard-W-Fragen."},
+        {"text": "Warum ist der Unfall passiert?", "isCorrect": false, "rationale": "Obwohl für die Rettung weniger relevant, wird diese Frage manchmal zu den W-Fragen gezählt."},
+        {"text": "Wie viele Verletzte gibt es?", "isCorrect": false, "rationale": "Die Anzahl der Verletzten ist für die Einsatzplanung der Rettungskräfte essenziell."},
+        {"text": "Welche Verletzungen liegen vor?", "isCorrect": false, "rationale": "Die Art der Verletzungen hilft bei der richtigen Disposition der Rettungsmittel."},
+        {"text": "Wer hat den Unfall verschuldet?", "isCorrect": true, "rationale": "Die Schuldfrage ist für die Rettungsleitstelle medizinisch irrelevant und gehört nicht zu den W-Fragen des Notrufs."}
       ],
-      "expectedAnswers": [
-        "F"
-      ],
+      "expectedAnswers": ["F"],
       "inputType": "text",
       "rationale": "Richtig ist F. Die Leitstelle interessiert bei einem Notruf nur das Rettungsrelevante. Die Schuldfrage ist für die Einsatzkräfte medizinisch irrelevant und gehört nicht zu den 5 W-Fragen.",
       "videoUrl": "",
@@ -3085,35 +2531,13 @@
       "id": "eco_86",
       "question": "Sicherheitszeichen am Arbeitsplatz sind nach DIN/ASR-Normen farblich und formal gestaltet. Welche Zuordnung von Sicherheitszeichen zu ihrer farblichen Gestaltung ist richtig?",
       "answerOptions": [
-        {
-          "text": "Verbotszeichen: Blau/Weiß (rund), Gebotszeichen: Rot/Weiß (rund mit Diagonalbalken)",
-          "isCorrect": false,
-          "rationale": "Die Farben sind vertauscht: Verbotszeichen sind rot, Gebotszeichen sind blau."
-        },
-        {
-          "text": "Rettungszeichen: Grün/Weiß, Warnzeichen: Gelb/Schwarz, Brandschutzzeichen: Rot/Weiß",
-          "isCorrect": true,
-          "rationale": "Rettungszeichen sind grün/weiß, Warnzeichen gelb/schwarz (Dreieck), Brandschutzzeichen rot/weiß (quadratisch)."
-        },
-        {
-          "text": "Warnzeichen: Grün/Weiß (Dreieck), Rettungszeichen: Gelb/Schwarz (rechteckig)",
-          "isCorrect": false,
-          "rationale": "Die Farben und Formen sind vertauscht: Warnzeichen sind gelb/schwarz, Rettungszeichen grün/weiß."
-        },
-        {
-          "text": "Gebotszeichen: Gelb/Schwarz, Warnzeichen: Blau/Weiß",
-          "isCorrect": false,
-          "rationale": "Gebotszeichen sind blau/weiß, Warnzeichen gelb/schwarz – hier vertauscht."
-        },
-        {
-          "text": "Brandschutzzeichen: Grün/Weiß, Rettungszeichen: Rot/Weiß",
-          "isCorrect": false,
-          "rationale": "Die Farben sind vertauscht: Brandschutzzeichen sind rot, Rettungszeichen grün."
-        }
+        {"text": "Verbotszeichen: Blau/Weiß (rund), Gebotszeichen: Rot/Weiß (rund mit Diagonalbalken)", "isCorrect": false, "rationale": "Die Farben sind vertauscht: Verbotszeichen sind rot, Gebotszeichen sind blau."},
+        {"text": "Rettungszeichen: Grün/Weiß, Warnzeichen: Gelb/Schwarz, Brandschutzzeichen: Rot/Weiß", "isCorrect": true, "rationale": "Rettungszeichen sind grün/weiß, Warnzeichen gelb/schwarz (Dreieck), Brandschutzzeichen rot/weiß (quadratisch)."},
+        {"text": "Warnzeichen: Grün/Weiß (Dreieck), Rettungszeichen: Gelb/Schwarz (rechteckig)", "isCorrect": false, "rationale": "Die Farben und Formen sind vertauscht: Warnzeichen sind gelb/schwarz, Rettungszeichen grün/weiß."},
+        {"text": "Gebotszeichen: Gelb/Schwarz, Warnzeichen: Blau/Weiß", "isCorrect": false, "rationale": "Gebotszeichen sind blau/weiß, Warnzeichen gelb/schwarz – hier vertauscht."},
+        {"text": "Brandschutzzeichen: Grün/Weiß, Rettungszeichen: Rot/Weiß", "isCorrect": false, "rationale": "Die Farben sind vertauscht: Brandschutzzeichen sind rot, Rettungszeichen grün."}
       ],
-      "expectedAnswers": [
-        "B"
-      ],
+      "expectedAnswers": ["B"],
       "inputType": "text",
       "rationale": "Richtig ist B. Nach DIN/ASR-Normen gilt: Rettungszeichen = Grün/Weiß, Warnzeichen = Gelb/Schwarz, Brandschutzzeichen = Rot/Weiß, Gebotszeichen = Blau/Weiß, Verbotszeichen = Rot/Weiß rund mit Diagonalbalken.",
       "videoUrl": "",
@@ -3123,35 +2547,13 @@
       "id": "eco_87",
       "question": "Aus einer Grafik zum Thema Gesundheitliche Probleme im Homeoffice geht hervor, dass 54 % der befragten Arbeitnehmer über gesundheitliche Probleme klagen, und von diesen 54 % geben 64 % bestimmte Beschwerden an. 20 % der Klagenden leiden unter Müdigkeit, Stress und Unruhe. Welche richtige Information lässt sich ableiten?",
       "answerOptions": [
-        {
-          "text": "64 % aller befragten Arbeitnehmer klagen über gesundheitliche Probleme durch Homeoffice.",
-          "isCorrect": false,
-          "rationale": "54 % klagen über Probleme, nicht 64 %. Die 64 % beziehen sich auf eine Teilgruppe der Klagenden."
-        },
-        {
-          "text": "54 % der befragten Arbeitnehmer haben eine schlechtere technische Ausrüstung im Homeoffice.",
-          "isCorrect": false,
-          "rationale": "Die 54 % beziehen sich auf gesundheitliche Probleme, nicht auf technische Ausrüstung."
-        },
-        {
-          "text": "20 % aller Befragten ermüden durch das Homeoffice schneller.",
-          "isCorrect": false,
-          "rationale": "Die 20 % beziehen sich nur auf die Teilgruppe der Klagenden, nicht auf alle Befragten."
-        },
-        {
-          "text": "Mehr als die Hälfte aller Befragten wünschen sich regelmäßiges Homeoffice.",
-          "isCorrect": false,
-          "rationale": "Diese Aussage lässt sich aus den gegebenen Daten nicht ableiten."
-        },
-        {
-          "text": "1/5 der Arbeitnehmer, die über gesundheitliche Probleme durch die Arbeit im Homeoffice klagen, geben an, unter Müdigkeit, Stress und Unruhe zu leiden.",
-          "isCorrect": true,
-          "rationale": "20 % der Klagenden leiden unter Müdigkeit, Stress und Unruhe. 20 % = 1/5."
-        }
+        {"text": "64 % aller befragten Arbeitnehmer klagen über gesundheitliche Probleme durch Homeoffice.", "isCorrect": false, "rationale": "54 % klagen über Probleme, nicht 64 %. Die 64 % beziehen sich auf eine Teilgruppe der Klagenden."},
+        {"text": "54 % der befragten Arbeitnehmer haben eine schlechtere technische Ausrüstung im Homeoffice.", "isCorrect": false, "rationale": "Die 54 % beziehen sich auf gesundheitliche Probleme, nicht auf technische Ausrüstung."},
+        {"text": "20 % aller Befragten ermüden durch das Homeoffice schneller.", "isCorrect": false, "rationale": "Die 20 % beziehen sich nur auf die Teilgruppe der Klagenden, nicht auf alle Befragten."},
+        {"text": "Mehr als die Hälfte aller Befragten wünschen sich regelmäßiges Homeoffice.", "isCorrect": false, "rationale": "Diese Aussage lässt sich aus den gegebenen Daten nicht ableiten."},
+        {"text": "1/5 der Arbeitnehmer, die über gesundheitliche Probleme durch die Arbeit im Homeoffice klagen, geben an, unter Müdigkeit, Stress und Unruhe zu leiden.", "isCorrect": true, "rationale": "20 % der Klagenden leiden unter Müdigkeit, Stress und Unruhe. 20 % = 1/5."}
       ],
-      "expectedAnswers": [
-        "E"
-      ],
+      "expectedAnswers": ["E"],
       "inputType": "text",
       "rationale": "Richtig ist E. Von den Arbeitnehmern, die über gesundheitliche Probleme klagen, geben 20 % Müdigkeit, Stress und Unruhe an. 20 % entspricht dem Bruch 1/5.",
       "videoUrl": "",
@@ -3161,35 +2563,13 @@
       "id": "eco_88",
       "question": "Welche betriebliche Maßnahme ist allein unter Kostengesichtspunkten abzulehnen?",
       "answerOptions": [
-        {
-          "text": "Auslieferungen im Spar-Abo werden in kleineren Mengen, dafür 80 % häufiger durchgeführt.",
-          "isCorrect": true,
-          "rationale": "80 % häufigere Auslieferung von Kleinstmengen führt zu einer massiven Erhöhung der Logistik- und Portokosten."
-        },
-        {
-          "text": "Beleuchtung wird auf Energiesparlampen umgestellt.",
-          "isCorrect": false,
-          "rationale": "Energiesparlampen senken langfristig die Stromkosten."
-        },
-        {
-          "text": "Einseitig bedrucktes Papier wird als Schmierpapier weiterverwendet.",
-          "isCorrect": false,
-          "rationale": "Wiederverwendung spart Papierkosten."
-        },
-        {
-          "text": "Aufgrund von Mengenrabatten wird Verpackungsmaterial in größeren Mengen seltener bestellt.",
-          "isCorrect": false,
-          "rationale": "Mengenrabatte senken die Stückkosten für Verpackungsmaterial."
-        },
-        {
-          "text": "Es wird ein Drucker mit nachfüllbaren Patronen gekauft.",
-          "isCorrect": false,
-          "rationale": "Nachfüllbare Patronen sind langfristig günstiger als Einwegpatronen."
-        }
+        {"text": "Auslieferungen im Spar-Abo werden in kleineren Mengen, dafür 80 % häufiger durchgeführt.", "isCorrect": true, "rationale": "80 % häufigere Auslieferung von Kleinstmengen führt zu einer massiven Erhöhung der Logistik- und Portokosten."},
+        {"text": "Beleuchtung wird auf Energiesparlampen umgestellt.", "isCorrect": false, "rationale": "Energiesparlampen senken langfristig die Stromkosten."},
+        {"text": "Einseitig bedrucktes Papier wird als Schmierpapier weiterverwendet.", "isCorrect": false, "rationale": "Wiederverwendung spart Papierkosten."},
+        {"text": "Aufgrund von Mengenrabatten wird Verpackungsmaterial in größeren Mengen seltener bestellt.", "isCorrect": false, "rationale": "Mengenrabatte senken die Stückkosten für Verpackungsmaterial."},
+        {"text": "Es wird ein Drucker mit nachfüllbaren Patronen gekauft.", "isCorrect": false, "rationale": "Nachfüllbare Patronen sind langfristig günstiger als Einwegpatronen."}
       ],
-      "expectedAnswers": [
-        "A"
-      ],
+      "expectedAnswers": ["A"],
       "inputType": "text",
       "rationale": "Richtig ist A. Aus ökonomischer Sicht führt eine 80 % häufigere Auslieferung von Kleinstmengen zu einer massiven Erhöhung der Logistik- und Portokosten, weshalb dies unter Kostengesichtspunkten strikt abzulehnen ist.",
       "videoUrl": "",
@@ -3197,37 +2577,15 @@
     },
     {
       "id": "eco_89",
-      "question": "Der Vertrieb der Aqua-Stride GmbH muss das Verpackungsgesetz beachten. Welche Konsequenz ist richtig?",
+      "question": "Der Vertrieb der OceanBreeze GmbH muss das Verpackungsgesetz beachten. Welche Konsequenz ist richtig?",
       "answerOptions": [
-        {
-          "text": "Verkaufsverpackungen werden dem Restmüll zugeführt.",
-          "isCorrect": false,
-          "rationale": "Verkaufsverpackungen müssen ordnungsgemäß entsorgt und dem Recycling zugeführt werden."
-        },
-        {
-          "text": "Der Anteil an Einwegverpackungen ist zu erhöhen.",
-          "isCorrect": false,
-          "rationale": "Das Verpackungsgesetz zielt auf die Reduktion von Verpackungsabfällen, nicht auf deren Erhöhung."
-        },
-        {
-          "text": "Die Aqua-Stride GmbH ist verpflichtet, Transportverpackungen von Kunden auf deren Wunsch zurückzunehmen.",
-          "isCorrect": true,
-          "rationale": "Gemäß § 15 VerpackG sind Vertreiber verpflichtet, Transportverpackungen kostenfrei zurückzunehmen."
-        },
-        {
-          "text": "Die Aqua-Stride GmbH bezieht nur Transportverpackungen mit dem Grünen Punkt.",
-          "isCorrect": false,
-          "rationale": "Der Grüne Punkt ist ein Lizenzzeichen für Verkaufsverpackungen, nicht für Transportverpackungen."
-        },
-        {
-          "text": "Genutzte Transportverpackungen dürfen nur aus wiederverwertbaren Materialien sein.",
-          "isCorrect": false,
-          "rationale": "Das VerpackG schreibt keine ausschließliche Verwendung wiederverwertbarer Materialien vor."
-        }
+        {"text": "Verkaufsverpackungen werden dem Restmüll zugeführt.", "isCorrect": false, "rationale": "Verkaufsverpackungen müssen ordnungsgemäß entsorgt und dem Recycling zugeführt werden."},
+        {"text": "Der Anteil an Einwegverpackungen ist zu erhöhen.", "isCorrect": false, "rationale": "Das Verpackungsgesetz zielt auf die Reduktion von Verpackungsabfällen, nicht auf deren Erhöhung."},
+        {"text": "Die OceanBreeze GmbH ist verpflichtet, Transportverpackungen von Kunden auf deren Wunsch zurückzunehmen.", "isCorrect": true, "rationale": "Gemäß § 15 VerpackG sind Vertreiber verpflichtet, Transportverpackungen kostenfrei zurückzunehmen."},
+        {"text": "Die OceanBreeze GmbH bezieht nur Transportverpackungen mit dem Grünen Punkt.", "isCorrect": false, "rationale": "Der Grüne Punkt ist ein Lizenzzeichen für Verkaufsverpackungen, nicht für Transportverpackungen."},
+        {"text": "Genutzte Transportverpackungen dürfen nur aus wiederverwertbaren Materialien sein.", "isCorrect": false, "rationale": "Das VerpackG schreibt keine ausschließliche Verwendung wiederverwertbarer Materialien vor."}
       ],
-      "expectedAnswers": [
-        "C"
-      ],
+      "expectedAnswers": ["C"],
       "inputType": "text",
       "rationale": "Richtig ist C. Gemäß § 15 VerpackG sind Vertreiber verpflichtet, Transportverpackungen vom Kunden kostenfrei zurückzunehmen, um sie dem Recycling zuzuführen.",
       "videoUrl": "",
@@ -3235,37 +2593,15 @@
     },
     {
       "id": "eco_90",
-      "question": "Geben Sie an, welche umweltschonende Maßnahme in der Aqua-Stride GmbH primär zur Einsparung von Energie führt!",
+      "question": "Geben Sie an, welche umweltschonende Maßnahme in der OceanBreeze GmbH primär zur Einsparung von Energie führt!",
       "answerOptions": [
-        {
-          "text": "Der Transport wird auf Dropshipping umgestellt (kürzere Transportwege).",
-          "isCorrect": true,
-          "rationale": "Dropshipping verkürzt physische Transportwege, da die Ware direkt vom Produzenten zum Endkunden geht. Dadurch wird Treibstoff-Energie eingespart."
-        },
-        {
-          "text": "Es wird nur die Vorderseite der Blätter bedruckt.",
-          "isCorrect": false,
-          "rationale": "Einseitiges Bedrucken spart kein Papier und keine Energie, sondern verschwendet beides."
-        },
-        {
-          "text": "Die Beleuchtung bleibt immer eingeschaltet.",
-          "isCorrect": false,
-          "rationale": "Dauerbeleuchtung verschwendet Energie statt sie einzusparen."
-        },
-        {
-          "text": "Auslieferungen werden mit Elektro-Pkw durchgeführt, auf die Selbst-Abholung wird verzichtet.",
-          "isCorrect": false,
-          "rationale": "Der Verzicht auf Selbst-Abholung erhöht die Anzahl der Lieferfahrten und damit den Energieverbrauch."
-        },
-        {
-          "text": "Reinigungskräfte werden durch Reinigungsmaschinen ersetzt.",
-          "isCorrect": false,
-          "rationale": "Reinigungsmaschinen verbrauchen Strom und führen nicht primär zur Energieeinsparung."
-        }
+        {"text": "Der Transport wird auf Dropshipping umgestellt (kürzere Transportwege).", "isCorrect": true, "rationale": "Dropshipping verkürzt physische Transportwege, da die Ware direkt vom Produzenten zum Endkunden geht. Dadurch wird Treibstoff-Energie eingespart."},
+        {"text": "Es wird nur die Vorderseite der Blätter bedruckt.", "isCorrect": false, "rationale": "Einseitiges Bedrucken spart kein Papier und keine Energie, sondern verschwendet beides."},
+        {"text": "Die Beleuchtung bleibt immer eingeschaltet.", "isCorrect": false, "rationale": "Dauerbeleuchtung verschwendet Energie statt sie einzusparen."},
+        {"text": "Auslieferungen werden mit Elektro-Pkw durchgeführt, auf die Selbst-Abholung wird verzichtet.", "isCorrect": false, "rationale": "Der Verzicht auf Selbst-Abholung erhöht die Anzahl der Lieferfahrten und damit den Energieverbrauch."},
+        {"text": "Reinigungskräfte werden durch Reinigungsmaschinen ersetzt.", "isCorrect": false, "rationale": "Reinigungsmaschinen verbrauchen Strom und führen nicht primär zur Energieeinsparung."}
       ],
-      "expectedAnswers": [
-        "A"
-      ],
+      "expectedAnswers": ["A"],
       "inputType": "text",
       "rationale": "Richtig ist A. Dropshipping bedeutet, dass die Ware vom Produzenten direkt an den Endkunden versendet wird. Da der Zwischenstopp entfällt, werden physische Transportwege verkürzt, was direkt Treibstoff-Energie einspart.",
       "videoUrl": "",
@@ -3276,27 +2612,27 @@
       "question": "Nachhaltiges Handeln berücksichtigt grundsätzlich mehrere Aspekte. Stellen Sie fest, welche Erklärung alle Dimensionen der Nachhaltigkeit berücksichtigt!",
       "answerOptions": [
         {
-          "text": "Nachhaltiges Handeln bedeutet, ökologische und ökonomische Kriterien beim Handel und Vertrieb der Aqua-Stride GmbH in Einklang zu bringen.",
+          "text": "Nachhaltiges Handeln bedeutet, ökologische und ökonomische Kriterien beim Handel und Vertrieb der OceanBreeze GmbH in Einklang zu bringen.",
           "isCorrect": false,
           "rationale": "Hier fehlt die soziale Dimension der Nachhaltigkeit."
         },
         {
-          "text": "Nachhaltiges Handeln bedeutet, soziale Gesichtspunkte beim Einstellen und Entlassen von Personal der Aqua-Stride GmbH zu berücksichtigen.",
+          "text": "Nachhaltiges Handeln bedeutet, soziale Gesichtspunkte beim Einstellen und Entlassen von Personal der OceanBreeze GmbH zu berücksichtigen.",
           "isCorrect": false,
           "rationale": "Hier werden ökologische und ökonomische Aspekte vernachlässigt."
         },
         {
-          "text": "Nachhaltiges Handeln bedeutet, dass eine angemessene Vergütung der Beschäftigten der Aqua-Stride GmbH auch in Zukunft nicht vernachlässigt wird.",
+          "text": "Nachhaltiges Handeln bedeutet, dass eine angemessene Vergütung der Beschäftigten der OceanBreeze GmbH auch in Zukunft nicht vernachlässigt wird.",
           "isCorrect": false,
           "rationale": "Dies deckt nur einen Teil der sozialen und ökonomischen Dimension ab."
         },
         {
-          "text": "Nachhaltiges Handeln bedeutet, dafür zu sorgen, dass die Inhaber der Aqua-Stride GmbH auch in der Zukunft ökonomisch und sozial bessergestellt werden.",
+          "text": "Nachhaltiges Handeln bedeutet, dafür zu sorgen, dass die Inhaber der OceanBreeze GmbH auch in der Zukunft ökonomisch und sozial bessergestellt werden.",
           "isCorrect": false,
           "rationale": "Nachhaltigkeit zielt auf die Gesellschaft und Umwelt ab, nicht nur auf die Inhaber."
         },
         {
-          "text": "Nachhaltiges Handeln bedeutet, dass durch die Aqua-Stride GmbH ökonomische, ökologische und soziale Aspekte derart berücksichtigt werden, dass sie die Lebensbedingungen zukünftiger Generationen erhalten.",
+          "text": "Nachhaltiges Handeln bedeutet, dass durch die OceanBreeze GmbH ökonomische, ökologische und soziale Aspekte derart berücksichtigt werden, dass sie die Lebensbedingungen zukünftiger Generationen erhalten.",
           "isCorrect": true,
           "rationale": "Wahre Nachhaltigkeit basiert auf dem Drei-Säulen-Modell: Ökonomie, Ökologie und Soziales müssen gleichberechtigt in Einklang gebracht werden."
         }
@@ -3311,10 +2647,10 @@
     },
     {
       "id": "eco_92",
-      "question": "Das Ziel des nachhaltigen Wirtschaftens der Aqua-Stride GmbH soll durch neue Maßnahmen zur Kostensenkung nicht vernachlässigt werden. In welchem Fall liegt kein Zielkonflikt zwischen Kostensenkung und Erhöhung des Umweltschutzes vor?",
+      "question": "Das Ziel des nachhaltigen Wirtschaftens der OceanBreeze GmbH soll durch neue Maßnahmen zur Kostensenkung nicht vernachlässigt werden. In welchem Fall liegt kein Zielkonflikt zwischen Kostensenkung und Erhöhung des Umweltschutzes vor?",
       "answerOptions": [
         {
-          "text": "Die Aqua-Stride GmbH bevorzugt, Bestellungen in einzelnen Bestandteilen zu verschicken, als durch Sammelversendungen Verzögerungen zu riskieren.",
+          "text": "Die OceanBreeze GmbH bevorzugt, Bestellungen in einzelnen Bestandteilen zu verschicken, als durch Sammelversendungen Verzögerungen zu riskieren.",
           "isCorrect": false,
           "rationale": "Einzelversand erhöht Verpackungsmüll und Transportemissionen (Zielkonflikt)."
         },
@@ -3387,7 +2723,7 @@
     },
     {
       "id": "eco_94",
-      "question": "Neben Recycling-Maßnahmen sieht die Aqua-Stride GmbH viel Umweltschutz-Potenzial im Bereich von Müll-Vermeidung. Geben Sie an, welche Maßnahme am besten geeignet ist, die Müll-Entstehung direkt zu reduzieren!",
+      "question": "Neben Recycling-Maßnahmen sieht die OceanBreeze GmbH viel Umweltschutz-Potenzial im Bereich von Müll-Vermeidung. Geben Sie an, welche Maßnahme am besten geeignet ist, die Müll-Entstehung direkt zu reduzieren!",
       "answerOptions": [
         {
           "text": "Retouren-Scheine werden auf umweltfreundlichem Recycling-Papier gedruckt und beigelegt.",
@@ -3425,7 +2761,7 @@
     },
     {
       "id": "eco_95",
-      "question": "Die Aqua-Stride GmbH möchte den Energieverbrauch im Versand-Lager reduzieren. Stellen Sie fest, welche 2 Maßnahmen hierzu auch unter Berücksichtigung der Arbeitssicherheitsvorschriften geeignet sind!",
+      "question": "Die OceanBreeze GmbH möchte den Energieverbrauch im Versand-Lager reduzieren. Stellen Sie fest, welche 2 Maßnahmen hierzu auch unter Berücksichtigung der Arbeitssicherheitsvorschriften geeignet sind!",
       "answerOptions": [
         {
           "text": "Die Heizungsanlage im Lager wird so eingestellt, dass die Temperatur nur noch 18 °C anstatt wie bisher 22 °C beträgt.",
@@ -3471,12 +2807,12 @@
       "question": "Im Modell des erweiterten Wirtschaftskreislaufs gibt es Geldströme zwischen den einzelnen Wirtschaftssektoren. Geben Sie an, welcher Geldstrom richtig beschrieben ist!",
       "answerOptions": [
         {
-          "text": "Die Aqua-Stride GmbH führt Einkommenssteuer an das Finanzamt ab.",
+          "text": "Die OceanBreeze GmbH führt Einkommenssteuer an das Finanzamt ab.",
           "isCorrect": false,
           "rationale": "Unternehmen führen Körperschaftsteuer oder Gewerbesteuer ab; Einkommenssteuer zahlen Haushalte (bzw. Einzelfirmen)."
         },
         {
-          "text": "Die Mitarbeiter eines Lieferanten der Aqua-Stride GmbH erhalten Kurzarbeitergeld.",
+          "text": "Die Mitarbeiter eines Lieferanten der OceanBreeze GmbH erhalten Kurzarbeitergeld.",
           "isCorrect": true,
           "rationale": "Transferleistung: Geld fließt vom Sektor Staat an den Sektor private Haushalte."
         },
@@ -3486,12 +2822,12 @@
           "rationale": "Dies ist ein Strom zwischen Unternehmen und Unternehmen (Investitionsgut/Betriebsmittel), nicht zu Haushalten."
         },
         {
-          "text": "Die Aqua-Stride GmbH erhält einen Kredit von einem Zulieferer.",
+          "text": "Die OceanBreeze GmbH erhält einen Kredit von einem Zulieferer.",
           "isCorrect": false,
           "rationale": "Dies wäre ein Lieferantenkredit zwischen Unternehmen, nicht primär über den Sektor Banken."
         },
         {
-          "text": "Die Aqua-Stride GmbH legt liquide Mittel in Aktien an.",
+          "text": "Die OceanBreeze GmbH legt liquide Mittel in Aktien an.",
           "isCorrect": false,
           "rationale": "Der Kauf von Aktien ist ein Transfer zum Kapitalmarkt (Banken/Börse), nicht direkt zum Sektor Staat."
         }
@@ -3572,7 +2908,7 @@
     },
     {
       "id": "eco_99",
-      "question": "Die Aqua-Stride GmbH betrachtet die Marktdaten für Fitness-Tracker: Bei einem Preis von 210,00 € liegt das Angebot bei 9.000 Stück, während die Nachfrage nur 3.500 Stück beträgt. Wie hoch ist der erzielbare Gesamtumsatz am Markt bei diesem Preis?",
+      "question": "Die OceanBreeze GmbH betrachtet die Marktdaten für Fitness-Tracker: Bei einem Preis von 210,00 € liegt das Angebot bei 9.000 Stück, während die Nachfrage nur 3.500 Stück beträgt. Wie hoch ist der erzielbare Gesamtumsatz am Markt bei diesem Preis?",
       "answerOptions": [
         {
           "text": "1.890.000,00 €",
@@ -3643,7 +2979,7 @@
     },
     {
       "id": "eco_101",
-      "question": "Im Gesellschaftsvertrag der Aqua-Stride GmbH wurde keine Vereinbarung über die Gewinnverteilung getroffen. Wie ist ein Gewinn nach gesetzlicher Regelung (§ 29 GmbHG) auf die drei Gesellschafter zu verteilen?",
+      "question": "Im Gesellschaftsvertrag der OceanBreeze GmbH wurde keine Vereinbarung über die Gewinnverteilung getroffen. Wie ist ein Gewinn nach gesetzlicher Regelung (§ 29 GmbHG) auf die drei Gesellschafter zu verteilen?",
       "answerOptions": [
         {
           "text": "Die drei Gesellschafter und der Geschäftsführer erhalten den Gewinn zu gleichen Teilen.",
@@ -3681,7 +3017,7 @@
     },
     {
       "id": "eco_102",
-      "question": "Zwei der drei Gesellschafter der Aqua-Stride GmbH wollen ausscheiden. Die dritte Gesellschafterin, Johanna Welsch, will das Unternehmen jedoch allein weiterführen. Prüfen Sie die rechtliche Beurteilung!",
+      "question": "Zwei der drei Gesellschafter der OceanBreeze GmbH wollen ausscheiden. Die dritte Gesellschafterin, Johanna Welsch, will das Unternehmen jedoch allein weiterführen. Prüfen Sie die rechtliche Beurteilung!",
       "answerOptions": [
         {
           "text": "Frau Welsch kann die Gesellschaft als alleinige Gesellschafterin weiterführen.",
@@ -3714,7 +3050,7 @@
     },
     {
       "id": "eco_103",
-      "question": "Die Geschäftsführung der Aqua-Stride GmbH führt eine Stabsstelle für 'Nachhaltigkeit' ein. Welche Aussage zur Stablinienorganisation ist falsch?",
+      "question": "Die Geschäftsführung der OceanBreeze GmbH führt eine Stabsstelle für 'Nachhaltigkeit' ein. Welche Aussage zur Stablinienorganisation ist falsch?",
       "answerOptions": [
         {
           "text": "Sie wird dem Einliniensystem vorgezogen, da sie zur Entlastung der Führungskräfte führt.",
@@ -3889,7 +3225,7 @@
     },
     {
       "id": "eco_108",
-      "question": "Die Aqua-Stride GmbH stellt zwei 17-jährige Praktikanten und zwei 17-jährige Auszubildende ein. Welche rechtliche Aussage zum Jugendarbeitsschutzgesetz (JArbSchG) ist korrekt?",
+      "question": "Die OceanBreeze GmbH stellt zwei 17-jährige Praktikanten und zwei 17-jährige Auszubildende ein. Welche rechtliche Aussage zum Jugendarbeitsschutzgesetz (JArbSchG) ist korrekt?",
       "answerOptions": [
         {
           "text": "Das JArbSchG gilt nur für die Auszubildenden, da die Praktikanten kein festes Arbeitsverhältnis haben.",
@@ -4021,7 +3357,7 @@
     },
     {
       "id": "eco_112",
-      "question": "Einige Mitarbeiter der Aqua-Stride GmbH befürworten die Wahl eines Betriebsrats. Was ist die primäre gesetzliche Aufgabe eines Betriebsrats?",
+      "question": "Einige Mitarbeiter der OceanBreeze GmbH befürworten die Wahl eines Betriebsrats. Was ist die primäre gesetzliche Aufgabe eines Betriebsrats?",
       "answerOptions": [
         {
           "text": "Er hat die alleinige Verantwortung für den Abschluss von Branchentarifverträgen.",
@@ -4087,7 +3423,7 @@
     },
     {
       "id": "eco_114",
-      "question": "Welche Verhaltensweise der Beschäftigten entspricht den Unfallverhütungsvorschriften (UVV) in der Aqua-Stride GmbH?",
+      "question": "Welche Verhaltensweise der Beschäftigten entspricht den Unfallverhütungsvorschriften (UVV) in der OceanBreeze GmbH?",
       "answerOptions": [
         {
           "text": "Jeder Mitarbeiter ist verpflichtet, auch Arbeitsunfälle mit kleinsten Verletzungen (Bagatellschäden) unverzüglich anzuzeigen/zu dokumentieren.",
@@ -4158,7 +3494,7 @@
     },
     {
       "id": "eco_116",
-      "question": "In der Aqua-Stride GmbH stehen Wahlen zur Jugend- und Auszubildendenvertretung (JAV) an. Welche Aussage zur Wahlberechtigung (aktiv) und Wählbarkeit (passiv) der folgenden Personen ist laut Betriebsverfassungsgesetz korrekt?",
+      "question": "In der OceanBreeze GmbH stehen Wahlen zur Jugend- und Auszubildendenvertretung (JAV) an. Welche Aussage zur Wahlberechtigung (aktiv) und Wählbarkeit (passiv) der folgenden Personen ist laut Betriebsverfassungsgesetz korrekt?",
       "answerOptions": [
         {
           "text": "Sandra (18 Jahre, Azubi): Wahlberechtigt und wählbar.",
@@ -4188,1186 +3524,6 @@
       "rationale": "Richtig ist A. Wahlberechtigt (aktiv) sind alle Azubis unter 25 und alle Jugendlichen unter 18. Wählbar (passiv) sind alle Arbeitnehmer unter 25, sofern sie nicht dem BR angehören. Sandra erfüllt beide Kriterien. Bernd darf wählen, aber nicht gewählt werden (da im BR). Petra darf nicht wählen (über 18, kein Azubi), aber gewählt werden (unter 25).",
       "videoUrl": "",
       "youtubeQuery": "JAV Wahlrecht aktiv passiv BetrVG"
-    },
-    {
-      "id": "eco_117",
-      "question": "Reihenfolge Bewerbung: Eine Jugendliche will sich bewerben. Bringen Sie die Vorgehensweise in die richtige Reihenfolge! Schritte: [1] Abschluss Vertrag, [2] Bewerbung schreiben, [3] Erkundigung Unternehmen, [4] Erkundigung Beruf, [5] Absenden Bewerbung, [6] Vorstellungsgespräch.",
-      "answerOptions": [
-        {
-          "text": "4-3-2-5-6-1",
-          "isCorrect": true,
-          "rationale": "Korrekt: Erst allgemeine Berufsinformation, dann gezielte Suche nach Unternehmen. Danach Bewerbung (Erstellung & Versand), Auswahlgespräch und schließlich Vertragsschluss."
-        },
-        {
-          "text": "1-2-3-4-5-6",
-          "isCorrect": false,
-          "rationale": "Falsch: Diese Reihenfolge ist unlogisch (Vertrag vor Bewerbung)."
-        },
-        {
-          "text": "4-3-2-6-5-1",
-          "isCorrect": false,
-          "rationale": "Falsch: Das Vorstellungsgespräch findet erst nach dem Absenden der Unterlagen statt."
-        },
-        {
-          "text": "3-4-2-5-6-1",
-          "isCorrect": false,
-          "rationale": "Falsch: Die allgemeine Berufsorientierung (4) sollte vor der konkreten Unternehmenssuche (3) stehen."
-        }
-      ],
-      "expectedAnswers": [
-        "4-3-2-5-6-1"
-      ],
-      "inputType": "text",
-      "rationale": "Die logische Reihenfolge im Bewerbungsprozess beginnt mit der Orientierung (4, 3), gefolgt von der Erstellung und dem Absenden der Unterlagen (2, 5). Nach einem erfolgreichen Vorstellungsgespräch (6) erfolgt der Vertragsabschluss (1).",
-      "videoUrl": "",
-      "youtubeQuery": "Bewerbungsprozess Reihenfolge"
-    },
-    {
-      "id": "eco_118",
-      "question": "Welches Gesetz bestimmt den Inhalt des Ausbildungsvertrages? a) HGB b) BetrVG c) JArbSchG d) BAföG e) BBiG.",
-      "answerOptions": [
-        {
-          "text": "a) HGB",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) BetrVG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) JArbSchG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) BAföG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) BBiG.",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        }
-      ],
-      "expectedAnswers": [
-        "E"
-      ],
-      "inputType": "text",
-      "rationale": "Das Berufsbildungsgesetz (BBiG) ist die zentrale Rechtsgrundlage für die Berufsausbildung in Deutschland und regelt auch die Inhalte des Ausbildungsvertrages (§ 11 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Berufsbildungsgesetz Ausbildungsvertrag Inhalt"
-    },
-    {
-      "id": "eco_119",
-      "question": "Wann endet in der Regel das Ausbildungsverhältnis? a) Bestehen Abschlussprüfung b) Ablauf vertragliche Zeit c) Kündigung AG d) Kündigung Azubi e) Vereinbarung.",
-      "answerOptions": [
-        {
-          "text": "a) Bestehen Abschlussprüfung",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "b) Ablauf vertragliche Zeit",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) Kündigung AG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) Kündigung Azubi",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Vereinbarung.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "A"
-      ],
-      "inputType": "text",
-      "rationale": "Das Ausbildungsverhältnis endet grundsätzlich mit dem Ablauf der Ausbildungszeit oder vorzeitig mit dem Bestehen der Abschlussprüfung (§ 21 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Ende Ausbildungsverhältnis BBiG"
-    },
-    {
-      "id": "eco_120",
-      "question": "Regelung BBiG? a) Einheitliche Regelung Ausbildung b) Berufsschule c) Arbeitsrecht d) BAföG e) Arbeitszeit Azubis.",
-      "answerOptions": [
-        {
-          "text": "a) Einheitliche Regelung Ausbildung",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "b) Berufsschule",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) Arbeitsrecht",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) BAföG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Arbeitszeit Azubis.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "A"
-      ],
-      "inputType": "text",
-      "rationale": "Das Berufsbildungsgesetz (BBiG) sorgt für eine bundeseinheitliche Regelung der Berufsausbildung außerhalb der Schulen (§ 1 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "BBiG Grundlagen"
-    },
-    {
-      "id": "eco_121",
-      "question": "Szenario: Mündliche Zusage am 1. Juni für 1. September. Eltern einverstanden. Gültig? a) Nein, Eltern fehlten b) Nein, Prokurist darf nicht c) Nein, IHK fehlt d) Nein, schriftlich von Anfang an e) Ja, aber Niederschrift vor Beginn.",
-      "answerOptions": [
-        {
-          "text": "a) Nein, Eltern fehlten",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Nein, Prokurist darf nicht",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) Nein, IHK fehlt",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) Nein, schriftlich von Anfang an",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Ja, aber Niederschrift vor Beginn.",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        }
-      ],
-      "expectedAnswers": [
-        "E"
-      ],
-      "inputType": "text",
-      "rationale": "Ein Ausbildungsvertrag kann zwar mündlich geschlossen werden, der Ausbildende ist jedoch verpflichtet, die wesentlichen Inhalte vor Beginn der Ausbildung schriftlich niederzulegen (§ 11 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Ausbildungsvertrag Schriftform BBiG"
-    },
-    {
-      "id": "eco_122",
-      "question": "Nichtige Vereinbarung? a) Urlaub b) Verbleibenspflicht c) Vergütung d) Fortbildung e) Arbeitszeit.",
-      "answerOptions": [
-        {
-          "text": "a) Urlaub",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Verbleibenspflicht",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) Vergütung",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) Fortbildung",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Arbeitszeit.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "B"
-      ],
-      "inputType": "text",
-      "rationale": "Vereinbarungen, die Auszubildende für die Zeit nach Beendigung des Ausbildungsverhältnisses in der Ausübung ihrer beruflichen Tätigkeit beschränken (z. B. Verbleibenspflicht), sind nichtig (§ 12 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Nichtige Vereinbarungen Ausbildungsvertrag"
-    },
-    {
-      "id": "eco_123",
-      "question": "Szenario Erna (17J): 4 Tage bis 18 Uhr, Do 11-20 Uhr. Jeweils 8h. Zulässig? a) Nein, nach 18 Uhr verboten b) Nein, Start 11 Uhr c) Nein, Do > 8h d) Ja, 8h/Tag und 40h/Woche e) Ja, Eltern zugestimmt.",
-      "answerOptions": [
-        {
-          "text": "a) Nein, nach 18 Uhr verboten",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Nein, Start 11 Uhr",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) Nein, Do > 8h",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) Ja, 8h/Tag und 40h/Woche",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "e) Ja, Eltern zugestimmt.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "D"
-      ],
-      "inputType": "text",
-      "rationale": "Nach dem JArbSchG dürfen Jugendliche nicht mehr als 8 Stunden täglich und 40 Stunden wöchentlich beschäftigt werden. Die Beschäftigung bis 20 Uhr ist für Jugendliche über 16 Jahre zulässig (§ 14 JArbSchG).",
-      "videoUrl": "",
-      "youtubeQuery": "Jugendarbeitsschutzgesetz Arbeitszeit"
-    },
-    {
-      "id": "eco_124",
-      "question": "Welches Gesetz schreibt Urlaub im Vertrag vor? a) BBiG b) JArbSchG c) BUrlG d) BetrVG e) GG.",
-      "answerOptions": [
-        {
-          "text": "a) BBiG",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "b) JArbSchG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) BUrlG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) BetrVG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) GG.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "A"
-      ],
-      "inputType": "text",
-      "rationale": "Das BBiG (§ 11) schreibt vor, dass die Dauer des Urlaubs im Ausbildungsvertrag enthalten sein muss. Die Mindestdauer richtet sich nach dem JArbSchG oder BUrlG.",
-      "videoUrl": "",
-      "youtubeQuery": "Inhalt Ausbildungsvertrag Pflichtangaben"
-    },
-    {
-      "id": "eco_125",
-      "question": "Probezeit Dauer? a) 4 Monate b) 1 bis 4 Monate c) 6 Monate d) min 3 Monate e) keine Regelung.",
-      "answerOptions": [
-        {
-          "text": "a) 4 Monate",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) 1 bis 4 Monate",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) 6 Monate",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) min 3 Monate",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) keine Regelung.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "B"
-      ],
-      "inputType": "text",
-      "rationale": "Gemäß § 20 BBiG muss das Berufsausbildungsverhältnis mit einer Probezeit beginnen. Diese muss mindestens einen Monat und darf höchstens vier Monate betragen.",
-      "videoUrl": "",
-      "youtubeQuery": "Probezeit Ausbildung Dauer"
-    },
-    {
-      "id": "eco_126",
-      "question": "Probezeit Zweck? a) Eignung b) Verlängerung auf 6M möglich c) nicht vorgeschrieben d) nur wichtiger Grund e) Frist 4 Wochen.",
-      "answerOptions": [
-        {
-          "text": "a) Eignung",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "b) Verlängerung auf 6M möglich",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) nicht vorgeschrieben",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) nur wichtiger Grund",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Frist 4 Wochen.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "A"
-      ],
-      "inputType": "text",
-      "rationale": "Die Probezeit dient dazu, festzustellen, ob der Auszubildende für den Beruf geeignet ist (Eignung) und ob ihm der gewählte Beruf zusagt.",
-      "videoUrl": "",
-      "youtubeQuery": "Zweck der Probezeit"
-    },
-    {
-      "id": "eco_127",
-      "question": "Szenario: Azubi kündigt nach Probezeit ohne Grund zum 30. April. Termin? a) 30. April b) Bestehen Prüfung c) Vertraglich d) Sofort e) Unwirksam.",
-      "answerOptions": [
-        {
-          "text": "a) 30. April",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Bestehen Prüfung",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) Vertraglich",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) Sofort",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Unwirksam.",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        }
-      ],
-      "expectedAnswers": [
-        "E"
-      ],
-      "inputType": "text",
-      "rationale": "Nach der Probezeit kann ein Azubi nur kündigen, wenn er die Ausbildung aufgeben oder wechseln will (4 Wochen Frist). Eine ordentliche Kündigung ohne Grund zum Monatsende ist für Azubis nicht vorgesehen; eine solche Kündigung ist unwirksam (§ 22 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Kündigung Azubi nach Probezeit"
-    },
-    {
-      "id": "eco_128",
-      "question": "Verlängerung über Zeit hinaus? a) Noten schlecht b) Nicht bestanden + Verlangen c) automatisch bei Nichtbestehen d) Übernahme e) nicht vorgesehen.",
-      "answerOptions": [
-        {
-          "text": "a) Noten schlecht",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Nicht bestanden + Verlangen",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) automatisch bei Nichtbestehen",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) Übernahme",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) nicht vorgesehen.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "B"
-      ],
-      "inputType": "text",
-      "rationale": "Bestehen Auszubildende die Abschlussprüfung nicht, so verlängert sich das Ausbildungsverhältnis auf ihr Verlangen bis zur nächstmöglichen Wiederholungsprüfung, höchstens um ein Jahr (§ 21 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Verlängerung Ausbildung bei Nichtbestehen"
-    },
-    {
-      "id": "eco_129",
-      "question": "Gesetz Pflicht Bemühung? a) JArbSchG b) BBiG c) BetrVG d) Kündigungsschutzgesetz e) HGB.",
-      "answerOptions": [
-        {
-          "text": "a) JArbSchG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) BBiG",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) BetrVG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) Kündigungsschutzgesetz",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) HGB.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "B"
-      ],
-      "inputType": "text",
-      "rationale": "Auszubildende haben die Pflicht, sich zu bemühen, die berufliche Handlungsfähigkeit zu erwerben, die zum Erreichen des Ausbildungsziels erforderlich ist (§ 13 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Pflichten des Auszubildenden BBiG"
-    },
-    {
-      "id": "eco_130",
-      "question": "Vorzeitige Zulassung Entscheidung? a) Schulleitung b) Geschäftsleitung c) Zuständige Stelle (IHK) d) BMBF e) Prüfungsausschuss.",
-      "answerOptions": [
-        {
-          "text": "a) Schulleitung",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Geschäftsleitung",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) Zuständige Stelle (IHK)",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "d) BMBF",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Prüfungsausschuss.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "C"
-      ],
-      "inputType": "text",
-      "rationale": "Auszubildende können nach Anhörung des Ausbildenden und der Berufsschule vorzeitig zur Abschlussprüfung zugelassen werden, wenn ihre Leistungen dies rechtfertigen. Die Entscheidung trifft die zuständige Stelle (z. B. IHK) (§ 45 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Vorzeitige Zulassung Abschlussprüfung"
-    },
-    {
-      "id": "eco_131",
-      "question": "Angabe im Vertrag? a) Vergütung b) Pausen c) Form Kündigung Probezeit d) Krankenkasse e) Berufsschule.",
-      "answerOptions": [
-        {
-          "text": "a) Vergütung",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "b) Pausen",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) Form Kündigung Probezeit",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) Krankenkasse",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Berufsschule.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "A"
-      ],
-      "inputType": "text",
-      "rationale": "Zu den wesentlichen Inhalten des Ausbildungsvertrages gehört laut § 11 BBiG zwingend die Zahlung und Höhe der Vergütung.",
-      "videoUrl": "",
-      "youtubeQuery": "Vergütung im Ausbildungsvertrag"
-    },
-    {
-      "id": "eco_132",
-      "question": "Zeitpunkt Niederschrift? a) Unverzüglich/Vor Beginn b) erste 3M Probezeit c) nach Zwischenprüfung d) 4 Wochen nach Beginn e) nach Probezeit.",
-      "answerOptions": [
-        {
-          "text": "a) Unverzüglich/Vor Beginn",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "b) erste 3M Probezeit",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) nach Zwischenprüfung",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) 4 Wochen nach Beginn",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) nach Probezeit.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "A"
-      ],
-      "inputType": "text",
-      "rationale": "Der Ausbildende hat unverzüglich nach Abschluss des Berufsausbildungsvertrages, spätestens vor Beginn der Berufsausbildung, die wesentlichen Inhalte schriftlich niederzulegen (§ 11 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Niederschrift Ausbildungsvertrag Zeitpunkt"
-    },
-    {
-      "id": "eco_133",
-      "question": "Verpflichtung Berichtshefte? a) Rahmenlehrplan b) Ausbildungsordnung c) BetrVG d) JArbSchG e) BG.",
-      "answerOptions": [
-        {
-          "text": "a) Rahmenlehrplan",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Ausbildungsordnung",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) BetrVG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) JArbSchG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) BG.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "B"
-      ],
-      "inputType": "text",
-      "rationale": "Auszubildende sind zum Führen von Ausbildungsnachweisen (Berichtsheften) verpflichtet. Diese Pflicht und die Form werden durch die jeweilige Ausbildungsordnung konkretisiert (§ 13 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Berichtsheft führen Pflicht"
-    },
-    {
-      "id": "eco_134",
-      "question": "Zwei nichtige Vereinbarungen? a) 2M Probezeit b) Verbleibenspflicht c) Vertragsstrafe d) überbetriebliche Maßnahmen e) 39h/Woche.",
-      "answerOptions": [
-        {
-          "text": "a) 2M Probezeit",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Verbleibenspflicht",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) Vertragsstrafe",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "d) überbetriebliche Maßnahmen",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) 39h/Woche.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "BC",
-        "CB"
-      ],
-      "inputType": "text",
-      "rationale": "Verbleibenspflichten (§ 12 BBiG) und Vertragsstrafen sind im Ausbildungsverhältnis nicht zulässig und entsprechende Vereinbarungen sind nichtig.",
-      "videoUrl": "",
-      "youtubeQuery": "Vertragsstrafe Ausbildung nichtig"
-    },
-    {
-      "id": "eco_135",
-      "question": "Verstoß BBiG? a) Niederschrift erst nach Probezeit b) Urlaub nach JArbSchG c) Übertariflich d) Freistellung Schule e) Kostenlose Mittel.",
-      "answerOptions": [
-        {
-          "text": "a) Niederschrift erst nach Probezeit",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "b) Urlaub nach JArbSchG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) Übertariflich",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) Freistellung Schule",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Kostenlose Mittel.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "A"
-      ],
-      "inputType": "text",
-      "rationale": "Die schriftliche Niederlegung des Vertrages muss spätestens VOR Beginn der Ausbildung erfolgen. Eine Niederschrift erst nach der Probezeit ist ein klarer Verstoß gegen § 11 BBiG.",
-      "videoUrl": "",
-      "youtubeQuery": "BBiG Verstöße Ausbildungsvertrag"
-    },
-    {
-      "id": "eco_136",
-      "question": "Korrektur im Vertrag? a) Dauer 26M b) Probezeit 6M c) Unterschrift Eltern fehlt bei Volljährigen d) Vergütung steigt e) Ort Betriebssitz.",
-      "answerOptions": [
-        {
-          "text": "a) Dauer 26M",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Probezeit 6M",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) Unterschrift Eltern fehlt bei Volljährigen",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) Vergütung steigt",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Ort Betriebssitz.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "B"
-      ],
-      "inputType": "text",
-      "rationale": "Eine Probezeit von 6 Monaten in der Ausbildung verstößt gegen § 20 BBiG (Maximaldauer 4 Monate) und muss im Vertrag korrigiert werden.",
-      "videoUrl": "",
-      "youtubeQuery": "Dauer Probezeit BBiG"
-    },
-    {
-      "id": "eco_137",
-      "question": "Abschluss Vertrag minderjährig? a) Azubi, Vertreter, IHK b) Azubi, Vertreter, Ausbildender c) Eltern und Betrieb d) Vertreter und Ausbildender e) Azubi und Ausbildender.",
-      "answerOptions": [
-        {
-          "text": "a) Azubi, Vertreter, IHK",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Azubi, Vertreter, Ausbildender",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) Eltern und Betrieb",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) Vertreter und Ausbildender",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Azubi und Ausbildender.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "B"
-      ],
-      "inputType": "text",
-      "rationale": "Bei Minderjährigen wird der Vertrag durch den Auszubildenden und seine gesetzlichen Vertreter (i. d. R. die Eltern) sowie durch den Ausbildenden unterzeichnet (§ 11 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Ausbildungsvertrag Minderjährige Unterschrift"
-    },
-    {
-      "id": "eco_138",
-      "question": "Kenntnisse 3. Jahr nachlesen? a) Lehrplan Schule b) Ausbildungsrahmenplan c) Tarifvertrag d) IHK Anforderungen e) JArbSchG.",
-      "answerOptions": [
-        {
-          "text": "a) Lehrplan Schule",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Ausbildungsrahmenplan",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) Tarifvertrag",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) IHK Anforderungen",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) JArbSchG.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "B"
-      ],
-      "inputType": "text",
-      "rationale": "Der Ausbildungsrahmenplan ist Bestandteil der Ausbildungsordnung und gibt die sachliche und zeitliche Gliederung der Vermittlung der Kenntnisse und Fertigkeiten vor (§ 5 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Ausbildungsrahmenplan BBiG"
-    },
-    {
-      "id": "eco_139",
-      "question": "Qualifiziertes Zeugnis? a) nur Art/Dauer b) auf Verlangen bei Beendigung c) BR Zustimmung d) nur positiv e) Berufsschule.",
-      "answerOptions": [
-        {
-          "text": "a) nur Art/Dauer",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) auf Verlangen bei Beendigung",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) BR Zustimmung",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) nur positiv",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Berufsschule.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "B"
-      ],
-      "inputType": "text",
-      "rationale": "Nach Beendigung des Ausbildungsverhältnisses kann der Azubi ein qualifiziertes Zeugnis verlangen, das auch Angaben über Führung, Leistung und besondere fachliche Kenntnisse enthält (§ 16 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Qualifiziertes Zeugnis Ausbildung"
-    },
-    {
-      "id": "eco_140",
-      "question": "Verantwortlich Vermittlung Rahmenplan? a) Schule b) IHK c) Betrieb d) Eltern e) Azubi.",
-      "answerOptions": [
-        {
-          "text": "a) Schule",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) IHK",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) Betrieb",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "d) Eltern",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Azubi.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "C"
-      ],
-      "inputType": "text",
-      "rationale": "Der Ausbildende (Betrieb) trägt die Verantwortung dafür, dass dem Auszubildenden die berufliche Handlungsfähigkeit vermittelt wird, die zum Erreichen des Ausbildungsziels erforderlich ist (§ 14 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Verantwortung Ausbildender"
-    },
-    {
-      "id": "eco_141",
-      "question": "Freistellung Schule Gesetz? a) Rahmenlehrplan b) BBiG c) AfG d) BetrVG e) Gewerbeordnung.",
-      "answerOptions": [
-        {
-          "text": "a) Rahmenlehrplan",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) BBiG",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) AfG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) BetrVG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Gewerbeordnung.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "B"
-      ],
-      "inputType": "text",
-      "rationale": "Der Ausbildende hat den Auszubildenden für die Teilnahme am Berufsschulunterricht freizustellen (§ 15 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Freistellung Berufsschule BBiG"
-    },
-    {
-      "id": "eco_142",
-      "question": "Weiterer Lernort BBiG? a) Werkstatt b) Berufsschule c) IHK Räume d) überbetrieblich e) Fernlehrgang.",
-      "answerOptions": [
-        {
-          "text": "a) Werkstatt",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Berufsschule",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) IHK Räume",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) überbetrieblich",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Fernlehrgang.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "B"
-      ],
-      "inputType": "text",
-      "rationale": "Die Berufsausbildung findet im dualen System an den Lernorten Betrieb und Berufsschule statt (§ 2 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Lernorte duale Ausbildung"
-    },
-    {
-      "id": "eco_143",
-      "question": "Vergütung Regelung? a) BBiG/Vertrag b) BMA c) Rahmenplan d) gleichbleibend e) Noten.",
-      "answerOptions": [
-        {
-          "text": "a) BBiG/Vertrag",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "b) BMA",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) Rahmenplan",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) gleichbleibend",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Noten.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "A"
-      ],
-      "inputType": "text",
-      "rationale": "Auszubildenden ist eine angemessene Vergütung zu gewähren. Diese wird im Ausbildungsvertrag vereinbart und muss mit fortschreitender Ausbildung, mindestens jährlich, ansteigen (§ 17 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Angemessene Vergütung BBiG"
-    },
-    {
-      "id": "eco_144",
-      "question": "Vergütung zutreffend? a) pfändbar b) Lohnfortzahlung 6 Wochen c) keine Zahlung bei Freistellung d) keine Überstunden e) Zahlung 1. Werktag Folgemonat.",
-      "answerOptions": [
-        {
-          "text": "a) pfändbar",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Lohnfortzahlung 6 Wochen",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "c) keine Zahlung bei Freistellung",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "d) keine Überstunden",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Zahlung 1. Werktag Folgemonat.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "B"
-      ],
-      "inputType": "text",
-      "rationale": "Auszubildenden ist die Vergütung auch für die Zeit der Freistellung (z. B. Berufsschule) sowie im Krankheitsfall bis zur Dauer von sechs Wochen weiterzuzahlen (§ 19 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Lohnfortzahlung Azubi Krankheit"
-    },
-    {
-      "id": "eco_145",
-      "question": "Zwei Angaben nicht enthalten? a) Beginn/Dauer b) Probezeit c) Kündigungsgründe Probezeit d) Vergütung e) Ort f) Dauer Berufsschule.",
-      "answerOptions": [
-        {
-          "text": "a) Beginn/Dauer",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) Probezeit",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) Kündigungsgründe Probezeit",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "d) Vergütung",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) Ort",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "f) Dauer Berufsschule.",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        }
-      ],
-      "expectedAnswers": [
-        "CF",
-        "FC"
-      ],
-      "inputType": "text",
-      "rationale": "Kündigungsgründe für die Probezeit (da jederzeit ohne Grund kündbar) und die genaue Dauer der Berufsschule (da diese landesschulrechtlich geregelt ist) müssen nicht im Ausbildungsvertrag stehen (§ 11 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Inhalt Berufsausbildungsvertrag BBiG"
-    },
-    {
-      "id": "eco_146",
-      "question": "Kündigung nach Probezeit Voraussetzung? a) formlos 2 Wochen Grund b) fristlos/formlos wichtiger Grund c) schriftlich 4 Wochen Wechsel Beruf d) schriftlich 6 Wochen Quartal e) formlos jederzeit.",
-      "answerOptions": [
-        {
-          "text": "a) formlos 2 Wochen Grund",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) fristlos/formlos wichtiger Grund",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) schriftlich 4 Wochen Wechsel Beruf",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "d) schriftlich 6 Wochen Quartal",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) formlos jederzeit.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "C"
-      ],
-      "inputType": "text",
-      "rationale": "Nach der Probezeit kann der Auszubildende mit einer Kündigungsfrist von vier Wochen kündigen, wenn er die Berufsausbildung aufgeben oder sich für eine andere Berufstätigkeit ausbilden lassen will (§ 22 BBiG).",
-      "videoUrl": "",
-      "youtubeQuery": "Kündigungsfrist Azubi Berufswechsel"
-    },
-    {
-      "id": "eco_147",
-      "question": "Kündigungsbestimmungen Azubis Gesetz? a) KSchG b) JArbSchG c) BBiG d) BGB e) GewO.",
-      "answerOptions": [
-        {
-          "text": "a) KSchG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "b) JArbSchG",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "c) BBiG",
-          "isCorrect": true,
-          "rationale": "Richtig."
-        },
-        {
-          "text": "d) BGB",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        },
-        {
-          "text": "e) GewO.",
-          "isCorrect": false,
-          "rationale": "Falsch."
-        }
-      ],
-      "expectedAnswers": [
-        "C"
-      ],
-      "inputType": "text",
-      "rationale": "Die speziellen Kündigungsbestimmungen für das Berufsausbildungsverhältnis sind im Berufsbildungsgesetz (§ 22 BBiG) geregelt.",
-      "videoUrl": "",
-      "youtubeQuery": "Kündigungsschutz Ausbildung BBiG"
     }
   ]
 }
