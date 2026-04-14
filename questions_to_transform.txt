@@ -1,0 +1,32 @@
+1. Reihenfolge Bewerbung: Eine Jugendliche will sich bewerben. Bringen Sie die Vorgehensweise in die richtige Reihenfolge!
+Schritte: [1] Abschluss Vertrag, [2] Bewerbung schreiben, [3] Erkundigung Unternehmen, [4] Erkundigung Beruf, [5] Absenden Bewerbung, [6] Vorstellungsgespräch. Lösung: 4-3-2-5-6-1.
+2. Welches Gesetz bestimmt den Inhalt des Ausbildungsvertrages? a) HGB b) BetrVG c) JArbSchG d) BAföG e) BBiG. Lösung: e.
+3. Wann endet in der Regel das Ausbildungsverhältnis? a) Bestehen Abschlussprüfung b) Ablauf vertragliche Zeit c) Kündigung AG d) Kündigung Azubi e) Vereinbarung. Lösung: a.
+4. Regelung BBiG? a) Einheitliche Regelung Ausbildung b) Berufsschule c) Arbeitsrecht d) BAföG e) Arbeitszeit Azubis. Lösung: a.
+5. Szenario: Mündliche Zusage am 1. Juni für 1. September. Eltern einverstanden. Gültig? a) Nein, Eltern fehlten b) Nein, Prokurist darf nicht c) Nein, IHK fehlt d) Nein, schriftlich von Anfang an e) Ja, aber Niederschrift vor Beginn. Lösung: e.
+6. Nichtige Vereinbarung? a) Urlaub b) Verbleibenspflicht c) Vergütung d) Fortbildung e) Arbeitszeit. Lösung: b.
+7. Szenario Erna (17J): 4 Tage bis 18 Uhr, Do 11-20 Uhr. Jeweils 8h. Zulässig? a) Nein, nach 18 Uhr verboten b) Nein, Start 11 Uhr c) Nein, Do > 8h d) Ja, 8h/Tag und 40h/Woche e) Ja, Eltern zugestimmt. Lösung: d.
+8. Welches Gesetz schreibt Urlaub im Vertrag vor? a) BBiG b) JArbSchG c) BUrlG d) BetrVG e) GG. Lösung: a.
+9. Probezeit Dauer? a) 4 Monate b) 1 bis 4 Monate c) 6 Monate d) min 3 Monate e) keine Regelung. Lösung: b.
+10. Probezeit Zweck? a) Eignung b) Verlängerung auf 6M möglich c) nicht vorgeschrieben d) nur wichtiger Grund e) Frist 4 Wochen. Lösung: a.
+11. Szenario: Azubi kündigt nach Probezeit ohne Grund zum 30. April. Termin? a) 30. April b) Bestehen Prüfung c) Vertraglich d) Sofort e) Unwirksam. Lösung: e.
+12. Verlängerung über Zeit hinaus? a) Noten schlecht b) Nicht bestanden + Verlangen c) automatisch bei Nichtbestehen d) Übernahme e) nicht vorgesehen. Lösung: b.
+13. Gesetz Pflicht Bemühung? a) JArbSchG b) BBiG c) BetrVG d) Kündigungsschutzgesetz e) HGB. Lösung: b.
+14. Vorzeitige Zulassung Entscheidung? a) Schulleitung b) Geschäftsleitung c) Zuständige Stelle (IHK) d) BMBF e) Prüfungsausschuss. Lösung: c.
+15. Angabe im Vertrag? a) Vergütung b) Pausen c) Form Kündigung Probezeit d) Krankenkasse e) Berufsschule. Lösung: a.
+16. Zeitpunkt Niederschrift? a) Unverzüglich/Vor Beginn b) erste 3M Probezeit c) nach Zwischenprüfung d) 4 Wochen nach Beginn e) nach Probezeit. Lösung: a.
+17. Verpflichtung Berichtshefte? a) Rahmenlehrplan b) Ausbildungsordnung c) BetrVG d) JArbSchG e) BG. Lösung: b.
+18. Zwei nichtige Vereinbarungen? a) 2M Probezeit b) Verbleibenspflicht c) Vertragsstrafe d) überbetriebliche MaM-^_nahmen e) 39h/Woche. Lösung: b und c.
+19. VerstoM-^_ BBiG? a) Niederschrift erst nach Probezeit b) Urlaub nach JArbSchG c) Übertariflich d) Freistellung Schule e) Kostenlose Mittel. Lösung: a.
+20. Korrektur im Vertrag? a) Dauer 26M b) Probezeit 6M c) Unterschrift Eltern fehlt bei Volljährigen d) Vergütung steigt e) Ort Betriebssitz. Lösung: b.
+21. Abschluss Vertrag minderjährig? a) Azubi, Vertreter, IHK b) Azubi, Vertreter, Ausbildender c) Eltern und Betrieb d) Vertreter und Ausbildender e) Azubi und Ausbildender. Lösung: b.
+22. Kenntnisse 3. Jahr nachlesen? a) Lehrplan Schule b) Ausbildungsrahmenplan c) Tarifvertrag d) IHK Anforderungen e) JArbSchG. Lösung: b.
+23. Qualifiziertes Zeugnis? a) nur Art/Dauer b) auf Verlangen bei Beendigung c) BR Zustimmung d) nur positiv e) Berufsschule. Lösung: b.
+24. Verantwortlich Vermittlung Rahmenplan? a) Schule b) IHK c) Betrieb d) Eltern e) Azubi. Lösung: c.
+25. Freistellung Schule Gesetz? a) Rahmenlehrplan b) BBiG c) AfG d) BetrVG e) Gewerbeordnung. Lösung: b.
+26. Weiterer Lernort BBiG? a) Werkstatt b) Berufsschule c) IHK Räume d) überbetrieblich e) Fernlehrgang. Lösung: b.
+27. Vergütung Regelung? a) BBiG/Vertrag b) BMA c) Rahmenplan d) gleichbleibend e) Noten. Lösung: a.
+28. Vergütung zutreffend? a) pfändbar b) Lohnfortzahlung 6 Wochen c) keine Zahlung bei Freistellung d) keine Überstunden e) Zahlung 1. Werktag Folgemonat. Lösung: b.
+29. Zwei Angaben nicht enthalten? a) Beginn/Dauer b) Probezeit c) Kündigungsgründe Probezeit d) Vergütung e) Ort f) Dauer Berufsschule. Lösung: c und f.
+30. Kündigung nach Probezeit Voraussetzung? a) formlos 2 Wochen Grund b) fristlos/formlos wichtiger Grund c) schriftlich 4 Wochen Wechsel Beruf d) schriftlich 6 Wochen Quartal e) formlos jederzeit. Lösung: c.
+31. Kündigungsbestimmungen Azubis Gesetz? a) KSchG b) JArbSchG c) BBiG d) BGB e) GewO. Lösung: c.
