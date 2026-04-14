@@ -3524,6 +3524,1618 @@
       "rationale": "Richtig ist A. Wahlberechtigt (aktiv) sind alle Azubis unter 25 und alle Jugendlichen unter 18. Wählbar (passiv) sind alle Arbeitnehmer unter 25, sofern sie nicht dem BR angehören. Sandra erfüllt beide Kriterien. Bernd darf wählen, aber nicht gewählt werden (da im BR). Petra darf nicht wählen (über 18, kein Azubi), aber gewählt werden (unter 25).",
       "videoUrl": "",
       "youtubeQuery": "JAV Wahlrecht aktiv passiv BetrVG"
+    },
+    {
+      "id": "eco_117",
+      "question": "Eine Jugendliche mit mittlerem Bildungsabschluss will sich für einen Ausbildungsplatz bewerben. Bringen Sie ihre Vorgehensweise in die richtige Reihenfolge!\n\n1. Abschluss des Berufsausbildungsvertrages\n2. Formulieren des Bewerbungsschreibens mit Hinweis, warum sie sich gerade für diesen Beruf interessiert und auch geeignet hält\n3. Erkundigungen über das Ausbildungsunternehmen (Ventura-Sports & Gear GmbH) einholen\n4. Erkundigungen über Ausbildungsberuf, Ausbildungsinhalte und Perspektiven in diesem Beruf einholen\n5. Absenden des Bewerbungsschreibens unter Beifügung von Lebenslauf, Passfoto und Referenzen\n6. Wahrnehmung des Termins zum Vorstellungsgespräch",
+      "answerOptions": [
+        {
+          "text": "4-3-2-5-6-1",
+          "isCorrect": true,
+          "rationale": "Dies entspricht dem logischen Ablauf: Erst Information über Beruf und Betrieb, dann Bewerbung, Gespräch und schließlich der Vertrag."
+        },
+        {
+          "text": "3-4-2-5-6-1",
+          "isCorrect": false,
+          "rationale": "Die Information über den Beruf sollte idealerweise vor der gezielten Suche nach einem Betrieb stehen."
+        },
+        {
+          "text": "4-3-5-2-6-1",
+          "isCorrect": false,
+          "rationale": "Man kann die Bewerbung nicht absenden (5), bevor man sie formuliert hat (2)."
+        },
+        {
+          "text": "1-4-3-2-5-6",
+          "isCorrect": false,
+          "rationale": "Der Abschluss des Vertrages steht am Ende des Prozesses, nicht am Anfang."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Die logische Kette beginnt bei der Information über den Beruf (4) und den Betrieb (3). Danach folgt die Erstellung (2) und das Absenden (5) der Unterlagen. Bei Erfolg folgt das Gespräch (6) und als krönender Abschluss der Vertrag (1).",
+      "videoUrl": "",
+      "youtubeQuery": "Bewerbungsprozess Reihenfolge Ausbildung"
+    },
+    {
+      "id": "eco_118",
+      "question": "Welches Gesetz bestimmt im Wesentlichen den Inhalt des Berufsausbildungsvertrages?",
+      "answerOptions": [
+        {
+          "text": "Handelsgesetzbuch",
+          "isCorrect": false,
+          "rationale": "Das HGB regelt Handelsgeschäfte und Kaufleute, nicht primär die Ausbildung."
+        },
+        {
+          "text": "Betriebsverfassungsgesetz",
+          "isCorrect": false,
+          "rationale": "Das BetrVG regelt die Mitbestimmung im Betrieb."
+        },
+        {
+          "text": "Jugendarbeitsschutzgesetz",
+          "isCorrect": false,
+          "rationale": "Das JArbSchG schützt jugendliche Arbeitnehmer (Arbeitszeiten, Urlaub), regelt aber nicht den Vertragsinhalt."
+        },
+        {
+          "text": "Berufsausbildungsförderungsgesetz",
+          "isCorrect": false,
+          "rationale": "Das BAföG regelt die finanzielle Unterstützung, nicht den Ausbildungsvertrag."
+        },
+        {
+          "text": "Berufsbildungsgesetz",
+          "isCorrect": true,
+          "rationale": "Das BBiG ist das zentrale Gesetz für die duale Ausbildung und schreibt die Mindestinhalte des Vertrags vor."
+        }
+      ],
+      "expectedAnswers": [
+        "E"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Das Berufsbildungsgesetz (BBiG) ist die rechtliche Grundlage für das duale System und legt fest, welche Angaben zwingend in einen Ausbildungsvertrag gehören (§ 11 BBiG).",
+      "videoUrl": "",
+      "youtubeQuery": "Berufsbildungsgesetz BBiG einfach erklärt"
+    },
+    {
+      "id": "eco_119",
+      "question": "Wann endet in der Regel das Berufsausbildungsverhältnis?",
+      "answerOptions": [
+        {
+          "text": "Es endet mit Bestehen der Abschlussprüfung.",
+          "isCorrect": true,
+          "rationale": "Gemäß BBiG endet die Ausbildung mit dem Tag der Bekanntgabe des Ergebnisses durch den Prüfungsausschuss."
+        },
+        {
+          "text": "Es endet mit Ablauf der vertraglichen Ausbildungszeit.",
+          "isCorrect": false,
+          "rationale": "Dies ist nur der Fall, wenn die Prüfung noch nicht abgelegt wurde; das Bestehen ist das primäre Enddatum."
+        },
+        {
+          "text": "Es endet durch Kündigung des Arbeitgebers.",
+          "isCorrect": false,
+          "rationale": "Eine Kündigung ist eine vorzeitige Beendung, nicht das reguläre Ende."
+        },
+        {
+          "text": "Es endet durch Kündigung des Auszubildenden.",
+          "isCorrect": false,
+          "rationale": "Auch dies wäre eine vorzeitige Beendung."
+        },
+        {
+          "text": "Es endet entsprechend der zwischen Arbeitgeber und Auszubildenden getroffenen Vereinbarung.",
+          "isCorrect": false,
+          "rationale": "Individuelle Vereinbarungen dürfen die gesetzliche Regelung des BBiG nicht unterschreiten."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Nach § 21 BBiG endet das Berufsausbildungsverhältnis mit dem Bestehen der Abschlussprüfung, auch wenn die im Vertrag vorgesehene Zeit eigentlich noch länger liefe.",
+      "videoUrl": "",
+      "youtubeQuery": "Ende der Ausbildung BBiG Bestehen der Prüfung"
+    },
+    {
+      "id": "eco_120",
+      "question": "Welche Regelung enthält das Berufsbildungsgesetz?",
+      "answerOptions": [
+        {
+          "text": "Die einheitliche Regelung der beruflichen Ausbildung",
+          "isCorrect": true,
+          "rationale": "Das BBiG sichert einen bundeseinheitlichen Standard für die betriebliche Ausbildung."
+        },
+        {
+          "text": "Die einheitliche Regelung für die Ausbildung in der Berufsschule",
+          "isCorrect": false,
+          "rationale": "Schulrecht ist Ländersache, das BBiG regelt primär den betrieblichen Teil."
+        },
+        {
+          "text": "Die einheitliche Regelung des Arbeits- und Gewerberechts",
+          "isCorrect": false,
+          "rationale": "Dies wird durch eine Vielzahl anderer Gesetze (BGB, GewO, HGB) geregelt."
+        },
+        {
+          "text": "Die einheitliche Regelung der Berufsausbildungsförderung",
+          "isCorrect": false,
+          "rationale": "Hierfür ist das BAföG zuständig."
+        },
+        {
+          "text": "Die einheitliche Regelung der Arbeitszeit für Auszubildende",
+          "isCorrect": false,
+          "rationale": "Die Arbeitszeit wird durch das ArbZG und das JArbSchG geregelt."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Das BBiG ist ein Rahmengesetz, das sicherstellt, dass die Ausbildung in ganz Deutschland (unabhängig vom Bundesland) nach gleichen Qualitätsstandards abläuft.",
+      "videoUrl": "",
+      "youtubeQuery": "Berufsbildungsgesetz Aufgaben und Ziele"
+    },
+    {
+      "id": "eco_121",
+      "question": "Erna Müller bewirbt sich bei der Ventura-Sports & Gear GmbH um eine Ausbildungsstelle. Nach dem Vorstellungsgespräch am 1. Juni gibt ihr die Prokuristin eine mündliche Zusage für die Stelle zum 1. September. Erna und ihre Eltern erklären sich damit einverstanden. Ist damit ein gültiger Ausbildungsvertrag zustande gekommen?",
+      "answerOptions": [
+        {
+          "text": "Nein, da die Eltern beim Vorstellungsgespräch nicht anwesend waren.",
+          "isCorrect": false,
+          "rationale": "Die Anwesenheit ist nicht zwingend, solange die Zustimmung (auch nachträglich) erfolgt."
+        },
+        {
+          "text": "Nein, da Prokuristen keine Ausbildungsverträge abschließen dürfen.",
+          "isCorrect": false,
+          "rationale": "Prokuristen sind zur Vertretung des Unternehmens berechtigt und dürfen Verträge schließen."
+        },
+        {
+          "text": "Nein, da die IHK den Vertrag noch nicht registriert hat.",
+          "isCorrect": false,
+          "rationale": "Die Registrierung ist eine Ordnungsvorschrift, berührt aber nicht die zivilrechtliche Gültigkeit des Versprechens."
+        },
+        {
+          "text": "Nein, da ein Ausbildungsvertrag von Anfang an schriftlich abgeschlossen werden muss.",
+          "isCorrect": false,
+          "rationale": "Ein Vertrag kann mündlich geschlossen werden, muss aber zwingend schriftlich dokumentiert werden."
+        },
+        {
+          "text": "Ja, aber der wesentliche Inhalt des Vertrages muss spätestens vor Beginn der Ausbildung schriftlich niedergelegt werden.",
+          "isCorrect": true,
+          "rationale": "Der mündliche Vertrag ist gültig, aber das BBiG verlangt die schriftliche Niederlassung vor Ausbildungsbeginn."
+        }
+      ],
+      "expectedAnswers": [
+        "E"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Ein Ausbildungsvertrag ist ein privatrechtlicher Vertrag und kann mündlich geschlossen werden. Allerdings verpflichtet § 11 BBiG den Ausbildenden, die wesentlichen Inhalte spätestens vor Beginn der Ausbildung schriftlich niederzulegen.",
+      "videoUrl": "",
+      "youtubeQuery": "Ausbildungsvertrag Schriftform BBiG"
+    },
+    {
+      "id": "eco_122",
+      "question": "Welcher der folgenden Vereinbarungen in einem Berufsausbildungsvertrag ist nichtig?",
+      "answerOptions": [
+        {
+          "text": "Vereinbarung über die Dauer des Urlaubs",
+          "isCorrect": false,
+          "rationale": "Dies ist ein zwingender und zulässiger Bestandteil des Vertrags."
+        },
+        {
+          "text": "Verpflichtung des Auszubildenden, nach der Ausbildungszeit im Betrieb zu bleiben",
+          "isCorrect": true,
+          "rationale": "Eine solche Einschränkung der Berufswahlfreiheit ist laut § 12 BBiG unzulässig und nichtig."
+        },
+        {
+          "text": "Vereinbarung über die Zahlung der Vergütung",
+          "isCorrect": false,
+          "rationale": "Dies ist gesetzlich vorgeschrieben und natürlich gültig."
+        },
+        {
+          "text": "Vereinbarung über die Durchführung von Fortbildungsmaßnahmen",
+          "isCorrect": false,
+          "rationale": "Dies ist eine zulässige Zusatzvereinbarung."
+        },
+        {
+          "text": "Vereinbarung über die Dauer der täglichen Arbeitszeit",
+          "isCorrect": false,
+          "rationale": "Dies muss im Vertrag stehen und ist wirksam."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Nach § 12 BBiG sind Vereinbarungen, die den Auszubildenden für die Zeit nach Ende der Ausbildung in der Wahl seiner beruflichen Tätigkeit beschränken, nichtig.",
+      "videoUrl": "",
+      "youtubeQuery": "Nichtige Vereinbarungen Ausbildungsvertrag"
+    },
+    {
+      "id": "eco_123",
+      "question": "Erna Müller ist 17 Jahre alt. Sie arbeitet bei Ventura-Sports & Gear an vier Tagen in der Woche bis 18:00 Uhr. Am Donnerstag arbeitet sie von 11:00 Uhr bis 20:00 Uhr. Die tägliche Arbeitszeit beträgt jeweils 8 Stunden. Ist diese Arbeitszeitregelung zulässig?",
+      "answerOptions": [
+        {
+          "text": "Nein, Jugendliche dürfen grundsätzlich nach 18:00 Uhr nicht mehr beschäftigt werden.",
+          "isCorrect": false,
+          "rationale": "Nach JArbSchG ist Arbeit bis 20:00 Uhr für Jugendliche ab 16 Jahren generell erlaubt."
+        },
+        {
+          "text": "Nein, da sie an einem Tag erst um 11:00 Uhr mit der Arbeit beginnt.",
+          "isCorrect": false,
+          "rationale": "Die Uhrzeit des Arbeitsbeginns ist flexibel, solange die Ruhezeiten eingehalten werden."
+        },
+        {
+          "text": "Nein, weil die tägliche Arbeitszeit am Donnerstag über 8 Stunden liegt.",
+          "isCorrect": false,
+          "rationale": "Bei 11:00 bis 20:00 Uhr (inkl. 1 Std. Pause) sind es genau 8 Stunden."
+        },
+        {
+          "text": "Ja, weil dadurch die tägliche Arbeitszeit von 8 Stunden und die wöchentliche von 40 Stunden nicht überschritten wird.",
+          "isCorrect": true,
+          "rationale": "Die Regelung hält die Grenzwerte des JArbSchG (8 Std./Tag, 40 Std./Woche) exakt ein."
+        },
+        {
+          "text": "Ja, sofern die Eltern schriftlich zugestimmt haben.",
+          "isCorrect": false,
+          "rationale": "Zustimmung der Eltern kann gesetzliche Grenzwerte des Jugendarbeitsschutzes nicht außer Kraft setzen."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Das Jugendarbeitsschutzgesetz (JArbSchG) erlaubt eine Arbeitszeit von 8 Stunden täglich und 40 Stunden wöchentlich. Die Arbeit bis 20:00 Uhr ist für über 16-Jährige zulässig.",
+      "videoUrl": "",
+      "youtubeQuery": "Jugendarbeitsschutzgesetz Arbeitszeiten einfach erklärt"
+    },
+    {
+      "id": "eco_124",
+      "question": "Welches Gesetz schreibt vor, dass die Dauer des Urlaubs in den Berufsausbildungsvertrag aufgenommen werden muss?",
+      "answerOptions": [
+        {
+          "text": "Berufsbildungsgesetz",
+          "isCorrect": true,
+          "rationale": "§ 11 BBiG nennt die Dauer des Urlaubs explizit als notwendigen Vertragsinhalt."
+        },
+        {
+          "text": "Jugendarbeitsschutzgesetz",
+          "isCorrect": false,
+          "rationale": "Das JArbSchG legt die Höhe fest, schreibt aber nicht vor, was im Vertrag stehen muss."
+        },
+        {
+          "text": "Bundesurlaubsgesetz",
+          "isCorrect": false,
+          "rationale": "Das BUrlG regelt den Mindesturlaub für Erwachsene."
+        },
+        {
+          "text": "Betriebsverfassungsgesetz",
+          "isCorrect": false,
+          "rationale": "Das BetrVG hat keinen Bezug zum individuellen Vertragsinhalt."
+        },
+        {
+          "text": "Grundgesetz",
+          "isCorrect": false,
+          "rationale": "Die Verfassung enthält keine so spezifischen Regelungen für Ausbildungsverträge."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Während das JArbSchG oder BUrlG die Mindestanzahl der Tage regeln, ist es das BBiG, das die *Aufnahme* dieses Punktes in den schriftlichen Vertrag verlangt.",
+      "videoUrl": "",
+      "youtubeQuery": "Mindestinhalte Ausbildungsvertrag BBiG"
+    },
+    {
+      "id": "eco_125",
+      "question": "Welche gesetzliche Regelung besteht für die Dauer der Probezeit in einem Berufsausbildungsverhältnis?",
+      "answerOptions": [
+        {
+          "text": "Sie beträgt 4 Monate.",
+          "isCorrect": false,
+          "rationale": "Dies ist das Maximum, aber keine feste Dauer."
+        },
+        {
+          "text": "Sie muss mindestens 1 Monat und darf höchstens 4 Monate betragen.",
+          "isCorrect": true,
+          "rationale": "Das ist die exakte gesetzliche Vorgabe nach § 20 BBiG."
+        },
+        {
+          "text": "Sie beträgt 6 Monate.",
+          "isCorrect": false,
+          "rationale": "6 Monate sind im normalen Arbeitsrecht üblich, in der Ausbildung aber unzulässig."
+        },
+        {
+          "text": "Sie beträgt mindestens 3 Monate.",
+          "isCorrect": false,
+          "rationale": "Falsch, das Minimum liegt bei einem Monat."
+        },
+        {
+          "text": "Es gibt keine gesetzliche Regelung für die Probezeit.",
+          "isCorrect": false,
+          "rationale": "Doch, das BBiG regelt dies sehr streng."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Gemäß § 20 BBiG *muss* das Ausbildungsverhältnis mit einer Probezeit beginnen. Diese darf nicht kürzer als ein Monat und nicht länger als vier Monate sein.",
+      "videoUrl": "",
+      "youtubeQuery": "Probezeit Ausbildung Dauer BBiG"
+    },
+    {
+      "id": "eco_126",
+      "question": "Welche Aussage über die Probezeit im Berufsausbildungsverhältnis ist zutreffend?",
+      "answerOptions": [
+        {
+          "text": "Die Probezeit dient dazu, festzustellen, ob der Jugendliche für den Beruf geeignet ist.",
+          "isCorrect": true,
+          "rationale": "Das ist der pädagogische und rechtliche Kernzweck der Probezeit."
+        },
+        {
+          "text": "Die Probezeit kann auf 6 Monate verlängert werden, wenn beide Seiten einverstanden sind.",
+          "isCorrect": false,
+          "rationale": "Die absolute Obergrenze von 4 Monaten darf (außer bei Unterbrechung durch Krankheit) nicht überschritten werden."
+        },
+        {
+          "text": "Die Probezeit ist gesetzlich nicht vorgeschrieben.",
+          "isCorrect": false,
+          "rationale": "Falsch, § 20 BBiG schreibt sie zwingend vor."
+        },
+        {
+          "text": "In der Probezeit kann das Ausbildungsverhältnis nur aus einem wichtigen Grund gekündigt werden.",
+          "isCorrect": false,
+          "rationale": "In der Probezeit kann ohne Grund und ohne Frist gekündigt werden."
+        },
+        {
+          "text": "Während der Probezeit beträgt die Kündigungsfrist 4 Wochen.",
+          "isCorrect": false,
+          "rationale": "Es gibt in der Probezeit keine Kündigungsfrist."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Die Probezeit soll beiden Seiten (Betrieb und Azubi) die Chance geben, ohne Risiko zu prüfen, ob die Berufswahl und die Zusammenarbeit passen.",
+      "videoUrl": "",
+      "youtubeQuery": "Zweck der Probezeit Ausbildung"
+    },
+    {
+      "id": "eco_127",
+      "question": "Ein Auszubildender bei Ventura-Sports & Gear erhält im März ein Angebot für eine andere Arbeitsstelle. Er kündigt daraufhin seinen Ausbildungsvertrag schriftlich zum 30. April, ohne Gründe anzugeben. Die Probezeit ist bereits abgelaufen. Zu welchem Termin endet das Ausbildungsverhältnis?",
+      "answerOptions": [
+        {
+          "text": "Zum 30. April.",
+          "isCorrect": false,
+          "rationale": "Die Kündigung ist unwirksam, daher endet das Verhältnis nicht zu diesem Termin."
+        },
+        {
+          "text": "Mit Bestehen der Abschlussprüfung.",
+          "isCorrect": false,
+          "rationale": "Das wäre das reguläre Ende, aber die Frage bezieht sich auf die Wirksamkeit der Kündigung."
+        },
+        {
+          "text": "Zu dem Termin, der im Berufsausbildungsvertrag vereinbart wurde.",
+          "isCorrect": false,
+          "rationale": "Ohne wirksame Kündigung läuft der Vertrag normal weiter."
+        },
+        {
+          "text": "Sofort mit dem Tag der Kündigung.",
+          "isCorrect": false,
+          "rationale": "Fristlose Kündigungen ohne Grund sind nach der Probezeit nicht möglich."
+        },
+        {
+          "text": "Die Kündigung ist unwirksam.",
+          "isCorrect": true,
+          "rationale": "Nach der Probezeit muss ein Azubi laut § 22 BBiG bei einer ordentlichen Kündigung zwingend den Grund angeben (z. B. Berufswechsel)."
+        }
+      ],
+      "expectedAnswers": [
+        "E"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Ein Auszubildender kann nach der Probezeit nur kündigen, wenn er die Ausbildung aufgeben oder den Beruf wechseln will. Diese Kündigung muss schriftlich erfolgen und den Kündigungsgrund enthalten. Ohne Grundangabe ist die Kündigung unwirksam.",
+      "videoUrl": "",
+      "youtubeQuery": "Kündigung Ausbildungsverhältnis nach Probezeit Grundangabe"
+    },
+    {
+      "id": "eco_128",
+      "question": "In welchem der folgenden Fälle muss ein Berufsausbildungsverhältnis über die vertraglich vereinbarte Zeit hinaus verlängert werden?",
+      "answerOptions": [
+        {
+          "text": "Wenn die Leistungen in der Berufsschule nicht ausreichen.",
+          "isCorrect": false,
+          "rationale": "Schlechte Schulnoten allein begründen keinen Rechtsanspruch auf Verlängerung."
+        },
+        {
+          "text": "Wenn der Auszubildende die Abschlussprüfung nicht bestanden hat und er eine Verlängerung verlangt.",
+          "isCorrect": true,
+          "rationale": "Dies ist ein gesetzlicher Anspruch nach § 21 BBiG bis zur nächsten Wiederholungsprüfung (max. 1 Jahr)."
+        },
+        {
+          "text": "Wenn die Abschlussprüfung nicht bestanden wurde, erfolgt die Verlängerung automatisch.",
+          "isCorrect": false,
+          "rationale": "Die Verlängerung erfolgt nicht automatisch, der Azubi muss sie aktiv verlangen."
+        },
+        {
+          "text": "Wenn der Ausbildungsbetrieb den Auszubildenden übernehmen will.",
+          "isCorrect": false,
+          "rationale": "Dann wird ein normaler Arbeitsvertrag geschlossen, keine Verlängerung der Ausbildung."
+        },
+        {
+          "text": "Eine Verlängerung ist gesetzlich nicht vorgesehen.",
+          "isCorrect": false,
+          "rationale": "Doch, das BBiG sieht diesen Schutz für Auszubildende ausdrücklich vor."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Bestehen Auszubildende die Abschlussprüfung nicht, so verlängert sich das Berufsausbildungsverhältnis auf ihr Verlangen bis zur nächstmöglichen Wiederholungsprüfung, höchstens jedoch um ein Jahr.",
+      "videoUrl": "",
+      "youtubeQuery": "Verlängerung Ausbildung nicht bestandene Prüfung"
+    },
+    {
+      "id": "eco_129",
+      "question": "In welchem Gesetz ist die Pflicht des Auszubildenden verankert, sich zu bemühen, die berufliche Handlungsfähigkeit zu erwerben, die zum Erreichen des Ausbildungsziels erforderlich ist?",
+      "answerOptions": [
+        {
+          "text": "Jugendarbeitsschutzgesetz",
+          "isCorrect": false,
+          "rationale": "Das JArbSchG regelt Schutzvorschriften, keine Lernpflichten."
+        },
+        {
+          "text": "Berufsbildungsgesetz",
+          "isCorrect": true,
+          "rationale": "Die Lernpflicht des Azubis ist in § 13 BBiG (Verhalten während der Berufsausbildung) geregelt."
+        },
+        {
+          "text": "Betriebsverfassungsgesetz",
+          "isCorrect": false,
+          "rationale": "Das BetrVG betrifft die betriebliche Mitbestimmung."
+        },
+        {
+          "text": "Kündigungsschutzgesetz",
+          "isCorrect": false,
+          "rationale": "Das KSchG regelt die Wirksamkeit von Kündigungen bei Arbeitsverhältnissen."
+        },
+        {
+          "text": "Handelsgesetzbuch",
+          "isCorrect": false,
+          "rationale": "Das HGB regelt die Rechtsbeziehungen von Kaufleuten."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Das BBiG legt nicht nur die Pflichten des Betriebs fest, sondern in § 13 auch die Lernpflicht des Auszubildenden: Er muss sich bemühen, die notwendigen Fertigkeiten und Kenntnisse zu erwerben.",
+      "videoUrl": "",
+      "youtubeQuery": "Pflichten des Auszubildenden BBiG 13"
+    },
+    {
+      "id": "eco_130",
+      "question": "Wer entscheidet darüber, ob ein Auszubildender der Ventura-Sports & Gear GmbH vorzeitig zur Abschlussprüfung zugelassen wird?",
+      "answerOptions": [
+        {
+          "text": "Die Schulleitung der Berufsschule",
+          "isCorrect": false,
+          "rationale": "Die Schule gibt eine Stellungnahme ab, entscheidet aber nicht selbst."
+        },
+        {
+          "text": "Die Geschäftsleitung des Ausbildungsbetriebes",
+          "isCorrect": false,
+          "rationale": "Der Betrieb muss angehört werden, hat aber keine Entscheidungsgewalt über die Prüfung."
+        },
+        {
+          "text": "Die zuständige Stelle (z. B. Industrie- und Handelskammer)",
+          "isCorrect": true,
+          "rationale": "Die IHK/HWK prüft die Voraussetzungen für eine vorzeitige Zulassung (§ 45 BBiG)."
+        },
+        {
+          "text": "Das Bundesministerium für Bildung und Forschung",
+          "isCorrect": false,
+          "rationale": "Das Ministerium erlässt Rahmenbedingungen, entscheidet aber keine Einzelfälle."
+        },
+        {
+          "text": "Der Prüfungsausschuss",
+          "isCorrect": false,
+          "rationale": "Der Ausschuss nimmt die Prüfung ab, die Zulassung regelt die Kammer."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Nach § 45 BBiG kann ein Auszubildender vorzeitig zur Prüfung zugelassen werden, wenn seine Leistungen dies rechtfertigen. Die Entscheidung trifft die zuständige Stelle (z. B. IHK).",
+      "videoUrl": "",
+      "youtubeQuery": "vorzeitige Zulassung Abschlussprüfung Voraussetzungen"
+    },
+    {
+      "id": "eco_131",
+      "question": "Welche Angabe muss ein Berufsausbildungsverrag enthalten?",
+      "answerOptions": [
+        {
+          "text": "Zahlung und Höhe der Vergütung",
+          "isCorrect": true,
+          "rationale": "Dies ist ein zwingender Mindestinhalt laut § 11 BBiG."
+        },
+        {
+          "text": "Beginn und Dauer der täglichen Pausen",
+          "isCorrect": false,
+          "rationale": "Pausen werden oft betrieblich geregelt, müssen aber nicht zwingend namentlich im Vertrag stehen."
+        },
+        {
+          "text": "Die Form der Kündigung während der Probezeit",
+          "isCorrect": false,
+          "rationale": "Die gesetzliche Form (mündlich möglich, schriftlich empfohlen) ergibt sich aus dem Gesetz."
+        },
+        {
+          "text": "Name der zuständigen Krankenkasse",
+          "isCorrect": false,
+          "rationale": "Wichtig für die Lohnabrechnung, aber kein gesetzlicher Mindestinhalt des Ausbildungsvertrags."
+        },
+        {
+          "text": "Anschrift der Berufsschule",
+          "isCorrect": false,
+          "rationale": "Die Zuweisung zur Schule erfolgt oft extern und gehört nicht zum Vertragskern."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. § 11 BBiG listet alle Punkte auf, die schriftlich fixiert sein müssen. Dazu gehören neben Ziel und Dauer der Ausbildung auch die Vergütung, Urlaub und Kündigungsfristen.",
+      "videoUrl": "",
+      "youtubeQuery": "Inhalt Berufsausbildungsvertrag BBiG 11"
+    },
+    {
+      "id": "eco_132",
+      "question": "Zu welchem Zeitpunkt muss der wesentliche Inhalt des Berufsausbildungsvertrages schriftlich niedergelegt werden?",
+      "answerOptions": [
+        {
+          "text": "Unverzüglich nach Abschluss des Vertrages, spätestens vor Beginn der Ausbildung.",
+          "isCorrect": true,
+          "rationale": "Dies ist die gesetzliche Frist laut BBiG, um Rechtsklarheit ab dem ersten Tag zu schaffen."
+        },
+        {
+          "text": "Innerhalb der ersten drei Monate der Probezeit.",
+          "isCorrect": false,
+          "rationale": "Viel zu spät; der Azubi muss seine Bedingungen von Anfang an kennen."
+        },
+        {
+          "text": "Erst nach erfolgreich abgelegter Zwischenprüfung.",
+          "isCorrect": false,
+          "rationale": "Völlig falsch; die Zwischenprüfung findet oft erst nach 1,5 Jahren statt."
+        },
+        {
+          "text": "Spätestens 4 Wochen nach Beginn der Ausbildung.",
+          "isCorrect": false,
+          "rationale": "Das BBiG ist hier strenger: Vor Beginn der Ausbildung muss die Niederschrift vorliegen."
+        },
+        {
+          "text": "Erst nach Ablauf der Probezeit.",
+          "isCorrect": false,
+          "rationale": "Nein, die Probezeit ist Teil des Vertrags und muss somit vorher schriftlich fixiert sein."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Nach § 11 BBiG hat der Ausbildende unverzüglich nach Abschluss des Vertrages, spätestens jedoch vor Beginn der Berufsausbildung, die wesentlichen Inhalte schriftlich niederzulegen.",
+      "videoUrl": "",
+      "youtubeQuery": "Schriftform Ausbildungsvertrag Zeitpunkt"
+    },
+    {
+      "id": "eco_133",
+      "question": "Aus welcher rechtlichen Vorschrift ergibt sich die Verpflichtung für den Auszubildenden, Ausbildungsnachweise (Berichtshefte) zu führen?",
+      "answerOptions": [
+        {
+          "text": "Aus dem Rahmenlehrplan für die Berufsschule",
+          "isCorrect": false,
+          "rationale": "Der Rahmenlehrplan betrifft die Unterrichtsinhalte der Schule."
+        },
+        {
+          "text": "Aus der Ausbildungsordnung des jeweiligen Berufs",
+          "isCorrect": true,
+          "rationale": "Die Ausbildungsordnung schreibt das Führen von Nachweisen als Zulassungsvoraussetzung zur Prüfung vor."
+        },
+        {
+          "text": "Aus dem Betriebsverfassungsgesetz",
+          "isCorrect": false,
+          "rationale": "Das BetrVG regelt die Organisation der Arbeitnehmerschaft im Betrieb."
+        },
+        {
+          "text": "Aus dem Jugendarbeitsschutzgesetz",
+          "isCorrect": false,
+          "rationale": "Das JArbSchG regelt Zeiten und Pausen, nicht die Dokumentation der Lerninhalte."
+        },
+        {
+          "text": "Aus den Richtlinien der Berufsgenossenschaft",
+          "isCorrect": false,
+          "rationale": "Die BG kümmert sich um Unfallverhütung und Gesundheitsschutz."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die Pflicht zum Führen der Nachweise (Berichtsheft) ist in den jeweiligen Ausbildungsordnungen verankert. Die ordnungsgemäße Führung ist Voraussetzung für die Zulassung zur Abschlussprüfung.",
+      "videoUrl": "",
+      "youtubeQuery": "Pflicht Ausbildungsnachweis Berichtsheft"
+    },
+    {
+      "id": "eco_134",
+      "question": "Welche zwei Vereinbarungen in einem Berufsausbildungsvertrag sind nichtig?",
+      "answerOptions": [
+        {
+          "text": "Die Vereinbarung einer zweimonatigen Probezeit.",
+          "isCorrect": false,
+          "rationale": "Zulässig, da sie im Rahmen von 1 bis 4 Monaten liegt."
+        },
+        {
+          "text": "Die Verpflichtung des Auszubildenden, nach der Ausbildung zwei Jahre im Betrieb zu bleiben.",
+          "isCorrect": true,
+          "rationale": "Verstoß gegen § 12 BBiG (Freiheit der Berufswahl)."
+        },
+        {
+          "text": "Die Vereinbarung über die Zahlung einer Vertragsstrafe bei Verstößen gegen die Arbeitsordnung.",
+          "isCorrect": true,
+          "rationale": "Vertragsstrafen sind laut § 12 BBiG in Ausbildungsverträgen unzulässig und nichtig."
+        },
+        {
+          "text": "Die Verpflichtung des Auszubildenden, an überbetrieblichen Bildungsmaßnahmen teilzunehmen.",
+          "isCorrect": false,
+          "rationale": "Dies ist eine zulässige und oft notwendige Ausbildungspflicht."
+        },
+        {
+          "text": "Die Vereinbarung über eine wöchentliche Arbeitszeit von 39 Stunden.",
+          "isCorrect": false,
+          "rationale": "Zulässig, solange sie den Jugendarbeitsschutz (max. 40 Std.) nicht verletzt."
+        }
+      ],
+      "expectedAnswers": [
+        "BC",
+        "CB"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig sind B und C. Laut § 12 BBiG darf ein Azubi nicht verpflichtet werden, nach der Ausbildung im Betrieb zu bleiben. Ebenso sind Vereinbarungen über Vertragsstrafen oder den Ausschluss von Schadensersatzansprüchen nichtig.",
+      "videoUrl": "",
+      "youtubeQuery": "Nichtige Klauseln Ausbildungsvertrag BBiG 12"
+    },
+    {
+      "id": "eco_135",
+      "question": "In welchem Fall liegt ein Verstoß gegen das Berufsbildungsgesetz vor?",
+      "answerOptions": [
+        {
+          "text": "Mit der Niederschrift des Ausbildungsvertrages wird bis zum Ablauf der Probezeit gewartet.",
+          "isCorrect": true,
+          "rationale": "Klarer Verstoß gegen § 11 BBiG (Schriftform vor Beginn der Ausbildung)."
+        },
+        {
+          "text": "Der Jahresurlaub wird entsprechend den Bestimmungen des Jugendarbeitsschutzgesetz gewährt.",
+          "isCorrect": false,
+          "rationale": "Dies ist gesetzestreu und kein Verstoß."
+        },
+        {
+          "text": "Es wird eine übertarifliche Ausbildungsvergütung vereinbart.",
+          "isCorrect": false,
+          "rationale": "Besserstellung des Azubis ist immer zulässig (Günstigkeitsprinzip)."
+        },
+        {
+          "text": "Der Auszubildende wird für den Besuch der Berufsschule freigestellt.",
+          "isCorrect": false,
+          "rationale": "Dies ist eine gesetzliche Pflicht des Ausbildenden nach § 15 BBiG."
+        },
+        {
+          "text": "Dem Auszubildenden werden die erforderlichen Ausbildungsmittel kostenlos zur Verfügung gestellt.",
+          "isCorrect": false,
+          "rationale": "Dies ist eine gesetzliche Pflicht nach § 14 BBiG."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Da der Vertrag vor Beginn der Ausbildung schriftlich fixiert sein muss, ist das Warten bis zum Ende der Probezeit ein Verstoß gegen die Dokumentationspflicht des BBiG.",
+      "videoUrl": "",
+      "youtubeQuery": "Verstoß Berufsbildungsgesetz Beispiele"
+    },
+    {
+      "id": "eco_136",
+      "question": "Welcher Inhalt in einem Ihnen zur Prüfung vorgelegten Berufsausbildungsvertrag der Ventura-Sports & Gear GmbH muss korrigiert werden?",
+      "answerOptions": [
+        {
+          "text": "Die Dauer der Ausbildung beträgt 26 Monate.",
+          "isCorrect": false,
+          "rationale": "Dies ist bei Verkürzung oder bestimmten Berufen zulässig."
+        },
+        {
+          "text": "Die Dauer der Probezeit beträgt 6 Monate.",
+          "isCorrect": true,
+          "rationale": "Korrekturbedürftig: In der Ausbildung darf die Probezeit maximal 4 Monate betragen (§ 20 BBiG)."
+        },
+        {
+          "text": "Die Unterschrift der Eltern fehlt bei einem volljährigen Auszubildenden.",
+          "isCorrect": false,
+          "rationale": "Volljährige unterschreiben selbst; eine Elternunterschrift wäre hier unnötig."
+        },
+        {
+          "text": "Die Höhe der Vergütung steigt jährlich an.",
+          "isCorrect": false,
+          "rationale": "Dies ist gesetzlich so vorgeschrieben (§ 17 BBiG)."
+        },
+        {
+          "text": "Der Ort der Ausbildung ist der Betriebssitz.",
+          "isCorrect": false,
+          "rationale": "Eine Standardangabe und fachlich richtig."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Eine Probezeit von 6 Monaten ist im Arbeitsrecht für Angestellte üblich, aber im Berufsbildungsgesetz ist die Frist starr auf maximal 4 Monate begrenzt.",
+      "videoUrl": "",
+      "youtubeQuery": "Maximaldauer Probezeit Ausbildung"
+    },
+    {
+      "id": "eco_137",
+      "question": "Wer schließt den Berufsausbildungsvertrag ab, wenn der Auszubildende noch minderjährig ist?",
+      "answerOptions": [
+        {
+          "text": "Der Auszubildende, sein gesetzlicher Vertreter und die IHK.",
+          "isCorrect": false,
+          "rationale": "Die IHK registriert den Vertrag nur, schließt ihn aber nicht selbst ab."
+        },
+        {
+          "text": "Der Auszubildende, sein gesetzlicher Vertreter und der Ausbildende.",
+          "isCorrect": true,
+          "rationale": "Da Minderjährige nur beschränkt geschäftsfähig sind, müssen die gesetzlichen Vertreter (meist Eltern) zustimmen und unterschreiben."
+        },
+        {
+          "text": "Die Eltern des Jugendlichen und der Ausbildungsbetrieb.",
+          "isCorrect": false,
+          "rationale": "Der Jugendliche selbst muss ebenfalls Vertragspartei sein und unterschreiben."
+        },
+        {
+          "text": "Nur der gesetzliche Vertreter und der Ausbildende.",
+          "isCorrect": false,
+          "rationale": "Ohne die Unterschrift des Auszubildenden kommt kein gültiger Vertrag zustande."
+        },
+        {
+          "text": "Nur der Auszubildende und der Ausbildende.",
+          "isCorrect": false,
+          "rationale": "Bei Minderjährigen reicht die alleinige Unterschrift des Azubis rechtlich nicht aus."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Der Ausbildungsvertrag ist ein zweiseitiges Rechtsgeschäft. Bei Minderjährigen ist die Mitwirkung der gesetzlichen Vertreter zwingend erforderlich (§ 11 BBiG).",
+      "videoUrl": "",
+      "youtubeQuery": "Vertragsschluss Ausbildung Minderjährige Unterschrift"
+    },
+    {
+      "id": "eco_138",
+      "question": "Wo kann der Ausbilder der Ventura-Sports & Gear GmbH nachlesen, welche Kenntnisse und Fertigkeiten dem Auszubildenden im dritten Ausbildungsjahr vermittelt werden müssen?",
+      "answerOptions": [
+        {
+          "text": "Im Lehrplan für die Berufsschule",
+          "isCorrect": false,
+          "rationale": "Der Lehrplan der Schule regelt die theoretische Vermittlung in der Schule."
+        },
+        {
+          "text": "Im Ausbildungsrahmenplan als Bestandteil der Ausbildungsordnung",
+          "isCorrect": true,
+          "rationale": "Der Ausbildungsrahmenplan ist das Herzstück für die betriebliche Ausbildung und gibt die zeitliche und sachliche Gliederung vor."
+        },
+        {
+          "text": "Im geltenden Tarifvertrag für den Einzelhandel",
+          "isCorrect": false,
+          "rationale": "Tarifverträge regeln primär Entgelte und Arbeitsbedingungen."
+        },
+        {
+          "text": "In den Prüfungsanforderungen der IHK",
+          "isCorrect": false,
+          "rationale": "Die Anforderungen zeigen, was geprüft wird, aber nicht, wie die Ausbildung im Betrieb zu gliedern ist."
+        },
+        {
+          "text": "Im Jugendarbeitsschutzgesetz",
+          "isCorrect": false,
+          "rationale": "Das JArbSchG enthält keine fachlichen Ausbildungsinhalte."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die Ausbildungsordnung enthält für jeden Beruf einen Ausbildungsrahmenplan, der genau festlegt, was wann im Betrieb vermittelt werden muss.",
+      "videoUrl": "",
+      "youtubeQuery": "Ausbildungsrahmenplan sachliche zeitliche Gliederung"
+    },
+    {
+      "id": "eco_139",
+      "question": "Welche Aussage über das qualifizierte Zeugnis am Ende der Ausbildung ist richtig?",
+      "answerOptions": [
+        {
+          "text": "Es enthält lediglich Angaben über Art, Dauer und Ziel der Berufsausbildung.",
+          "isCorrect": false,
+          "rationale": "Dies beschreibt ein einfaches Zeugnis, kein qualifiziertes."
+        },
+        {
+          "text": "Der Ausbildende hat es dem Auszubildenden auf Verlangen bei Beendigung des Ausbildungsverhältnisses auszustellen.",
+          "isCorrect": true,
+          "rationale": "Auszubildende haben laut § 16 BBiG einen Rechtsanspruch auf ein qualifiziertes Zeugnis (Leistung und Führung)."
+        },
+        {
+          "text": "Der Betriebsrat muss der Beurteilung im qualifizierten Zeugnis zustimmen.",
+          "isCorrect": false,
+          "rationale": "Die Beurteilung ist Sache des Arbeitgebers; der Betriebsrat hat hier kein Mitbestimmungsrecht."
+        },
+        {
+          "text": "Es darf nur positive Formulierungen enthalten.",
+          "isCorrect": false,
+          "rationale": "Es muss wahr und wohlwollend sein, darf aber sachlich berechtigte Kritik enthalten."
+        },
+        {
+          "text": "Es wird von der Berufsschule ausgestellt.",
+          "isCorrect": false,
+          "rationale": "Der Ausbildungsbetrieb stellt das Arbeitszeugnis aus, die Schule stellt ein Schulzeugnis aus."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Im Gegensatz zum einfachen Zeugnis enthält das qualifizierte Zeugnis zusätzlich Angaben über Führung (Verhalten) und Leistung des Auszubildenden (§ 16 BBiG).",
+      "videoUrl": "",
+      "youtubeQuery": "qualifiziertes Zeugnis Ausbildung Inhalt"
+    },
+    {
+      "id": "eco_140",
+      "question": "Wer ist dafür verantwortlich, dass die im Ausbildungsrahmenplan geforderten Kenntnisse und Fertigkeiten vermittelt werden?",
+      "answerOptions": [
+        {
+          "text": "Die Berufsschule",
+          "isCorrect": false,
+          "rationale": "Die Schule ist für den fachtheoretischen Teil zuständig, nicht für den betrieblichen Plan."
+        },
+        {
+          "text": "Die zuständige Industrie- und Handelskammer",
+          "isCorrect": false,
+          "rationale": "Die Kammer überwacht und prüft, aber sie führt die Ausbildung nicht selbst durch."
+        },
+        {
+          "text": "Der Ausbildungsbetrieb",
+          "isCorrect": true,
+          "rationale": "Der Ausbildende (Betrieb) trägt die Hauptverantwortung für die Durchführung der praktischen Ausbildung (§ 14 BBiG)."
+        },
+        {
+          "text": "Die Eltern des Auszubildenden",
+          "isCorrect": false,
+          "rationale": "Eltern haben Erziehungspflichten, aber keine Verantwortung für betriebliche Lerninhalte."
+        },
+        {
+          "text": "Der Auszubildende selbst",
+          "isCorrect": false,
+          "rationale": "Der Azubi hat eine Lernpflicht, aber die Vermittlungsverantwortung liegt beim Betrieb."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Laut Berufsbildungsgesetz (§ 14) ist der Ausbildende dafür verantwortlich, dass die Fertigkeiten und Kenntnisse planmäßig und fachlich richtig vermittelt werden.",
+      "videoUrl": "",
+      "youtubeQuery": "Verantwortung Ausbildung Betrieb BBiG"
+    },
+    {
+      "id": "eco_141",
+      "question": "Wo ist gesetzlich geregelt, dass der Auszubildende für den Besuch der Berufsschule freigestellt werden muss?",
+      "answerOptions": [
+        {
+          "text": "Im Rahmenlehrplan",
+          "isCorrect": false,
+          "rationale": "Ein Lehrplan ist kein Gesetz mit Freistellungsvorschrift."
+        },
+        {
+          "text": "Im Berufsbildungsgesetz",
+          "isCorrect": true,
+          "rationale": "Die Freistellungspflicht ist zentral in § 15 BBiG verankert."
+        },
+        {
+          "text": "Im Arbeitsförderungsgesetz",
+          "isCorrect": false,
+          "rationale": "Dies betrifft Arbeitsvermittlung und Arbeitslosengeld."
+        },
+        {
+          "text": "Im Betriebsverfassungsgesetz",
+          "isCorrect": false,
+          "rationale": "Regelt Mitbestimmung, nicht individuelle Ausbildungspflichten."
+        },
+        {
+          "text": "In der Gewerbeordnung",
+          "isCorrect": false,
+          "rationale": "Regelt den Betrieb von Gewerben, aber nicht primär die Ausbildung."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Der Ausbildende muss den Auszubildenden für den Besuch der Berufsschule freistellen. Dies ist in § 15 BBiG (Freistellung, Anrechnung) ausdrücklich geregelt.",
+      "videoUrl": "",
+      "youtubeQuery": "Freistellung Berufsschule BBiG Paragraph 15"
+    },
+    {
+      "id": "eco_142",
+      "question": "Was versteht das Berufsbildungsgesetz unter einem weiteren Lernort neben dem Betrieb?",
+      "answerOptions": [
+        {
+          "text": "Die Werkstatt des Betriebes",
+          "isCorrect": false,
+          "rationale": "Die Werkstatt gehört unmittelbar zum Lernort Betrieb."
+        },
+        {
+          "text": "Die Berufsschule",
+          "isCorrect": true,
+          "rationale": "Das duale System basiert auf den zwei Lernorten Betrieb und Berufsschule."
+        },
+        {
+          "text": "Die Schulungsräume der Industrie- und Handelskammer",
+          "isCorrect": false,
+          "rationale": "Zwar finden dort Prüfungen statt, aber die Schule ist der gesetzlich definierte zweite Lernort."
+        },
+        {
+          "text": "Überbetriebliche Bildungseinrichtungen",
+          "isCorrect": false,
+          "rationale": "Diese sind Ergänzungen zum Betrieb, aber nicht der primäre zweite Lernort im Modell."
+        },
+        {
+          "text": "Fernlehrgänge",
+          "isCorrect": false,
+          "rationale": "Dies sind Lernmethoden, aber keine institutionalisierten Lernorte im Sinne des dualen Systems."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die duale Ausbildung findet an den zwei Lernorten Betrieb (Praxis) und Berufsschule (Theorie) statt.",
+      "videoUrl": "",
+      "youtubeQuery": "Lernorte duale Ausbildung BBiG"
+    },
+    {
+      "id": "eco_143",
+      "question": "Nach welcher Vorschrift ist die Ausbildungsvergütung geregelt?",
+      "answerOptions": [
+        {
+          "text": "Das Berufsbildungsgesetz fordert die Festlegung der Vergütung im Berufsausbildungsvertrag.",
+          "isCorrect": true,
+          "rationale": "§ 17 BBiG verlangt eine angemessene Vergütung, die jährlich ansteigen muss."
+        },
+        {
+          "text": "Sie wird jährlich vom Bundesministerium für Arbeit festgelegt.",
+          "isCorrect": false,
+          "rationale": "Das Ministerium legt keine individuellen Vergütungshöhen fest."
+        },
+        {
+          "text": "Sie ist Bestandteil des Ausbildungsrahmenplans.",
+          "isCorrect": false,
+          "rationale": "Der Rahmenplan regelt nur fachliche Inhalte, keine Finanzen."
+        },
+        {
+          "text": "Sie muss für die gesamte Ausbildungsdauer in gleicher Höhe gezahlt werden.",
+          "isCorrect": false,
+          "rationale": "Falsch, sie muss mit fortschreitendem Alter/Leistung jährlich steigen (§ 17 BBiG)."
+        },
+        {
+          "text": "Sie richtet sich nach den Noten in der Berufsschule.",
+          "isCorrect": false,
+          "rationale": "Die Vergütung ist unabhängig von den Schulnoten zu zahlen."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Nach § 17 BBiG haben Auszubildende Anspruch auf eine angemessene Vergütung, deren Höhe im Vertrag schriftlich vereinbart sein muss.",
+      "videoUrl": "",
+      "youtubeQuery": "Ausbildungsvergütung BBiG Paragraph 17"
+    },
+    {
+      "id": "eco_144",
+      "question": "Welche Aussage zur Ausbildungsvergütung ist rechtlich zutreffend?",
+      "answerOptions": [
+        {
+          "text": "Ausbildungsvergütungen sind wie Gehaltsansprüche teilweise pfändbar.",
+          "isCorrect": false,
+          "rationale": "Zwar grundsätzlich richtig, aber im Kontext der Ausbildung ist die Lohnfortzahlung ein wesentlicherer Kernpunkt des BBiG."
+        },
+        {
+          "text": "Die Ausbildungsvergütung ist entsprechend der Lohnfortzahlung bei Krankheit bis zur Dauer von 6 Wochen weiter zu bezahlen.",
+          "isCorrect": true,
+          "rationale": "Dies ist ein wichtiger sozialer Schutz für Azubis laut BBiG (§ 19)."
+        },
+        {
+          "text": "Vergütungen sind nicht zu zahlen für Zeiten der Freistellung (z. B. Berufsschulunterricht).",
+          "isCorrect": false,
+          "rationale": "Falsch, für Zeiten der Freistellung muss die Vergütung weitergezahlt werden (§ 19 BBiG)."
+        },
+        {
+          "text": "Überstundenvergütungen sind bei Auszubildenden nicht vorgesehen.",
+          "isCorrect": false,
+          "rationale": "Überstunden müssen durch Freizeit oder gesonderte Vergütung abgegolten werden."
+        },
+        {
+          "text": "Die Vergütung muss am ersten Werktag des Folgemonats gezahlt werden.",
+          "isCorrect": false,
+          "rationale": "Sie muss spätestens am letzten Arbeitstag des laufenden Monats gezahlt werden."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Azubis haben laut § 19 BBiG Anspruch auf Fortzahlung der Vergütung für bis zu 6 Wochen, wenn sie infolge von Krankheit arbeitsunfähig sind.",
+      "videoUrl": "",
+      "youtubeQuery": "Lohnfortzahlung Ausbildung Krankheit BBiG"
+    },
+    {
+      "id": "eco_145",
+      "question": "Ihnen wird ein Berufsausbildungsvertrag vorgelegt. Welche zwei Angaben müssen darin nicht enthalten sein?",
+      "answerOptions": [
+        {
+          "text": "Beginn und Dauer der Berufsausbildung",
+          "isCorrect": false,
+          "rationale": "Dies ist ein zwingender Mindestinhalt (§ 11 BBiG)."
+        },
+        {
+          "text": "Dauer der Probezeit",
+          "isCorrect": false,
+          "rationale": "Muss zwingend angegeben werden."
+        },
+        {
+          "text": "Kündigungsgründe während der Probezeit",
+          "isCorrect": true,
+          "rationale": "In der Probezeit kann ohne Angabe von Gründen gekündigt werden, daher ist dies kein Vertragsinhalt."
+        },
+        {
+          "text": "Zahlung und Höhe der Vergütung",
+          "isCorrect": false,
+          "rationale": "Ein absolut notwendiger Bestandteil."
+        },
+        {
+          "text": "Ort der Ausbildung",
+          "isCorrect": false,
+          "rationale": "Muss im Vertrag stehen."
+        },
+        {
+          "text": "Dauer des Berufsschulunterrichts",
+          "isCorrect": true,
+          "rationale": "Die Schulzeiten werden von der Schule festgelegt und gehören nicht zu den Mindestangaben des betrieblichen Vertrags."
+        }
+      ],
+      "expectedAnswers": [
+        "CF",
+        "FC"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig sind C und F. Da Kündigungen in der Probezeit grundlos möglich sind, müssen keine Gründe im Vertrag stehen. Auch die konkreten Schulzeiten werden nicht im betrieblichen Ausbildungsvertrag geregelt.",
+      "videoUrl": "",
+      "youtubeQuery": "Angaben im Ausbildungsvertrag BBiG"
+    },
+    {
+      "id": "eco_146",
+      "question": "Unter welcher Voraussetzung kann ein Auszubildender das Ausbildungsverhältnis nach Ablauf der Probezeit kündigen?",
+      "answerOptions": [
+        {
+          "text": "Formlos, mit 2 Wochen Kündigungsfrist, unter Angabe der Gründe.",
+          "isCorrect": false,
+          "rationale": "Frist und Form sind falsch."
+        },
+        {
+          "text": "Eine Kündigung ist nach Ablauf der Probezeit nur noch fristlos und formlos möglich, wenn ein wichtiger Grund vorliegt.",
+          "isCorrect": false,
+          "rationale": "Dies beschreibt nur die außerordentliche Kündigung; es gibt auch die ordentliche bei Berufswechsel."
+        },
+        {
+          "text": "Schriftlich, mit 4 Wochen Kündigungsfrist, unter Angabe, dass der Ausbildungsberuf gewechselt wird.",
+          "isCorrect": true,
+          "rationale": "Dies ist die ordentliche Kündigungsmöglichkeit für Azubis nach § 22 BBiG."
+        },
+        {
+          "text": "Schriftlich, mit 6 Wochen Kündigungsfrist zum Quartalsende.",
+          "isCorrect": false,
+          "rationale": "Falsche Frist und falscher Termin."
+        },
+        {
+          "text": "Formlos, jederzeit ohne Einhaltung einer Frist.",
+          "isCorrect": false,
+          "rationale": "Dies gilt nur innerhalb der Probezeit."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Will ein Azubi den Beruf wechseln oder die Ausbildung ganz aufgeben, beträgt die gesetzliche Kündigungsfrist nach der Probezeit vier Wochen (§ 22 BBiG). Die Kündigung muss schriftlich erfolgen und den Grund nennen.",
+      "videoUrl": "",
+      "youtubeQuery": "Ordentliche Kündigung Azubi BBiG 22"
+    },
+    {
+      "id": "eco_147",
+      "question": "In welchem Gesetz sind die Kündigungsbestimmungen für Auszubildende enthalten?",
+      "answerOptions": [
+        {
+          "text": "Kündigungsschutzgesetz",
+          "isCorrect": false,
+          "rationale": "Das KSchG gilt für normale Arbeitnehmer, für Azubis ist das BBiG spezieller."
+        },
+        {
+          "text": "Jugendarbeitsschutzgesetz",
+          "isCorrect": false,
+          "rationale": "Regelt keine Kündigungsfristen."
+        },
+        {
+          "text": "Berufsbildungsgesetz",
+          "isCorrect": true,
+          "rationale": "Die §§ 22 und 23 BBiG regeln die Kündigung des Ausbildungsverhältnisses abschließend."
+        },
+        {
+          "text": "Bürgerliches Gesetzbuch",
+          "isCorrect": false,
+          "rationale": "Das BGB enthält nur allgemeine Dienstvertragsregeln, das BBiG ist das Spezialgesetz."
+        },
+        {
+          "text": "Gewerbeordnung",
+          "isCorrect": false,
+          "rationale": "Enthält keine spezifischen Kündigungsregeln für Auszubildende."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Alle wesentlichen Bestimmungen zur Kündigung (Probezeit, ordentliche Kündigung, außerordentliche Kündigung) finden sich im Berufsbildungsgesetz.",
+      "videoUrl": "",
+      "youtubeQuery": "Kündigung Ausbildungsverhältnis BBiG"
+    },
+    {
+      "id": "eco_162",
+      "question": "Eine GmbH will ein Grundstück kaufen und sich als Eigentümerin in das Grundbuch eintragen lassen. Ist dies rechtlich möglich?",
+      "answerOptions": [
+        {
+          "text": "Ja, unabhängig von Rechts- oder Geschäftsfähigkeit.",
+          "isCorrect": false,
+          "rationale": "Die Eintragung setzt zwingend Rechtsfähigkeit voraus."
+        },
+        {
+          "text": "Nein, da sie eine juristische Person des öffentlichen Rechts ist.",
+          "isCorrect": false,
+          "rationale": "Die GmbH ist eine juristische Person des privaten Rechts."
+        },
+        {
+          "text": "Nein, nur der Geschäftsführer kann eingetragen werden.",
+          "isCorrect": false,
+          "rationale": "Der Geschäftsführer handelt nur für die GmbH; Eigentümerin wird die GmbH selbst."
+        },
+        {
+          "text": "Nein, da nur natürliche Personen eingetragen werden können.",
+          "isCorrect": false,
+          "rationale": "Auch juristische Personen können uneingeschränkt Eigentum an Grundstücken erwerben."
+        },
+        {
+          "text": "Ja, da sie eine juristische Person des Privatrechts und somit Träger von Rechten und Pflichten ist.",
+          "isCorrect": true,
+          "rationale": "Als juristische Person ist die GmbH rechtsfähig and kann somit selbst Eigentümerin von Grundstücken sein."
+        }
+      ],
+      "expectedAnswers": ["E"],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Juristische Personen (wie die GmbH) sind rechtsfähig. Das bedeutet, sie können wie Menschen (natürliche Personen) Rechte erwerben (Eigentum) und im Grundbuch stehen.",
+      "videoUrl": "",
+      "youtubeQuery": "Rechtsfähigkeit juristische Person Eigentum"
+    },
+    {
+      "id": "eco_163",
+      "question": "Welche Aussage zur Rechtsfähigkeit ist richtig?",
+      "answerOptions": [
+        {
+          "text": "Die Rechtsfähigkeit einer natürlichen Person beginnt mit der Volljährigkeit.",
+          "isCorrect": false,
+          "rationale": "Die Rechtsfähigkeit beginnt mit der Vollendung der Geburt (§ 1 BGB)."
+        },
+        {
+          "text": "Die Rechtsfähigkeit einer natürlichen Person kann durch Gerichtsurteil eingeschränkt werden.",
+          "isCorrect": false,
+          "rationale": "Die Rechtsfähigkeit ist unantastbar; nur die Geschäftsfähigkeit kann eingeschränkt werden."
+        },
+        {
+          "text": "Die Rechtsfähigkeit einer natürlichen Person endet mit der angeordneten Betreuung.",
+          "isCorrect": false,
+          "rationale": "Sie endet erst mit dem Tod."
+        },
+        {
+          "text": "Die Rechtsfähigkeit einer juristischen Person beginnt mit ihrer Geschäftsfähigkeit.",
+          "isCorrect": false,
+          "rationale": "Die Rechtsfähigkeit beginnt bei juristischen Personen des Privatrechts mit der Registereintragung."
+        },
+        {
+          "text": "Die Rechtsfähigkeit einer Kapitalgesellschaft endet mit der Löschung im Register.",
+          "isCorrect": true,
+          "rationale": "Mit der Löschung aus dem Handelsregister hört die juristische Person auf zu existieren."
+        }
+      ],
+      "expectedAnswers": ["E"],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Während natürliche Personen von der Geburt bis zum Tod rechtsfähig sind, beginnt und endet die Existenz einer Kapitalgesellschaft mit der Eintragung bzw. Löschung im Register.",
+      "videoUrl": "",
+      "youtubeQuery": "Beginn und Ende Rechtsfähigkeit BGB"
+    },
+    {
+      "id": "eco_164",
+      "question": "Welche Aussage zu den Möglichkeiten und Grenzen der rechtlichen Handlungsfähigkeit ist richtig?",
+      "answerOptions": [
+        {
+          "text": "Die Willenserklärung eines Geschäftsunfähigen ist anfechtbar.",
+          "isCorrect": false,
+          "rationale": "Willenserklärungen von Geschäftsunfähigen sind nichtig (ungültig), nicht nur anfechtbar."
+        },
+        {
+          "text": "Ein beschränkt Geschäftsfähiger kann ohne Einwilligung des gesetzlichen Vertreters nur einseitige Rechtsgeschäfte vornehmen.",
+          "isCorrect": false,
+          "rationale": "Gerade einseitige Rechtsgeschäfte (z. B. Kündigung) sind ohne vorherige Zustimmung oft unwirksam."
+        },
+        {
+          "text": "Natürliche Personen werden mit Vollendung des 16. Lebensjahres voll geschäftsfähig.",
+          "isCorrect": false,
+          "rationale": "Die volle Geschäftsfähigkeit tritt erst mit 18 Jahren ein."
+        },
+        {
+          "text": "Volljährigen Personen kann die volle Geschäftsfähigkeit bei dauernder Geisteskrankheit abgesprochen werden.",
+          "isCorrect": true,
+          "rationale": "Wer sich in einem Zustand dauernder Störung der Geistestätigkeit befindet, ist laut § 104 BGB geschäftsunfähig."
+        },
+        {
+          "text": "Geschäftsunfähige Personen können im Rahmen des Taschengeldparagrafen Geschäfte abschließen.",
+          "isCorrect": false,
+          "rationale": "Der Taschengeldparagraf gilt nur für beschränkt Geschäftsfähige (7-17 Jahre)."
+        }
+      ],
+      "expectedAnswers": ["D"],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Volljährige sind zwar grundsätzlich voll geschäftsfähig, jedoch führt eine dauernde Geisteskrankheit per Gesetz zur Geschäftsunfähigkeit (§ 104 BGB).",
+      "videoUrl": "",
+      "youtubeQuery": "Geschäftsfähigkeit Stufen BGB"
+    },
+    {
+      "id": "eco_165",
+      "question": "Wann beginnt die Rechtsfähigkeit einer GmbH?",
+      "answerOptions": [
+        {
+          "text": "Mit dem Abschluss des Gesellschaftervertrages",
+          "isCorrect": false,
+          "rationale": "Dies ist ein interner Gründungsakt."
+        },
+        {
+          "text": "Mit der Eintragung in das Handelsregister",
+          "isCorrect": true,
+          "rationale": "Die Eintragung hat konstitutive (rechtsbegründende) Wirkung."
+        },
+        {
+          "text": "Mit der Eintragung in das Grundbuch",
+          "isCorrect": false,
+          "rationale": "Das Grundbuch regelt nur Grundstücksrechte, keine Firmenexistenz."
+        },
+        {
+          "text": "Mit der notariellen Beurkundung der Gründung",
+          "isCorrect": false,
+          "rationale": "Dies führt zur 'GmbH i. G.', aber noch nicht zur Vollrechtsfähigkeit."
+        },
+        {
+          "text": "Mit der Aufnahme der Geschäfte",
+          "isCorrect": false,
+          "rationale": "Die rein faktische Tätigkeit begründet keine juristische Person."
+        }
+      ],
+      "expectedAnswers": ["B"],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Erst durch den Eintrag in Abteilung B des Handelsregisters wird die GmbH als juristische Person 'geboren'.",
+      "videoUrl": "",
+      "youtubeQuery": "GmbH Gründung Handelsregister Eintragung"
+    },
+    {
+      "id": "eco_166",
+      "question": "Welche Aussage zur Rechtsfähigkeit ist richtig?",
+      "answerOptions": [
+        {
+          "text": "Die Rechtsfähigkeit einer Genossenschaft endet mit der Löschung im Genossenschaftsregister.",
+          "isCorrect": true,
+          "rationale": "Analog zur GmbH/AG endet die Existenz mit der Löschung aus dem entsprechenden Register."
+        },
+        {
+          "text": "Die Rechtsfähigkeit einer juristischen Person beginnt mit ihrer Geschäftstätigkeit.",
+          "isCorrect": false,
+          "rationale": "Nein, sie beginnt mit der Registereintragung."
+        },
+        {
+          "text": "Die Rechtsfähigkeit einer natürlichen Person endet mit der angeordneten Betreuung.",
+          "isCorrect": false,
+          "rationale": "Betreuung ändert nichts an der Rechtsfähigkeit (Rechte haben), nur evtl. an der Handlungsfähigkeit."
+        },
+        {
+          "text": "Die Rechtsfähigkeit einer natürlichen Person kann durch Gerichtsurteil eingeschränkt werden.",
+          "isCorrect": false,
+          "rationale": "Rechtsfähigkeit ist ein unveräußerliches Menschenrecht ab Geburt."
+        },
+        {
+          "text": "Die Rechtsfähigkeit einer natürlichen Person beginnt mit der Volljährigkeit.",
+          "isCorrect": false,
+          "rationale": "Sie beginnt mit der Geburt."
+        }
+      ],
+      "expectedAnswers": ["A"],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Für alle eingetragenen juristischen Personen des privaten Rechts gilt: Das Ende der Rechtsfähigkeit ist die Löschung im öffentlichen Register.",
+      "videoUrl": "",
+      "youtubeQuery": "Ende der Rechtsfähigkeit Genossenschaft"
+    },
+    {
+      "id": "eco_167",
+      "question": "Welche Aussage über die Rechtsfähigkeit ist richtig?",
+      "answerOptions": [
+        {
+          "text": "Natürliche Personen erlangen die Rechtsfähigkeit mit Vollendung des 7. Lebensjahres.",
+          "isCorrect": false,
+          "rationale": "Mit 7 Jahren beginnt die beschränkte Geschäftsfähigkeit, nicht die Rechtsfähigkeit."
+        },
+        {
+          "text": "Natürliche Personen erlangen die Rechtsfähigkeit mit Vollendung des 18. Lebensjahres.",
+          "isCorrect": false,
+          "rationale": "Mit 18 Jahren erlangt man die volle Geschäftsfähigkeit."
+        },
+        {
+          "text": "Natürliche Personen erlangen die Rechtsfähigkeit mit Eintragung in ein öffentliches Register.",
+          "isCorrect": false,
+          "rationale": "Menschen werden nicht in Register 'eingetragen', um Rechte zu haben (Geburtenregister beurkundet nur)."
+        },
+        {
+          "text": "Juristische Personen erlangen die Rechtsfähigkeit mit Zustimmung des Justizministeriums.",
+          "isCorrect": false,
+          "rationale": "Dies ist im modernen Wirtschaftsrecht nicht mehr der Standardweg."
+        },
+        {
+          "text": "Juristische Personen erlangen die Rechtsfähigkeit mit Eintragung in ein öffentliches Register.",
+          "isCorrect": true,
+          "rationale": "Dies ist die korrekte Aussage für GmbH, AG, eG und eingetragene Vereine."
+        }
+      ],
+      "expectedAnswers": ["E"],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Die Eintragung in Register wie das Handels-, Vereins- oder Genossenschaftsregister ist die Voraussetzung für die Rechtsfähigkeit juristischer Personen des Privatrechts.",
+      "videoUrl": "",
+      "youtubeQuery": "Rechtsfähigkeit einfach erklärt"
+    },
+    {
+      "id": "eco_168",
+      "question": "Susanne Wenger möchte ein Tochterunternehmen als Personengesellschaft gründen. Welche Gesellschaftsform ist darauf ausgelegt, zusätzliche Kapitalgeber aufzunehmen, die jeweils nur mit ihrer Einlage haften?",
+      "answerOptions": [
+        {"text": "OHG", "isCorrect": false, "rationale": "In der OHG haften alle Gesellschafter unbeschränkt mit ihrem Privatvermögen."},
+        {"text": "Einzelunternehmung", "isCorrect": false, "rationale": "Keine Gesellschaftsform für mehrere Kapitalgeber; volle Haftung."},
+        {"text": "AG", "isCorrect": false, "rationale": "Die AG ist eine Kapitalgesellschaft, keine Personengesellschaft."},
+        {"text": "GmbH", "isCorrect": false, "rationale": "Die GmbH ist ebenfalls eine Kapitalgesellschaft."},
+        {"text": "KG", "isCorrect": true, "rationale": "Die Kommanditgesellschaft (KG) erlaubt die Aufnahme von Kommanditisten, die nur bis zur Höhe ihrer Einlage haften."}
+      ],
+      "expectedAnswers": ["E"],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Die KG ist eine Personengesellschaft, die aus mindestens einem Vollhafter (Komplementär) und mindestens einem Teilhafter (Kommanditist) besteht.",
+      "videoUrl": "",
+      "youtubeQuery": "Kommanditgesellschaft KG Haftung"
+    },
+    {
+      "id": "eco_169",
+      "question": "Welche Erläuterung trifft auf die Rechtsform der GmbH zu?",
+      "answerOptions": [
+        {
+          "text": "In der GmbH haben alle Gesellschafter stets die gleichen Rechte.",
+          "isCorrect": false,
+          "rationale": "Stimmrechte und Gewinnansprüche hängen meist von der Höhe der Anteile ab."
+        },
+        {
+          "text": "In der GmbH haften alle Gesellschafter unmittelbar und unbeschränkt.",
+          "isCorrect": false,
+          "rationale": "Falsch, die Haftung ist auf das Gesellschaftsvermögen beschränkt."
+        },
+        {
+          "text": "In der GmbH besteht die Möglichkeit der Refinanzierung am Aktienmarkt.",
+          "isCorrect": false,
+          "rationale": "Das ist das Merkmal einer AG, nicht einer GmbH."
+        },
+        {
+          "text": "In der GmbH wird der Gewinn gleichmäßig auf die Gesellschafter verteilt.",
+          "isCorrect": false,
+          "rationale": "Der Gewinn wird im Verhältnis der Geschäftsanteile verteilt (§ 29 GmbHG)."
+        },
+        {
+          "text": "In der GmbH sind die wichtigsten rechtlichen Rahmenbedingungen durch das GmbHG bzw. einen Gesellschaftsvertrag geregelt.",
+          "isCorrect": true,
+          "rationale": "Das GmbH-Gesetz (GmbHG) bildet die rechtliche Basis für diese Rechtsform."
+        }
+      ],
+      "expectedAnswers": ["E"],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Die GmbH (Gesellschaft mit beschränkter Haftung) ist eine eigene juristische Person, deren Regeln primär im GmbH-Gesetz stehen.",
+      "videoUrl": "",
+      "youtubeQuery": "GmbH Grundlagen Recht"
+    },
+    {
+      "id": "eco_170",
+      "question": "Was ist bei der Gründung einer GmbH zu beachten?",
+      "answerOptions": [
+        {
+          "text": "Zur Gründung müssen sich mindestens 2 Personen zusammenschließen.",
+          "isCorrect": false,
+          "rationale": "Eine GmbH kann auch durch eine einzelne Person gegründet werden (Einpersonen-GmbH)."
+        },
+        {
+          "text": "Die GmbH kann nur durch Sacheinlagen gegründet werden.",
+          "isCorrect": false,
+          "rationale": "Bargründung ist der Regelfall; Sacheinlagen sind nur eine Option."
+        },
+        {
+          "text": "Gründung nur durch Vorlage eines Organigramms möglich.",
+          "isCorrect": false,
+          "rationale": "Ein Organigramm ist kein gesetzliches Dokument für die Registereintragung."
+        },
+        {
+          "text": "Die GmbH muss als juristische Person im Handelsregister eingetragen werden.",
+          "isCorrect": true,
+          "rationale": "Ohne Eintragung in das Handelsregister (Abteilung B) entsteht keine GmbH."
+        },
+        {
+          "text": "Das Stammkapital von 50.000 € muss vollständig eingezahlt werden.",
+          "isCorrect": false,
+          "rationale": "Das Mindeststammkapital beträgt 25.000 €, nicht 50.000 €."
+        }
+      ],
+      "expectedAnswers": ["D"],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Die Eintragung in das Handelsregister ist der finale und rechtsbegründende Schritt jeder GmbH-Gründung.",
+      "videoUrl": "",
+      "youtubeQuery": "Handelsregister Abteilung A und B Unterschied"
+    },
+    {
+      "id": "eco_171",
+      "question": "Ventura-Sports & Gear plant die Einführung des Surfboards 'ECO-WAVE' für 400,00 €. Wie hoch ist die Gesamtnachfrage in Stück laut der vorliegenden Nachfragefunktion bei diesem Preis?",
+      "answerOptions": [
+        {"text": "1.200 Stück", "isCorrect": false, "rationale": "Dieser Wert entspricht einem höheren Preis auf der Kurve."},
+        {"text": "1.500 Stück", "isCorrect": false, "rationale": "Nicht der korrekte Wert für 400 €."},
+        {"text": "1.800 Stück", "isCorrect": true, "rationale": "Laut den vorliegenden Marktdaten führt ein Preis von 400 € zu einer nachgefragten Menge von 1.800 Stück."},
+        {"text": "2.000 Stück", "isCorrect": false, "rationale": "Dieser Wert würde einen noch niedrigeren Preis voraussetzen."}
+      ],
+      "expectedAnswers": ["C"],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Bei einem Preis von 400,00 € ergibt die Analyse der Nachfragekurve ein Volumen von 1.800 Stück.",
+      "videoUrl": "",
+      "youtubeQuery": "Nachfragefunktion Preis Menge"
+    },
+    {
+      "id": "eco_172",
+      "question": "Ventura-Sports & Gear möchte 2.000 Stück zum Preis von 500,00 € anbieten. Welche Situation liegt vor, wenn sich das Nachfrageverhalten der Kunden nicht ändert (bei 500 € werden nur ca. 1.400 Stück nachgefragt)?",
+      "answerOptions": [
+        {"text": "Gleichgewichtspreis ist gefunden.", "isCorrect": false, "rationale": "Im Gleichgewicht müssten Angebot und Nachfrage gleich groß sein (hier 2.000 vs. 1.400)."},
+        {"text": "Es liegt ein vollkommener Markt vor.", "isCorrect": false, "rationale": "Ein vollkommener Markt ist ein theoretisches Modell und beschreibt keine konkrete Mengen-Differenz."},
+        {"text": "Es liegt ein Nachfrageüberhang vor.", "isCorrect": false, "rationale": "Das wäre the Fall, wenn die Nachfrage größer als das Angebot wäre."},
+        {"text": "Es liegt ein Angebotsüberhang vor.", "isCorrect": true, "rationale": "Angebot (2.000) > Nachfrage (1.400). Es bleibt Ware unverkauft."},
+        {"text": "Die Gleichgewichtsmenge ist erreicht.", "isCorrect": false, "rationale": "Nein, da keine Übereinstimmung herrscht."}
+      ],
+      "expectedAnswers": ["D"],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Da mehr produziert/angeboten wird (2.000 Stück) als die Kunden bei diesem Preis kaufen wollen (1.400 Stück), entsteht ein Angebotsüberhang.",
+      "videoUrl": "",
+      "youtubeQuery": "Angebotsüberhang Nachfrageüberhang"
+    },
+    {
+      "id": "eco_173",
+      "question": "Es gibt für das neue Surfboard bisher lediglich 4 zusätzliche Hersteller mit vergleichbarem Angebot. Geben Sie die entsprechende Marktform an!",
+      "answerOptions": [
+        {"text": "Angebotsmonopol", "isCorrect": false, "rationale": "Ein Monopol erfordert genau einen Anbieter."},
+        {"text": "Nachfragemonopol", "isCorrect": false, "rationale": "Dies würde bedeuten, dass es nur einen Käufer gibt."},
+        {"text": "Angebotsoligopol", "isCorrect": true, "rationale": "Wenige Anbieter (hier insgesamt 5) stehen vielen Nachfragern gegenüber."},
+        {"text": "Nachfrageoligopol", "isCorrect": false, "rationale": "Dies würde wenige Nachfrager bedeuten."},
+        {"text": "Polypol", "isCorrect": false, "rationale": "Im Polypol gibt es sehr viele kleine Anbieter."}
+      ],
+      "expectedAnswers": ["C"],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Wenige Anbieter (insgesamt 5 Unternehmen) definieren ein Angebotsoligopol.",
+      "videoUrl": "",
+      "youtubeQuery": "Marktformen Oligopol Polypol Monopol"
+    },
+    {
+      "id": "eco_174",
+      "question": "In welcher Situation muss Ventura-Sports & Gear mit einer möglichen Rezession rechnen?",
+      "answerOptions": [
+        {"text": "Das Bruttoinlandsprodukt ist gegenüber dem Vorjahr real gesunken.", "isCorrect": true, "rationale": "Ein reales Sinken des BIP über zwei Quartale ist die Definition einer Rezession."},
+        {"text": "Der Staat erhöht den Körperschaftsteuersatz.", "isCorrect": false, "rationale": "Steuererhöhungen sind fiskalpolitische Maßnahmen, aber kein Indikator für den aktuellen Konjunkturstand."},
+        {"text": "Die Steuereinnahmen des Staates steigen.", "isCorrect": false, "rationale": "Steigende Einnahmen deuten eher auf einen Aufschwung oder Boom hin."},
+        {"text": "Die Kapazitätsauslastung der Unternehmen steigt.", "isCorrect": false, "rationale": "Steigende Auslastung ist ein Merkmal der Expansion."},
+        {"text": "Die volkswirtschaftliche Nachfrage ist größer als das Angebot.", "isCorrect": false, "rationale": "Dies deutet auf einen Boom (Hochkonjunktur) hin."}
+      ],
+      "expectedAnswers": ["A"],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Wenn die gesamte Wirtschaftsleistung (BIP) real (also preisbereinigt) abnimmt, spricht man von einem Abschwung bzw. einer Rezession.",
+      "videoUrl": "",
+      "youtubeQuery": "Konjunkturzyklus Rezession Merkmale"
+    },
+    {
+      "id": "eco_175",
+      "question": "Analyse der Grafik 'Revenue of the e-commerce industry in the USA': Welche zwei Sachverhalte treffen laut Grafik zu?",
+      "answerOptions": [
+        {"text": "Die Grafik zeigt den Absatz von Gütern im Zeitraum 2019-2028.", "isCorrect": false, "rationale": "Die Grafik zeigt 'Revenue' (Umsatz in Geld), nicht den 'Absatz' (Menge)."},
+        {"text": "Kontinuierliches Gewinnwachstum bis 2028.", "isCorrect": false, "rationale": "Revenue ist Umsatz, kein Gewinn. Über Kosten/Gewinn macht die Grafik keine Aussage."},
+        {"text": "Einnahmen 2028 voraussichtlich über 1.400 Milliarden US-Dollar.", "isCorrect": true, "rationale": "Laut Prognosebalken für 2028 wird dieser Wert überschritten."},
+        {"text": "Stetiges Umsatzwachstum in den Jahren 2024 bis 2028.", "isCorrect": true, "rationale": "Die Balken für diese Jahre steigen ohne Unterbrechung an."},
+        {"text": "2024 Einnahmen erstmals mehr als 1.000 Billionen US-Dollar.", "isCorrect": false, "rationale": "Achtung: 1.000 Milliarden sind eine Billion (US-Englisch: Billion vs. German: Milliarde). Die Skala ist in Milliarden (Billions)."}
+      ],
+      "expectedAnswers": ["CD", "DC"],
+      "inputType": "text",
+      "rationale": "Richtig sind C und D. Die Grafik prognostiziert für 2028 über 1,4 Billionen USD Umsatz und zeigt für die Phase ab 2024 ein ungebrochenes Wachstum.",
+      "videoUrl": "",
+      "youtubeQuery": "E-Commerce Revenue USA Statistik"
+    },
+    {
+      "id": "eco_176",
+      "question": "In welcher Rechtsgrundlage ist die Einrichtung eines ergonomischen Arbeitsplatzes geregelt?",
+      "answerOptions": [
+        {"text": "Gefahrstoffverordnung", "isCorrect": false, "rationale": "Regelt den Umgang mit Giften/Chemikalien."},
+        {"text": "Arbeitszeitgesetz", "isCorrect": false, "rationale": "Regelt Höchstarbeitszeiten und Pausen."},
+        {"text": "Jugendarbeitsschutzgesetz", "isCorrect": false, "rationale": "Spezielle Schutzregeln für Unter-18-Jährige."},
+        {"text": "Arbeitsstättenverordnung", "isCorrect": true, "rationale": "Die ArbStättV enthält die Mindestanforderungen für die Einrichtung von Arbeitsplätzen (Licht, Luft, Ergonomie)."},
+        {"text": "Betriebsverfassungsgesetz", "isCorrect": false, "rationale": "Regelt die Mitbestimmung des Betriebsrats."}
+      ],
+      "expectedAnswers": ["D"],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Die Arbeitsstättenverordnung (ArbStättV) verpflichtet den Arbeitgeber, Arbeitsplätze so einzurichten, dass Gefährdungen für die Gesundheit (z.B. durch falsches Sitzen) vermieden werden.",
+      "videoUrl": "",
+      "youtubeQuery": "Arbeitsstättenverordnung Ergonomie Anforderungen"
+    },
+    {
+      "id": "eco_177",
+      "question": "Wer trägt die Kosten für eine Umschulung nach einem Arbeitsunfall?",
+      "answerOptions": [
+        {"text": "Der Arbeitgeber", "isCorrect": false, "rationale": "Der Arbeitgeber zahlt Beiträge zur Versicherung, aber nicht die Umschulung direkt."},
+        {"text": "Die Krankenkasse", "isCorrect": false, "rationale": "Die Krankenkasse ist für allgemeine Krankheiten zuständig, nicht für Arbeitsunfälle."},
+        {"text": "Der Rentenversicherungsträger", "isCorrect": false, "rationale": "Zuständig bei Erwerbsunfähigkeit ohne Unfallbezug."},
+        {"text": "Die Bundesagentur für Arbeit", "isCorrect": false, "rationale": "Zuständig bei Arbeitslosigkeit."},
+        {"text": "Die zuständige Berufsgenossenschaft", "isCorrect": true, "rationale": "Die BG ist der Träger der gesetzlichen Unfallversicherung und leistet bei Arbeitsunfällen/Berufskrankheiten (Reha vor Rente)."}
+      ],
+      "expectedAnswers": ["E"],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Die Berufsgenossenschaften übernehmen nach einem Arbeitsunfall die medizinische Heilbehandlung sowie die berufliche Wiedereingliederung (Umschulung).",
+      "videoUrl": "",
+      "youtubeQuery": "Berufsgenossenschaft Leistungen Arbeitsunfall"
+    },
+    {
+      "id": "eco_178",
+      "question": "Ein Behälter mit Reinigungsmitteln zeigt das GHS-Symbol 'Baum und toter Fisch'. Welche Gefahr geht vom Inhalt aus?",
+      "answerOptions": [
+        {"text": "Gesundheitsgefährdende Gase", "isCorrect": false, "rationale": "Gase haben meist das Symbol der Gasflasche."},
+        {"text": "Ätzende Stoffe", "isCorrect": false, "rationale": "Ätzwirkung wird durch Reagenzgläser und eine Hand symbolisiert."},
+        {"text": "Giftige Stoffe", "isCorrect": false, "rationale": "Giftigkeit wird durch den Totenkopf symbolisiert."},
+        {"text": "Umweltgefährdende Stoffe", "isCorrect": true, "rationale": "Baum und Fisch stehen für akute oder chronische Gewässergefährdung."},
+        {"text": "Ansteckungsgefährliche Stoffe", "isCorrect": false, "rationale": "Dies ist ein spezielles Bio-Symbol (drei Sicheln in einem Kreis)."}
+      ],
+      "expectedAnswers": ["D"],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Das Piktogramm GHS09 (Baum und Fisch) kennzeichnet Stoffe, die für Wasserorganismen giftig sind und langfristig schädliche Wirkungen in der Umwelt haben.",
+      "videoUrl": "",
+      "youtubeQuery": "GHS Symbole Bedeutung einfach erklärt"
     }
+
   ]
 }
