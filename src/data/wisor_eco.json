@@ -5135,6 +5135,423 @@
       "rationale": "Richtig ist D. Das Piktogramm GHS09 (Baum und Fisch) kennzeichnet Stoffe, die für Wasserorganismen giftig sind und langfristig schädliche Wirkungen in der Umwelt haben.",
       "videoUrl": "",
       "youtubeQuery": "GHS Symbole Bedeutung einfach erklärt"
+    },
+    {
+      "id": "eco_179",
+      "question": "Die Ventura-Outdoor GmbH überprüft, ob im Unternehmen nach wirtschaftlichen Grundsätzen gehandelt wird. Stellen Sie fest, in welchem Fall nach dem ökonomischen Prinzip als Maximalprinzip gehandelt wird!",
+      "answerOptions": [
+        {"text": "Die Ventura-Outdoor GmbH strebt eine Steigerung ihres Umsatzes um 5 % an, indem die Kosten so gering wie möglich gehalten werden.", "isCorrect": false, "rationale": "Minimaler Input bei gleichzeitig vorgegebenem Output ist eine unzulässige Mischform (Nonsens-Prinzip)."},
+        {"text": "Durch Rationalisierungsmaßnahmen im stationären Geschäft werden die Kosten um 25 % gesenkt.", "isCorrect": false, "rationale": "Beschreibt eine Kostensenkungsmaßnahme, kein Maximalprinzip."},
+        {"text": "Der Absatz von Wanderschuhen kann bei gleichen Einkaufspreisen um 30 % gesteigert werden.", "isCorrect": true, "rationale": "Gegebener Mitteleinsatz (Einkaufspreise) und maximaler Ertrag (Absatz +30 %) = Maximalprinzip."},
+        {"text": "Durch eine Erhöhung des Werbeetats für Fitnesstracker um 20 % kann eine rückläufige Absatzentwicklung gestoppt werden.", "isCorrect": false, "rationale": "Erhöhter Input für ein bestimmtes Ziel – kein Maximalprinzip."},
+        {"text": "Durch Umgestaltung der Vertriebswege können die Kosten um 20 % gesenkt werden.", "isCorrect": false, "rationale": "Beschreibt Kostensenkung, nicht die Maximierung des Ertrags bei gegebenem Einsatz."}
+      ],
+      "expectedAnswers": ["C"],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Das Maximalprinzip bedeutet: Mit einem gegebenen Mitteleinsatz (hier: gleichbleibende Einkaufspreise) soll ein maximaler Ertrag (hier: 30 % mehr Absatz) erzielt werden.",
+      "videoUrl": "",
+      "youtubeQuery": "Ökonomisches Prinzip Maximalprinzip Beispiel"
+    },
+    {
+      "id": "eco_180",
+      "question": "Prüfen Sie, bei welcher Maßnahme der Ventura-Outdoor GmbH ein Zielkonflikt zwischen ökonomischen und ökologischen Zielen vorliegt!",
+      "answerOptions": [
+        {"text": "E-Bikes mit Solarantrieb sollen zusätzlich in das Sortiment aufgenommen und verkauft werden.", "isCorrect": false, "rationale": "Ökologische und ökonomische Ziele ergänzen sich hier (Komplementärziel)."},
+        {"text": "Zulieferer werden überregional gesucht, um Kostenvorteile zu nutzen. Die anfallenden Transporte erfolgen klimaneutral.", "isCorrect": false, "rationale": "Klimaneutrale Transporte vermeiden den Zielkonflikt bewusst."},
+        {"text": "Für die Versandverpackungen soll zukünftig ein hochpreisiges Paketband aus 100 % recyceltem Material eingesetzt werden.", "isCorrect": true, "rationale": "Ökologisch sinnvoll, aber ökonomisch nachteilig (höhere Kosten) – klassischer Zielkonflikt."},
+        {"text": "Für die Wintersportartikel wird die Verpackung optimiert. Auf Verpackungen mit hohem Anteil nicht erneuerbarer Rohstoffe wird verzichtet.", "isCorrect": false, "rationale": "Optimierung kann Kosten senken und zugleich ökologisch wirken (Komplementärziel)."},
+        {"text": "Um Lieferzeiten zu verkürzen, stellt die Ventura-Outdoor GmbH einen Teil ihres Vertriebs auf Streckengeschäft um. Die Vertriebskosten bleiben gleich.", "isCorrect": false, "rationale": "Kein Konflikt zwischen Ökonomie und Ökologie angesprochen."}
+      ],
+      "expectedAnswers": ["C"],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Ein Zielkonflikt zwischen Ökonomie und Ökologie liegt vor, wenn eine ökologisch vorteilhafte Maßnahme (recyceltes Paketband) zu höheren Kosten führt (ökonomisch nachteilig).",
+      "videoUrl": "",
+      "youtubeQuery": "Zielkonflikt ökonomische ökologische Ziele"
+    },
+    {
+      "id": "eco_181",
+      "question": "Sie sind im Bereich Organisation/IT eingesetzt. Ihnen liegt das Organigramm der Ventura-Outdoor GmbH vor. Prüfen Sie, welcher Sachverhalt auf das Organigramm zutrifft!",
+      "answerOptions": [
+        {"text": "Das Nachhaltigkeitsmanagement ist eine sogenannte Instanz.", "isCorrect": false, "rationale": "Das Nachhaltigkeitsmanagement hat typischerweise beratende Funktion (Stabsstelle), keine Weisungsbefugnis."},
+        {"text": "Die Lohn- und Gehaltsbuchhaltung ist dem Rechnungswesen übergeordnet.", "isCorrect": false, "rationale": "Die Lohn- und Gehaltsbuchhaltung ist in der Regel dem Rechnungswesen untergeordnet."},
+        {"text": "Bei dem Bereich Organisation/IT handelt es sich um eine Stabstelle.", "isCorrect": false, "rationale": "Organisation/IT ist eine Linienstelle mit eigener Abteilungsfunktion."},
+        {"text": "Die Warenannahme und Warenausgabe sind sogenannte Ausführungsstellen.", "isCorrect": true, "rationale": "Operative Einheiten ohne Weisungsbefugnis, die angeordnete Aufgaben umsetzen, werden als Ausführungsstellen bezeichnet."},
+        {"text": "Der Betriebsrat ist Teil des Beschwerdemanagements.", "isCorrect": false, "rationale": "Der Betriebsrat ist ein eigenständiges Mitbestimmungsorgan, kein Teil des Beschwerdemanagements."}
+      ],
+      "expectedAnswers": ["D"],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Ausführungsstellen sind operative Einheiten (z. B. Warenannahme/-ausgabe), die Anweisungen der übergeordneten Instanzen umsetzen und selbst keine Weisungsbefugnis besitzen.",
+      "videoUrl": "",
+      "youtubeQuery": "Organigramm Instanz Stabstelle Ausführungsstelle"
+    },
+    {
+      "id": "eco_182",
+      "question": "Jede der im Organigramm abgebildeten Einheiten der Ventura-Outdoor GmbH übernimmt bestimmte Aufgabenbereiche. Stellen Sie fest, in welchen 2 Zeilen die Aufgaben und Zuständigkeiten korrekt beschrieben sind!",
+      "answerOptions": [
+        {"text": "Der Leiter der Abteilung Sales kann die Mitarbeiter im Category Management anweisen, welche Mengen zu bestellen sind.", "isCorrect": false, "rationale": "Sales und Category Management sind unterschiedliche Abteilungen; es besteht keine direkte Weisungsbefugnis."},
+        {"text": "Die Mitarbeiter im Bereich Vermietung kümmern sich unter anderem um das Anmieten neuer Lagerhallen.", "isCorrect": false, "rationale": "Die Anmietung von Lagerhallen gehört nicht zur Vermietung, sondern typischerweise zum Facility-Management."},
+        {"text": "Mithilfe strategischer Kommunikation regelt das Public-Relation-Management die Beziehungen zwischen dem Unternehmen und seinen Interessen- bzw. Zielgruppen.", "isCorrect": true, "rationale": "Kernaufgabe von PR: systematische Pflege der Beziehungen zu Stakeholdern."},
+        {"text": "Der Vertrieb kümmert sich um den Checkout-Prozess der Ventura-Outdoor GmbH.", "isCorrect": false, "rationale": "Der Checkout ist ein operativer Shop-/IT-Prozess, nicht Aufgabe des Vertriebs."},
+        {"text": "Die Mitarbeiter im Nachhaltigkeitsmanagement beraten die Geschäftsführung in Umweltbelangen.", "isCorrect": true, "rationale": "Beratung der Geschäftsführung ist die klassische Aufgabe einer Stabsstelle."},
+        {"text": "Die Personalabteilung übernimmt die komplette Kommunikation mit den Kunden.", "isCorrect": false, "rationale": "Kundenkommunikation gehört zum Vertrieb/Kundenservice, nicht zum Personalwesen."}
+      ],
+      "expectedAnswers": ["CE", "EC"],
+      "inputType": "text",
+      "rationale": "Richtig sind C und E. Public Relations pflegt strategisch die Beziehungen zu Stakeholdern, und das Nachhaltigkeitsmanagement berät als Stabsstelle die Geschäftsführung in Umweltfragen.",
+      "videoUrl": "",
+      "youtubeQuery": "Aufgaben Abteilungen Organigramm Unternehmen"
+    },
+    {
+      "id": "eco_183",
+      "question": "Kürzlich wurden der Ventura-Outdoor GmbH zwei langjährige Mitarbeiter im E-Commerce von einem Konkurrenten abgeworben. Die freien Stellen sollen schnellstmöglich wieder besetzt werden. Prüfen Sie, welcher Sachverhalt in diesem Zusammenhang zutrifft!",
+      "answerOptions": [
+        {"text": "Es obliegt allein der Gewerkschaft, passende Arbeitnehmer für die freien Stellen vorzuschlagen.", "isCorrect": false, "rationale": "Gewerkschaften sind keine Arbeitsvermittler."},
+        {"text": "Das Finanzamt muss Stellenneubesetzungen absegnen.", "isCorrect": false, "rationale": "Das Finanzamt hat keine Mitwirkungsrolle bei Neueinstellungen."},
+        {"text": "Die Ventura-Outdoor GmbH ist verpflichtet, die freien Stellen umgehend der Industrie- und Handelskammer zu melden.", "isCorrect": false, "rationale": "Eine Meldepflicht freier Stellen an die IHK besteht nicht."},
+        {"text": "Die Ventura-Outdoor GmbH ist verpflichtet zu prüfen, ob die freien Stellen mit schwerbehinderten Menschen besetzt werden können.", "isCorrect": true, "rationale": "Arbeitgeber sind nach § 164 SGB IX verpflichtet zu prüfen, ob freie Stellen mit schwerbehinderten Menschen besetzt werden können."},
+        {"text": "Die Bundesagentur für Arbeit schreibt freie Stellen aus. Dafür erhält sie vom Unternehmen eine Gebühr.", "isCorrect": false, "rationale": "Die Arbeitsvermittlung durch die BA ist für Unternehmen kostenfrei."}
+      ],
+      "expectedAnswers": ["D"],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Nach § 164 SGB IX müssen Arbeitgeber prüfen, ob freie Arbeitsplätze mit schwerbehinderten Menschen, insbesondere mit bei der Agentur für Arbeit gemeldeten, besetzt werden können.",
+      "videoUrl": "",
+      "youtubeQuery": "Schwerbehindertengesetz SGB IX Einstellungspflicht"
+    },
+    {
+      "id": "eco_184",
+      "question": "Die Ventura-Outdoor GmbH hat für neue Alpine-Jacken eine Marktforschungsstudie in Auftrag gegeben. Das Preis-Mengen-Diagramm zeigt: Position A liegt unterhalb des Schnittpunkts (Nachfrage > Angebot), Position B ist die fallende Kurve, Position C ist die steigende Kurve. Welche Zuordnung ist korrekt?",
+      "answerOptions": [
+        {"text": "A = Nachfrageüberhang / B = Nachfragekurve / C = Angebotskurve", "isCorrect": true, "rationale": "Unterhalb des Gleichgewichtspreises übersteigt die Nachfrage das Angebot (Nachfrageüberhang); die fallende Kurve ist die Nachfrage, die steigende das Angebot."},
+        {"text": "A = Angebotsüberhang / B = Angebotskurve / C = Nachfragekurve", "isCorrect": false, "rationale": "Verwechslung: Angebotsüberhang liegt oberhalb des Gleichgewichts; die steigende Kurve ist das Angebot."},
+        {"text": "A = Gleichgewichtspreis / B = Nachfragekurve / C = Angebotskurve", "isCorrect": false, "rationale": "Der Gleichgewichtspreis liegt am Schnittpunkt der Kurven, nicht darunter."},
+        {"text": "A = Nachfrageüberhang / B = Angebotskurve / C = Nachfragekurve", "isCorrect": false, "rationale": "Nachfragekurven fallen, Angebotskurven steigen – hier vertauscht."},
+        {"text": "A = Gewinnschwelle / B = Nachfragekurve / C = Angebotskurve", "isCorrect": false, "rationale": "Die Gewinnschwelle stammt aus der Kostenrechnung, nicht aus dem Marktmodell."}
+      ],
+      "expectedAnswers": ["A"],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Die fallende Kurve ist die Nachfragekurve, die steigende die Angebotskurve. Unterhalb des Gleichgewichtspreises übersteigt die Nachfrage das Angebot – es liegt ein Nachfrageüberhang vor.",
+      "videoUrl": "",
+      "youtubeQuery": "Preis-Mengen-Diagramm Angebot Nachfrage Überhang"
+    },
+    {
+      "id": "eco_185",
+      "question": "Im Preis-Mengen-Diagramm für die Alpine-Jacke der Ventura-Outdoor GmbH liegt der Gleichgewichtspreis bei 450 € und die Gleichgewichtsmenge bei 5.000 Stück. Berechnen Sie den maximalen Umsatz in €, der sich auf diesem Markt ergibt!",
+      "answerOptions": [
+        {"text": "450.000 €", "isCorrect": false, "rationale": "Das wäre 450 € × 1.000 Stück – falsche Menge."},
+        {"text": "1.125.000 €", "isCorrect": false, "rationale": "Entspricht nicht dem Produkt aus Preis und Menge."},
+        {"text": "2.250.000 €", "isCorrect": true, "rationale": "Korrekt: 450 € × 5.000 Stück = 2.250.000 €."},
+        {"text": "5.450.000 €", "isCorrect": false, "rationale": "Addition statt Multiplikation – inhaltlich falsch."},
+        {"text": "22.500.000 €", "isCorrect": false, "rationale": "Um den Faktor 10 zu hoch – Kommafehler."}
+      ],
+      "expectedAnswers": ["C"],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Der maximale Umsatz ergibt sich aus Gleichgewichtspreis × Gleichgewichtsmenge: 450 € × 5.000 Stück = 2.250.000 €.",
+      "videoUrl": "",
+      "youtubeQuery": "Umsatz Gleichgewichtspreis berechnen"
+    },
+    {
+      "id": "eco_186",
+      "question": "Die Ventura-Outdoor GmbH hofft auf eine baldige Änderung der gesamtwirtschaftlichen Konjunkturlage. Geben Sie an, welche Kennzahl als Frühindikator herangezogen werden kann!",
+      "answerOptions": [
+        {"text": "Höhe der Bounce Rate", "isCorrect": false, "rationale": "Webseiten-Kennzahl ohne konjunkturelle Aussagekraft."},
+        {"text": "Zahl der Auftragseingänge", "isCorrect": true, "rationale": "Auftragseingänge signalisieren zukünftige Produktion und sind ein klassischer Frühindikator."},
+        {"text": "Aufnahme neuer Produkte in das Sortiment", "isCorrect": false, "rationale": "Unternehmensinterne Entscheidung ohne volkswirtschaftliche Indikatorfunktion."},
+        {"text": "Höhe des Average Order Value", "isCorrect": false, "rationale": "E-Commerce-KPI, kein Konjunkturindikator."},
+        {"text": "Veränderung der Retourenquote", "isCorrect": false, "rationale": "Interne Prozesskennzahl, kein Frühindikator für die Konjunktur."}
+      ],
+      "expectedAnswers": ["B"],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Frühindikatoren wie die Auftragseingänge reagieren vor der eigentlichen Produktion und liefern so ein Signal für die künftige Konjunkturentwicklung.",
+      "videoUrl": "",
+      "youtubeQuery": "Frühindikator Konjunktur Auftragseingänge"
+    },
+    {
+      "id": "eco_187",
+      "question": "Auszubildende erkundigen sich nach rechtlichen Regelungen. Welche Zuordnung der folgenden Vorgaben zu den Rechtsquellen ist korrekt?\n\n(1) Die werktägliche Arbeitszeit darf 8 Stunden nicht überschreiten (Verlängerung auf 10 Stunden möglich).\n(2) Länger als viereinhalb Stunden hintereinander dürfen Jugendliche nicht ohne Ruhepause beschäftigt werden.\n(3) Auszubildende haben sich zu bemühen, die berufliche Handlungsfähigkeit zu erwerben.",
+      "answerOptions": [
+        {"text": "(1) Arbeitszeitgesetz / (2) Jugendarbeitsschutzgesetz / (3) Berufsbildungsgesetz", "isCorrect": true, "rationale": "ArbZG regelt die tägliche Arbeitszeit, JArbSchG die Pausen für Jugendliche, BBiG die Azubi-Pflichten."},
+        {"text": "(1) Berufsbildungsgesetz / (2) Arbeitszeitgesetz / (3) Jugendarbeitsschutzgesetz", "isCorrect": false, "rationale": "Komplett vertauschte Zuordnung."},
+        {"text": "(1) Jugendarbeitsschutzgesetz / (2) Arbeitszeitgesetz / (3) Berufsbildungsgesetz", "isCorrect": false, "rationale": "Die 8-Stunden-Regel mit 10-h-Verlängerung steht im ArbZG, nicht im JArbSchG."},
+        {"text": "(1) Arbeitszeitgesetz / (2) Berufsbildungsgesetz / (3) Jugendarbeitsschutzgesetz", "isCorrect": false, "rationale": "Die 4,5-Stunden-Pausenregel für Jugendliche steht im JArbSchG, nicht im BBiG."},
+        {"text": "(1) Tarifvertrag / (2) Betriebsvereinbarung / (3) Arbeitsvertrag", "isCorrect": false, "rationale": "Alle drei Vorgaben sind gesetzliche Regelungen, keine kollektiv- oder individualvertraglichen."}
+      ],
+      "expectedAnswers": ["A"],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Die allgemeine Arbeitszeit regelt das Arbeitszeitgesetz (ArbZG), die Pausen für unter 18-Jährige das Jugendarbeitsschutzgesetz (JArbSchG) und die Pflichten der Auszubildenden das Berufsbildungsgesetz (BBiG).",
+      "videoUrl": "",
+      "youtubeQuery": "Rechtsquellen Arbeitsrecht ArbZG JArbSchG BBiG"
+    },
+    {
+      "id": "eco_188",
+      "question": "Sven Lindner hat das Gefühl, Tätigkeiten erledigen zu müssen, die nichts mit dem Ausbildungsziel zu tun haben. Stellen Sie fest, wozu Sven gemäß den Regelungen des BBiG nicht verpflichtet ist!",
+      "answerOptions": [
+        {"text": "Der angeordnete Besuch einer Fachmesse für E-Commerce während der regulären Arbeitszeit", "isCorrect": false, "rationale": "Fachmessenbesuche dienen dem Ausbildungsziel und sind verpflichtend."},
+        {"text": "Teilnahme am Fachenglisch-Unterricht der Berufsschule", "isCorrect": false, "rationale": "Der Berufsschulunterricht ist nach BBiG Pflicht."},
+        {"text": "Besuch einer betriebsinternen Fortbildung zum neuen ERP-System", "isCorrect": false, "rationale": "Fortbildungen, die dem Ausbildungsziel dienen, sind verpflichtend."},
+        {"text": "Krankheitsvertretung für einen Lageristen der Ventura-Outdoor GmbH", "isCorrect": true, "rationale": "Ausbildungsfremde Tätigkeiten (Krankheitsvertretung im Lager) dürfen nach § 14 BBiG nicht übertragen werden."},
+        {"text": "Führen eines schriftlichen bzw. elektronischen Ausbildungsnachweises", "isCorrect": false, "rationale": "Das Führen des Ausbildungsnachweises ist eine Pflicht nach § 13 BBiG."}
+      ],
+      "expectedAnswers": ["D"],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Nach § 14 BBiG dürfen Auszubildenden nur Tätigkeiten übertragen werden, die dem Ausbildungszweck dienen. Eine reine Krankheitsvertretung außerhalb des Ausbildungsrahmens ist unzulässig.",
+      "videoUrl": "",
+      "youtubeQuery": "Pflichten Auszubildender BBiG Paragraph 13 14"
+    },
+    {
+      "id": "eco_189",
+      "question": "Bei der Durchsicht fällt auf, dass Probezeiten bei der Ventura-Outdoor GmbH bisher nicht einheitlich festgelegt wurden. Prüfen Sie, welche Regelung rechtlich unzulässig (nach BBiG) ist!",
+      "answerOptions": [
+        {"text": "Die Auszubildende Mila Tönnies (21 Jahre) erhielt eine Probezeit von 6 Monaten.", "isCorrect": true, "rationale": "Nach § 20 BBiG darf die Probezeit in der Berufsausbildung maximal 4 Monate betragen – 6 Monate sind unzulässig."},
+        {"text": "Der Auszubildende Sven Lindner (17 Jahre) erhielt eine Probezeit von 1 Monat.", "isCorrect": false, "rationale": "1 Monat entspricht dem gesetzlichen Minimum – zulässig."},
+        {"text": "Die Auszubildende Laura Mindel (16 Jahre) erhielt eine Probezeit von 2 Monaten.", "isCorrect": false, "rationale": "Liegt innerhalb des Rahmens von 1–4 Monaten – zulässig."},
+        {"text": "Der Auszubildende Claas Hinrichs (19 Jahre) erhielt eine Probezeit von 3 Monaten.", "isCorrect": false, "rationale": "Liegt innerhalb des zulässigen Rahmens nach § 20 BBiG."},
+        {"text": "Der Auszubildende Marcel Vogt (19 Jahre) erhielt eine Probezeit von 4 Monaten.", "isCorrect": false, "rationale": "4 Monate entspricht dem gesetzlichen Maximum – zulässig."}
+      ],
+      "expectedAnswers": ["A"],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Nach § 20 BBiG muss die Probezeit in der Berufsausbildung mindestens 1 Monat und höchstens 4 Monate betragen. Eine Probezeit von 6 Monaten ist daher unzulässig.",
+      "videoUrl": "",
+      "youtubeQuery": "Probezeit Ausbildung maximale Dauer BBiG"
+    },
+    {
+      "id": "eco_190",
+      "question": "Mila Tönnies möchte sich über die Voraussetzungen zur Prüfungszulassung und die Bestehensregelungen der Abschlussprüfung Kaufmann/Kauffrau im E-Commerce informieren. Welche Informationsquelle muss sie zurate ziehen?",
+      "answerOptions": [
+        {"text": "Rahmenlehrplan", "isCorrect": false, "rationale": "Der Rahmenlehrplan regelt den Berufsschulunterricht, nicht die Prüfung."},
+        {"text": "Verordnung über die Berufsausbildung", "isCorrect": true, "rationale": "Die Ausbildungsverordnung regelt Prüfungszulassung, Inhalte und Bestehensregelungen."},
+        {"text": "Ausbildungsrahmenplan", "isCorrect": false, "rationale": "Enthält die sachliche und zeitliche Gliederung der Ausbildungsinhalte, nicht die Prüfungsregeln."},
+        {"text": "Gewerbeordnung", "isCorrect": false, "rationale": "Regelt die Ausübung von Gewerben, nicht die Abschlussprüfung."},
+        {"text": "Berufsbildungsgesetz", "isCorrect": false, "rationale": "Das BBiG bildet den Rahmen; die konkrete Prüfungsordnung steht in der Ausbildungsverordnung."}
+      ],
+      "expectedAnswers": ["B"],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die Verordnung über die Berufsausbildung (Ausbildungsverordnung) enthält die konkreten Regelungen zu Prüfungszulassung, Prüfungsstruktur und Bestehensbedingungen eines Ausbildungsberufs.",
+      "videoUrl": "",
+      "youtubeQuery": "Verordnung über die Berufsausbildung Prüfung"
+    },
+    {
+      "id": "eco_191",
+      "question": "Sie prüfen eine Statistik zu Entscheidungsfaktoren bei der Jobauswahl (Gehalt 85 %, Weiterbildung 39 %, Aufstiegschancen auf hinteren Rängen). Welche korrekte Schlussfolgerung lässt sich aus den Daten ziehen?",
+      "answerOptions": [
+        {"text": "Weiterbildung und Aufstiegschancen liegen zwar auf hinteren Rängen, stellen für die Ventura-Outdoor GmbH aber dennoch eine Möglichkeit dar, sich als Top-Arbeitgeber zu positionieren.", "isCorrect": true, "rationale": "Auch Faktoren mit niedrigerer Priorität können Differenzierungsmerkmale sein und zur Arbeitgeberattraktivität beitragen."},
+        {"text": "Das Gehalt ist der einzige entscheidende Faktor. Alle anderen Punkte sind zu vernachlässigen.", "isCorrect": false, "rationale": "Die 39 % für Weiterbildung zeigen, dass mehrere Faktoren relevant sind."},
+        {"text": "Flexible Arbeitszeiten und Homeoffice sind im E-Commerce nur schwer zu realisieren.", "isCorrect": false, "rationale": "Im E-Commerce sind Homeoffice und flexible Zeiten meist gut umsetzbar."},
+        {"text": "Kollegenzusammenhalt und Vorgesetztenverhalten können nur durch gezielte Einstellungen langfristig verändert werden.", "isCorrect": false, "rationale": "Diese Faktoren lassen sich auch durch Führungskultur und interne Entwicklung gestalten."},
+        {"text": "15 % der Befragten bestätigten, dass das Gehalt keinerlei Rolle bei der Jobauswahl spielt.", "isCorrect": false, "rationale": "Bei Mehrfachnennungen lässt sich das aus den 85 % nicht ableiten."}
+      ],
+      "expectedAnswers": ["A"],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Auch Faktoren auf hinteren Rängen bieten Differenzierungspotenzial: Wer gezielt in Weiterbildung und Aufstieg investiert, kann sich als attraktiver Arbeitgeber positionieren.",
+      "videoUrl": "",
+      "youtubeQuery": "Arbeitgeberattraktivität Faktoren Jobauswahl"
+    },
+    {
+      "id": "eco_192",
+      "question": "Unter welchen Voraussetzungen kann laut § 60 BetrVG eine Jugend- und Auszubildendenvertretung (JAV) grundsätzlich gebildet werden?",
+      "answerOptions": [
+        {"text": "Das Unternehmen hat in der Regel mindestens 5 Arbeitnehmer, die das 21. Lebensjahr noch nicht vollendet haben.", "isCorrect": false, "rationale": "Falsche Altersgrenze – maßgeblich sind 18 bzw. 25 Jahre."},
+        {"text": "Das Unternehmen hat in der Regel mindestens 5 Auszubildende, unabhängig vom Lebensalter.", "isCorrect": false, "rationale": "Die JAV ist auf Auszubildende unter 25 Jahren bezogen – das Alter spielt eine Rolle."},
+        {"text": "Das Unternehmen hat in der Regel mindestens 3 Arbeitnehmer, die das 25. Lebensjahr noch nicht vollendet haben.", "isCorrect": false, "rationale": "Die Mindestzahl beträgt 5, nicht 3."},
+        {"text": "Das Unternehmen hat in der Regel mindestens 5 Arbeitnehmer, die das 18. Lebensjahr noch nicht vollendet haben oder Auszubildende, die unter 25 Jahre sind.", "isCorrect": true, "rationale": "Genau so formuliert § 60 BetrVG die Voraussetzung zur JAV-Bildung."},
+        {"text": "Das Unternehmen hat in der Regel mindestens 3 Arbeitnehmer, die das 18. Lebensjahr noch nicht vollendet haben oder Auszubildende, die unter 25 Jahre sind.", "isCorrect": false, "rationale": "Die Mindestzahl beträgt 5, nicht 3."}
+      ],
+      "expectedAnswers": ["D"],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Nach § 60 BetrVG kann eine JAV gebildet werden, wenn ein Betriebsrat besteht und im Betrieb mindestens 5 Arbeitnehmer unter 18 Jahren oder Auszubildende unter 25 Jahren beschäftigt sind.",
+      "videoUrl": "",
+      "youtubeQuery": "JAV Voraussetzungen § 60 BetrVG"
+    },
+    {
+      "id": "eco_193",
+      "question": "Die Ventura-Outdoor GmbH möchte für die Zukunft einen Haustarifvertrag abschließen. Geben Sie an, welche 2 Personengruppen diesen Vertrag aushandeln!",
+      "answerOptions": [
+        {"text": "Betriebsrat und Geschäftsführung", "isCorrect": false, "rationale": "Diese Kombination schließt Betriebsvereinbarungen, keine Tarifverträge."},
+        {"text": "Personalabteilung und Betriebsrat", "isCorrect": false, "rationale": "Keine Tarifvertragsparteien im rechtlichen Sinne."},
+        {"text": "Geschäftsführung und Gewerkschaft", "isCorrect": true, "rationale": "Ein Haustarifvertrag wird zwischen einem einzelnen Arbeitgeber (hier: Geschäftsführung) und einer Gewerkschaft geschlossen."},
+        {"text": "Personalabteilung und Wirtschaftsministerium", "isCorrect": false, "rationale": "Das Ministerium ist keine Tarifvertragspartei."},
+        {"text": "Geschäftsführung und Industrie- und Handelskammer", "isCorrect": false, "rationale": "Die IHK ist keine Tarifvertragspartei."}
+      ],
+      "expectedAnswers": ["C"],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Bei einem Haustarifvertrag (Firmentarifvertrag) sind die Vertragsparteien ein einzelnes Unternehmen (Geschäftsführung) und die zuständige Gewerkschaft.",
+      "videoUrl": "",
+      "youtubeQuery": "Haustarifvertrag Parteien Tarifvertragsgesetz"
+    },
+    {
+      "id": "eco_194",
+      "question": "Prüfen Sie, wobei es sich nicht um einen typischen Inhalt eines Tarifvertrags handelt!",
+      "answerOptions": [
+        {"text": "Dauer des Urlaubs", "isCorrect": false, "rationale": "Der Tarifurlaub gehört zu den zentralen Tarifvertragsinhalten."},
+        {"text": "Einstellungs- und Kündigungsbedingungen", "isCorrect": false, "rationale": "Sind typische Regelungen des Manteltarifvertrags."},
+        {"text": "Regelungen zur Lohnfortzahlung bei Krankheit", "isCorrect": false, "rationale": "Oft tariflich über das EFZG hinaus geregelt – typischer Inhalt."},
+        {"text": "Regelungen zu Raucher-Pausen", "isCorrect": true, "rationale": "Raucher-Pausen sind betriebsspezifisch und werden in einer Betriebsvereinbarung geregelt, nicht im Tarifvertrag."},
+        {"text": "Tarifgruppen und -gehälter", "isCorrect": false, "rationale": "Zentraler Inhalt eines Entgelttarifvertrags."}
+      ],
+      "expectedAnswers": ["D"],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Konkrete betriebliche Regelungen wie Raucher-Pausen werden in Betriebsvereinbarungen zwischen Arbeitgeber und Betriebsrat vereinbart – nicht in Tarifverträgen.",
+      "videoUrl": "",
+      "youtubeQuery": "Tarifvertrag typische Inhalte"
+    },
+    {
+      "id": "eco_195",
+      "question": "Die Geschäftsleitung der Ventura-Outdoor GmbH möchte eine Betriebsvereinbarung über die vorübergehende Einführung von Überstunden abschließen. An wen muss sich die Geschäftsleitung wenden?",
+      "answerOptions": [
+        {"text": "Die Betriebsvereinbarung muss auf einer Betriebsversammlung abgeschlossen werden.", "isCorrect": false, "rationale": "Eine Betriebsversammlung ist kein Vertragspartner."},
+        {"text": "Die Zulässigkeit von Überstunden kann nur in einem Tarifvertrag geregelt werden.", "isCorrect": false, "rationale": "Überstunden sind auch per Betriebsvereinbarung regelbar."},
+        {"text": "Die Ventura-Outdoor GmbH muss die Betriebsvereinbarung mit der zuständigen Gewerkschaft abschließen.", "isCorrect": false, "rationale": "Die Gewerkschaft ist Tarifvertragspartei, nicht Partei der Betriebsvereinbarung."},
+        {"text": "Die Ventura-Outdoor GmbH muss die Betriebsvereinbarung mit dem Betriebsrat abschließen.", "isCorrect": true, "rationale": "Betriebsvereinbarungen werden nach § 77 BetrVG zwischen Arbeitgeber und Betriebsrat geschlossen."},
+        {"text": "Die Betriebsvereinbarung muss individuell mit jedem betroffenen Arbeitnehmer abgeschlossen werden.", "isCorrect": false, "rationale": "Das wäre kein kollektiver Vertrag mehr."}
+      ],
+      "expectedAnswers": ["D"],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Betriebsvereinbarungen – auch zur Einführung von Überstunden – werden nach § 77 BetrVG zwischen dem Arbeitgeber und dem Betriebsrat geschlossen. Überstunden sind zudem nach § 87 BetrVG mitbestimmungspflichtig.",
+      "videoUrl": "",
+      "youtubeQuery": "Betriebsvereinbarung Überstunden Betriebsrat Mitbestimmung"
+    },
+    {
+      "id": "eco_196",
+      "question": "Simone Pfau beginnt am 01.08.2021 ihre Ausbildung bei Ventura-Outdoor. Am 04.09.2021 wird sie 16 Jahre alt (am 01.01.2021 war sie noch 15). Wie viele Werktage Urlaub stehen ihr nach dem Jugendarbeitsschutzgesetz (JArbSchG) anteilig für die 5 Monate bis Ende 2021 zu? (Ergebnis auf ganze Tage aufgerundet)",
+      "answerOptions": [
+        {"text": "10 Werktage", "isCorrect": false, "rationale": "Zu niedrig – anteilig aus 30 Tagen/Jahr ergibt sich ein höherer Wert."},
+        {"text": "12 Werktage", "isCorrect": false, "rationale": "Rechnerisch ergibt 30/12 × 5 = 12,5 – aufzurunden."},
+        {"text": "13 Werktage", "isCorrect": true, "rationale": "30 Tage / 12 Monate × 5 Monate = 12,5 Tage → aufgerundet 13 Tage."},
+        {"text": "15 Werktage", "isCorrect": false, "rationale": "Entspricht nicht der anteiligen Berechnung für 5 Monate."},
+        {"text": "30 Werktage", "isCorrect": false, "rationale": "Jahresanspruch für 15-Jährige; hier ist der anteilige Anspruch gefragt."}
+      ],
+      "expectedAnswers": ["C"],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Maßgeblich ist das Alter am 01.01. (15 Jahre → 30 Werktage Jahresurlaub nach § 19 JArbSchG). Anteilig für 5 Beschäftigungsmonate: 30 / 12 × 5 = 12,5 ≈ 13 Werktage.",
+      "videoUrl": "",
+      "youtubeQuery": "JArbSchG Urlaub Teiljahr Berechnung"
+    },
+    {
+      "id": "eco_197",
+      "question": "Eine Mitarbeiterin der Ventura-Outdoor GmbH ist schwanger und möchte wissen, welche besondere Bedingung für sie nach dem Mutterschutzgesetz gilt.",
+      "answerOptions": [
+        {"text": "Nur wenn Sie sich schriftlich dazu bereit erklären, dürfen Sie während Ihrer Schwangerschaft beschäftigt werden.", "isCorrect": false, "rationale": "Die Beschäftigung während der Schwangerschaft erfordert keine schriftliche Bereitschaftserklärung."},
+        {"text": "Als Schwangere erhalten Sie täglich 30 Minuten zusätzliche Pausenzeit.", "isCorrect": false, "rationale": "Eine solche Pauschalpausenzeit sieht das MuSchG nicht vor."},
+        {"text": "Sie dürfen in den letzten 6 Wochen der Schwangerschaft nur beschäftigt werden, wenn Sie sich ausdrücklich dazu bereit erklären.", "isCorrect": true, "rationale": "Nach § 3 MuSchG gilt ein Beschäftigungsverbot 6 Wochen vor der Entbindung, sofern die Schwangere nicht ausdrücklich zustimmt."},
+        {"text": "Aufgrund von Strahlungsrisiken dürfen Sie nicht mit Arbeiten am Computer beschäftigt werden.", "isCorrect": false, "rationale": "Bildschirmarbeit ist für Schwangere grundsätzlich zulässig."},
+        {"text": "Sie können auf Antrag einen Zusatzurlaub von 5 Tagen geltend machen.", "isCorrect": false, "rationale": "Ein solcher Zusatzurlaubsanspruch besteht nach MuSchG nicht."}
+      ],
+      "expectedAnswers": ["C"],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Nach § 3 Abs. 1 MuSchG dürfen Schwangere in den letzten 6 Wochen vor der Entbindung nur beschäftigt werden, wenn sie sich ausdrücklich dazu bereit erklären (jederzeit widerrufbar).",
+      "videoUrl": "",
+      "youtubeQuery": "Mutterschutzgesetz 6 Wochen Schutzfrist"
+    },
+    {
+      "id": "eco_198",
+      "question": "Welche Voraussetzung muss bei betriebsbedingten Kündigungen mehrerer Mitarbeiter der Ventura-Outdoor GmbH erfüllt sein?",
+      "answerOptions": [
+        {"text": "Kündigungen aus betriebsbedingten Gründen bedürfen der Zustimmung der Arbeitnehmer.", "isCorrect": false, "rationale": "Eine Arbeitnehmerzustimmung ist nicht erforderlich – der Kündigungsschutz wirkt gesetzlich."},
+        {"text": "Die Auswahl der zu kündigenden Arbeitnehmer mit allgemeinem Kündigungsschutz muss nach sozialen Gesichtspunkten erfolgen.", "isCorrect": true, "rationale": "Gemäß § 1 Abs. 3 KSchG ist eine Sozialauswahl (Alter, Betriebszugehörigkeit, Unterhaltspflichten, Schwerbehinderung) vorzunehmen."},
+        {"text": "Die Ventura-Outdoor GmbH kann nur vollzeitbeschäftigte Mitarbeiter betriebsbedingt entlassen.", "isCorrect": false, "rationale": "Teilzeit- und Vollzeitbeschäftigte sind gleich zu behandeln."},
+        {"text": "Die Auszubildenden können grundsätzlich erst nach Ablauf ihrer Probezeit entlassen werden.", "isCorrect": false, "rationale": "Azubis genießen nach der Probezeit besonderen Kündigungsschutz – betriebsbedingte Kündigung ist ausgeschlossen."},
+        {"text": "Kündigungen aus betriebsbedingten Gründen sind nur bei befristeten Arbeitsverhältnissen möglich.", "isCorrect": false, "rationale": "Betriebsbedingte Kündigungen betreffen gerade unbefristete Arbeitsverhältnisse."}
+      ],
+      "expectedAnswers": ["B"],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Bei betriebsbedingten Kündigungen schreibt § 1 Abs. 3 KSchG eine Sozialauswahl vor: Es müssen insbesondere Dauer der Betriebszugehörigkeit, Lebensalter, Unterhaltspflichten und Schwerbehinderung berücksichtigt werden.",
+      "videoUrl": "",
+      "youtubeQuery": "Betriebsbedingte Kündigung Sozialauswahl KSchG"
+    },
+    {
+      "id": "eco_199",
+      "question": "Welcher Vorschlag entspricht nicht den Anforderungen an ergonomisch richtig gestaltete Arbeitsplätze in der Ventura-Outdoor GmbH?",
+      "answerOptions": [
+        {"text": "Die Tastatur ist vom Bildschirm getrennt und in der Neigung verstellbar.", "isCorrect": false, "rationale": "Entspricht den Vorgaben zur Bildschirmarbeit (ArbStättV)."},
+        {"text": "Die Größe des Schreibtischs ermöglicht eine flexible Anordnung des Bildschirms.", "isCorrect": false, "rationale": "Flexibilität ist ergonomisch erwünscht."},
+        {"text": "Die Bildschirme stehen frontal vor dem Fenster und ermöglichen einen freien Blick nach draußen.", "isCorrect": true, "rationale": "Frontale Ausrichtung zum Fenster führt zu Blendung und Gegenlicht – ergonomisch zu vermeiden."},
+        {"text": "Die Oberfläche der Schreibtische ist reflexionsarm.", "isCorrect": false, "rationale": "Reflexionsarme Oberflächen vermindern Spiegelungen und sind ergonomisch korrekt."},
+        {"text": "Der Bürostuhl ermöglicht ein dynamisches Sitzen.", "isCorrect": false, "rationale": "Dynamisches Sitzen entlastet den Rücken – ergonomisch gewünscht."}
+      ],
+      "expectedAnswers": ["C"],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Bildschirme sollten parallel zum Fenster stehen, damit weder Blendung durch Gegenlicht noch Spiegelungen entstehen. Eine frontale Ausrichtung zum Fenster widerspricht der Arbeitsstättenverordnung.",
+      "videoUrl": "",
+      "youtubeQuery": "Ergonomie Bildschirmarbeitsplatz Blendung Fenster"
+    },
+    {
+      "id": "eco_200",
+      "question": "Mit welcher Maßnahme kann der Einschränkung des Sehvermögens durch ständiges Sitzen am Bildschirm effektiv vorgebeugt werden?",
+      "answerOptions": [
+        {"text": "Regelmäßige Veränderung des Raumklimas", "isCorrect": false, "rationale": "Raumklima beeinflusst die Augen nur indirekt."},
+        {"text": "Regelmäßige augenärztliche Untersuchung", "isCorrect": true, "rationale": "§ 6 ArbMedVV sieht eine angemessene arbeitsmedizinische Vorsorge für Bildschirmarbeit vor."},
+        {"text": "Kundenkommunikation über soziale Netzwerke statt E-Mail-Verkehr", "isCorrect": false, "rationale": "Erhöht die Bildschirmzeit eher zusätzlich."},
+        {"text": "Pausengymnastik für die Halswirbel", "isCorrect": false, "rationale": "Entlastet den Nacken, nicht primär die Augen."},
+        {"text": "Arbeit an Tablets statt an PCs", "isCorrect": false, "rationale": "Tablets haben meist kleinere Displays – für die Augen eher ungünstiger."}
+      ],
+      "expectedAnswers": ["B"],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Nach der Arbeitsmedizinischen Vorsorge Verordnung (ArbMedVV) müssen Beschäftigten an Bildschirmarbeitsplätzen regelmäßige Augenuntersuchungen angeboten werden.",
+      "videoUrl": "",
+      "youtubeQuery": "Bildschirmarbeit arbeitsmedizinische Vorsorge Augen"
+    },
+    {
+      "id": "eco_201",
+      "question": "In der Halle der Ventura-Outdoor GmbH müssen Fluchtwege gekennzeichnet werden. Welcher Flucht- oder Rettungsweg ist unzulässig?",
+      "answerOptions": [
+        {"text": "Der Flucht- oder Rettungsweg ist als besonderer Weg gekennzeichnet und führt am schnellsten zum nächsten Ausgang.", "isCorrect": false, "rationale": "Ein kurzer, gekennzeichneter Weg ist korrekt."},
+        {"text": "Die Türen des Flucht- oder Rettungswegs sind während der Betriebszeiten verschlossen, aber der Schlüssel muss sich in unmittelbarer Nähe befinden.", "isCorrect": true, "rationale": "Fluchtwege müssen nach ASR A2.3 jederzeit ohne Hilfsmittel von innen öffenbar sein – Schlüssellösungen sind unzulässig."},
+        {"text": "Der Fluchtweg ermöglicht im Gefahrenfall ein rasches Verlassen der Arbeitsstätte.", "isCorrect": false, "rationale": "Genau das ist die Kernanforderung."},
+        {"text": "Der Fluchtweg ist entlang des Verlaufs mit selbstleuchtenden Piktogrammen gekennzeichnet, gekoppelt an eine Notbeleuchtung.", "isCorrect": false, "rationale": "Vorschriftsgemäß."},
+        {"text": "Der Fluchtweg ist mit einem beleuchteten Piktogramm versehen und darf weder vorübergehend noch dauernd verstellt werden.", "isCorrect": false, "rationale": "Korrekte Anforderung nach ASR A2.3 / ArbStättV."}
+      ],
+      "expectedAnswers": ["B"],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Fluchtwege müssen während der Betriebszeiten jederzeit von innen ohne Hilfsmittel (z. B. Schlüssel) geöffnet werden können. Ein Schlüssel in der Nähe reicht nicht aus.",
+      "videoUrl": "",
+      "youtubeQuery": "Fluchtwege Arbeitsstättenverordnung ASR A2.3"
+    },
+    {
+      "id": "eco_202",
+      "question": "Welche Zielsetzung sollte die Ventura-Outdoor GmbH in ein neu erarbeitetes Umwelthandbuch aufnehmen?",
+      "answerOptions": [
+        {"text": "Eine hohe Wiederverwertung des Verpackungsmaterials wird vermieden.", "isCorrect": false, "rationale": "Vermeidung von Wiederverwertung widerspricht ökologischen Zielen."},
+        {"text": "Im Getränkeautomaten werden nur noch Fair-Trade-Getränke angeboten.", "isCorrect": false, "rationale": "Betrifft soziale, nicht primär ökologische Ziele."},
+        {"text": "Die Ventura-Outdoor GmbH setzt auf Same-Day-Delivery in Teillieferungen anstatt auf Komplettversand.", "isCorrect": false, "rationale": "Teillieferungen verursachen mehr Transporte und Emissionen – ökologisch nachteilig."},
+        {"text": "Lieferungen sollen nur noch mit Versandkartons in zwei verschiedenen Standard-Größen erfolgen.", "isCorrect": false, "rationale": "Zu wenige Größen führen zu Luftpaketen und mehr Füllmaterial – ökologisch nicht optimal."},
+        {"text": "Retourenscheine werden nur noch zum Download angeboten.", "isCorrect": true, "rationale": "Digitale Retourenscheine sparen Papier und reduzieren den Ressourcenverbrauch – klares ökologisches Ziel."}
+      ],
+      "expectedAnswers": ["E"],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Digitale Retourenscheine vermeiden Papier, Druckkosten und Versandgewicht. Das ist eine konkrete, messbare ökologische Zielsetzung für ein Umwelthandbuch.",
+      "videoUrl": "",
+      "youtubeQuery": "Umwelthandbuch ökologische Ziele E-Commerce"
+    },
+    {
+      "id": "eco_203",
+      "question": "Im Umwelthandbuch der Ventura-Outdoor GmbH ist die Mülltrennung geregelt. Vorhanden sind Behälter für Papier, Kunststoffe, Verbundstoffe/Metall und Restmüll. Was darf nicht in diese Behälter entsorgt werden?",
+      "answerOptions": [
+        {"text": "Plastik-Schnellhefter", "isCorrect": false, "rationale": "Gehört in den Kunststoffmüll."},
+        {"text": "Versandtaschen aus der Eingangspost", "isCorrect": false, "rationale": "Papiertaschen gehören ins Altpapier, Plastiktaschen in den Kunststoffmüll."},
+        {"text": "Verwelkte Blumen aus den Besucherräumen", "isCorrect": false, "rationale": "Können bei fehlendem Biomüllbehälter dem Restmüll zugeführt werden."},
+        {"text": "Zigarettenstummel", "isCorrect": false, "rationale": "Gehören in den Restmüll."},
+        {"text": "Leere Batterien", "isCorrect": true, "rationale": "Batterien sind Sondermüll (BattG) und müssen getrennt einer Sammelstelle zugeführt werden."}
+      ],
+      "expectedAnswers": ["E"],
+      "inputType": "text",
+      "rationale": "Richtig ist E. Batterien enthalten Schwermetalle und Schadstoffe und sind nach dem Batteriegesetz (BattG) Sondermüll. Sie dürfen nicht in den Hausmüll und gehören in Sammelstellen oder in den Handel zurück.",
+      "videoUrl": "",
+      "youtubeQuery": "Batterieentsorgung Sondermüll Batteriegesetz"
+    },
+    {
+      "id": "eco_204",
+      "question": "Sie betrachten die Grafik So verbreitet ist E-Commerce in der EU (Anteil der 16- bis 74-Jährigen, die in den letzten 12 Monaten online bestellt haben). Welche Information können Sie dieser Grafik entnehmen?",
+      "answerOptions": [
+        {"text": "Im Jahr 2018 haben die Bürger innerhalb der EU im Durchschnitt mehr Produkte online als stationär gekauft.", "isCorrect": false, "rationale": "Der Anteil der Online-Besteller sagt nichts über Stückzahlen oder Umsätze aus."},
+        {"text": "Im Jahr 2018 fand in den Niederlanden 80 % des Handels online statt.", "isCorrect": false, "rationale": "80 % ist der Anteil der Online-Besteller, nicht der Anteil am Gesamthandel."},
+        {"text": "Im Zeitraum von 2008 bis 2018 hat sich der Umsatz im rumänischen Online-Handel verfünffacht.", "isCorrect": false, "rationale": "Die Grafik zeigt Nutzerquoten, keine Umsätze."},
+        {"text": "Im Jahr 2018 haben 77 % der 16- bis 74-Jährigen in Deutschland innerhalb der letzten 12 Monate über das Internet bestellt.", "isCorrect": true, "rationale": "Genau das gibt die Statistik wieder: den Anteil der Online-Besteller in dieser Altersgruppe."},
+        {"text": "In Österreich entspricht das Wachstum im Internet-Handel dem EU-Durchschnitt.", "isCorrect": false, "rationale": "Die Grafik zeigt Quoten, keine Wachstumsdaten."}
+      ],
+      "expectedAnswers": ["D"],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Die Grafik gibt den Anteil der 16- bis 74-Jährigen an, die in den vergangenen 12 Monaten online bestellt haben – für Deutschland waren das 2018 rund 77 %.",
+      "videoUrl": "",
+      "youtubeQuery": "E-Commerce EU Statistik 2018"
     }
 
   ]
