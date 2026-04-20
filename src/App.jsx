@@ -11,6 +11,7 @@ import wissenTesten from './data/wissen_testen.json';
 
 import wisorEco from './data/wisor_eco.json';
 import marketingReview from './data/marketing_review.json';
+import kundenkomm from './data/kundenkommunikation.json';
 import klrMcQuiz from './data/klr_mc.json';
 
 import { supabase } from './supabaseClient';
@@ -192,6 +193,11 @@ function App() {
   const [, setWisorEcoSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
   const [wisorEcoCountSelection, setWisorEcoCountSelection] = useState(10);
   const [wisorEcoDuePool, setWisorEcoDuePool] = useState([]);
+  const [kundenkommunikationSessionPool, setKundenkommunikationSessionPool] = useState([]);
+  const [kundenkommunikationSessionRepeatMode, setKundenkommunikationSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
+  const [kundenkommunikationCountSelection, setKundenkommunikationCountSelection] = useState(10);
+  const [kundenkommunikationResult, setKundenkommunikationResult] = useState(null);
+  const [kundenkommunikationDuePool, setKundenkommunikationDuePool] = useState([]);
   const [klrMcQuizSessionPool, setKlrMcSessionPool] = useState([]);
   const [klrMcQuizSessionRepeatMode, setKlrMcSessionRepeatMode] = useState(MULTI_CHOICE_REPEAT_MODES.TWICE);
   const [klrMcQuizCountSelection, setKlrMcCountSelection] = useState(10);
@@ -207,6 +213,7 @@ function App() {
   const [wisorVideoOpen, setWisorVideoOpen] = useState(false);
   const [completedWisorsEco, setCompletedWisorsEco] = useState({});
   const [completedMarketingReview, setCompletedMarketingReview] = useState({});
+  const [completedKundenkommunikation, setCompletedKundenkommunikation] = useState({});
   const [completedKlrMc, setCompletedKlrMc] = useState({});
   const [activeWisorMode, setActiveWisorMode] = useState('wisorEco');
   const [resetModalVisible, setResetModalVisible] = useState(false);
@@ -441,6 +448,7 @@ function App() {
     const srsProgress = JSON.parse(localStorage.getItem('ap2_srs_progress')) || {};
     const wisorEcoProgress = JSON.parse(localStorage.getItem('ap2_wisor_eco_progress')) || {};
     const marketingReviewProgress = JSON.parse(localStorage.getItem('ap2_marketing_review_progress')) || {};
+    const kundenkommunikationProgress = JSON.parse(localStorage.getItem('ap2_kundenkommunikation_progress')) || {};
     const klrMcQuizProgress = JSON.parse(localStorage.getItem(LOCAL_KEY_KLR_MC) || '{}');
     const savedNotes = JSON.parse(localStorage.getItem('ap2_saved_notes') || '{}');
     const analytics = loadAnalyticsForUser(authUser);
@@ -459,6 +467,7 @@ function App() {
       [LEGACY_DB_KEY_WISOR_ECO]: wisorEcoProgress,
       [DB_KEY_WISOR_ECOMMERCE]: wisorEcoProgress,
       marketing_review_progress: marketingReviewProgress,
+      kundenkommunikation_progress: kundenkommunikationProgress,
       [DB_KEY_KLR_MC]: klrMcQuizProgress,
       saved_notes: savedNotes,
       learning_analytics: analytics,
@@ -1002,6 +1011,10 @@ function App() {
     ...(customMarketingReviewQuestions || [])
   ];
 
+  const allKundenkommunikationQuestions = [
+    ...(kundenkomm.questions || [])
+  ];
+
   const allKlrMcQuestions = [
     ...(klrMcQuiz.questions || [])
   ];
@@ -1162,6 +1175,29 @@ function App() {
     }
   };
 
+  const refreshKundenkommunikationDuePool = async () => {
+    try {
+      const { due, progressById } = await loadDuePoolForTaskType({
+        questions: allKundenkommunikationQuestions,
+        taskType: 'kundenkommunikation',
+        taskPrefix: 'kundenkommunikation',
+        repeatMode: multiChoiceRepeatModeRef.current,
+        localStorageKey: 'ap2_kundenkommunikation_progress',
+      });
+      setKundenkommunikationDuePool(due);
+      setCompletedKundenkommunikation(progressById);
+      localStorage.setItem('ap2_kundenkommunikation_progress', JSON.stringify(progressById));
+      return due;
+    } catch (err) {
+      console.error('Failed loading kundenkommunikation due pool:', err);
+      const fallbackProg = loadProgressObject('ap2_kundenkommunikation_progress');
+      const fallbackPrepared = buildPreparedQuizzes(allKundenkommunikationQuestions, fallbackProg);
+      const fallbackDue = filterDueQuizzes(fallbackPrepared, fallbackProg, Date.now(), multiChoiceRepeatModeRef.current);
+      setKundenkommunikationDuePool(fallbackDue);
+      return fallbackDue;
+    }
+  };
+
   const refreshKlrMcDuePool = async () => {
     try {
       const { due, progressById } = await loadDuePoolForTaskType({
@@ -1193,6 +1229,12 @@ function App() {
 
   const getDueMarketingReviewByTopic = (topic = 'all') => {
     const due = marketingReviewDuePool;
+    if (topic === 'all') return due;
+    return due.filter(q => getQuizTopicGroup(q.topic) === topic);
+  };
+
+  const getDueKundenkommunikationByTopic = (topic = 'all') => {
+    const due = kundenkommunikationDuePool;
     if (topic === 'all') return due;
     return due.filter(q => getQuizTopicGroup(q.topic) === topic);
   };
@@ -1485,6 +1527,15 @@ ${input}`;
     setAppMode('wisor_eco_quiz');
   };
 
+  const startKundenkommunikationSession = (limit, topic = 'all') => {
+    const duePool = getDueKundenkommunikationByTopic(topic);
+    const sessionQs = buildShuffledSession(duePool, limit);
+    setKundenkommunikationSessionRepeatMode(multiChoiceRepeatModeRef.current);
+    setKundenkommunikationSessionPool(sessionQs);
+    setKundenkommunikationResult(null);
+    setAppMode('kundenkommunikation_quiz');
+  };
+
   const startKlrMcSession = (limit, topic = 'all') => {
     const duePool = getDueKlrMcByTopic(topic);
     const sessionQs = buildShuffledSession(duePool, limit);
@@ -1523,6 +1574,38 @@ ${input}`;
     }
 
     await refreshWisorEcoDuePool();
+  };
+
+  const handleKundenkommunikationAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatModeRef.current) => {
+    if (!q?.id) return;
+
+    const localProg = loadProgressObject('ap2_kundenkommunikation_progress');
+    const prevEntry = normalizeMasteryProgressEntry(localProg[q.id] || { rep: 0, ef: 2.5, interval: 0, nextReview: 0 });
+    const nextEntry = {
+      ...computeNextQuizProgress(prevEntry, isCorrect, Date.now(), repeatMode),
+      updatedAt: new Date().toISOString(),
+    };
+
+    const nextProg = { ...localProg, [q.id]: nextEntry };
+    localStorage.setItem('ap2_kundenkommunikation_progress', JSON.stringify(nextProg));
+    setCompletedKundenkommunikation(nextProg);
+
+    if (authUser?.id) {
+      try {
+        await persistMasteryProgressToSupabase({
+          question: q,
+          taskType: 'kundenkommunikation',
+          taskPrefix: 'kundenkommunikation',
+          repeatMode,
+          nextProgress: nextEntry,
+          isCorrect,
+        });
+      } catch (err) {
+        console.error('Kundenkommunikation progress save failed:', err);
+      }
+    }
+
+    await refreshKundenkommunikationDuePool();
   };
 
   const handleKlrMcAnswerUpdate = async (q, isCorrect, repeatMode = multiChoiceRepeatModeRef.current) => {
@@ -1702,6 +1785,11 @@ ${input}`;
             } else {
               localStorage.setItem('ap2_marketing_review_progress', JSON.stringify({}));
             }
+            if (data.progress_data.kundenkommunikation_progress) {
+              localStorage.setItem('ap2_kundenkommunikation_progress', JSON.stringify(data.progress_data.kundenkommunikation_progress));
+            } else {
+              localStorage.setItem('ap2_kundenkommunikation_progress', JSON.stringify({}));
+            }
             if (data.progress_data[DB_KEY_KLR_MC]) {
               localStorage.setItem(LOCAL_KEY_KLR_MC, JSON.stringify(data.progress_data[DB_KEY_KLR_MC]));
             } else {
@@ -1806,6 +1894,7 @@ ${input}`;
             // Removed: localStorage.setItem('ap2_quiz_progress', JSON.stringify({})); // Keep local progress intact as fallback
             localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify({}));
             localStorage.setItem('ap2_marketing_review_progress', JSON.stringify({}));
+            localStorage.setItem('ap2_kundenkommunikation_progress', JSON.stringify({}));
             localStorage.setItem(LOCAL_KEY_KLR_MC, JSON.stringify({}));
             localStorage.setItem('ap2_saved_notes', JSON.stringify({}));
             localStorage.removeItem('project_m_progress_v1');
@@ -1868,6 +1957,7 @@ ${input}`;
       await refreshQuizDuePool();
       await refreshWisorEcoDuePool();
       await refreshMarketingReviewDuePool();
+      await refreshKundenkommunikationDuePool();
       await refreshKlrMcDuePool();
 
       // 5. Setup Review
@@ -1900,6 +1990,7 @@ ${input}`;
     refreshQuizDuePool().catch(() => { });
     refreshWisorEcoDuePool().catch(() => { });
     refreshMarketingReviewDuePool().catch(() => { });
+    refreshKundenkommunikationDuePool().catch(() => { });
     refreshKlrMcDuePool().catch(() => { });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authUser?.id, customQuizQuestions, customMarketingReviewQuestions, multiChoiceRepeatMode]);
@@ -1967,6 +2058,7 @@ ${input}`;
       const remoteWisorEcoRaw = remote[DB_KEY_WISOR_ECOMMERCE] || remote[LEGACY_DB_KEY_WISOR_ECO];
       const remoteWisorEco = remoteWisorEcoRaw && typeof remoteWisorEcoRaw === 'object' ? remoteWisorEcoRaw : {};
       const remoteMarketing = remote.marketing_review_progress && typeof remote.marketing_review_progress === 'object' ? remote.marketing_review_progress : {};
+      const remoteKundenkommunikation = remote.kundenkommunikation_progress && typeof remote.kundenkommunikation_progress === 'object' ? remote.kundenkommunikation_progress : {};
       const remoteKlrMc = remote[DB_KEY_KLR_MC] && typeof remote[DB_KEY_KLR_MC] === 'object' ? remote[DB_KEY_KLR_MC] : {};
       const remoteAnalytics = remote.learning_analytics && typeof remote.learning_analytics === 'object'
         ? { ...createEmptyAnalytics(), ...remote.learning_analytics }
@@ -1988,6 +2080,7 @@ ${input}`;
 
       localStorage.setItem('ap2_wisor_eco_progress', JSON.stringify(remoteWisorEco));
       localStorage.setItem('ap2_marketing_review_progress', JSON.stringify(remoteMarketing));
+      localStorage.setItem('ap2_kundenkommunikation_progress', JSON.stringify(remoteKundenkommunikation));
       localStorage.setItem(LOCAL_KEY_KLR_MC, JSON.stringify(remoteKlrMc));
       localStorage.setItem(getAnalyticsStorageKey(authUser), JSON.stringify(remoteAnalytics));
       localStorage.setItem(getCustomQuizStorageKey(authUser), JSON.stringify(remoteCustomQuiz));
@@ -2006,6 +2099,7 @@ ${input}`;
 
       setCompletedWisorsEco(remoteWisorEco);
       setCompletedMarketingReview(remoteMarketing);
+      setCompletedKundenkommunikation(remoteKundenkommunikation);
       setCompletedKlrMc(remoteKlrMc);
       setLearningAnalytics(remoteAnalytics);
       setCustomQuizQuestions(remoteCustomQuiz);
