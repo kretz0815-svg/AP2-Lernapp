@@ -2220,6 +2220,17 @@ ${input}`;
       refreshMarketingReviewDuePool().catch(() => { });
       setMarketingReviewSessionPool([]);
       setResetModalVisible(false);
+    } else if (resetTarget === 'kundenkommunikation') {
+      localStorage.removeItem('ap2_kundenkommunikation_progress');
+      setCompletedKundenkommunikation({});
+      clearAnalyticsByMode('kundenkommunikation');
+      if (authUser?.id) {
+        clearTaskProgressByType(supabase, authUser.id, 'kundenkommunikation').catch(() => { });
+        syncProgressToSupabase({ kundenkommunikation_progress: {} }).catch(() => { });
+      }
+      refreshKundenkommunikationDuePool().catch(() => { });
+      setKundenkommunikationSessionPool([]);
+      setResetModalVisible(false);
     } else if (resetTarget === 'klr_mc') {
       localStorage.removeItem(LOCAL_KEY_KLR_MC);
       setCompletedKlrMc({});
@@ -2559,6 +2570,8 @@ ${input}`;
     quizLearned: Math.min(quizLearnedCount, allQuizQuestions.length),
     wisorEcoTotal: wisorEcoQuestions.length,
     wisorEcoLearned: Math.max(0, wisorEcoQuestions.length - wisorEcoDuePool.length),
+    kundenkommunikationTotal: allKundenkommunikationQuestions.length,
+    kundenkommunikationLearned: Math.max(0, allKundenkommunikationQuestions.length - kundenkommunikationDuePool.length),
     klrMcTotal: (klrMcQuiz.questions || []).length,
     klrMcLearned: Math.max(0, (klrMcQuiz.questions || []).length - klrMcDuePool.length),
     reviewTotal: allMarketingReviewQuestions.length,
@@ -2592,13 +2605,15 @@ ${input}`;
             questionManagerCategory === 'quiz' ? allQuizQuestions :
                 questionManagerCategory === 'wisorEco' ? wisorEcoQuestions :
                   questionManagerCategory === 'marketing_review' ? allMarketingReviewQuestions :
-                    questionManagerCategory === 'klr_mc' ? (klrMcQuiz.questions || []) : rechenTasks
+                    questionManagerCategory === 'kundenkommunikation' ? allKundenkommunikationQuestions :
+                      questionManagerCategory === 'klr_mc' ? (klrMcQuiz.questions || []) : rechenTasks
           }
           authUser={authUser}
           progress={
             questionManagerCategory === 'quiz' || questionManagerCategory === 'rechen' ? quizProg :
                 questionManagerCategory === 'wisorEco' ? completedWisorsEco :
-                  questionManagerCategory === 'klr_mc' ? completedKlrMc : completedMarketingReview
+                  questionManagerCategory === 'kundenkommunikation' ? completedKundenkommunikation :
+                    questionManagerCategory === 'klr_mc' ? completedKlrMc : completedMarketingReview
           }
           formatLatex={formatLatex}
           onClose={() => setQuestionManagerCategory(null)}
@@ -2606,6 +2621,10 @@ ${input}`;
           onProgressUpdate={(cat, updatedProgress) => {
             if (cat === 'quiz' || cat === 'rechen') refreshQuizDuePool().catch(() => { });
             else if (cat === 'wisorEco') setCompletedWisorsEco(updatedProgress);
+            else if (cat === 'kundenkommunikation') {
+              setCompletedKundenkommunikation(updatedProgress);
+              refreshKundenkommunikationDuePool().catch(() => { });
+            }
             else if (cat === 'klr_mc') {
               setCompletedKlrMc(updatedProgress);
               refreshKlrMcDuePool().catch(() => { });
@@ -2787,6 +2806,9 @@ ${input}`;
               </button>
               <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('marketing_review_setup')}>
                 IHK Extras ({marketingReviewDuePool.length} offen)
+              </button>
+              <button className="btn-secondary" style={{ width: '100%' }} onClick={() => setAppMode('kundenkommunikation_setup')}>
+                Kundenkommunikation ({kundenkommunikationDuePool.length} fällig)
               </button>
             </div>
           </div>
@@ -3489,6 +3511,43 @@ ${input}`;
             onConfirm={handleResetExecute}
             title="IHK-Extras-Lernstand zurücksetzen?"
             description="Dein Fortschritt in „IHK Extras“ wird gelöscht. Löse die Rechenaufgabe zur Bestätigung:"
+          />
+        </>
+      </React.Suspense>
+    );
+  }
+
+  if (appMode === 'kundenkommunikation_setup') {
+    return (
+      <React.Suspense fallback={<div className="loading-overlay">Lade Kundenkommunikation...</div>}>
+        <>
+          <QuizSetup
+            selectedQuizTopic={'all'}
+            setSelectedQuizTopic={() => { }}
+            getDueQuizzesByTopic={getDueKundenkommunikationByTopic}
+            getQuizTopicGroup={getQuizTopicGroup}
+            multiChoiceRepeatMode={multiChoiceRepeatMode}
+            onMultiChoiceRepeatModeChange={handleMultiChoiceRepeatModeChange}
+            feynmanModeEnabled={feynmanModeEnabled}
+            setFeynmanModeEnabled={setFeynmanModeEnabled}
+            quizCountSelection={kundenkommunikationCountSelection}
+            setQuizCountSelection={setKundenkommunikationCountSelection}
+            startQuiz={() => startKundenkommunikationSession(kundenkommunikationCountSelection, 'all')}
+            setAppMode={setAppMode}
+            burgerMenuPortal={burgerMenuPortal}
+            title="Wieviele Fragen?"
+            description="Wähle die Anzahl fälliger Fragen in „Kundenkommunikation“ und starte den Durchgang."
+            showTopicSelect={false}
+            backMode="dashboard"
+            showResetProgressButton
+            onResetProgress={() => openResetModal(null, 'kundenkommunikation')}
+          />
+          <ResetModal
+            isOpen={resetModalVisible}
+            onClose={() => setResetModalVisible(false)}
+            onConfirm={handleResetExecute}
+            title="Kundenkommunikation-Lernstand zurücksetzen?"
+            description="Dein Fortschritt in „Kundenkommunikation“ wird gelöscht. Löse die Rechenaufgabe zur Bestätigung:"
           />
         </>
       </React.Suspense>

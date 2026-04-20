@@ -3544,7 +3544,7 @@
           "isCorrect": false,
           "rationale": "Man kann die Bewerbung nicht absenden (5), bevor man sie formuliert hat (2)."
         },
-        {
+        { 
           "text": "1-4-3-2-5-6",
           "isCorrect": false,
           "rationale": "Der Abschluss des Vertrages steht am Ende des Prozesses, nicht am Anfang."

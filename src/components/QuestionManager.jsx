@@ -72,12 +72,18 @@ export default function QuestionManager({ category, questions, progress, formatL
             color: 'var(--primary)',
             progressKey: 'ap2_quiz_progress',
             isLearned: (id, prog) => prog[id] && prog[id].nextReview > Date.now(),
+        },
+        kundenkommunikation: {
+            title: 'Kundenkommunikation',
+            color: '#6366f1',
+            progressKey: 'ap2_kundenkommunikation_progress',
+            isLearned: (id, prog) => !!prog[id] && (prog[id] === true || prog[id]?.isLearned === true || (Number(prog[id]?.correctAnswersCount || prog[id]?.rep || 0) > 0 && Number(prog[id]?.nextReview || 0) > Date.now())),
         }
     };
 
     const config = categoryConfig[category];
-    const supportsMultipleChoice = category === 'quiz' || category === 'rechen' || category === 'marketing_review' || category === 'wisorEco' || category === 'klr_mc';
-    const supportsOwnQuestions = supportsMultipleChoice && category !== 'klr_mc';
+    const supportsMultipleChoice = category === 'quiz' || category === 'rechen' || category === 'marketing_review' || category === 'wisorEco' || category === 'klr_mc' || category === 'kundenkommunikation';
+    const supportsOwnQuestions = supportsMultipleChoice && category !== 'klr_mc' && category !== 'kundenkommunikation';
 
     // Build question list
     const questionList = questions

@@ -354,6 +354,22 @@ const BurgerMenu = memo(({ authUser, handleLogout, stats, isLightMode, themePref
                                 </>
                             </div>
 
+                            <div className="stat-card" style={{ cursor: 'pointer' }} onClick={() => handleCategoryClick('kundenkommunikation')}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Kundenkommunikation</span>
+                                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>→</span>
+                                </div>
+                                <>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                        <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: '#6366f1' }}>{stats.kundenkommunikationLearned}</span>
+                                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>von {stats.kundenkommunikationTotal} verinnerlicht</span>
+                                    </div>
+                                    <div className="progress-container" style={{ height: '4px', marginTop: '0.3rem' }}>
+                                        <div className="progress-bar" style={{ width: `${(stats.kundenkommunikationLearned / Math.max(stats.kundenkommunikationTotal, 1)) * 100}%`, background: '#6366f1' }}></div>
+                                    </div>
+                                </>
+                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -48,7 +48,7 @@ export const getQuizTopicGroup = (topic) => {
     }
 
     // Kommunikation & Psychologie
-    if (/(kommunikation|psychologie|4-ohren|gespräch|feedback|beschwerdemanagement|kunde)/i.test(t)) {
+    if (/(kommunikation|psychologie|4-ohren|gespräch|feedback|beschwerdemanagement|kunde|kundenkommunikation)/i.test(t)) {
         return 'Kommunikation & Psychologie';
     }
 

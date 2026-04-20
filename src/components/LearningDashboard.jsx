@@ -59,6 +59,7 @@ const LearningDashboard = ({
     'nutzwertanalyse',
     'swot_analyse',
     'marketing_review',
+    'kundenkommunikation',
     'project_m',
     'journey_architect'
   ]);
@@ -95,6 +96,7 @@ const LearningDashboard = ({
       nutzwertanalyse: byMode('nutzwertanalyse'),
       swot_analyse: byMode('swot_analyse'),
       marketing_review: byMode('marketing_review'),
+      kundenkommunikation: byMode('kundenkommunikation'),
       project_m: byMode('project_m'),
       journey_architect: byMode('journey_architect'),
     };
@@ -123,6 +125,7 @@ const LearningDashboard = ({
     swot_analyse: 'SWOT-Analyse',
     rechen: "KPI's",
     marketing_review: 'IHK Extras',
+    kundenkommunikation: 'Kundenkommunikation',
     project_m: 'Projekt M Mastery',
     journey_architect: 'Journey Architect'
   };
