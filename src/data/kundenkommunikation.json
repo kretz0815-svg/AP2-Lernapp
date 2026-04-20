@@ -329,6 +329,501 @@
       "rationale": "Richtig ist B. Ein 24/7-Service optimiert Prozesse, weil der Kunde sofortige Antworten (auch am Wochenende oder nachts) erhält, was die Antwortrate verbessert und gleichzeitig dem Personal wertvolle Zeit für wirklich komplexe Kundenanliegen freiräumt.",
       "videoUrl": "",
       "youtubeQuery": "Chatbot Vorteile Unternehmen 24/7 Prozessoptimierung"
+    },
+    {
+      "id": "kk_11",
+      "question": "Ein Kunde kauft bei der Ventura-Outdoor GmbH ein Regal für seine Campingausrüstung. Er baut das Regal exakt in der Reihenfolge der mitgelieferten Anleitung auf, doch dabei bricht die Rückwand durch. Welcher rechtliche Sachverhalt liegt hier vor?",
+      "answerOptions": [
+        {
+          "text": "Es liegt kein Sachmangel vor, da der Kunde den Schaden selbst verursacht hat.",
+          "isCorrect": false,
+          "rationale": "Obwohl der Kunde den Schaden verursacht hat, war die Ursache die mangelhafte Anleitung, was rechtlich einen Sachmangel darstellt."
+        },
+        {
+          "text": "Es handelt sich um eine Falschlieferung.",
+          "isCorrect": false,
+          "rationale": "Eine Falschlieferung liegt vor, wenn eine andere Sache geliefert wird (Aliud), nicht wenn die Anleitung fehlerhaft ist."
+        },
+        {
+          "text": "Es handelt sich um einen Sachmangel aufgrund einer fehlerhaften Montageanleitung.",
+          "isCorrect": true,
+          "rationale": "Gemäß BGB (sog. IKEA-Klausel) liegt ein Sachmangel vor, wenn die Montageanleitung mangelhaft ist und dies zu einem Fehler beim Aufbau führt."
+        },
+        {
+          "text": "Es liegt ein Quantitätsmangel vor.",
+          "isCorrect": false,
+          "rationale": "Ein Quantitätsmangel liegt vor, wenn zu wenig Ware geliefert wird."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Wenn bei der Montage durch den Käufer Schäden am Kaufgegenstand entstehen, weil die Montageanleitung mangelhaft ist (oder sogar fehlt), liegt rechtlich ein Sachmangel vor.",
+      "videoUrl": "",
+      "youtubeQuery": "Sachmangel fehlerhafte Montageanleitung IKEA-Klausel"
+    },
+    {
+      "id": "kk_12",
+      "question": "Die Ventura-Outdoor GmbH wirbt in einem Prospekt damit, dass ein neuer Outdoor-Rucksack zu 100 % wasserdicht ist. Bei einem leichten Regenschauer dringt jedoch sofort Wasser ein. Welche Art von Sachmangel ist das?",
+      "answerOptions": [
+        {
+          "text": "Montagemangel",
+          "isCorrect": false,
+          "rationale": "Ein Montagemangel bezieht sich auf den fehlerhaften Aufbau, nicht auf die Eigenschaften der Ware."
+        },
+        {
+          "text": "Abweichung von Werbeaussagen",
+          "isCorrect": true,
+          "rationale": "Wenn die Ware nicht die Eigenschaften aufweist, die in öffentlichen Aussagen (Werbung, Prospekt) versprochen wurden, liegt ein Sachmangel vor."
+        },
+        {
+          "text": "Quantitätsmangel",
+          "isCorrect": false,
+          "rationale": "Die Menge der Rucksäcke ist korrekt, nur die beworbene Eigenschaft fehlt."
+        },
+        {
+          "text": "Arglistige Täuschung",
+          "isCorrect": false,
+          "rationale": "Arglist setzt Vorsatz voraus; rechtlich wird dies primär als Sachmangel aufgrund Werbeabweichung eingestuft."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Der Käufer muss sich auf öffentliche Aussagen und Werbung verlassen können. Verfügt die Ware nicht über die versprochenen Eigenschaften, gilt sie als mangelhaft.",
+      "videoUrl": "",
+      "youtubeQuery": "Sachmangel Abweichung Werbeaussagen"
+    },
+    {
+      "id": "kk_13",
+      "question": "Ein privater Käufer erwirbt bei Ventura-Outdoor eine teure Smartwatch für Bergsteiger. Der Hersteller stellt jedoch nach wenigen Wochen keine notwendigen Aktualisierungen (Software-Updates) mehr zur Verfügung, sodass wichtige Funktionen ausfallen. Ist das ein Sachmangel?",
+      "answerOptions": [
+        {
+          "text": "Nein, Software ist rechtlich nicht angreifbar.",
+          "isCorrect": false,
+          "rationale": "Moderne Gesetze (Digitale-Inhalte-Richtlinie) schützen Käufer explizit auch bei Software-Themen."
+        },
+        {
+          "text": "Ja, gemäß § 475b BGB liegt ein Sachmangel bei Waren mit digitalen Elementen vor, wenn notwendige Aktualisierungen im üblichen Nutzungszeitraum fehlen.",
+          "isCorrect": true,
+          "rationale": "Seit 2022 verpflichtet das BGB Verkäufer von Waren mit digitalen Elementen dazu, Funktions- und Sicherheitsupdates bereitzustellen."
+        },
+        {
+          "text": "Nein, da die Hardware bei Übergabe einwandfrei funktionierte.",
+          "isCorrect": false,
+          "rationale": "Die Funktionsfähigkeit muss über den üblichen Nutzungszeitraum durch Updates erhalten bleiben."
+        },
+        {
+          "text": "Ja, aber nur, wenn Ventura-Outdoor die Software selbst programmiert hat.",
+          "isCorrect": false,
+          "rationale": "Der Händler haftet gegenüber dem Endkunden für den Mangel, unabhängig davon, wer die Software programmiert hat."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Seit dem 1. Januar 2022 regelt das BGB, dass bei körperlichen Datenträgern für digitale Inhalte (wie Smartwatches) ein Sachmangel vorliegt, wenn dem privaten Käufer notwendige Aktualisierungen vorenthalten werden.",
+      "videoUrl": "",
+      "youtubeQuery": "§475b BGB Sachmangel Waren mit digitalen Elementen"
+    },
+    {
+      "id": "kk_14",
+      "question": "Ein Kunde kauft bei Ventura-Outdoor einen äußerlich völlig unversehrten Gasgrill. Erst beim ersten Campingausflug drei Monate später stellt sich heraus, dass das innere Ventil defekt ist und kein Gas durchlässt. Wie wird dieser Mangel bezeichnet?",
+      "answerOptions": [
+        {
+          "text": "Offener Mangel",
+          "isCorrect": false,
+          "rationale": "Ein offener Mangel wäre sofort bei der Übergabe oder Sichtprüfung erkennbar gewesen."
+        },
+        {
+          "text": "Arglistig verschwiegener Mangel",
+          "isCorrect": false,
+          "rationale": "Hierfür müsste Ventura vom Defekt gewusst und ihn absichtlich verschwiegen haben."
+        },
+        {
+          "text": "Versteckter Mangel",
+          "isCorrect": true,
+          "rationale": "Ein versteckter Mangel ist bei einer oberflächlichen Prüfung nicht erkennbar und zeigt sich erst später beim Gebrauch."
+        },
+        {
+          "text": "Geringfügiger Mangel",
+          "isCorrect": false,
+          "rationale": "Ein defektes Hauptventil ist ein erheblicher Funktionsmangel."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Versteckte Mängel sind bei der bloßen Prüfung der Ware nicht sofort sichtbar, sondern werden erst bei der späteren Verwendung der Sache entdeckt.",
+      "videoUrl": "",
+      "youtubeQuery": "Versteckter Mangel Definition BGB"
+    },
+    {
+      "id": "kk_15",
+      "question": "Ein Händler verkauft der Ventura-Outdoor GmbH ein teures Messe-Zelt als \"Neuware zum vollen Preis\". Er verheimlicht absichtlich, dass es sich um einen Reklamationsrückläufer handelt, der mehrfach erfolglos repariert wurde. Welcher Mangel liegt vor?",
+      "answerOptions": [
+        {
+          "text": "Qualitätsmangel ohne rechtliche Folgen",
+          "isCorrect": false,
+          "rationale": "Jeder Sachmangel hat rechtliche Folgen; hier wird zusätzlich getäuscht."
+        },
+        {
+          "text": "Versteckter Mangel",
+          "isCorrect": false,
+          "rationale": "Er ist zwar versteckt, aber die bewusste Geheimhaltung macht ihn zum arglistigen Mangel."
+        },
+        {
+          "text": "Falschlieferung",
+          "isCorrect": false,
+          "rationale": "Es wurde das richtige Modell geliefert, nur die zugesicherte Eigenschaft \"Neuware\" fehlt."
+        },
+        {
+          "text": "Arglistig verschwiegener Mangel",
+          "isCorrect": true,
+          "rationale": "Wenn der Verkäufer von einem Mangel weiß und diesen bewusst nicht mitteilt, handelt er arglistig."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Wenn dem Verkäufer ein Mangel an der Sache bekannt ist und er diesen gegenüber dem Käufer absichtlich verheimlicht, spricht man von einem arglistig verschwiegenen Mangel.",
+      "videoUrl": "",
+      "youtubeQuery": "Arglistig verschwiegener Mangel BGB"
+    },
+    {
+      "id": "kk_16",
+      "question": "Eine Jacke wird von der Ventura-Outdoor GmbH mit einem defekten Reißverschluss an einen Endkunden geliefert. Welches Recht hat der Käufer zunächst als vorrangiges Recht?",
+      "answerOptions": [
+        {
+          "text": "Den sofortigen Rücktritt vom Kaufvertrag",
+          "isCorrect": false,
+          "rationale": "Rücktritt ist nachrangig und erfordert meist das Scheitern der Nacherfüllung."
+        },
+        {
+          "text": "Schadensersatz statt Leistung",
+          "isCorrect": false,
+          "rationale": "Schadensersatz ist ein nachrangiges Recht."
+        },
+        {
+          "text": "Die Nacherfüllung in Form von Neulieferung oder Nachbesserung (Reparatur)",
+          "isCorrect": true,
+          "rationale": "Das BGB gibt dem Verkäufer das \"Recht zur zweiten Andienung\", also die Chance auf Nacherfüllung."
+        },
+        {
+          "text": "Eine sofortige Minderung des Kaufpreises um 50 %",
+          "isCorrect": false,
+          "rationale": "Minderung ist ein nachrangiges Recht."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Wenn der Käufer einen Mangel feststellt, hat er zunächst nur einen Nacherfüllungsanspruch. Er darf zwischen Neulieferung (mangelfreie Ware) und Nachbesserung (Reparatur) wählen.",
+      "videoUrl": "",
+      "youtubeQuery": "Vorrangige Rechte Mängelhaftung Nacherfüllung"
+    },
+    {
+      "id": "kk_17",
+      "question": "Ein Kunde fordert wegen einer defekten Schnürsenkel-Öse einen komplett neuen Wanderschuh. Die Reparatur der Öse würde 5 € kosten, ein neuer Schuh 250 €. Wie darf die Ventura-Outdoor GmbH reagieren?",
+      "answerOptions": [
+        {
+          "text": "Sie muss zwingend den neuen Schuh liefern, da der Kunde das absolute Wahlrecht hat.",
+          "isCorrect": false,
+          "rationale": "Das Wahlrecht wird durch den Grundsatz der Verhältnismäßigkeit eingeschränkt."
+        },
+        {
+          "text": "Sie kann den Vertrag sofort kündigen.",
+          "isCorrect": false,
+          "rationale": "Ein Mangel berechtigt nicht zur sofortigen Kündigung durch den Verkäufer."
+        },
+        {
+          "text": "Sie darf die Neulieferung ablehnen, da die Kosten unverhältnismäßig hoch sind, und stattdessen die Reparatur durchführen.",
+          "isCorrect": true,
+          "rationale": "Der Verkäufer kann die gewählte Art der Nacherfüllung verweigern, wenn sie im Vergleich zur anderen Art unverhältnismäßige Kosten verursacht."
+        },
+        {
+          "text": "Sie muss gar nichts tun, da eine Öse ein unwichtiges Detail ist.",
+          "isCorrect": false,
+          "rationale": "Auch kleine Mängel müssen im Rahmen der Gewährleistung behoben werden."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Der Verkäufer darf die vom Käufer gewünschte Art der Nacherfüllung ablehnen, wenn die Kosten dafür unverhältnismäßig hoch sind (z. B. Reparatur ist deutlich günstiger als Neulieferung).",
+      "videoUrl": "",
+      "youtubeQuery": "Nacherfüllung Verweigerung unverhältnismäßige Kosten"
+    },
+    {
+      "id": "kk_18",
+      "question": "Nach zwei erfolglosen Reparaturversuchen am Display eines GPS-Geräts möchte der Käufer den Vertrag abbrechen und sein Geld zurück. Welches nachrangige Recht macht er hier geltend?",
+      "answerOptions": [
+        {
+          "text": "Minderung",
+          "isCorrect": false,
+          "rationale": "Minderung bedeutet Behalten der Ware bei reduziertem Preis."
+        },
+        {
+          "text": "Rücktritt vom Vertrag",
+          "isCorrect": true,
+          "rationale": "Rücktritt bedeutet Rückabwicklung: Ware zurück gegen Geld zurück."
+        },
+        {
+          "text": "Nacherfüllung",
+          "isCorrect": false,
+          "rationale": "Die Nacherfüllung ist bereits zweimal gescheitert."
+        },
+        {
+          "text": "Ersatz vergeblicher Aufwendungen",
+          "isCorrect": false,
+          "rationale": "Dies wäre ein zusätzlicher Anspruch, hier geht es primär um die Vertragsauflösung."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Der Rücktritt vom Vertrag verpflichtet den Käufer zur Rückgabe der Ware und den Verkäufer zur Erstattung des Kaufpreises. Dieses Recht kann (nach gescheiterter Nacherfüllung) geltend gemacht werden, sofern der Mangel erheblich ist.",
+      "videoUrl": "",
+      "youtubeQuery": "Nachrangige Rechte Mängelhaftung Rücktritt"
+    },
+    {
+      "id": "kk_19",
+      "question": "Die Ventura-Outdoor GmbH bestellt mangelhafte Aktionsware, die nicht rechtzeitig ersetzt werden kann. Die dafür bereits gedruckten Werbeprospekte müssen weggeworfen werden. Was kann Ventura vom Lieferanten fordern?",
+      "answerOptions": [
+        {
+          "text": "Nacherfüllung",
+          "isCorrect": false,
+          "rationale": "Nacherfüllung löst nicht das Problem der wertlosen Prospekte."
+        },
+        {
+          "text": "Neulieferung",
+          "isCorrect": false,
+          "rationale": "Auch eine Neulieferung ersetzt nicht die entstandenen Druckkosten."
+        },
+        {
+          "text": "Ersatz vergeblicher Aufwendungen",
+          "isCorrect": true,
+          "rationale": "Aufwendungen, die im Vertrauen auf die ordnungsgemäße Lieferung getätigt wurden und nun nutzlos sind, können zurückgefordert werden."
+        },
+        {
+          "text": "Minderung des Kaufpreises für die Prospekte",
+          "isCorrect": false,
+          "rationale": "Der Lieferant hat die Prospekte nicht verkauft, er haftet für den Schaden an ihnen durch die mangelhafte Ware."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Anstelle von Schadensersatz kann der Käufer Ersatz für Aufwendungen fordern, die er im Vertrauen auf die mangelfreie Lieferung getätigt hat (z. B. Druckkosten für Prospekte).",
+      "videoUrl": "",
+      "youtubeQuery": "Ersatz vergeblicher Aufwendungen BGB"
+    },
+    {
+      "id": "kk_20",
+      "question": "Die Ventura-Outdoor GmbH (Kaufmann) kauft bei einem Großhändler (Kaufmann) 100 Schlafsäcke. Die Lieferung wird ins Lager gestellt, ohne geprüft zu werden. Zwei Monate später stellt sich heraus, dass statt roter blaue Schlafsäcke geliefert wurden (offener Mangel). Kann Ventura noch reklamieren?",
+      "answerOptions": [
+        {
+          "text": "Ja, die gesetzliche Frist beträgt immer 2 Jahre.",
+          "isCorrect": false,
+          "rationale": "Dies gilt im Verbrauchsgüterkauf, nicht beim zweiseitigen Handelskauf unter Kaufleuten."
+        },
+        {
+          "text": "Nein. Beim zweiseitigen Handelskauf müssen offene Mängel unverzüglich nach Eingang geprüft und gerügt werden; andernfalls entfallen die Ansprüche.",
+          "isCorrect": true,
+          "rationale": "Gemäß HGB müssen Kaufleute die Ware unverzüglich untersuchen und Mängel sofort anzeigen (Rügepflicht)."
+        },
+        {
+          "text": "Ja, solange die Ware noch nicht an Endkunden verkauft wurde.",
+          "isCorrect": false,
+          "rationale": "Der Weiterverkauf spielt für die Rügepflicht im B2B-Verhältnis keine Rolle."
+        },
+        {
+          "text": "Nein, weil Farbabweichungen kein Sachmangel sind.",
+          "isCorrect": false,
+          "rationale": "Falschlieferungen (andere Farbe) gelten rechtlich als Sachmangel."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Weil Kaufleute offene Mängel bei der Warenprüfung sofort erkennen können, sind sie verpflichtet, diese unverzüglich (ohne schuldhaftes Verzögern) mitzuteilen. Tun sie das nicht, gilt die Ware als genehmigt.",
+      "videoUrl": "",
+      "youtubeQuery": "Zweiseitiger Handelskauf Rügepflicht HGB"
+    },
+    {
+      "id": "kk_21",
+      "question": "Ein Privatkunde bringt nach 5 Monaten eine defekte Regenjacke zu Ventura-Outdoor zurück. Ventura behauptet, der Kunde habe den Riss selbst verursacht. Wer muss nun den Nachweis erbringen?",
+      "answerOptions": [
+        {
+          "text": "Der Käufer muss beweisen, dass die Jacke schon beim Kauf defekt war.",
+          "isCorrect": false,
+          "rationale": "Dies gilt erst nach Ablauf von 12 Monaten nach dem Kauf."
+        },
+        {
+          "text": "Die Ventura-Outdoor GmbH muss beweisen, dass die Jacke bei der Übergabe fehlerfrei war (Beweislastumkehr).",
+          "isCorrect": true,
+          "rationale": "Innerhalb der ersten 12 Monate wird gesetzlich vermutet, dass der Mangel bereits bei Übergabe vorlag."
+        },
+        {
+          "text": "Die Beweislast liegt beim Hersteller der Jacke.",
+          "isCorrect": false,
+          "rationale": "Der Händler ist der Vertragspartner und somit primär in der Nachweispflicht."
+        },
+        {
+          "text": "Es muss kein Beweis erbracht werden, der Kunde hat immer automatisch recht.",
+          "isCorrect": false,
+          "rationale": "Es handelt sich um eine rechtliche Vermutung, die der Händler durch Gegenbeweis widerlegen kann."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Wird ein Mangel innerhalb der ersten 12 Monate nach Übergabe gerügt, greift die Beweislastumkehr (§ 477 BGB). Es wird zugunsten des Privatkäufers gesetzlich vermutet, dass die Ware bereits bei Übergabe mangelhaft war.",
+      "videoUrl": "",
+      "youtubeQuery": "Beweislastumkehr Verbrauchsgüterkauf §477 BGB"
+    },
+    {
+      "id": "kk_22",
+      "question": "Ein Lieferant hat der Ventura-Outdoor GmbH arglistig einen schweren Mangel an Kletterseilen verschwiegen. Ventura entdeckt den Mangel am 12. September 2025. Wann verjährt der Anspruch?",
+      "answerOptions": [
+        {
+          "text": "Nach 2 Jahren ab Lieferung.",
+          "isCorrect": false,
+          "rationale": "Bei Arglist gilt eine längere Frist als die üblichen 2 Jahre."
+        },
+        {
+          "text": "Nach 3 Jahren, beginnend ab dem genauen Tag der Entdeckung (12. September 2028).",
+          "isCorrect": false,
+          "rationale": "Die Frist beginnt erst mit dem Ende des Kalenderjahres."
+        },
+        {
+          "text": "Es gilt die regelmäßige Verjährungsfrist von 3 Jahren, die mit dem Schluss des Jahres beginnt, in dem der Mangel entdeckt wurde (also Ablauf 31.12.2028).",
+          "isCorrect": true,
+          "rationale": "Arglistige Täuschung unterliegt der regelmäßigen Verjährung nach §§ 195, 199 BGB (3 Jahre zum Jahresende)."
+        },
+        {
+          "text": "Arglistige Täuschungen verjähren nie.",
+          "isCorrect": false,
+          "rationale": "Auch für Täuschungen gibt es gesetzliche Verjährungsfristen zur Herstellung von Rechtssicherheit."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Bei arglistig verschwiegenen Mängeln tritt die regelmäßige Verjährungsfrist von drei Jahren in Kraft. Diese beginnt stets mit dem Schluss des Jahres, in dem der Käufer Kenntnis vom Mangel erlangt hat.",
+      "videoUrl": "",
+      "youtubeQuery": "Verjährung arglistige Täuschung BGB"
+    },
+    {
+      "id": "kk_23",
+      "question": "Ein Kunde der Ventura-Outdoor GmbH verwechselt häufig die Begriffe \"Garantie\" und \"Gewährleistung\". Was ist der entscheidende rechtliche Unterschied?",
+      "answerOptions": [
+        {
+          "text": "Es gibt keinen Unterschied, beide Begriffe meinen rechtlich dasselbe.",
+          "isCorrect": false,
+          "rationale": "Rechtlich sind dies zwei völlig unterschiedliche Konzepte (gesetzlich vs. vertraglich)."
+        },
+        {
+          "text": "Garantie ist gesetzlich vorgeschrieben, Gewährleistung ist freiwillig.",
+          "isCorrect": false,
+          "rationale": "Es ist genau umgekehrt: Gewährleistung ist Gesetz, Garantie ist Kür."
+        },
+        {
+          "text": "Gewährleistung wird per Gesetz (BGB) zugesichert, Garantien sind hingegen immer freiwillige, vertragliche Zusatzleistungen des Herstellers oder Händlers.",
+          "isCorrect": true,
+          "rationale": "Gewährleistung (Sachmängelhaftung) ist ein gesetzlicher Anspruch; Garantien sind frei gestaltbare Zusatzversprechen."
+        },
+        {
+          "text": "Garantien gelten nur für Geschäftskunden, Gewährleistung nur für Privatkunden.",
+          "isCorrect": false,
+          "rationale": "Beide Konzepte können in beiden Kundengruppen vorkommen."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Die Sachmängelhaftung (Gewährleistung) ist gesetzlich geregelt (in der Regel 2 Jahre). Die Garantie ist eine freiwillige Leistung, deren genaue Bedingungen (z.B. 5 Jahre Garantie auf Rahmenbruch) frei vertraglich gestaltet werden können.",
+      "videoUrl": "",
+      "youtubeQuery": "Unterschied Garantie und Gewährleistung einfach erklärt"
+    },
+    {
+      "id": "kk_24",
+      "question": "Eine Kundin bringt ihre Outdoor-Uhr zweieinhalb Jahre nach dem Kauf in die Filiale, da das Display flackert. Die Gewährleistungsfrist ist abgelaufen. Ventura-Outdoor repariert die Uhr dennoch kostenlos, um die Kundin zufriedenzustellen. Wie nennt man dieses Verhalten?",
+      "answerOptions": [
+        {
+          "text": "Arglist",
+          "isCorrect": false,
+          "rationale": "Arglist ist eine Täuschung, hier wird der Kundin jedoch geholfen."
+        },
+        {
+          "text": "Umtauschrecht",
+          "isCorrect": false,
+          "rationale": "Ein Umtauschrecht besteht nach 2,5 Jahren gesetzlich nicht mehr."
+        },
+        {
+          "text": "Kulanz",
+          "isCorrect": true,
+          "rationale": "Kulanz ist das freiwillige Entgegenkommen ohne Rechtspflicht zur Stärkung der Kundenbindung."
+        },
+        {
+          "text": "Nacherfüllung",
+          "isCorrect": false,
+          "rationale": "Nacherfüllung ist eine Rechtspflicht innerhalb der Gewährleistung, die hier bereits abgelaufen ist."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Kulanz ist ein freiwilliges Entgegenkommen des Verkäufers, ohne dass es hierfür eine Rechtsgrundlage oder Rechtspflicht gibt. Sie dient meist dazu, die Kundenzufriedenheit zu erhalten.",
+      "videoUrl": "",
+      "youtubeQuery": "Kulanz Definition Einzelhandel"
+    },
+    {
+      "id": "kk_25",
+      "question": "Ein Kunde hat bei Ventura-Outdoor einen völlig intakten Schlafsack gekauft. Zu Hause merkt er, dass ihm die Farbe nicht gefällt. Er geht am nächsten Tag in den Laden und fordert lautstark sein \"gesetzliches Umtauschrecht\" ein. Hat er recht?",
+      "answerOptions": [
+        {
+          "text": "Ja, der Gesetzgeber räumt jedem Käufer ein 14-tägiges Rückgaberecht im stationären Handel ein.",
+          "isCorrect": false,
+          "rationale": "Das 14-tägige Widerrufsrecht gilt nur im Fernabsatz (Online-Handel), nicht im Laden vor Ort."
+        },
+        {
+          "text": "Nein. Einen gesetzlichen Anspruch auf den Umtausch von mangelfreier Ware gibt es nicht.",
+          "isCorrect": true,
+          "rationale": "Gekauft ist gekauft. Ohne Mangel gibt es keinen gesetzlichen Grund zur Rückgabe im stationären Geschäft."
+        },
+        {
+          "text": "Ja, aber nur, wenn die Ware noch originalverpackt ist.",
+          "isCorrect": false,
+          "rationale": "Auch Originalverpackung begründet keinen gesetzlichen Anspruch, höchstens ein freiwilliges Angebot des Händlers."
+        },
+        {
+          "text": "Nein, er muss die Farbe behalten, aber Ventura muss ihm 50 % des Preises erstatten.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine Pflicht zur Teil-Erstattung bei bloßem Nichtgefallen der Farbe."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Wenn eine Ware keinen Mangel aufweist, liegt rechtlich keine Kaufvertragsstörung vor. Es gibt kein allgemeines, gesetzliches Umtauschrecht im stationären Handel. Nimmt der Händler die Ware dennoch zurück, handelt er entweder aus vertraglich vereinbartem Umtauschrecht oder aus Kulanz.",
+      "videoUrl": "",
+      "youtubeQuery": "Gesetzliches Umtauschrecht stationärer Handel Irrtum"
     }
   ]
 }
