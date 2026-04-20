@@ -1,0 +1,334 @@
+{
+  "questions": [
+    {
+      "id": "kk_1",
+      "question": "Ein B2B-Kunde (Fitnessstudio) reklamiert 16 Monate nach Lieferung einen defekten Artikel. Laut AGB der Ventura-Outdoor GmbH verjähren Mängelansprüche nach 12 Monaten. Wie ist die rechtliche Situation?",
+      "answerOptions": [
+        {
+          "text": "Der Kunde hat rechtlichen Anspruch auf Neulieferung, da die gesetzliche Frist von 24 Monaten nicht durch AGB verkürzt werden darf.",
+          "isCorrect": false,
+          "rationale": "Im B2B-Bereich darf die Gewährleistungsfrist per AGB auf 12 Monate verkürzt werden. Das Verbot der Verkürzung gilt nur im B2C-Bereich gegenüber Verbrauchern."
+        },
+        {
+          "text": "Die Mängelansprüche sind verjährt. Der Verkäufer ist rechtlich zu keiner Gewährleistung mehr verpflichtet.",
+          "isCorrect": true,
+          "rationale": "Im B2B-Bereich ist eine Verkürzung der Gewährleistungsfrist auf 12 Monate per AGB gesetzlich zulässig und vertraglich vereinbart."
+        },
+        {
+          "text": "Der Kunde muss beweisen, dass der Fehler schon bei Lieferung vorlag, dann greift die Gewährleistung lebenslang.",
+          "isCorrect": false,
+          "rationale": "Eine lebenslange Gewährleistung gibt es nicht. Selbst bei Nachweis eines Mangels bei Lieferung gilt die vereinbarte Verjährungsfrist."
+        },
+        {
+          "text": "Der Verkäufer muss die Reparatur zahlen, aber der Kunde die Versandkosten.",
+          "isCorrect": false,
+          "rationale": "Nach Ablauf der Verjährungsfrist besteht gar kein Gewährleistungsanspruch mehr, daher ist eine Kostenverteilung irrelevant."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die Ansprüche sind verjährt, weil im B2B-Bereich (Geschäftskunde zu Geschäftskunde) eine Verkürzung der Gewährleistungsfrist auf 12 Monate per AGB gesetzlich zulässig und vertraglich vereinbart ist.",
+      "videoUrl": "",
+      "youtubeQuery": "B2B Gewährleistung AGB Verjährungsfrist 12 Monate"
+    },
+    {
+      "id": "kk_2",
+      "question": "Welche der folgenden Maßnahmen gehört rechtlich zu den sogenannten vorrangigen Rechten des Käufers bei einer mangelhaften Lieferung (Schlechtleistung)?",
+      "answerOptions": [
+        {
+          "text": "Rücktritt vom Kaufvertrag",
+          "isCorrect": false,
+          "rationale": "Der Rücktritt ist ein nachrangiges Recht und greift erst, wenn die Nacherfüllung gescheitert ist."
+        },
+        {
+          "text": "Schadensersatz statt der Leistung",
+          "isCorrect": false,
+          "rationale": "Schadensersatz statt der Leistung ist ebenfalls ein nachrangiges Recht."
+        },
+        {
+          "text": "Minderung des Kaufpreises",
+          "isCorrect": false,
+          "rationale": "Die Minderung ist ein nachrangiges Recht und kommt erst nach gescheiterter Nacherfüllung in Betracht."
+        },
+        {
+          "text": "Nacherfüllung (Reparatur oder Ersatzlieferung)",
+          "isCorrect": true,
+          "rationale": "Nacherfüllung ist vorrangig, weil der Verkäufer laut Gesetz zunächst die zweite Chance bekommen muss, den Vertrag ordnungsgemäß zu erfüllen."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Nacherfüllung ist vorrangig, weil der Verkäufer laut Gesetz zunächst immer die \"zweite Chance\" bekommen muss, den Vertrag ordnungsgemäß durch Reparatur (Nachbesserung) oder Ersatzlieferung zu erfüllen, bevor nachrangige Rechte wie Rücktritt oder Minderung greifen.",
+      "videoUrl": "",
+      "youtubeQuery": "Mängelrechte Nacherfüllung vorrangig Rücktritt Minderung"
+    },
+    {
+      "id": "kk_3",
+      "question": "Ein Kunde verlangt bei einem Defekt ausdrücklich eine Ersatzlieferung. Das Produkt ist jedoch nicht mehr im Sortiment, eine Beschaffung wäre extrem teuer. Eine Reparatur wäre hingegen schnell und günstig. Wie kann das Unternehmen reagieren?",
+      "answerOptions": [
+        {
+          "text": "Das Unternehmen muss das Gerät zwingend neu beschaffen, da der Kunde das Wahlrecht hat.",
+          "isCorrect": false,
+          "rationale": "Das Wahlrecht des Kunden ist nicht uneingeschränkt. Bei unverhältnismäßigen Kosten darf der Verkäufer auf die günstigere Alternative verweisen."
+        },
+        {
+          "text": "Das Unternehmen darf die Neulieferung wegen unverhältnismäßig hoher Kosten verweigern und stattdessen die Nachbesserung (Reparatur) durchführen.",
+          "isCorrect": true,
+          "rationale": "§ 439 BGB erlaubt es dem Verkäufer, die gewählte Art der Nacherfüllung bei unverhältnismäßig hohen Kosten auf die wirtschaftlichere Alternative umzulenken."
+        },
+        {
+          "text": "Das Unternehmen kann den Vertrag sofort einseitig kündigen und muss gar nichts tun.",
+          "isCorrect": false,
+          "rationale": "Eine einseitige Kündigung bei Mängelreklamation ist rechtlich nicht vorgesehen. Der Verkäufer bleibt zur Nacherfüllung verpflichtet."
+        },
+        {
+          "text": "Das Unternehmen muss dem Kunden stattdessen zwingend ein teureres Premium-Modell schenken.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine gesetzliche Pflicht, ein höherwertiges Produkt kostenlos bereitzustellen."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Das Unternehmen darf die gewählte Art verweigern, weil § 439 BGB besagt, dass die gewählte Art der Nacherfüllung bei unverhältnismäßig hohen Kosten (Fremdbeschaffung vs. eigene Reparatur) vom Verkäufer auf die wirtschaftlichere Alternative umgelenkt werden darf.",
+      "videoUrl": "",
+      "youtubeQuery": "§439 BGB Nacherfüllung unverhältnismäßige Kosten Verweigerung"
+    },
+    {
+      "id": "kk_4",
+      "question": "Bei einer ABC-Analyse liegt die Vorgabe für A-Kunden bei \"0,5\" (50 %). Wie ermitteln Sie in einer Liste die korrekte Anzahl der A-Kunden?",
+      "answerOptions": [
+        {
+          "text": "Man wählt alle Kunden aus, die einzeln mehr als 50 % des Gesamtumsatzes ausmachen.",
+          "isCorrect": false,
+          "rationale": "Es geht nicht um den Einzelumsatz eines Kunden, sondern um den kumulierten (aufaddierten) Umsatzanteil mehrerer Kunden."
+        },
+        {
+          "text": "Man halbiert die Gesamtzahl der Kunden (z. B. 15 von 30 Kunden).",
+          "isCorrect": false,
+          "rationale": "Die Anzahl der Kunden wird nicht pauschal halbiert. Die Einteilung basiert auf dem kumulierten Umsatz, nicht auf der Kundenzahl."
+        },
+        {
+          "text": "Man geht die nach Umsatz sortierte Liste von oben nach unten durch, bis der kumulierte (aufaddierte) Umsatz die Grenze von 50 % erreicht.",
+          "isCorrect": true,
+          "rationale": "Bei der ABC-Analyse wird der prozentuale Umsatzanteil der Kunden nach absteigender Sortierung nacheinander zusammengezählt, bis die Zielgrenze erreicht ist."
+        },
+        {
+          "text": "Man wählt die Kunden, die seit mindestens 50 Monaten regelmäßig einkaufen.",
+          "isCorrect": false,
+          "rationale": "Die ABC-Analyse basiert auf Umsatzanteilen, nicht auf der Dauer der Kundenbeziehung."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Kumuliert bedeutet aufaddiert, weil bei der ABC-Analyse der prozentuale Umsatzanteil der Kunden nach absteigender Sortierung nacheinander zusammengezählt wird, bis die Zielgrenze (hier 50 %) erreicht ist.",
+      "videoUrl": "",
+      "youtubeQuery": "ABC-Analyse Kunden kumulierter Umsatz A-Kunden"
+    },
+    {
+      "id": "kk_5",
+      "question": "Was besagt die 80-zu-20-Regel (Pareto-Prinzip) im Kontext der Kundenstrukturanalyse klassischerweise?",
+      "answerOptions": [
+        {
+          "text": "80 % der Kunden sind sehr wichtig, 20 % sind unwichtig.",
+          "isCorrect": false,
+          "rationale": "Das Pareto-Prinzip besagt das Gegenteil: Nur ein kleiner Teil der Kunden (ca. 20 %) ist für den Großteil des Umsatzes verantwortlich."
+        },
+        {
+          "text": "Etwa 20 % der Kunden generieren rund 80 % des Gesamtumsatzes.",
+          "isCorrect": true,
+          "rationale": "Das ist die Kerndefinition des Pareto-Prinzips: Ein kleiner Teil der Kunden (A-Kunden) trägt den Hauptteil des wirtschaftlichen Erfolgs."
+        },
+        {
+          "text": "80 % der Gewährleistungsfälle entstehen in den ersten 20 Tagen.",
+          "isCorrect": false,
+          "rationale": "Das Pareto-Prinzip bezieht sich auf Umsatzverteilung, nicht auf Gewährleistungszeiträume."
+        },
+        {
+          "text": "Bei 20 % Rabatt steigt der Umsatz um 80 %.",
+          "isCorrect": false,
+          "rationale": "Das Pareto-Prinzip beschreibt keine Rabatt-Umsatz-Relation, sondern die Konzentration von Umsatz auf wenige Kunden."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Das ist die Kerndefinition des Pareto-Prinzips, welche verdeutlicht, dass ein kleiner Teil der Kunden (A-Kunden) den Hauptteil des wirtschaftlichen Erfolgs trägt.",
+      "videoUrl": "",
+      "youtubeQuery": "Pareto-Prinzip 80-20-Regel Kundenstrukturanalyse"
+    },
+    {
+      "id": "kk_6",
+      "question": "Welche Maßnahme ist fachlich am geeignetsten, um einen enorm umsatzstarken A-Kunden langfristig an das Unternehmen zu binden?",
+      "answerOptions": [
+        {
+          "text": "Zuweisung eines festen Key-Account-Managers und hohe Kulanzbereitschaft.",
+          "isCorrect": true,
+          "rationale": "Ein Key-Account-Manager bindet den Kunden durch persönliche Betreuung, Priorisierung und kurze Dienstwege mit maximaler Wertschätzung."
+        },
+        {
+          "text": "Zusendung von standardisierten E-Mail-Newslettern einmal pro Quartal.",
+          "isCorrect": false,
+          "rationale": "Standardisierte Newsletter bieten keine individuelle Betreuung und reichen für die Bindung eines A-Kunden bei Weitem nicht aus."
+        },
+        {
+          "text": "Einsatz eines Chatbots, damit er nicht mehr anrufen muss.",
+          "isCorrect": false,
+          "rationale": "Ein Chatbot ersetzt keine persönliche Betreuung. A-Kunden erwarten individuelle Ansprechpartner, keine automatisierten Systeme."
+        },
+        {
+          "text": "Strikte Ablehnung von Reklamationen nach Fristablauf, um ihn zur Pünktlichkeit zu erziehen.",
+          "isCorrect": false,
+          "rationale": "Strenge Ablehnung gefährdet die Kundenbeziehung massiv und widerspricht dem Ziel der langfristigen Kundenbindung."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Ein Key-Account-Manager bindet den Kunden, weil er ihm durch persönliche Betreuung, Priorisierung und kurze Dienstwege maximale Wertschätzung entgegenbringt.",
+      "videoUrl": "",
+      "youtubeQuery": "Key-Account-Management A-Kunden Kundenbindung"
+    },
+    {
+      "id": "kk_7",
+      "question": "Welche Strategie ist wirtschaftlich besonders sinnvoll, um die Kundenbindung von B-Kunden (mittleres Umsatzsegment) zu stärken?",
+      "answerOptions": [
+        {
+          "text": "Tägliche, persönliche Besuche durch den Außendienst.",
+          "isCorrect": false,
+          "rationale": "Tägliche persönliche Besuche wären für B-Kunden wirtschaftlich unverhältnismäßig und nicht kosteneffizient."
+        },
+        {
+          "text": "Der Einsatz von automatisierten Treue-Bonussystemen und After-Sales-Mails.",
+          "isCorrect": true,
+          "rationale": "Automatisierte Systeme sind extrem gut skalierbar und kostengünstig, erhöhen aber dennoch durch kleine Anreize die Wechselbarriere zur Konkurrenz."
+        },
+        {
+          "text": "Das Einräumen von 50 % Dauer-Rabatt auf das gesamte Sortiment.",
+          "isCorrect": false,
+          "rationale": "Ein 50 % Dauer-Rabatt ist wirtschaftlich nicht tragbar und würde die Marge vollständig aufzehren."
+        },
+        {
+          "text": "Man sollte B-Kunden gar nicht binden, da sie zu wenig Umsatz bringen.",
+          "isCorrect": false,
+          "rationale": "B-Kunden haben Entwicklungspotenzial zu A-Kunden und tragen in Summe erheblich zum Umsatz bei."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Automatisierte Systeme sind sinnvoll für B-Kunden, weil sie extrem gut skalierbar und kostengünstig sind, aber dennoch durch kleine Anreize (Punkte, Rabatte) die Wechselbarriere zur Konkurrenz erhöhen.",
+      "videoUrl": "",
+      "youtubeQuery": "B-Kunden Kundenbindung automatisierte Bonussysteme After-Sales"
+    },
+    {
+      "id": "kk_8",
+      "question": "Welcher der folgenden Punkte ist ein klassischer Nachteil beim Einsatz von Textbausteinen im schriftlichen Kundenservice?",
+      "answerOptions": [
+        {
+          "text": "Sie reduzieren die Rechtssicherheit bei komplexen AGB-Themen.",
+          "isCorrect": false,
+          "rationale": "Textbausteine erhöhen eher die Rechtssicherheit, da sie standardisierte, geprüfte Formulierungen enthalten."
+        },
+        {
+          "text": "Sie verlangsamen die Bearbeitungszeit pro E-Mail massiv.",
+          "isCorrect": false,
+          "rationale": "Textbausteine beschleunigen die Bearbeitungszeit, da nicht jede Antwort von Grund auf neu formuliert werden muss."
+        },
+        {
+          "text": "Sie verhindern eine einheitliche Corporate Identity (Unternehmensauftritt).",
+          "isCorrect": false,
+          "rationale": "Textbausteine fördern die Corporate Identity, weil sie einheitliche Sprache und Tonalität sicherstellen."
+        },
+        {
+          "text": "Sie wirken oft roboterhaft und vermitteln dem Kunden keine individuelle Wertschätzung.",
+          "isCorrect": true,
+          "rationale": "Kunden haben bei pauschalen Standardantworten oft das Gefühl, dass ihr individuelles Problem nicht richtig gelesen oder ernst genommen wurde."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Unpersönlichkeit ist ein Nachteil, weil Kunden bei pauschalen Standardantworten oft das Gefühl haben, dass ihr individuelles Problem nicht richtig gelesen oder von einem Menschen ernst genommen wurde.",
+      "videoUrl": "",
+      "youtubeQuery": "Textbausteine Kundenservice Vorteile Nachteile"
+    },
+    {
+      "id": "kk_9",
+      "question": "Was ist das wichtigste, definierende Merkmal eines \"Chatbots\" in Abgrenzung zum klassischen Kundenservice?",
+      "answerOptions": [
+        {
+          "text": "Er ist ein vollautomatisches, computergestütztes Softwaresystem, das ohne menschliche Mitarbeiter kommuniziert.",
+          "isCorrect": true,
+          "rationale": "Das Fehlen eines menschlichen Gegenübers ist das absolute Hauptmerkmal. Chatbots arbeiten entweder regelbasiert (Entscheidungsbaum) oder mit künstlicher Intelligenz."
+        },
+        {
+          "text": "Er verbindet den Kunden besonders schnell mit dem Geschäftsführer.",
+          "isCorrect": false,
+          "rationale": "Ein Chatbot leitet nicht an den Geschäftsführer weiter, sondern beantwortet Anfragen selbstständig ohne menschliche Beteiligung."
+        },
+        {
+          "text": "Er ist ein menschlicher Mitarbeiter, der ausschließlich über Tastatur tippt.",
+          "isCorrect": false,
+          "rationale": "Ein Chatbot ist gerade kein menschlicher Mitarbeiter, sondern ein automatisiertes Softwaresystem."
+        },
+        {
+          "text": "Er kann nur während der regulären Öffnungszeiten genutzt werden.",
+          "isCorrect": false,
+          "rationale": "Ein wesentlicher Vorteil von Chatbots ist die 24/7-Verfügbarkeit, also gerade keine Beschränkung auf Öffnungszeiten."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Das Fehlen eines menschlichen Gegenübers ist das absolute Hauptmerkmal, weil Chatbots entweder starr nach vorgegebenen Regeln (Entscheidungsbaum) oder mit künstlicher Intelligenz (KI) programmiert sind.",
+      "videoUrl": "",
+      "youtubeQuery": "Chatbot Definition Merkmal künstliche Intelligenz Kundenservice"
+    },
+    {
+      "id": "kk_10",
+      "question": "Warum ist ein Chatbot aus Sicht der betrieblichen Prozessoptimierung besonders vorteilhaft für ein Unternehmen?",
+      "answerOptions": [
+        {
+          "text": "Weil er alle A-Kunden persönlich besucht.",
+          "isCorrect": false,
+          "rationale": "Ein Chatbot ist ein digitales Kommunikationstool und führt keine persönlichen Kundenbesuche durch."
+        },
+        {
+          "text": "Weil er eine 24/7-Erreichbarkeit bietet und menschliche Mitarbeiter bei einfachen Standardfragen entlastet.",
+          "isCorrect": true,
+          "rationale": "Der Kunde erhält sofortige Antworten auch am Wochenende oder nachts, was die Antwortrate verbessert und dem Personal Zeit für komplexe Anliegen freiräumt."
+        },
+        {
+          "text": "Weil er automatisch unbezahlte Rechnungen eintreibt.",
+          "isCorrect": false,
+          "rationale": "Das Eintreiben von Forderungen ist keine typische Chatbot-Funktion, sondern Aufgabe des Mahnwesens."
+        },
+        {
+          "text": "Weil er die rechtliche Gewährleistungspflicht des Unternehmens aufhebt.",
+          "isCorrect": false,
+          "rationale": "Ein Chatbot hat keinen Einfluss auf gesetzliche Gewährleistungspflichten. Diese bleiben unabhängig vom Kommunikationskanal bestehen."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Ein 24/7-Service optimiert Prozesse, weil der Kunde sofortige Antworten (auch am Wochenende oder nachts) erhält, was die Antwortrate verbessert und gleichzeitig dem Personal wertvolle Zeit für wirklich komplexe Kundenanliegen freiräumt.",
+      "videoUrl": "",
+      "youtubeQuery": "Chatbot Vorteile Unternehmen 24/7 Prozessoptimierung"
+    }
+  ]
+}
