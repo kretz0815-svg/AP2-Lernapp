@@ -2426,7 +2426,7 @@ ${input}`;
   // Fallback for unknown appMode
   // (Effect defined here — BEFORE any conditional return — to comply with React hooks rules)
   useEffect(() => {
-    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'marketing_review_result', 'wisor', 'wisor_eco_setup', 'wisor_eco_quiz', 'klr_mc_setup', 'klr_mc', 'rechen_tasks_setup', 'kpi_next_level', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'nutzwertanalyse', 'swot_analyse', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
+    if (appMode && !['intro', 'auth', 'dashboard', 'quiz', 'quiz_setup', 'marketing_review_setup', 'marketing_review_quiz', 'marketing_review_result', 'kundenkommunikation_setup', 'kundenkommunikation_quiz', 'wisor', 'wisor_eco_setup', 'wisor_eco_quiz', 'klr_mc_setup', 'klr_mc', 'rechen_tasks_setup', 'kpi_next_level', 'klr', 'kalkulation', 'break_even', 'ecommerce_kalkulation', 'nutzwertanalyse', 'swot_analyse', 'project_m', 'journey_architect', 'notes_manager', 'learning_dashboard', 'appearance_settings', 'flashcards'].includes(appMode)) {
       setAppMode('dashboard');
     }
   }, [appMode]);
