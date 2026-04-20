@@ -3809,6 +3809,55 @@ ${input}`;
     );
   }
 
+  if (appMode === 'kundenkommunikation_quiz') {
+    return (
+      <React.Suspense fallback={<div className="loading-overlay">Lade Kundenkommunikation...</div>}>
+        <QuizErrorBoundary onReset={() => setAppMode('kundenkommunikation_setup')}>
+          <QuizSession
+            quizDuePool={getDueKundenkommunikationByTopic('all')}
+            initialSessionPool={kundenkommunikationSessionPool}
+            dbRemainingCount={getDueKundenkommunikationByTopic('all').length}
+            onComplete={() => {
+              setKundenkommunikationSessionPool([]);
+              setAppMode('kundenkommunikation_setup');
+            }}
+            onCancel={() => {
+              setKundenkommunikationSessionPool([]);
+              setAppMode('dashboard');
+            }}
+            feynmanModeEnabled={feynmanModeEnabled}
+            onLearningEvent={appendLearningEvent}
+            onQuizAnswer={(q, isCorrect) => handleKundenkommunikationAnswerUpdate(q, isCorrect, kundenkommunikationSessionRepeatMode)}
+            handleGeminiAsk={handleGeminiAsk}
+            geminiResponse={geminiResponse}
+            geminiLoading={geminiLoading}
+            setGeminiQuery={setGeminiQuery}
+            geminiQuery={geminiQuery}
+            setGeminiVisible={setGeminiVisible}
+            geminiVisible={geminiVisible}
+            pomodoroPortal={pomodoroPortal}
+            burgerMenuPortal={burgerMenuPortal}
+            handleToggleVideos={handleToggleVideos}
+            wisorVideoOpen={wisorVideoOpen}
+            setWisorVideoOpen={setWisorVideoOpen}
+            wisorVideoLoading={wisorVideoLoading}
+            wisorVideos={wisorVideos}
+            wisorVideoError={wisorVideoError}
+            selectedWisorVideo={selectedWisorVideo}
+            setSelectedWisorVideo={setSelectedWisorVideo}
+            showConfetti={showConfetti}
+            triggerConfetti={() => triggerConfetti()}
+            lastQuizCorrect={lastQuizCorrect}
+            setAppMode={setAppMode}
+            handleFeynmanCheck={handleFeynmanCheck}
+            learningMode="kundenkommunikation"
+            setupMode="kundenkommunikation_setup"
+          />
+        </QuizErrorBoundary>
+      </React.Suspense>
+    );
+  }
+
   if (appMode === 'wisor') {
     return (
       <React.Suspense fallback={<div className="app-container" style={{ zIndex: 10 }}>WisoR lädt...</div>}>
