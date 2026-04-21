@@ -824,6 +824,369 @@
       "rationale": "Richtig ist B. Wenn eine Ware keinen Mangel aufweist, liegt rechtlich keine Kaufvertragsstörung vor. Es gibt kein allgemeines, gesetzliches Umtauschrecht im stationären Handel. Nimmt der Händler die Ware dennoch zurück, handelt er entweder aus vertraglich vereinbartem Umtauschrecht oder aus Kulanz.",
       "videoUrl": "",
       "youtubeQuery": "Gesetzliches Umtauschrecht stationärer Handel Irrtum"
+    },
+    {
+      "id": "kk_26",
+      "question": "Ein Kunde kauft im Online-Shop der Ventura-Outdoor GmbH das digitale Fitness-Programm „Fit für Mountain“ für 57,80 €. Laut Werbeanzeige enthält das Paket Online-Workouts, eine Tracking-App und ein Camping-Geschirr als „Geschenk“. Der Kunde hat bezahlt und die Zugangsdaten erhalten, aber die Tracking-App lässt sich nicht öffnen und das Geschirr fehlt im Paket. Wie ist diese Situation vertragsrechtlich zu bewerten?",
+      "answerOptions": [
+        {
+          "text": "Es ist kein gültiger Vertrag zustande gekommen, da digitale und physische Güter nicht gemischt werden dürfen.",
+          "isCorrect": false,
+          "rationale": "Mischverträge sind zulässig."
+        },
+        {
+          "text": "Es liegt ein gültiger Kaufvertrag vor, jedoch mit Sachmängeln: Einem Mangel in der Beschaffenheit (Software-Fehler) und einer Fehlmenge (fehlendes Zubehör).",
+          "isCorrect": true,
+          "rationale": "Die fehlerhafte Software und das fehlende Zubehör stellen Sachmängel nach § 434 BGB dar."
+        },
+        {
+          "text": "Der Vertrag ist gültig, aber der Kunde hat kein Recht auf das Geschirr, da Geschenke gesetzlich niemals einklagbar sind.",
+          "isCorrect": false,
+          "rationale": "Wenn ein \"Geschenk\" Teil eines Kaufangebots ist, wird es rechtlich zur versprochenen Leistung/Zugabe und ist einklagbar."
+        },
+        {
+          "text": "Der Vertrag ist schwebend unwirksam, bis der Kunde das Programm vollständig nutzen kann.",
+          "isCorrect": false,
+          "rationale": "Schwebende Unwirksamkeit tritt bei beschränkt Geschäftsfähigen auf, nicht bei Sachmängeln."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Da das Paket als Ganzes verkauft wurde, stellen sowohl die nicht funktionierende App (Mangel in der Beschaffenheit) als auch das fehlende Geschirr (Minderlieferung/Fehlmenge) Sachmängel dar.",
+      "videoUrl": "",
+      "youtubeQuery": "Sachmangel Fehlmenge digitale Produkte BGB"
+    },
+    {
+      "id": "kk_27",
+      "question": "Die erworbene Software hat einen bekannten Fehler, dessen Behebung Wochen dauern könnte. Die Ventura-Outdoor GmbH hat jedoch das teurere Premium-Programm „Mountain & Road“ (+ 20 €) im Sortiment, welches fehlerfrei funktioniert. Der Kunde ist sehr unzufrieden und fordert eine sofortige Lösung. Welche Reaktion ist aus Sicht der Kundenbindung und Wirtschaftlichkeit am sinnvollsten?",
+      "answerOptions": [
+        {
+          "text": "Dem Kunden mitteilen, dass er auf ein Software-Update warten muss, da ein Austausch gegen ein teureres Produkt zu Verlusten führt.",
+          "isCorrect": false,
+          "rationale": "Dies schadet der Kundenbindung massiv und kann zu einem Rücktritt vom Vertrag führen."
+        },
+        {
+          "text": "Den Kaufvertrag sofort stornieren und das Konto des Kunden sperren, um weitere Beschwerden zu vermeiden.",
+          "isCorrect": false,
+          "rationale": "Dies ist geschäftsschädigend und rechtlich bei einem einfachen Mangel nicht gerechtfertigt."
+        },
+        {
+          "text": "Sich für den Fehler entschuldigen und dem Kunden als schnelle Kulanzlösung ein kostenloses Upgrade auf das funktionierende Premium-Programm anbieten.",
+          "isCorrect": true,
+          "rationale": "Kulanz erhöht die Kundenzufriedenheit und vermeidet teurere Rückabwicklungen oder negative Bewertungen."
+        },
+        {
+          "text": "Dem Kunden die Premium-Version freischalten, aber nachträglich die 20 € Preisdifferenz in Rechnung stellen.",
+          "isCorrect": false,
+          "rationale": "Eine nachträgliche Rechnung ohne Vereinbarung ist rechtlich problematisch und wirkt unprofessionell."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Ein kostenloses Upgrade ist eine starke Kulanzleistung, die den Kunden trotz des Fehlers bindet und oft günstiger ist als ein kompletter Rücktritt oder Rechtsstreit.",
+      "videoUrl": "",
+      "youtubeQuery": "Kulanz Kundenbindung Reklamationsmanagement"
+    },
+    {
+      "id": "kk_28",
+      "question": "Der Kunde tritt verärgert vom Kaufvertrag zurück. Das physische Camping-Geschirr, das im Angebot als „Geschenk“ deklariert war, möchte er jedoch behalten, da „Geschenke“ laut BGB nur bei grobem Undank zurückgefordert werden können. Ist der Kunde im Recht?",
+      "answerOptions": [
+        {
+          "text": "Ja, das Wort „Geschenk“ in der Anzeige macht das Geschirr zu einer rechtlich eigenständigen Schenkung.",
+          "isCorrect": false,
+          "rationale": "Im kommerziellen Kontext sind \"Geschenke\" meist Zugaben, die an den Hauptvertrag gekoppelt sind."
+        },
+        {
+          "text": "Nein. Das Geschirr war eine sogenannte „Zugabe“ und untrennbar mit dem Hauptvertrag gekoppelt. Bei einem Rücktritt muss auch die Zugabe zurückgewährt werden.",
+          "isCorrect": true,
+          "rationale": "Bei Rücktritt sind alle empfangenen Leistungen zurückzugewähren (§ 346 BGB), auch gekoppelte Zugaben."
+        },
+        {
+          "text": "Ja, weil bei einem Warenwert unter 10 € generell kein Rückgaberecht auf Seiten des Verkäufers besteht.",
+          "isCorrect": false,
+          "rationale": "Der Warenwert spielt für die Rückgewährpflicht beim Rücktritt keine gesetzliche Rolle."
+        },
+        {
+          "text": "Nein, er muss es zurückgeben, aber Ventura-Outdoor muss ihm dafür den regulären Verkaufspreis des Geschirrs auszahlen.",
+          "isCorrect": false,
+          "rationale": "Bei Rücktritt erfolgt eine Rückabwicklung der Leistung, keine Auszahlung für zurückgegebene Zugaben."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Rechtlich handelt es sich um eine Zugabe zum Hauptvertrag. Fällt der Hauptvertrag durch Rücktritt weg, entfällt auch der Rechtsgrund für das Behalten der Zugabe.",
+      "videoUrl": "",
+      "youtubeQuery": "Rücktritt Kaufvertrag Zugabe Rückgabepflicht"
+    },
+    {
+      "id": "kk_29",
+      "question": "Kommunikationskanäle im E-Commerce werden in synchrone (direkte) und asynchrone (indirekte) Kanäle unterteilt. Welche Antwortkombination listet zwei typisch asynchrone Kanäle auf?",
+      "answerOptions": [
+        {
+          "text": "Telefon und Live-Chat",
+          "isCorrect": false,
+          "rationale": "Beide sind synchrone Kanäle."
+        },
+        {
+          "text": "Live-Chat und Kontaktformular",
+          "isCorrect": false,
+          "rationale": "Live-Chat ist synchron, Kontaktformular asynchron."
+        },
+        {
+          "text": "E-Mail und Kontaktformular",
+          "isCorrect": true,
+          "rationale": "Bei beiden Kanälen erfolgt die Antwort zeitversetzt."
+        },
+        {
+          "text": "Videoanruf und E-Mail",
+          "isCorrect": false,
+          "rationale": "Videoanruf ist synchron, E-Mail asynchron."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Asynchron bedeutet zeitversetzt. E-Mail und Kontaktformulare sind die klassischen Beispiele hierfür.",
+      "videoUrl": "",
+      "youtubeQuery": "synchrone asynchrone Kommunikation E-Commerce"
+    },
+    {
+      "id": "kk_30",
+      "question": "Die Wartezeiten im synchronen Live-Chat der Ventura-Outdoor GmbH sind in der Hauptsaison stark gestiegen. Welche operativen Maßnahmen eignen sich am besten, um die Wartezeit effizient zu verkürzen?",
+      "answerOptions": [
+        {
+          "text": "Einen Chatbot zur Vorqualifizierung (z. B. Abfrage der Bestellnummer) einsetzen und Textbausteine für die menschlichen Agenten bereitstellen.",
+          "isCorrect": true,
+          "rationale": "Diese Maßnahmen entlasten die Agenten und beschleunigen die Bearbeitung pro Fall."
+        },
+        {
+          "text": "Den Live-Chat-Button auf der Website auf Unterseiten verstecken, damit ihn nur noch hartnäckige Kunden finden.",
+          "isCorrect": false,
+          "rationale": "Dies senkt die Servicequalität und frustriert Kunden."
+        },
+        {
+          "text": "Kunden nach 30 Sekunden ohne Antwort des Agenten automatisch aus dem Chat werfen.",
+          "isCorrect": false,
+          "rationale": "Das ist extrem unhöflich und führt zu massiver Unzufriedenheit."
+        },
+        {
+          "text": "Das Support-Team anweisen, nur noch auf jede zweite Nachricht zu reagieren.",
+          "isCorrect": false,
+          "rationale": "Unvollständiger Support ist kein effizienter Service."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Chatbots und Textbausteine sind Standardinstrumente zur Effizienzsteigerung im digitalen Support.",
+      "videoUrl": "",
+      "youtubeQuery": "Live-Chat Optimierung Chatbot Textbausteine"
+    },
+    {
+      "id": "kk_31",
+      "question": "Für einen neuen Sub-Shop zum Thema Tropen-Ausrüstung soll eine FAQ-Seite (Frequently Asked Questions) erstellt werden. Welchen primären Vorteil bietet eine solche Seite für den Kunden und das Unternehmen?",
+      "answerOptions": [
+        {
+          "text": "Der Kunde erhält für jede gelesene Antwort automatisch Treuepunkte.",
+          "isCorrect": false,
+          "rationale": "FAQ-Seiten dienen der Information."
+        },
+        {
+          "text": "Die FAQ-Seite schützt das Unternehmen rechtlich vor jeglichen Abmahnungen.",
+          "isCorrect": false,
+          "rationale": "FAQs ersetzen keine Rechtstexte."
+        },
+        {
+          "text": "Der Kunde kann über die FAQ-Seite in Echtzeit mit anderen Käufern chatten.",
+          "isCorrect": false,
+          "rationale": "Das wäre ein Forum, keine FAQ-Seite."
+        },
+        {
+          "text": "Der Kunde kann sich 24/7 im „Self-Service“ informieren, was Wartezeiten vermeidet und den Kundensupport entlastet.",
+          "isCorrect": true,
+          "rationale": "Hilfe zur Selbsthilfe ist der Hauptzweck von FAQs."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Eine gute FAQ-Seite reduziert das Anfragevolumen im Support, da Standardfragen bereits online beantwortet werden.",
+      "videoUrl": "",
+      "youtubeQuery": "Vorteile FAQ Seite Kundenservice"
+    },
+    {
+      "id": "kk_32",
+      "question": "Welcher Aspekt muss bei der inhaltlichen und optischen Gestaltung einer effektiven FAQ-Seite zwingend beachtet werden?",
+      "answerOptions": [
+        {
+          "text": "Die Antworten sollten in komplexem Juristendeutsch verfasst sein, um absolute Rechtssicherheit auszustrahlen.",
+          "isCorrect": false,
+          "rationale": "FAQs sollten für Kunden leicht verständlich sein."
+        },
+        {
+          "text": "Alle Fragen und Antworten sollten als endloser Fließtext ohne Absätze dargestellt werden.",
+          "isCorrect": false,
+          "rationale": "Dies verschlechtert die Lesbarkeit massiv."
+        },
+        {
+          "text": "Die FAQ muss logisch nach Themenclustern (z. B. Versand, Zahlung, Rückgabe) strukturiert und idealerweise mit einer Suchfunktion ausgestattet sein.",
+          "isCorrect": true,
+          "rationale": "Struktur und Suchbarkeit sind entscheidend für die Usability."
+        },
+        {
+          "text": "Die Seite sollte keine Navigationselemente zurück zum Shop enthalten.",
+          "isCorrect": false,
+          "rationale": "Der Kunde sollte immer leicht zurück zum Kaufprozess finden."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Kunden suchen gezielt nach Informationen; Themencluster helfen bei der Orientierung.",
+      "videoUrl": "",
+      "youtubeQuery": "FAQ Seite gestalten Best Practices"
+    },
+    {
+      "id": "kk_33",
+      "question": "Ein Kunde schreibt an den Support: „Ich bin seit Jahren Stammkunde. Jetzt habe ich zum ersten Mal eine Reklamation und ihr seid so inkulant. Wenn Sie mir nicht sofort entgegenkommen, bestelle ich hier nie wieder!“ Welcher Teil der Nachricht entspricht im 4-Ohren-Modell (Schulz von Thun) am stärksten der Appell-Ebene?",
+      "answerOptions": [
+        {
+          "text": "„Ich bin seit Jahren Stammkunde.“ (Selbstoffenbarung)",
+          "isCorrect": false,
+          "rationale": "Dies ist die Selbstoffenbarungsebene."
+        },
+        {
+          "text": "„Ihr seid so inkulant.“ (Beziehungsebene)",
+          "isCorrect": false,
+          "rationale": "Dies ist die Beziehungsebene."
+        },
+        {
+          "text": "Das Gefühl der Enttäuschung und Wut.",
+          "isCorrect": false,
+          "rationale": "Dies ist Teil der Selbstoffenbarung."
+        },
+        {
+          "text": "Die implizite Forderung: „Lösen Sie mein Problem und kommen Sie mir entgegen!“",
+          "isCorrect": true,
+          "rationale": "Der Appell ist das, was der Sender beim Empfänger erreichen will."
+        }
+      ],
+      "expectedAnswers": [
+        "D"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist D. Die Appell-Ebene fokussiert sich auf die Handlungsaufforderung an den Empfänger.",
+      "videoUrl": "",
+      "youtubeQuery": "4-Ohren-Modell Appell-Ebene Beispiele"
+    },
+    {
+      "id": "kk_34",
+      "question": "Für die Kundenkommunikation über Social Media soll ein Kommunikationsleitfaden erstellt werden. Welche Bestandteile gehören zwingend in einen solchen Leitfaden für die Support-Mitarbeiter?",
+      "answerOptions": [
+        {
+          "text": "Die privaten Handynummern aller Support-Mitarbeiter für eine 24/7-Erreichbarkeit.",
+          "isCorrect": false,
+          "rationale": "Dies widerspricht dem Datenschutz."
+        },
+        {
+          "text": "Regelungen zum „Tone of Voice“ (z. B. Du- vs. Sie-Form), definierte Reaktionszeiten (SLA) und Eskalationspfade (wer bei Krisen entscheidet).",
+          "isCorrect": true,
+          "rationale": "Diese Elemente sichern eine konsistente Außenwirkung."
+        },
+        {
+          "text": "Eine Liste mit Textbausteinen, die unter jedem Beitrag exakt gleich kopiert und eingefügt werden müssen, ohne Anpassung an den Kunden.",
+          "isCorrect": false,
+          "rationale": "In Social Media wird Authentizität erwartet."
+        },
+        {
+          "text": "Die strikte Anweisung, jede Form von Kritik sofort zu löschen, um das Image sauber zu halten.",
+          "isCorrect": false,
+          "rationale": "Löschen von sachlicher Kritik führt oft zu einem Shitstorm."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Ein Leitfaden gibt den Rahmen vor, innerhalb dessen sich die Mitarbeiter sicher bewegen können.",
+      "videoUrl": "",
+      "youtubeQuery": "Social Media Kommunikationsleitfaden"
+    },
+    {
+      "id": "kk_35",
+      "question": "Ein Kunde hinterlässt auf der Facebook-Seite der Ventura-Outdoor GmbH eine sehr negative, aber sachliche 1-Stern-Bewertung, weil ein Zeltstangen-Set verbogen geliefert wurde. Wie sollte der Support idealerweise öffentlich darauf reagieren?",
+      "answerOptions": [
+        {
+          "text": "Den Kunden ignorieren, um keine weitere Aufmerksamkeit auf den Beitrag zu lenken.",
+          "isCorrect": false,
+          "rationale": "Ignorieren wirkt arrogant."
+        },
+        {
+          "text": "Mit rechtlichen Konsequenzen drohen, falls die Bewertung nicht umgehend gelöscht wird.",
+          "isCorrect": false,
+          "rationale": "Drohungen schaden dem Image massiv."
+        },
+        {
+          "text": "Sich öffentlich für das Problem entschuldigen, Verständnis zeigen und den Kunden bitten, sich per Direktnachricht (DM) oder E-Mail für einen schnellen Austausch zu melden.",
+          "isCorrect": true,
+          "rationale": "Dies zeigt Serviceorientierung und verlagert die Klärung ins Private."
+        },
+        {
+          "text": "Unter der Bewertung behaupten, der Kunde habe das Set vermutlich selbst beim ungeschickten Aufbau zerstört.",
+          "isCorrect": false,
+          "rationale": "Schuldzuweisungen sind unprofessionell."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Man zeigt Präsenz und Lösungswillen, vermeidet aber eine öffentliche Schlammschlacht.",
+      "videoUrl": "",
+      "youtubeQuery": "Umgang mit negativen Bewertungen Social Media"
+    },
+    {
+      "id": "kk_36",
+      "question": "Mit welcher Leistungskennzahl (KPI) im Kundenservice kann die Ventura-Outdoor GmbH messen, wie viel Prozent der Kundenanfragen direkt beim allerersten Kontakt (ohne weitere Rückfragen) erfolgreich und abschließend geklärt wurden?",
+      "answerOptions": [
+        {
+          "text": "Bounce Rate (Absprungrate)",
+          "isCorrect": false,
+          "rationale": "Die Bounce Rate misst Website-Abbrüche."
+        },
+        {
+          "text": "First Contact Resolution Rate (FCR / Erstlösungsquote)",
+          "isCorrect": true,
+          "rationale": "FCR gibt an, wie viele Anliegen sofort beim ersten Kontakt gelöst wurden."
+        },
+        {
+          "text": "Average Order Value (AOV / Durchschnittlicher Bestellwert)",
+          "isCorrect": false,
+          "rationale": "AOV ist eine Vertriebskennzahl."
+        },
+        {
+          "text": "Conversion Rate (Konversionsrate)",
+          "isCorrect": false,
+          "rationale": "Die Conversion Rate misst das Verhältnis von Besuchern zu Käufern."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Eine hohe FCR-Quote ist ein Indikator für hohe Effizienz und Kundenzufriedenheit im Support.",
+      "videoUrl": "",
+      "youtubeQuery": "First Contact Resolution Rate Kundenservice KPI"
     }
   ]
 }
