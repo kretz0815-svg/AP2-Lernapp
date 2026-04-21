@@ -1187,6 +1187,1986 @@
       "rationale": "Richtig ist B. Eine hohe FCR-Quote ist ein Indikator für hohe Effizienz und Kundenzufriedenheit im Support.",
       "videoUrl": "",
       "youtubeQuery": "First Contact Resolution Rate Kundenservice KPI"
+    },
+    {
+      "id": "kk_37",
+      "question": "Ein Kunde der „Active-Lifestyle UG“ hat einen Rucksack zurückgeschickt, da der Reißverschluss defekt ist. Das Paket kommt im Unternehmen an. Welche Abteilung ist in einem professionellen Retourenprozess nun im nächsten Schritt dafür zuständig, die Ware in Empfang zu nehmen, sie auf Beschädigung zu prüfen und zu entscheiden, ob eine Rückerstattung erfolgt?",
+      "answerOptions": [
+        {
+          "text": "Die Buchhaltung",
+          "isCorrect": false,
+          "rationale": "Die Buchhaltung erstattet zwar das Geld, kann aber den physischen Zustand der Ware im Lager nicht prüfen."
+        },
+        {
+          "text": "Die Marketingabteilung",
+          "isCorrect": false,
+          "rationale": "Marketing befasst sich mit der Kundengewinnung, nicht mit der physischen Warenprüfung."
+        },
+        {
+          "text": "Die Retourenabteilung / das Qualitätsmanagement (QM)",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Wenn die Ware zurückkommt, prüft die Retourenabteilung bzw. das QM den Artikel auf Vollständigkeit und Funktionalität, bevor weitere Schritte wie die Erstattung eingeleitet werden."
+        },
+        {
+          "text": "Das Controlling",
+          "isCorrect": false,
+          "rationale": "Controlling wertet die Kennzahlen (Retourenquote) aus, ist aber nicht operativ in die Warenprüfung eingebunden."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Wenn die Ware zurückkommt, prüft die Retourenabteilung bzw. das QM den Artikel auf Vollständigkeit und Funktionalität, bevor weitere Schritte wie die Erstattung eingeleitet werden.",
+      "videoUrl": "",
+      "youtubeQuery": "Retourenprozess Ablauf E-Commerce Logistik"
+    },
+    {
+      "id": "kk_38",
+      "question": "Ein Kunde kauft einen teuren Trainingsanzug der Marke „Pro-Flex“ im Shop der „Active-Trail AG“. Nach 10 Tagen sendet er ihn im Rahmen des Widerrufsrechts zurück. Die Retourenabteilung stellt fest: Der Anzug riecht nach Schweiß, hat Flecken und in der Tasche steckt ein gestempeltes Ticket für ein Fitnessstudio. Wie ist die rechtliche Lage bezüglich der Rückerstattung?",
+      "answerOptions": [
+        {
+          "text": "Das Widerrufsrecht erlischt sofort; der Kunde bekommt den Anzug zurückgeschickt und muss den vollen Preis zahlen.",
+          "isCorrect": false,
+          "rationale": "Das Widerrufsrecht bleibt grundsätzlich bestehen, aber die Höhe der Erstattung kann gemindert werden."
+        },
+        {
+          "text": "Der Kunde darf widerrufen, hat aber keinen Anspruch auf die volle Erstattung. Das Unternehmen kann einen Wertersatz (z. B. für Reinigungskosten und Wertverlust) vom Kaufpreis abziehen, da die Ware über das erlaubte Testen hinaus genutzt wurde.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das Widerrufsrecht bleibt grundsätzlich bestehen. Allerdings darf der Kunde die Ware nur so prüfen, wie es auch in einem Ladengeschäft möglich wäre (kurze Anprobe). Wurde die Ware darüber hinaus intensiv genutzt (Fitnessstudio), darf der Händler einen Wertersatz für den entstandenen Wertverlust bzw. die Reinigungskosten einbehalten."
+        },
+        {
+          "text": "Das Unternehmen muss den vollen Kaufpreis erstatten, da der Kunde gesetzlich das Recht hat, Sportkleidung vor dem Widerruf intensiv beim Sport zu testen.",
+          "isCorrect": false,
+          "rationale": "Falsch. Das Testen während des Sports geht über die Prüfung der Beschaffenheit (wie im Laden) hinaus."
+        },
+        {
+          "text": "Das Unternehmen muss den vollen Preis erstatten, darf dem Kunden aber eine Strafgebühr von 50 € in Rechnung stellen.",
+          "isCorrect": false,
+          "rationale": "Strafgebühren sind rechtlich nicht vorgesehen; zulässig ist ein Wertersatz für den tatsächlichen Wertverlust."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Das Widerrufsrecht bleibt grundsätzlich bestehen. Allerdings darf der Kunde die Ware nur so prüfen, wie es auch in einem Ladengeschäft möglich wäre (kurze Anprobe). Wurde die Ware darüber hinaus intensiv genutzt (Fitnessstudio), darf der Händler einen Wertersatz für den entstandenen Wertverlust bzw. die Reinigungskosten einbehalten.",
+      "videoUrl": "",
+      "youtubeQuery": "Widerrufsrecht Wertersatz Nutzung Kleidung"
+    },
+    {
+      "id": "kk_39",
+      "question": "Ein Kunde beschwert sich wütend bei der „Outdoor-Living GmbH“: Sein neuer Holzkohlegrill „Fire-Vortex 3000“ raucht extrem und die Schale hat sich verformt. Eine Prüfung durch den Support ergibt jedoch eindeutig, dass kein Produktmangel vorliegt, sondern der Kunde die Sicherheitshinweise komplett ignoriert und den Grill falsch bedient hat. Wie sollte der E-Commerce-Kaufmann reagieren, um wirtschaftlich und kundenorientiert zu handeln?",
+      "answerOptions": [
+        {
+          "text": "Er weist die Reklamation schroff ab, verweist auf die Anleitung und sperrt das Kundenkonto, um weitere ungerechtfertigte Retouren zu vermeiden.",
+          "isCorrect": false,
+          "rationale": "Eine schroffe Abweisung schädigt die Kundenbeziehung und die Reputation des Shops massiv."
+        },
+        {
+          "text": "Er schaltet sofort einen Anwalt ein, um den Kunden wegen Rufschädigung zu verklagen.",
+          "isCorrect": false,
+          "rationale": "Das Einschalten eines Anwalts bei einer einfachen Beschwerde ist unverhältnismäßig und unwirtschaftlich."
+        },
+        {
+          "text": "Er erklärt dem Kunden ruhig und professionell den Bedienfehler. Um die Kundenbeziehung dennoch zu retten, bietet er einen Kulanz-Kompromiss an (z. B. einen Rabatt auf Ersatzteile oder einen Gutschein).",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Bei unsachgemäßer Benutzung besteht zwar kein gesetzlicher Gewährleistungsanspruch, jedoch ist eine harte Abweisung schlecht für die Unternehmensreputation. Ein freundlicher Hinweis auf den Fehler, kombiniert mit einem Kulanzangebot, stellt den Kunden zufrieden."
+        },
+        {
+          "text": "Er gibt dem Kunden Recht, erstattet den vollen Preis und ändert sofort das Produktdesign.",
+          "isCorrect": false,
+          "rationale": "Den vollen Preis bei Eigenverschulden zu erstatten ist unwirtschaftlich und das Design muss bei Bedienfehlern nicht zwingend fehlerhaft sein."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Bei unsachgemäßer Benutzung besteht zwar kein gesetzlicher Gewährleistungsanspruch, jedoch ist eine harte Abweisung schlecht für die Unternehmensreputation. Ein freundlicher Hinweis auf den Fehler, kombiniert mit einem Kulanzangebot, stellt den Kunden zufrieden.",
+      "videoUrl": "",
+      "youtubeQuery": "Reklamationsmanagement Kulanz E-Commerce"
+    },
+    {
+      "id": "kk_40",
+      "question": "Das Anfragevolumen der „Urban-Kicks AG“ ist um 40 % gestiegen. Die Geschäftsführung will einen KI-Chatbot einführen. Für welche konkreten Service-Prozesse ist die KI aufgrund des hohen Standardisierungsgrades am besten geeignet?",
+      "answerOptions": [
+        {
+          "text": "Für das Führen von Verhandlungsgesprächen mit Großhändlern.",
+          "isCorrect": false,
+          "rationale": "Verhandlungen erfordern menschliche Strategie und Empathie, keine standardisierte KI."
+        },
+        {
+          "text": "Für die Beantwortung von hochkomplexen juristischen Beschwerden.",
+          "isCorrect": false,
+          "rationale": "Komplexe juristische Sachverhalte sind zu individuell für einen Standard-Chatbot."
+        },
+        {
+          "text": "Für die Beantwortung wiederkehrender Standardfragen (Lieferstatus, Rückgabefristen) und die automatisierte Retourenabwicklung (Erstellung von Rücksendeetiketten).",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. KI-Chatbots eignen sich hervorragend für Prozesse mit hohem Standardisierungsgrad und hoher Wiederholungsrate. Hier können sie die menschlichen Mitarbeiter massiv entlasten."
+        },
+        {
+          "text": "Für das Führen von Kündigungsgesprächen mit Mitarbeitern aus dem Kundenservice.",
+          "isCorrect": false,
+          "rationale": "Personalgespräche sind hochsensibel und müssen zwingend von Menschen geführt werden."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. KI-Chatbots eignen sich hervorragend für Prozesse mit hohem Standardisierungsgrad und hoher Wiederholungsrate. Hier können sie die menschlichen Mitarbeiter massiv entlasten.",
+      "videoUrl": "",
+      "youtubeQuery": "KI Chatbot Kundenservice Einsatzgebiete Standardisierung"
+    },
+    {
+      "id": "kk_41",
+      "question": "Der Leiter des Kundenservice der „Tech-Nova UG“ ist skeptisch bezüglich des neuen Chatbots. Welches typische kundenbezogene Risiko geht mit der Einführung einer solchen Automatisierung einher?",
+      "answerOptions": [
+        {
+          "text": "Die KI könnte verlangen, dass der Kunde für jede Antwort bezahlt.",
+          "isCorrect": false,
+          "rationale": "Dies ist kein typisches KI-Szenario, sondern eher ein Geschäftsmodell-Thema (Pay-per-Support)."
+        },
+        {
+          "text": "Eine unpersönliche Kommunikation und große Frustration auf Kundenseite, wenn die KI komplexe Probleme missversteht und falsche Antworten liefert.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das größte kundenbezogene Risiko besteht darin, dass die Kommunikation unpersönlich wirkt und Kunden bei komplexen Anliegen frustriert sind, wenn der Bot sie nicht versteht oder falsch informiert."
+        },
+        {
+          "text": "Die Abhängigkeit vom Software-Anbieter und hohe Implementierungskosten.",
+          "isCorrect": false,
+          "rationale": "Das sind betriebswirtschaftliche/organisatorische Risiken, keine primär kundenbezogenen."
+        },
+        {
+          "text": "Die KI könnte eigenmächtig neue Produkte im Shop anlegen.",
+          "isCorrect": false,
+          "rationale": "Service-Chatbots haben in der Regel keinen Schreibzugriff auf das Produktkatalog-System."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Das größte kundenbezogene Risiko besteht darin, dass die Kommunikation unpersönlich wirkt und Kunden bei komplexen Anliegen frustriert sind, wenn der Bot sie nicht versteht oder falsch informiert.",
+      "videoUrl": "",
+      "youtubeQuery": "KI Kundenservice Risiken Akzeptanz Frustration"
+    },
+    {
+      "id": "kk_42",
+      "question": "Bevor der neue Service-Chatbot der „Fit-Gear GmbH“ live geht, prüft der Datenschutzbeauftragte das System. Welche zwingende Vorgabe muss beim Einsatz von KI im Kundenkontakt aus rechtlicher Sicht unbedingt eingehalten werden?",
+      "answerOptions": [
+        {
+          "text": "Es muss absolute Transparenz herrschen (Kunde muss wissen, dass er mit einer KI spricht), und es dürfen keine vollautomatisierten Entscheidungen mit rechtlicher Wirkung (gemäß Art. 22 DSGVO) getroffen werden.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Aus DSGVO-Sicht sind Transparenz (Hinweis auf KI-Nutzung) und der Schutz vor vollautomatisierten Einzelfallentscheidungen essenziell."
+        },
+        {
+          "text": "Die KI muss zwingend auf Servern außerhalb der EU gehostet werden.",
+          "isCorrect": false,
+          "rationale": "Im Gegenteil: Server innerhalb der EU (oder mit EU-Standard) sind aus DSGVO-Sicht meist zu bevorzugen."
+        },
+        {
+          "text": "Der Chatbot darf keine IP-Adressen erfassen, weshalb Kunden nur per Brief mit der KI kommunizieren dürfen.",
+          "isCorrect": false,
+          "rationale": "Ein digitaler Chatbot per Brief ist technisch ein Widerspruch; IP-Erfassung ist mit Einwilligung/Zweckbindung zulässig."
+        },
+        {
+          "text": "Der Chatbot muss so programmiert sein, dass er sich als echter Mensch (z.B. \"Service-Mitarbeiterin Sarah\") ausgibt, um Vertrauen zu wecken.",
+          "isCorrect": false,
+          "rationale": "Das Vortäuschen einer menschlichen Identität ist rechtlich unzulässig (Kenntlichmachungspflicht)."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Aus DSGVO-Sicht sind Transparenz (Hinweis auf KI-Nutzung) und der Schutz vor vollautomatisierten Einzelfallentscheidungen essenziell.",
+      "videoUrl": "",
+      "youtubeQuery": "KI DSGVO Transparenzpflicht Chatbot Art 22"
+    },
+    {
+      "id": "kk_43",
+      "question": "Um die Frustration bei Kunden zu vermeiden, die mit dem Chatbot nicht weiterkommen, muss eine wichtige operative Funktion in die KI-Software integriert werden. Welche Maßnahme ist unerlässlich, um die Servicequalität trotz Automatisierung aufrechtzuerhalten?",
+      "answerOptions": [
+        {
+          "text": "Das Einfärben des Chat-Fensters in einer beruhigenden Farbe.",
+          "isCorrect": false,
+          "rationale": "Farben können die Stimmung beeinflussen, lösen aber keine sachlichen Kundenprobleme."
+        },
+        {
+          "text": "Die nahtlose Möglichkeit zur Weiterleitung des Chats an einen echten, menschlichen Servicemitarbeiter (Human Handover).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Da eine KI nicht alles lösen kann, ist die Eskalation an einen Menschen (Human Handover) entscheidend für die Servicequalität."
+        },
+        {
+          "text": "Die automatische Sperrung des Kundenkontos bei zu vielen Fehlversuchen.",
+          "isCorrect": false,
+          "rationale": "Das würde die Frustration massiv steigern statt das Serviceproblem zu lösen."
+        },
+        {
+          "text": "Das Abspielen von Warteschleifenmusik im Chatbot.",
+          "isCorrect": false,
+          "rationale": "Warteschleifenmusik im Text-Chat ist zwecklos und verbessert die Lösungsqualität nicht."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Da eine KI nicht alles lösen kann, ist die Eskalation an einen Menschen (Human Handover) entscheidend für die Servicequalität.",
+      "videoUrl": "",
+      "youtubeQuery": "Human Handover Chatbot Servicequalität Eskalation"
+    },
+    {
+      "id": "kk_44",
+      "question": "Das Projektteam möchte nach drei Monaten messen, ob der Chatbot wirklich eine Entlastung gebracht hat und wie die Kunden darauf reagieren. Welche Kennzahlen (KPIs) sind für diese spezifische Evaluierung im Kundenservice am aussagekräftigsten?",
+      "answerOptions": [
+        {
+          "text": "Die Conversion Rate und der Return on Advertising Spend (ROAS).",
+          "isCorrect": false,
+          "rationale": "Das sind klassische Marketing-Ziele, keine primären Service-Automatisierungs-KPIs."
+        },
+        {
+          "text": "Die Lagerumschlagshäufigkeit und die Out-of-Stock-Quote.",
+          "isCorrect": false,
+          "rationale": "Diese Kennzahlen messen die Effizienz der Logistik und Warenverfügbarkeit."
+        },
+        {
+          "text": "Die First Response Time (FRT), die Lösungsquote beim Erstkontakt und die Weiterleitungsquote an menschliche Mitarbeiter.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Diese KPIs zeigen direkt, wie schnell der Bot reagiert, wie viele Probleme er final löst und wie oft Menschen eingreifen müssen."
+        },
+        {
+          "text": "Der Deckungsbeitrag je Artikel und die Klickrate (CTR).",
+          "isCorrect": false,
+          "rationale": "Deckungsbeitrag ist finanziell, CTR ist Marketing; beide evaluieren nicht die Chatbot-Leistung."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Diese KPIs zeigen direkt, wie schnell der Bot reagiert, wie viele Probleme er final löst und wie oft Menschen eingreifen müssen.",
+      "videoUrl": "",
+      "youtubeQuery": "Chatbot KPIs Kundenservice Messbarkeit Erfolg"
+    },
+    {
+      "id": "kk_45",
+      "question": "Ein Kunde der „Camp & Hike AG“ droht per E-Mail mit einer vernichtenden Online-Bewertung, weil die Aufbauanleitung seines neuen Familienzelts unlesbar und fehlerhaft ist. Ein Kollege im Kundenservice stuft das Ticket auf \"Niedrige Priorität\" und sagt: \"Ach, eine schlechte Bewertung tut uns bei 1.000 guten doch nicht weh.\" Welches unsichtbare, technische Risiko von schlechten Bewertungen vergisst der Kollege hier völlig?",
+      "answerOptions": [
+        {
+          "text": "Die Serverkosten des eigenen Webshops steigen durch jede negative Bewertung automatisch an.",
+          "isCorrect": false,
+          "rationale": "Bewertungen haben keinen Einfluss auf die Serverbetriebskosten."
+        },
+        {
+          "text": "Suchmaschinen (wie Google) werten Häufungen negativer Bewertungen aus, was zu einem deutlichen Ranking-Verlust in den Suchergebnissen (SEO-Folgen) führen kann.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Bewertungskennzahlen sind ein Ranking-Faktor. Häufen sich negative Signale, stufen Suchmaschinen und Plattformen die Relevanz des Shops herab, was zu weniger Sichtbarkeit führt."
+        },
+        {
+          "text": "Das Shopsystem löscht Artikel mit schlechten Bewertungen automatisch aus der Datenbank.",
+          "isCorrect": false,
+          "rationale": "Systeme archivieren oder löschen Artikel in der Regel nicht eigenständig aufgrund von Kundenmeinungen; dies bleibt eine manuelle oder regelbasierte Entscheidung des Händlers."
+        },
+        {
+          "text": "Der Provider des Kunden sperrt den Webshop für die gesamte Region des Käufers.",
+          "isCorrect": false,
+          "rationale": "Provider führen keine regionalen Sperren aufgrund einzelner Kundenbeschwerden oder Bewertungen durch."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Bewertungskennzahlen sind ein Ranking-Faktor. Häufen sich negative Signale, stufen Suchmaschinen und Plattformen die Relevanz des Shops herab, was zu weniger Sichtbarkeit führt.",
+      "videoUrl": "",
+      "youtubeQuery": "SEO Auswirkungen negative Bewertungen Google Ranking"
+    },
+    {
+      "id": "kk_46",
+      "question": "Nehmen wir an, der Kunde war schneller und hat die negative Bewertung über die fehlerhafte Zelt-Anleitung bereits auf einem großen Portal veröffentlicht. Was ist laut Best-Practices im Reklamationsmanagement die einzig richtige Reaktion des Unternehmens auf diese öffentliche Kritik?",
+      "answerOptions": [
+        {
+          "text": "Die Bewertung komplett ignorieren, da eine Antwort nur noch mehr Aufmerksamkeit darauf lenkt.",
+          "isCorrect": false,
+          "rationale": "Ignorieren signalisiert Desinteresse und lässt die Kritik für andere Leser unkommentiert im Raum stehen."
+        },
+        {
+          "text": "Sofort rechtliche Gegenmaßnahmen einleiten und dem Kunden mit einer Anzeige wegen Rufschädigung drohen.",
+          "isCorrect": false,
+          "rationale": "Rechtliche Drohungen bei berechtigter Kritik führen oft zum 'Streisand-Effekt' und schädigen den Ruf weiter."
+        },
+        {
+          "text": "Öffentlich, freundlich und sachlich antworten, sich für den Fehler entschuldigen und eine konkrete Lösung anbieten, um auch anderen Lesern zu zeigen, dass Feedback ernst genommen wird.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Eine professionelle öffentliche Antwort zeigt potenziellen Kunden, dass das Unternehmen Verantwortung übernimmt und lösungsorientiert arbeitet."
+        },
+        {
+          "text": "Die Bewertung durch eine beauftragte Agentur heimlich löschen lassen.",
+          "isCorrect": false,
+          "rationale": "Manipulationsversuche sind riskant, oft unzulässig und lösen das eigentliche Produktproblem nicht."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Eine professionelle öffentliche Antwort zeigt potenziellen Kunden, dass das Unternehmen Verantwortung übernimmt und lösungsorientiert arbeitet.",
+      "videoUrl": "",
+      "youtubeQuery": "Reklamationsmanagement öffentliche Bewertung reagieren"
+    },
+    {
+      "id": "kk_47",
+      "question": "Du bearbeitest das Ticket des Kunden. Der Kunde fährt in 5 Tagen in den Urlaub und ist extrem gestresst, weil das Zelt nicht aufgebaut werden kann. Was muss zwingend der Kern deiner Antwort-E-Mail sein, um die Situation sofort zu deeskalieren?",
+      "answerOptions": [
+        {
+          "text": "Eine ausführliche Erklärung, warum der Hersteller in China die Schuld an dem Druckfehler trägt.",
+          "isCorrect": false,
+          "rationale": "Schuldzuweisungen an Dritte interessieren den Kunden im Stressfall nicht und wirken unprofessionell."
+        },
+        {
+          "text": "Eine freundliche Einleitung, eine ehrliche Entschuldigung und die sofortige Lieferung einer echten Lösungsoption (z.B. die korrekte Anleitung direkt als lesbares PDF im Anhang).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Schnelle Hilfe und Empathie sind die effektivsten Werkzeuge zur Deeskalation bei Zeitdruck."
+        },
+        {
+          "text": "Die Zusage, dass der zuständige Produktmanager sofort entlassen wird.",
+          "isCorrect": false,
+          "rationale": "Personelle Konsequenzen lösen das fachliche Problem des Kunden nicht und sind kein angemessener Kommunikationsinhalt."
+        },
+        {
+          "text": "Ein 5-Euro-Gutschein für die nächste Bestellung, ohne auf das aktuelle Zelt-Problem einzugehen.",
+          "isCorrect": false,
+          "rationale": "Ein Gutschein ohne Problemlösung wirkt wie eine Abspeisung und erhöht oft die Frustration."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Schnelle Hilfe und Empathie sind die effektivsten Werkzeuge zur Deeskalation bei Zeitdruck.",
+      "videoUrl": "",
+      "youtubeQuery": "Deeskalationsstrategien Kundenservice E-Mail"
+    },
+    {
+      "id": "kk_48",
+      "question": "Das Qualitätsmanagement der „Camp & Hike AG“ hat das Zelt im Lager überprüft und festgestellt: Der Kunde hat Recht! Die beigelegte Anleitung ist unvollständig und fehlerhaft. Der Fehler betrifft die gesamte Charge. Welche interne Sofortmaßnahme muss das Unternehmen nun zwingend ergreifen, um weitere unzufriedene Kunden zu verhindern?",
+      "answerOptions": [
+        {
+          "text": "Den Preis des Zelts im Shop drastisch senken, damit sich zukünftige Käufer nicht mehr so schnell beschweren.",
+          "isCorrect": false,
+          "rationale": "Niedrige Preise heilen keine Produktmängel und verhindern keine Unzufriedenheit."
+        },
+        {
+          "text": "Eine Überprüfung, welche Kunden dieses Zelt in den letzten Tagen bereits erhalten haben, um ihnen proaktiv die korrigierte Anleitung per E-Mail nachzusenden.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Proaktives Handeln bei bekannten Fehlern in einer Charge verhindert Eskalationen, bevor sie entstehen."
+        },
+        {
+          "text": "Das Produkt sofort aus dem Sortiment nehmen und nie wieder Zelte verkaufen.",
+          "isCorrect": false,
+          "rationale": "Dies wäre eine extreme Überreaktion auf einen korrigierbaren Dokumentationsfehler."
+        },
+        {
+          "text": "Abwarten, ob sich die anderen Käufer überhaupt beschweren, um Support-Kosten zu sparen.",
+          "isCorrect": false,
+          "rationale": "Abwarten führt zu einer Welle von Beschwerden und schädigt die Reputation nachhaltig (Reaktanz)."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Proaktives Handeln bei bekannten Fehlern in einer Charge verhindert Eskalationen, bevor sie entstehen.",
+      "videoUrl": "",
+      "youtubeQuery": "Qualitätsmanagement E-Commerce Chargenfehler"
+    },
+    {
+      "id": "kk_49",
+      "question": "Um sicherzustellen, dass andere Kollegen im Kundenservice sofort Bescheid wissen, wenn sich in den nächsten Tagen weitere Kunden wegen des Zeltes melden, muss das Wissen im Unternehmen geteilt werden. In welchen Systemen muss diese Fehler-Information (mangelhafte Anleitung) zwingend hinterlegt werden?",
+      "answerOptions": [
+        {
+          "text": "Ausschließlich im privaten Notizbuch des Support-Mitarbeiters.",
+          "isCorrect": false,
+          "rationale": "Privates Wissen ist für das Team nicht nutzbar und geht bei Abwesenheit verloren."
+        },
+        {
+          "text": "Im Produktinformationssystem (PIM) und im zentralen Service-Ticket-System.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Zentrale IT-Systeme stellen sicher, dass alle Abteilungen auf demselben Wissensstand sind (Single Source of Truth)."
+        },
+        {
+          "text": "Im Content-Management-System (CMS) auf der Startseite des Shops.",
+          "isCorrect": false,
+          "rationale": "Interne Support-Informationen gehören nicht auf die öffentliche Startseite des Webshops."
+        },
+        {
+          "text": "Im Zeiterfassungssystem der Mitarbeiter.",
+          "isCorrect": false,
+          "rationale": "Das Zeiterfassungssystem dient der HR-Administration und nicht dem Wissensmanagement für Produkte."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Zentrale IT-Systeme stellen sicher, dass alle Abteilungen auf demselben Wissensstand sind (Single Source of Truth).",
+      "videoUrl": "",
+      "youtubeQuery": "Wissensmanagement E-Commerce PIM Ticketsystem"
+    },
+    {
+      "id": "kk_50",
+      "question": "Ein Kunde der „Urban-Active GmbH“ beschwert sich per E-Mail massiv über eine Fitness-Uhr, die nach vier Wochen defekt ist, und fordert sein Geld zurück. Ein Auszubildender soll eine standardisierte Antwort-E-Mail entwerfen. Welches Vorgehen entspricht den professionellen E-Commerce-Standards für eine deeskalierende und lösungsorientierte Antwort?",
+      "answerOptions": [
+        {
+          "text": "Eine sofortige Rückerstattung des Geldes veranlassen, ohne die Rücksendung der Uhr abzuwarten, um den Kunden maximal schnell zufriedenzustellen.",
+          "isCorrect": false,
+          "rationale": "Eine Rückerstattung ohne Vorliegen der Ware ist wirtschaftlich riskant und kein Standardvorgehen bei Defekten nach 4 Wochen."
+        },
+        {
+          "text": "Eine freundliche Einleitung mit aufrichtiger Entschuldigung formulieren und dem Kunden klare Optionen (z. B. Erstattung oder Austausch) anbieten, die greifen, sobald der defekte Artikel zurückgesendet wurde.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Eine professionelle Beschwerde-Antwort benötigt eine freundliche Einleitung, eine Entschuldigung für die Unannehmlichkeiten und klare Lösungsoptionen (Rückerstattung oder Umtausch nach Rücksendung der defekten Ware). So fühlt sich der Kunde ernst genommen, während das Unternehmen wirtschaftlich abgesichert bleibt."
+        },
+        {
+          "text": "Dem Kunden erklären, dass elektronische Geräte nun mal kaputtgehen können, die Erstattung ablehnen, aber einen 10-Euro-Gutschein mitsenden.",
+          "isCorrect": false,
+          "rationale": "Das ist wenig kundenorientiert und ignoriert die Gewährleistungsansprüche des Kunden."
+        },
+        {
+          "text": "Die E-Mail direkt und ohne eigenen Kommentar an den Hersteller der Uhr weiterleiten.",
+          "isCorrect": false,
+          "rationale": "Der Händler ist der erste Ansprechpartner für den Kunden; das einfache Weiterreichen ohne Kommentar ist unprofessionell."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Eine professionelle Beschwerde-Antwort benötigt eine freundliche Einleitung, eine Entschuldigung für die Unannehmlichkeiten und klare Lösungsoptionen (Rückerstattung oder Umtausch nach Rücksendung der defekten Ware). So fühlt sich der Kunde ernst genommen, während das Unternehmen wirtschaftlich abgesichert bleibt.",
+      "videoUrl": "",
+      "youtubeQuery": "Professionelles Reklamationsmanagement E-Mail-Standards E-Commerce"
+    },
+    {
+      "id": "kk_51",
+      "question": "Die „Urban-Active GmbH“ möchte einen neuen Kommunikationskanal auf ihrer Website integrieren. Das Ziel ist es, Kunden in Echtzeit zu helfen, ohne dass diese den Shop verlassen müssen. Zudem soll ein einzelner Service-Mitarbeiter mehrere Kunden gleichzeitig betreuen können. Welcher Kanal bietet exakt diese Vorteile?",
+      "answerOptions": [
+        {
+          "text": "Der telefonische Kundenservice.",
+          "isCorrect": false,
+          "rationale": "Am Telefon kann ein Mitarbeiter in der Regel nur ein Gespräch gleichzeitig führen."
+        },
+        {
+          "text": "Die Kommunikation über soziale Medien (z.B. Instagram-Kommentare).",
+          "isCorrect": false,
+          "rationale": "Das findet oft außerhalb des eigenen Shops statt und ist nicht primär für Echtzeit-Eins-zu-Eins-Hilfe optimiert."
+        },
+        {
+          "text": "Der Live-Chat auf der Website.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Der Live-Chat bietet sofortige Antworten (Echtzeit), hält den Kunden auf der Website (verhindert Kaufabbrüche) und ist hochgradig effizient, da ein gut geschulter Mitarbeiter mehrere Chats parallel bearbeiten kann."
+        },
+        {
+          "text": "Die klassische E-Mail-Betreuung.",
+          "isCorrect": false,
+          "rationale": "E-Mail ist asynchron und bietet keine Echtzeit-Hilfe."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Der Live-Chat bietet sofortige Antworten (Echtzeit), hält den Kunden auf der Website (verhindert Kaufabbrüche) und ist hochgradig effizient, da ein gut geschulter Mitarbeiter mehrere Chats parallel bearbeiten kann.",
+      "videoUrl": "",
+      "youtubeQuery": "Kommunikationskanäle Kundenservice Live-Chat Vorteile"
+    },
+    {
+      "id": "kk_52",
+      "question": "Für sehr komplexe, beratungsintensive Produkte oder bei stark emotional aufgeladenen Beschwerden rät der Leiter des Kundenservice dazu, dem Kunden ein Gespräch über den telefonischen Kundenservice anzubieten. Warum ist das Telefon in solchen spezifischen Fällen digitalen Text-Kanälen oft überlegen?",
+      "answerOptions": [
+        {
+          "text": "Weil Telefonate automatisch vom System transkribiert und veröffentlicht werden können.",
+          "isCorrect": false,
+          "rationale": "Das ist technisch möglich, aber kein Grund für die Überlegenheit in Krisenmomenten."
+        },
+        {
+          "text": "Weil das Telefonat eine persönliche, menschliche Verbindung schafft, bei der durch Tonfall, Empathie und aktives Zuhören Probleme oft schneller und deeskalierender gelöst werden können.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die größte Stärke des Telefons ist der persönliche Kontakt. Durch Tonfall und Empathie lässt sich eine emotionale Verbindung aufbauen, wodurch komplexe oder emotional aufgeladene Probleme oft viel schneller und direkter gelöst werden können als durch ein langes E-Mail-Hin-und-Her."
+        },
+        {
+          "text": "Weil Telefongespräche rechtlich nicht bindend sind und das Unternehmen so keine Zusagen einhalten muss.",
+          "isCorrect": false,
+          "rationale": "Mündliche Zusagen können durchaus bindend sein; das ist kein Vorteil des Kanals."
+        },
+        {
+          "text": "Weil ein Mitarbeiter am Telefon bis zu fünf Kunden gleichzeitig beraten kann.",
+          "isCorrect": false,
+          "rationale": "Das Gegenteil ist der Fall; Telefonate binden die volle Aufmerksamkeit eines Mitarbeiters."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die größte Stärke des Telefons ist der persönliche Kontakt. Durch Tonfall und Empathie lässt sich eine emotionale Verbindung aufbauen, wodurch komplexe oder emotional aufgeladene Probleme oft viel schneller und direkter gelöst werden können als durch ein langes E-Mail-Hin-und-Her.",
+      "videoUrl": "",
+      "youtubeQuery": "Vorteile Telefonsupport Kundenservice Deeskalation"
+    },
+    {
+      "id": "kk_53",
+      "question": "Ein Kunde schreibt dem Support: „Ich habe das Produkt vor einer Woche bestellt, immer noch nicht erhalten, obwohl 3-5 Tage Lieferzeit angegeben waren. Was ist da los?“ Wenn wir diese Nachricht nach dem bekannten 4-Ohren-Modell von Friedemann Schulz von Thun analysieren: Welche Aussage trifft der Kunde hier rein auf der Sachebene?",
+      "answerOptions": [
+        {
+          "text": "„Ich bin ein sehr ungeduldiger Mensch und mache mir große Sorgen um mein Geld.“",
+          "isCorrect": false,
+          "rationale": "Dies gehört eher zum Bereich der Selbstoffenbarung."
+        },
+        {
+          "text": "„Die Lieferung ist im Vergleich zur angegebenen Lieferzeit von 3-5 Tagen in Verzug.“",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Sachebene (das „Sach-Ohr“) filtert rein die nackten Daten und Fakten aus einer Nachricht heraus. Die Fakten hier lauten schlicht: Das Produkt wurde vor einer Woche bestellt, die Lieferzeit war mit 3-5 Tagen angegeben, das Produkt ist noch nicht da. Emotionen oder Forderungen spielen auf dieser Ebene keine Rolle."
+        },
+        {
+          "text": "„Sie sind ein unzuverlässiges Unternehmen und ich vertraue Ihnen nicht mehr.“",
+          "isCorrect": false,
+          "rationale": "Dies ist die Beziehungsebene."
+        },
+        {
+          "text": "„Erklären Sie mir sofort, wo mein Paket ist, und geben Sie mir einen Rabatt!“",
+          "isCorrect": false,
+          "rationale": "Dies ist die Appell-Ebene."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die Sachebene (das „Sach-Ohr“) filtert rein die nackten Daten und Fakten aus einer Nachricht heraus. Die Fakten hier lauten schlicht: Das Produkt wurde vor einer Woche bestellt, die Lieferzeit war mit 3-5 Tagen angegeben, das Produkt ist noch nicht da. Emotionen oder Forderungen spielen auf dieser Ebene keine Rolle.",
+      "videoUrl": "",
+      "youtubeQuery": "4 Ohren Modell Sachebene Beispiel Kommunikation"
+    },
+    {
+      "id": "kk_54",
+      "question": "Betrachten wir dieselbe Nachricht des Kunden („...Was ist da los?“). Der Support-Mitarbeiter interpretiert die Nachricht wie folgt: „Der Kunde zweifelt unsere Zuverlässigkeit an und verlangt von mir jetzt eine sofortige Erklärung für die Verspätung.“ Auf welchen zwei Ebenen des 4-Ohren-Modells hat der Mitarbeiter die Nachricht in diesem Moment primär gehört?",
+      "answerOptions": [
+        {
+          "text": "Auf der Sachebene und der Selbstoffenbarung.",
+          "isCorrect": false,
+          "rationale": "Der Mitarbeiter hört hier weder Fakten noch etwas über den Zustand des Senders, sondern über seine Beziehung zum Unternehmen und eine Handlungsaufforderung."
+        },
+        {
+          "text": "Auf der Selbstoffenbarung und der Appell-Ebene.",
+          "isCorrect": false,
+          "rationale": "Selbstoffenbarung wäre der Zustand des Kunden. Hier geht es aber um den Zweifel an der Firma (Beziehung)."
+        },
+        {
+          "text": "Auf der Beziehungsebene und der Appell-Ebene.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Das Heraushören von Zweifeln an der Zuverlässigkeit des Unternehmens ist ein klassisches Hören auf der Beziehungsebene (Wie steht der Sender zu mir?). Der wahrgenommene Wunsch nach einer sofortigen Erklärung ist das Hören auf der Appell-Ebene (Was will der Sender von mir, das ich tun soll?)."
+        },
+        {
+          "text": "Auf der Sachebene und der Beziehungsebene.",
+          "isCorrect": false,
+          "rationale": "Die Sachebene wird hier in der Interpretation ausgeblendet; der Fokus liegt auf dem 'Was denkt er von uns' und 'Was soll ich tun'."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Das Heraushören von Zweifeln an der Zuverlässigkeit des Unternehmens ist ein klassisches Hören auf der Beziehungsebene (Wie steht der Sender zu mir?). Der wahrgenommene Wunsch nach einer sofortigen Erklärung ist das Hören auf der Appell-Ebene (Was will der Sender von mir, das ich tun soll?).",
+      "videoUrl": "",
+      "youtubeQuery": "4 Ohren Modell Beziehungsebene Appell Ebene Kommunikation"
+    },
+    {
+      "id": "kk_55",
+      "question": "Die „Eco-Stride AG“ plant die Entwicklung eines komplett neuen, nachhaltigen Laufschuhs. Das Marketing schlägt vor, die Kunden von Tag 1 an in die Entwicklung einzubeziehen. Welcher direkte finanzielle und risikobezogene Vorteil entsteht dem Unternehmen durch diese frühe Kundenmitwirkung?",
+      "answerOptions": [
+        {
+          "text": "Das Unternehmen spart sich sämtliche Steuern auf das finale Produkt.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Durch das frühe Einholen von Feedback werden Fehlentwicklungen oder eine schlechte Marktannahme frühzeitig erkannt, was extrem kostspielige Änderungen nach der Markteinführung verhindert.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Risikominimierung und Kosteneffizienz sind zentrale Argumente für die Kundenmitwirkung. Werden Fehler oder Fehlannahmen über Kundenwünsche schon in der Entwicklungsphase erkannt, spart sich das Unternehmen teure Flops und nachträgliche Änderungen bei der Markteinführung."
+        },
+        {
+          "text": "Das Unternehmen kann die gesetzliche Gewährleistung für den Schuh rechtlich auf die teilnehmenden Kunden abwälzen.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Kunden verzichten durch ihre Teilnahme automatisch auf ihr gesetzliches Widerrufsrecht beim späteren Kauf.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die Risikominimierung und Kosteneffizienz sind zentrale Argumente für die Kundenmitwirkung. Werden Fehler oder Fehlannahmen über Kundenwünsche schon in der Entwicklungsphase erkannt, spart sich das Unternehmen teure Flops und nachträgliche Änderungen bei der Markteinführung.",
+      "videoUrl": "",
+      "youtubeQuery": "Kundenmitwirkung Produktentwicklung Vorteile"
+    },
+    {
+      "id": "kk_56",
+      "question": "Besonders bei der Entwicklung von nachhaltigen Produkten (wie dem neuen Eco-Laufschuh) hat die offene Einbindung der Kunden einen starken psychologischen Zusatzeffekt auf die Marke. Welcher ist das laut Marketing-Experten?",
+      "answerOptions": [
+        {
+          "text": "Die Kunden glauben dadurch, dass das Produkt kostenlos sein wird.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Transparenz des Entwicklungsprozesses stärkt die Glaubwürdigkeit der Nachhaltigkeitsversprechen massiv und steigert die emotionale Kundetreue zur Marke.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Kunden, die in den Prozess einbezogen werden, fühlen sich der Marke stärker verbunden (Kundentreue). Gerade bei Nachhaltigkeitsthemen sorgt diese Transparenz für eine enorm hohe Glaubwürdigkeit und stärkt das Vertrauen in die Versprechen des Unternehmens."
+        },
+        {
+          "text": "Das Unternehmen wirkt dadurch kleiner und hilfsbedürftiger, was Mitleidskäufe generiert.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Konkurrenz wird dadurch rechtlich daran gehindert, ebenfalls nachhaltige Schuhe zu produzieren.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Kunden, die in den Prozess einbezogen werden, fühlen sich der Marke stärker verbunden (Kundentreue). Gerade bei Nachhaltigkeitsthemen sorgt diese Transparenz für eine enorm hohe Glaubwürdigkeit und stärkt das Vertrauen in die Versprechen des Unternehmens.",
+      "videoUrl": "",
+      "youtubeQuery": "Markenbindung durch Kundenintegration"
+    },
+    {
+      "id": "kk_57",
+      "question": "Die „Nova-Trek GmbH“ möchte für ihren neuen Outdoor-Schuh völlig unvoreingenommene, neue Design-Ideen sammeln. Sie richtet eine Plattform ein, auf der tausende Nutzer eigene Skizzen und Funktionswünsche einreichen und anschließend über die besten Ideen abstimmen können. Wie wird diese spezifische Methode der Kundenmitwirkung im Fachjargon genannt?",
+      "answerOptions": [
+        {
+          "text": "Social-Media-Engagement",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Prototypentest",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Crowdsourcing",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Beim „Crowdsourcing“ lagert ein Unternehmen Aufgaben (wie die Ideengenerierung oder das Design) an eine große Masse an Menschen (die Crowd) aus. Plattformen, auf denen Nutzer Ideen einreichen und darüber abstimmen können, sind das klassische Beispiel dafür."
+        },
+        {
+          "text": "Affiliate-Marketing",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Beim „Crowdsourcing“ lagert ein Unternehmen Aufgaben (wie die Ideengenerierung oder das Design) an eine große Masse an Menschen (die Crowd) aus. Plattformen, auf denen Nutzer Ideen einreichen und darüber abstimmen können, sind das klassische Beispiel dafür.",
+      "videoUrl": "",
+      "youtubeQuery": "Crowdsourcing einfach erklärt Marketing"
+    },
+    {
+      "id": "kk_58",
+      "question": "Die Entwicklung des neuen Laufschuhs der „Eco-Stride AG“ ist weit fortgeschritten. Jetzt benötigt das Team dringend knallhartes Feedback zu Passform, Komfort und der tatsächlichen Haltbarkeit im Gelände. Welche Methode der Kundeneinbeziehung ist hier als einzige wirklich zielführend?",
+      "answerOptions": [
+        {
+          "text": "Eine Online-Umfrage per E-Mail-Newsletter.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Das Einrichten eines neuen Diskussions-Forums (Online-Community).",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Produktion von ersten Prototypen, die einer ausgewählten Kundengruppe für physische Praxistests zur Verfügung gestellt werden.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Wenn es um physische Eigenschaften wie Passform, Tragekomfort und echte Funktion geht, reichen digitale Umfragen nicht aus. Hier müssen echte Prototypen produziert und von Kunden unter realen Bedingungen getestet werden (Prototypentests)."
+        },
+        {
+          "text": "Das Posten eines 3D-Modells auf Instagram.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Wenn es um physische Eigenschaften wie Passform, Tragekomfort und echte Funktion geht, reichen digitale Umfragen nicht aus. Hier müssen echte Prototypen produziert und von Kunden unter realen Bedingungen getestet werden (Prototypentests).",
+      "videoUrl": "",
+      "youtubeQuery": "Prototypentest Produktentwicklung"
+    },
+    {
+      "id": "kk_59",
+      "question": "Um die Kunden nicht nur einmalig zu befragen, sondern einen dauerhaften Raum für Diskussionen, den Austausch von Ideen und kontinuierliches Feedback zu schaffen, integriert der Shop-Manager einen neuen Bereich direkt auf der Firmen-Website. Welche Maßnahme wird hier umgesetzt?",
+      "answerOptions": [
+        {
+          "text": "Der Aufbau einer Online-Community (Forum).",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Der Aufbau einer eigenen Online-Community oder eines Forums auf der Unternehmenswebsite schafft einen dauerhaften, exklusiven Raum, in dem Kunden und Entwickler langfristig interagieren, Ideen austauschen und tiefgreifendes Feedback geben können."
+        },
+        {
+          "text": "Die Durchführung eines einmaligen Offline-Workshops.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Integration eines Kundenbewertungs-Tools für bereits gekaufte Artikel.",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        },
+        {
+          "text": "Die Schaltung von Google Search Ads (SEA).",
+          "isCorrect": false,
+          "rationale": "Falsch."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Der Aufbau einer eigenen Online-Community oder eines Forums auf der Unternehmenswebsite schafft einen dauerhaften, exklusiven Raum, in dem Kunden und Entwickler langfristig interagieren, Ideen austauschen und tiefgreifendes Feedback geben können.",
+      "videoUrl": "",
+      "youtubeQuery": "Online Community Markenbildung"
+    },
+    {
+      "id": "kk_60",
+      "question": "Ein Auszubildender der „Trail-Blazer UG“ soll in einem Satz zusammenfassen, wofür ein CRM-System überhaupt angeschafft wird. Wie lautet die fachlich korrekte Definition?",
+      "answerOptions": [
+        {
+          "text": "Es ist ein reines Logistik-Tool zur automatischen Nachbestellung von leeren Lagerbeständen.",
+          "isCorrect": false,
+          "rationale": "Ein CRM ist kein Logistik-Tool für Lagerbestände."
+        },
+        {
+          "text": "Es verwaltet und analysiert die Beziehungen und Interaktionen mit bestehenden und potenziellen Kunden, um die Kundenbindung zu erhöhen und den Umsatz zu steigern.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Ein CRM (Customer Relationship Management) bündelt alle Kundeninteraktionen an einem Ort. Das primäre Ziel ist es, die Geschäftsbeziehungen zu verbessern, den Kundenstamm zu erweitern und langfristig den Umsatz zu maximieren."
+        },
+        {
+          "text": "Es dient ausschließlich der Berechnung von Lohn- und Gehaltsabrechnungen für den Kundenservice.",
+          "isCorrect": false,
+          "rationale": "Lohnabrechnung ist Aufgabe von HR/Finanzsoftware, nicht CRM."
+        },
+        {
+          "text": "Es ist ein Programm, das vollautomatisch Werbevideos für Social Media generiert.",
+          "isCorrect": false,
+          "rationale": "CRM generiert keine Werbevideos."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Ein CRM (Customer Relationship Management) bündelt alle Kundeninteraktionen an einem Ort. Das primäre Ziel ist es, die Geschäftsbeziehungen zu verbessern, den Kundenstamm zu erweitern und langfristig den Umsatz zu maximieren.",
+      "videoUrl": "",
+      "youtubeQuery": "CRM Definition einfach erklärt Zweck"
+    },
+    {
+      "id": "kk_61",
+      "question": "Bei der „Eco-Move AG“ herrscht Chaos: Kunden schreiben per E-Mail, kommentieren auf Instagram und nutzen den Webchat. Der Support verliert den Überblick. Welchen spezifischen Vorteil bietet ein modernes CRM-System für genau dieses Problem?",
+      "answerOptions": [
+        {
+          "text": "Das Multi-Channel-Management, welches verschiedene Kommunikationskanäle integriert, sodass das Unternehmen eine konsistente Kommunikation über alle Kanäle hinweg gewährleisten kann.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Durch das Multi-Channel-Management laufen E-Mails, Social-Media-Nachrichten und Chats in einem einzigen System zusammen. Der Support-Mitarbeiter sieht die gesamte Historie des Kunden, egal über welchen Kanal dieser sich meldet."
+        },
+        {
+          "text": "Die automatische Löschung aller Social-Media-Kommentare, um den Support zu entlasten.",
+          "isCorrect": false,
+          "rationale": "Löschen von Kommentaren ist keine CRM-Funktion zur Support-Verbesserung."
+        },
+        {
+          "text": "Die Verkaufsprognose-Funktion.",
+          "isCorrect": false,
+          "rationale": "Verkaufsprognosen lösen das Kommunikationschaos nicht."
+        },
+        {
+          "text": "Die mobile App-Funktion.",
+          "isCorrect": false,
+          "rationale": "Eine App allein löst die Kanalintegration nicht."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Durch das Multi-Channel-Management laufen E-Mails, Social-Media-Nachrichten und Chats in einem einzigen System zusammen. Der Support-Mitarbeiter sieht die gesamte Historie des Kunden, egal über welchen Kanal dieser sich meldet.",
+      "videoUrl": "",
+      "youtubeQuery": "CRM Multi Channel Management Kundenservice"
+    },
+    {
+      "id": "kk_62",
+      "question": "Die IT-Abteilung der „Urban-Peak GmbH“ fordert, dass das neue CRM-System zwingend offene \"Schnittstellen\" (APIs) haben muss. Warum ist dieser Punkt, bekannt als System-Integration, so wichtig für den E-Commerce?",
+      "answerOptions": [
+        {
+          "text": "Damit das CRM-System problemlos mit anderen Geschäftssystemen (wie der E-Commerce-Plattform oder Finanzsoftware) verbunden werden kann, was zu einem nahtlosen Datenfluss führt.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Ein CRM-System ist am stärksten, wenn es nicht isoliert arbeitet. Die nahtlose Integration in andere Systeme (z. B. das Shop-System oder die Buchhaltung) verhindert doppelte Datenpflege und sorgt für automatisierte Prozesse."
+        },
+        {
+          "text": "Damit das System ohne Internetverbindung funktioniert.",
+          "isCorrect": false,
+          "rationale": "APIs dienen der Vernetzung, nicht dem Offline-Modus."
+        },
+        {
+          "text": "Damit Kunden das CRM-System auf ihren eigenen Handys installieren können.",
+          "isCorrect": false,
+          "rationale": "Integration bezieht sich auf Systeme, nicht auf Kunden-Installationen."
+        },
+        {
+          "text": "Damit die Software automatisch Viren auf den Firmenrechnern bekämpft.",
+          "isCorrect": false,
+          "rationale": "CRM ist kein Virenscanner."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Ein CRM-System ist am stärksten, wenn es nicht isoliert arbeitet. Die nahtlose Integration in andere Systeme (z. B. das Shop-System oder die Buchhaltung) verhindert doppelte Datenpflege und sorgt für automatisierte Prozesse.",
+      "videoUrl": "",
+      "youtubeQuery": "CRM System Integration API E-Commerce"
+    },
+    {
+      "id": "kk_63",
+      "question": "Welche spezifischen Aufgaben kann die Vertriebsabteilung (Sales) durch ein CRM-System durch Workflow-Automatisierungen deutlich effizienter gestalten?",
+      "answerOptions": [
+        {
+          "text": "Das Erstellen von Jahresabschlüssen und Bilanzen.",
+          "isCorrect": false,
+          "rationale": "Bilanzen sind Aufgabe der Buchhaltung."
+        },
+        {
+          "text": "Die Segmentierung von Zielgruppen für großflächige Werbekampagnen auf Facebook.",
+          "isCorrect": false,
+          "rationale": "Das ist eher Marketing als direkter Vertrieb workflow."
+        },
+        {
+          "text": "Das Verwalten von Leads (Interessenten), das Erstellen von Angeboten und das Verfolgen von konkreten Verkaufschancen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Der Vertrieb nutzt das CRM primär als Verkaufs-Tool: Kundenkontakte (Leads) werden systematisch nachverfolgt, individuelle Angebote werden hinterlegt und der Fortschritt von Verkaufschancen wird in Echtzeit getrackt."
+        },
+        {
+          "text": "Die physische Verpackung und Frankierung von Paketen im Lager.",
+          "isCorrect": false,
+          "rationale": "Lagerarbeit ist Logistik, nicht Sales-CRM."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Der Vertrieb nutzt das CRM primär als Verkaufs-Tool: Kundenkontakte (Leads) werden systematisch nachverfolgt, individuelle Angebote werden hinterlegt und der Fortschritt von Verkaufschancen wird in Echtzeit getrackt.",
+      "videoUrl": "",
+      "youtubeQuery": "CRM Vertrieb Automatisierung Leads Angebote"
+    },
+    {
+      "id": "kk_64",
+      "question": "Auch die Marketingabteilung der „Next-Gen Retail UG“ drängt auf die Einführung des CRM-Systems. Welche Funktion der Software ist für das Marketing-Team von unschätzbarem Wert?",
+      "answerOptions": [
+        {
+          "text": "Die Erstellung von Lieferscheinen.",
+          "isCorrect": false,
+          "rationale": "Lieferscheine kommen aus ERP/Logistik."
+        },
+        {
+          "text": "Integrierte Tools, um Zielgruppen präzise zu segmentieren, Marketingkampagnen passgenau zu planen und deren Effektivität direkt zu messen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Da das CRM das Kaufverhalten und die Vorlieben der Kunden speichert, kann das Marketing exakte Zielgruppen (Segmente) bilden (z. B. 'Kunden, die im letzten Jahr Zelte gekauft haben') und diese punktgenau mit relevanten Kampagnen bespielen."
+        },
+        {
+          "text": "Die Möglichkeit, Mitarbeitergehälter pünktlich zu überweisen.",
+          "isCorrect": false,
+          "rationale": "Gehälter sind HR-Sache."
+        },
+        {
+          "text": "Die automatische Reparatur defekter Retouren.",
+          "isCorrect": false,
+          "rationale": "CRM repariert keine physischen Produkte."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Da das CRM das Kaufverhalten und die Vorlieben der Kunden speichert, kann das Marketing exakte Zielgruppen (Segmente) bilden (z. B. 'Kunden, die im letzten Jahr Zelte gekauft haben') und diese punktgenau mit relevanten Kampagnen bespielen.",
+      "videoUrl": "",
+      "youtubeQuery": "CRM Marketing Segmentierung Kampagnen"
+    },
+    {
+      "id": "kk_65",
+      "question": "Das CRM ist gekauft, aber die Mitarbeiter weigern sich, es zu nutzen, weil sie den zusätzlichen Aufwand und die Umstellung ihrer gewohnten Excel-Listen fürchten. Wie löst das Management dieses Problem laut Best-Practices am besten?",
+      "answerOptions": [
+        {
+          "text": "Durch fristlose Kündigungen bei Nichtnutzung.",
+          "isCorrect": false,
+          "rationale": "Kündigung ist keine Best Practice für Change Management."
+        },
+        {
+          "text": "Durch Schulungen und Workshops, um die Vorteile und Arbeitserleichterungen des CRM-Systems für jeden Einzelnen klar zu verdeutlichen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Widerstand gegen Veränderungen (Change Management) ist eine der größten Hürden. Mitarbeiter müssen durch frühzeitige Schulungen und Workshops abgeholt werden, damit sie verstehen, dass das System ihre tägliche Arbeit auf lange Sicht massiv erleichtert."
+        },
+        {
+          "text": "Indem das CRM-System wieder abgeschafft und zur Zettelwirtschaft zurückgekehrt wird.",
+          "isCorrect": false,
+          "rationale": "Rückschritt ist keine Lösung."
+        },
+        {
+          "text": "Durch das Einstellen von Leiharbeitern, die das System nachts heimlich pflegen.",
+          "isCorrect": false,
+          "rationale": "Das löst das Akzeptanzproblem nicht."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Widerstand gegen Veränderungen (Change Management) ist eine der größten Hürden. Mitarbeiter müssen durch frühzeitige Schulungen und Workshops abgeholt werden, damit sie verstehen, dass das System ihre tägliche Arbeit auf lange Sicht massiv erleichtert.",
+      "videoUrl": "",
+      "youtubeQuery": "CRM Einführung Widerstand Mitarbeiter Change Management"
+    },
+    {
+      "id": "kk_66",
+      "question": "Tausende alte Kundendaten sollen in das neue CRM importiert werden. Leider sind in den alten Tabellen viele Namen falsch geschrieben, Adressen veraltet und E-Mail-Adressen doppelt vorhanden. Welches Risiko besteht hier und wie muss es gelöst werden?",
+      "answerOptions": [
+        {
+          "text": "Das Risiko von Dateninkonsistenzen. Lösung: Eine gründliche Datenbereinigung zwingend vor der Migration durchführen und klare Eingaberegeln für die Zukunft aufstellen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. 'Garbage In, Garbage Out': Wenn schlechte Daten in ein neues System importiert werden, ist das System sofort unbrauchbar. Die Datenbereinigung vor der Migration ist der wichtigste und zeitaufwendigste technische Schritt bei einer CRM-Einführung."
+        },
+        {
+          "text": "Das Risiko von Hackerangriffen. Lösung: Die Daten ausdrucken und per Hand neu abtippen.",
+          "isCorrect": false,
+          "rationale": "Abtippen schützt nicht vor Hackern und ist ineffizient."
+        },
+        {
+          "text": "Das Risiko von DSGVO-Strafen. Lösung: Alle Kundendaten vor dem Import löschen.",
+          "isCorrect": false,
+          "rationale": "Löschen aller Daten verhindert den Geschäftsbetrieb."
+        },
+        {
+          "text": "Das Risiko von Serverüberlastungen. Lösung: Das CRM nur von 8 bis 12 Uhr vormittags einschalten.",
+          "isCorrect": false,
+          "rationale": "Zeitliche Einschränkung löst keine Datenqualitätsprobleme."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. 'Garbage In, Garbage Out': Wenn schlechte Daten in ein neues System importiert werden, ist das System sofort unbrauchbar. Die Datenbereinigung vor der Migration ist der wichtigste und zeitaufwendigste technische Schritt bei einer CRM-Einführung.",
+      "videoUrl": "",
+      "youtubeQuery": "CRM Datenmigration Datenbereinigung"
+    },
+    {
+      "id": "kk_67",
+      "question": "Ein langjähriger Kunde der „Eco-Move AG“ meldet sich beim Kundenservice and verlangt einen vollständigen Ausdruck aller Informationen, die das Unternehmen über ihn im CRM gespeichert hat. Zudem fordert er, dass seine alte Telefonnummer sofort korrigiert wird. Auf welches DSGVO-Prinzip beruft er sich hier rechtmäßig?",
+      "answerOptions": [
+        {
+          "text": "Auf das Prinzip der Datenminimierung.",
+          "isCorrect": false,
+          "rationale": "Datenminimierung bedeutet, so wenig Daten wie möglich zu erheben."
+        },
+        {
+          "text": "Auf das Prinzip der Zweckbindung.",
+          "isCorrect": false,
+          "rationale": "Zweckbindung bedeutet, Daten nur für den erhobenen Zweck zu nutzen."
+        },
+        {
+          "text": "Auf die Rechte der Betroffenen (Recht auf Einsicht, Korrektur und Löschung).",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Nach der DSGVO haben Kunden weitreichende Betroffenenrechte. Sie dürfen jederzeit Auskunft darüber verlangen, was gespeichert ist, sie dürfen Fehler korrigieren lassen und haben (unter bestimmten Bedingungen) das Recht auf Löschung ('Recht auf Vergessenwerden')."
+        },
+        {
+          "text": "Auf das Prinzip der Datensicherheit.",
+          "isCorrect": false,
+          "rationale": "Datensicherheit betrifft den Schutz vor Zugriffen."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Nach der DSGVO haben Kunden weitreichende Betroffenenrechte. Sie dürfen jederzeit Auskunft darüber verlangen, was gespeichert ist, sie dürfen Fehler korrigieren lassen und haben (unter bestimmten Bedingungen) das Recht auf Löschung ('Recht auf Vergessenwerden').",
+      "videoUrl": "",
+      "youtubeQuery": "DSGVO Betroffenenrechte CRM"
+    },
+    {
+      "id": "kk_68",
+      "question": "Die „Urban-Peak GmbH“ baut ein neues Registrierungsformular für den Shop. Der Datenschutzbeauftragte verlangt zwingend einen gut sichtbaren Informationstext, der dem Kunden genau erklärt, welche Daten erfasst werden und wozu das Unternehmen sie nutzen wird. Welches DSGVO-Prinzip wird hier angewendet?",
+      "answerOptions": [
+        {
+          "text": "Das Prinzip der Transparenz.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Das Transparenzgebot der DSGVO schreibt vor, dass Unternehmen keine geheime Datensammlung betreiben dürfen. Der Kunde muss vor der Dateneingabe klar, einfach und verständlich darüber informiert werden, was mit seinen Daten geschieht."
+        },
+        {
+          "text": "Das Prinzip der Datensicherheit (Verschlüsselung).",
+          "isCorrect": false,
+          "rationale": "Sicherheit betrifft die Technik, nicht die Information."
+        },
+        {
+          "text": "Das Recht auf Datenportabilität.",
+          "isCorrect": false,
+          "rationale": "Portabilität betrifft die Mitnahme von Daten."
+        },
+        {
+          "text": "Das Prinzip der Speicherbegrenzung.",
+          "isCorrect": false,
+          "rationale": "Speicherbegrenzung betrifft die Löschfristen."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Das Transparenzgebot der DSGVO schreibt vor, dass Unternehmen keine geheime Datensammlung betreiben dürfen. Der Kunde muss vor der Dateneingabe klar, einfach und verständlich darüber informiert werden, was mit seinen Daten geschieht.",
+      "videoUrl": "",
+      "youtubeQuery": "DSGVO Transparenzgebot Online Shop"
+    },
+    {
+      "id": "kk_69",
+      "question": "Auf der Facebook-Seite der „Urban-Gear GmbH“ taucht ein Nutzer auf, der völlig zusammenhanglose, provokante Kommentare unter jedes Produkt postet. Wie definiert man einen solchen „Troll“ im E-Commerce fachlich korrekt?",
+      "answerOptions": [
+        {
+          "text": "Ein Nutzer, der online provoziert, belästigt oder absichtlich Chaos stiftet, meist nur mit der Absicht, Reaktionen von anderen hervorzurufen oder die Gemeinschaft zu stören.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Ein „Troll“ zeichnet sich dadurch aus, dass er keine sachliche Kritik übt, sondern absichtlich provoziert und stört, um emotionale Reaktionen zu erzwingen."
+        },
+        {
+          "text": "Ein besonders loyaler Stammkunde, der die Produkte des Unternehmens gegen Kritik anderer Nutzer verteidigt.",
+          "isCorrect": false,
+          "rationale": "Das wäre ein Markenbotschafter (Advocate), kein Troll."
+        },
+        {
+          "text": "Ein automatisierter Bot der Konkurrenz, der massenhaft Klicks auf Werbeanzeigen generiert, um das Budget zu leeren.",
+          "isCorrect": false,
+          "rationale": "Das ist Ad Fraud oder Klickbetrug, kein Troll."
+        },
+        {
+          "text": "Ein bezahlter Influencer, der durch provokante Posts die Reichweite einer Marke steigern soll.",
+          "isCorrect": false,
+          "rationale": "Influencer werben für Produkte; Trolle stören absichtlich."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Ein „Troll“ zeichnet sich dadurch aus, dass er keine sachliche Kritik übt, sondern absichtlich provoziert und stört, um emotionale Reaktionen zu erzwingen.",
+      "videoUrl": "",
+      "youtubeQuery": "Definition Troll E-Commerce Merkmale"
+    },
+    {
+      "id": "kk_70",
+      "question": "Das Social-Media-Team ist unsicher, ob ein kritischer Kommentar von einem unzufriedenen Kunden oder einem Troll stammt. Welches konkrete Verhaltensmuster ist ein klares Erkennungsmerkmal für einen Troll?",
+      "answerOptions": [
+        {
+          "text": "Die detaillierte Beschreibung eines Defekts an einem gekauften Produkt inklusive Bestellnummer.",
+          "isCorrect": false,
+          "rationale": "Dies spricht für einen echten Kunden mit einem legitimen Problem."
+        },
+        {
+          "text": "Die absichtliche Verbreitung falscher Informationen sowie wiederholte, aggressive Kommentare ohne jeden konstruktiven Zweck.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Trolle erkennt man an provokativen, aggressiven Beiträgen, der Verbreitung von Fake-News und dem völligen Fehlen eines konstruktiven Zwecks."
+        },
+        {
+          "text": "Das höfliche Nachfragen nach einer verlängerten Rückgabefrist.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein Zeichen für einen Kundenkontakt, der nach einer Lösung sucht."
+        },
+        {
+          "text": "Das Posten eines Fotos, auf dem die Ware beschädigt im Karton liegt.",
+          "isCorrect": false,
+          "rationale": "Dies ist eine sachliche Dokumentation eines Mangels."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Trolle erkennt man an provokativen, aggressiven Beiträgen, der Verbreitung von Fake-News und dem völligen Fehlen eines konstruktiven Zwecks.",
+      "videoUrl": "",
+      "youtubeQuery": "Erkennungsmerkmale Trolle Social Media"
+    },
+    {
+      "id": "kk_71",
+      "question": "Welche fatale Auswirkung kann ein Troll haben, wenn das Unternehmen seine Kommentare (auch wenn sie offensichtlich falsch sind) wochenlang unkommentiert unter den Bestseller-Produkten stehen lässt?",
+      "answerOptions": [
+        {
+          "text": "Die Serverkosten steigen, da Facebook für lange Kommentarspalten Geld verlangt.",
+          "isCorrect": false,
+          "rationale": "Kommentare auf Social-Media-Plattformen verursachen dem Unternehmen keine direkten Serverkosten."
+        },
+        {
+          "text": "Neue oder unsichere Kunden werden abgeschreckt, da sie die negativen Kontroversen sehen, was zu einem massiven Schaden am Markenimage führt.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Der größte Nachteil ist der Reputationsschaden. Selbst wenn die Kommentare erlogen sind, schrecken die negativen Kontroversen (Imageverlust) potenzielle Neukunden massiv vom Kauf ab."
+        },
+        {
+          "text": "Der Troll erhält automatisch Administratoren-Rechte für die Seite.",
+          "isCorrect": false,
+          "rationale": "Rechtevergabe erfolgt durch Bestätigung durch Admins, nicht durch Kommentare."
+        },
+        {
+          "text": "Die Produkte werden von Google automatisch aus den Suchergebnissen gelöscht.",
+          "isCorrect": false,
+          "rationale": "Google löscht keine Produkte aufgrund von Kommentaren auf Facebook."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Der größte Nachteil ist der Reputationsschaden. Selbst wenn die Kommentare erlogen sind, schrecken die negativen Kontroversen (Imageverlust) potenzielle Neukunden massiv vom Kauf ab.",
+      "videoUrl": "",
+      "youtubeQuery": "Reputationsschaden Trolle E-Commerce Markenimage"
+    },
+    {
+      "id": "kk_72",
+      "question": "Neben dem Imageverlust nennt das Management ein weiteres massives Problem, das entsteht, wenn hunderte Troll-Kommentare die Social-Media-Kanäle fluten. Welches ist das?",
+      "answerOptions": [
+        {
+          "text": "Das Unternehmen muss Steuern auf die generierten Klicks zahlen.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine 'Klicksteuer' für Kommentare."
+        },
+        {
+          "text": "Die Verzerrung des echten Kundenfeedbacks: Das Unternehmen kann legitime, ehrliche Kritik von echten Käufern in der Masse der Troll-Posts kaum noch erkennen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Echtes Feedback ist extrem wertvoll. Trolle verzerren dieses Bild so stark, dass das Unternehmen echte Probleme (z.B. Produktionsfehler) nicht mehr rechtzeitig erkennt, weil sie im Chaos untergehen."
+        },
+        {
+          "text": "Die automatische Sperrung des Firmenkontos durch die Gewerbeaufsicht.",
+          "isCorrect": false,
+          "rationale": "Die Gewerbeaufsicht sperrt keine Social-Media-Konten wegen Trollen."
+        },
+        {
+          "text": "Die gesetzliche Pflicht, jedem Troll eine kostenlose Ersatzlieferung anzubieten.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine Pflicht für Ersatzlieferungen an Trolle ohne Kaufvertrag und Mangel."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Echtes Feedback ist extrem wertvoll. Trolle verzerren dieses Bild so stark, dass das Unternehmen echte Probleme (z.B. Produktionsfehler) nicht mehr rechtzeitig erkennt, weil sie im Chaos untergehen.",
+      "videoUrl": "",
+      "youtubeQuery": "Distortion Customer Feedback Trolls Social Media"
+    },
+    {
+      "id": "kk_73",
+      "question": "Die „Peak-Adventures AG“ leidet seit Wochen unter einer Troll-Attacke. Das Social-Media-Team wirkt im wöchentlichen Meeting extrem frustriert und erschöpft. Welche zwei internen Nachteile für das Unternehmen zeigen sich hier deutlich?",
+      "answerOptions": [
+        {
+          "text": "Eine Erhöhung der Logistikkosten und vermehrte Retouren von unbeschädigten Artikeln.",
+          "isCorrect": false,
+          "rationale": "Logistik wird durch Troll-Kommentare nicht direkt beeinflusst."
+        },
+        {
+          "text": "Ein massiv erhöhter Kundenserviceaufwand (Ressourcenbindung) sowie die Demoralisierung des Teams, was sogar zu einer höheren Mitarbeiterfluktuation führen kann.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Trolle binden Zeit und Geld im Support. Gleichzeitig leiden die Mitarbeiter psychisch unter den ständigen Aggressionen, was die Moral senkt und Kündigungen provozieren kann."
+        },
+        {
+          "text": "Eine Senkung der Conversion-Rate und eine Erhöhung des Return on Advertising Spend (ROAS).",
+          "isCorrect": false,
+          "rationale": "Während ROAS sinken kann, ist die Teammoral hier das Hauptthema des Szenarios."
+        },
+        {
+          "text": "Ein Verlust von Lieferantenverträgen und höhere Einkaufspreise.",
+          "isCorrect": false,
+          "rationale": "Lieferanten verträge hängen in der Regel nicht von Troll-Kommentaren ab."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Trolle binden Zeit und Geld im Support. Gleichzeitig leiden die Mitarbeiter psychisch unter den ständigen Aggressionen, was die Moral senkt und Kündigungen provozieren kann.",
+      "videoUrl": "",
+      "youtubeQuery": "Nachteile Trolle Unternehmen Ressourcenbindung Mitarbeitermoral"
+    },
+    {
+      "id": "kk_74",
+      "question": "Ein Troll beleidigt die neue Outdoor-Kollektion als „billigen Schrott“. Der Social-Media-Manager ist wütend und tippt eine aggressive, sarkastische Antwort ab. Warum verstößt das gegen die wichtigste Grundregel im Umgang mit Trollen?",
+      "answerOptions": [
+        {
+          "text": "Weil sarkastische Antworten auf Facebook grundsätzlich Geld kosten.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine Kosten für Sarkasmus auf sozialen Netzwerken."
+        },
+        {
+          "text": "Weil Trolle genau auf diese emotionale Reaktion aus sind. Die wichtigste Regel lautet: „Nicht emotional reagieren“, professionell bleiben und sich nicht provozieren lassen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. 'Don't feed the troll' (Füttere den Troll nicht). Trolle wollen Emotionen und Chaos sehen. Eine professionelle, sachliche Haltung entzieht ihnen die Grundlage."
+        },
+        {
+          "text": "Weil der Troll das Unternehmen sonst wegen Verletzung des Urheberrechts verklagen kann.",
+          "isCorrect": false,
+          "rationale": "Sarkasmus tangiert das Urheberrecht normalerweise nicht direkt."
+        },
+        {
+          "text": "Weil das Gesetz gegen den unlauteren Wettbewerb (UWG) Ironie im Internet verbietet.",
+          "isCorrect": false,
+          "rationale": "Das UWG verbietet keine Ironie."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. 'Don't feed the troll' (Füttere den Troll nicht). Trolle wollen Emotionen und Chaos sehen. Eine professionelle, sachliche Haltung entzieht ihnen die Grundlage.",
+      "videoUrl": "",
+      "youtubeQuery": "Regeln im Umgang mit Trollen Don't feed the troll"
+    },
+    {
+      "id": "kk_75",
+      "question": "Bevor ein vermeintlicher Troll-Kommentar gelöscht wird, fordert der Abteilungsleiter, den Post noch einmal genau zu lesen. Welche wichtige Überlegung muss laut IHK-Standards vor jeder Löschung stehen?",
+      "answerOptions": [
+        {
+          "text": "Die Überlegung, ob das Löschen die Ladezeit der Website verbessert.",
+          "isCorrect": false,
+          "rationale": "Ein einzelner gelöschter Kommentar verbessert die Performance nicht spürbar."
+        },
+        {
+          "text": "Die Differenzierung, ob es wirklich reine Troll-Aktivität ist oder ob sich in dem provokanten Ton vielleicht doch legitimes Feedback bzw. konstruktive Kritik eines frustrierten echten Kunden versteckt.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Nicht jeder wütende Kommentar ist ein Troll. Manchmal versteckt sich hinter harschen Worten echtes Kunden-Feedback, das das Unternehmen zur Verbesserung der Produkte nutzen kann."
+        },
+        {
+          "text": "Die Prüfung, ob der Kommentar von einem verifizierten Instagram-Account mit blauem Haken stammt.",
+          "isCorrect": false,
+          "rationale": "Auch verifizierte Accounts können trollen, und unverifizierte echte Kunden können wichtiges Feedback geben."
+        },
+        {
+          "text": "Die Überlegung, ob die Löschung steuerlich absetzbar ist.",
+          "isCorrect": false,
+          "rationale": "Löschungen sind keine steuerlich absetzbaren Kosten."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Nicht jeder wütende Kommentar ist ein Troll. Manchmal versteckt sich hinter harschen Worten echtes Kunden-Feedback, das das Unternehmen zur Verbesserung der Produkte nutzen kann.",
+      "videoUrl": "",
+      "youtubeQuery": "Unterschied Troll und unzufriedener Kunde Reklamationsmanagement"
+    },
+    {
+      "id": "kk_76",
+      "question": "Die „Urban-Gear GmbH“ möchte sich zukünftig besser gegen Trolle absichern und das Löschen von Kommentaren vereinfachen. Welche präventive Maßnahme sollte dafür auf allen Firmen-Profilen etabliert werden?",
+      "answerOptions": [
+        {
+          "text": "Das Aufstellen von klaren Community-Richtlinien (Verhaltensregeln), auf die sich das Unternehmen bei Verstößen jederzeit berufen kann.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Klare „Netiquetten“ oder Community-Richtlinien definieren vorab, was erlaubt ist (sachliche Kritik) und was nicht (Beleidigungen). Verstoßen Trolle dagegen, hat das Unternehmen eine klare Legitimation zum Löschen."
+        },
+        {
+          "text": "Die Pflicht, dass Kunden vor einem Kommentar ihre Ausweisnummer eingeben müssen.",
+          "isCorrect": false,
+          "rationale": "Dies würde echte Kunden abschrecken und ist datenschutzrechtlich sehr bedenklich."
+        },
+        {
+          "text": "Das Ausblenden der Kommentarfunktion an Wochenenden.",
+          "isCorrect": false,
+          "rationale": "Social Media ist 24/7 aktiv; Ausblenden schädigt die Community-Interaktion massiv."
+        },
+        {
+          "text": "Die Einstellung eines Anwalts, der jeden Kommentar einzeln freigibt.",
+          "isCorrect": false,
+          "rationale": "Das wäre unwirtschaftlich und zu langsam für die Interaktion im Internet."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Klare „Netiquetten“ oder Community-Richtlinien definieren vorab, was erlaubt ist (sachliche Kritik) und was nicht (Beleidigungen). Verstoßen Trolle dagegen, hat das Unternehmen eine klare Legitimation zum Löschen.",
+      "videoUrl": "",
+      "youtubeQuery": "Netiquette erstellen Community Richtlinien Social Media"
+    },
+    {
+      "id": "kk_77",
+      "question": "Ein Troll-Account wurde von der „Peak-Adventures AG“ blockiert und seine Hass-Kommentare wurden gelöscht. Wie sollte das Unternehmen nun gegenüber der restlichen Community handeln, um einen „Shitstorm“ wegen angeblicher Zensur zu vermeiden?",
+      "answerOptions": [
+        {
+          "text": "Das Unternehmen sollte behaupten, es handele sich um einen technischen Fehler von Facebook.",
+          "isCorrect": false,
+          "rationale": "Lügen zerstört langfristig die Glaubwürdigkeit des Unternehmens."
+        },
+        {
+          "text": "Das Unternehmen sollte Transparenz bewahren und (z.B. in einem kurzen Statement) erklären, warum gelöscht/blockiert wurde (z.B. wegen Verstoßes gegen die Richtlinien).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das heimliche Löschen von Kommentaren wird oft als Zensur gewertet. Transparenz (die klare Kommunikation, warum jemand wegen Regelverstoßes gesperrt wurde) schützt das Unternehmen vor Missverständnissen und stärkt das Vertrauen der echten Community."
+        },
+        {
+          "text": "Das Unternehmen sollte alle anderen Follower prophylaktisch ebenfalls für 24 Stunden sperren.",
+          "isCorrect": false,
+          "rationale": "Das würde das Problem nur vergrößern und die gesamte Community verärgern."
+        },
+        {
+          "text": "Das Unternehmen sollte so tun, als sei der Troll nie da gewesen und alle Nachfragen ignorieren.",
+          "isCorrect": false,
+          "rationale": "Ignorieren kann als Schwäche oder Zensur ausgelegt werden."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Das heimliche Löschen von Kommentaren wird oft als Zensur gewertet. Transparenz (die klare Kommunikation, warum jemand wegen Regelverstoßes gesperrt wurde) schützt das Unternehmen vor Missverständnissen und stärkt das Vertrauen der echten Community.",
+      "videoUrl": "",
+      "youtubeQuery": "Krisenkommunikation Social Media Transparenz Löschen"
+    },
+    {
+      "id": "kk_78",
+      "question": "Die „Eco-Trek UG“ erhält 800 Beschwerden pro Monat. Welche spezifischen Reklamations-Prozesse eignen sich hervorragend, um sie an eine Künstliche Intelligenz auszulagern?",
+      "answerOptions": [
+        {
+          "text": "Das Führen von Telefonaten mit Großlieferanten über Preisnachlässe.",
+          "isCorrect": false,
+          "rationale": "Verhandlungen erfordern menschliches Gespür und strategische Abwägung."
+        },
+        {
+          "text": "Die strukturierte Datenauswertung (z.B. Zuordnung von Bestellnummern) und die automatische Kategorisierung der E-Mails (z.B. Vorsortierung in 'Defekt' oder 'Transportschaden').",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. KI ist unschlagbar darin, strukturierte Daten (wie Nummern) blitzschnell aus E-Mails herauszufiltern und die Nachrichten anhand von Stichworten in die richtigen Kategorien vorzusortieren."
+        },
+        {
+          "text": "Die Entscheidung darüber, ob einem Kunden, der 2 Tage nach Ablauf der Garantie schreibt, ausnahmsweise noch geholfen wird.",
+          "isCorrect": false,
+          "rationale": "Dies ist eine Kulanzentscheidung, die menschliches Urteilsvermögen erfordert."
+        },
+        {
+          "text": "Die physische Begutachtung der defekten Rücksendungen im Lager.",
+          "isCorrect": false,
+          "rationale": "Software-KI kann keine physische Prüfung im Lager durchführen (außer durch Robotik, was hier nicht gemeint ist)."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. KI ist unschlagbar darin, strukturierte Daten (wie Nummern) blitzschnell aus E-Mails herauszufiltern und die Nachrichten anhand von Stichworten in die richtigen Kategorien vorzusortieren.",
+      "videoUrl": "",
+      "youtubeQuery": "KI im Kundenservice Reklamationsmanagement Automatisierung"
+    },
+    {
+      "id": "kk_79",
+      "question": "Eine KI analysiert eine E-Mail, in der ein Kunde mit dem Anwalt droht, weil das Zelt im Starkregen undicht war. Warum raten Experten dringend davon ab, die KI diesen Fall vollautomatisch lösen zu lassen?",
+      "answerOptions": [
+        {
+          "text": "Weil KI-Systeme das Wort 'Anwalt' aus Datenschutzgründen nicht lesen dürfen.",
+          "isCorrect": false,
+          "rationale": "Dies ist eine falsche Aussage bezüglich der Funktionalität von KI."
+        },
+        {
+          "text": "Weil es hier um emotionale Eskalationen und rechtliche Sonderfälle (Beweislast) geht. Eine KI besitzt keine Empathie und keinen Ermessensspielraum für individuelle Kulanzentscheidungen.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Empathie bei verärgerten Kunden, individuelle Kulanzentscheidungen ('Drücken wir hier ein Auge zu?') und juristische Sonderfälle sind die absoluten Grenzen der KI. Hier muss zwingend ein Mensch übernehmen."
+        },
+        {
+          "text": "Weil das Shopsystem bei extrem langen E-Mails automatisch abstürzt.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein rein technisches Problem, das nichts mit der KI-Entscheidungsfindung zu tun hat."
+        },
+        {
+          "text": "Weil KI-Antworten in solchen Fällen gesetzlich immer notariell beglaubigt werden müssen.",
+          "isCorrect": false,
+          "rationale": "Dafür gibt es keine gesetzliche Grundlage."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Empathie bei verärgerten Kunden, individuelle Kulanzentscheidungen ('Drücken wir hier ein Auge zu?') und juristische Sonderfälle sind die absoluten Grenzen der KI. Hier muss zwingend ein Mensch übernehmen.",
+      "videoUrl": "",
+      "youtubeQuery": "Grenzen von KI Kundenservice Empathie Kulanz"
+    },
+    {
+      "id": "kk_80",
+      "question": "Das Controlling der „Vanguard-Retail GmbH“ bewertet die Einführung der Reklamations-KI rein aus betriebswirtschaftlicher (finanzieller) Sicht. Welche zwei Argumente sprechen am stärksten für die Investition?",
+      "answerOptions": [
+        {
+          "text": "Die Reduzierung der Bearbeitungszeit pro E-Mail und die hohe Skalierbarkeit des Systems bei starkem Unternehmenswachstum.",
+          "isCorrect": true,
+          "rationale": "Richtig ist A. Die massiv sinkende Bearbeitungszeit (Effizienz), die Entlastung des Personals und die Skalierbarkeit (eine KI kann 100 oder 10.000 E-Mails gleichzeitig verarbeiten) sind die größten betriebswirtschaftlichen Chancen."
+        },
+        {
+          "text": "Eine persönlichere, emotionalere Bindung zum Kunden.",
+          "isCorrect": false,
+          "rationale": "Dies ist eher ein Risiko oder eine Herausforderung, keine unmittelbare finanzielle Chance der KI."
+        },
+        {
+          "text": "Die automatische Steigerung des Traffics über Google.",
+          "isCorrect": false,
+          "rationale": "Reklamations-KI steigert nicht den Traffic."
+        },
+        {
+          "text": "Das sofortige Einsparen von 100% der Serverkosten.",
+          "isCorrect": false,
+          "rationale": "KI erhöht eher den Bedarf an Rechenpower/Serverressourcen."
+        }
+      ],
+      "expectedAnswers": [
+        "A"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist A. Die massiv sinkende Bearbeitungszeit (Effizienz), die Entlastung des Personals und die Skalierbarkeit (eine KI kann 100 oder 10.000 E-Mails gleichzeitig verarbeiten) sind die größten betriebswirtschaftlichen Chancen.",
+      "videoUrl": "",
+      "youtubeQuery": "BWL Vorteile KI Kundenservice Skalierbarkeit"
+    },
+    {
+      "id": "kk_81",
+      "question": "Vor der Vertragsunterschrift warnt der Finanzchef vor den harten betriebswirtschaftlichen Risiken der KI-Software. Welche Punkte gehören in diese Kategorie?",
+      "answerOptions": [
+        {
+          "text": "Eine zu unpersönliche Kommunikation mit den Käufern.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein qualitatives/kundenbezogenes Risiko, kein direktes finanzielles Risiko."
+        },
+        {
+          "text": "Die Gefahr eines Shitstorms auf Facebook.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein Reputationsrisiko."
+        },
+        {
+          "text": "Hohe Implementierungskosten der Software, fortlaufende Lizenzgebühren und ein hoher Schulungsaufwand für die Mitarbeiter.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Implementierung, Schulungen, Lizenzgebühren und mögliche Folgekosten durch Systemfehler sind harte, messbare betriebswirtschaftliche Risiken."
+        },
+        {
+          "text": "Die Vernachlässigung der Corporate Identity (CI) auf der Website.",
+          "isCorrect": false,
+          "rationale": "Das betrifft die Gestaltung, nicht primär die Kostenstruktur."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Implementierung, Schulungen, Lizenzgebühren und mögliche Folgekosten durch Systemfehler sind harte, messbare betriebswirtschaftliche Risiken.",
+      "videoUrl": "",
+      "youtubeQuery": "Kosten und Risiken KI Software Implementierung"
+    },
+    {
+      "id": "kk_82",
+      "question": "Wie profitiert der Kunde (kundenorientierte Perspektive) am meisten davon, wenn die „Eco-Trek UG“ ein KI-System für den Erstkontakt bei Reklamationen nutzt?",
+      "answerOptions": [
+        {
+          "text": "Er erhält jedes Produkt im Shop automatisch 10% günstiger.",
+          "isCorrect": false,
+          "rationale": "Durch KI im Service werden Produkte nicht automatisch günstiger."
+        },
+        {
+          "text": "Er profitiert von einer 24/7-Erreichbarkeit, sofortigen Eingangsbestätigungen und einer drastisch schnelleren Reaktionszeit (Wartezeit sinkt von Tagen auf Minuten).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Aus Kundensicht sind die ständige Erreichbarkeit rund um die Uhr (24/7), eine einheitliche Qualität der Antworten und vor allem das Wegfallen von tagelangen Wartezeiten die absoluten Highlights."
+        },
+        {
+          "text": "Er muss in Zukunft keine Bestellnummern mehr angeben.",
+          "isCorrect": false,
+          "rationale": "Die KI benötigt weiterhin Daten, um den Fall zuzuordnen (auch wenn sie diese besser findet)."
+        },
+        {
+          "text": "Er erhält von der KI automatisch eine persönliche Handynummer des Geschäftsführers.",
+          "isCorrect": false,
+          "rationale": "Das wäre ein massives Sicherheitsrisiko und kein Standardmerkmal."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Aus Kundensicht sind die ständige Erreichbarkeit rund um die Uhr (24/7), eine einheitliche Qualität der Antworten und vor allem das Wegfallen von tagelangen Wartezeiten die absoluten Highlights.",
+      "videoUrl": "",
+      "youtubeQuery": "Kundenvorteile KI Kundenservice Reaktionszeit"
+    },
+    {
+      "id": "kk_83",
+      "question": "Eine KI bearbeitet die Beschwerde über einen gerissenen Wanderrucksack, erkennt aber den Kontext falsch und sendet dem Kunden eine Anleitung zum Waschen von Socken. Welches kundenbezogene Risiko tritt hier ein?",
+      "answerOptions": [
+        {
+          "text": "Das Risiko einer DSGVO-Strafe durch die Aufsichtsbehörde.",
+          "isCorrect": false,
+          "rationale": "Dies ist ein rechtliches/behördliches Risiko, kein direktes Risiko der Kundenbeziehung in diesem Kontext."
+        },
+        {
+          "text": "Ein enormer Vertrauensverlust durch fehlerhafte, unsinnige Antworten und die damit verbundene Frustration über eine unpersönliche „Roboter-Kommunikation“.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Wenn die KI Fehler macht oder den Kern des Problems nicht versteht, fühlt sich der Kunde nicht wertgeschätzt. Die unpersönliche Kommunikation und fachlich falsche Antworten führen zu extremer Frustration und Vertrauensverlust."
+        },
+        {
+          "text": "Die automatische Erhöhung des Kaufpreises im Warenkorb.",
+          "isCorrect": false,
+          "rationale": "E-Mail-KI und Warenkorb-Preise sind voneinander getrennt."
+        },
+        {
+          "text": "Eine Störung in der Logistikkette des Herstellers.",
+          "isCorrect": false,
+          "rationale": "Falsche Antworten an Endkunden stören nicht die Produktion."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Wenn die KI Fehler macht oder den Kern des Problems nicht versteht, fühlt sich der Kunde nicht wertgeschätzt. Die unpersönliche Kommunikation und fachlich falsche Antworten führen zu extremer Frustration und Vertrauensverlust.",
+      "videoUrl": "",
+      "youtubeQuery": "Risiken KI Kundenbeziehung Vertrauensverlust Halluzinationen"
+    },
+    {
+      "id": "kk_84",
+      "question": "Die KI soll eine Antwort auf eine wütende Beschwerde entwerfen. Damit die E-Mail nicht wie von einer gefühllosen Maschine wirkt, müssen zwei kundenorientierte Anforderungen zwingend einprogrammiert werden. Welche sind das?",
+      "answerOptions": [
+        {
+          "text": "Die Verwendung von sehr vielen Emojis und Ausrufezeichen.",
+          "isCorrect": false,
+          "rationale": "Zu viele Symbole wirken unprofessionell und können provokant wirken."
+        },
+        {
+          "text": "Eine empathische Einleitung (z.B. „Es tut uns leid, dass Sie Ärger haben...“) sowie eine starke Personalisierung (Kundenname und konkreter Bezug zum defekten Produkt).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Um kundenorientiert zu sein, muss auch eine KI-E-Mail empathisch beginnen (\"Es tut uns leid...\") und durch die Nutzung des Namens sowie des konkreten Produktnamens personalisiert sein."
+        },
+        {
+          "text": "Das sofortige Anbieten eines 50% Rabatts und kostenlosem Premium-Versand.",
+          "isCorrect": false,
+          "rationale": "Das wäre unwirtschaftlich und nicht in jedem Fall angemessen."
+        },
+        {
+          "text": "Das Weglassen einer Grußformel, um effizienter zu wirken.",
+          "isCorrect": false,
+          "rationale": "Fehlende Höflichkeitsformen wirken unhöflich und maschinell."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Um kundenorientiert zu sein, muss auch eine KI-E-Mail empathisch beginnen (\"Es tut uns leid...\") und durch die Nutzung des Namens sowie des konkreten Produktnamens personalisiert sein.",
+      "videoUrl": "",
+      "youtubeQuery": "Kundenorientierte E-Mail-Kommunikation KI Support"
+    },
+    {
+      "id": "kk_85",
+      "question": "Ein Kunde schreibt, dass der Reißverschluss seiner Jacke defekt ist. Die KI antwortet: „Es tut uns leid, dass wir Ihnen eine schlecht verarbeitete Jacke geschickt haben.“ Warum ist dieser Satz für das Unternehmen juristisch brandgefährlich?",
+      "answerOptions": [
+        {
+          "text": "Weil das Wort 'schlecht' von Spam-Filtern blockiert wird.",
+          "isCorrect": false,
+          "rationale": "Das Wort 'schlecht' verursacht keine Spam-Blockade."
+        },
+        {
+          "text": "Weil diese rechtlich unsaubere Formulierung einem voreiligen juristischen Schuldanerkenntnis gleichkommt, bevor das Produkt überhaupt im Lager geprüft wurde.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Eine Reklamationsantwort muss neutral bleiben. Ein Satz wie 'dass wir Ihnen schlechte Qualität geliefert haben' ist ein rechtliches Schuldanerkenntnis. Stellt sich später heraus, dass der Kunde den Reißverschluss selbst zerstört hat, hat das Unternehmen durch diese E-Mail seine Verhandlungsposition ruiniert."
+        },
+        {
+          "text": "Weil die Jacke laut AGB gar keinen Reißverschluss hat.",
+          "isCorrect": false,
+          "rationale": "Das ist faktisch unsinnig im Kontext der Frage."
+        },
+        {
+          "text": "Weil das Unternehmen dadurch automatisch die Garantie auf 5 Jahre verlängert.",
+          "isCorrect": false,
+          "rationale": "Schuldanerkenntnisse verlängern nicht die Garantiezeit."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Eine Reklamationsantwort muss neutral bleiben. Ein Satz wie 'dass wir Ihnen schlechte Qualität geliefert haben' ist ein rechtliches Schuldanerkenntnis. Stellt sich später heraus, dass der Kunde den Reißverschluss selbst zerstört hat, hat das Unternehmen durch diese E-Mail seine Verhandlungsposition ruiniert.",
+      "videoUrl": "",
+      "youtubeQuery": "Rechtliche Fallstricke Reklamationsantworten Schuldanerkenntnis"
+    },
+    {
+      "id": "kk_86",
+      "question": "Die IT-Abteilung schlägt vor: 'Lass die KI doch defekte Artikel unter 10 € Wert vollautomatisch ablehnen, ohne dass ein Mensch noch drüberschaut.' Der Datenschutzbeauftragte stoppt das sofort mit Verweis auf Art. 22 der DSGVO. Warum?",
+      "answerOptions": [
+        {
+          "text": "Weil die DSGVO verbietet, KI-Systeme für Produkte unter 10 € einzusetzen.",
+          "isCorrect": false,
+          "rationale": "Es gibt keine Wertgrenzen in der DSGVO für KI-Einsatz."
+        },
+        {
+          "text": "Weil laut Art. 22 DSGVO keine Entscheidungen getroffen werden dürfen, die ausschließlich auf einer automatisierten Verarbeitung beruhen und für den Kunden rechtliche Wirkung entfalten (z.B. finale Ablehnung der Gewährleistung).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Art. 22 DSGVO schützt Verbraucher vor der reinen 'Maschinen-Willkür'. Eine Entscheidung mit rechtlicher Tragweite (wie die Ablehnung einer Reklamation) darf nicht zu 100% von einer KI gefällt werden. Ein Mensch muss die finale Freigabe erteilen."
+        },
+        {
+          "text": "Weil die KI keine Rechnungen drucken kann.",
+          "isCorrect": false,
+          "rationale": "Hat nichts mit DSGVO Art. 22 zu tun."
+        },
+        {
+          "text": "Weil das System dafür zwingend die Augenfarbe des Kunden wissen müsste.",
+          "isCorrect": false,
+          "rationale": "Augenfarbe ist hier völlig irrelevant."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Art. 22 DSGVO schützt Verbraucher vor der reinen 'Maschinen-Willkür'. Eine Entscheidung mit rechtlicher Tragweite (wie die Ablehnung einer Reklamation) darf nicht zu 100% von einer KI gefällt werden. Ein Mensch muss die finale Freigabe erteilen.",
+      "videoUrl": "",
+      "youtubeQuery": "DSGVO Artikel 22 automatisierte Entscheidungen KI"
+    },
+    {
+      "id": "kk_87",
+      "question": "Bevor der Kunde seine Reklamation über das neue Formular im Shop absendet, muss er ein kleines Häkchen setzen. Daneben steht: „Ihre Anfrage wird zur Beschleunigung von einem KI-System vorsortiert.“ Welche DSGVO-Anforderung wird durch diesen Hinweis erfüllt?",
+      "answerOptions": [
+        {
+          "text": "Die Datensparsamkeit.",
+          "isCorrect": false,
+          "rationale": "Datensparsamkeit betrifft die Menge der erhobenen Daten."
+        },
+        {
+          "text": "Das Recht auf Datenportabilität.",
+          "isCorrect": false,
+          "rationale": "Datenportabilität betrifft den Export von Daten."
+        },
+        {
+          "text": "Die Transparenzpflicht über die KI-Nutzung (Informationspflicht gegenüber dem Kunden).",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Wenn KI-Systeme im Einsatz sind, greift die Transparenzpflicht. Der Kunde muss klar und verständlich darüber informiert werden, dass seine persönlichen Daten (Beschwerdetext, Name) von einer Künstlichen Intelligenz verarbeitet werden."
+        },
+        {
+          "text": "Die Löschfrist.",
+          "isCorrect": false,
+          "rationale": "Löschfristen regeln, wie lange Daten gespeichert werden dürfen."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Wenn KI-Systeme im Einsatz sind, greift die Transparenzpflicht. Der Kunde muss klar und verständlich darüber informiert werden, dass seine persönlichen Daten (Beschwerdetext, Name) von einer Künstlichen Intelligenz verarbeitet werden.",
+      "videoUrl": "",
+      "youtubeQuery": "DSGVO Transparenzpflicht KI Informationspflicht"
+    },
+    {
+      "id": "kk_88",
+      "question": "Das KI-System fordert bei einer Reklamation eines Zeltes plötzlich das Geburtsdatum und den Familienstand des Kunden an, um 'die Stimmung besser einschätzen zu können'. Welche zwei Grundprinzipien des Datenschutzes verletzt das System hier massiv?",
+      "answerOptions": [
+        {
+          "text": "Das Urheberrecht und das Markenrecht.",
+          "isCorrect": false,
+          "rationale": "Es geht hier um Datenschutz, nicht um geistiges Eigentum."
+        },
+        {
+          "text": "Die Zweckbindung und die Datensparsamkeit (Datenminimierung), da diese privaten Daten für die reine Abwicklung eines defekten Zeltes völlig irrelevant sind.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das Prinzip der Datensparsamkeit besagt, dass nur Daten erhoben werden dürfen, die für die Aufgabe zwingend nötig sind. Die Zweckbindung besagt, dass Daten nur für den Zweck genutzt werden dürfen, für den sie erhoben wurden. Familienstand und Geburtsdatum haben bei einer Zelt-Reklamation nichts zu suchen."
+        },
+        {
+          "text": "Das Recht auf Löschung und das Widerrufsrecht.",
+          "isCorrect": false,
+          "rationale": "Diese Rechte sind hier nicht die primär verletzten Prinzipien."
+        },
+        {
+          "text": "Die Informationspflicht und die Datensicherheit (TOM).",
+          "isCorrect": false,
+          "rationale": "Es geht um die Menge und den Zweck der Daten."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Das Prinzip der Datensparsamkeit besagt, dass nur Daten erhoben werden dürfen, die für die Aufgabe zwingend nötig sind. Die Zweckbindung besagt, dass Daten nur für den Zweck genutzt werden dürfen, für den sie erhoben wurden. Familienstand und Geburtsdatum haben bei einer Zelt-Reklamation nichts zu suchen.",
+      "videoUrl": "",
+      "youtubeQuery": "Datenschutz Grundprinzipien Datensparsamkeit Zweckbindung"
+    },
+    {
+      "id": "kk_89",
+      "question": "Die Geschäftsführung der Ventura-Outdoor GmbH möchte das Beschwerdemanagement nach DIN ISO 10002 umstrukturieren. Welcher Leitsatz beschreibt das Kernziel dieser Norm am treffendsten?",
+      "answerOptions": [
+        {
+          "text": "Beschwerden sollen als lästiges \"Feuerlöschen\" betrachtet und möglichst schnell abgewehrt werden.",
+          "isCorrect": false,
+          "rationale": "Beschwerdemanagement nach ISO 10002 ist kein reines Krisenmanagement, sondern Prozessoptimierung."
+        },
+        {
+          "text": "Kundenbeschwerden sollen als Chance zur systematischen Prozessverbesserung (KVP) und Qualitätssteigerung genutzt werden.",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die Norm DIN ISO 10002 sieht Beschwerdemanagement ausdrücklich nicht als \"Feuerlöschen\", sondern als systematische Methode zur Qualitätssteigerung, bei der Fehler dauerhaft im Unternehmen behoben werden sollen (Kontinuierlicher Verbesserungsprozess - KVP)."
+        },
+        {
+          "text": "Das primäre Ziel ist es, bei jeder Beschwerde die juristische Schuldfrage des Kunden zu klären.",
+          "isCorrect": false,
+          "rationale": "Die Schuldfrage steht nicht im Fokus der Norm; es geht um Kundenzufriedenheit und Verbesserung."
+        },
+        {
+          "text": "Beschwerden dürfen nur noch schriftlich entgegengenommen werden, um den Kundenservice zu entlasten.",
+          "isCorrect": false,
+          "rationale": "Die Norm fordert eine einfache Zugänglichkeit, keine unnötigen Hürden durch Formvorschriften."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die Norm DIN ISO 10002 sieht Beschwerdemanagement ausdrücklich nicht als \"Feuerlöschen\", sondern als systematische Methode zur Qualitätssteigerung, bei der Fehler dauerhaft im Unternehmen behoben werden sollen (Kontinuierlicher Verbesserungsprozess - KVP).",
+      "videoUrl": "",
+      "youtubeQuery": "DIN ISO 10002 Beschwerdemanagement KVP"
+    },
+    {
+      "id": "kk_90",
+      "question": "Die Ventura-Outdoor GmbH platziert auf ihrer Homepage ein auffälliges Banner mit der Aufschrift „Ihre Meinung ist uns wichtig!“ inklusive eines einfachen Feedback-Formulars. In welcher Phase des Beschwerdemanagement-Prozesses nach DIN ISO 10002 befindet sich das Unternehmen hierbei?",
+      "answerOptions": [
+        {
+          "text": "Annahme",
+          "isCorrect": false,
+          "rationale": "Die Annahme erfolgt erst, wenn der Kunde das Formular tatsächlich absendet."
+        },
+        {
+          "text": "Bearbeitung",
+          "isCorrect": false,
+          "rationale": "Bearbeitung ist der interne Prüfvorgang nach der Annahme."
+        },
+        {
+          "text": "Stimulierung",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. In der Phase der \"Stimulierung\" zeigt das Unternehmen aktiv, dass es offen für Feedback und Kritik ist, um Kunden überhaupt erst dazu zu ermutigen, sich bei Problemen zu melden."
+        },
+        {
+          "text": "Reaktion",
+          "isCorrect": false,
+          "rationale": "Die Reaktion ist die Antwort an den Kunden nach Abschluss der Prüfung."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. In der Phase der \"Stimulierung\" zeigt das Unternehmen aktiv, dass es offen für Feedback und Kritik ist, um Kunden überhaupt erst dazu zu ermutigen, sich bei Problemen zu melden.",
+      "videoUrl": "",
+      "youtubeQuery": "Beschwerdestimulierung ISO 10002"
+    },
+    {
+      "id": "kk_91",
+      "question": "Ein Kunde reklamiert einen defekten Toaster bei Ventura-Outdoor. Der Kundenservice entschuldigt sich, tauscht das Gerät um (Reaktion) und meldet den Vorfall zusätzlich an die Qualitätssicherung, damit die gesamte Produktionscharge überprüft wird. Welche Phase des Beschwerdemanagements wurde mit der Meldung an die Qualitätssicherung eingeleitet?",
+      "answerOptions": [
+        {
+          "text": "Stimulierung",
+          "isCorrect": false,
+          "rationale": "Stimulierung dient dem Erhalten von Beschwerden, nicht der Fehlerbehebung."
+        },
+        {
+          "text": "Analyse",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Die \"Analyse\" dient dazu, die tieferliegende Ursache der Beschwerde zu suchen, um den Fehler im Unternehmen (z. B. fehlerhafte Charge) dauerhaft zu beheben."
+        },
+        {
+          "text": "Annahme",
+          "isCorrect": false,
+          "rationale": "Die Annahme ist das bloße Entgegennehmen der Kundenbeschwerde."
+        },
+        {
+          "text": "Reaktion",
+          "isCorrect": false,
+          "rationale": "Die Reaktion ist die Antwort/Lösung gegenüber dem Kunden."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Die \"Analyse\" dient dazu, die tieferliegende Ursache der Beschwerde zu suchen, um den Fehler im Unternehmen (z. B. fehlerhafte Charge) dauerhaft zu beheben.",
+      "videoUrl": "",
+      "youtubeQuery": "Beschwerdeanalyse ISO 10002 KVP"
+    },
+    {
+      "id": "kk_92",
+      "question": "In der Phase der „Reaktion“ (Schritt 4 nach DIN ISO 10002) wendet sich die Ventura-Outdoor GmbH nach der Prüfung der Beschwerde wieder an den Kunden. Welche Maßnahmen gehören klassischerweise in diese Phase?",
+      "answerOptions": [
+        {
+          "text": "Die Suche nach dem Schuldigen innerhalb der eigenen Belegschaft.",
+          "isCorrect": false,
+          "rationale": "Schuldzuweisungen sind kein Ziel eines modernen Beschwerdemanagements."
+        },
+        {
+          "text": "Das Schalten von Werbeanzeigen, um Offenheit für Feedback zu signalisieren.",
+          "isCorrect": false,
+          "rationale": "Dies gehört zur Phase der Stimulierung."
+        },
+        {
+          "text": "Die Rückmeldung an den Kunden inklusive Entschuldigung, Lösungsvorschlag und möglicher Kompensation.",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. In der Reaktionsphase erhält der Kunde das finale Feedback zu seinem Anliegen, was im besten Fall eine Entschuldigung und eine lösungsorientierte Wiedergutmachung (Kompensation) umfasst."
+        },
+        {
+          "text": "Das reine Entgegennehmen der Beschwerde durch geschultes Personal.",
+          "isCorrect": false,
+          "rationale": "Dies beschreibt die Phase der Annahme."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. In der Reaktionsphase erhält der Kunde das finale Feedback zu seinem Anliegen, was im besten Fall eine Entschuldigung und eine lösungsorientierte Wiedergutmachung (Kompensation) umfasst.",
+      "videoUrl": "",
+      "youtubeQuery": "Beschwerdereaktion ISO 10002"
+    },
+    {
+      "id": "kk_93",
+      "question": "Ein Auszubildender der Ventura-Outdoor GmbH soll für seine Prüfung das 2. Axiom von Paul Watzlawick auswendig lernen. Wie lautet dieser absolute Prüfungs-Klassiker?",
+      "answerOptions": [
+        {
+          "text": "\"Jede Kommunikation verläuft entweder symmetrisch oder komplementär.\"",
+          "isCorrect": false,
+          "rationale": "Das ist das 5. Axiom von Watzlawick."
+        },
+        {
+          "text": "\"Man kann nicht nicht kommunizieren.\"",
+          "isCorrect": false,
+          "rationale": "Das ist das 1. Axiom von Watzlawick."
+        },
+        {
+          "text": "\"Jede Kommunikation hat einen Inhalts- und einen Beziehungsaspekt.\"",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Das 2. Axiom besagt, dass Kommunikation immer auf zwei Ebenen stattfindet: Dem sachlichen \"Was\" (Inhalt) und dem zwischenmenschlichen \"Wie\" (Beziehung)."
+        },
+        {
+          "text": "\"Kommunikation ist immer nur verbal und nonverbal.\"",
+          "isCorrect": false,
+          "rationale": "Dies ist eine unvollständige Beschreibung und kein Axiom nach Watzlawick."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Das 2. Axiom besagt, dass Kommunikation immer auf zwei Ebenen stattfindet: Dem sachlichen \"Was\" (Inhalt) und dem zwischenmenschlichen \"Wie\" (Beziehung).",
+      "videoUrl": "",
+      "youtubeQuery": "Watzlawick Axiome Inhalts Beziehungsaspekt"
+    },
+    {
+      "id": "kk_94",
+      "question": "Ein Verkäufer sagt zu einem Kunden, der einen Artikel außerhalb der Frist umtauschen will: „Das können Sie so nicht zurückgeben.“ Dabei sieht er den Kunden sehr barsch und von oben herab an. Der Kunde fühlt sich sofort abgewertet. Wie lässt sich diese Situation nach Watzlawick analysieren?",
+      "answerOptions": [
+        {
+          "text": "Der Inhaltsaspekt ist fehlerhaft, da der Verkäufer keine Worte benutzt hat.",
+          "isCorrect": false,
+          "rationale": "Der Verkäufer hat Worte benutzt (\"Das können Sie so nicht...\"), der Inhaltsaspekt ist also vorhanden."
+        },
+        {
+          "text": "Der Beziehungsaspekt (Abwertung durch Blick/Verhalten) überlagert hier den eigentlich sachlichen Inhaltsaspekt (Ablehnung aufgrund einer Regelung).",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Obwohl die rein sachliche Information (\"Rückgabe nicht möglich\") korrekt sein mag, wird sie durch das abwertende Verhalten des Verkäufers (das \"Wie\") komplett überlagert. Der Kunde reagiert auf die schlechte Beziehungsebene."
+        },
+        {
+          "text": "Es gibt in diesem Satz keinen Inhaltsaspekt, sondern nur einen Beziehungsaspekt.",
+          "isCorrect": false,
+          "rationale": "Jede Nachricht hat beide Aspekte; der Inhalt ist die Information über die Unmöglichkeit der Rückgabe."
+        },
+        {
+          "text": "Die Kommunikation ist gescheitert, weil der Kunde nicht zugehört hat.",
+          "isCorrect": false,
+          "rationale": "Die Kommunikation scheitert hier an der Beziehungsgestaltung des Senders, nicht am Zuhören."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Obwohl die rein sachliche Information (\"Rückgabe nicht möglich\") korrekt sein mag, wird sie durch das abwertende Verhalten des Verkäufers (das \"Wie\") komplett überlagert. Der Kunde reagiert auf die schlechte Beziehungsebene.",
+      "videoUrl": "",
+      "youtubeQuery": "Watzlawick Inhalts Beziehungsaspekt Beispiel"
+    },
+    {
+      "id": "kk_95",
+      "question": "Ein Support-Mitarbeiter schreibt einem Kunden: „Super gemacht!“ – sagt denselben Satz aber am Telefon in einem stark sarkastischen, herablassenden Tonfall. Welche Form der Kommunikation verändert in diesem Beispiel die Bedeutung des verbalen Textes komplett?",
+      "answerOptions": [
+        {
+          "text": "Die nonverbale Kommunikation (Körpersprache)",
+          "isCorrect": false,
+          "rationale": "Nonverbal betrifft Mimik/Gestik, was am Telefon (ohne Video) nicht wahrgenommen wird."
+        },
+        {
+          "text": "Die paraverbale Kommunikation (Stimmklang, Tonlage, Ironie)",
+          "isCorrect": true,
+          "rationale": "Richtig ist B. Das \"Wie\" des Sprechens – also Stimmklang, Tonlage, Lautstärke oder Sprechtempo – gehört zur paraverbalen Kommunikation. Sie entscheidet oft darüber, wie ein gesprochener Satz beim Empfänger tatsächlich ankommt."
+        },
+        {
+          "text": "Die schriftliche Kommunikation",
+          "isCorrect": false,
+          "rationale": "Das Beispiel bezieht sich auf ein Telefonat, nicht auf einen Text."
+        },
+        {
+          "text": "Die visuelle Kommunikation",
+          "isCorrect": false,
+          "rationale": "Visuell betrifft Bilder/Grafiken, was hier nicht vorliegt."
+        }
+      ],
+      "expectedAnswers": [
+        "B"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist B. Das \"Wie\" des Sprechens – also Stimmklang, Tonlage, Lautstärke oder Sprechtempo – gehört zur paraverbalen Kommunikation. Sie entscheidet oft darüber, wie ein gesprochener Satz beim Empfänger tatsächlich ankommt.",
+      "videoUrl": "",
+      "youtubeQuery": "paraverbale Kommunikation Definition Beispiele"
+    },
+    {
+      "id": "kk_96",
+      "question": "In einer mündlichen Prüfung wird ein Auszubildender gebeten, die „drei Säulen der Kommunikation“ zu benennen. Welche Aufzählung erwartet der Prüfer hier als absolute Standard-Antwort?",
+      "answerOptions": [
+        {
+          "text": "Sender, Nachricht, Empfänger",
+          "isCorrect": false,
+          "rationale": "Dies sind die Grundelemente eines Kommunikationsmodells (Lasswell/Shannon-Weaver)."
+        },
+        {
+          "text": "Inhaltsaspekt, Beziehungsaspekt, Appellaspekt",
+          "isCorrect": false,
+          "rationale": "Dies sind Ebenen/Aspekte einer Nachricht (Schulz von Thun/Watzlawick)."
+        },
+        {
+          "text": "Verbale, paraverbale und nonverbale Kommunikation",
+          "isCorrect": true,
+          "rationale": "Richtig ist C. Die drei grundlegenden Formen der Kommunikation sind verbal (das gesprochene/geschriebene Wort), paraverbal (die Stimme/Art des Sprechens) und nonverbal (Körpersprache, Mimik, Gestik)."
+        },
+        {
+          "text": "Hören, Sprechen, Schreiben",
+          "isCorrect": false,
+          "rationale": "Dies sind Kommunikationsfertigkeiten, aber nicht die drei klassischen Säulen/Formen."
+        }
+      ],
+      "expectedAnswers": [
+        "C"
+      ],
+      "inputType": "text",
+      "rationale": "Richtig ist C. Die drei grundlegenden Formen der Kommunikation sind verbal (das gesprochene/geschriebene Wort), paraverbal (die Stimme/Art des Sprechens) und nonverbal (Körpersprache, Mimik, Gestik).",
+      "videoUrl": "",
+      "youtubeQuery": "Säulen der Kommunikation verbal paraverbal nonverbal"
     }
   ]
 }
