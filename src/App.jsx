@@ -106,6 +106,7 @@ function App() {
     handleLogin,
     handleRegister,
     handleGoogleLogin,
+    handleGuestLogin,
     handleLogout,
     clearGuestProgressData
   } = useAuth(setAppMode);
@@ -2511,6 +2512,17 @@ ${input}`;
               style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}
             >
               Mit Google anmelden
+            </button>
+
+            <button
+              id="guest-login-btn"
+              type="button"
+              className="btn-secondary"
+              onClick={handleGuestLogin}
+              disabled={authLoading}
+              style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}
+            >
+              Als Gast fortfahren
             </button>
           </form>
 
