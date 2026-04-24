@@ -31,6 +31,9 @@ export const useAuth = (setAppMode) => {
 
     const saveRememberedSession = (session) => {
         if (!session?.access_token || !session?.refresh_token) return;
+        // Security: Only store tokens when "Remember me" is explicitly checked.
+        // Note: localStorage is vulnerable to XSS. In a future version, consider
+        // migrating to httpOnly cookies or Supabase's built-in session persistence.
         localStorage.setItem(REMEMBERED_SESSION_KEY, JSON.stringify({
             access_token: session.access_token,
             refresh_token: session.refresh_token,
@@ -60,6 +63,13 @@ export const useAuth = (setAppMode) => {
             }
 
             if (!remembered?.access_token || !remembered?.refresh_token) return;
+
+            // Security: Invalidate remembered sessions older than 24 hours
+            const SESSION_MAX_AGE_MS = 24 * 60 * 60 * 1000;
+            if (remembered.stored_at && (Date.now() - remembered.stored_at > SESSION_MAX_AGE_MS)) {
+                clearRememberedSession();
+                return;
+            }
 
             const { error } = await supabase.auth.setSession({
                 access_token: remembered.access_token,

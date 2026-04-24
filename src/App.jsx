@@ -2524,6 +2524,9 @@ ${input}`;
             >
               Als Gast fortfahren
             </button>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center', marginTop: '0.3rem' }}>
+              Hinweis: Als Gast wird dein Fortschritt nur lokal gespeichert und nicht über Geräte hinweg synchronisiert.
+            </p>
           </form>
 
           {authMsg && <p style={{ color: authMsg.includes('Erfolg') || authMsg.includes('erstellt') ? 'var(--success)' : 'var(--error)', marginBottom: '1rem', fontWeight: 'bold' }}>{authMsg}</p>}
@@ -2885,7 +2888,7 @@ ${input}`;
               <img src="/EinsteinGold.webp" alt="VIP Bereich" style={{ width: '1.05em', height: '1.05em', objectFit: 'contain' }} />
             </div>
             <h2>VIP Bereich</h2>
-            <p>Exklusive Zusatzfunktionen für MasterPat Premium Mitglieder.</p>
+            <p>Stadt Land Fluss Multiplayer und weitere exklusive Funktionen.</p>
             <div className="chip" style={{ background: 'rgba(234, 179, 8, 0.2)', color: '#eab308' }}>PRO</div>
           </div>
 

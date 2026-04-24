@@ -1,15 +1,30 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { ORGANIGRAMM_SVG } from '../data/sharedSvgs';
 
 const ASSETS = {
     '@organigramm@': ORGANIGRAMM_SVG
 };
 
+/**
+ * Sanitize SVG string: remove <script>, on* event handlers, and javascript: URLs
+ * to prevent XSS when using dangerouslySetInnerHTML.
+ */
+function sanitizeSvg(svgString) {
+    if (!svgString || typeof svgString !== 'string') return svgString;
+    return svgString
+        .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
+        .replace(/\son\w+\s*=\s*["'][^"']*["']/gi, '')
+        .replace(/\son\w+\s*=\s*[^\s>]+/gi, '')
+        .replace(/href\s*=\s*["']javascript:[^"']*["']/gi, 'href="#"')
+        .replace(/xlink:href\s*=\s*["']javascript:[^"']*["']/gi, 'xlink:href="#"');
+}
+
 const FloatingImage = ({ svgCode, isLightMode }) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    // Resolve placeholders if any
-    const finalSvg = ASSETS[svgCode] || svgCode;
+    // Resolve placeholders if any, then sanitize
+    const rawSvg = ASSETS[svgCode] || svgCode;
+    const finalSvg = useMemo(() => sanitizeSvg(rawSvg), [rawSvg]);
 
     // Initial size and position. If on a very small screen, make it smaller.
     const initialWidth = typeof window !== 'undefined' ? Math.min(700, window.innerWidth - 40) : 700;

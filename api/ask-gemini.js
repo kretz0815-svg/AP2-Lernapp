@@ -3,6 +3,50 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 const GEMINI_MODELS = ['gemini-2.0-flash', 'gemini-1.5-flash'];
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
 
+// --- Rate Limiting (in-memory, per-IP, resets on cold start) ---
+const rateLimitMap = new Map();
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 15; // max requests per IP per window
+
+function isRateLimited(ip) {
+    const now = Date.now();
+    const entry = rateLimitMap.get(ip);
+
+    // Clean up entries older than 5 minutes to prevent memory leaks
+    for (const [key, val] of rateLimitMap) {
+        if (now - val.startTime > 5 * 60 * 1000) {
+            rateLimitMap.delete(key);
+        }
+    }
+
+    if (!entry || now - entry.startTime > RATE_LIMIT_WINDOW_MS) {
+        rateLimitMap.set(ip, { count: 1, startTime: now });
+        return false;
+    }
+
+    entry.count += 1;
+    if (entry.count > RATE_LIMIT_MAX_REQUESTS) {
+        return true;
+    }
+    return false;
+}
+
+// --- CORS Headers ---
+const CORS_HEADERS = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+};
+
+// --- Input Sanitization ---
+function sanitizeString(str, maxLength = 8000) {
+    return String(str ?? '')
+        .replace(/<[^>]*>/g, '') // strip HTML tags
+        .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '') // strip control chars
+        .slice(0, maxLength)
+        .trim();
+}
+
 function extractText(result) {
     try {
         if (!result?.response) return null;
@@ -55,29 +99,46 @@ async function askDeepSeekServer(prompt, deepSeekKey) {
 }
 
 export async function POST(request) {
-    const apiKey = process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY;
-    const deepSeekKey = process.env.DEEPSEEK_API_KEY || process.env.VITE_DEEPSEEK_API_KEY;
+    // --- Rate Limiting ---
+    const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+        || request.headers.get('x-real-ip')
+        || 'unknown';
+
+    if (isRateLimited(clientIp)) {
+        return new Response(JSON.stringify({
+            error: 'Zu viele Anfragen. Bitte warte einen Moment und versuche es erneut.'
+        }), { status: 429, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS } });
+    }
+
+    // --- API Keys from server env only (never from VITE_ client vars) ---
+    const apiKey = process.env.GEMINI_API_KEY;
+    const deepSeekKey = process.env.DEEPSEEK_API_KEY;
 
     if (!apiKey && !deepSeekKey) {
         return new Response(JSON.stringify({
-            error: 'Fehler: Kein API-Key für den KI-Assistenten gesetzt. Bitte in den Vercel-Projekteinstellungen konfigurieren.'
-        }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+            error: 'Fehler: Kein API-Key für den KI-Assistenten konfiguriert. Bitte in den Vercel-Projekteinstellungen setzen (GEMINI_API_KEY und/oder DEEPSEEK_API_KEY).'
+        }), { status: 500, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS } });
     }
 
     let body;
     try {
         body = await request.json();
     } catch {
-        return new Response(JSON.stringify({ error: 'Ungültiger JSON-Body' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+        return new Response(JSON.stringify({ error: 'Ungültiger JSON-Body' }), { status: 400, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS } });
     }
 
-    const question = String(body.question ?? '').slice(0, 8000);
-    const contextQuestion = String(body.contextQuestion ?? '').slice(0, 4000);
-    const contextAnswer = String(body.contextAnswer ?? '').slice(0, 4000);
+    // --- Input Sanitization ---
+    const question = sanitizeString(body.question, 8000);
+    const contextQuestion = sanitizeString(body.contextQuestion, 4000);
+    const contextAnswer = sanitizeString(body.contextAnswer, 4000);
     const hasIsCorrect = typeof body.isCorrect === 'boolean';
     const isCorrect = hasIsCorrect ? body.isCorrect : null;
-    const selectedAnswer = String(body.selectedAnswer ?? '').slice(0, 1200);
-    const correctAnswer = String(body.correctAnswer ?? '').slice(0, 1200);
+    const selectedAnswer = sanitizeString(body.selectedAnswer, 1200);
+    const correctAnswer = sanitizeString(body.correctAnswer, 1200);
+
+    if (!question) {
+        return new Response(JSON.stringify({ error: 'Frage darf nicht leer sein.' }), { status: 400, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS } });
+    }
 
     const correctnessBlock = hasIsCorrect
         ? `
@@ -104,7 +165,7 @@ Hier ist die konkrete Rückfrage / das Problem des Auszubildenden dazu:
 
 Bitte antworte ermutigend, kurz, prägnant und fachlich korrekt in einem leicht verständlichen Deutsch. Fasse dich kurz, es soll direkt helfen, ohne abzulenken.`;
 
-    // 1. Gemini versuchen
+    // 1. Try Gemini
     if (apiKey) {
         const genAI = new GoogleGenerativeAI(apiKey);
         for (const modelId of GEMINI_MODELS) {
@@ -113,7 +174,7 @@ Bitte antworte ermutigend, kurz, prägnant und fachlich korrekt in einem leicht 
                 const result = await model.generateContent(prompt);
                 const text = extractText(result);
                 if (text && text.length > 0) {
-                    return new Response(JSON.stringify({ text }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+                    return new Response(JSON.stringify({ text }), { status: 200, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS } });
                 }
             } catch (err) {
                 console.warn(`Gemini ${modelId} failed:`, err?.message);
@@ -124,11 +185,16 @@ Bitte antworte ermutigend, kurz, prägnant und fachlich korrekt in einem leicht 
     // 2. DeepSeek Fallback
     const deepSeekResult = await askDeepSeekServer(prompt, deepSeekKey);
     if (deepSeekResult) {
-        return new Response(JSON.stringify({ text: deepSeekResult }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        return new Response(JSON.stringify({ text: deepSeekResult }), { status: 200, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS } });
     }
 
-    // Alle Modelle fehlgeschlagen
+    // All models failed
     return new Response(JSON.stringify({
         error: 'Entschuldigung, leider gab es ein Problem bei der Verbindung zur KI. Bitte versuche es in einer Minute erneut.'
-    }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+    }), { status: 500, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS } });
+}
+
+// Handle CORS preflight
+export async function OPTIONS() {
+    return new Response(null, { status: 204, headers: CORS_HEADERS });
 }

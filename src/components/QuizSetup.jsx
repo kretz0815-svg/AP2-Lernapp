@@ -24,16 +24,8 @@ const QuizSetup = ({
 }) => {
   const [feynmanInfoOpen, setFeynmanInfoOpen] = useState(false);
 
-  useEffect(() => {
-    try {
-      const seen = localStorage.getItem('ap2_feynman_onboarding_seen') === 'true';
-      if (!seen) {
-        setFeynmanInfoOpen(true);
-      }
-    } catch {
-      // Ignore localStorage failures and continue silently.
-    }
-  }, []);
+  // Auto-open removed: The Feynman info only opens when the user clicks the (i) button.
+  // Previously this auto-opened on first visit, which was disruptive.
 
   const closeFeynmanInfo = () => {
     setFeynmanInfoOpen(false);
