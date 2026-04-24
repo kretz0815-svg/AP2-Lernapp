@@ -1,68 +1,34 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+// geminiClient.js – Alle KI-Aufrufe über Server-Routen (/api/ask-ai, /api/ask-gemini)
+// Keine API-Keys im Client-Bundle. Keine direkten Gemini/DeepSeek-Aufrufe.
 
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-const deepSeekKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
-
-let genAI = null;
-if (apiKey) {
-    genAI = new GoogleGenerativeAI(apiKey);
-}
-
-const GEMINI_MODELS = ['gemini-2.0-flash', 'gemini-1.5-flash'];
-const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
-
-function extractTextFromResult(result) {
+// --- Zentraler AI-Proxy über /api/ask-ai ---
+async function callAiServer(prompt, preferredModel = null) {
     try {
-        if (!result?.response) return null;
-        return result.response.text?.()?.trim() || null;
-    } catch {
-        try {
-            const candidates = result?.response?.candidates || [];
-            const c = candidates[0];
-            if (!c || (c.finishReason && ['SAFETY', 'RECITATION'].includes(c.finishReason))) return null;
-            return (c.content?.parts?.[0]?.text || '').trim() || null;
-        } catch {
-            return null;
-        }
-    }
-}
+        const body = { prompt: String(prompt ?? '').slice(0, 16000) };
+        if (preferredModel) body.model = preferredModel;
 
-// --- DeepSeek Fallback (OpenAI-kompatible API) ---
-async function askDeepSeek(prompt) {
-    if (!deepSeekKey) return null;
-
-    try {
-        const res = await fetch(DEEPSEEK_API_URL, {
+        const res = await fetch('/api/ask-ai', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${deepSeekKey}`
-            },
-            body: JSON.stringify({
-                model: 'deepseek-chat',
-                messages: [
-                    { role: 'system', content: 'Du bist ein hilfreicher Lern-Assistent für Azubis. Antworte auf Deutsch, kurz und prägnant.' },
-                    { role: 'user', content: prompt }
-                ],
-                max_tokens: 1024,
-                temperature: 0.7
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
         });
 
         if (!res.ok) {
-            console.warn(`DeepSeek API returned ${res.status}`);
+            const errData = await res.json().catch(() => ({}));
+            console.warn('callAiServer Fehler:', res.status, errData?.error || '');
             return null;
         }
 
-        const data = await res.json();
-        const text = data?.choices?.[0]?.message?.content?.trim();
-        return text && text.length > 0 ? text : null;
+        const data = await res.json().catch(() => ({}));
+        if (data?.text && data.text.length > 0) return data.text;
+        return null;
     } catch (error) {
-        console.warn('DeepSeek fallback failed:', error?.message || error);
+        console.warn('callAiServer nicht erreichbar:', error?.message);
         return null;
     }
 }
 
+// --- askGemini über dedizierte /api/ask-gemini Route (IHK-Tutor-Format) ---
 export async function askGemini(question, contextQuestion, contextAnswer, options = {}) {
     const safeQuestion = String(question ?? '').slice(0, 8000);
     const safeContextQ = String(contextQuestion ?? '').slice(0, 4000);
@@ -72,7 +38,6 @@ export async function askGemini(question, contextQuestion, contextAnswer, option
     const safeSelectedAnswer = String(options?.selectedAnswer ?? '').slice(0, 1200);
     const safeCorrectAnswer = String(options?.correctAnswer ?? '').slice(0, 1200);
 
-    // Zuerst über serverseitige API (Vercel) aufrufen – vermeidet CORS und schützt den API-Key
     try {
         const res = await fetch('/api/ask-gemini', {
             method: 'POST',
@@ -89,97 +54,61 @@ export async function askGemini(question, contextQuestion, contextAnswer, option
         const data = await res.json().catch(() => ({}));
         if (res.ok && data?.text) return data.text;
         if (data?.error) {
-            // Bei Vercel-API-Fehler nicht sofort abbrechen – DeepSeek-Fallback versuchen
-            console.warn('Vercel API returned error:', data.error);
+            console.warn('ask-gemini API Fehler:', data.error);
         }
     } catch (e) {
-        console.warn('API-Proxy nicht erreichbar, Fallback auf direkten Aufruf:', e?.message);
+        console.warn('ask-gemini nicht erreichbar:', e?.message);
     }
 
-    // Fallback 1: direkter Gemini-Aufruf (z. B. lokale Entwicklung)
+    // Fallback: /api/ask-ai mit generischem Prompt
     const correctnessBlock = hasIsCorrect
-        ? `
+        ? \`
 Prüfkontext zur letzten Antwort:
-- isCorrect: ${safeIsCorrect}
-- Gewählte Antwort: "${safeSelectedAnswer || 'N/A'}"
-- Korrekte Antwort: "${safeCorrectAnswer || 'N/A'}"
+- isCorrect: \${safeIsCorrect}
+- Gewählte Antwort: "\${safeSelectedAnswer || 'N/A'}"
+- Korrekte Antwort: "\${safeCorrectAnswer || 'N/A'}"
 
 WICHTIGE REGEL:
 Du bist ein strenger, aber fairer IHK-Tutor.
 Wenn isCorrect = false, lobe den User NIEMALS.
 Sage klar, dass die Antwort falsch war, erkläre kurz warum die gewählte Option nicht stimmt und warum die korrekte Option richtig ist.
-Wenn isCorrect = true, gib kurzes, sachliches Lob und vertiefe den Kernpunkt fachlich.`
+Wenn isCorrect = true, gib kurzes, sachliches Lob und vertiefe den Kernpunkt fachlich.\`
         : '';
 
-    const prompt = `Du bist ein hilfreicher Lern-Assistent für einen Lehrling in der Ausbildung, wahrscheinlich im IT-Bereich (Fachinformatiker o.ä.). 
+    const prompt = \`Du bist ein hilfreicher Lern-Assistent für einen Lehrling in der Ausbildung, wahrscheinlich im IT-Bereich (Fachinformatiker o.ä.). 
 Der Azubi übt gerade Lernkarten und diese spezielle Frage aus einem Lernkatalog:
-"${safeContextQ}"
-Die erwartete korrekte Antwort lautet: "${safeContextA}"
-${correctnessBlock}
+"\${safeContextQ}"
+Die erwartete korrekte Antwort lautet: "\${safeContextA}"
+\${correctnessBlock}
 
 Hier ist die konkrete Rückfrage / das Problem des Auszubildenden dazu:
-"${safeQuestion}"
+"\${safeQuestion}"
 
-Bitte antworte ermutigend, kurz, prägnant und fachlich korrekt in einem leicht verständlichen Deutsch. Fasse dich kurz, es soll direkt helfen, ohne abzulenken.`;
+Bitte antworte ermutigend, kurz, prägnant und fachlich korrekt in einem leicht verständlichen Deutsch. Fasse dich kurz, es soll direkt helfen, ohne abzulenken.\`;
 
-    if (genAI) {
-        let lastError = null;
-        for (const modelId of GEMINI_MODELS) {
-            try {
-                const model = genAI.getGenerativeModel({ model: modelId });
-                const result = await model.generateContent(prompt);
-                const text = extractTextFromResult(result);
-                if (text && text.length > 0) return text;
-            } catch (error) {
-                lastError = error;
-                console.warn(`Gemini ${modelId} failed:`, error?.message || error);
-            }
-        }
-        console.error("Gemini API Error (all models failed):", lastError);
-    }
-
-    // Fallback 2: DeepSeek
-    console.info('Versuche DeepSeek-Fallback…');
-    const deepSeekResult = await askDeepSeek(prompt);
-    if (deepSeekResult) return deepSeekResult;
-
-    // Alle Modelle fehlgeschlagen
-    if (!genAI && !deepSeekKey) {
-        return "Fehler: Kein API-Key für den KI-Assistenten gesetzt. Bitte in .env.local oder Vercel konfigurieren.";
-    }
+    const fallbackResult = await callAiServer(prompt);
+    if (fallbackResult) return fallbackResult;
 
     return "Entschuldigung, leider gab es ein Problem bei der Verbindung zur KI. Bitte versuche es in einer Minute erneut.";
 }
 
 export async function askCyberEinstein({ userPrompt, contextQuestion, contextAnswer }) {
-    const prompt = `Du bist ein geniales, aber leicht schrulliges Einstein-Hologramm-Mentor-System.
+    const prompt = \`Du bist ein geniales, aber leicht schrulliges Einstein-Hologramm-Mentor-System.
 Du erklärst KLR-Fehler praxisnah anhand von E-Commerce-Beispielen.
 Wenn es passt, nutze einen humorvollen Einstein-Ton.
 Maximal 2 Sätze. Kurz, direkt, bestimmt.
 
 Kontext-Aufgabe:
-"${contextQuestion || 'KLR-Aufgabe'}"
+"\${contextQuestion || 'KLR-Aufgabe'}"
 Korrekte Referenz:
-"${contextAnswer || 'Keine Referenz'}"
+"\${contextAnswer || 'Keine Referenz'}"
 Nutzer-Eingabe:
-"${userPrompt || 'Keine Eingabe'}"
+"\${userPrompt || 'Keine Eingabe'}"
 
-Antworte auf Deutsch.`;
+Antworte auf Deutsch.\`;
 
-    // Gemini zuerst
-    if (genAI) {
-        try {
-            const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-            const result = await model.generateContent(prompt);
-            return result.response.text();
-        } catch (error) {
-            console.warn('askCyberEinstein Gemini error:', error?.message);
-        }
-    }
-
-    // DeepSeek Fallback
-    const deepSeekResult = await askDeepSeek(prompt);
-    if (deepSeekResult) return deepSeekResult;
+    const result = await callAiServer(prompt, 'gemini-1.5-flash');
+    if (result) return result;
 
     return 'Mein Freund, dein Rechenweg hat ein Glitch. Prüfe Basiswert und Formel noch einmal.';
 }
@@ -212,7 +141,7 @@ function buildFallbackKpiScenario() {
     const umsatz = Math.round((bestellungen * aov) * 100) / 100;
 
     return {
-        kampagnen_szenario: `Du bewirbst ${product} über ${channel}. Dein Budget lag bei ${werbekosten.toFixed(2)} EUR. Die Anzeigen wurden ${impressions.toLocaleString('de-DE')} Mal ausgespielt, ${klicks.toLocaleString('de-DE')} Personen klickten, ${bestellungen.toLocaleString('de-DE')} Bestellungen wurden erzielt. Der Umsatz beträgt ${umsatz.toFixed(2)} EUR.`,
+        kampagnen_szenario: \`Du bewirbst \${product} über \${channel}. Dein Budget lag bei \${werbekosten.toFixed(2)} EUR. Die Anzeigen wurden \${impressions.toLocaleString('de-DE')} Mal ausgespielt, \${klicks.toLocaleString('de-DE')} Personen klickten, \${bestellungen.toLocaleString('de-DE')} Bestellungen wurden erzielt. Der Umsatz beträgt \${umsatz.toFixed(2)} EUR.\`,
         impressions,
         klicks,
         bestellungen,
@@ -240,38 +169,15 @@ function isValidKpiScenario(parsed) {
 }
 
 export async function generateOnlineMarketingScenario() {
-    const prompt = `Du bist ein Generator für E-Commerce Prüfungsaufgaben.
+    const prompt = \`Du bist ein Generator für E-Commerce Prüfungsaufgaben.
 Erstelle eine fiktive Online-Marketing-Kampagne (z. B. Social-Media-Ads für Laufschuhe).
 Generiere realistische Zahlenwerte für Impressions, Klicks, Bestellungen (Conversions), Werbekosten und generierten Umsatz.
 Antworte AUSSCHLIESSLICH im folgenden JSON-Format:
-{ "kampagnen_szenario": "String", "impressions": Number, "klicks": Number, "bestellungen": Number, "werbekosten_euro": Number, "umsatz_euro": Number }`;
+{ "kampagnen_szenario": "String", "impressions": Number, "klicks": Number, "bestellungen": Number, "werbekosten_euro": Number, "umsatz_euro": Number }\`;
 
-    if (genAI) {
-        for (const modelId of GEMINI_MODELS) {
-            try {
-                const model = genAI.getGenerativeModel({ model: modelId });
-                const result = await model.generateContent(prompt);
-                const text = extractTextFromResult(result);
-                const parsed = extractJsonObject(text);
-                if (isValidKpiScenario(parsed)) {
-                    return {
-                        kampagnen_szenario: String(parsed.kampagnen_szenario),
-                        impressions: Number(parsed.impressions),
-                        klicks: Number(parsed.klicks),
-                        bestellungen: Number(parsed.bestellungen),
-                        werbekosten_euro: Number(parsed.werbekosten_euro),
-                        umsatz_euro: Number(parsed.umsatz_euro)
-                    };
-                }
-            } catch (error) {
-                console.warn(`generateOnlineMarketingScenario ${modelId} failed:`, error?.message || error);
-            }
-        }
-    }
-
-    const deepSeekResult = await askDeepSeek(prompt);
-    if (deepSeekResult) {
-        const parsed = extractJsonObject(deepSeekResult);
+    const text = await callAiServer(prompt);
+    if (text) {
+        const parsed = extractJsonObject(text);
         if (isValidKpiScenario(parsed)) {
             return {
                 kampagnen_szenario: String(parsed.kampagnen_szenario),
@@ -292,33 +198,20 @@ export async function askKpiTutorFeedback({ metric, formula, userInput }) {
     const safeFormula = String(formula || '').slice(0, 180);
     const safeInput = String(userInput || '').slice(0, 80);
 
-    const prompt = `Der Schüler hat bei der Berechnung der Marketing-KPIs Fehler gemacht.
+    const prompt = \`Der Schüler hat bei der Berechnung der Marketing-KPIs Fehler gemacht.
 Erkläre ihm in genau einem kurzen, motivierenden Satz die korrekte Formel für die falsche Metrik,
 ohne das genaue Endergebnis vorzusagen.
 
-Falsche Metrik: ${safeMetric}
-Formel: ${safeFormula}
-User-Eingabe: ${safeInput || 'leer'}
+Falsche Metrik: \${safeMetric}
+Formel: \${safeFormula}
+User-Eingabe: \${safeInput || 'leer'}
 
-Beispielstil: Achtung beim ROAS: Hier musst du den Umsatz durch die Werbekosten teilen, nicht umgekehrt!`;
+Beispielstil: Achtung beim ROAS: Hier musst du den Umsatz durch die Werbekosten teilen, nicht umgekehrt!\`;
 
-    if (genAI) {
-        for (const modelId of GEMINI_MODELS) {
-            try {
-                const model = genAI.getGenerativeModel({ model: modelId });
-                const result = await model.generateContent(prompt);
-                const text = extractTextFromResult(result);
-                if (text) return text;
-            } catch (error) {
-                console.warn(`askKpiTutorFeedback ${modelId} failed:`, error?.message || error);
-            }
-        }
-    }
+    const result = await callAiServer(prompt);
+    if (result) return result;
 
-    const deepSeekResult = await askDeepSeek(prompt);
-    if (deepSeekResult) return deepSeekResult;
-
-    return `Tipp zu ${safeMetric}: Nutze sauber die Formel ${safeFormula} und achte darauf, Zähler und Nenner nicht zu vertauschen.`;
+    return \`Tipp zu \${safeMetric}: Nutze sauber die Formel \${safeFormula} und achte darauf, Zähler und Nenner nicht zu vertauschen.\`;
 }
 
 function randomSample(list, count) {
@@ -351,70 +244,62 @@ function buildFallbackKpiTheoryQuestions() {
             ]
         },
         {
-            id: 'model_cpo',
-            question: 'Bei welchem Modell bezahlt der Advertiser erst bei einer Bestellung?',
+            id: 'risk_cpo',
+            question: 'Beim CPO-Modell trägt der Publisher das Risiko für:',
             options: [
-                { id: 'a', text: 'CPO', isCorrect: true },
-                { id: 'b', text: 'CPM', isCorrect: false },
-                { id: 'c', text: 'CPC', isCorrect: false }
+                { id: 'a', text: 'Nur die Impressions', isCorrect: false },
+                { id: 'b', text: 'Conversions (Bestellungen)', isCorrect: true },
+                { id: 'c', text: 'Die Werbekosten des Merchants', isCorrect: false }
             ]
         },
         {
-            id: 'model_cpl',
-            question: 'Wofür steht CPL im Online-Marketing?',
+            id: 'cpc_vs_cpm',
+            question: 'Was ist der Hauptunterschied zwischen CPC und CPM?',
             options: [
-                { id: 'a', text: 'Cost per Lead', isCorrect: true },
-                { id: 'b', text: 'Cost per Like', isCorrect: false },
-                { id: 'c', text: 'Campaign per Lead', isCorrect: false }
+                { id: 'a', text: 'CPC zahlt pro Klick, CPM pro 1000 Impressions', isCorrect: true },
+                { id: 'b', text: 'CPC zahlt pro Conversion, CPM pro Klick', isCorrect: false },
+                { id: 'c', text: 'Es gibt keinen Unterschied', isCorrect: false }
             ]
         },
         {
-            id: 'risk_cpm',
-            question: 'Welches Risiko hat der Merchant bei CPM besonders?',
+            id: 'cpl_use',
+            question: 'Wofür steht CPL in der Online-Werbung?',
             options: [
-                { id: 'a', text: 'Er zahlt bereits für Sichtkontakte ohne Kaufgarantie', isCorrect: true },
-                { id: 'b', text: 'Er zahlt nur bei Bestellung', isCorrect: false },
-                { id: 'c', text: 'Er zahlt nur bei qualifiziertem Lead', isCorrect: false }
+                { id: 'a', text: 'Cost Per Lead', isCorrect: true },
+                { id: 'b', text: 'Cost Per Like', isCorrect: false },
+                { id: 'c', text: 'Cost Per Login', isCorrect: false }
             ]
         },
         {
-            id: 'trigger_cpl',
-            question: 'Welche Aktion löst beim CPL-Modell die Vergütung aus?',
+            id: 'merchant_risk',
+            question: 'Welches Abrechnungsmodell ist für den Merchant am risikoärmsten?',
             options: [
-                { id: 'a', text: 'Ein qualifizierter Lead, z. B. Kontaktformular', isCorrect: true },
-                { id: 'b', text: 'Jede Impression', isCorrect: false },
-                { id: 'c', text: 'Nur ein Kaufabschluss', isCorrect: false }
+                { id: 'a', text: 'CPO (Cost Per Order)', isCorrect: true },
+                { id: 'b', text: 'CPC (Cost Per Click)', isCorrect: false },
+                { id: 'c', text: 'CPM (Cost Per Mille)', isCorrect: false }
             ]
         },
         {
-            id: 'term_cpc',
-            question: 'Wofür steht CPC?',
+            id: 'publisher_cpc',
+            question: 'Warum mögen Publisher oft CPM mehr als CPC?',
             options: [
-                { id: 'a', text: 'Cost per Click', isCorrect: true },
-                { id: 'b', text: 'Cost per Conversion', isCorrect: false },
-                { id: 'c', text: 'Campaign per Customer', isCorrect: false }
+                { id: 'a', text: 'Weil sie auch ohne Klicks verdienen', isCorrect: true },
+                { id: 'b', text: 'Weil CPM mehr Umsatz bringt als CPC', isCorrect: false },
+                { id: 'c', text: 'Weil CPM einfacher zu berechnen ist', isCorrect: false }
             ]
         },
         {
-            id: 'allocation_cpo',
-            question: 'Bei welchem Modell wird das Conversion-Risiko stärker auf den Publisher verlagert?',
+            id: 'cpo_breakeven',
+            question: 'Wann lohnt sich CPO für den Merchant?',
             options: [
-                { id: 'a', text: 'CPO', isCorrect: true },
-                { id: 'b', text: 'CPM', isCorrect: false },
-                { id: 'c', text: 'Flatrate mit fester Laufzeit', isCorrect: false }
+                { id: 'a', text: 'Wenn die Provision kleiner ist als der Gewinn pro Bestellung', isCorrect: true },
+                { id: 'b', text: 'Wenn mehr Klicks als Impressions kommen', isCorrect: false },
+                { id: 'c', text: 'CPO lohnt sich nie für den Merchant', isCorrect: false }
             ]
         }
     ];
 
-    const selected = randomSample(pool, 4);
-    return selected.map((q, idx) => ({
-        ...q,
-        id: `${q.id}_${Date.now()}_${idx}`,
-        options: randomSample(q.options, q.options.length).map((opt, optIdx) => ({
-            ...opt,
-            id: String.fromCharCode(97 + optIdx)
-        }))
-    }));
+    return randomSample(pool, 5);
 }
 
 function normalizeTheoryQuestionSet(parsed) {
@@ -433,7 +318,7 @@ function normalizeTheoryQuestionSet(parsed) {
             const correctCount = mappedOptions.filter((opt) => opt.isCorrect).length;
             if (qText.length < 10 || mappedOptions.length < 3 || correctCount !== 1) return null;
             return {
-                id: String(entry?.id || `kpi_theory_${qIndex + 1}`),
+                id: String(entry?.id || \`kpi_theory_\${qIndex + 1}\`),
                 question: qText,
                 options: mappedOptions
             };
@@ -446,12 +331,12 @@ function normalizeTheoryQuestionSet(parsed) {
 }
 
 export async function generateKpiTheoryQuestions() {
-    const refreshSeed = `${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
-    const prompt = `Du bist Prüfungsaufgaben-Generator für Kaufleute im E-Commerce (IHK-Niveau).
+    const refreshSeed = \`\${Date.now()}_\${Math.random().toString(36).slice(2, 10)}\`;
+    const prompt = \`Du bist Prüfungsaufgaben-Generator für Kaufleute im E-Commerce (IHK-Niveau).
 Erzeuge 4 bis 6 abwechslungsreiche Theoriefragen zu Online-Marketing-Abrechnungsmodellen.
 Fokus: CPC, CPO, CPL, CPM, Risikoverteilung zwischen Merchant und Publisher.
 
-Session-Seed für diese Generierung (zur Varianz): ${refreshSeed}
+Session-Seed für diese Generierung (zur Varianz): \${refreshSeed}
 Erzeuge für jeden Aufruf neue Formulierungen und keine identischen Fragenfolge wie in vorherigen Aufrufen.
 
 Regeln:
@@ -471,32 +356,11 @@ Regeln:
       ]
     }
   ]
-}`;
+}\`;
 
-    if (genAI) {
-        for (const modelId of GEMINI_MODELS) {
-            try {
-                const model = genAI.getGenerativeModel({
-                    model: modelId,
-                    generationConfig: {
-                        temperature: 1,
-                        topP: 0.95
-                    }
-                });
-                const result = await model.generateContent(prompt);
-                const text = extractTextFromResult(result);
-                const parsed = extractJsonObject(text);
-                const normalized = normalizeTheoryQuestionSet(parsed);
-                if (normalized) return normalized;
-            } catch (error) {
-                console.warn(`generateKpiTheoryQuestions ${modelId} failed:`, error?.message || error);
-            }
-        }
-    }
-
-    const deepSeekResult = await askDeepSeek(prompt);
-    if (deepSeekResult) {
-        const parsed = extractJsonObject(deepSeekResult);
+    const text = await callAiServer(prompt);
+    if (text) {
+        const parsed = extractJsonObject(text);
         const normalized = normalizeTheoryQuestionSet(parsed);
         if (normalized) return normalized;
     }
@@ -505,30 +369,22 @@ Regeln:
 }
 
 export async function extractFocusTopics(wrongQuestions) {
-    if (!wrongQuestions || wrongQuestions.length === 0) {
-        return { topics: [] };
-    }
-    if (!genAI && !deepSeekKey) {
-        return { topics: [] };
-    }
-
     try {
         const questionList = wrongQuestions
             .map((q, i) => {
-                if (typeof q === 'string') return `${i + 1}. ${q}`;
                 const parts = [];
-                if (q.questionText || q.question) parts.push(`Frage: ${q.questionText || q.question}`);
-                if (q.expectedAnswer) parts.push(`Korrekte Antwort: ${q.expectedAnswer}`);
-                if (q.userAnswer) parts.push(`User antwortete: ${q.userAnswer}`);
-                if (q.topic && q.topic !== 'Allgemein' && q.topic !== 'Quiz Allgemein') parts.push(`Themenbereich: ${q.topic}`);
-                return `${i + 1}. ${parts.join(' | ')}`;
+                if (q.questionText || q.question) parts.push(\`Frage: \${q.questionText || q.question}\`);
+                if (q.expectedAnswer) parts.push(\`Korrekte Antwort: \${q.expectedAnswer}\`);
+                if (q.userAnswer) parts.push(\`User antwortete: \${q.userAnswer}\`);
+                if (q.topic && q.topic !== 'Allgemein' && q.topic !== 'Quiz Allgemein') parts.push(\`Themenbereich: \${q.topic}\`);
+                return \`\${i + 1}. \${parts.join(' | ')}\`;
             })
             .filter(q => q.length > 6)
             .join('\n');
 
         if (!questionList.trim()) return { topics: [] };
 
-        const prompt = `Du bist ein präziser Lern-Assistent für Azubis (Kaufleute im E-Commerce / Fachinformatiker).
+        const prompt = \`Du bist ein präziser Lern-Assistent für Azubis (Kaufleute im E-Commerce / Fachinformatiker).
 Deine Aufgabe: Analysiere die falsch beantworteten Prüfungsfragen und extrahiere 1 bis maximal 3 übergeordnete fachliche Kernthemen (Tags). Der User soll sofort erkennen, welches Themengebiet er nachholen muss.
 
 Regeln:
@@ -543,30 +399,11 @@ Regeln:
 {"topics": ["Thema 1", "Thema 2", "Thema 3"]}
 
 Hier sind die falsch beantworteten Fragen:
-${questionList}`;
+\${questionList}\`;
 
-        // Gemini zuerst
-        if (genAI) {
-            try {
-                const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-                const result = await model.generateContent(prompt);
-                const text = result.response.text().trim();
-                const jsonMatch = text.match(/\{[\s\S]*"topics"[\s\S]*\}/);
-                if (jsonMatch) {
-                    const parsed = JSON.parse(jsonMatch[0]);
-                    if (Array.isArray(parsed.topics)) {
-                        return { topics: parsed.topics.slice(0, 3) };
-                    }
-                }
-            } catch (error) {
-                console.warn('extractFocusTopics Gemini error:', error?.message);
-            }
-        }
-
-        // DeepSeek Fallback
-        const deepSeekResult = await askDeepSeek(prompt);
-        if (deepSeekResult) {
-            const jsonMatch = deepSeekResult.match(/\{[\s\S]*"topics"[\s\S]*\}/);
+        const text = await callAiServer(prompt, 'gemini-1.5-flash');
+        if (text) {
+            const jsonMatch = text.match(/\{[\s\S]*"topics"[\s\S]*\}/);
             if (jsonMatch) {
                 const parsed = JSON.parse(jsonMatch[0]);
                 if (Array.isArray(parsed.topics)) {
@@ -583,46 +420,37 @@ ${questionList}`;
 }
 
 export async function extractCalculationInsights(wrongCalculationEvents) {
-    if (!Array.isArray(wrongCalculationEvents) || wrongCalculationEvents.length === 0) {
-        return { insights: [] };
-    }
-    if (!genAI && !deepSeekKey) {
-        return { insights: [] };
-    }
-
     try {
+        if (!Array.isArray(wrongCalculationEvents) || wrongCalculationEvents.length === 0) {
+            return { insights: [] };
+        }
+
         const eventList = wrongCalculationEvents
-            .slice(0, 30)
-            .map((entry, i) => {
-                const mode = entry.mode === 'breakEven' ? 'Break-Even' : 'Kalkulation';
-                const question = entry.questionText || entry.question || 'Unbekannt';
-                const expected = entry.expectedAnswer || '';
-                const userAnswer = entry.userAnswer || entry.lastUserAnswer || '';
-                return `${i + 1}. Modus: ${mode} | Aufgabe: ${question} | Nutzerantwort: ${userAnswer} | Erwartet: ${expected}`;
+            .map((e, i) => {
+                const parts = [];
+                if (e.metric) parts.push(\`Metrik: \${e.metric}\`);
+                if (e.formula) parts.push(\`Formel: \${e.formula}\`);
+                if (e.userInput) parts.push(\`Eingabe: \${e.userInput}\`);
+                if (e.correctResult) parts.push(\`Richtig: \${e.correctResult}\`);
+                return \`\${i + 1}. \${parts.join(' | ')}\`;
             })
+            .filter(e => e.length > 6)
             .join('\n');
 
         if (!eventList.trim()) return { insights: [] };
 
-        const prompt = `Du bist ein präziser Lerncoach für kaufmännische Rechenaufgaben (Kalkulation, Break-Even).
-Analysiere die Fehlerliste und gib maximal 3 konkrete, wiederkehrende Fehlerbilder zurück.
+        const prompt = \`Du bist ein präziser KPI-Tutor für Azubis im E-Commerce.
+Analysiere die falschen Berechnungen und erstelle 1 bis 3 Insights, die dem Azubi helfen.
 
-Regeln:
-1. Fokus nur auf RECHENFEHLER / Denkmuster (nicht auf Motivation).
-2. Jedes Fehlerbild muss klar sagen:
-   - error: Welcher Fehler passiert?
-   - why: Warum passiert er typischerweise?
-   - nextTime: Worauf soll der Nutzer beim nächsten Mal konkret achten?
-3. Kurze, klare Sätze in einfachem Deutsch.
-4. Antworte NUR als valides JSON:
+Jeder Insight MUSS in folgendem JSON-Format vorliegen:
 {
   "insights": [
-    { "error": "...", "why": "...", "nextTime": "...", "focus": "..." }
+    { "error": "Was wurde falsch gemacht", "why": "Warum ist es falsch", "nextTime": "Was beim nächsten Mal beachten", "focus": "Fokusthema" }
   ]
 }
 
 Fehlerdaten:
-${eventList}`;
+\${eventList}\`;
 
         const parseInsights = (text) => {
             const jsonMatch = text.match(/\{[\s\S]*"insights"[\s\S]*\}/);
@@ -640,23 +468,9 @@ ${eventList}`;
                 .slice(0, 3);
         };
 
-        // Gemini zuerst
-        if (genAI) {
-            try {
-                const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-                const result = await model.generateContent(prompt);
-                const text = result.response.text().trim();
-                const insights = parseInsights(text);
-                if (insights) return { insights };
-            } catch (error) {
-                console.warn('extractCalculationInsights Gemini error:', error?.message);
-            }
-        }
-
-        // DeepSeek Fallback
-        const deepSeekResult = await askDeepSeek(prompt);
-        if (deepSeekResult) {
-            const insights = parseInsights(deepSeekResult);
+        const text = await callAiServer(prompt, 'gemini-1.5-flash');
+        if (text) {
+            const insights = parseInsights(text);
             if (insights) return { insights };
         }
 
@@ -803,34 +617,25 @@ export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, us
     };
     const buildLocalTip = () => {
         if (!recommendationConsistent) {
-            return `Vergleiche die Gesamtnutzwerte erneut und wähle den Anbieter mit dem höchsten Wert (${userCalculatedWinner || 'dein rechnerischer Sieger'}).`;
+            return \`Vergleiche die Gesamtnutzwerte erneut und wähle den Anbieter mit dem höchsten Wert (\${userCalculatedWinner || 'dein rechnerischer Sieger'}).\`;
         }
         if (!justificationStrong) {
             return 'Nenne mindestens zwei konkrete Kriterien und verknüpfe sie mit Punkten/Teilnutzwerten aus deiner Matrix.';
         }
         if (!referencesWinnerAdvantage && winnerAdvantages.length) {
             const names = winnerAdvantages.map((a) => a.criterionName).join(' und ');
-            return `Begründe deine Empfehlung stärker über die tatsächlichen Vorteile bei ${names}.`;
+            return \`Begründe deine Empfehlung stärker über die tatsächlichen Vorteile bei \${names}.\`;
         }
         return 'Ergänze in der Begründung 1-2 konkrete Zahlenbezüge aus der Matrix, damit dein Entscheidungsweg eindeutig nachvollziehbar ist.';
     };
     const ensureTipInFeedback = (feedbackText, tipText) => {
         const feedback = String(feedbackText || '').trim();
-        if (!feedback) return `Tipp: ${tipText}`;
+        if (!feedback) return \`Tipp: \${tipText}\`;
         if (/\btipp\b\s*:/i.test(feedback)) return feedback;
-        return `${feedback} Tipp: ${tipText}`;
+        return \`\${feedback} Tipp: \${tipText}\`;
     };
 
-    if (!genAI && !deepSeekKey) {
-        return {
-            isPassed: localPass,
-            scoreAdjustment: 0,
-            examinerFeedback: localPass
-                ? 'Rechnerisch stimmig und nachvollziehbar begründet. (Lokale Bewertung ohne KI durchgeführt.)'
-                : ensureTipInFeedback('Die Eingabe ist noch nicht vollständig stimmig. Prüfe Teilnutzwerte, Gesamtsummen, Empfehlung und Begründung.', buildLocalTip())
-        };
-    }
-
+    // KI-Aufruf über Server-Proxy
     const payloadStr = JSON.stringify({
         scenario: scenarioText,
         masterSolution: masterSolution,
@@ -842,7 +647,7 @@ export async function evaluateNutzwertanalyse({ scenarioText, masterSolution, us
         }
     }, null, 2);
 
-    const prompt = `Du bist ein fairer IHK-Prüfer. Werte die Nutzwertanalyse holistisch und nachvollziehbar aus.
+    const prompt = \`Du bist ein fairer IHK-Prüfer. Werte die Nutzwertanalyse holistisch und nachvollziehbar aus.
 Bewerte in dieser Reihenfolge:
 1) Rechenlogik intern: Prüfe, ob die User-Matrix in sich konsistent ist (Gewichtung * Punkte = Teilnutzwert, Summe der Teilnutzwerte = Gesamtnutzwert).
 2) Entscheidungskonsistenz: Prüfe, ob die Empfehlung zum rechnerischen Sieger aus den User-Totals passt.
@@ -859,11 +664,11 @@ Regeln:
   { "isPassed": boolean, "scoreAdjustment": number, "examinerFeedback": "...", "tip": "..." }
 
 Nutzerdaten und Musterlösung:
-${payloadStr}
+\${payloadStr}
 
 Die Begründung ist ein Pflichtkriterium für das Bestehen.
 Das Feld "tip" muss immer genau einen kurzen, umsetzbaren Verbesserungstipp enthalten (auch bei bestanden).
-Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON.`;
+Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON.\`;
 
     const parseEvaluation = (text) => {
         if (!text) return null;
@@ -886,10 +691,8 @@ Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON
     };
 
     try {
-        if (genAI) {
-            const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-            const result = await model.generateContent(prompt);
-            const text = result.response.text();
+        const text = await callAiServer(prompt, 'gemini-1.5-flash');
+        if (text) {
             const parsed = parseEvaluation(text);
             if (parsed) {
                 if (parsed.isPassed && (!matrixConsistent || !totalsConsistent || !recommendationConsistent)) {
@@ -909,47 +712,14 @@ Gib dein Ergebnis IMMER als reines JSON zurück. Keine Markdown Blocks, nur JSON
                     return {
                         isPassed: true,
                         scoreAdjustment: parsed.scoreAdjustment,
-                        examinerFeedback: `Rechnerisch ist deine Lösung stimmig und die Empfehlung passt. ${parsed.examinerFeedback}`
+                        examinerFeedback: \`Rechnerisch ist deine Lösung stimmig und die Empfehlung passt. \${parsed.examinerFeedback}\`
                     };
                 }
                 return parsed;
             }
         }
     } catch(err) {
-        console.warn('evaluateNutzwertanalyse Gemini err:', err);
-    }
-    
-    // Fallback if genAI fails
-    try {
-        const dsRes = await askDeepSeek(prompt);
-        if (dsRes) {
-            const parsed = parseEvaluation(dsRes);
-            if (parsed) {
-                if (parsed.isPassed && (!matrixConsistent || !totalsConsistent || !recommendationConsistent)) {
-                    return {
-                        isPassed: false,
-                        scoreAdjustment: parsed.scoreAdjustment,
-                        examinerFeedback: ensureTipInFeedback(
-                            'Die Lösung ist rechnerisch oder bei der Empfehlung noch nicht konsistent.',
-                            buildLocalTip()
-                        )
-                    };
-                }
-                if (!parsed.isPassed && localPass) {
-                    if (aiFlagsJustificationIssue(parsed.examinerFeedback)) {
-                        return parsed;
-                    }
-                    return {
-                        isPassed: true,
-                        scoreAdjustment: parsed.scoreAdjustment,
-                        examinerFeedback: `Rechnerisch ist deine Lösung stimmig und die Empfehlung passt. ${parsed.examinerFeedback}`
-                    };
-                }
-                return parsed;
-            }
-        }
-    } catch(err) {
-        console.warn('evaluateNutzwertanalyse DS err:', err);
+        console.warn('evaluateNutzwertanalyse KI-Fehler:', err);
     }
 
     return {
@@ -1044,8 +814,8 @@ function buildLocalSwotFeedback(swotEntries, scenarioText) {
         const practiceCorrect = hasSubstance && referencesScenario;
 
         const theoryFeedback = theoryCorrect
-            ? `Theorie korrekt: ${letter} ist passend eingeordnet.`
-            : `Theorie noch unsauber: Für ${letter} muss der englische Begriff und die Perspektive (${requiredPerspective}) stimmen.`;
+            ? \`Theorie korrekt: \${letter} ist passend eingeordnet.\`
+            : \`Theorie noch unsauber: Für \${letter} muss der englische Begriff und die Perspektive (\${requiredPerspective}) stimmen.\`;
 
         const practiceFeedback = practiceCorrect
             ? 'Praxis passt: Argument und Begründung sind nachvollziehbar aus dem Szenario abgeleitet.'
@@ -1084,7 +854,7 @@ function normalizeSwotFeedbackItem(item, localItem) {
 }
 
 export async function generateSwotScenario() {
-    const prompt = `Du bist ein Generator für BWL-Fallstudien. Erstelle ein kurzes, prägnantes Szenario (max. 3 Sätze) für eine SWOT-Analyse. Wechsle zufällig die Branchen (z.B. Gastronomie, Tech-Startup, E-Commerce, Handwerk). Das Szenario muss offensichtliche interne Stärken/Schwächen und externe Chancen/Risiken enthalten. Antworte AUSSCHLIESSLICH in diesem JSON-Format: {"branche": "String", "szenario_text": "String"}`;
+    const prompt = \`Du bist ein Generator für BWL-Fallstudien. Erstelle ein kurzes, prägnantes Szenario (max. 3 Sätze) für eine SWOT-Analyse. Wechsle zufällig die Branchen (z.B. Gastronomie, Tech-Startup, E-Commerce, Handwerk). Das Szenario muss offensichtliche interne Stärken/Schwächen und externe Chancen/Risiken enthalten. Antworte AUSSCHLIESSLICH in diesem JSON-Format: {"branche": "String", "szenario_text": "String"}\`;
 
     const parseScenario = (text) => {
         if (!text) return null;
@@ -1101,22 +871,11 @@ export async function generateSwotScenario() {
         }
     };
 
-    if (genAI) {
-        for (const modelId of GEMINI_MODELS) {
-            try {
-                const model = genAI.getGenerativeModel({ model: modelId });
-                const result = await model.generateContent(prompt);
-                const parsed = parseScenario(extractTextFromResult(result));
-                if (parsed) return parsed;
-            } catch (error) {
-                console.warn(`generateSwotScenario ${modelId} failed:`, error?.message || error);
-            }
-        }
+    const text = await callAiServer(prompt);
+    if (text) {
+        const parsed = parseScenario(text);
+        if (parsed) return parsed;
     }
-
-    const deepSeekText = await askDeepSeek(prompt);
-    const deepSeekParsed = parseScenario(deepSeekText);
-    if (deepSeekParsed) return deepSeekParsed;
 
     return getRandomFallbackSwotScenario();
 }
@@ -1142,26 +901,13 @@ export async function evaluateSwotAnalysis({ scenario, swotEntries }) {
         practiceMinimum: entries[item.letter]?.argument?.length >= 18 && entries[item.letter]?.justification?.length >= 24
     }));
 
-    if (!genAI && !deepSeekKey) {
-        return {
-            swot_feedback: localFeedback.map((item) => ({
-                letter: item.letter,
-                theoryCorrect: item.theoryCorrect,
-                practiceCorrect: item.practiceCorrect,
-                theoryFeedback: item.theoryFeedback,
-                practiceFeedback: item.practiceFeedback,
-                profiTipp: item.profiTipp
-            }))
-        };
-    }
-
     const payload = JSON.stringify({
         branche,
         scenario_text: scenarioText,
         swot_entries: entries
     }, null, 2);
 
-    const prompt = `Du bist ein strenger, aber motivierender IHK-Dozent. Bewerte die vorliegende SWOT-Analyse des Studenten zum gegebenen Szenario. Bewerte jeden der vier Buchstaben (S, W, O, T) nach folgenden Kriterien: 1. Ist der englische Begriff korrekt? 2. Stimmt die Perspektive (S/W = intern, O/T = extern)? 3. Passt das Argument logisch zum Szenario und ist die Begründung schlüssig? Formuliere zudem für jeden Buchstaben einen 'Profi-Tipp', was man noch hätte erwähnen können. Antworte AUSSCHLIESSLICH in folgendem JSON-Format (Array mit 4 Objekten):\n{ "swot_feedback": [ { "letter": "S", "theoryCorrect": boolean, "practiceCorrect": boolean, "theoryFeedback": "String", "practiceFeedback": "String", "profiTipp": "String" }, { "letter": "W", "theoryCorrect": boolean, "practiceCorrect": boolean, "theoryFeedback": "String", "practiceFeedback": "String", "profiTipp": "String" }, { "letter": "O", "theoryCorrect": boolean, "practiceCorrect": boolean, "theoryFeedback": "String", "practiceFeedback": "String", "profiTipp": "String" }, { "letter": "T", "theoryCorrect": boolean, "practiceCorrect": boolean, "theoryFeedback": "String", "practiceFeedback": "String", "profiTipp": "String" } ] }\n\nSzenario und Nutzereingaben:\n${payload}`;
+    const prompt = \`Du bist ein strenger, aber motivierender IHK-Dozent. Bewerte die vorliegende SWOT-Analyse des Studenten zum gegebenen Szenario. Bewerte jeden der vier Buchstaben (S, W, O, T) nach folgenden Kriterien: 1. Ist der englische Begriff korrekt? 2. Stimmt die Perspektive (S/W = intern, O/T = extern)? 3. Passt das Argument logisch zum Szenario und ist die Begründung schlüssig? Formuliere zudem für jeden Buchstaben einen 'Profi-Tipp', was man noch hätte erwähnen können. Antworte AUSSCHLIESSLICH in folgendem JSON-Format (Array mit 4 Objekten):\n{ "swot_feedback": [ { "letter": "S", "theoryCorrect": boolean, "practiceCorrect": boolean, "theoryFeedback": "String", "practiceFeedback": "String", "profiTipp": "String" }, { "letter": "W", "theoryCorrect": boolean, "practiceCorrect": boolean, "theoryFeedback": "String", "practiceFeedback": "String", "profiTipp": "String" }, { "letter": "O", "theoryCorrect": boolean, "practiceCorrect": boolean, "theoryFeedback": "String", "practiceFeedback": "String", "profiTipp": "String" }, { "letter": "T", "theoryCorrect": boolean, "practiceCorrect": boolean, "theoryFeedback": "String", "practiceFeedback": "String", "profiTipp": "String" } ] }\n\nSzenario und Nutzereingaben:\n\${payload}\`;
 
     const parseTutorResponse = (text) => {
         if (!text) return null;
@@ -1191,23 +937,14 @@ export async function evaluateSwotAnalysis({ scenario, swotEntries }) {
         }
     };
 
-    if (genAI) {
-        for (const modelId of GEMINI_MODELS) {
-            try {
-                const model = genAI.getGenerativeModel({ model: modelId });
-                const result = await model.generateContent(prompt);
-                const parsed = parseTutorResponse(extractTextFromResult(result));
-                if (parsed) return parsed;
-            } catch (error) {
-                console.warn(`evaluateSwotAnalysis ${modelId} failed:`, error?.message || error);
-            }
-        }
+    // KI über Server-Proxy
+    const text = await callAiServer(prompt);
+    if (text) {
+        const parsed = parseTutorResponse(text);
+        if (parsed) return parsed;
     }
 
-    const deepSeekText = await askDeepSeek(prompt);
-    const deepSeekParsed = parseTutorResponse(deepSeekText);
-    if (deepSeekParsed) return deepSeekParsed;
-
+    // Lokaler Fallback
     return {
         swot_feedback: localFeedback.map((item) => ({
             letter: item.letter,

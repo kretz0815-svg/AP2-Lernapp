@@ -1352,7 +1352,8 @@ function App() {
         });
       }
 
-      const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+      // YouTube API key is no longer needed client-side — calls go through /api/youtube-search
+      // Only use predefined videos if the proxy is unavailable
 
       const buildQueryCandidates = () => {
         const candidates = [];
@@ -1420,16 +1421,9 @@ function App() {
 
       const queryCandidates = buildQueryCandidates();
 
-      if (!apiKey) {
-        setWisorVideos(predefinedVideos);
-        setWisorVideoError('Kein YouTube API-Key gefunden. Bitte VITE_YOUTUBE_API_KEY in der .env setzen.');
-        setWisorVideoLoading(false);
-        return;
-      }
-
       let fetched = [];
       for (const candidate of queryCandidates) {
-        fetched = await fetchYouTubeVideos(candidate, apiKey, 4 - predefinedVideos.length);
+        fetched = await fetchYouTubeVideos(candidate, 4 - predefinedVideos.length);
         if (fetched.length > 0) break;
       }
 
