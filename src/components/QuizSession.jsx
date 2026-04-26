@@ -168,13 +168,72 @@ const QuizSession = ({
     setQuizScore(nextScore);
   };
 
+  const nextQuizQuestion = () => {
+    commitCurrentAnswerIfNeeded();
+    const isLastQuestion = currentQuizIndex >= internalQuizzes.length - 1;
+
+    if (isLastQuestion && typeof onFinish === 'function') {
+      const safeHistory = Array.isArray(answerHistoryRef.current) ? answerHistoryRef.current : [];
+      const finalScore = quizScoreRef.current || { correct: 0, total: 0 };
+      onFinish({
+        mode: learningMode,
+        totalQuestions: internalQuizzes.length,
+        answeredQuestions: finalScore.total,
+        correct: finalScore.correct,
+        incorrect: Math.max(finalScore.total - finalScore.correct, 0),
+        incorrectQuestions: safeHistory.filter((entry) => !entry.isCorrect),
+        completedAt: new Date().toISOString()
+      });
+      return;
+    }
+
+    setFeynmanFeedback('');
+    setFeynmanFeedbackLevel(null);
+    setFeynmanInput('');
+    setQuizExplanationRevealed(false);
+    setSelectedAnswers([]);
+    autoAdvanceLastRef.current = false;
+    setCurrentQuizIndex(prev => prev + 1);
+  };
+
   // Auswertung nach vollständiger Auswahl
   useEffect(() => {
     commitCurrentAnswerIfNeeded();
     // eslint-disable-next-line
   }, [allSelected]);
 
+  useEffect(() => {
+    const isLastQuestion = currentQuizIndex >= internalQuizzes.length - 1;
+    if (currentQuizIndex >= internalQuizzes.length) return;
+    if (!isLastQuestion) {
+      autoAdvanceLastRef.current = false;
+      return;
+    }
+    if (!allSelected || !canProceedToNextQuizQuestion || feynmanLoading) return;
+    if (autoAdvanceLastRef.current) return;
 
+    autoAdvanceLastRef.current = true;
+    const timer = setTimeout(() => {
+      nextQuizQuestion();
+    }, 260);
+
+    return () => clearTimeout(timer);
+  }, [allSelected, canProceedToNextQuizQuestion, feynmanLoading, currentQuizIndex, internalQuizzes.length]);
+
+  useEffect(() => {
+    quizScoreRef.current = quizScore;
+  }, [quizScore]);
+
+  useEffect(() => {
+    answerHistoryRef.current = answerHistory;
+  }, [answerHistory]);
+
+  useEffect(() => {
+    if (typeof setWisorVideoOpen === 'function') setWisorVideoOpen(false);
+    if (typeof setSelectedWisorVideo === 'function') setSelectedWisorVideo(null);
+    if (typeof setGeminiVisible === 'function') setGeminiVisible(false);
+    if (typeof setGeminiQuery === 'function') setGeminiQuery('');
+  }, [currentQuizIndex, setWisorVideoOpen, setSelectedWisorVideo, setGeminiVisible, setGeminiQuery]);
 
   if (!internalQuizzes || internalQuizzes.length === 0) {
     return (
@@ -240,51 +299,6 @@ const QuizSession = ({
     });
   };
 
-  const nextQuizQuestion = () => {
-    commitCurrentAnswerIfNeeded();
-    const isLastQuestion = currentQuizIndex >= internalQuizzes.length - 1;
-
-    if (isLastQuestion && typeof onFinish === 'function') {
-      const safeHistory = Array.isArray(answerHistoryRef.current) ? answerHistoryRef.current : [];
-      const finalScore = quizScoreRef.current || { correct: 0, total: 0 };
-      onFinish({
-        mode: learningMode,
-        totalQuestions: internalQuizzes.length,
-        answeredQuestions: finalScore.total,
-        correct: finalScore.correct,
-        incorrect: Math.max(finalScore.total - finalScore.correct, 0),
-        incorrectQuestions: safeHistory.filter((entry) => !entry.isCorrect),
-        completedAt: new Date().toISOString()
-      });
-      return;
-    }
-
-    setFeynmanFeedback('');
-    setFeynmanFeedbackLevel(null);
-    setFeynmanInput('');
-    setQuizExplanationRevealed(false);
-    setSelectedAnswers([]);
-    autoAdvanceLastRef.current = false;
-    setCurrentQuizIndex(prev => prev + 1);
-  };
-
-  useEffect(() => {
-    const isLastQuestion = currentQuizIndex >= internalQuizzes.length - 1;
-    if (!isLastQuestion) {
-      autoAdvanceLastRef.current = false;
-      return;
-    }
-    if (!allSelected || !canProceedToNextQuizQuestion || feynmanLoading) return;
-    if (autoAdvanceLastRef.current) return;
-
-    autoAdvanceLastRef.current = true;
-    const timer = setTimeout(() => {
-      nextQuizQuestion();
-    }, 260);
-
-    return () => clearTimeout(timer);
-  }, [allSelected, canProceedToNextQuizQuestion, feynmanLoading, currentQuizIndex, internalQuizzes.length]);
-
   const handleCancelWithConfirm = () => {
     const hasProgress =
       quizScore.total > 0 ||
@@ -304,22 +318,6 @@ const QuizSession = ({
     if (onCancel) onCancel();
     else setAppMode('dashboard');
   };
-
-  useEffect(() => {
-    quizScoreRef.current = quizScore;
-  }, [quizScore]);
-
-  useEffect(() => {
-    answerHistoryRef.current = answerHistory;
-  }, [answerHistory]);
-
-  useEffect(() => {
-    if (typeof setWisorVideoOpen === 'function') setWisorVideoOpen(false);
-    if (typeof setSelectedWisorVideo === 'function') setSelectedWisorVideo(null);
-    if (typeof setGeminiVisible === 'function') setGeminiVisible(false);
-    if (typeof setGeminiQuery === 'function') setGeminiQuery('');
-  }, [currentQuizIndex, setWisorVideoOpen, setSelectedWisorVideo, setGeminiVisible, setGeminiQuery]);
-
 
   return (
     <div className="app-container" style={{ zIndex: 10 }}>
