@@ -106,9 +106,7 @@ function App() {
     handleLogin,
     handleRegister,
     handleGoogleLogin,
-    handleGuestLogin,
-    handleLogout,
-    clearGuestProgressData
+    handleLogout
   } = useAuth(setAppMode);
 
   const {
@@ -1733,14 +1731,10 @@ ${input}`;
     const initApp = async () => {
       // 0. Get current Auth
       const { data: { session } } = await supabase.auth.getSession();
-      const storedAccessMode = localStorage.getItem(ACCESS_MODE_KEY);
 
       if (!session?.user) {
         setAppMode('auth');
       } else {
-        if (storedAccessMode === 'guest') {
-          clearGuestProgressData();
-        }
         setAuthUser(session.user);
         localStorage.setItem('masterpat_auth', 'true');
         localStorage.setItem(ACCESS_MODE_KEY, 'member');
@@ -2508,19 +2502,6 @@ ${input}`;
               Mit Google anmelden
             </button>
 
-            <button
-              id="guest-login-btn"
-              type="button"
-              className="btn-secondary"
-              onClick={handleGuestLogin}
-              disabled={authLoading}
-              style={{ width: '100%', padding: '0.8rem', fontSize: '1rem' }}
-            >
-              Als Gast fortfahren
-            </button>
-            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center', marginTop: '0.3rem' }}>
-              Hinweis: Als Gast wird dein Fortschritt nur lokal gespeichert und nicht über Geräte hinweg synchronisiert.
-            </p>
           </form>
 
           {authMsg && <p style={{ color: authMsg.includes('Erfolg') || authMsg.includes('erstellt') ? 'var(--success)' : 'var(--error)', marginBottom: '1rem', fontWeight: 'bold' }}>{authMsg}</p>}

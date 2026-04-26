@@ -186,17 +186,6 @@ export const useAuth = (setAppMode) => {
         }
     };
 
-    const handleGuestLogin = () => {
-        setAuthUser(null);
-        setAuthError(false);
-        setAuthMsg('');
-        setEmail('');
-        setPassword('');
-        localStorage.removeItem('masterpat_auth');
-        localStorage.setItem(ACCESS_MODE_KEY, 'guest');
-        if (setAppMode) setAppMode('dashboard');
-    };
-
     const handleLogout = async () => {
         await supabase.auth.signOut();
         clearRememberedSession();
@@ -225,7 +214,6 @@ export const useAuth = (setAppMode) => {
         handleLogin,
         handleRegister,
         handleGoogleLogin,
-        handleGuestLogin,
         handleLogout,
         clearGuestProgressData,
         rememberMe,
