@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECOM APP — AP2 Prüfungsvorbereitung mit KI</title>
+  <meta name="description" content="Die Lernapp für Kaufmann im E-Commerce. Spaced Repetition, KI-Tutor, Gamification. Note 1 damit erreicht.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #6366f1;
+      --secondary: #a855f7;
+      --accent: #ec4899;
+      --bg-dark: #000000;
+      --text-light: #f8fafc;
+      --text-muted: #94a3b8;
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --success: #22c55e;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Background effects */
+    .bg-glow {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow::before {
+      content: '';
+      position: absolute;
+      top: -20%; left: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%);
+      animation: pulse1 8s ease-in-out infinite;
+    }
+    .bg-glow::after {
+      content: '';
+      position: absolute;
+      bottom: -10%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(168,85,247,0.12), transparent 70%);
+      animation: pulse2 10s ease-in-out infinite;
+    }
+    @keyframes pulse1 {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+    @keyframes pulse2 {
+      0%, 100% { transform: scale(1.1); opacity: 0.5; }
+      50% { transform: scale(0.9); opacity: 0.8; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .einstein-wrapper {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .einstein-img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      filter: drop-shadow(0 0 40px rgba(99,102,241,0.6)) drop-shadow(0 0 80px rgba(168,85,247,0.3));
+      animation: float 4s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .neon-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 120px; height: 120px;
+      margin-top: -60px; margin-left: -60px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
+                  linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)) border-box;
+      animation: spin 6s linear infinite;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    .subtitle strong {
+      color: var(--text-light);
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Anton', sans-serif;
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* CTA */
+    .cta-box {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 40px 32px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(20px);
+    }
+
+    .cta-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .cta-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .spots-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: var(--success);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .spots-dot {
+      width: 8px; height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .email-form {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .email-form input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: var(--text-light);
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .email-form input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .email-form input:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(168,85,247,0.15);
+    }
+
+    .btn-cta {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 28px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+      white-space: nowrap;
+    }
+
+    .btn-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99,102,241,0.4);
+    }
+
+    .btn-cta:active {
+      transform: translateY(0);
+    }
+
+    .disclaimer {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+      opacity: 0.7;
+    }
+
+    /* Features */
+    .features {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(99,102,241,0.15);
+      border-color: rgba(99,102,241,0.3);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .feature-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* Topics */
+    .topics {
+      padding: 40px 0 80px;
+    }
+
+    .topic-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .topic-tag {
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.25);
+      color: var(--text-light);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    /* Social proof */
+    .proof {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .proof-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .proof-grade {
+      font-family: 'Anton', sans-serif;
+      font-size: 4rem;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .proof-text {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-top: 8px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    footer a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .email-form {
+        flex-direction: column;
+      }
+      .stats {
+        gap: 20px;
+      }
+      .stat-number {
+        font-size: 1.6rem;
+      }
+      .einstein-img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+
+    /* Success state */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .success-msg.show {
+      display: block;
+    }
+
+    .success-icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+
+    .success-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: var(--success);
+    }
+
+    .success-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow"></div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="einstein-wrapper">
+        <div class="neon-ring"></div>
+        <img src="https://ap-2-lernapp.vercel.app/EinsteinOrange.webp" alt="Einstein" class="einstein-img">
+      </div>
+
+      <div class="badge">🎯 AP2 PRÜFUNGSVORBEREITUNG</div>
+
+      <h1>ECOM 📚 APP</h1>
+      <p class="subtitle">
+        <strong>Spaced Repetition</strong>, <strong>KI-Tutor</strong> und <strong>Gamification</strong> — alles in einer App.
+        Entwickelt von einem Umschüler, für Umschüler.
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number">670+</div>
+          <div class="stat-label">Fragen</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">DSR</div>
+          <div class="stat-label">Algorithmus</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">1</div>
+          <div class="stat-label">Note erreicht</div>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <div class="spots-left">
+          <span class="spots-dot"></span>
+          Nur noch <span id="spots-count">20</span> Gratis-Plätze
+        </div>
+
+        <div class="cta-title">Gratis Testzugang sichern</div>
+        <p class="cta-sub">Die ersten 20 bekommen vollen Zugang — kostenlos, unverbindlich, kein Abo.</p>
+
+        <form class="email-form" id="signup-form">
+          <input type="email" id="email-input" placeholder="Deine E-Mail Adresse" required>
+          <button type="submit" class="btn-cta">Zugang sichern →</button>
+        </form>
+
+        <div class="success-msg" id="success-msg">
+          <div class="success-icon">✅</div>
+          <div class="success-title">Du bist dabei!</div>
+          <div class="success-sub">Wir melden dich an, sobald dein Gratis-Zugang bereit ist.</div>
+        </div>
+
+        <p class="disclaimer">Kein Spam. Kein Abo. Nur dein Zugang zur ECOM APP.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title">Warum ECOM APP anders lernt</h2>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <div class="feature-title">DSR-Algorithmus</div>
+          <div class="feature-desc">Difficulty-Stability-Retrievability — nicht einfach wiederholen, sondern zum perfekten Zeitpunkt. Vergiss nicht, was du gelernt hast.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <div class="feature-title">KI-Tutor</div>
+          <div class="feature-desc">Gemini AI als Lernbegleiter — Fragen stellen, Erklärungen bekommen, Zusammenhänge verstehen.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎮</div>
+          <div class="feature-title">Gamification</div>
+          <div class="feature-desc">KLR Startup Survival, Projekt M Mastery, Journey Architect — lernen wie ein Spiel, nicht wie eine Pflicht.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+          <div class="feature-title">Feynman-Methode</div>
+          <div class="feature-desc">Antworten nach Erfolg selbst erklären — wer es erklären kann, hat es wirklich verstanden.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title">Lernanalyse</div>
+          <div class="feature-desc">Fehlercluster, Trefferquoten, Themenverlauf — sofort sehen wo du stehst und was dran ist.</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">☁️</div>
+          <div class="feature-title">Cloud-Sync</div>
+          <div class="feature-desc">Fortschritt auf all deinen Geräten — Handy, Tablet, Desktop. Immer synchron.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Topics -->
+  <section class="topics">
+    <div class="container">
+      <h2 class="section-title">Alle AP2-Themen abgedeckt</h2>
+      <div class="topic-tags">
+        <span class="topic-tag">KI & Innovation</span>
+        <span class="topic-tag">Marketing-Strategie</span>
+        <span class="topic-tag">KPI & Webanalyse</span>
+        <span class="topic-tag">Shop & UX</span>
+        <span class="topic-tag">Social Media</span>
+        <span class="topic-tag">Recht & Datenschutz</span>
+        <span class="topic-tag">Projektmanagement</span>
+        <span class="topic-tag">Customer Journey</span>
+        <span class="topic-tag">KLR & Kalkulation</span>
+        <span class="topic-tag">Break-Even-Point</span>
+        <span class="topic-tag">Nutzwertanalyse</span>
+        <span class="topic-tag">SWOT-Analyse</span>
+        <span class="topic-tag">Kundenkommunikation</span>
+        <span class="topic-tag">E-Commerce Kalkulation</span>
+        <span class="topic-tag">WiSo Grundlagen</span>
+        <span class="topic-tag">E-Mail-Marketing</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section class="proof">
+    <div class="container">
+      <div class="proof-card">
+        <div class="proof-grade">Note 1</div>
+        <p class="proof-text">Mit der ECOM APP erreicht — in der AP2 IHK-Prüfung.<br>Wenn das kein Beweis ist.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA repeat -->
+  <section class="hero" style="min-height: auto; padding: 60px 24px 100px;">
+    <div class="container">
+      <div class="cta-box">
+        <div class="spots-left">
+          <span class="spots-dot"></span>
+          Nur noch <span id="spots-count-2">20</span> Gratis-Plätze
+        </div>
+
+        <div class="cta-title">Jetzt gratis testen</div>
+        <p class="cta-sub">Keine Kreditkarte. Kein Risiko. Einfach lernen.</p>
+
+        <form class="email-form" id="signup-form-2">
+          <input type="email" id="email-input-2" placeholder="Deine E-Mail Adresse" required>
+          <button type="submit" class="btn-cta">Zugang sichern →</button>
+        </form>
+
+        <div class="success-msg" id="success-msg-2">
+          <div class="success-icon">✅</div>
+          <div class="success-title">Du bist dabei!</div>
+          <div class="success-sub">Wir melden dich an, sobald dein Gratis-Zugang bereit ist.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>ECOM APP — Entwickelt mit 🧠 und Vibe Coding</p>
+    <p style="margin-top: 8px;"><a href="https://ap-2-lernapp.vercel.app/">Zur App →</a></p>
+  </footer>
+
+  <script>
+    // Spots countdown
+    const spotsEl = document.getElementById('spots-count');
+    const spotsEl2 = document.getElementById('spots-count-2');
+    let spots = parseInt(localStorage.getItem('ecom-spots') || '20');
+
+    function updateSpots() {
+      spotsEl.textContent = spots;
+      spotsEl2.textContent = spots;
+    }
+    updateSpots();
+
+    // Form submission
+    function handleForm(form, emailInput, successMsg) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = emailInput.value.trim();
+        if (!email) return;
+
+        // Store email
+        const emails = JSON.parse(localStorage.getItem('ecom-signups') || '[]');
+        if (emails.includes(email)) {
+          alert('Du bist bereits angemeldet!');
+          return;
+        }
+        emails.push(email);
+        localStorage.setItem('ecom-signups', JSON.stringify(emails));
+
+        // Decrease spots
+        spots--;
+        localStorage.setItem('ecom-spots', spots.toString());
+        updateSpots();
+
+        // Show success
+        form.style.display = 'none';
+        successMsg.classList.add('show');
+      });
+    }
+
+    handleForm(
+      document.getElementById('signup-form'),
+      document.getElementById('email-input'),
+      document.getElementById('success-msg')
+    );
+    handleForm(
+      document.getElementById('signup-form-2'),
+      document.getElementById('email-input-2'),
+      document.getElementById('success-msg-2')
+    );
+  </script>
+
+</body>
+</html>
